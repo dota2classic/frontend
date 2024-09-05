@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "apigen": "openapi-generator  generate --skip-validate-spec -i https://dotaclassic.ru/api/api-json -g typescript-fetch -t ./.openapi-generator/typescript-fetch-swr -o ./generated --additional-properties useSingleRequestParameter=false && rm -rf src/api/back && cp -r ./generated src/api/back && rm -rf ./generated"
   },
   "dependencies": {
     "react": "^18",
