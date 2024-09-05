@@ -1,0 +1,130 @@
+.ReactModal__Content {
+  background: #15191d !important;
+
+  z-index: 5 !important;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  z-index: 10 !important;
+}
+
+body {
+  margin: 0;
+  font-size: 16px;
+  overflow-x: hidden;
+  font-weight: 300;
+  font-family: "Trajan Pro 3", sans-serif;
+  background: #15191d;
+  text-underline-offset: 5px;
+}
+
+/* pt-sans-regular - latin_cyrillic-ext_cyrillic */
+@font-face {
+  font-display: fallback;
+
+  font-family: "PT Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/static/fonts/pt-sans-v11-latin_cyrillic-ext_cyrillic-regular.eot"); /* IE9 Compat Modes */
+  src: local("PT Sans"), local("PTSans-Regular"),
+    url("/static/fonts/pt-sans-v11-latin_cyrillic-ext_cyrillic-regular.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("/static/fonts/pt-sans-v11-latin_cyrillic-ext_cyrillic-regular.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("/static/fonts/pt-sans-v11-latin_cyrillic-ext_cyrillic-regular.woff") format("woff"),
+    /* Modern Browsers */ url("/static/fonts/pt-sans-v11-latin_cyrillic-ext_cyrillic-regular.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url("/static/fonts/pt-sans-v11-latin_cyrillic-ext_cyrillic-regular.svg#PTSans")
+      format("svg"); /* Legacy iOS */
+}
+@font-face {
+  font-display: fallback;
+
+  font-family: "Trajan Pro 3";
+  src: url("/static/fonts/TrajanPro3Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+/*@font-face {*/
+/*  font-family: "Trajan Pro 3";*/
+/*  src: url("/static/fonts/font/TrajanPro3Bold.eot");*/
+/*  src: local("Trajan Pro 3 Bold"), local("TrajanPro3Bold"),*/
+/*    url("/static/fonts/font/TrajanPro3Bold.eot?#iefix") format("embedded-opentype"),*/
+/*    url("/static/fonts/font/TrajanPro3Bold.woff2") format("woff2"),*/
+/*    url("/static/fonts/font/TrajanPro3Bold.woff") format("woff"),*/
+/*    url("/static/fonts/font/TrajanPro3Bold.ttf") format("truetype");*/
+/*  font-weight: bold;*/
+/*  font-style: normal;*/
+/*}*/
+
+/*@font-face {*/
+/*  font-family: "Trajan Pro 3";*/
+/*  src: url("/static/fonts/font/TrajanPro3ExtraLight.eot");*/
+/*  src: local("Trajan Pro 3 ExtraLight"), local("TrajanPro3ExtraLight"),*/
+/*    url("/static/fonts/font/TrajanPro3ExtraLight.eot?#iefix") format("embedded-opentype"),*/
+/*    url("/static/fonts/font/TrajanPro3ExtraLight.woff2") format("woff2"),*/
+/*    url("/static/fonts/font/TrajanPro3ExtraLight.woff") format("woff"),*/
+/*    url("/static/fonts/font/TrajanPro3ExtraLight.ttf") format("truetype");*/
+/*  font-weight: 200;*/
+/*  font-style: normal;*/
+/*}*/
+
+/*@font-face {*/
+/*  font-family: "Trajan Pro 3";*/
+/*  src: url("/static/fonts/font/TrajanPro3Light.eot");*/
+/*  src: local("Trajan Pro 3 Ligh"), local("TrajanPro3Light"),*/
+/*    url("/static/fonts/font/TrajanPro3Light.eot?#iefix") format("embedded-opentype"),*/
+/*    url("/static/fonts/font/TrajanPro3Light.woff2") format("woff2"),*/
+/*    url("/static/fonts/font/TrajanPro3Light.woff") format("woff"),*/
+/*    url("/static/fonts/font/TrajanPro3Light.ttf") format("truetype");*/
+/*  font-weight: 300;*/
+/*  font-style: normal;*/
+/*}*/
+
+/*!* roboto-regular - latin_cyrillic *!*/
+/*@font-face {*/
+/*  font-family: "Roboto";*/
+/*  font-style: normal;*/
+/*  font-weight: 400;*/
+/*  src: url("/static/fonts/roboto-v20-latin_cyrillic/roboto-v20-latin_cyrillic-regular.eot"); !* IE9 Compat Modes *!*/
+/*  src: local("Roboto"), local("Roboto-Regular"),*/
+/*    url("/static/fonts/roboto-v20-latin_cyrillic/roboto-v20-latin_cyrillic-regular.eot?#iefix")*/
+/*      format("embedded-opentype"),*/
+/*    !* IE6-IE8 *! url("/static/fonts/roboto-v20-latin_cyrillic/roboto-v20-latin_cyrillic-regular.woff2") format("woff2"),*/
+/*    !* Super Modern Browsers *! url("/static/fonts/roboto-v20-latin_cyrillic/roboto-v20-latin_cyrillic-regular.woff")*/
+/*      format("woff"),*/
+/*    !* Modern Browsers *! url("/static/fonts/roboto-v20-latin_cyrillic/roboto-v20-latin_cyrillic-regular.ttf")*/
+/*      format("truetype"),*/
+/*    !* Safari, Android, iOS *!*/
+/*      url("/static/fonts/roboto-v20-latin_cyrillic/roboto-v20-latin_cyrillic-regular.svg#Roboto") format("svg"); !* Legacy iOS *!*/
+/*}*/
+
+/*@font-face {*/
+/*  font-family: "Trajan Pro 3";*/
+/*  src: url("/static/fonts/font/TrajanPro3Regular.eot");*/
+/*  src: local("Trajan Pro 3 Regular"), local("TrajanPro3Regular"),*/
+/*    url("/static/fonts/font/TrajanPro3Regular.eot?#iefix") format("embedded-opentype"),*/
+/*    url("/static/fonts/font/TrajanPro3Regular.woff2") format("woff2"),*/
+/*    url("/static/fonts/font/TrajanPro3Regular.woff") format("woff"),*/
+/*    url("/static/fonts/font/TrajanPro3Regular.ttf") format("truetype");*/
+/*  font-weight: normal;*/
+/*  font-style: normal;*/
+/*}*/
+
+/*@font-face {*/
+/*  font-family: "Trajan Pro 3";*/
+/*  src: url("/static/fonts/font/TrajanPro3Black.eot");*/
+/*  src: local("Trajan Pro 3 Black"), local("TrajanPro3Black"),*/
+/*    url("/static/fonts/font/TrajanPro3Black.eot?#iefix") format("embedded-opentype"),*/
+/*    url("/static/fonts/font/TrajanPro3Black.woff2") format("woff2"),*/
+/*    url("/static/fonts/font/TrajanPro3Black.woff") format("woff"),*/
+/*    url("/static/fonts/font/TrajanPro3Black.ttf") format("truetype");*/
+/*  font-weight: 900;*/
+/*  font-style: normal;*/
+/*}*/
+
+a {
+  text-decoration: none;
+}

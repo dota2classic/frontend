@@ -1,0 +1,31 @@
+@import "../../common.scss";
+
+.navbar {
+  //background: $darkBg;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: $darkBg2;
+  color: $primaryText;
+}
+
+.navbarInner {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.navbarList {
+  display: flex;
+  flex-direction: row;
+
+  & li {
+    float: left;
+    list-style: none;
+  }
+}
+
+
+.spacer {
+  flex: 1;
+}

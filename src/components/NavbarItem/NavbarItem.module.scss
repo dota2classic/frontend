@@ -1,0 +1,16 @@
+@import '../../common.scss';
+
+
+
+.navbarItem {
+  white-space: nowrap;
+  padding: 4px 6px;
+
+  &:focus, &:hover {
+    background: $blueHighlight;
+  }
+
+  &.active {
+    color: red;
+  }
+}
