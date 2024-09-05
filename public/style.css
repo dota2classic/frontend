@@ -12,6 +12,12 @@
   z-index: 10 !important;
 }
 
+html {
+  width: 100vw;
+  height: 100vh;
+  background-color: #101213;
+}
+
 body {
   margin: 0;
   font-size: 16px;

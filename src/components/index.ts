@@ -1,3 +1,8 @@
 export { Layout } from './Layout/Layout'
 export { Navbar } from './Navbar/Navbar'
 export { NavbarItem } from './NavbarItem/NavbarItem'
+export { PlayerMatchTable } from './PlayerMatchTable/PlayerMatchTable'
+export { Table } from './Table/Table'
+export { HeroIcon } from './HeroIcon/HeroIcon'
+export { TimeAgo } from './TimeAgo/TimeAgo'
+export { Duration } from './Duration/Duration'

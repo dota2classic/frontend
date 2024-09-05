@@ -9,20 +9,33 @@
     "lint": "next lint",
     "apigen": "openapi-generator  generate --skip-validate-spec -i https://dotaclassic.ru/api/api-json -g typescript-fetch -t ./.openapi-generator/typescript-fetch-swr -o ./generated --additional-properties useSingleRequestParameter=false && rm -rf src/api/back && cp -r ./generated src/api/back && rm -rf ./generated",
     "create-component": "node ./scripts/create-component.js",
-    "create-component-props": "node ./scripts/create-component-props.js"
+    "create-component-props": "node ./scripts/create-component-props.js",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "classnames": "^2.5.1",
+    "format-duration": "^3.0.2",
     "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18",
     "sass": "^1.78.0"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.8.0",
+    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-interactions": "^8.2.9",
+    "@storybook/addon-links": "^8.2.9",
+    "@storybook/addon-onboarding": "^8.2.9",
+    "@storybook/blocks": "^8.2.9",
+    "@storybook/nextjs": "^8.2.9",
+    "@storybook/react": "^8.2.9",
+    "@storybook/test": "^8.2.9",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "prettier": "^3.3.3",
+    "storybook": "^8.2.9",
     "typescript": "^5"
   }
 }
