@@ -91,7 +91,7 @@ export const AppRouter = {
         `/stats/tournament/match/${id}`,
       ),
   },
-  match: (id: number) => page(`/stats/match/[id]`, `/stats/match/${id}`),
+  match: (id: number) => page(`/match/[id]`, `/match/${id}`),
   history: {
     index: spage(`/stats/history`),
   },

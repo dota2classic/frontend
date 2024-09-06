@@ -1,0 +1,18 @@
+@import '../../common.scss';
+
+
+
+
+.heroWithLevel {
+  position: relative;
+}
+
+.level {
+  color: white;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2px;
+  border-radius: 4px
+}

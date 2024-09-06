@@ -1,0 +1,15 @@
+@import '../../common.scss';
+
+
+.item {
+  height: 40px;
+  object-fit: contain;
+
+  @media (max-width: 1200px) {
+    height: 30px;
+  }
+
+  &.small{
+    height: 30px;
+  }
+}

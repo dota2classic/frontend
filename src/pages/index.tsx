@@ -1,23 +1,24 @@
 import { PlayerMatchTable } from "@/components";
-import { MatchmakingMode } from "@/const/enums";
+import { Matches } from "@/mock/matches";
 
-const data = new Array(10).fill(null).map((it, index) => ({
-  hero: "npc_dota_hero_venomancer",
-  kills: 3,
-  deaths: 4,
-  assists: 6,
-  duration: 1234 + (index * 29),
-  timestamp: new Date().getTime() - 1000 * (index + 1) * 430,
-  level: 3 + index * 2,
-  won: index % 2 == 0,
-  mode: MatchmakingMode.UNRANKED,
-  matchId: index + 12343
+
+const d2: any[] = Matches.map((it) => ({
+  hero: it.radiant[0].hero,
+  kills: it.radiant[0].kills,
+  deaths: it.radiant[0].deaths,
+  assists: it.radiant[0].assists,
+  duration: it.duration,
+  timestamp: it.timestamp,
+  won: it.winner === 2,
+  level: it.radiant[0].level,
+  mode: it.mode,
+  matchId: it.id,
 }));
 
 export default function Home() {
   return (
     <>
-      <PlayerMatchTable data={data} />
+      <PlayerMatchTable data={d2} />
     </>
   );
 }
