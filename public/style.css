@@ -15,7 +15,9 @@
 html {
   width: 100vw;
   height: 100vh;
-  background-color: #101213;
+  background-color: #1d242d;
+  color: white;
+  font-weight: 1000;
 }
 
 body {

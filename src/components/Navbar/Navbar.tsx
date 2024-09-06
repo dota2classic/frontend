@@ -4,6 +4,7 @@ import { NavbarItem } from "..";
 
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";
+import {FaSteam} from "react-icons/fa";
 
 export const Navbar = () => {
   return (
@@ -16,9 +17,11 @@ export const Navbar = () => {
           <NavbarItem link={AppRouter.leaderboard.link}>Игроки</NavbarItem>
           <NavbarItem link={AppRouter.history.index.link}>Матчи</NavbarItem>
 
-
           <div className={c.spacer} />
-          <NavbarItem link={AppRouter.download.link}>Войти</NavbarItem>
+          <NavbarItem link={AppRouter.download.link}>
+            <FaSteam style={{ marginRight: 4 }} />
+            Войти
+          </NavbarItem>
         </ul>
       </div>
     </div>

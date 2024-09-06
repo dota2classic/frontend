@@ -1,15 +1,17 @@
+import React from "react";
 
-import React from 'react'
+import {} from "..";
 
-import { } from '..'
+import c from "./Table.module.scss";
+import cx from "classnames";
 
-import c from './Table.module.scss'
-
-export const Table = (props: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLTableElement>, HTMLTableElement>) => {
-
+export const Table = (
+  props: React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLTableElement>,
+    HTMLTableElement
+  >,
+) => {
   return (
-    <table className={c.table}>
-      {props.children}
-    </table>
-  )
-}
+    <table className={cx(c.table, props.className)}>{props.children}</table>
+  );
+};

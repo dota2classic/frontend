@@ -13,7 +13,7 @@ export const Layout = ({ children, className }: PropsWithChildren<LayoutProps>) 
   return (
     <div className={cx(c.layout, className)}>
       <Navbar />
-      <main>{children}</main>
+      <main className={cx(c.layoutInner)}>{children}</main>
     </div>
   )
 }

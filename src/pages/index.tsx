@@ -11,6 +11,7 @@ const data = new Array(10).fill(null).map((it, index) => ({
   level: 3 + index * 2,
   won: index % 2 == 0,
   mode: MatchmakingMode.UNRANKED,
+  matchId: index + 12343
 }));
 
 export default function Home() {

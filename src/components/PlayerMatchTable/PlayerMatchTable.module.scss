@@ -5,7 +5,7 @@
   flex-direction: row;
   align-items: center;
 
-  & span {
+  & a {
     margin-left: 4px;
     text-transform: capitalize;
   }
@@ -19,10 +19,10 @@
   }
 
   &__win {
-    color: $green;
+    color: $green !important;
   }
   &__lose {
-    color: $red;
+    color: $red !important;;
   }
 }
 

@@ -1,10 +1,11 @@
 import Router from "next/router";
+import type {UrlObject} from "url";
 
 export interface NextLinkProp {
-  href: string;
-  as?: string;
+  href: string | UrlObject;
   shallow?: boolean;
   passHref: boolean;
+  as?: string;
 }
 export interface IRouterPage {
   link: NextLinkProp;
