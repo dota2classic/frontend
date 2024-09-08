@@ -9,9 +9,11 @@ interface IItemIconProps {
 }
 
 export const ItemIcon: React.FC<IItemIconProps> = ({ item, small }) => {
-  let url: string;
   const fItem = item.replace("item_", "");
-  url = `/items/${fItem}.webp`;
+
+  const url = item.includes("emptyitem")
+    ? `/items/${fItem}.webp`
+    : `https://steamcdn-a.akamaihd.net/apps/dota2/images/items/${fItem}_lg.png`;
   return (
     <img
       width={60}

@@ -14,6 +14,12 @@
   }
 
 
+
+  td:global(.middle), th:global(.middle){
+    text-align: center !important;
+  }
+
+
   & tbody {
     background-color: $almostBlack;
   }

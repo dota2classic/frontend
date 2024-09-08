@@ -3,9 +3,9 @@ import React from "react";
 import { fromNow } from "@/util/time";
 
 interface ITimeAgoProps {
-  date: number | Date;
+  date: number | Date | string;
 }
 
 export const TimeAgo: React.FC<ITimeAgoProps> = ({ date }) => {
-  return <>{fromNow(typeof date === "number" ? new Date(date) : date)}</>;
+  return <>{fromNow(date instanceof Date ? new Date(date) : date)}</>;
 };

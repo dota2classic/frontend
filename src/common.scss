@@ -25,3 +25,10 @@ $error: rgb(198,38,38);
 
 $green: #92a525;
 $red: #c23c2a;
+$gold: #C9AF1D;
+
+
+
+@mixin box {
+  box-shadow: 0 0 3px rgba(10,10,10,0.4);
+}

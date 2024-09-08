@@ -12,7 +12,7 @@ interface IDurationProps {
 export const Duration: React.FC<IDurationProps> = ({ duration }) => {
   return (
     <>
-      {formatDuration(duration)}
+      {formatDuration(duration * 1000)}
     </>
   )
 }

@@ -70,7 +70,7 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
             </td>
             <td>All pick</td>
             <td>
-              <Duration duration={item.duration * 1000} />
+              <Duration duration={item.duration} />
             </td>
             <td>
               {item.kills}/{item.deaths}/{item.assists}

@@ -1,0 +1,71 @@
+@import "../../common.scss";
+
+.matchSummary {
+  @include box();
+  padding: 8px;
+  background-color: $bg2;
+  display: flex;
+  flex-direction: row;
+}
+
+.primary {
+  flex: 1;
+  color: $primaryTextHighlight;
+  font-size: 1.4rem;
+}
+
+.secondary {
+  display: flex;
+  flex-direction: row;
+
+  & dl {
+    display: inline-block;
+    margin: 5px 12px 14px 0;
+    vertical-align: top;
+    font-size: 0.8rem;
+
+    & dd {
+      color: $primaryTextHighlight;
+      margin-inline-start: 0px;
+    }
+    & dt {
+      font-size: 0.8em;
+      color: $primaryText;
+    }
+  }
+}
+
+.matchWinner {
+  margin: 20px auto auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  &__winner {
+    font-size: 1.4rem;
+    text-shadow: 1px 1px 5px black;
+  }
+
+  &__score {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.4rem;
+    align-items: center;
+  }
+
+  &__duration {
+    margin: 0 1em;
+    font-size: 1rem;
+    top: 3px;
+  }
+}
+
+.radiant {
+  color: $green;
+}
+
+.dire {
+  color: $red;
+}

@@ -91,6 +91,9 @@ export interface PlayerInMatchDto {
      * @memberof PlayerInMatchDto
      */
     denies: number;
+
+    networth?: number;
+
     /**
      *
      * @type {Array<string>}
