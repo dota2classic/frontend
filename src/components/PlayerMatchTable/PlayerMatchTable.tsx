@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  BarChart,
   Duration,
   HeroIcon,
   HeroName,
@@ -11,6 +12,7 @@ import c from "./PlayerMatchTable.module.scss";
 import { MatchmakingMode } from "@/const/enums";
 import cx from "classnames";
 import { AppRouter } from "@/route";
+import {KDABarChart} from "@/components/BarChart/BarChart";
 
 interface Item {
   hero: string;
@@ -73,7 +75,10 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
               <Duration duration={item.duration} />
             </td>
             <td>
-              {item.kills}/{item.deaths}/{item.assists}
+              <div className={c.kda}>
+                <span>{item.kills}/{item.deaths}/{item.assists}</span>
+                <KDABarChart kills={item.kills} deaths={item.deaths} assists={item.assists}/>
+              </div>
             </td>
           </tr>
         ))}

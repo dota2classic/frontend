@@ -1,0 +1,21 @@
+@import "../../common.scss";
+
+.matchId {
+  display: flex;
+  flex-direction: column;
+
+  &__id {
+    color: $green !important;
+  }
+  &__timeAgo {
+    font-size: 0.7rem;
+  }
+}
+
+.radiant {
+  color: $green !important;
+}
+
+.dire {
+  color: $red !important;
+}
