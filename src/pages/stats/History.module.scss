@@ -1,0 +1,14 @@
+@import '../../common.scss';
+
+
+
+.panel {
+  padding: 6px 6px;
+  background-color: $bg2;
+  box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

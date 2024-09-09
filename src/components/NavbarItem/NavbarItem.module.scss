@@ -4,8 +4,11 @@
 
 .navbarItem {
   white-space: nowrap;
-  padding: 4px 6px;
+  padding: 6px 8px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:focus, &:hover {
     background: $blueHighlight;

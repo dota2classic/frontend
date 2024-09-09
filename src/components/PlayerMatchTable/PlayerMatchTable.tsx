@@ -14,6 +14,7 @@ import cx from "classnames";
 import { AppRouter } from "@/route";
 import {KDABarChart, SingleWeightedBarChart} from "@/components/BarChart/BarChart";
 import {maxBy} from "@/util/iter";
+import {formatGameMode} from "@/util/gamemode";
 
 export interface PlayerMatchItem {
   hero: string;
@@ -72,7 +73,7 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
                 </span>
               </div>
             </td>
-            <td>All pick</td>
+            <td>{formatGameMode(item.mode)}</td>
             <td>
               <div>
               <Duration duration={item.duration} />

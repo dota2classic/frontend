@@ -32,6 +32,7 @@ export const useQueryBackedParameter = (
   }, [routerTab]);
 
   const setTabAction = (tab?: number) => {
+    console.log('settab', tab)
     const href = Router.pathname.split("?")[0];
     const asPath = Router.asPath.split("?")[0];
 

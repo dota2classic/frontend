@@ -13,8 +13,8 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
   link,
 }) => {
   return (
-    <li className={c.navbarItem}>
-      <PageLink className={c.navbarItemLink} link={link}>{children}</PageLink>
-    </li>
+    // <li className={c.navbarItem}>
+      <PageLink className={c.navbarItem} link={link}>{children}</PageLink>
+    // </li>
   );
 };
