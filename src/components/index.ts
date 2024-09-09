@@ -19,3 +19,4 @@ export { HeroPerformanceTable } from './HeroPerformanceTable/HeroPerformanceTabl
 export { PlayerSummary } from './PlayerSummary/PlayerSummary'
 export { SelectOptions } from './SelectOptions/SelectOptions'
 export { Pagination } from './Pagination/Pagination'
+export { TableRowLoading } from './TableRowLoading/TableRowLoading'

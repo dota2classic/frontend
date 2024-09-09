@@ -378,7 +378,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{/required}}
         {{/allParams}}
         const context = this.{{nickname}}Context({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}!{{#hasMore}}, {{/hasMore}}{{/allParams}} }{{/allParams.0}});
-        return useSWR(JSON.stringify(context), valid ? () => this.{{nickname}}({{#allParams}}{{paramName}}!{{#hasMore}}, {{/hasMore}}{{/allParams}}) : null, config)
+        return useSWR(context, valid ? () => this.{{nickname}}({{#allParams}}{{paramName}}!{{#hasMore}}, {{/hasMore}}{{/allParams}}) : null, config)
     }
     {{/isBodyAllowed}}
 

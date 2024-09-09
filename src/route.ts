@@ -94,6 +94,6 @@ export const AppRouter = {
   match: (id: number) => page(`/match/[id]`, `/match/${id}`),
   history: {
     index: spage(`/stats/history`),
-    page: (page: number) => spage(`/stats/history?page=${page}`),
+    page: (page: number, mode?: number | string) => spage(`/stats/history?page=${page}&mode=${mode}`),
   },
 };

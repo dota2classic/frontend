@@ -1,0 +1,49 @@
+@import '../../common.scss';
+
+@keyframes moving-gradient {
+  0% { background-position: -250px 0; }
+  100% { background-position: 250px 0; }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  30% {
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  50% {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  80% {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  100% {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.loading {
+  animation: placeHolderShimmer 5s infinite;
+
+  &:nth-child(5n){
+    animation-delay: -0.3s;
+  }
+  &:nth-child(5n + 1){
+    animation-delay: -0.8s;
+  }
+  &:nth-child(5n + 2){
+    animation-delay: -1.2s;
+  }
+  &:nth-child(5n + 3){
+    animation-delay: -1.8s;
+  }
+  &:nth-child(5n + 4){
+    animation-delay: -2.5s;
+  }
+  height: 40px;
+}

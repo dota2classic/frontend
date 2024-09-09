@@ -1,7 +1,6 @@
-import Router, {useRouter} from "next/router";
-import {useEffect, useState} from "react";
-import {parse, stringify} from "qs";
-
+import Router, { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { parse, stringify } from "qs";
 
 const preservedQuery = () => {
   if (typeof window === "undefined") return {};
@@ -16,23 +15,32 @@ const preservedQuery = () => {
 };
 
 
+export const useQueryParameter = (name: string): string | undefined => {
+
+}
+
 export const useQueryBackedParameter = (
   tabName: string = "tab",
-  initial?: number
-): [number | undefined, (a: number | undefined) => void] => {
+  defaultValue?: string,
+): [string | undefined, (a: any) => void] => {
   const router = useRouter();
   const { [tabName]: routerTab } = router.query;
 
-  const [tab, setTab] = useState<number | undefined>(initial);
+  // const [tab, setTab] = useState<string | undefined>(
+  //   (routerTab as string) || defaultValue,
+  // );
 
-  useEffect(() => {
-    if (routerTab !== undefined) {
-      setTab(Number(routerTab as string));
-    }
-  }, [routerTab]);
+  // useEffect(() => {
+  //   const newValue = routerTab as string;
+  //   // console.log(`${tabName} Was`, tab, typeof tab, 'became', newValue, typeof newValue)
+  //   if (newValue !== tab) {
+  //     console.log(`Update tab! ${tabName}`);
+  //     setTab(newValue);
+  //   }
+  // }, [routerTab]);
 
-  const setTabAction = (tab?: number) => {
-    console.log('settab', tab)
+  const setTabAction = (tab?: any) => {
+    console.log("settab", tab);
     const href = Router.pathname.split("?")[0];
     const asPath = Router.asPath.split("?")[0];
 
@@ -47,9 +55,19 @@ export const useQueryBackedParameter = (
     const queryPart = stringify(pQuery);
 
     Router.replace(href + `?${queryPart}`, asPath + `?${queryPart}`, {
-      shallow: true
-    }).then(() => setTab(tab));
+      shallow: true,
+    })//.then(() => setTab(tab));
   };
 
-  return [tab, setTabAction];
+  return [routerTab, setTabAction];
 };
+
+
+export const useDidMount = () => {
+
+  const [mount, setMount] = useState(false);
+  useEffect(() => {
+    setMount(true);
+  }, []);
+  return mount;
+}
