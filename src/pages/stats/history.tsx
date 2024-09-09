@@ -1,4 +1,4 @@
-import {MatchHistoryTable, SelectOptions} from "@/components";
+import { MatchHistoryTable, Pagination, SelectOptions } from "@/components";
 import { useApi } from "@/api/hooks";
 import { useQueryBackedParameter } from "@/util/hooks";
 import { NextPageContext } from "next";
@@ -6,7 +6,9 @@ import PlayerPage from "@/pages/player/[id]";
 import { MatchPageDto } from "@/api/back";
 import c from "./History.module.scss";
 import { MatchmakingMode } from "@/const/enums";
-import {formatGameMode} from "@/util/gamemode";
+import { formatGameMode } from "@/util/gamemode";
+import { AppRouter } from "@/route";
+import {useEffect} from "react";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
@@ -14,11 +16,16 @@ interface MatchHistoryProps {
 
 const GameModeOptions = [
   { value: "undefined", label: "Все режимы" },
-  ...[MatchmakingMode.RANKED, MatchmakingMode.UNRANKED, MatchmakingMode.SOLOMID, MatchmakingMode.BOTS].map(it => ({
+  ...[
+    MatchmakingMode.RANKED,
+    MatchmakingMode.UNRANKED,
+    MatchmakingMode.SOLOMID,
+    MatchmakingMode.BOTS,
+  ].map((it) => ({
     value: it,
-    label: formatGameMode(it)
-  }))
-]
+    label: formatGameMode(it),
+  })),
+];
 export default function MatchHistory({ matches }: MatchHistoryProps) {
   const [page, setPage] = useQueryBackedParameter("page", 0);
   const [mode, setMode] = useQueryBackedParameter("mode", undefined);
@@ -35,6 +42,12 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
     },
   );
 
+  useEffect(() => {
+    if(data && page >= data.pages){
+      setPage(data.pages - 1);
+    }
+  }, [data?.pages]);
+
   return (
     <>
       <div className={c.panel}>
@@ -48,7 +61,14 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
           defaultText={"Режим игры"}
         />
       </div>
-      <MatchHistoryTable data={data?.data || []} />
+      <div>
+        <MatchHistoryTable data={(data?.data || [])} />
+        <Pagination
+          linkProducer={(page) => AppRouter.history.page(page).link}
+          page={page || data?.page || 0}
+          maxPage={data?.pages || 0}
+        />
+      </div>
     </>
   );
 }

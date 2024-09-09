@@ -21,9 +21,9 @@ export function SelectOptions<T extends any>({
 
   return (
     <div className={c.select}>
-      <select onChange={(v) => onSelect(v.target.value)}>
+      <select value={selected} onChange={(v) => onSelect(v.target.value)}>
         {options.map((it) => (
-          <option selected={it.value === selected} key={it.value} value={it.value}>
+          <option key={it.value} value={it.value}>
             {it.label}
           </option>
         ))}

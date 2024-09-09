@@ -1,0 +1,15 @@
+@import "../../common.scss";
+
+.pagination {
+  padding: 6px 6px;
+}
+
+.page {
+  padding: 4px 12px;
+  & a {
+    color: $green;
+  }
+  &.active {
+    background-color: $transparentTint;
+  }
+}
