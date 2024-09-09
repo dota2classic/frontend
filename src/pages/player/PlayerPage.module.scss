@@ -1,0 +1,33 @@
+@import '../../common.scss';
+
+
+
+
+
+.stats {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.playerPage {
+  display: grid;
+  //grid-template-columns: repeat(8, minmax(70px, 0.95fr)) repeat(4, 1.1fr);
+  grid-column-gap: 12px;
+  grid-template-columns: repeat(12, 1fr);
+
+}
+
+.playerInfo {
+  grid-column: span 12;
+  margin-bottom: 12px;
+}
+
+.heroPerformance {
+  grid-column: span 4;
+}
+
+
+.matchHistory {
+  grid-column: span 8;
+}

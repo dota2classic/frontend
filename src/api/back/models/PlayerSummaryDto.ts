@@ -36,6 +36,12 @@ export interface PlayerSummaryDto {
      * @type {string}
      * @memberof PlayerSummaryDto
      */
+    avatar: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlayerSummaryDto
+     */
     id: string;
     /**
      * 
@@ -75,6 +81,7 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         
         'steamId': json['steam_id'],
         'name': json['name'],
+        'avatar': json['avatar'],
         'id': json['id'],
         'mmr': json['mmr'],
         'roles': json['roles'],
@@ -94,6 +101,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         
         'steam_id': value.steamId,
         'name': value.name,
+        'avatar': value.avatar,
         'id': value.id,
         'mmr': value.mmr,
         'roles': value.roles,

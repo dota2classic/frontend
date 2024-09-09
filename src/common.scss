@@ -1,34 +1,27 @@
-
-
 $bg1: #1d242d;
 $bg2: #242f39;
-
-
 
 $darkBg: #0c0c0c;
 $darkBg2: #1c2024;
 $evenDarkerBg: #101213;
 $almostBlack: #0a0909;
-$primaryText: rgb(217,217,217);
-$primaryTextTint: rgb(207,207,207);
-$primaryTextHighlight: rgb(238,238,238);
-$primaryTextDark: rgb(131,130,130);
-$primaryTextDark2: rgb(83,82,82);
-$transparentTint: rgba(65,168,252,0.15);
-$transparentTint2: rgba(65,168,252,0.01);
-$transparentTint3: rgba(65,168,252,0.05);
-$blueHighlight: rgb(77,169,243);
-$blueHighlight2: rgb(77,169,243, 0.5);
-$error: rgb(198,38,38);
-
-
+$primaryText: rgb(217, 217, 217);
+$primaryTextTint: rgb(207, 207, 207);
+$primaryTextHighlight: rgb(238, 238, 238);
+$primaryTextDark: rgb(131, 130, 130);
+$primaryTextDark2: rgb(83, 82, 82);
+$transparentTint: rgba(65, 168, 252, 0.15);
+$transparentTint2: rgba(65, 168, 252, 0.01);
+$transparentTint3: rgba(65, 168, 252, 0.05);
+$blueHighlight: rgb(77, 169, 243);
+$blueHighlight2: rgb(77, 169, 243, 0.5);
+$error: rgb(198, 38, 38);
 
 $green: #92a525;
 $red: #c23c2a;
-$gold: #C9AF1D;
-
-
+$gold: #c9af1d;
 
 @mixin box {
-  box-shadow: 0 0 3px rgba(10,10,10,0.4);
+  box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
 }
+

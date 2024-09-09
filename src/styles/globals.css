@@ -1,4 +1,11 @@
 
+.green {
+  color: #92a525 !important;
+}
+
+.red {
+  color: #c23c2a !important;
+}
 
 
 .ReactModal__Content {

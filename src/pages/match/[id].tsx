@@ -1,15 +1,23 @@
-import { Matches } from "@/mock/matches";
 import { NextPageContext } from "next";
 import React from "react";
 import { MatchSummary, MatchTeamTable, Typography } from "@/components";
 import { FaTrophy } from "react-icons/fa";
+import { useApi } from "@/api/hooks";
+import { MatchDto } from "@/api/back";
 
 interface InitialProps {
   matchId: number;
+  preloadedMatch?: MatchDto;
 }
 
-export default function MatchPage({ matchId }: InitialProps) {
-  const match = Matches.find((it) => it.id === matchId)!!;
+export default function MatchPage({ matchId, preloadedMatch }: InitialProps) {
+  const { data: match } = useApi().matchApi.useMatchControllerMatch(matchId, {
+    fallbackData: preloadedMatch,
+    isPaused(){ return !!preloadedMatch }
+  });
+
+  if (!match) return null;
+
   return (
     <>
       <MatchSummary
@@ -39,7 +47,10 @@ export default function MatchPage({ matchId }: InitialProps) {
 MatchPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<InitialProps> => {
+  const matchId = parseInt(ctx.query.id as string);
+  const match = await useApi().matchApi.matchControllerMatch(matchId);
   return {
-    matchId: parseInt(ctx.query.id as string),
+    matchId,
+    preloadedMatch: match,
   };
 };

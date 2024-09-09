@@ -4,6 +4,7 @@ import { Duration, HeroIcon, PageLink, Table, TimeAgo } from "..";
 import { MatchDto } from "@/api/back";
 import c from "./MatchHistoryTable.module.scss";
 import { AppRouter } from "@/route";
+import {formatGameMode} from "@/util/gamemode";
 
 interface IMatchHistoryTableProps {
   data: MatchDto[];
@@ -40,7 +41,7 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
                 </span>
               </div>
             </td>
-            <td>All Pick(fixme)</td>
+            <td>{formatGameMode(it.mode)}</td>
             <td className={it.winner === 2 ? c.radiant : c.dire}>
               <PageLink
                 link={AppRouter.match(it.id).link}

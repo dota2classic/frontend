@@ -34,7 +34,7 @@ export interface MatchDto {
     id: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof MatchDto
      */
     mode: MatchDtoModeEnum;
@@ -122,15 +122,17 @@ export function MatchDtoToJSON(value?: MatchDto | null): any {
 * @enum {string}
 */
 export enum MatchDtoModeEnum {
-    RANKED = 'RANKED',
-    UNRANKED = 'UNRANKED',
-    SOLOMID = 'SOLOMID',
-    DIRETIDE = 'DIRETIDE',
-    GREEVILING = 'GREEVILING',
-    ABILITYDRAFT = 'ABILITY_DRAFT',
-    TOURNAMENT = 'TOURNAMENT',
-    BOTS = 'BOTS',
-    HIGHROOM = 'HIGHROOM'
+    NUMBER_0 = 0,
+    NUMBER_1 = 1,
+    NUMBER_2 = 2,
+    NUMBER_3 = 3,
+    NUMBER_4 = 4,
+    NUMBER_5 = 5,
+    NUMBER_6 = 6,
+    NUMBER_7 = 7,
+    NUMBER_8 = 8,
+    NUMBER_9 = 9,
+    NUMBER_10 = 10
 }
 
 

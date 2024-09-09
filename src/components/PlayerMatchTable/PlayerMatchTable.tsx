@@ -12,15 +12,16 @@ import c from "./PlayerMatchTable.module.scss";
 import { MatchmakingMode } from "@/const/enums";
 import cx from "classnames";
 import { AppRouter } from "@/route";
-import {KDABarChart} from "@/components/BarChart/BarChart";
+import {KDABarChart, SingleWeightedBarChart} from "@/components/BarChart/BarChart";
+import {maxBy} from "@/util/iter";
 
-interface Item {
+export interface PlayerMatchItem {
   hero: string;
   kills: number;
   deaths: number;
   assists: number;
   duration: number;
-  timestamp: number;
+  timestamp: number | string;
   level: number;
   won: boolean;
   mode: MatchmakingMode;
@@ -28,7 +29,7 @@ interface Item {
 }
 
 interface IPlayerMatchTableProps {
-  data: Item[];
+  data: PlayerMatchItem[];
   className?: string;
 }
 
@@ -36,6 +37,7 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
   data,
   className,
 }) => {
+  const maxDuration = maxBy(data, it => it.duration)
   return (
     <Table className={cx("compact", className)}>
       <thead>
@@ -72,7 +74,10 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
             </td>
             <td>All pick</td>
             <td>
+              <div>
               <Duration duration={item.duration} />
+                <SingleWeightedBarChart color='#979797' value={item.duration / maxDuration.duration} />
+              </div>
             </td>
             <td>
               <div className={c.kda}>

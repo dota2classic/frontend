@@ -24,7 +24,7 @@ export interface HeroStatsDto {
      * @type {string}
      * @memberof HeroStatsDto
      */
-    playerSteamId: string;
+    playerId: string;
     /**
      * 
      * @type {number}
@@ -91,7 +91,7 @@ export function HeroStatsDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'playerSteamId': json['playerSteamId'],
+        'playerId': json['playerId'],
         'gpm': json['gpm'],
         'xpm': json['xpm'],
         'kda': json['kda'],
@@ -113,7 +113,7 @@ export function HeroStatsDtoToJSON(value?: HeroStatsDto | null): any {
     }
     return {
         
-        'playerSteamId': value.playerSteamId,
+        'playerId': value.playerId,
         'gpm': value.gpm,
         'xpm': value.xpm,
         'kda': value.kda,

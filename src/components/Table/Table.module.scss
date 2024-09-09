@@ -6,22 +6,21 @@
 .table {
   padding: 6px 6px;
   background-color: $bg2;
-  box-shadow: 0 0 3px rgba(10,10,10,0.4);
+  box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+  height: fit-content;
 
   border-spacing: 0;
   & thead > tr {
     background-color: $bg2 !important;
   }
 
-
-
-  td:global(.middle), th:global(.middle){
+  td:global(.middle),
+  th:global(.middle) {
     text-align: center !important;
   }
 
-
   & tbody {
-    background-color: $almostBlack;
+     background-color: $almostBlack;
   }
 
   width: 100%;
@@ -52,7 +51,7 @@
   & td,
   th {
     padding: 12px;
-    font-size: 14px;
+    font-size: 0.8rem;
     font-weight: 500;
     text-align: left;
   }
@@ -61,17 +60,19 @@
     width: fit-content;
   }
 
-  &:global(.compact){
-    & td{
+  &:global(.compact) {
+    & tr {
+      //max-height: 40px;
+    }
+    & td {
       padding: 4px 6px;
-      font-size: 14px;
+      font-size: 0.8rem;
       text-align: left;
     }
 
     & th {
       padding-left: 8px;
       font-size: 14px;
-      //text-align: left;
     }
   }
   border-top-width: 2px;
@@ -88,7 +89,6 @@
   & tr {
     line-height: 16px;
 
-
     color: $primaryText;
 
     font-size: 14px;
@@ -97,11 +97,11 @@
     }
 
     &:nth-child(even) {
-       background-color: rgba(255, 255, 255, 0.04);
+      background-color: rgba(255, 255, 255, 0.04);
     }
 
     &:nth-child(odd) {
-      //background-color: rgba(255, 255, 255, 0.02);
+      background-color: rgba(255, 255, 255, 0.08);
     }
 
     & a {
@@ -114,17 +114,5 @@
         display: none;
       }
     }
-
-    & td,
-    a {
-      //color: $primaryText;
-    }
-
-    //& .ROLE_ADMIN {
-    //  color: ${colors.roles.admin};
-    //}
-    //& .ROLE_HUMAN {
-    //  color: ${colors.roles.human};
-    //}
   }
 }

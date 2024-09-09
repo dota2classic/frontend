@@ -1,0 +1,63 @@
+@import '../../common.scss';
+
+
+@import "../../common.scss";
+
+.panel {
+  padding: 6px 6px;
+  background-color: $bg2;
+  box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+
+  & img {
+    width: 65px;
+    height: 65px;
+  }
+}
+
+.left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
+
+  & .playerName {
+    font-size: 1.2rem;
+    margin-left: 8px;
+  }
+
+  & .externalLink {
+    color: $green;
+    margin-left: 8px;
+    font-size: 1rem;
+  }
+}
+
+
+.right {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+
+  & dl {
+    display: inline-block;
+    margin: 5px 12px 14px 0;
+    vertical-align: top;
+    font-size: 1rem;
+
+    & dd {
+      color: $primaryTextHighlight;
+      margin-inline-start: 0px;
+    }
+    & dt {
+      font-size: 0.8em;
+      color: $primaryText;
+    }
+  }
+}

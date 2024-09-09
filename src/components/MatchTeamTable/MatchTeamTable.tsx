@@ -20,7 +20,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
       <thead>
         <tr>
           <th>Герой</th>
-          <th>Игрок</th>
+          <th className={c.fixedWidth}>Игрок</th>
           <th className="middle">GPM/XPM</th>
           <th className="middle">LH/D</th>
           <th className="middle">K</th>
@@ -34,7 +34,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
       </thead>
       <tbody>
         {players.map((player) => (
-          <tr key={player.steam_id}>
+          <tr key={player.steamId}>
             <td>
               <div className={c.heroWithLevel}>
                 <HeroIcon hero={player.hero} />
@@ -42,7 +42,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
               </div>
             </td>
             <td>
-              <PageLink link={AppRouter.player(player.steam_id).link}>
+              <PageLink link={AppRouter.player(player.steamId).link}>
                 {player.name}
               </PageLink>
             </td>
@@ -50,7 +50,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
               {player.gpm}/{player.xpm}
             </td>
             <td className="middle">
-              {player.last_hits}/{player.denies}
+              {player.lastHits}/{player.denies}
             </td>
 
             <td className="middle">{player.kills}</td>
@@ -59,14 +59,17 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <td className={c.gold}>
               <NumberFormat
                 number={
-                  player.networth || Math.round((player.gpm * duration) / 60)
+                  Math.round((player.gpm * duration) / 60) // todo: networth
                 }
               />
             </td>
             <td>
-              {player.items.map((item, index) => (
-                <ItemIcon key={index} item={item} />
-              ))}
+              <ItemIcon item={player.item0} />
+              <ItemIcon item={player.item1} />
+              <ItemIcon item={player.item2} />
+              <ItemIcon item={player.item3} />
+              <ItemIcon item={player.item4} />
+              <ItemIcon item={player.item5} />
             </td>
           </tr>
         ))}
