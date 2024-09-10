@@ -5,6 +5,7 @@ export * from './CurrentOnlineDto';
 export * from './EventAdminDto';
 export * from './GameServerDto';
 export * from './GameSessionDto';
+export * from './HeroItemDto';
 export * from './HeroStatsDto';
 export * from './HeroSummaryDto';
 export * from './LeaderboardEntryDto';

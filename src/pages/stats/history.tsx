@@ -34,12 +34,10 @@ export default function MatchHistory({
   initialMode,
 }: MatchHistoryProps) {
   const [page, setPage] = useQueryBackedParameter(
-    "page",
-    initialPage.toString(),
+    "page"
   );
   const [mode, setMode] = useQueryBackedParameter(
-    "mode",
-    initialMode?.toString(),
+    "mode"
   );
 
   const didMount = useDidMount();
@@ -60,7 +58,6 @@ export default function MatchHistory({
 
   useEffect(() => {
     if (data && page >= data.pages) {
-      console.log("snap!");
       setPage(data.pages - 1);
     }
   }, [data?.pages]);
@@ -70,7 +67,7 @@ export default function MatchHistory({
       <div className={c.panel}>
         <SelectOptions
           options={GameModeOptions}
-          selected={mode}
+          selected={mode === undefined ? 'undefined' : mode}
           onSelect={(value) => {
             if (value === "undefined") setMode(undefined);
             else setMode(value);

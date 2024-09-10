@@ -1,0 +1,43 @@
+@import "../../common.scss";
+
+
+.page {
+  display: grid;
+  grid-column-gap: 12px;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+
+.heroSummary {
+  grid-column: span 12;
+}
+
+
+
+.items {
+  grid-column: span 4;
+}
+
+
+.matchHistory {
+  grid-column: span 8;
+}
+
+
+.left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
+
+  & .heroName {
+    font-size: 1.2rem;
+    margin-left: 8px;
+  }
+
+}
+
+.heroName {
+
+}
+

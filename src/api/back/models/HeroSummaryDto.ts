@@ -57,6 +57,30 @@ export interface HeroSummaryDto {
     assists: number;
     /**
      * 
+     * @type {number}
+     * @memberof HeroSummaryDto
+     */
+    gpm: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HeroSummaryDto
+     */
+    xpm: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HeroSummaryDto
+     */
+    lastHits: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HeroSummaryDto
+     */
+    denies: number;
+    /**
+     * 
      * @type {string}
      * @memberof HeroSummaryDto
      */
@@ -79,6 +103,10 @@ export function HeroSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
         'kills': json['kills'],
         'deaths': json['deaths'],
         'assists': json['assists'],
+        'gpm': json['gpm'],
+        'xpm': json['xpm'],
+        'lastHits': json['last_hits'],
+        'denies': json['denies'],
         'hero': json['hero'],
     };
 }
@@ -98,6 +126,10 @@ export function HeroSummaryDtoToJSON(value?: HeroSummaryDto | null): any {
         'kills': value.kills,
         'deaths': value.deaths,
         'assists': value.assists,
+        'gpm': value.gpm,
+        'xpm': value.xpm,
+        'last_hits': value.lastHits,
+        'denies': value.denies,
         'hero': value.hero,
     };
 }

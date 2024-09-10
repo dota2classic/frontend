@@ -15,6 +15,7 @@ export const Navbar = () => {
           <NavbarItem link={AppRouter.queue.link}>Играть</NavbarItem>
           <NavbarItem link={AppRouter.download.link}>Скачать</NavbarItem>
           <NavbarItem link={AppRouter.leaderboard.link}>Игроки</NavbarItem>
+          <NavbarItem link={AppRouter.heroes.index.link}>Герои</NavbarItem>
           <NavbarItem link={AppRouter.history.index.link}>Матчи</NavbarItem>
 
           <div className={c.spacer} />

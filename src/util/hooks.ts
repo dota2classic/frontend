@@ -20,27 +20,12 @@ export const useQueryParameter = (name: string): string | undefined => {
 }
 
 export const useQueryBackedParameter = (
-  tabName: string = "tab",
-  defaultValue?: string,
+  tabName: string = "tab"
 ): [string | undefined, (a: any) => void] => {
   const router = useRouter();
   const { [tabName]: routerTab } = router.query;
 
-  // const [tab, setTab] = useState<string | undefined>(
-  //   (routerTab as string) || defaultValue,
-  // );
-
-  // useEffect(() => {
-  //   const newValue = routerTab as string;
-  //   // console.log(`${tabName} Was`, tab, typeof tab, 'became', newValue, typeof newValue)
-  //   if (newValue !== tab) {
-  //     console.log(`Update tab! ${tabName}`);
-  //     setTab(newValue);
-  //   }
-  // }, [routerTab]);
-
   const setTabAction = (tab?: any) => {
-    console.log("settab", tab);
     const href = Router.pathname.split("?")[0];
     const asPath = Router.asPath.split("?")[0];
 
@@ -56,7 +41,7 @@ export const useQueryBackedParameter = (
 
     Router.replace(href + `?${queryPart}`, asPath + `?${queryPart}`, {
       shallow: true,
-    })//.then(() => setTab(tab));
+    })
   };
 
   return [routerTab, setTabAction];

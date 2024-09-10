@@ -96,6 +96,12 @@ export interface PlayerInMatchDto {
      * @type {number}
      * @memberof PlayerInMatchDto
      */
+    gold: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PlayerInMatchDto
+     */
     item0: number;
     /**
      * 
@@ -157,6 +163,7 @@ export function PlayerInMatchDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'xpm': json['xpm'],
         'lastHits': json['last_hits'],
         'denies': json['denies'],
+        'gold': json['gold'],
         'item0': json['item0'],
         'item1': json['item1'],
         'item2': json['item2'],
@@ -188,6 +195,7 @@ export function PlayerInMatchDtoToJSON(value?: PlayerInMatchDto | null): any {
         'xpm': value.xpm,
         'last_hits': value.lastHits,
         'denies': value.denies,
+        'gold': value.gold,
         'item0': value.item0,
         'item1': value.item1,
         'item2': value.item2,

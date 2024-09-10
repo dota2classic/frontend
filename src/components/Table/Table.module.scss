@@ -20,6 +20,19 @@
     text-align: center !important;
   }
 
+
+  td:global(.middle-adjusted), th:global(.middle-adjusted) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 0.8rem;
+    & a {
+      margin-left: 4px;
+      text-transform: capitalize;
+    }
+  }
+
   & tbody {
      // background-color: $almostBlack;
   }

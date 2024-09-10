@@ -18,15 +18,75 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+    HeroItemDto,
+    HeroItemDtoFromJSON,
+    HeroItemDtoToJSON,
     HeroSummaryDto,
     HeroSummaryDtoFromJSON,
     HeroSummaryDtoToJSON,
 } from '../models';
 
+export interface MetaControllerHeroRequest {
+    hero: string;
+}
+
 /**
  * 
  */
 export class MetaApi extends runtime.BaseAPI {
+
+    /**
+     */
+    private async metaControllerHeroRaw(requestParameters: MetaControllerHeroRequest): Promise<runtime.ApiResponse<Array<HeroItemDto>>> {
+        this.metaControllerHeroValidation(requestParameters);
+        const context = this.metaControllerHeroContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(HeroItemDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private metaControllerHeroValidation(requestParameters: MetaControllerHeroRequest) {
+        if (requestParameters.hero === null || requestParameters.hero === undefined) {
+            throw new runtime.RequiredError('hero','Required parameter requestParameters.hero was null or undefined when calling metaControllerHero.');
+        }
+    }
+
+    /**
+     */
+    metaControllerHeroContext(requestParameters: MetaControllerHeroRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/meta/hero/{hero}`.replace(`{${"hero"}}`, encodeURIComponent(String(requestParameters.hero))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    metaControllerHero = async (hero: string): Promise<Array<HeroItemDto>> => {
+        const response = await this.metaControllerHeroRaw({ hero: hero });
+        return await response.value();
+    }
+
+    useMetaControllerHero(hero: string, config?: SWRConfiguration<Array<HeroItemDto>, Error>) {
+        let valid = true
+
+        if (hero === null || hero === undefined || Number.isNaN(hero)) {
+            valid = false
+        }
+
+        const context = this.metaControllerHeroContext({ hero: hero! });
+        return useSWR(context, valid ? () => this.metaControllerHero(hero!) : null, config)
+    }
 
     /**
      */
@@ -71,7 +131,7 @@ export class MetaApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.metaControllerHeroesContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.metaControllerHeroes() : null, config)
+        return useSWR(context, valid ? () => this.metaControllerHeroes() : null, config)
     }
 
 }

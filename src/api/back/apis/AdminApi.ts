@@ -202,7 +202,7 @@ export class AdminApi extends runtime.BaseAPI {
         }
 
         const context = this.adminUserControllerBanOfContext({ id: id! });
-        return useSWR(JSON.stringify(context), valid ? () => this.adminUserControllerBanOf(id!) : null, config)
+        return useSWR(context, valid ? () => this.adminUserControllerBanOf(id!) : null, config)
     }
 
     /**
@@ -256,7 +256,7 @@ export class AdminApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.adminUserControllerListRolesContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.adminUserControllerListRoles() : null, config)
+        return useSWR(context, valid ? () => this.adminUserControllerListRoles() : null, config)
     }
 
     /**
@@ -317,7 +317,7 @@ export class AdminApi extends runtime.BaseAPI {
         }
 
         const context = this.adminUserControllerRoleOfContext({ id: id! });
-        return useSWR(JSON.stringify(context), valid ? () => this.adminUserControllerRoleOf(id!) : null, config)
+        return useSWR(context, valid ? () => this.adminUserControllerRoleOf(id!) : null, config)
     }
 
     /**
@@ -561,7 +561,7 @@ export class AdminApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.serverControllerLiveSessionsContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.serverControllerLiveSessions() : null, config)
+        return useSWR(context, valid ? () => this.serverControllerLiveSessions() : null, config)
     }
 
     /**
@@ -607,7 +607,7 @@ export class AdminApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.serverControllerServerPoolContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.serverControllerServerPool() : null, config)
+        return useSWR(context, valid ? () => this.serverControllerServerPool() : null, config)
     }
 
     /**

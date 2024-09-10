@@ -12,20 +12,23 @@ import { MatchDto } from "@/api/back";
 import c from "./MatchHistoryTable.module.scss";
 import { AppRouter } from "@/route";
 import { formatGameMode } from "@/util/gamemode";
+import cx from "classnames";
 
 interface IMatchHistoryTableProps {
   data: MatchDto[];
   loading?: boolean;
   perPage?: number;
+  className?: string;
 }
 
 export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
   data,
   loading,
   perPage,
+  className
 }) => {
   return (
-    <Table className="compact">
+    <Table className={cx("compact", className)}>
       <thead>
         <tr>
           <th>Номер матча</th>

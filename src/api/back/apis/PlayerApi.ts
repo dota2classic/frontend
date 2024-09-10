@@ -127,7 +127,7 @@ export class PlayerApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.playerControllerConnectionsContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.playerControllerConnections() : null, config)
+        return useSWR(context, valid ? () => this.playerControllerConnections() : null, config)
     }
 
     /**
@@ -180,7 +180,7 @@ export class PlayerApi extends runtime.BaseAPI {
         }
 
         const context = this.playerControllerGeneralSummaryContext({ id: id! });
-        return useSWR(JSON.stringify(context), valid ? () => this.playerControllerGeneralSummary(id!) : null, config)
+        return useSWR(context, valid ? () => this.playerControllerGeneralSummary(id!) : null, config)
     }
 
     /**
@@ -233,7 +233,7 @@ export class PlayerApi extends runtime.BaseAPI {
         }
 
         const context = this.playerControllerHeroSummaryContext({ id: id! });
-        return useSWR(JSON.stringify(context), valid ? () => this.playerControllerHeroSummary(id!) : null, config)
+        return useSWR(context, valid ? () => this.playerControllerHeroSummary(id!) : null, config)
     }
 
     /**
@@ -283,7 +283,7 @@ export class PlayerApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.playerControllerLeaderboardContext({ version: version! });
-        return useSWR(JSON.stringify(context), valid ? () => this.playerControllerLeaderboard(version!) : null, config)
+        return useSWR(context, valid ? () => this.playerControllerLeaderboard(version!) : null, config)
     }
 
     /**
@@ -337,7 +337,7 @@ export class PlayerApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.playerControllerMeContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.playerControllerMe() : null, config)
+        return useSWR(context, valid ? () => this.playerControllerMe() : null, config)
     }
 
     /**
@@ -391,7 +391,7 @@ export class PlayerApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.playerControllerMyPartyContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.playerControllerMyParty() : null, config)
+        return useSWR(context, valid ? () => this.playerControllerMyParty() : null, config)
     }
 
     /**
@@ -444,7 +444,7 @@ export class PlayerApi extends runtime.BaseAPI {
         }
 
         const context = this.playerControllerPlayerSummaryContext({ id: id! });
-        return useSWR(JSON.stringify(context), valid ? () => this.playerControllerPlayerSummary(id!) : null, config)
+        return useSWR(context, valid ? () => this.playerControllerPlayerSummary(id!) : null, config)
     }
 
     /**
@@ -555,7 +555,7 @@ export class PlayerApi extends runtime.BaseAPI {
         }
 
         const context = this.playerControllerSearchContext({ name: name! });
-        return useSWR(JSON.stringify(context), valid ? () => this.playerControllerSearch(name!) : null, config)
+        return useSWR(context, valid ? () => this.playerControllerSearch(name!) : null, config)
     }
 
     /**

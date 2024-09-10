@@ -5,6 +5,7 @@ import { Duration, TimeAgo } from "..";
 import c from "./MatchSummary.module.scss";
 import { MatchDtoModeEnum } from "@/api/back";
 import cx from "classnames";
+import {formatGameMode} from "@/util/gamemode";
 
 interface IMatchSummaryProps {
   matchId: number;
@@ -31,7 +32,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
         <div className={c.primary}>Матч {matchId}</div>
         <div className={c.secondary}>
           <dl>
-            <dd>All pick(fixme)</dd>
+            <dd>{formatGameMode(mode)}</dd>
             <dt>Режим</dt>
           </dl>
           <dl>

@@ -14,6 +14,7 @@ import {
 } from "@/api/back";
 import { useQueryBackedParameter } from "@/util/hooks";
 import { PlayerMatchItem } from "@/components/PlayerMatchTable/PlayerMatchTable";
+import { matchToPlayerMatchItem } from "@/util/mappers";
 //
 // const d2: any[] = Matches.map((it) => ({
 //   hero: it.radiant[0].hero,
@@ -50,7 +51,7 @@ export default function PlayerPage({
   preloadedMatches,
   preloadedHeroStats,
 }: PlayerPageProps) {
-  const [page, setPage] = useQueryBackedParameter("page", 0);
+  const [page, setPage] = useQueryBackedParameter("page");
 
   const { data: summary } = useApi().playerApi.usePlayerControllerPlayerSummary(
     playerId,
@@ -96,24 +97,8 @@ export default function PlayerPage({
 
   if (!summary || !generalStats) return null;
 
-  const formattedMatches: PlayerMatchItem[] = (matches?.data || []).map(
-    (it) => {
-      const thisPlayer = [...it.radiant, ...it.dire].find(
-        (it) => it.steamId === playerId,
-      )!;
-      return {
-        matchId: it.id,
-        hero: thisPlayer.hero,
-        kills: thisPlayer.kills,
-        deaths: thisPlayer.deaths,
-        assists: thisPlayer.assists,
-        duration: it.duration,
-        timestamp: it.timestamp,
-        level: thisPlayer.level,
-        won: thisPlayer.team === it.winner,
-        mode: it.mode as any,
-      };
-    },
+  const formattedMatches: PlayerMatchItem[] = (matches?.data || []).map((it) =>
+    matchToPlayerMatchItem(it, (it) => it.steamId === playerId),
   );
 
   const formattedHeroStats = (preloadedHeroStats || [])
@@ -129,7 +114,7 @@ export default function PlayerPage({
   return (
     <div className={c.playerPage}>
       <PlayerSummary
-        image={summary.avatar}
+        image={summary.avatar || "/avatar.png"}
         wins={generalStats.wins}
         loss={generalStats.loss}
         rating={summary.mmr}

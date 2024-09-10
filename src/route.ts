@@ -91,6 +91,13 @@ export const AppRouter = {
         `/stats/tournament/match/${id}`,
       ),
   },
+  heroes: {
+      index: spage('/heroes'),
+      hero: (hero: string) => {
+        const fhero = hero.replace('npc_dota_hero_', '');
+        return page('/heroes/[id]', `/heroes/${fhero}`)
+      }
+  },
   match: (id: number) => page(`/match/[id]`, `/match/${id}`),
   history: {
     index: spage(`/stats/history`),

@@ -59,7 +59,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <td className={c.gold}>
               <NumberFormat
                 number={
-                  Math.round((player.gpm * duration) / 60) // todo: networth
+                  Math.round(player.gold || Math.round((player.gpm * duration) / 60) * 0.6)
                 }
               />
             </td>

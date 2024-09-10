@@ -1,0 +1,44 @@
+@import "../../common.scss";
+
+.gpm {
+  letter-spacing: 2px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-size: 0.8rem;
+  & a {
+    margin-left: 4px;
+    text-transform: capitalize;
+  }
+}
+
+.tier {
+  border-radius: 4px;
+  padding: 4px 10px;
+  color: white !important;
+  opacity: 0.75;
+}
+
+.sTier {
+  background-color: rgb(124 58 237);
+}
+
+.aTier {
+  background-color: $blueHighlight;
+}
+
+.bTier {
+  background-color: $green;
+}
+
+.cTier {
+  background-color: rgb(217 119 6);
+}
+
+.dTier {
+  background-color: $red;
+}

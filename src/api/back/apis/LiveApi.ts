@@ -78,7 +78,7 @@ export class LiveApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.liveMatchControllerListMatchesContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.liveMatchControllerListMatches() : null, config)
+        return useSWR(context, valid ? () => this.liveMatchControllerListMatches() : null, config)
     }
 
     /**
@@ -131,7 +131,7 @@ export class LiveApi extends runtime.BaseAPI {
         }
 
         const context = this.liveMatchControllerLiveMatchContext({ id: id! });
-        return useSWR(JSON.stringify(context), valid ? () => this.liveMatchControllerLiveMatch(id!) : null, config)
+        return useSWR(context, valid ? () => this.liveMatchControllerLiveMatch(id!) : null, config)
     }
 
 }

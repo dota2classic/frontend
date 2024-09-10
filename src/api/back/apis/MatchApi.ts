@@ -124,7 +124,7 @@ export class MatchApi extends runtime.BaseAPI {
         }
 
         const context = this.matchControllerHeroMatchesContext({ page: page!, hero: hero!, perPage: perPage! });
-        return useSWR(JSON.stringify(context), valid ? () => this.matchControllerHeroMatches(page!, hero!, perPage!) : null, config)
+        return useSWR(context, valid ? () => this.matchControllerHeroMatches(page!, hero!, perPage!) : null, config)
     }
 
     /**
@@ -185,7 +185,7 @@ export class MatchApi extends runtime.BaseAPI {
         }
 
         const context = this.matchControllerMatchContext({ id: id! });
-        return useSWR(JSON.stringify(context), valid ? () => this.matchControllerMatch(id!) : null, config)
+        return useSWR(context, valid ? () => this.matchControllerMatch(id!) : null, config)
     }
 
     /**
@@ -250,7 +250,7 @@ export class MatchApi extends runtime.BaseAPI {
         }
 
         const context = this.matchControllerMatchesContext({ page: page!, perPage: perPage!, mode: mode! });
-        return useSWR(JSON.stringify(context), valid ? () => this.matchControllerMatches(page!, perPage!, mode!) : null, config)
+        return useSWR(context, valid ? () => this.matchControllerMatches(page!, perPage!, mode!) : null, config)
     }
 
     /**
@@ -326,7 +326,7 @@ export class MatchApi extends runtime.BaseAPI {
         }
 
         const context = this.matchControllerPlayerMatchesContext({ id: id!, page: page!, perPage: perPage!, mode: mode!, hero: hero! });
-        return useSWR(JSON.stringify(context), valid ? () => this.matchControllerPlayerMatches(id!, page!, perPage!, mode!, hero!) : null, config)
+        return useSWR(context, valid ? () => this.matchControllerPlayerMatches(id!, page!, perPage!, mode!, hero!) : null, config)
     }
 
 }

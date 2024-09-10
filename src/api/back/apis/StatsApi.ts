@@ -74,7 +74,7 @@ export class StatsApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.statsControllerGetMatchmakingInfoContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.statsControllerGetMatchmakingInfo() : null, config)
+        return useSWR(context, valid ? () => this.statsControllerGetMatchmakingInfo() : null, config)
     }
 
     /**
@@ -128,7 +128,7 @@ export class StatsApi extends runtime.BaseAPI {
         let valid = true
 
         const context = this.statsControllerOnlineContext();
-        return useSWR(JSON.stringify(context), valid ? () => this.statsControllerOnline() : null, config)
+        return useSWR(context, valid ? () => this.statsControllerOnline() : null, config)
     }
 
 }

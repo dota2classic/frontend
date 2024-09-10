@@ -4,8 +4,8 @@ import { create } from "apisauce";
 import Qs from "qs";
 
 
-// const PROD_URL = 'http://localhost:6001';
-const PROD_URL = 'https://dotaclassic.ru/api';
+const PROD_URL = 'http://localhost:6001';
+// const PROD_URL = 'https://dotaclassic.ru/api';
 
 export class AppApi {
   apiParams: ConfigurationParameters = {
