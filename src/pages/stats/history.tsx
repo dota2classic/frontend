@@ -8,6 +8,7 @@ import { formatGameMode } from "@/util/gamemode";
 import { AppRouter } from "@/route";
 import { useDidMount, useQueryBackedParameter } from "@/util/hooks";
 import React, { useEffect } from "react";
+import { numberOrDefault } from "@/util/urls";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
@@ -43,11 +44,12 @@ export default function MatchHistory({
 
   const didMount = useDidMount();
 
+
   const { data, isLoading, isValidating, mutate } =
     useApi().matchApi.useMatchControllerMatches(
-      Number(page),
+      numberOrDefault(page, 0),
       undefined,
-      Number(mode),
+      numberOrDefault(mode, undefined),
       {
         fallbackData: matches,
         isPaused() {
@@ -93,8 +95,8 @@ export default function MatchHistory({
 MatchHistory.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<MatchHistoryProps> => {
-  const page = Number(ctx.query.page as string) || 0;
-  const mode = Number(ctx.query.mode as string);
+  const page = numberOrDefault(ctx.query.page as string, 0);
+  const mode = numberOrDefault(ctx.query.mode, undefined);
 
   const matches = await useApi().matchApi.matchControllerMatches(
     page,
