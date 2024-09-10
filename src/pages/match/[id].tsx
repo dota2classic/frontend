@@ -4,6 +4,7 @@ import { MatchSummary, MatchTeamTable, Typography } from "@/components";
 import { FaTrophy } from "react-icons/fa";
 import { useApi } from "@/api/hooks";
 import { MatchDto } from "@/api/back";
+import Head from "next/head";
 
 interface InitialProps {
   matchId: number;
@@ -13,13 +14,18 @@ interface InitialProps {
 export default function MatchPage({ matchId, preloadedMatch }: InitialProps) {
   const { data: match } = useApi().matchApi.useMatchControllerMatch(matchId, {
     fallbackData: preloadedMatch,
-    isPaused(){ return !!preloadedMatch }
+    isPaused() {
+      return !!preloadedMatch;
+    },
   });
 
   if (!match) return null;
 
   return (
     <>
+      <Head>
+        <title>Матч {matchId}</title>
+      </Head>
       <MatchSummary
         radiantKills={match.radiant.reduce((a, b) => a + b.kills, 0)}
         direKills={match.dire.reduce((a, b) => a + b.kills, 0)}

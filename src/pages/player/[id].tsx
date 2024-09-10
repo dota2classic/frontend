@@ -15,6 +15,7 @@ import {
 import { useQueryBackedParameter } from "@/util/hooks";
 import { PlayerMatchItem } from "@/components/PlayerMatchTable/PlayerMatchTable";
 import { matchToPlayerMatchItem } from "@/util/mappers";
+import Head from "next/head";
 //
 // const d2: any[] = Matches.map((it) => ({
 //   hero: it.radiant[0].hero,
@@ -113,6 +114,9 @@ export default function PlayerPage({
 
   return (
     <div className={c.playerPage}>
+      <Head>
+        <title>{summary.name} - статистика</title>
+      </Head>
       <PlayerSummary
         image={summary.avatar || "/avatar.png"}
         wins={generalStats.wins}

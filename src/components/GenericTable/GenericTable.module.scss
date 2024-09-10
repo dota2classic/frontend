@@ -1,0 +1,33 @@
+@import '../../common.scss';
+
+
+.avatar {
+  height: 40px;
+  object-fit: contain;
+}
+
+.player {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-size: 0.8rem;
+
+  & a {
+    margin-left: 4px;
+    text-transform: capitalize;
+  }
+}
+
+
+.raw {
+  //letter-spacing: 2px;
+}
+
+
+.item {
+  & img {
+    // margin-top: 4px;
+    vertical-align: middle;
+  }
+}

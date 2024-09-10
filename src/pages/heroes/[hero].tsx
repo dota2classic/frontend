@@ -1,10 +1,17 @@
 import { useApi } from "@/api/hooks";
-import {HeroItemDto, HeroSummaryDto, MatchPageDto} from "@/api/back";
+import {
+  HeroItemDto,
+  HeroPlayerDto,
+  HeroSummaryDto,
+  MatchPageDto,
+} from "@/api/back";
 import {
   HeroIcon,
   HeroItemsTable,
+  HeroPlayersTable,
   Panel,
-  PlayerMatchTable, Section,
+  PlayerMatchTable,
+  Section,
 } from "@/components";
 import { useDidMount, useQueryBackedParameter } from "@/util/hooks";
 import { numberOrDefault } from "@/util/urls";
@@ -12,12 +19,14 @@ import c from "./HeroPage.module.scss";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import React from "react";
 import heroName from "@/util/heroName";
-import {formatWinrate} from "@/util/math";
+import { formatWinrate } from "@/util/math";
+import Head from "next/head";
 
 interface InitialProps {
   initialMatchData: MatchPageDto;
   initialHeroItemsData: HeroItemDto[];
-  initialHeroesMeta: HeroSummaryDto[]
+  initialHeroesMeta: HeroSummaryDto[];
+  initialHeroPlayers: HeroPlayerDto[];
   hero: string;
 }
 
@@ -25,6 +34,7 @@ export default function HeroHistoryPage({
   initialHeroItemsData,
   initialMatchData,
   initialHeroesMeta,
+  initialHeroPlayers,
   hero,
 }: InitialProps) {
   const [page, setPage] = useQueryBackedParameter("page");
@@ -51,30 +61,42 @@ export default function HeroHistoryPage({
       },
     });
 
-  const { data: summaries } =
-    useApi().metaApi.useMetaControllerHeroes({
-      fallbackData: initialHeroesMeta,
+  const { data: heroPlayers } = useApi().metaApi.useMetaControllerHeroPlayers(
+    hero,
+    {
+      fallbackData: initialHeroPlayers,
       isPaused() {
         return !mounted;
       },
-    });
+    },
+  );
 
+  const { data: summaries } = useApi().metaApi.useMetaControllerHeroes({
+    fallbackData: initialHeroesMeta,
+    isPaused() {
+      return !mounted;
+    },
+  });
 
-
-  const sortedSummaries: HeroSummaryDto[] = (summaries || []).toSorted((a,b) => b.games - a.games);
+  const sortedSummaries: HeroSummaryDto[] = (summaries || []).toSorted(
+    (a, b) => b.games - a.games,
+  );
 
   const formattedMatches = (matchesData?.data || []).map((it) =>
     matchToPlayerMatchItem(it, (it) => it.hero === hero),
   );
 
-  const summary = sortedSummaries.find(it => it.hero === hero)!
+  const summary = sortedSummaries.find((it) => it.hero === hero)!;
 
   return (
     <div className={c.page}>
+      <Head>
+        <title>{heroName(hero)}</title>
+      </Head>
       <Panel className={c.heroSummary}>
-        <div className={c.left}>
+        <div className={"left"}>
           <HeroIcon hero={hero} />
-          <div className={c.heroName}>{heroName(hero)}</div>
+          <span className={c.heroName}>{heroName(hero)}</span>
         </div>
         <div className="right">
           <dl>
@@ -83,7 +105,18 @@ export default function HeroHistoryPage({
           </dl>
 
           <dl>
-            <dd className="green">{formatWinrate(summary.wins, summary.losses)}</dd>
+            <dd className="green">{summary.games}</dd>
+            <dt>Матчи</dt>
+          </dl>
+          <dl>
+            <dd className="green">{summary.wins}</dd>
+            <dt>Победы</dt>
+          </dl>
+
+          <dl>
+            <dd className={summary.wins > summary.losses ? "green" : "red"}>
+              {formatWinrate(summary.wins, summary.losses)}
+            </dd>
             <dt>Доля побед</dt>
           </dl>
         </div>
@@ -93,6 +126,8 @@ export default function HeroHistoryPage({
         <PlayerMatchTable loading={isMatchesLoading} data={formattedMatches} />
       </Section>
       <Section className={c.items}>
+        <header>Лучшие игроки</header>
+        <HeroPlayersTable data={heroPlayers || []} />
         <header>Предметы</header>
         <HeroItemsTable
           loading={isItemsLoading}
@@ -105,20 +140,27 @@ export default function HeroHistoryPage({
 
 HeroHistoryPage.getInitialProps = async (ctx) => {
   let hero = ctx.query.hero as string;
-  hero = hero.includes('npc_dota_hero_') ? hero : `npc_dota_hero_${hero}`;
+  hero = hero.includes("npc_dota_hero_") ? hero : `npc_dota_hero_${hero}`;
 
   const page = numberOrDefault(ctx.query.page as string, 0);
 
-  const [initialMatchData, initialHeroItemsData, initialHeroesMeta] = await Promise.all<any>([
+  const [
+    initialMatchData,
+    initialHeroItemsData,
+    initialHeroesMeta,
+    initialHeroPlayers,
+  ] = await Promise.all<any>([
     useApi().matchApi.matchControllerHeroMatches(page, hero, undefined),
     useApi().metaApi.metaControllerHero(hero),
-    useApi().metaApi.metaControllerHeroes()
+    useApi().metaApi.metaControllerHeroes(),
+    useApi().metaApi.metaControllerHeroPlayers(hero),
   ]);
 
   return {
     hero,
     initialMatchData,
     initialHeroItemsData,
-    initialHeroesMeta
+    initialHeroesMeta,
+    initialHeroPlayers,
   };
 };

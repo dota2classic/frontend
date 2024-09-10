@@ -1,13 +1,13 @@
 import React from "react";
 
-import { ItemIcon, Table, TableRowLoading } from "..";
+import { GenericTable } from "..";
 import { HeroItemDto } from "@/api/back";
-import cx from "classnames";
-import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
+import { ColumnType } from "@/components/GenericTable/GenericTable";
+import { colors } from "@/colors";
 
 interface IHeroItemsTableProps {
   data: HeroItemDto[];
-  loading?: boolean;
+  loading: boolean;
   className?: string;
 }
 
@@ -16,54 +16,38 @@ export const HeroItemsTable: React.FC<IHeroItemsTableProps> = ({
   className,
   loading,
 }) => {
-  const maxGameCount = data[0]?.gameCount || 1;
-  const maxWins = data[0]?.wins || 1;
-  const maxWinrate = data[0]?.winrate || 1;
-
   return (
-    <Table className={cx("compact", className)}>
-      <thead>
-        <tr>
-          <th style={{ width: 10 }}>Предмет</th>
-          <th>Матчи</th>
-          <th>Победы</th>
-          <th>Доля Побед</th>
-        </tr>
-      </thead>
-      <tbody>
-        {loading ? (
-          <TableRowLoading columns={4} rows={20} />
-        ) : (
-          data.map((it) => (
-            <tr key={it.item}>
-              <td>
-                <ItemIcon small item={it.item} />
-              </td>
-              <td>
-                <div>{it.gameCount}</div>
-                <SingleWeightedBarChart
-                  value={it.gameCount / maxGameCount}
-                  color={"#92a525"}
-                />
-              </td>
-              <td>
-                <div>{it.wins}</div>
-                <SingleWeightedBarChart
-                  value={it.wins / maxWins}
-                  color={"#92a525"}
-                />
-              </td>
-              <td>
-                <div>{(it.winrate * 100).toFixed(2)}%</div>
-                <SingleWeightedBarChart
-                  value={it.winrate / maxWinrate}
-                  color={"red"}
-                />
-              </td>
-            </tr>
-          ))
-        )}
-      </tbody>
-    </Table>
+    <GenericTable
+      className={className}
+      isLoading={loading}
+      placeholderRows={20}
+      keyProvider={(it) => it[0]}
+      columns={[
+        {
+          type: ColumnType.Item,
+          name: "Предмет",
+        },
+        {
+          type: ColumnType.IntWithBar,
+          name: "Матчи",
+          color: colors.green,
+        },
+        {
+          type: ColumnType.IntWithBar,
+          name: "Победы",
+          color: colors.green,
+        },
+        {
+          type: ColumnType.PercentWithBar,
+          name: "Доля побед",
+        },
+      ]}
+      data={data.map((it) => [
+        it.item,
+        it.gameCount,
+        it.wins,
+        (it.wins / it.gameCount) * 100,
+      ])}
+    />
   );
 };

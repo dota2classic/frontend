@@ -1,5 +1,5 @@
 import Router from "next/router";
-import type {UrlObject} from "url";
+import type { UrlObject } from "url";
 
 export interface NextLinkProp {
   href: string | UrlObject;
@@ -92,15 +92,16 @@ export const AppRouter = {
       ),
   },
   heroes: {
-      index: spage('/heroes'),
-      hero: (hero: string) => {
-        const fhero = hero.replace('npc_dota_hero_', '');
-        return page('/heroes/[id]', `/heroes/${fhero}`)
-      }
+    index: spage("/heroes"),
+    hero: (hero: string) => {
+      const fhero = hero.replace("npc_dota_hero_", "");
+      return page("/heroes/[hero]", `/heroes/${fhero}`);
+    },
   },
   match: (id: number) => page(`/match/[id]`, `/match/${id}`),
   history: {
     index: spage(`/stats/history`),
-    page: (page: number, mode?: number | string) => spage(`/stats/history?page=${page}&mode=${mode}`),
+    page: (page: number, mode?: number | string) =>
+      spage(`/stats/history?page=${page}&mode=${mode}`),
   },
 };

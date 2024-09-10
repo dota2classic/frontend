@@ -13,10 +13,13 @@ import c from "./MatchHistoryTable.module.scss";
 import { AppRouter } from "@/route";
 import { formatGameMode } from "@/util/gamemode";
 import cx from "classnames";
+import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
+import { colors } from "@/colors";
+import { maxBy } from "@/util/iter";
 
 interface IMatchHistoryTableProps {
   data: MatchDto[];
-  loading?: boolean;
+  loading: boolean;
   perPage?: number;
   className?: string;
 }
@@ -25,8 +28,9 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
   data,
   loading,
   perPage,
-  className
+  className,
 }) => {
+  const maxDuration = maxBy(data, (it) => it.duration).duration;
   return (
     <Table className={cx("compact", className)}>
       <thead>
@@ -66,13 +70,17 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
               </td>
               <td>
                 <Duration duration={it.duration} />
+                <SingleWeightedBarChart
+                  value={it.duration / maxDuration}
+                  color={colors.grey}
+                />
               </td>
-              <td>
+              <td className={c.heroes}>
                 {it.radiant.map((plr) => (
                   <HeroIcon small key={plr.hero} hero={plr.hero} />
                 ))}
               </td>
-              <td>
+              <td className={c.heroes}>
                 {it.dire.map((plr) => (
                   <HeroIcon small key={plr.hero} hero={plr.hero} />
                 ))}

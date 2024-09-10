@@ -9,6 +9,25 @@
   flex-direction: row;
   align-items: center;
 
+  & :global(.left) {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-start;
+
+    & span {
+      font-size: 1.2rem;
+      margin-left: 8px;
+    }
+
+    & a {
+      color: $green;
+      margin-left: 8px;
+      font-size: 1rem;
+    }
+  }
+
+
   & img {
     width: 65px;
     height: 65px;

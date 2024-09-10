@@ -19,3 +19,10 @@
 .dire {
   color: $red !important;
 }
+
+
+.heroes {
+  & img {
+    vertical-align: middle;
+  }
+}

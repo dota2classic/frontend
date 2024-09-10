@@ -9,6 +9,7 @@ import { AppRouter } from "@/route";
 import { useDidMount, useQueryBackedParameter } from "@/util/hooks";
 import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
+import Head from "next/head";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
@@ -33,15 +34,10 @@ export default function MatchHistory({
   initialPage,
   initialMode,
 }: MatchHistoryProps) {
-  const [page, setPage] = useQueryBackedParameter(
-    "page"
-  );
-  const [mode, setMode] = useQueryBackedParameter(
-    "mode"
-  );
+  const [page, setPage] = useQueryBackedParameter("page");
+  const [mode, setMode] = useQueryBackedParameter("mode");
 
   const didMount = useDidMount();
-
 
   const { data, isLoading, isValidating, mutate } =
     useApi().matchApi.useMatchControllerMatches(
@@ -64,10 +60,13 @@ export default function MatchHistory({
 
   return (
     <>
+      <Head>
+        <title>Матчи</title>
+      </Head>
       <div className={c.panel}>
         <SelectOptions
           options={GameModeOptions}
-          selected={mode === undefined ? 'undefined' : mode}
+          selected={mode === undefined ? "undefined" : mode}
           onSelect={(value) => {
             if (value === "undefined") setMode(undefined);
             else setMode(value);

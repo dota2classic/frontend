@@ -13,29 +13,15 @@
 }
 
 
-
 .items {
-  grid-column: span 4;
+  grid-column: span 5;
 }
 
 
 .matchHistory {
-  grid-column: span 8;
+  grid-column: span 7;
 }
 
-
-.left {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: flex-start;
-
-  & .heroName {
-    font-size: 1.2rem;
-    margin-left: 8px;
-  }
-
-}
 
 .heroName {
 

@@ -24,3 +24,5 @@ export { HeroesMetaTable } from './HeroesMetaTable/HeroesMetaTable'
 export { HeroItemsTable } from './HeroItemsTable/HeroItemsTable'
 export { Panel } from './Panel/Panel'
 export { Section } from './Section/Section'
+export { GenericTable } from "./GenericTable/GenericTable";
+export { HeroPlayersTable } from "./HeroPlayersTable/HeroPlayersTable";
