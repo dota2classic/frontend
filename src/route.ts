@@ -63,7 +63,7 @@ export const AppRouter = {
     hero: (hero: string) =>
       page("/stats/meta/heroes/[id]", `/stats/meta/heroes/${hero}`),
   },
-  player: (id: string | number) => page(`/player/[id]`, `/player/${id}`),
+  player: (id: string | number) => page(`/players/[id]`, `/players/${id}`),
 
   admin: {
     tournamentMatch: {

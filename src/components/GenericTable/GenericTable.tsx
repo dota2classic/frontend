@@ -1,7 +1,14 @@
 import React, { ReactNode } from "react";
 import c from "./GenericTable.module.scss";
-import { HeroIcon, ItemIcon, PageLink, Table, TableRowLoading } from "..";
-import { AppRouter } from "@/route";
+import {
+  HeroIcon,
+  ItemIcon,
+  KDABarChart,
+  PageLink,
+  Table,
+  TableRowLoading,
+} from "..";
+import { AppRouter, NextLinkProp } from "@/route";
 import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
 import heroName from "@/util/heroName";
 import cx from "classnames";
@@ -15,6 +22,7 @@ export enum ColumnType {
   IntWithBar,
   FloatWithBar,
   PercentWithBar,
+  KDA,
 }
 
 interface Column {
@@ -24,6 +32,8 @@ interface Column {
   noname?: boolean;
 
   format?: (d: any) => ReactNode;
+
+  link?: (d: Data) => NextLinkProp;
 }
 
 type Data = any[];
@@ -37,11 +47,12 @@ interface Props {
   className?: string;
 }
 
-const ColRenderer: React.FC<{ value: any; col: Column; ctx: any }> = ({
-  value,
-  col,
-  ctx,
-}) => {
+const ColRenderer: React.FC<{
+  value: any;
+  col: Column;
+  ctx: any;
+  data: Data;
+}> = ({ value, col, ctx, data }) => {
   const type = col.type;
 
   if (type === ColumnType.Player) {
@@ -53,7 +64,11 @@ const ColRenderer: React.FC<{ value: any; col: Column; ctx: any }> = ({
             src={value.avatar || "/avatar.png"}
             alt=""
           />
-          <PageLink link={AppRouter.player(value.steam_id).link}>
+          <PageLink
+            link={
+              col.link ? col.link(data) : AppRouter.player(value.steam_id).link
+            }
+          >
             {value.name}
           </PageLink>
         </div>
@@ -67,11 +82,31 @@ const ColRenderer: React.FC<{ value: any; col: Column; ctx: any }> = ({
         ) : (
           <div className={c.player}>
             <HeroIcon small hero={value} />
-            <PageLink link={AppRouter.heroes.hero(value).link}>
+            <PageLink
+              link={
+                col.link ? col.link(data) : AppRouter.heroes.hero(value).link
+              }
+            >
               {heroName(value)}
             </PageLink>
           </div>
         )}
+      </td>
+    );
+  } else if (type === ColumnType.KDA) {
+    return (
+      <td>
+        <div className={c.kda}>
+          <span>
+            {value.kills.toFixed(2)} / {value.deaths.toFixed(2)} /{" "}
+            {value.assists.toFixed(2)}
+          </span>
+          <KDABarChart
+            kills={value.kills}
+            deaths={value.deaths}
+            assists={value.assists}
+          />
+        </div>
       </td>
     );
   } else if (type === ColumnType.Item) {
@@ -124,8 +159,9 @@ const RowRenderer: React.FC<{ data: Data; columns: Column[]; ctx: any[] }> = ({
 }) => {
   return (
     <tr>
-      {data.map((it, index) => (
+      {data.slice(0, columns.length).map((it, index) => (
         <ColRenderer
+          data={data}
           key={it}
           ctx={ctx[index]}
           value={it}

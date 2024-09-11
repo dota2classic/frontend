@@ -2,7 +2,6 @@ import React from "react";
 
 import { GenericTable } from "..";
 import { HeroSummaryDto } from "@/api/back";
-import { winrate } from "@/util/math";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 
@@ -17,27 +16,18 @@ export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
   loading,
   data,
 }) => {
-  const sortedByWinrate = data.toSorted(
-    (a, b) => winrate(b.wins, b.losses) - winrate(a.wins, a.losses),
-  );
-
-  const getTier = (summary: HeroSummaryDto) => {
-    const index = sortedByWinrate.indexOf(summary);
-    return heroTiers[
-      Math.floor((index / Math.max(1, data.length)) * heroTiers.length)
-    ];
-  };
+  const sortedByMatch = data.toSorted((a, b) => b.games - a.games);
 
   return (
     <GenericTable
       isLoading={loading}
       placeholderRows={109}
       keyProvider={(d) => d[0]}
-      data={data.map((it) => [
+      data={sortedByMatch.map((it) => [
         it.hero,
         it.games,
         (it.wins / it.games) * 100,
-        (it.kills + it.assists) / Math.max(1, it.deaths),
+        (it.kills + it.assists) / (it.deaths === 0 ? 1 : it.deaths),
         `${Math.round(it.gpm)} / ${Math.round(it.xpm)}`,
         `${Math.round(it.lastHits)} / ${Math.round(it.denies)}`,
       ])}

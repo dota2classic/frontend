@@ -1,20 +1,12 @@
 import React from "react";
-import {
-  BarChart,
-  Duration,
-  HeroIcon,
-  HeroName,
-  PageLink,
-  Table,
-  TimeAgo,
-} from "@/components";
+import { Duration, GenericTable, PageLink, TimeAgo } from "@/components";
 import c from "./PlayerMatchTable.module.scss";
 import { MatchmakingMode } from "@/const/enums";
-import cx from "classnames";
 import { AppRouter } from "@/route";
-import {KDABarChart, SingleWeightedBarChart} from "@/components/BarChart/BarChart";
-import {maxBy} from "@/util/iter";
-import {formatGameMode} from "@/util/gamemode";
+import { KDABarChart } from "@/components/BarChart/BarChart";
+import { formatGameMode } from "@/util/gamemode";
+import { ColumnType } from "@/components/GenericTable/GenericTable";
+import { colors } from "@/colors";
 
 export interface PlayerMatchItem {
   hero: string;
@@ -32,63 +24,80 @@ export interface PlayerMatchItem {
 interface IPlayerMatchTableProps {
   data: PlayerMatchItem[];
   className?: string;
+  loading: boolean;
 }
 
 export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
   data,
   className,
+  loading,
 }) => {
-  const maxDuration = maxBy(data, it => it.duration)
   return (
-    <Table className={cx("compact", className)}>
-      <thead>
-        <tr>
-          <th>Герой</th>
-          <th>Результат</th>
-          <th>Режим</th>
-          <th>Длительность</th>
-          <th>УСП</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {data.map((item) => (
-          <tr key={item.matchId}>
-            <td className={c.hero}>
-              <HeroIcon small hero={item.hero} />
-              <PageLink link={AppRouter.match(item.matchId).link}>
-                <HeroName name={item.hero} />
+    <GenericTable
+      placeholderRows={25}
+      keyProvider={(it) => it[5]}
+      columns={[
+        {
+          type: ColumnType.Hero,
+          name: "Герой",
+          link: (d) => AppRouter.match(d[5]).link,
+        },
+        {
+          type: ColumnType.Raw,
+          name: "Результат",
+          format: ({ won, matchId, timestamp }) => (
+            <div className={c.result}>
+              <PageLink
+                link={AppRouter.match(matchId).link}
+                className={won ? c.result__win : c.result__lose}
+              >
+                {won ? "Победа" : "Поражение"}
               </PageLink>
-            </td>
-            <td>
-              <div className={c.result}>
-                <PageLink
-                  link={AppRouter.match(item.matchId).link}
-                  className={item.won ? c.result__win : c.result__lose}
-                >
-                  {item.won ? "Победа" : "Поражение"}
-                </PageLink>
-                <span className={c.timestamp} suppressHydrationWarning>
-                  <TimeAgo date={item.timestamp} />
-                </span>
-              </div>
-            </td>
-            <td>{formatGameMode(item.mode)}</td>
-            <td>
-              <div>
-              <Duration duration={item.duration} />
-                <SingleWeightedBarChart color='#979797' value={item.duration / maxDuration.duration} />
-              </div>
-            </td>
-            <td>
-              <div className={c.kda}>
-                <span>{item.kills}/{item.deaths}/{item.assists}</span>
-                <KDABarChart kills={item.kills} deaths={item.deaths} assists={item.assists}/>
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
+              <span className={c.timestamp} suppressHydrationWarning>
+                <TimeAgo date={timestamp} />
+              </span>
+            </div>
+          ),
+        },
+        {
+          type: ColumnType.Raw,
+          name: "Режим",
+          format: formatGameMode,
+        },
+
+        {
+          type: ColumnType.IntWithBar,
+          name: "Длительность",
+          format: (dur) => <Duration duration={dur} />,
+          color: colors.grey,
+        },
+        {
+          type: ColumnType.Raw,
+          name: "KDA",
+          format: (item) => (
+            <div className={c.kda}>
+              <span>
+                {item.kills}/{item.deaths}/{item.assists}
+              </span>
+              <KDABarChart
+                kills={item.kills}
+                deaths={item.deaths}
+                assists={item.assists}
+              />
+            </div>
+          ),
+        },
+      ]}
+      data={data.map((it) => [
+        it.hero,
+        { won: it.won, timestamp: it.timestamp, matchId: it.matchId },
+        it.mode,
+        it.duration,
+        it,
+        it.matchId,
+      ])}
+      className={className}
+      isLoading={loading}
+    />
   );
 };

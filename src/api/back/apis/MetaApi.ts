@@ -40,6 +40,36 @@ export interface MetaControllerHeroPlayersRequest {
 export class MetaApi extends runtime.BaseAPI {
   /**
    */
+  private async metaControllerHeroRaw(
+    requestParameters: MetaControllerHeroRequest,
+  ): Promise<runtime.ApiResponse<Array<HeroItemDto>>> {
+    this.metaControllerHeroValidation(requestParameters);
+    const context = this.metaControllerHeroContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(HeroItemDtoFromJSON),
+    );
+  }
+
+  /**
+   */
+  private metaControllerHeroValidation(
+    requestParameters: MetaControllerHeroRequest,
+  ) {
+    if (
+      requestParameters.hero === null ||
+      requestParameters.hero === undefined
+    ) {
+      throw new runtime.RequiredError(
+        "hero",
+        "Required parameter requestParameters.hero was null or undefined when calling metaControllerHero.",
+      );
+    }
+  }
+
+  /**
+   */
   metaControllerHeroContext(
     requestParameters: MetaControllerHeroRequest,
   ): runtime.RequestOpts {
@@ -81,6 +111,36 @@ export class MetaApi extends runtime.BaseAPI {
       valid ? () => this.metaControllerHero(hero!) : null,
       config,
     );
+  }
+
+  /**
+   */
+  private async metaControllerHeroPlayersRaw(
+    requestParameters: MetaControllerHeroPlayersRequest,
+  ): Promise<runtime.ApiResponse<Array<HeroPlayerDto>>> {
+    this.metaControllerHeroPlayersValidation(requestParameters);
+    const context = this.metaControllerHeroPlayersContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(HeroPlayerDtoFromJSON),
+    );
+  }
+
+  /**
+   */
+  private metaControllerHeroPlayersValidation(
+    requestParameters: MetaControllerHeroPlayersRequest,
+  ) {
+    if (
+      requestParameters.hero === null ||
+      requestParameters.hero === undefined
+    ) {
+      throw new runtime.RequiredError(
+        "hero",
+        "Required parameter requestParameters.hero was null or undefined when calling metaControllerHeroPlayers.",
+      );
+    }
   }
 
   /**
@@ -132,6 +192,24 @@ export class MetaApi extends runtime.BaseAPI {
 
   /**
    */
+  private async metaControllerHeroesRaw(): Promise<
+    runtime.ApiResponse<Array<HeroSummaryDto>>
+  > {
+    this.metaControllerHeroesValidation();
+    const context = this.metaControllerHeroesContext();
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(HeroSummaryDtoFromJSON),
+    );
+  }
+
+  /**
+   */
+  private metaControllerHeroesValidation() {}
+
+  /**
+   */
   metaControllerHeroesContext(): runtime.RequestOpts {
     const queryParameters: any = {};
 
@@ -164,82 +242,4 @@ export class MetaApi extends runtime.BaseAPI {
       config,
     );
   }
-
-  /**
-   */
-  private async metaControllerHeroRaw(
-    requestParameters: MetaControllerHeroRequest,
-  ): Promise<runtime.ApiResponse<Array<HeroItemDto>>> {
-    this.metaControllerHeroValidation(requestParameters);
-    const context = this.metaControllerHeroContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(HeroItemDtoFromJSON),
-    );
-  }
-
-  /**
-   */
-  private metaControllerHeroValidation(
-    requestParameters: MetaControllerHeroRequest,
-  ) {
-    if (
-      requestParameters.hero === null ||
-      requestParameters.hero === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "hero",
-        "Required parameter requestParameters.hero was null or undefined when calling metaControllerHero.",
-      );
-    }
-  }
-
-  /**
-   */
-  private async metaControllerHeroPlayersRaw(
-    requestParameters: MetaControllerHeroPlayersRequest,
-  ): Promise<runtime.ApiResponse<Array<HeroPlayerDto>>> {
-    this.metaControllerHeroPlayersValidation(requestParameters);
-    const context = this.metaControllerHeroPlayersContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(HeroPlayerDtoFromJSON),
-    );
-  }
-
-  /**
-   */
-  private metaControllerHeroPlayersValidation(
-    requestParameters: MetaControllerHeroPlayersRequest,
-  ) {
-    if (
-      requestParameters.hero === null ||
-      requestParameters.hero === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "hero",
-        "Required parameter requestParameters.hero was null or undefined when calling metaControllerHeroPlayers.",
-      );
-    }
-  }
-
-  /**
-   */
-  private async metaControllerHeroesRaw(): Promise<
-    runtime.ApiResponse<Array<HeroSummaryDto>>
-  > {
-    this.metaControllerHeroesValidation();
-    const context = this.metaControllerHeroesContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(HeroSummaryDtoFromJSON),
-    );
-  }
-
-  /**
-   */
-  private metaControllerHeroesValidation() {}
 }
