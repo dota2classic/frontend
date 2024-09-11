@@ -26,42 +26,48 @@ import {
  * @interface LiveMatchDto
  */
 export interface LiveMatchDto {
-    /**
-     * 
-     * @type {number}
-     * @memberof LiveMatchDto
-     */
-    matchId: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LiveMatchDto
-     */
-    type: LiveMatchDtoTypeEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof LiveMatchDto
-     */
-    duration: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof LiveMatchDto
-     */
-    server: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof LiveMatchDto
-     */
-    timestamp: number;
-    /**
-     * 
-     * @type {Array<PlayerInfo>}
-     * @memberof LiveMatchDto
-     */
-    heroes: Array<PlayerInfo>;
+  /**
+   *
+   * @type {number}
+   * @memberof LiveMatchDto
+   */
+  matchId: number;
+  /**
+   *
+   * @type {number}
+   * @memberof LiveMatchDto
+   */
+  matchmakingMode: LiveMatchDtoMatchmakingModeEnum;
+  /**
+   *
+   * @type {number}
+   * @memberof LiveMatchDto
+   */
+  gameMode: LiveMatchDtoGameModeEnum;
+  /**
+   *
+   * @type {number}
+   * @memberof LiveMatchDto
+   */
+  duration: number;
+  /**
+   *
+   * @type {string}
+   * @memberof LiveMatchDto
+   */
+  server: string;
+  /**
+   *
+   * @type {number}
+   * @memberof LiveMatchDto
+   */
+  timestamp: number;
+  /**
+   *
+   * @type {Array<PlayerInfo>}
+   * @memberof LiveMatchDto
+   */
+  heroes: Array<PlayerInfo>;
 }
 
 export function LiveMatchDtoFromJSON(json: any): LiveMatchDto {
@@ -73,13 +79,13 @@ export function LiveMatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
         return json;
     }
     return {
-        
-        'matchId': json['matchId'],
-        'type': json['type'],
-        'duration': json['duration'],
-        'server': json['server'],
-        'timestamp': json['timestamp'],
-        'heroes': ((json['heroes'] as Array<any>).map(PlayerInfoFromJSON)),
+      matchId: json["matchId"],
+      matchmakingMode: json["matchmakingMode"],
+      gameMode: json["gameMode"],
+      duration: json["duration"],
+      server: json["server"],
+      timestamp: json["timestamp"],
+      heroes: (json["heroes"] as Array<any>).map(PlayerInfoFromJSON),
     };
 }
 
@@ -91,13 +97,13 @@ export function LiveMatchDtoToJSON(value?: LiveMatchDto | null): any {
         return null;
     }
     return {
-        
-        'matchId': value.matchId,
-        'type': value.type,
-        'duration': value.duration,
-        'server': value.server,
-        'timestamp': value.timestamp,
-        'heroes': ((value.heroes as Array<any>).map(PlayerInfoToJSON)),
+      matchId: value.matchId,
+      matchmakingMode: value.matchmakingMode,
+      gameMode: value.gameMode,
+      duration: value.duration,
+      server: value.server,
+      timestamp: value.timestamp,
+      heroes: (value.heroes as Array<any>).map(PlayerInfoToJSON),
     };
 }
 
@@ -105,18 +111,42 @@ export function LiveMatchDtoToJSON(value?: LiveMatchDto | null): any {
 * @export
 * @enum {string}
 */
-export enum LiveMatchDtoTypeEnum {
-    NUMBER_0 = 0,
-    NUMBER_1 = 1,
-    NUMBER_2 = 2,
-    NUMBER_3 = 3,
-    NUMBER_4 = 4,
-    NUMBER_5 = 5,
-    NUMBER_6 = 6,
-    NUMBER_7 = 7,
-    NUMBER_8 = 8,
-    NUMBER_9 = 9,
-    NUMBER_10 = 10
+export enum LiveMatchDtoMatchmakingModeEnum {
+  NUMBER_0 = 0,
+  NUMBER_1 = 1,
+  NUMBER_2 = 2,
+  NUMBER_3 = 3,
+  NUMBER_4 = 4,
+  NUMBER_5 = 5,
+  NUMBER_6 = 6,
+  NUMBER_7 = 7,
+  NUMBER_8 = 8,
+  NUMBER_9 = 9,
+  NUMBER_10 = 10,
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum LiveMatchDtoGameModeEnum {
+  NUMBER_1 = 1,
+  NUMBER_2 = 2,
+  NUMBER_3 = 3,
+  NUMBER_4 = 4,
+  NUMBER_5 = 5,
+  NUMBER_6 = 6,
+  NUMBER_7 = 7,
+  NUMBER_8 = 8,
+  NUMBER_9 = 9,
+  NUMBER_10 = 10,
+  NUMBER_11 = 11,
+  NUMBER_12 = 12,
+  NUMBER_13 = 13,
+  NUMBER_17 = 17,
+  NUMBER_18 = 18,
+  NUMBER_21 = 21,
+  NUMBER_22 = 22,
 }
 
 

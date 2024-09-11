@@ -32,6 +32,8 @@ interface Column {
   color?: string;
   noname?: boolean;
 
+  forceInteger?: boolean;
+
   format?: (d: any) => ReactNode;
 
   link?: (d: Data) => NextLinkProp;
@@ -47,6 +49,35 @@ interface Props {
   placeholderRows: number;
   className?: string;
 }
+
+interface KDATableDataProps {
+  forceInteger?: boolean;
+  kills: number;
+  deaths: number;
+  assists: number;
+}
+
+export const KDATableData = ({
+  kills,
+  deaths,
+  assists,
+  forceInteger,
+}: KDATableDataProps) => {
+  return (
+    <div className={c.kda}>
+      {forceInteger ? (
+        <span>
+          {kills} / {deaths} / {assists}
+        </span>
+      ) : (
+        <span>
+          {kills.toFixed(2)} / {deaths.toFixed(2)} / {assists.toFixed(2)}
+        </span>
+      )}
+      <KDABarChart kills={kills} deaths={deaths} assists={assists} />
+    </div>
+  );
+};
 
 const ColRenderer: React.FC<{
   value: any;
@@ -72,7 +103,7 @@ const ColRenderer: React.FC<{
                 : AppRouter.players.player(value.steam_id).link
             }
           >
-            {value.name}
+            {Number(value.steam_id) > 10 ? value.name : "Бот"}
           </PageLink>
         </div>
       </td>
@@ -97,17 +128,12 @@ const ColRenderer: React.FC<{
   } else if (type === ColumnType.KDA) {
     return (
       <td>
-        <div className={c.kda}>
-          <span>
-            {value.kills.toFixed(2)} / {value.deaths.toFixed(2)} /{" "}
-            {value.assists.toFixed(2)}
-          </span>
-          <KDABarChart
-            kills={value.kills}
-            deaths={value.deaths}
-            assists={value.assists}
-          />
-        </div>
+        <KDATableData
+          forceInteger={col.forceInteger}
+          deaths={value.deaths}
+          assists={value.assists}
+          kills={value.kills}
+        />
       </td>
     );
   } else if (type === ColumnType.Item) {

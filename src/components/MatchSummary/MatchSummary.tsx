@@ -5,7 +5,7 @@ import { Duration, TimeAgo } from "..";
 import c from "./MatchSummary.module.scss";
 import { MatchDtoModeEnum } from "@/api/back";
 import cx from "classnames";
-import {formatGameMode} from "@/util/gamemode";
+import { formatGameMode } from "@/util/gamemode";
 
 interface IMatchSummaryProps {
   matchId: number;
@@ -16,6 +16,26 @@ interface IMatchSummaryProps {
   radiantKills: number;
   direKills: number;
 }
+
+export const MatchSummaryScore = ({
+  radiantKills,
+  direKills,
+  duration,
+}: {
+  radiantKills: number;
+  direKills: number;
+  duration: number;
+}) => {
+  return (
+    <div className={c.matchWinner__score}>
+      <div className={c.radiant}>{radiantKills}</div>
+      <div className={c.matchWinner__duration}>
+        <Duration duration={duration} />
+      </div>
+      <div className={c.dire}>{direKills}</div>
+    </div>
+  );
+};
 
 export const MatchSummary: React.FC<IMatchSummaryProps> = ({
   matchId,
@@ -58,13 +78,11 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
         >
           {winner === 2 ? "Победы Сил Света" : "Победы Сил Тьмы"}
         </div>
-        <div className={c.matchWinner__score}>
-          <div className={c.radiant}>{radiantKills}</div>
-          <div className={c.matchWinner__duration}>
-            <Duration duration={duration} />
-          </div>
-          <div className={c.dire}>{direKills}</div>
-        </div>
+        <MatchSummaryScore
+          direKills={direKills}
+          radiantKills={radiantKills}
+          duration={duration}
+        />
       </div>
     </>
   );

@@ -11,7 +11,7 @@ export { PageLink } from './PageLink/PageLink'
 export { MatchTeamTable } from './MatchTeamTable/MatchTeamTable'
 export { ItemIcon } from './ItemIcon/ItemIcon'
 export { Typography } from './Typography/Typography'
-export { MatchSummary } from './MatchSummary/MatchSummary'
+export { MatchSummary, MatchSummaryScore } from "./MatchSummary/MatchSummary";
 export { NumberFormat } from './NumberFormat/NumberFormat'
 export { MatchHistoryTable } from './MatchHistoryTable/MatchHistoryTable'
 export { BarChart, KDABarChart } from './BarChart/BarChart'
@@ -26,3 +26,4 @@ export { Panel } from './Panel/Panel'
 export { Section } from './Section/Section'
 export { GenericTable } from "./GenericTable/GenericTable";
 export { HeroPlayersTable } from "./HeroPlayersTable/HeroPlayersTable";
+export { LiveMatchPreview } from "./LiveMatchPreview/LiveMatchPreview";

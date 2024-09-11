@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/*<link rel="stylesheet" href={`/style.css`}/>*/}
+        <link rel="stylesheet" href={`/minimap.css`} />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"

@@ -12,7 +12,8 @@
     "create-component": "node ./scripts/create-component.js",
     "create-component-props": "node ./scripts/create-component-props.js",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "docker": "docker build . -t dota2classic/matchmaking:dotabuff && docker push dota2classic/matchmaking:dotabuff"
   },
   "dependencies": {
     "apisauce": "^3.0.1",
