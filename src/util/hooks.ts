@@ -48,7 +48,7 @@ export const useQueryBackedParameter = (
     });
   };
 
-  return [routerTab, setTabAction];
+  return [routerTab as string, setTabAction];
 };
 
 export const useRouterChanging = () => {
@@ -57,12 +57,12 @@ export const useRouterChanging = () => {
     [boolean, string | undefined, boolean | undefined]
   >([false, "", false]);
   useEffect(() => {
-    const handleRouteChange = (url, { shallow }) => {
-      setIsChanging([true, url, shallow]);
+    const handleRouteChange = (url: string, obj: any) => {
+      setIsChanging([true, url, obj.shallow]);
     };
 
-    const handleRouteChangeComplete = (url, { shallow }) => {
-      setIsChanging([false, url, shallow]);
+    const handleRouteChangeComplete = (url: string, obj: any) => {
+      setIsChanging([false, url, obj.shallow]);
     };
 
     router.events.on("routeChangeStart", handleRouteChange);

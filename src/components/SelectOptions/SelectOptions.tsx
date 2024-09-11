@@ -28,22 +28,22 @@ export const HeroOptions = [
     })),
 ];
 
-interface ISelectOptionsProps<T> {
+interface ISelectOptionsProps {
   options: {
     value: any;
     label: ReactNode;
   }[];
   selected: any;
-  onSelect: (v: T) => void;
+  onSelect: (v: any) => void;
   defaultText: ReactNode;
 }
 
-export function SelectOptions<T extends any>({
+export function SelectOptions({
   options,
   onSelect,
   selected,
   defaultText,
-}: ISelectOptionsProps<T>) {
+}: ISelectOptionsProps) {
   return (
     <div className={c.select}>
       <select value={selected} onChange={(v) => onSelect(v.target.value)}>

@@ -6,6 +6,7 @@ import { useDidMount } from "@/util/hooks";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 import cx from "classnames";
+import { NextPageContext } from "next";
 
 interface Props {
   initialLeaderboard: LeaderboardEntryDto[];
@@ -101,7 +102,7 @@ export default function Leaderboard({ initialLeaderboard }: Props) {
   );
 }
 
-Leaderboard.getInitialProps = async (ctx) => {
+Leaderboard.getInitialProps = async (ctx: NextPageContext) => {
   return {
     initialLeaderboard: await useApi().playerApi.playerControllerLeaderboard(),
   };

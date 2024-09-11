@@ -8,6 +8,8 @@ import cx from "classnames";
 
 interface IPaginationProps {
   linkProducer: (page: number) => NextLinkProp;
+  page: number;
+  maxPage: number;
 }
 
 const PaginationItem = ({
@@ -50,12 +52,11 @@ export const Pagination: React.FC<IPaginationProps> = ({
           <PaginationItem link={linkProducer(page - 1)}>Пред.</PaginationItem>
         </>
       )}
-      {hasMoreLeft && <PaginationItem maxPage={maxPage}>..</PaginationItem>}
+      {hasMoreLeft && <PaginationItem>..</PaginationItem>}
       {iter.map((_page) => (
         <PaginationItem
           key={_page}
           link={linkProducer(_page)}
-          page={page}
           active={page === _page}
         >
           {_page + 1}

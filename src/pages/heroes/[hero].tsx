@@ -21,6 +21,7 @@ import React from "react";
 import heroName from "@/util/heroName";
 import { formatWinrate } from "@/util/math";
 import Head from "next/head";
+import { NextPageContext } from "next";
 
 interface InitialProps {
   initialMatchData: MatchPageDto;
@@ -61,15 +62,13 @@ export default function HeroHistoryPage({
       },
     });
 
-  const { data: heroPlayers } = useApi().metaApi.useMetaControllerHeroPlayers(
-    hero,
-    {
+  const { data: heroPlayers, isLoading: heroPlayersLoading } =
+    useApi().metaApi.useMetaControllerHeroPlayers(hero, {
       fallbackData: initialHeroPlayers,
       isPaused() {
         return !mounted;
       },
-    },
-  );
+    });
 
   const { data: summaries } = useApi().metaApi.useMetaControllerHeroes({
     fallbackData: initialHeroesMeta,
@@ -127,7 +126,10 @@ export default function HeroHistoryPage({
       </Section>
       <Section className={c.items}>
         <header>Лучшие игроки</header>
-        <HeroPlayersTable data={heroPlayers || []} />
+        <HeroPlayersTable
+          loading={heroPlayersLoading}
+          data={heroPlayers || []}
+        />
         <header>Предметы</header>
         <HeroItemsTable
           loading={isItemsLoading}
@@ -138,7 +140,7 @@ export default function HeroHistoryPage({
   );
 }
 
-HeroHistoryPage.getInitialProps = async (ctx) => {
+HeroHistoryPage.getInitialProps = async (ctx: NextPageContext) => {
   let hero = ctx.query.hero as string;
   hero = hero.includes("npc_dota_hero_") ? hero : `npc_dota_hero_${hero}`;
 

@@ -13,7 +13,7 @@ function formatTime(ms: number) {
   return ms < 0 && seconds ? `-${t}` : t;
 }
 
-const formatDuration2 = (ms) => {
+const formatDuration2 = (ms: number) => {
   if (ms < 0) ms = -ms;
   const time = {
     д: Math.floor(ms / 86400000),

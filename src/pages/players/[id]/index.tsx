@@ -43,7 +43,6 @@ interface PlayerPageProps {
 export default function PlayerPage({
   playerId,
   preloadedSummary,
-  preloadedStats,
   preloadedMatches,
   preloadedHeroStats,
 }: PlayerPageProps) {

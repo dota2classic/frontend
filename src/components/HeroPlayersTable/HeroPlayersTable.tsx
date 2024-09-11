@@ -7,13 +7,17 @@ import { HeroPlayerDto } from "@/api/back";
 
 interface IHeroPlayersTableProps {
   data: HeroPlayerDto[];
+  loading: boolean;
 }
 
 export const HeroPlayersTable: React.FC<IHeroPlayersTableProps> = ({
   data,
+  loading,
 }) => {
   return (
     <GenericTable
+      placeholderRows={10}
+      isLoading={loading}
       keyProvider={(d) => d[0].steam_id}
       columns={[
         {

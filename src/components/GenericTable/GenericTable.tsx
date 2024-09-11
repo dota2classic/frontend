@@ -145,7 +145,7 @@ const ColRenderer: React.FC<{
   } else if (type === ColumnType.Items) {
     return (
       <td>
-        {value.map((item, idx) => (
+        {value.map((item: string, idx: number) => (
           <ItemIcon small key={idx} item={item} />
         ))}
       </td>

@@ -29,7 +29,7 @@ export default function MatchHistory({
   const data = matches;
 
   useEffect(() => {
-    if (data && page >= data.pages) {
+    if (data && numberOrDefault(page, 0) >= data.pages) {
       setPage(data.pages - 1);
     }
   }, [data?.pages]);
@@ -54,7 +54,7 @@ export default function MatchHistory({
         <MatchHistoryTable loading={isLoading} data={data?.data || []} />
         <Pagination
           linkProducer={(page) =>
-            AppRouter.history.page(page, mode | undefined).link
+            AppRouter.history.page(page, mode || undefined).link
           }
           page={Number(page) || data?.page || 0}
           maxPage={data?.pages || 0}
