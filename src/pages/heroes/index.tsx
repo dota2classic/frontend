@@ -2,25 +2,20 @@ import { useApi } from "@/api/hooks";
 import { HeroSummaryDto } from "@/api/back";
 import { HeroesMetaTable } from "@/components";
 import Head from "next/head";
+import { useRouterChanging } from "@/util/hooks";
 
 interface InitialProps {
   heroes: HeroSummaryDto[];
 }
 
 export default function Heroes({ heroes }: InitialProps) {
-  const { data, isLoading } = useApi().metaApi.useMetaControllerHeroes({
-    fallbackData: heroes,
-    isPaused() {
-      return true;
-    },
-  });
-
+  const [isLoading] = useRouterChanging();
   return (
     <>
       <Head>
         <title>Герои</title>
       </Head>
-      <HeroesMetaTable loading={isLoading} data={data || []} />
+      <HeroesMetaTable loading={false} data={heroes || []} />
     </>
   );
 }

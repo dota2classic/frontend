@@ -3,13 +3,12 @@ import { useApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import { MatchPageDto } from "@/api/back";
 import c from "./History.module.scss";
-import { MatchmakingMode } from "@/const/enums";
-import { formatGameMode } from "@/util/gamemode";
 import { AppRouter } from "@/route";
-import { useDidMount, useQueryBackedParameter } from "@/util/hooks";
+import { useQueryBackedParameter, useRouterChanging } from "@/util/hooks";
 import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
 import Head from "next/head";
+import { GameModeOptions } from "@/components/SelectOptions/SelectOptions";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
@@ -17,18 +16,6 @@ interface MatchHistoryProps {
   initialMode?: number;
 }
 
-const GameModeOptions = [
-  { value: "undefined", label: "Все режимы" },
-  ...[
-    MatchmakingMode.RANKED,
-    MatchmakingMode.UNRANKED,
-    MatchmakingMode.SOLOMID,
-    MatchmakingMode.BOTS,
-  ].map((it) => ({
-    value: it,
-    label: formatGameMode(it),
-  })),
-];
 export default function MatchHistory({
   matches,
   initialPage,
@@ -37,20 +24,9 @@ export default function MatchHistory({
   const [page, setPage] = useQueryBackedParameter("page");
   const [mode, setMode] = useQueryBackedParameter("mode");
 
-  const didMount = useDidMount();
+  const [isLoading] = useRouterChanging();
 
-  const { data, isLoading, isValidating, mutate } =
-    useApi().matchApi.useMatchControllerMatches(
-      numberOrDefault(page, 0),
-      undefined,
-      numberOrDefault(mode, undefined),
-      {
-        fallbackData: matches,
-        isPaused() {
-          return !didMount;
-        },
-      },
-    );
+  const data = matches;
 
   useEffect(() => {
     if (data && page >= data.pages) {

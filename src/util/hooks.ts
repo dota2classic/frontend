@@ -14,13 +14,12 @@ const preservedQuery = () => {
   }
 };
 
-
-export const useQueryParameter = (name: string): string | undefined => {
-
-}
+export const useQueryParameters = (): Record<string, string> => {
+  return useRouter().query as any;
+};
 
 export const useQueryBackedParameter = (
-  tabName: string = "tab"
+  tabName: string = "tab",
 ): [string | undefined, (a: any) => void] => {
   const router = useRouter();
   const { [tabName]: routerTab } = router.query;
@@ -39,20 +38,46 @@ export const useQueryBackedParameter = (
 
     const queryPart = stringify(pQuery);
 
-    Router.replace(href + `?${queryPart}`, asPath + `?${queryPart}`, {
-      shallow: true,
-    })
+    // Router.push
+
+    // Router.replace(href + `?${queryPart}`, asPath + `?${queryPart}`, {
+    router.push(href + `?${queryPart}`, asPath + `?${queryPart}`, {
+      // shallow: true,
+    });
   };
 
   return [routerTab, setTabAction];
 };
 
+export const useRouterChanging = () => {
+  const router = useRouter();
+  const [isChanging, setIsChanging] = useState<
+    [boolean, string | undefined, boolean | undefined]
+  >([false, "", false]);
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => {
+      setIsChanging([true, url, shallow]);
+    };
+
+    const handleRouteChangeComplete = (url, { shallow }) => {
+      setIsChanging([false, url, shallow]);
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router]);
+  return isChanging;
+};
 
 export const useDidMount = () => {
-
   const [mount, setMount] = useState(false);
   useEffect(() => {
     setMount(true);
   }, []);
   return mount;
-}
+};

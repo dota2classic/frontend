@@ -19,11 +19,19 @@ export interface PlayerMatchItem {
   won: boolean;
   mode: MatchmakingMode;
   matchId: number;
+
+  item0: number;
+  item1: number;
+  item2: number;
+  item3: number;
+  item4: number;
+  item5: number;
 }
 
 interface IPlayerMatchTableProps {
   data: PlayerMatchItem[];
   className?: string;
+  withItems?: boolean;
   loading: boolean;
 }
 
@@ -31,16 +39,17 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
   data,
   className,
   loading,
+  withItems,
 }) => {
   return (
     <GenericTable
       placeholderRows={25}
-      keyProvider={(it) => it[5]}
+      keyProvider={(it) => it[6]}
       columns={[
         {
           type: ColumnType.Hero,
           name: "Герой",
-          link: (d) => AppRouter.match(d[5]).link,
+          link: (d) => AppRouter.match(d[6]).link,
         },
         {
           type: ColumnType.Raw,
@@ -87,6 +96,14 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
             </div>
           ),
         },
+        ...(withItems
+          ? [
+              {
+                type: ColumnType.Items,
+                name: "Предметы",
+              },
+            ]
+          : []),
       ]}
       data={data.map((it) => [
         it.hero,
@@ -94,6 +111,7 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
         it.mode,
         it.duration,
         it,
+        [it.item0, it.item1, it.item2, it.item3, it.item4, it.item5],
         it.matchId,
       ])}
       className={className}

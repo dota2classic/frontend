@@ -1,5 +1,6 @@
 import Router from "next/router";
 import type { UrlObject } from "url";
+import Qs from "qs";
 
 export interface NextLinkProp {
   href: string | UrlObject;
@@ -46,7 +47,8 @@ export const pageablePage = (
   };
 };
 
-const spage = (href: string) => page(href, href, true);
+const spage = (href: string, shallow: boolean = true) =>
+  page(href, href, shallow);
 
 export const AppRouter = {
   index: spage("/"),
@@ -63,7 +65,27 @@ export const AppRouter = {
     hero: (hero: string) =>
       page("/stats/meta/heroes/[id]", `/stats/meta/heroes/${hero}`),
   },
-  player: (id: string | number) => page(`/players/[id]`, `/players/${id}`),
+  players: {
+    player: (id: string | number) => page(`/players/[id]`, `/players/${id}`),
+    playerMatches: (
+      id: string | number,
+      hero?: string,
+      _page?: number,
+      mode?: number,
+    ) => {
+      const fhero = (hero && hero.replace("npc_dota_hero_", "")) || undefined;
+      const queryString = Qs.stringify({
+        hero: fhero,
+        mode,
+        page: _page,
+      });
+      return page(
+        `/players/[id]/matches?${queryString}`,
+        `/players/${id}/matches?${queryString}`,
+      );
+    },
+    leaderboard: spage("/players"),
+  },
 
   admin: {
     tournamentMatch: {
@@ -101,7 +123,12 @@ export const AppRouter = {
   match: (id: number) => page(`/match/[id]`, `/match/${id}`),
   history: {
     index: spage(`/stats/history`),
-    page: (page: number, mode?: number | string) =>
-      spage(`/stats/history?page=${page}&mode=${mode}`),
+    page: (page: number, mode?: number | string) => {
+      const q = Qs.stringify({
+        page,
+        mode,
+      });
+      return spage(`/stats/history?${q}`, false);
+    },
   },
 };

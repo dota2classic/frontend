@@ -6,16 +6,12 @@ import {
 import c from "./PlayerPage.module.scss";
 import { useApi } from "@/api/hooks";
 import { NextPageContext } from "next";
-import {
-  HeroStatsDto,
-  MatchPageDto,
-  PlayerGeneralStatsDto,
-  PlayerSummaryDto,
-} from "@/api/back";
+import { HeroStatsDto, MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import { useQueryBackedParameter } from "@/util/hooks";
 import { PlayerMatchItem } from "@/components/PlayerMatchTable/PlayerMatchTable";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import Head from "next/head";
+import { numberOrDefault } from "@/util/urls";
 //
 // const d2: any[] = Matches.map((it) => ({
 //   hero: it.radiant[0].hero,
@@ -40,7 +36,6 @@ import Head from "next/head";
 interface PlayerPageProps {
   playerId: string;
   preloadedSummary: PlayerSummaryDto;
-  preloadedStats: PlayerGeneralStatsDto;
   preloadedMatches: MatchPageDto;
   preloadedHeroStats: HeroStatsDto[];
 }
@@ -64,39 +59,30 @@ export default function PlayerPage({
     },
   );
 
-  const { data: generalStats } =
-    useApi().playerApi.usePlayerControllerGeneralSummary(playerId, {
-      fallbackData: preloadedStats,
-      isPaused() {
-        return !!preloadedStats;
+  const { data: matches, isLoading: matchesLoading } =
+    useApi().matchApi.useMatchControllerPlayerMatches(
+      playerId,
+      numberOrDefault(page, 0),
+      undefined,
+      undefined,
+      undefined,
+      {
+        fallbackData: preloadedMatches,
+        isPaused() {
+          return !!preloadedMatches;
+        },
       },
-    });
+    );
 
-  const { data: matches } = useApi().matchApi.useMatchControllerPlayerMatches(
-    playerId,
-    page || 0,
-    undefined,
-    undefined,
-    undefined,
-    {
-      fallbackData: preloadedMatches,
-      isPaused() {
-        return !!preloadedMatches;
-      },
-    },
-  );
-
-  const { data: heroStats } = useApi().playerApi.usePlayerControllerHeroSummary(
-    playerId,
-    {
+  const { data: heroStats, isLoading: heroStatsLoading } =
+    useApi().playerApi.usePlayerControllerHeroSummary(playerId, {
       fallbackData: preloadedHeroStats,
       isPaused() {
         return !!preloadedHeroStats;
       },
-    },
-  );
+    });
 
-  if (!summary || !generalStats) return null;
+  if (!summary) return null;
 
   const formattedMatches: PlayerMatchItem[] = (matches?.data || []).map((it) =>
     matchToPlayerMatchItem(it, (it) => it.steamId === playerId),
@@ -119,15 +105,21 @@ export default function PlayerPage({
       </Head>
       <PlayerSummary
         image={summary.avatar || "/avatar.png"}
-        wins={generalStats.wins}
-        loss={generalStats.loss}
+        wins={summary.wins}
+        loss={summary.loss}
         rating={summary.mmr}
         name={summary.name}
         className={c.playerInfo}
         steamId={summary.steamId}
       />
-      <PlayerMatchTable className={c.matchHistory} data={formattedMatches} />
+      <PlayerMatchTable
+        loading={matchesLoading}
+        className={c.matchHistory}
+        data={formattedMatches}
+      />
       <HeroPerformanceTable
+        steamId={playerId}
+        loading={heroStatsLoading}
         className={c.heroPerformance}
         data={formattedHeroStats}
       />
@@ -141,21 +133,15 @@ PlayerPage.getInitialProps = async (
   const playerId = ctx.query.id as string;
   const page = Number(ctx.query.page as string) || 0;
 
-  const [
-    preloadedSummary,
-    preloadedStats,
-    preloadedMatches,
-    preloadedHeroStats,
-  ] = await Promise.all<any>([
-    useApi().playerApi.playerControllerPlayerSummary(playerId),
-    useApi().playerApi.playerControllerGeneralSummary(playerId),
-    useApi().matchApi.matchControllerPlayerMatches(playerId, page),
-    useApi().playerApi.playerControllerHeroSummary(playerId),
-  ]);
+  const [preloadedSummary, preloadedMatches, preloadedHeroStats] =
+    await Promise.all<any>([
+      useApi().playerApi.playerControllerPlayerSummary(playerId),
+      useApi().matchApi.matchControllerPlayerMatches(playerId, page),
+      useApi().playerApi.playerControllerHeroSummary(playerId),
+    ]);
   return {
     playerId,
     preloadedSummary,
-    preloadedStats,
     preloadedMatches,
     preloadedHeroStats,
   };

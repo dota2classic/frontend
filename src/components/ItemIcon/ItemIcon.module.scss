@@ -4,6 +4,7 @@
 .item {
   height: 40px;
   object-fit: contain;
+  width: unset;
 
   @media (max-width: 1200px) {
     height: 30px;

@@ -20,7 +20,6 @@ export * from './MatchmakingModeStatusEntity';
 export * from './MeDto';
 export * from './MyProfileDto';
 export * from './PartyDto';
-export * from './PlayerGeneralStatsDto';
 export * from './PlayerInMatchDto';
 export * from './PlayerInPartyDto';
 export * from './PlayerInfo';

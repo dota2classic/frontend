@@ -23,6 +23,7 @@ export enum ColumnType {
   FloatWithBar,
   PercentWithBar,
   KDA,
+  Items,
 }
 
 interface Column {
@@ -66,7 +67,9 @@ const ColRenderer: React.FC<{
           />
           <PageLink
             link={
-              col.link ? col.link(data) : AppRouter.player(value.steam_id).link
+              col.link
+                ? col.link(data)
+                : AppRouter.players.player(value.steam_id).link
             }
           >
             {value.name}
@@ -76,21 +79,19 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.Hero) {
     return (
-      <td className={c.item}>
-        {col.noname ? (
-          <HeroIcon small hero={value} />
-        ) : (
-          <div className={c.player}>
+      <td className={c.hero}>
+        <PageLink
+          link={col.link ? col.link(data) : AppRouter.heroes.hero(value).link}
+        >
+          {col.noname ? (
             <HeroIcon small hero={value} />
-            <PageLink
-              link={
-                col.link ? col.link(data) : AppRouter.heroes.hero(value).link
-              }
-            >
-              {heroName(value)}
-            </PageLink>
-          </div>
-        )}
+          ) : (
+            <div className={c.player}>
+              <HeroIcon small hero={value} />
+              <span>{heroName(value)}</span>
+            </div>
+          )}
+        </PageLink>
       </td>
     );
   } else if (type === ColumnType.KDA) {
@@ -113,6 +114,14 @@ const ColRenderer: React.FC<{
     return (
       <td style={{ width: 20 }} className={c.item}>
         <ItemIcon small item={value} />
+      </td>
+    );
+  } else if (type === ColumnType.Items) {
+    return (
+      <td>
+        {value.map((item, idx) => (
+          <ItemIcon small key={idx} item={item} />
+        ))}
       </td>
     );
   } else if (type === ColumnType.IntWithBar) {
@@ -162,7 +171,7 @@ const RowRenderer: React.FC<{ data: Data; columns: Column[]; ctx: any[] }> = ({
       {data.slice(0, columns.length).map((it, index) => (
         <ColRenderer
           data={data}
-          key={it}
+          key={JSON.stringify(it)}
           ctx={ctx[index]}
           value={it}
           col={columns[index]}
@@ -186,7 +195,8 @@ export const GenericTable: React.FC<Props> = ({
       it.type === ColumnType.FloatWithBar ||
       it.type === ColumnType.PercentWithBar
     ) {
-      return { max: maxBy(data, (it) => it[index])[index] };
+      const max = maxBy(data, (it) => it[index]);
+      return { max: (max && max[index]) || 1 };
     }
 
     return {};
@@ -197,13 +207,26 @@ export const GenericTable: React.FC<Props> = ({
       <thead>
         <tr>
           {columns.map((col, index) => (
-            <th key={index}>{col.name}</th>
+            <th
+              key={index}
+              className={cx({
+                [c.hero]: col.type === ColumnType.Hero,
+              })}
+            >
+              {col.name}
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
         {isLoading ? (
           <TableRowLoading columns={columns.length} rows={placeholderRows} />
+        ) : data.length === 0 ? (
+          <tr>
+            <td colSpan={6} className={c.empty}>
+              К сожалению, за данный период статистики нет.
+            </td>
+          </tr>
         ) : (
           data.map((it) => (
             <RowRenderer

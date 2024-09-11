@@ -13,7 +13,7 @@
 
   font-size: 0.8rem;
 
-  & a {
+  & a, span {
     margin-left: 4px;
     text-transform: capitalize;
   }
@@ -32,9 +32,28 @@
   }
 }
 
+.hero {
+  width: 220px;
+
+  & img {
+    // margin-top: 4px;
+    vertical-align: middle;
+  }
+}
+
 
 .kda {
   //letter-spacing: 2px;
   display: flex;
   flex-direction: column;
+}
+
+
+.empty {
+  padding: 16px 0 !important;
+  color: #999999;
+  font-size: 1.2rem !important;
+  line-height: 16px;
+  text-align: center !important;
+  vertical-align: middle !important;;
 }

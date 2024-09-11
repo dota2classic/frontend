@@ -42,7 +42,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
               </div>
             </td>
             <td>
-              <PageLink link={AppRouter.player(player.steamId).link}>
+              <PageLink link={AppRouter.players.player(player.steamId).link}>
                 {player.name}
               </PageLink>
             </td>
@@ -58,9 +58,9 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <td className="middle">{player.assists}</td>
             <td className={c.gold}>
               <NumberFormat
-                number={
-                  Math.round(player.gold || Math.round((player.gpm * duration) / 60) * 0.6)
-                }
+                number={Math.round(
+                  player.gold || Math.round((player.gpm * duration) / 60) * 0.6,
+                )}
               />
             </td>
             <td>

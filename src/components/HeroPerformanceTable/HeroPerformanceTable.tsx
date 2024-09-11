@@ -3,6 +3,7 @@ import React from "react";
 import { GenericTable } from "..";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
+import { AppRouter } from "@/route";
 
 interface DataPoint {
   hero: string;
@@ -14,12 +15,14 @@ interface IHeroPerformanceTableProps {
   data: DataPoint[];
   className?: string;
   loading: boolean;
+  steamId: string;
 }
 
 export const HeroPerformanceTable: React.FC<IHeroPerformanceTableProps> = ({
   data,
   className,
   loading,
+  steamId,
 }) => {
   if (!data.length) return;
 
@@ -33,6 +36,7 @@ export const HeroPerformanceTable: React.FC<IHeroPerformanceTableProps> = ({
           type: ColumnType.Hero,
           name: "Герой",
           noname: true,
+          link: (d) => AppRouter.players.playerMatches(steamId, d[0]).link,
         },
         {
           type: ColumnType.IntWithBar,

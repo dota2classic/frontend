@@ -103,16 +103,16 @@ export default [
   { tag: "npc_dota_hero_abaddon", name: "Abaddon" },
   { tag: "npc_dota_hero_gyrocopter", name: "Gyrocopter" },
   { tag: "npc_dota_hero_disruptor", name: "Disruptor" },
-  { tag: "npc_dota_hero_pangolier", name: "Pangolier" },
+  // { tag: "npc_dota_hero_pangolier", name: "Pangolier" },
   { tag: "npc_dota_hero_techies", name: "Techies" },
   { tag: "npc_dota_hero_keeper_of_the_light", name: "Keeper of the Light" },
   { tag: "npc_dota_hero_skywrath_mage", name: "Skywrath Mage" },
   { tag: "npc_dota_hero_naga_siren", name: "Naga Siren" },
-  { tag: "npc_dota_hero_grimstroke", name: "Grimstroke" },
+  // { tag: "npc_dota_hero_grimstroke", name: "Grimstroke" },
   { tag: "npc_dota_hero_ember_spirit", name: "Ember Spirit" },
   { tag: "npc_dota_hero_oracle", name: "Oracle" },
   { tag: "npc_dota_hero_centaur", name: "Centaur Warrunner" },
   { tag: "npc_dota_hero_bristleback", name: "Bristleback" },
   { tag: "npc_dota_hero_slark", name: "Slark" },
-  { tag: "npc_dota_hero_dark_willow", name: "Dark Willow" }
+  // { tag: "npc_dota_hero_dark_willow", name: "Dark Willow" }
 ];

@@ -30,7 +30,7 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
   perPage,
   className,
 }) => {
-  const maxDuration = maxBy(data, (it) => it.duration).duration;
+  const maxDuration = maxBy(data, (it) => it.duration)?.duration || 1;
   return (
     <Table className={cx("compact", className)}>
       <thead>

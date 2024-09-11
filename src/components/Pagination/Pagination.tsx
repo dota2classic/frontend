@@ -40,6 +40,8 @@ export const Pagination: React.FC<IPaginationProps> = ({
   const hasMoreLeft = page - horOffset > 0;
   const hasMoreRight = page + horOffset < maxPage;
 
+  if (iter.length === 1) return null;
+
   return (
     <nav className={c.pagination}>
       {page > 0 && (
