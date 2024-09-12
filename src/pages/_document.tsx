@@ -12,6 +12,7 @@ export default function Document() {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        <title>Dota 2 classic</title>
       </Head>
       <body>
         <Main />

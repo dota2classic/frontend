@@ -24,7 +24,7 @@ export default function MatchPage({ matchId, preloadedMatch }: InitialProps) {
   return (
     <>
       <Head>
-        <title>Матч {matchId}</title>
+        <title>{`Матч ${matchId}`}</title>
       </Head>
       <MatchSummary
         radiantKills={match.radiant.reduce((a, b) => a + b.kills, 0)}

@@ -11,6 +11,7 @@ interface IPlayerSummaryProps {
   image: string;
   wins: number;
   loss: number;
+  rank: number;
   rating: number;
   name: string;
   steamId: string;
@@ -26,7 +27,11 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = ({
   name,
   steamId,
   lastGameTimestamp,
+  rank,
 }) => {
+  const hasRank = rank >= 0;
+
+  console.log(rank, hasRank);
   return (
     <div className={cx(c.panel, className)}>
       <div className={c.left}>
@@ -70,8 +75,12 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = ({
           <dt>Доля побед</dt>
         </dl>
         <dl>
-          <dd>{rating}</dd>
+          <dd>{hasRank ? <span>{rating}</span> : "Нет"}</dd>
           <dt>Рейтинг</dt>
+        </dl>
+        <dl>
+          <dd>{hasRank ? <span>{rank}</span> : "Нет"}</dd>
+          <dt>Ранг</dt>
         </dl>
       </div>
     </div>

@@ -49,7 +49,7 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
         {
           type: ColumnType.Hero,
           name: "Герой",
-          link: (d) => AppRouter.match(d[6]).link,
+          link: (d) => AppRouter.matches.match(d[6]).link,
         },
         {
           type: ColumnType.Raw,
@@ -57,7 +57,7 @@ export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
           format: ({ won, matchId, timestamp }) => (
             <div className={c.result}>
               <PageLink
-                link={AppRouter.match(matchId).link}
+                link={AppRouter.matches.match(matchId).link}
                 className={won ? c.result__win : c.result__lose}
               >
                 {won ? "Победа" : "Поражение"}

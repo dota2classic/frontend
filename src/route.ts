@@ -1,6 +1,6 @@
 import Router from "next/router";
 import type { UrlObject } from "url";
-import Qs from "qs";
+import { queryParameters } from "@/util/urls";
 
 export interface NextLinkProp {
   href: string | UrlObject;
@@ -74,15 +74,12 @@ export const AppRouter = {
       mode?: number,
     ) => {
       const fhero = (hero && hero.replace("npc_dota_hero_", "")) || undefined;
-      const queryString = Qs.stringify({
+      const q = queryParameters({
         hero: fhero,
         mode,
         page: _page,
       });
-      return page(
-        `/players/[id]/matches?${queryString}`,
-        `/players/${id}/matches?${queryString}`,
-      );
+      return page(`/players/[id]/matches${q}`, `/players/${id}/matches${q}`);
     },
     leaderboard: spage("/players"),
   },
@@ -120,15 +117,14 @@ export const AppRouter = {
       return page("/heroes/[hero]", `/heroes/${fhero}`);
     },
   },
-  match: (id: number) => page(`/match/[id]`, `/match/${id}`),
-  history: {
-    index: spage(`/stats/history`),
-    page: (page: number, mode?: number | string) => {
-      const q = Qs.stringify({
+  matches: {
+    match: (id: number) => page(`/matches/[id]`, `/matches/${id}`),
+    index: (page?: number, mode?: number | string) => {
+      const q = queryParameters({
         page,
         mode,
       });
-      return spage(`/stats/history?${q}`, false);
+      return spage(`/matches${q}`, false);
     },
   },
 };

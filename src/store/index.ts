@@ -36,6 +36,9 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
   if (typeof window === "undefined") return store;
   // Otherwise it's client, remember this store and return
   if (!clientStore) clientStore = store;
+
+  // @ts-ignore
+  window.store = clientStore;
   return store;
 };
 

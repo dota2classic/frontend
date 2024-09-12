@@ -47,13 +47,14 @@ export default function PlayerMatches({
   return (
     <>
       <Head>
-        <title>{preloadedSummary.name}</title>
+        <title>{`${preloadedSummary.name}`}</title>
       </Head>
 
       <PlayerSummary
         image={preloadedSummary.avatar || "/avatar.png"}
         wins={preloadedSummary.wins}
         loss={preloadedSummary.loss}
+        rank={preloadedSummary.rank}
         rating={preloadedSummary.mmr}
         name={preloadedSummary.name}
         className={c.panel}

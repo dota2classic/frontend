@@ -100,12 +100,13 @@ export default function PlayerPage({
   return (
     <div className={c.playerPage}>
       <Head>
-        <title>{summary.name} - статистика</title>
+        <title>{`${summary.name} - статистика`}</title>
       </Head>
       <PlayerSummary
         image={summary.avatar || "/avatar.png"}
         wins={summary.wins}
         loss={summary.loss}
+        rank={summary.rank}
         rating={summary.mmr}
         name={summary.name}
         className={c.playerInfo}

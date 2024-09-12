@@ -54,7 +54,7 @@ export default function MatchHistory({
         <MatchHistoryTable loading={isLoading} data={data?.data || []} />
         <Pagination
           linkProducer={(page) =>
-            AppRouter.history.page(page, mode || undefined).link
+            AppRouter.matches.index(page, mode || undefined).link
           }
           page={Number(page) || data?.page || 0}
           maxPage={data?.pages || 0}

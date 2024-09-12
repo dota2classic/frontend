@@ -52,7 +52,7 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
               <td>
                 <div className={c.matchId}>
                   <PageLink
-                    link={AppRouter.match(it.id).link}
+                    link={AppRouter.matches.match(it.id).link}
                     className={c.matchId__id}
                   >
                     {it.id}
@@ -64,7 +64,7 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
               </td>
               <td>{formatGameMode(it.mode)}</td>
               <td className={it.winner === 2 ? c.radiant : c.dire}>
-                <PageLink link={AppRouter.match(it.id).link}>
+                <PageLink link={AppRouter.matches.match(it.id).link}>
                   {it.winner === 2 ? "Победа Сил Света" : "Победа Сил Тьмы"}
                 </PageLink>
               </td>
