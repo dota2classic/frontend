@@ -17,8 +17,12 @@
   },
   "dependencies": {
     "apisauce": "^3.0.1",
+    "browser-cookies": "^1.2.0",
     "classnames": "^2.5.1",
+    "cookies": "^0.9.1",
     "format-duration": "^3.0.2",
+    "mobx": "^6.13.2",
+    "mobx-react-lite": "^4.0.7",
     "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18",

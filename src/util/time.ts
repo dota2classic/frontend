@@ -44,7 +44,7 @@ export function fromNow(
       const isFuture = diff < 0;
       // @ts-ignore
       return interval.unit
-        ? rft.format(isFuture ? x : -x, interval.unit)
+        ? rft.format(isFuture ? x : -x, interval.unit as any)
         : interval.text;
     }
   }

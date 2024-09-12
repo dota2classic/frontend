@@ -1,8 +1,9 @@
-import { LiveMatchPreview } from "@/components";
 import { Matches } from "@/mock/matches";
 import { LiveMatchDto, LiveMatchDtoFromJSON } from "@/api/back";
 import { useApi } from "@/api/hooks";
 import { useEventSource } from "@/util/hooks";
+import { useStore } from "@/store";
+import { observer } from "mobx-react-lite";
 
 const d2: any[] = Matches.map((it) => ({
   hero: it.radiant[0].hero,
@@ -17,15 +18,23 @@ const d2: any[] = Matches.map((it) => ({
   matchId: it.id,
 }));
 
+const Obs = observer(() => {
+  const { token } = useStore().auth;
+
+  return <h1>TOKEN: {token}</h1>;
+});
+
 export default function Home() {
   const liveMatch = useEventSource<LiveMatchDto>(
     useApi().liveApi.liveMatchControllerLiveMatchContext({ id: 15624 }),
     LiveMatchDtoFromJSON.bind(null),
   );
+
   return (
     <>
-      {(liveMatch && <LiveMatchPreview match={liveMatch} />) ||
-        "No live match yet"}
+      <Obs />
+      {/*{(liveMatch && <LiveMatchPreview match={liveMatch} />) ||*/}
+      {/*  "No live match yet"}*/}
     </>
   );
 }

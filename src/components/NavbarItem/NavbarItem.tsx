@@ -5,16 +5,22 @@ import { NextLinkProp } from "@/route";
 import { PageLink } from "@/components";
 
 interface INavbarItemProps {
-  link: NextLinkProp;
+  link?: NextLinkProp;
+  href?: string;
 }
 
 export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
   children,
   link,
+  href,
 }) => {
-  return (
-    // <li className={c.navbarItem}>
-      <PageLink className={c.navbarItem} link={link}>{children}</PageLink>
-    // </li>
+  return href ? (
+    <a href={href} className={c.navbarItem}>
+      {children}
+    </a>
+  ) : (
+    <PageLink className={c.navbarItem} link={link!}>
+      {children}
+    </PageLink>
   );
 };
