@@ -13,7 +13,8 @@ import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
 import heroName from "@/util/heroName";
 import cx from "classnames";
 import { maxBy } from "@/util/iter";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa6";
+import { FaSort } from "react-icons/fa6";
+import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 
 export enum ColumnType {
   Raw,
@@ -270,7 +271,7 @@ export const GenericTable: React.FC<Props> = ({
 
             return (
               <th
-                className={cx({
+                className={cx(c.sortable, {
                   [c.hero]: col.type === ColumnType.Hero,
                 })}
                 key={index}
@@ -293,11 +294,15 @@ export const GenericTable: React.FC<Props> = ({
               >
                 {col.name}{" "}
                 {sortable && isSortedByThisColumn && sortOrder === "desc" && (
-                  <FaArrowDown />
+                  <FaSortAmountDown />
                 )}
                 {sortable && isSortedByThisColumn && sortOrder === "asc" && (
-                  <FaArrowUp />
+                  <FaSortAmountUp />
                 )}
+                {sortable &&
+                  (!isSortedByThisColumn || sortOrder === undefined) && (
+                    <FaSort />
+                  )}
               </th>
             );
           })}

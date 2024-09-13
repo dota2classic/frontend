@@ -2,16 +2,24 @@ import {
   HeroPerformanceTable,
   PlayerMatchTable,
   PlayerSummary,
+  Section,
+  TeammatesTable,
 } from "@/components";
 import c from "./PlayerPage.module.scss";
 import { useApi } from "@/api/hooks";
 import { NextPageContext } from "next";
-import { HeroStatsDto, MatchPageDto, PlayerSummaryDto } from "@/api/back";
+import {
+  HeroStatsDto,
+  MatchPageDto,
+  PlayerSummaryDto,
+  PlayerTeammateDto,
+} from "@/api/back";
 import { useQueryBackedParameter } from "@/util/hooks";
 import { PlayerMatchItem } from "@/components/PlayerMatchTable/PlayerMatchTable";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import Head from "next/head";
 import { numberOrDefault } from "@/util/urls";
+import React from "react";
 //
 // const d2: any[] = Matches.map((it) => ({
 //   hero: it.radiant[0].hero,
@@ -38,6 +46,7 @@ interface PlayerPageProps {
   preloadedSummary: PlayerSummaryDto;
   preloadedMatches: MatchPageDto;
   preloadedHeroStats: HeroStatsDto[];
+  preloadedTeammates: PlayerTeammateDto[];
 }
 
 export default function PlayerPage({
@@ -45,6 +54,7 @@ export default function PlayerPage({
   preloadedSummary,
   preloadedMatches,
   preloadedHeroStats,
+  preloadedTeammates,
 }: PlayerPageProps) {
   const [page, setPage] = useQueryBackedParameter("page");
 
@@ -112,17 +122,20 @@ export default function PlayerPage({
         className={c.playerInfo}
         steamId={summary.steamId}
       />
-      <PlayerMatchTable
-        loading={matchesLoading}
-        className={c.matchHistory}
-        data={formattedMatches}
-      />
-      <HeroPerformanceTable
-        steamId={playerId}
-        loading={heroStatsLoading}
-        className={c.heroPerformance}
-        data={formattedHeroStats}
-      />
+      <Section className={c.matchHistory}>
+        <header>Матчи</header>
+        <PlayerMatchTable loading={matchesLoading} data={formattedMatches} />
+      </Section>
+      <Section className={c.heroPerformance}>
+        <header>Лучшие герои</header>
+        <HeroPerformanceTable
+          steamId={playerId}
+          loading={heroStatsLoading}
+          data={formattedHeroStats}
+        />
+        <header>Лучшие тиммейты</header>
+        <TeammatesTable data={preloadedTeammates} />
+      </Section>
     </div>
   );
 }
@@ -133,16 +146,22 @@ PlayerPage.getInitialProps = async (
   const playerId = ctx.query.id as string;
   const page = Number(ctx.query.page as string) || 0;
 
-  const [preloadedSummary, preloadedMatches, preloadedHeroStats] =
-    await Promise.all<any>([
-      useApi().playerApi.playerControllerPlayerSummary(playerId),
-      useApi().matchApi.matchControllerPlayerMatches(playerId, page),
-      useApi().playerApi.playerControllerHeroSummary(playerId),
-    ]);
+  const [
+    preloadedSummary,
+    preloadedMatches,
+    preloadedHeroStats,
+    preloadedTeammates,
+  ] = await Promise.all<any>([
+    useApi().playerApi.playerControllerPlayerSummary(playerId),
+    useApi().matchApi.matchControllerPlayerMatches(playerId, page),
+    useApi().playerApi.playerControllerHeroSummary(playerId),
+    useApi().playerApi.playerControllerTeammates(playerId),
+  ]);
   return {
     playerId,
     preloadedSummary,
     preloadedMatches,
     preloadedHeroStats,
+    preloadedTeammates,
   };
 };

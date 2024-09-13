@@ -30,14 +30,13 @@ export const HeroPlayersTable: React.FC<IHeroPlayersTableProps> = ({
           color: colors.green,
         },
         {
-          name: "Побед",
-          type: ColumnType.IntWithBar,
-          color: colors.green,
-        },
-        {
           name: "% Побед",
           type: ColumnType.PercentWithBar,
           color: colors.red,
+        },
+        {
+          name: "KDA",
+          type: ColumnType.KDA,
         },
       ]}
       data={data
@@ -45,8 +44,8 @@ export const HeroPlayersTable: React.FC<IHeroPlayersTableProps> = ({
         .map((it) => [
           { avatar: it.avatar, steam_id: it.steamId, name: it.name },
           it.games,
-          it.wins,
           (it.wins / it.games) * 100,
+          { kills: it.kills, deaths: it.deaths, assists: it.assists },
         ])}
     />
   );

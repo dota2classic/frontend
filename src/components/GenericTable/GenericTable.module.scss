@@ -39,6 +39,12 @@
   }
 }
 
+.sortable {
+  & svg {
+    vertical-align: middle;
+  }
+}
+
 .kda {
   //letter-spacing: 2px;
   display: flex;

@@ -32,3 +32,4 @@ export { Notifications } from "./Notifications/Notifications";
 export { MatchmakingOption } from "./MatchmakingOption/MatchmakingOption";
 export { SearchGameFloater } from "./SearchGameFloater/SearchGameFloater";
 export { SearchGameButton } from "./SearchGameButton/SearchGameButton";
+export { TeammatesTable } from "./TeammatesTable/TeammatesTable";

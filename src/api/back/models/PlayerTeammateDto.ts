@@ -15,90 +15,83 @@
 /**
  *
  * @export
- * @interface HeroPlayerDto
+ * @interface PlayerTeammateDto
  */
-export interface HeroPlayerDto {
+export interface PlayerTeammateDto {
   /**
    *
    * @type {string}
-   * @memberof HeroPlayerDto
+   * @memberof PlayerTeammateDto
+   */
+  steamId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof PlayerTeammateDto
    */
   name: string;
   /**
    *
    * @type {string}
-   * @memberof HeroPlayerDto
+   * @memberof PlayerTeammateDto
    */
   avatar: string;
   /**
    *
-   * @type {string}
-   * @memberof HeroPlayerDto
-   */
-  steamId: string;
-  /**
-   *
    * @type {number}
-   * @memberof HeroPlayerDto
+   * @memberof PlayerTeammateDto
    */
   games: number;
   /**
    *
    * @type {number}
-   * @memberof HeroPlayerDto
+   * @memberof PlayerTeammateDto
    */
   wins: number;
   /**
    *
    * @type {number}
-   * @memberof HeroPlayerDto
+   * @memberof PlayerTeammateDto
    */
-  score: number;
+  losses: number;
   /**
    *
    * @type {number}
-   * @memberof HeroPlayerDto
+   * @memberof PlayerTeammateDto
    */
-  kills: number;
+  winrate: number;
   /**
    *
    * @type {number}
-   * @memberof HeroPlayerDto
+   * @memberof PlayerTeammateDto
    */
-  deaths: number;
-  /**
-   *
-   * @type {number}
-   * @memberof HeroPlayerDto
-   */
-  assists: number;
+  rank: number;
 }
 
-export function HeroPlayerDtoFromJSON(json: any): HeroPlayerDto {
-  return HeroPlayerDtoFromJSONTyped(json, false);
+export function PlayerTeammateDtoFromJSON(json: any): PlayerTeammateDto {
+  return PlayerTeammateDtoFromJSONTyped(json, false);
 }
 
-export function HeroPlayerDtoFromJSONTyped(
+export function PlayerTeammateDtoFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
-): HeroPlayerDto {
+): PlayerTeammateDto {
   if (json === undefined || json === null) {
     return json;
   }
   return {
+    steamId: json["steam_id"],
     name: json["name"],
     avatar: json["avatar"],
-    steamId: json["steam_id"],
     games: json["games"],
     wins: json["wins"],
-    score: json["score"],
-    kills: json["kills"],
-    deaths: json["deaths"],
-    assists: json["assists"],
+    losses: json["losses"],
+    winrate: json["winrate"],
+    rank: json["rank"],
   };
 }
 
-export function HeroPlayerDtoToJSON(value?: HeroPlayerDto | null): any {
+export function PlayerTeammateDtoToJSON(value?: PlayerTeammateDto | null): any {
   if (value === undefined) {
     return undefined;
   }
@@ -106,14 +99,13 @@ export function HeroPlayerDtoToJSON(value?: HeroPlayerDto | null): any {
     return null;
   }
   return {
+    steam_id: value.steamId,
     name: value.name,
     avatar: value.avatar,
-    steam_id: value.steamId,
     games: value.games,
     wins: value.wins,
-    score: value.score,
-    kills: value.kills,
-    deaths: value.deaths,
-    assists: value.assists,
+    losses: value.losses,
+    winrate: value.winrate,
+    rank: value.rank,
   };
 }

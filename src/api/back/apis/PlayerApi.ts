@@ -31,6 +31,8 @@ import {
   PlayerPreviewDtoFromJSON,
   PlayerSummaryDto,
   PlayerSummaryDtoFromJSON,
+  PlayerTeammateDto,
+  PlayerTeammateDtoFromJSON,
   ReportDto,
   ReportDtoToJSON,
 } from "../models";
@@ -53,6 +55,10 @@ export interface PlayerControllerReportPlayerRequest {
 
 export interface PlayerControllerSearchRequest {
   name: string;
+}
+
+export interface PlayerControllerTeammatesRequest {
+  id: string;
 }
 
 /**
@@ -600,6 +606,80 @@ export class PlayerApi extends runtime.BaseAPI {
       valid ? () => this.playerControllerSearch(name!) : null,
       config,
     );
+  }
+
+  /**
+   */
+  playerControllerTeammatesContext(
+    requestParameters: PlayerControllerTeammatesRequest,
+  ): runtime.RequestOpts {
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    return {
+      path: `/v1/player/{id}/teammates`.replace(
+        `{${"id"}}`,
+        encodeURIComponent(String(requestParameters.id)),
+      ),
+      method: "GET",
+      headers: headerParameters,
+      query: queryParameters,
+    };
+  }
+
+  /**
+   */
+  playerControllerTeammates = async (
+    id: string,
+  ): Promise<Array<PlayerTeammateDto>> => {
+    const response = await this.playerControllerTeammatesRaw({ id: id });
+    return await response.value();
+  };
+
+  usePlayerControllerTeammates(
+    id: string,
+    config?: SWRConfiguration<Array<PlayerTeammateDto>, Error>,
+  ) {
+    let valid = true;
+
+    if (id === null || id === undefined || Number.isNaN(id)) {
+      valid = false;
+    }
+
+    const context = this.playerControllerTeammatesContext({ id: id! });
+    return useSWR(
+      context,
+      valid ? () => this.playerControllerTeammates(id!) : null,
+      config,
+    );
+  }
+
+  /**
+   */
+  private async playerControllerTeammatesRaw(
+    requestParameters: PlayerControllerTeammatesRequest,
+  ): Promise<runtime.ApiResponse<Array<PlayerTeammateDto>>> {
+    this.playerControllerTeammatesValidation(requestParameters);
+    const context = this.playerControllerTeammatesContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(PlayerTeammateDtoFromJSON),
+    );
+  }
+
+  /**
+   */
+  private playerControllerTeammatesValidation(
+    requestParameters: PlayerControllerTeammatesRequest,
+  ) {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        "id",
+        "Required parameter requestParameters.id was null or undefined when calling playerControllerTeammates.",
+      );
+    }
   }
 
   /**
