@@ -1,0 +1,52 @@
+@import '../../common.scss';
+
+
+.mode {
+  display: flex;
+
+  flex-direction: column;
+  padding: 20px 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    background: rgba(1, 1, 1, 0.1);
+  }
+
+  & span.info {
+    font-size: 12px;
+  }
+
+  & + & {
+    border-top: 1px solid #4e4d4d;
+  }
+
+  &.header {
+    cursor: unset;
+    font-weight: normal;
+    font-size: 18px;
+    //color: colors.position.foreground.bronze};
+
+    &:hover {
+      background: unset;
+    }
+  }
+
+  &.current {
+    background: rgba(248, 228, 0, 0.03);
+  }
+
+  &.active {
+    animation: pendingAnimation 2s linear infinite;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+
+    &:hover {
+      background: unset;
+    }
+
+    color: #4a4a4a;
+  }
+}

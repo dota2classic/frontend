@@ -1,0 +1,13 @@
+@import '../../common.scss';
+
+
+.container {
+  position: fixed;
+
+  background: $transparentTint;
+
+  right: 50px;
+  bottom: 50px;
+
+  z-index: 10000;
+}

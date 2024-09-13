@@ -8,11 +8,13 @@ import { colors } from "@/colors";
 import cx from "classnames";
 import { NextPageContext } from "next";
 
-interface Props {
+interface LeaderboardPageProps {
   initialLeaderboard: LeaderboardEntryDto[];
 }
 
-export default function Leaderboard({ initialLeaderboard }: Props) {
+export default function LeaderboardPage({
+  initialLeaderboard,
+}: LeaderboardPageProps) {
   const mounted = useDidMount();
 
   const { data, isLoading } = useApi().playerApi.usePlayerControllerLeaderboard(
@@ -103,7 +105,9 @@ export default function Leaderboard({ initialLeaderboard }: Props) {
   );
 }
 
-Leaderboard.getInitialProps = async (ctx: NextPageContext) => {
+LeaderboardPage.getInitialProps = async (
+  ctx: NextPageContext,
+): Promise<LeaderboardPageProps> => {
   return {
     initialLeaderboard: await useApi().playerApi.playerControllerLeaderboard(),
   };

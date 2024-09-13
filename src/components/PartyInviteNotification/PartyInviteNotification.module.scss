@@ -1,0 +1,66 @@
+@import "../../common.scss";
+
+@keyframes pendingAnimation {
+  0% {
+    box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.6);
+  }
+
+  50% {
+    box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.2);
+  }
+
+  100% {
+    box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.6);
+  }
+}
+
+.invite {
+  width: 250px;
+  height: 100px;
+  background: #1d1f22;
+  box-shadow: 0 0 10px 3px rgba(150, 150, 150, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: pendingAnimation 2s linear infinite;
+
+  & header {
+    font-size: 12px;
+    text-align: center;
+    color: $primaryText;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  flex-direction: row;
+
+  & button {
+    padding: 4px;
+    border: none;
+    outline: none;
+    background: rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    border-radius: 4px;
+    transition: 0.3s ease;
+    font-family: "Trajan Pro 3", sans-serif;
+    color: $primaryText;
+
+    width: fit-content;
+
+    &:disabled {
+      background: rgba(0, 0, 0, 0.3);
+      cursor: not-allowed;
+    }
+
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: rgba(0, 0, 0, 0.8);
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@import "../../common.scss";
+
+.queue {
+  width: 100vw;
+  height: 100vh;
+  color: $primaryText;
+  display: flex;
+  overflow-y: hidden;
+  flex-direction: row;
+}
+
+
+.modes {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #242424;
+  overflow-y: auto;
+  width: 400px;
+
+
+}

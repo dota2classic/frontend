@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import {exists} from "../runtime";
+
 /**
  *
  * @export
@@ -47,13 +49,13 @@ export interface PlayerSummaryDto {
    * @type {number}
    * @memberof PlayerSummaryDto
    */
-  mmr: number;
+  mmr?: number;
   /**
    *
    * @type {number}
    * @memberof PlayerSummaryDto
    */
-  rank: number;
+  rank?: number;
   /**
    *
    * @type {number}
@@ -66,12 +68,6 @@ export interface PlayerSummaryDto {
    * @memberof PlayerSummaryDto
    */
   gamesPlayed: number;
-  /**
-   *
-   * @type {number}
-   * @memberof PlayerSummaryDto
-   */
-  gamesPlayedAll: number;
   /**
    *
    * @type {number}
@@ -102,11 +98,10 @@ export function PlayerSummaryDtoFromJSONTyped(
     name: json["name"],
     avatar: json["avatar"],
     id: json["id"],
-    mmr: json["mmr"],
-    rank: json["rank"],
+    mmr: !exists(json, "mmr") ? undefined : json["mmr"],
+    rank: !exists(json, "rank") ? undefined : json["rank"],
     unrankedGamesLeft: json["unrankedGamesLeft"],
     gamesPlayed: json["games_played"],
-    gamesPlayedAll: json["games_played_all"],
     wins: json["wins"],
     loss: json["loss"],
   };
@@ -128,7 +123,6 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
     rank: value.rank,
     unrankedGamesLeft: value.unrankedGamesLeft,
     games_played: value.gamesPlayed,
-    games_played_all: value.gamesPlayedAll,
     wins: value.wins,
     loss: value.loss,
   };

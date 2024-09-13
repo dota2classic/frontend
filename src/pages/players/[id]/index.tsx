@@ -107,7 +107,7 @@ export default function PlayerPage({
         wins={summary.wins}
         loss={summary.loss}
         rank={summary.rank}
-        rating={summary.mmr}
+        mmr={summary.mmr}
         name={summary.name}
         className={c.playerInfo}
         steamId={summary.steamId}

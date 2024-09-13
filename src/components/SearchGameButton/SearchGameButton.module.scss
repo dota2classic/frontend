@@ -1,0 +1,50 @@
+@import '../../common.scss';
+
+
+.button {
+
+  outline: none;
+  padding: 10px;
+  color: $primaryText;
+  font-family: "Trajan Pro 3", sans-serif;
+
+  border: 1px solid $green;
+  border-radius: 2px;
+
+  font-size: 18px;
+  cursor: pointer;
+  white-space: pre;
+
+  transition: 0.3s ease;
+  background-color: $evenDarkerBg;
+
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+
+  &.banned {
+    color: $primaryTextDark;
+    border-color: $red;
+  }
+
+  &.ingame {
+    display: none;
+  }
+
+  &.search {
+  }
+
+  &.cancel {
+    border: none !important;
+    outline: none;
+    // animation: ${pendingAnimation} 2s linear infinite;
+  }
+
+  &:hover {
+    border-radius: 4px;
+    color: $primaryTextHighlight;
+    background-color: $darkBg;
+  }
+
+}

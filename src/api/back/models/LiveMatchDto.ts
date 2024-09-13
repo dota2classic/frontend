@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import {PlayerInfo, PlayerInfoFromJSON, PlayerInfoToJSON,} from './';
+import {PlayerInfo, PlayerInfoFromJSON, PlayerInfoToJSON,} from "./";
 
 /**
  *

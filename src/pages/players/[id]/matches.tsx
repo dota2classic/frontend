@@ -12,7 +12,7 @@ import {
 } from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
-import c from "@/pages/stats/History.module.scss";
+import c from "@/pages/matches/History.module.scss";
 import {
   GameModeOptions,
   HeroOptions,
@@ -55,7 +55,7 @@ export default function PlayerMatches({
         wins={preloadedSummary.wins}
         loss={preloadedSummary.loss}
         rank={preloadedSummary.rank}
-        rating={preloadedSummary.mmr}
+        mmr={preloadedSummary.mmr}
         name={preloadedSummary.name}
         className={c.panel}
         steamId={preloadedSummary.steamId}

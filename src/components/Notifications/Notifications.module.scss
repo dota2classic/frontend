@@ -1,0 +1,21 @@
+@import '../../common.scss';
+
+.container {
+  position: fixed;
+
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  left: 50px;
+  bottom: 50px;
+
+  & div + div {
+    margin-top: 10px;
+  }
+}
+
+.notification {
+  color: $primaryText;
+  background: $evenDarkerBg;
+  padding: 15px;
+}

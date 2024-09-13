@@ -4,6 +4,9 @@ import { AuthStore } from "./AuthStore";
 import { HydratableStore } from "@/store/HydratableStore";
 import { useContext } from "react";
 import { MobxContext } from "@/pages/_app";
+import { QueueStore } from "@/store/queue/QueueStore";
+import { useApi } from "@/api/hooks";
+import { NotificationStore } from "@/store/NotificationStore";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -18,11 +21,20 @@ export type HydrateRootData = {
 // init a client store that we will send to client (one store for client)
 let clientStore: RootStore;
 
+function createStore(): RootStore {
+  const auth = new AuthStore();
+  const notify = new NotificationStore();
+  const queue = new QueueStore(auth, notify, useApi());
+  return {
+    auth,
+    queue,
+    notify,
+  };
+}
+
 const initStore = (initData: HydrateRootData | undefined): RootStore => {
   // check if we already declare store (client Store), otherwise create one
-  const store = clientStore ?? {
-    auth: new AuthStore(),
-  };
+  const store = clientStore ?? createStore();
   // hydrate to store if receive initial data
   if (initData) {
     Object.entries(initData).forEach(([storeName, hydrateData]) => {
@@ -49,6 +61,8 @@ export function useRootStore(initData): RootStore {
 
 export interface RootStore {
   auth: AuthStore;
+  queue: QueueStore;
+  notify: NotificationStore;
 }
 
 export function useStore(): RootStore {

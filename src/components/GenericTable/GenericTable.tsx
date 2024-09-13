@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import c from "./GenericTable.module.scss";
 import {
   HeroIcon,
@@ -13,6 +13,7 @@ import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
 import heroName from "@/util/heroName";
 import cx from "classnames";
 import { maxBy } from "@/util/iter";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa6";
 
 export enum ColumnType {
   Raw,
@@ -31,6 +32,9 @@ interface Column {
   type: ColumnType;
   color?: string;
   noname?: boolean;
+
+  sortable?: boolean;
+  defaultSort?: "asc" | "desc";
 
   forceInteger?: boolean;
 
@@ -204,6 +208,11 @@ const RowRendererMemo: React.FC<{ data: Data; columns: Column[]; ctx: any[] }> =
     );
   });
 
+interface SortOptions {
+  columnIndex: number;
+  order: "asc" | "desc";
+}
+
 export const GenericTable: React.FC<Props> = ({
   columns,
   data,
@@ -212,6 +221,12 @@ export const GenericTable: React.FC<Props> = ({
   placeholderRows,
   className,
 }) => {
+  const c = columns.findIndex((it) => it.sortable && it.defaultSort);
+
+  const defaultSort =
+    c !== -1 ? { columnIndex: c, order: columns[c].defaultSort } : undefined;
+  const [sortBy, setSortBy] = useState<SortOptions | undefined>(defaultSort);
+
   const ctx = columns.map((it, index) => {
     if (
       it.type === ColumnType.IntWithBar ||
@@ -225,33 +240,73 @@ export const GenericTable: React.FC<Props> = ({
     return {};
   });
 
+  const sortedData =
+    sortBy === undefined
+      ? data
+      : data.toSorted((a, b) => {
+          const v1 = a[sortBy.columnIndex];
+          const v2 = b[sortBy.columnIndex];
+
+          const diff = v1 - v2;
+
+          return sortBy.order === "asc" ? diff : -diff;
+        });
+
   return (
     <Table className={cx("compact", className)}>
       <thead>
         <tr>
-          {columns.map((col, index) => (
-            <th
-              key={index}
-              className={cx({
-                [c.hero]: col.type === ColumnType.Hero,
-              })}
-            >
-              {col.name}
-            </th>
-          ))}
+          {columns.map((col, index) => {
+            const sortable = col.sortable;
+            const isSortedByThisColumn = sortBy && sortBy.columnIndex === index;
+            const sortOrder = sortBy?.order;
+
+            return (
+              <th
+                key={index}
+                className={cx({
+                  [c.hero]: col.type === ColumnType.Hero,
+                })}
+                onClick={() => {
+                  if (!sortable) return;
+
+                  const sOrder = isSortedByThisColumn ? sortOrder : undefined;
+                  switch (sOrder) {
+                    case undefined:
+                      setSortBy({ columnIndex: index, order: "desc" });
+                      break;
+                    case "desc":
+                      setSortBy({ columnIndex: index, order: "asc" });
+                      break;
+                    case "asc":
+                      setSortBy(undefined);
+                      break;
+                  }
+                }}
+              >
+                {col.name}{" "}
+                {sortable && isSortedByThisColumn && sortOrder === "desc" && (
+                  <FaArrowDown />
+                )}
+                {sortable && isSortedByThisColumn && sortOrder === "asc" && (
+                  <FaArrowUp />
+                )}
+              </th>
+            );
+          })}
         </tr>
       </thead>
       <tbody>
         {isLoading ? (
           <TableRowLoading columns={columns.length} rows={placeholderRows} />
-        ) : data.length === 0 ? (
+        ) : sortedData.length === 0 ? (
           <tr>
-            <td colSpan={6} className={c.empty}>
+            <td colSpan={columns.length} className={c.empty}>
               К сожалению, за данный период статистики нет.
             </td>
           </tr>
         ) : (
-          data.map((it) => (
+          sortedData.map((it) => (
             <RowRendererMemo
               key={keyProvider(it)}
               columns={columns}

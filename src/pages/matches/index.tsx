@@ -12,15 +12,9 @@ import { GameModeOptions } from "@/components/SelectOptions/SelectOptions";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
-  initialPage: number;
-  initialMode?: number;
 }
 
-export default function MatchHistory({
-  matches,
-  initialPage,
-  initialMode,
-}: MatchHistoryProps) {
+export default function MatchHistory({ matches }: MatchHistoryProps) {
   const [page, setPage] = useQueryBackedParameter("page");
   const [mode, setMode] = useQueryBackedParameter("mode");
 
@@ -78,7 +72,5 @@ MatchHistory.getInitialProps = async (
 
   return {
     matches,
-    initialPage: page,
-    initialMode: mode,
   };
 };

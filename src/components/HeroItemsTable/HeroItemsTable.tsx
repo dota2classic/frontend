@@ -31,15 +31,19 @@ export const HeroItemsTable: React.FC<IHeroItemsTableProps> = ({
           type: ColumnType.IntWithBar,
           name: "Матчи",
           color: colors.green,
+          sortable: true,
+          defaultSort: "desc",
         },
         {
           type: ColumnType.IntWithBar,
           name: "Победы",
           color: colors.green,
+          sortable: true,
         },
         {
           type: ColumnType.PercentWithBar,
           name: "Доля побед",
+          sortable: true,
         },
       ]}
       data={data.map((it) => [
