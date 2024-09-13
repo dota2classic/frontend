@@ -2,6 +2,8 @@ import { action, computed, makeObservable, observable } from "mobx";
 import { HydratableStore } from "@/store/HydratableStore";
 import { parseJwt } from "@/util/math";
 import BrowserCookies from "browser-cookies";
+import { apiInner, appApi } from "@/api/hooks";
+import { MeDto } from "@/api/back";
 
 interface JwtAuthToken {
   sub: string;
@@ -15,6 +17,9 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   @observable
   public token: string | undefined = undefined;
 
+  @observable
+  public me: MeDto | undefined = undefined;
+
   constructor() {
     makeObservable(this);
 
@@ -26,8 +31,18 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       if (cookie) {
         this.setToken(cookie);
       }
+      this.fetchMe().finally();
     }
   }
+
+  @action
+  public fetchMe = async () => {
+    try {
+      this.me = await appApi.playerApi.playerControllerMe();
+    } catch (e) {
+      this.me = undefined;
+    }
+  };
 
   @computed
   public get isAuthorized(): boolean {
@@ -43,6 +58,8 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   @action
   public setToken = (token: string | undefined) => {
     this.token = token;
+    appApi.apiParams.accessToken = token;
+    apiInner.setHeader(`Authorization`, `Bearer ${token}`);
   };
 
   @action

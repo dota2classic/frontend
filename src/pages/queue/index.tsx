@@ -30,6 +30,7 @@ export default function QueuePage(props: Props) {
       <div className={c.modes}>
         {d84.map((info) => (
           <MatchmakingOption
+            key={[info.mode, info.version]}
             onSelect={queueStore.setSelectedMode}
             version={info.version as any}
             mode={info.mode as any}

@@ -56,7 +56,7 @@ export class QueueStore
   @observable
   public pendingPartyInvite?: PartyInviteReceivedMessage = undefined;
   @observable
-  public searchingMode?: QueueState;
+  public searchingMode: QueueState | undefined = undefined;
   @observable
   public selectedMode: QueueState = {
     mode: MatchmakingMode.BOTS,
@@ -87,6 +87,8 @@ export class QueueStore
 
     if (typeof window === "undefined") return;
 
+    this.fetchParty().finally();
+
     this.matchSound = new Howl({
       src: Sounds.MATCH_GAME,
     });
@@ -94,6 +96,12 @@ export class QueueStore
       src: Sounds.NOTIFY_GAME,
     });
     this.connect();
+  }
+
+  @computed
+  public get selectedModeBanned(): boolean {
+    if (this.selectedMode.mode === MatchmakingMode.BOTS) return false;
+    return !!this.authStore.me?.banStatus.isBanned;
   }
 
   @computed
@@ -114,9 +122,24 @@ export class QueueStore
     this.socket.emit(Messages.LEAVE_ALL_QUEUES);
   }
 
-  public startSearch(qs: QueueState) {
+  @action
+  public startSearch = (qs: QueueState) => {
     this.searchingMode = qs;
     this.socket.emit(Messages.ENTER_QUEUE, qs);
+  };
+
+  // @action
+  public enterQueue(): boolean {
+    try {
+      if (this.canQueue()) {
+        this.startSearch(this.selectedMode);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return true;
+    }
   }
 
   public acceptPendingGame = (roomId: string) => {
@@ -158,6 +181,7 @@ export class QueueStore
     if (this.socket && this.socket.connected) return;
 
     this.socket = io("wss://dotaclassic.ru", {
+      // this.socket = io("ws://localhost:5010", {
       transports: ["websocket"],
       autoConnect: false,
       // auth: {
@@ -165,17 +189,12 @@ export class QueueStore
       // }
     });
 
-    console.log("cnnect call twf??");
     this.socket.on("connect", () => {
-      console.log("we connected, wtF???");
       this.authorize();
-      console.log("Authorize cause connect");
       this.onConnected();
     });
 
     this.socket.connect();
-
-    console.log("REgister observe");
 
     observe<AuthStore>(
       this.authStore,
@@ -304,6 +323,7 @@ export class QueueStore
     mode?: MatchmakingMode;
     version?: Dota2Version;
   }): void => {
+    console.log(mode, version, "QUEESTAE?");
     if (mode != null && version != null) {
       const qs: QueueState = { mode, version };
       this.searchingMode = qs;
@@ -348,11 +368,15 @@ export class QueueStore
   @action onServerReady = (data: LauncherServerStarted) => {};
 
   @action
-  onQueueUpdate = (
-    mode: MatchmakingMode,
-    version: Dota2Version,
-    inQueue: number,
-  ) => {
+  onQueueUpdate = ({
+    mode,
+    version,
+    inQueue,
+  }: {
+    mode: MatchmakingMode;
+    version: Dota2Version;
+    inQueue: number;
+  }) => {
     this.inQueue[JSON.stringify({ mode, version })] = inQueue;
   };
 
@@ -399,6 +423,22 @@ export class QueueStore
   /**
    * Private utility
    */
+  private canQueue() {
+    if (!this.ready) throw new Error("Not ready");
+    if (
+      this.selectedMode.mode === MatchmakingMode.CAPTAINS_MODE &&
+      this.party!!.players.length !== 5
+    ) {
+      return false;
+    }
+
+    // if (this.selectedMode.mode === MatchmakingMode.RANKED && this.party!!.players.length > 1) {
+    //   // dont allow parties in ranked
+    //   return false;
+    // }
+
+    return true;
+  }
 
   @action
   private cleanUp() {

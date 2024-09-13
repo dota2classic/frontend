@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 
-import { Navbar, Notifications } from "..";
+import { Navbar, Notifications, SearchGameFloater } from "..";
 
 import c from "./Layout.module.scss";
 import cx from "classnames";
@@ -16,6 +16,7 @@ export const Layout = ({
     <div className={cx(c.layout, className)}>
       <Navbar />
       <Notifications />
+      <SearchGameFloater />
       <main className={cx(c.layoutInner)}>{children}</main>
     </div>
   );
