@@ -1,7 +1,7 @@
 import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
 
-export default function Error500({ statusCode }) {
+export default function Error500({ statusCode }: { statusCode: number }) {
   return (
     <>
       <h1>Возникла ошибка при загрузке страницы {statusCode}</h1>

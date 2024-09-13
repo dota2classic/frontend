@@ -4,6 +4,7 @@ import { useApi } from "@/api/hooks";
 import { MatchmakingInfo } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
 import { MatchmakingOption } from "@/components";
+import { NextPageContext } from "next";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -30,7 +31,7 @@ export default function QueuePage(props: Props) {
       <div className={c.modes}>
         {d84.map((info) => (
           <MatchmakingOption
-            key={[info.mode, info.version]}
+            key={`${info.mode}${info.version}`}
             onSelect={queueStore.setSelectedMode}
             version={info.version as any}
             mode={info.mode as any}
@@ -41,7 +42,7 @@ export default function QueuePage(props: Props) {
   );
 }
 
-QueuePage.getInitialProps = async (ctx) => {
+QueuePage.getInitialProps = async (ctx: NextPageContext) => {
   return {
     modes: await useApi().statsApi.statsControllerGetMatchmakingInfo(),
   };

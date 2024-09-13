@@ -8,14 +8,7 @@ import {
   RoomState,
 } from "@/util/messages";
 import { io, Socket } from "socket.io-client";
-import {
-  action,
-  computed,
-  IValueDidChange,
-  makeAutoObservable,
-  observable,
-  observe,
-} from "mobx";
+import { action, computed, makeAutoObservable, observable } from "mobx";
 import { AppApi, useApi } from "@/api/hooks";
 import { GameCoordinatorListener } from "@/store/queue/game-coordinator.listener";
 import { AuthStore } from "@/store/AuthStore";
@@ -196,18 +189,19 @@ export class QueueStore
 
     this.socket.connect();
 
-    observe<AuthStore>(
-      this.authStore,
-      "parsedToken",
-      (change: IValueDidChange) => {
-        console.log(
-          "Authorize cause steamID observe",
-          change.oldValue,
-          change.newValue,
-        );
-      },
-      true,
-    );
+    // @ts-ignore
+    // observe<AuthStore>(
+    //   this.authStore,
+    //   "parsedToken",
+    //   (change: IValueDidChange) => {
+    //     console.log(
+    //       "Authorize cause steamID observe",
+    //       change.oldValue,
+    //       change.newValue,
+    //     );
+    //   },
+    //   true,
+    // );
 
     if (this.authStore.parsedToken) {
       this.authorize();

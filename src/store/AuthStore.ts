@@ -72,7 +72,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     // cookies.erase(AuthServiceService.cookieTokenKey);
   }
 
-  hydrate = (data) => {
+  hydrate = (data?: { token?: string }) => {
     if (!data) return;
     this.setToken(data.token);
   };

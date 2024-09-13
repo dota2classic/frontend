@@ -221,10 +221,17 @@ export const GenericTable: React.FC<Props> = ({
   placeholderRows,
   className,
 }) => {
-  const c = columns.findIndex((it) => it.sortable && it.defaultSort);
+  const defaultSortColIndex = columns.findIndex(
+    (it) => it.sortable && it.defaultSort,
+  );
 
-  const defaultSort =
-    c !== -1 ? { columnIndex: c, order: columns[c].defaultSort } : undefined;
+  const defaultSort: SortOptions | undefined =
+    defaultSortColIndex !== -1
+      ? {
+          columnIndex: defaultSortColIndex,
+          order: columns[defaultSortColIndex].defaultSort || "desc",
+        }
+      : undefined;
   const [sortBy, setSortBy] = useState<SortOptions | undefined>(defaultSort);
 
   const ctx = columns.map((it, index) => {
@@ -263,10 +270,10 @@ export const GenericTable: React.FC<Props> = ({
 
             return (
               <th
-                key={index}
                 className={cx({
                   [c.hero]: col.type === ColumnType.Hero,
                 })}
+                key={index}
                 onClick={() => {
                   if (!sortable) return;
 

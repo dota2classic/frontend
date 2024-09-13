@@ -15,7 +15,11 @@ export abstract class GameCoordinatorListener {
 
   onDisconnected() {}
 
-  onQueueUpdate(evt: { mode; version; inQueue }) {}
+  onQueueUpdate(evt: {
+    mode: MatchmakingMode;
+    version: Dota2Version;
+    inQueue: number;
+  }) {}
 
   onPartyUpdated() {}
 

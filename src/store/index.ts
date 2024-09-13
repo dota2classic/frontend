@@ -38,7 +38,8 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
   // hydrate to store if receive initial data
   if (initData) {
     Object.entries(initData).forEach(([storeName, hydrateData]) => {
-      const subStore = store[storeName] as HydratableStore<any> | undefined;
+      const sKey = storeName as keyof RootStore;
+      const subStore = store[sKey] as HydratableStore<any> | undefined;
       if (!subStore) return;
       subStore.hydrate(hydrateData);
     });
@@ -55,7 +56,7 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
 };
 
 // Hook for using store
-export function useRootStore(initData): RootStore {
+export function useRootStore(initData: HydrateRootData | undefined): RootStore {
   return initStore(initData);
 }
 
