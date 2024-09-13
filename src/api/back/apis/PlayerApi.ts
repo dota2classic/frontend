@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import * as runtime from "../runtime";
 import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
@@ -45,21 +44,39 @@ export interface PlayerControllerLeaderboardRequest {
 }
 
 export interface PlayerControllerPlayerSummaryRequest {
-    id: string;
+  id: string;
 }
 
 export interface PlayerControllerReportPlayerRequest {
-    reportDto: ReportDto;
+  reportDto: ReportDto;
 }
 
 export interface PlayerControllerSearchRequest {
-    name: string;
+  name: string;
 }
 
 /**
  *
  */
 export class PlayerApi extends runtime.BaseAPI {
+  /**
+   */
+  private async playerControllerConnectionsRaw(): Promise<
+    runtime.ApiResponse<MyProfileDto>
+  > {
+    this.playerControllerConnectionsValidation();
+    const context = this.playerControllerConnectionsContext();
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      MyProfileDtoFromJSON(jsonValue),
+    );
+  }
+
+  /**
+   */
+  private playerControllerConnectionsValidation() {}
+
   /**
    */
   playerControllerConnectionsContext(): runtime.RequestOpts {
@@ -102,6 +119,33 @@ export class PlayerApi extends runtime.BaseAPI {
       valid ? () => this.playerControllerConnections() : null,
       config,
     );
+  }
+
+  /**
+   */
+  private async playerControllerHeroSummaryRaw(
+    requestParameters: PlayerControllerHeroSummaryRequest,
+  ): Promise<runtime.ApiResponse<Array<HeroStatsDto>>> {
+    this.playerControllerHeroSummaryValidation(requestParameters);
+    const context = this.playerControllerHeroSummaryContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(HeroStatsDtoFromJSON),
+    );
+  }
+
+  /**
+   */
+  private playerControllerHeroSummaryValidation(
+    requestParameters: PlayerControllerHeroSummaryRequest,
+  ) {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        "id",
+        "Required parameter requestParameters.id was null or undefined when calling playerControllerHeroSummary.",
+      );
+    }
   }
 
   /**
@@ -153,6 +197,26 @@ export class PlayerApi extends runtime.BaseAPI {
 
   /**
    */
+  private async playerControllerLeaderboardRaw(
+    requestParameters: PlayerControllerLeaderboardRequest,
+  ): Promise<runtime.ApiResponse<Array<LeaderboardEntryDto>>> {
+    this.playerControllerLeaderboardValidation(requestParameters);
+    const context = this.playerControllerLeaderboardContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(LeaderboardEntryDtoFromJSON),
+    );
+  }
+
+  /**
+   */
+  private playerControllerLeaderboardValidation(
+    requestParameters: PlayerControllerLeaderboardRequest,
+  ) {}
+
+  /**
+   */
   playerControllerLeaderboardContext(
     requestParameters: PlayerControllerLeaderboardRequest,
   ): runtime.RequestOpts {
@@ -201,6 +265,22 @@ export class PlayerApi extends runtime.BaseAPI {
 
   /**
    */
+  private async playerControllerMeRaw(): Promise<runtime.ApiResponse<MeDto>> {
+    this.playerControllerMeValidation();
+    const context = this.playerControllerMeContext();
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      MeDtoFromJSON(jsonValue),
+    );
+  }
+
+  /**
+   */
+  private playerControllerMeValidation() {}
+
+  /**
+   */
   playerControllerMeContext(): runtime.RequestOpts {
     const queryParameters: any = {};
 
@@ -243,6 +323,24 @@ export class PlayerApi extends runtime.BaseAPI {
 
   /**
    */
+  private async playerControllerMyPartyRaw(): Promise<
+    runtime.ApiResponse<PartyDto>
+  > {
+    this.playerControllerMyPartyValidation();
+    const context = this.playerControllerMyPartyContext();
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      PartyDtoFromJSON(jsonValue),
+    );
+  }
+
+  /**
+   */
+  private playerControllerMyPartyValidation() {}
+
+  /**
+   */
   playerControllerMyPartyContext(): runtime.RequestOpts {
     const queryParameters: any = {};
 
@@ -281,6 +379,34 @@ export class PlayerApi extends runtime.BaseAPI {
       valid ? () => this.playerControllerMyParty() : null,
       config,
     );
+  }
+
+  /**
+   */
+  private async playerControllerPlayerSummaryRaw(
+    requestParameters: PlayerControllerPlayerSummaryRequest,
+  ): Promise<runtime.ApiResponse<PlayerSummaryDto>> {
+    this.playerControllerPlayerSummaryValidation(requestParameters);
+    const context =
+      this.playerControllerPlayerSummaryContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      PlayerSummaryDtoFromJSON(jsonValue),
+    );
+  }
+
+  /**
+   */
+  private playerControllerPlayerSummaryValidation(
+    requestParameters: PlayerControllerPlayerSummaryRequest,
+  ) {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        "id",
+        "Required parameter requestParameters.id was null or undefined when calling playerControllerPlayerSummary.",
+      );
+    }
   }
 
   /**
@@ -332,6 +458,34 @@ export class PlayerApi extends runtime.BaseAPI {
 
   /**
    */
+  private async playerControllerReportPlayerRaw(
+    requestParameters: PlayerControllerReportPlayerRequest,
+  ): Promise<runtime.ApiResponse<boolean>> {
+    this.playerControllerReportPlayerValidation(requestParameters);
+    const context = this.playerControllerReportPlayerContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.TextApiResponse(response) as any;
+  }
+
+  /**
+   */
+  private playerControllerReportPlayerValidation(
+    requestParameters: PlayerControllerReportPlayerRequest,
+  ) {
+    if (
+      requestParameters.reportDto === null ||
+      requestParameters.reportDto === undefined
+    ) {
+      throw new runtime.RequiredError(
+        "reportDto",
+        "Required parameter requestParameters.reportDto was null or undefined when calling playerControllerReportPlayer.",
+      );
+    }
+  }
+
+  /**
+   */
   playerControllerReportPlayerContext(
     requestParameters: PlayerControllerReportPlayerRequest,
   ): runtime.RequestOpts {
@@ -369,6 +523,36 @@ export class PlayerApi extends runtime.BaseAPI {
     });
     return await response.value();
   };
+
+  /**
+   */
+  private async playerControllerSearchRaw(
+    requestParameters: PlayerControllerSearchRequest,
+  ): Promise<runtime.ApiResponse<Array<PlayerPreviewDto>>> {
+    this.playerControllerSearchValidation(requestParameters);
+    const context = this.playerControllerSearchContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(PlayerPreviewDtoFromJSON),
+    );
+  }
+
+  /**
+   */
+  private playerControllerSearchValidation(
+    requestParameters: PlayerControllerSearchRequest,
+  ) {
+    if (
+      requestParameters.name === null ||
+      requestParameters.name === undefined
+    ) {
+      throw new runtime.RequiredError(
+        "name",
+        "Required parameter requestParameters.name was null or undefined when calling playerControllerSearch.",
+      );
+    }
+  }
 
   /**
    */
@@ -420,6 +604,22 @@ export class PlayerApi extends runtime.BaseAPI {
 
   /**
    */
+  private async playerControllerUploadImageRaw(): Promise<
+    runtime.ApiResponse<object>
+  > {
+    this.playerControllerUploadImageValidation();
+    const context = this.playerControllerUploadImageContext();
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse<any>(response);
+  }
+
+  /**
+   */
+  private playerControllerUploadImageValidation() {}
+
+  /**
+   */
   playerControllerUploadImageContext(): runtime.RequestOpts {
     const queryParameters: any = {};
 
@@ -448,205 +648,4 @@ export class PlayerApi extends runtime.BaseAPI {
     const response = await this.playerControllerUploadImageRaw();
     return await response.value();
   };
-
-  /**
-   */
-  private async playerControllerConnectionsRaw(): Promise<
-    runtime.ApiResponse<MyProfileDto>
-  > {
-    this.playerControllerConnectionsValidation();
-    const context = this.playerControllerConnectionsContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      MyProfileDtoFromJSON(jsonValue),
-    );
-  }
-
-  /**
-   */
-  private playerControllerConnectionsValidation() {}
-
-  /**
-   */
-  private async playerControllerHeroSummaryRaw(
-    requestParameters: PlayerControllerHeroSummaryRequest,
-  ): Promise<runtime.ApiResponse<Array<HeroStatsDto>>> {
-    this.playerControllerHeroSummaryValidation(requestParameters);
-    const context = this.playerControllerHeroSummaryContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(HeroStatsDtoFromJSON),
-    );
-  }
-
-  /**
-   */
-  private playerControllerHeroSummaryValidation(
-    requestParameters: PlayerControllerHeroSummaryRequest,
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling playerControllerHeroSummary.",
-      );
-    }
-  }
-
-  /**
-   */
-  private async playerControllerLeaderboardRaw(
-    requestParameters: PlayerControllerLeaderboardRequest,
-  ): Promise<runtime.ApiResponse<Array<LeaderboardEntryDto>>> {
-    this.playerControllerLeaderboardValidation(requestParameters);
-    const context = this.playerControllerLeaderboardContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(LeaderboardEntryDtoFromJSON),
-    );
-  }
-
-  /**
-   */
-  private playerControllerLeaderboardValidation(
-    requestParameters: PlayerControllerLeaderboardRequest,
-  ) {}
-
-  /**
-   */
-  private async playerControllerMeRaw(): Promise<runtime.ApiResponse<MeDto>> {
-    this.playerControllerMeValidation();
-    const context = this.playerControllerMeContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      MeDtoFromJSON(jsonValue),
-    );
-  }
-
-  /**
-   */
-  private playerControllerMeValidation() {}
-
-  /**
-   */
-  private async playerControllerMyPartyRaw(): Promise<
-    runtime.ApiResponse<PartyDto>
-  > {
-    this.playerControllerMyPartyValidation();
-    const context = this.playerControllerMyPartyContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      PartyDtoFromJSON(jsonValue),
-    );
-  }
-
-  /**
-   */
-  private playerControllerMyPartyValidation() {}
-
-  /**
-   */
-  private async playerControllerPlayerSummaryRaw(
-    requestParameters: PlayerControllerPlayerSummaryRequest,
-  ): Promise<runtime.ApiResponse<PlayerSummaryDto>> {
-    this.playerControllerPlayerSummaryValidation(requestParameters);
-    const context =
-      this.playerControllerPlayerSummaryContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      PlayerSummaryDtoFromJSON(jsonValue),
-    );
-  }
-
-  /**
-   */
-  private playerControllerPlayerSummaryValidation(
-    requestParameters: PlayerControllerPlayerSummaryRequest,
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling playerControllerPlayerSummary.",
-      );
-    }
-  }
-
-  /**
-   */
-  private async playerControllerReportPlayerRaw(
-    requestParameters: PlayerControllerReportPlayerRequest,
-  ): Promise<runtime.ApiResponse<boolean>> {
-    this.playerControllerReportPlayerValidation(requestParameters);
-    const context = this.playerControllerReportPlayerContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.TextApiResponse(response) as any;
-  }
-
-  /**
-   */
-  private playerControllerReportPlayerValidation(
-    requestParameters: PlayerControllerReportPlayerRequest,
-  ) {
-    if (
-      requestParameters.reportDto === null ||
-      requestParameters.reportDto === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "reportDto",
-        "Required parameter requestParameters.reportDto was null or undefined when calling playerControllerReportPlayer.",
-      );
-    }
-  }
-
-  /**
-   */
-  private async playerControllerSearchRaw(
-    requestParameters: PlayerControllerSearchRequest,
-  ): Promise<runtime.ApiResponse<Array<PlayerPreviewDto>>> {
-    this.playerControllerSearchValidation(requestParameters);
-    const context = this.playerControllerSearchContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(PlayerPreviewDtoFromJSON),
-    );
-  }
-
-  /**
-   */
-  private playerControllerSearchValidation(
-    requestParameters: PlayerControllerSearchRequest,
-  ) {
-    if (
-      requestParameters.name === null ||
-      requestParameters.name === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "name",
-        "Required parameter requestParameters.name was null or undefined when calling playerControllerSearch.",
-      );
-    }
-  }
-
-  /**
-   */
-  private async playerControllerUploadImageRaw(): Promise<
-    runtime.ApiResponse<object>
-  > {
-    this.playerControllerUploadImageValidation();
-    const context = this.playerControllerUploadImageContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse<any>(response);
-  }
-
-  /**
-   */
-  private playerControllerUploadImageValidation() {}
 }

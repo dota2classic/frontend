@@ -187,25 +187,22 @@ const ColRenderer: React.FC<{
   return <td></td>;
 };
 
-const RowRenderer: React.FC<{ data: Data; columns: Column[]; ctx: any[] }> = ({
-  data,
-  columns,
-  ctx,
-}) => {
-  return (
-    <tr>
-      {data.slice(0, columns.length).map((it, index) => (
-        <ColRenderer
-          data={data}
-          key={JSON.stringify(it)}
-          ctx={ctx[index]}
-          value={it}
-          col={columns[index]}
-        />
-      ))}
-    </tr>
-  );
-};
+const RowRendererMemo: React.FC<{ data: Data; columns: Column[]; ctx: any[] }> =
+  React.memo(({ data, columns, ctx }) => {
+    return (
+      <tr>
+        {data.slice(0, columns.length).map((it, index) => (
+          <ColRenderer
+            data={data}
+            key={index}
+            ctx={ctx[index]}
+            value={it}
+            col={columns[index]}
+          />
+        ))}
+      </tr>
+    );
+  });
 
 export const GenericTable: React.FC<Props> = ({
   columns,
@@ -255,7 +252,7 @@ export const GenericTable: React.FC<Props> = ({
           </tr>
         ) : (
           data.map((it) => (
-            <RowRenderer
+            <RowRendererMemo
               key={keyProvider(it)}
               columns={columns}
               data={it}

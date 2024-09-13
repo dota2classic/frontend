@@ -12,7 +12,8 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import {exists} from "../runtime";
+
 /**
  *
  * @export
@@ -48,13 +49,13 @@ export interface LeaderboardEntryDto {
    * @type {number}
    * @memberof LeaderboardEntryDto
    */
-  mmr: number;
+  mmr?: number;
   /**
    *
    * @type {number}
    * @memberof LeaderboardEntryDto
    */
-  rank: number;
+  rank?: number;
   /**
    *
    * @type {number}
@@ -109,8 +110,8 @@ export function LeaderboardEntryDtoFromJSONTyped(
     name: json["name"],
     avatar: json["avatar"],
     id: json["id"],
-    mmr: json["mmr"],
-    rank: json["rank"],
+    mmr: !exists(json, "mmr") ? undefined : json["mmr"],
+    rank: !exists(json, "rank") ? undefined : json["rank"],
     games: json["games"],
     wins: json["wins"],
     kills: json["kills"],

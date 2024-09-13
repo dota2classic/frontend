@@ -33,12 +33,12 @@ export default function Leaderboard({ initialLeaderboard }: Props) {
 
       <GenericTable
         placeholderRows={100}
-        keyProvider={(it) => it[0]}
+        keyProvider={(it) => it[1].steam_id}
         isLoading={isLoading}
         columns={[
           {
             type: ColumnType.Raw,
-            name: "Ранк",
+            name: "Ранг",
             format: (d) => (
               <div
                 style={{ fontSize: "1.4rem", width: 10, margin: "auto" }}
@@ -49,7 +49,7 @@ export default function Leaderboard({ initialLeaderboard }: Props) {
                   shit: d > 3,
                 })}
               >
-                {d}
+                {d || "-"}
               </div>
             ),
           },
@@ -61,6 +61,7 @@ export default function Leaderboard({ initialLeaderboard }: Props) {
             type: ColumnType.IntWithBar,
             name: "Рейтинг",
             color: colors.gold,
+            format: (d) => d || "-",
           },
           {
             type: ColumnType.IntWithBar,
@@ -88,7 +89,7 @@ export default function Leaderboard({ initialLeaderboard }: Props) {
           },
         ]}
         data={data!.map((it) => [
-          it.rank + 1,
+          it.rank,
           { steam_id: it.steamId, avatar: it.avatar, name: it.name },
           it.mmr,
           it.games,
