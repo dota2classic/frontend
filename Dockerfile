@@ -1,8 +1,6 @@
 FROM node:21-alpine AS base
 
 
-ARG API_URL
-ENV API_URL=$API_URL
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -65,6 +63,10 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT=3000
+
+
+ARG API_URL
+ENV API_URL=$API_URL
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
