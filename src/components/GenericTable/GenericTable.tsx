@@ -105,7 +105,7 @@ const ColRenderer: React.FC<{
             link={
               col.link
                 ? col.link(data)
-                : AppRouter.players.player(value.steam_id).link
+                : AppRouter.players.player.index(value.steam_id).link
             }
           >
             {Number(value.steam_id) > 10 ? value.name : "Бот"}
@@ -115,7 +115,7 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.Hero) {
     return (
-      <td className={c.hero}>
+      <td className={cx({ [c.hero]: !col.noname })}>
         <PageLink
           link={col.link ? col.link(data) : AppRouter.heroes.hero(value).link}
         >
@@ -271,9 +271,7 @@ export const GenericTable: React.FC<Props> = ({
 
             return (
               <th
-                className={cx(c.sortable, {
-                  [c.hero]: col.type === ColumnType.Hero,
-                })}
+                className={cx(c.sortable)}
                 key={index}
                 onClick={() => {
                   if (!sortable) return;

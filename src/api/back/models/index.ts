@@ -26,6 +26,7 @@ export * from './PlayerInfo';
 export * from './PlayerPreviewDto';
 export * from './PlayerSummaryDto';
 export * from "./PlayerTeammateDto";
+export * from "./PlayerTeammatePageDto";
 export * from './ReportDto';
 export * from './RoleSubscriptionEntryDto';
 export * from './StopServerDto';

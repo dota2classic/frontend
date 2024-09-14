@@ -31,8 +31,8 @@ import {
   PlayerPreviewDtoFromJSON,
   PlayerSummaryDto,
   PlayerSummaryDtoFromJSON,
-  PlayerTeammateDto,
-  PlayerTeammateDtoFromJSON,
+  PlayerTeammatePageDto,
+  PlayerTeammatePageDtoFromJSON,
   ReportDto,
   ReportDtoToJSON,
 } from "../models";
@@ -59,6 +59,8 @@ export interface PlayerControllerSearchRequest {
 
 export interface PlayerControllerTeammatesRequest {
   id: string;
+  page: number;
+  perPage?: number;
 }
 
 /**
@@ -615,6 +617,14 @@ export class PlayerApi extends runtime.BaseAPI {
   ): runtime.RequestOpts {
     const queryParameters: any = {};
 
+    if (requestParameters.page !== undefined) {
+      queryParameters["page"] = requestParameters.page;
+    }
+
+    if (requestParameters.perPage !== undefined) {
+      queryParameters["per_page"] = requestParameters.perPage;
+    }
+
     const headerParameters: runtime.HTTPHeaders = {};
 
     return {
@@ -632,14 +642,22 @@ export class PlayerApi extends runtime.BaseAPI {
    */
   playerControllerTeammates = async (
     id: string,
-  ): Promise<Array<PlayerTeammateDto>> => {
-    const response = await this.playerControllerTeammatesRaw({ id: id });
+    page: number,
+    perPage?: number,
+  ): Promise<PlayerTeammatePageDto> => {
+    const response = await this.playerControllerTeammatesRaw({
+      id: id,
+      page: page,
+      perPage: perPage,
+    });
     return await response.value();
   };
 
   usePlayerControllerTeammates(
     id: string,
-    config?: SWRConfiguration<Array<PlayerTeammateDto>, Error>,
+    page: number,
+    perPage?: number,
+    config?: SWRConfiguration<PlayerTeammatePageDto, Error>,
   ) {
     let valid = true;
 
@@ -647,10 +665,18 @@ export class PlayerApi extends runtime.BaseAPI {
       valid = false;
     }
 
-    const context = this.playerControllerTeammatesContext({ id: id! });
+    if (page === null || page === undefined || Number.isNaN(page)) {
+      valid = false;
+    }
+
+    const context = this.playerControllerTeammatesContext({
+      id: id!,
+      page: page!,
+      perPage: perPage!,
+    });
     return useSWR(
       context,
-      valid ? () => this.playerControllerTeammates(id!) : null,
+      valid ? () => this.playerControllerTeammates(id!, page!, perPage!) : null,
       config,
     );
   }
@@ -659,13 +685,13 @@ export class PlayerApi extends runtime.BaseAPI {
    */
   private async playerControllerTeammatesRaw(
     requestParameters: PlayerControllerTeammatesRequest,
-  ): Promise<runtime.ApiResponse<Array<PlayerTeammateDto>>> {
+  ): Promise<runtime.ApiResponse<PlayerTeammatePageDto>> {
     this.playerControllerTeammatesValidation(requestParameters);
     const context = this.playerControllerTeammatesContext(requestParameters);
     const response = await this.request(context);
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(PlayerTeammateDtoFromJSON),
+      PlayerTeammatePageDtoFromJSON(jsonValue),
     );
   }
 
@@ -678,6 +704,15 @@ export class PlayerApi extends runtime.BaseAPI {
       throw new runtime.RequiredError(
         "id",
         "Required parameter requestParameters.id was null or undefined when calling playerControllerTeammates.",
+      );
+    }
+    if (
+      requestParameters.page === null ||
+      requestParameters.page === undefined
+    ) {
+      throw new runtime.RequiredError(
+        "page",
+        "Required parameter requestParameters.page was null or undefined when calling playerControllerTeammates.",
       );
     }
   }

@@ -4,6 +4,12 @@
 .section {
   & header {
 
+    & a {
+      float: right;
+      font-size: 0.8rem;
+      color: $green;
+    }
+
     * + & {
       margin-top: 20px;
     }
@@ -22,4 +28,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+
 }

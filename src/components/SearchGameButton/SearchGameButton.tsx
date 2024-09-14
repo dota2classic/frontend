@@ -15,7 +15,6 @@ export const SearchGameButton = observer(() => {
   const isQueuePage = router.pathname === "/queue";
 
   const isSearchModeDefined = queue.searchingMode !== undefined;
-  console.log("Render button", isSearchModeDefined);
 
   if (queue.needAuth)
     return (

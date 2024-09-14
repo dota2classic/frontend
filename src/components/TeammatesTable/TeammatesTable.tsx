@@ -10,7 +10,6 @@ interface ITeammatesTableProps {
 }
 
 export const TeammatesTable: React.FC<ITeammatesTableProps> = ({ data }) => {
-  const d2 = data.toSorted((a, b) => b.wins - b.losses).slice(0, 10);
   return (
     <GenericTable
       placeholderRows={20}
@@ -29,7 +28,7 @@ export const TeammatesTable: React.FC<ITeammatesTableProps> = ({ data }) => {
           name: "% Побед",
         },
       ]}
-      data={d2.map((it) => [
+      data={data.map((it) => [
         { steam_id: it.steamId, name: it.name, avatar: it.avatar },
         it.games,
         it.winrate * 100,

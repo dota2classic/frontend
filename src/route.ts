@@ -66,7 +66,16 @@ export const AppRouter = {
       page("/stats/meta/heroes/[id]", `/stats/meta/heroes/${hero}`),
   },
   players: {
-    player: (id: string | number) => page(`/players/[id]`, `/players/${id}`),
+    player: {
+      index: (id: string | number) => page(`/players/[id]`, `/players/${id}`),
+      teammates: (id: string, _page?: number) => {
+        const q = queryParameters({ page: _page });
+        return page(
+          `/players/[id]/teammates${q}`,
+          `/players/${id}/teammates${q}`,
+        );
+      },
+    },
     playerMatches: (
       id: string | number,
       hero?: string,

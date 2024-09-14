@@ -1,5 +1,6 @@
 import {
   HeroPerformanceTable,
+  PageLink,
   PlayerMatchTable,
   PlayerSummary,
   Section,
@@ -12,7 +13,7 @@ import {
   HeroStatsDto,
   MatchPageDto,
   PlayerSummaryDto,
-  PlayerTeammateDto,
+  PlayerTeammatePageDto,
 } from "@/api/back";
 import { useQueryBackedParameter } from "@/util/hooks";
 import { PlayerMatchItem } from "@/components/PlayerMatchTable/PlayerMatchTable";
@@ -20,6 +21,7 @@ import { matchToPlayerMatchItem } from "@/util/mappers";
 import Head from "next/head";
 import { numberOrDefault } from "@/util/urls";
 import React from "react";
+import { AppRouter } from "@/route";
 //
 // const d2: any[] = Matches.map((it) => ({
 //   hero: it.radiant[0].hero,
@@ -46,7 +48,7 @@ interface PlayerPageProps {
   preloadedSummary: PlayerSummaryDto;
   preloadedMatches: MatchPageDto;
   preloadedHeroStats: HeroStatsDto[];
-  preloadedTeammates: PlayerTeammateDto[];
+  preloadedTeammates: PlayerTeammatePageDto;
 }
 
 export default function PlayerPage({
@@ -123,18 +125,30 @@ export default function PlayerPage({
         steamId={summary.steamId}
       />
       <Section className={c.matchHistory}>
-        <header>Матчи</header>
+        <header>
+          Матчи
+          <PageLink link={AppRouter.players.playerMatches(playerId).link}>
+            Показать еще
+          </PageLink>
+        </header>
         <PlayerMatchTable loading={matchesLoading} data={formattedMatches} />
       </Section>
       <Section className={c.heroPerformance}>
-        <header>Лучшие герои</header>
+        <header>
+          <span>Лучшие герои</span>
+        </header>
         <HeroPerformanceTable
           steamId={playerId}
           loading={heroStatsLoading}
           data={formattedHeroStats}
         />
-        <header>Лучшие тиммейты</header>
-        <TeammatesTable data={preloadedTeammates} />
+        <header>
+          Лучшие тиммейты{" "}
+          <PageLink link={AppRouter.players.player.teammates(playerId).link}>
+            Показать всех
+          </PageLink>
+        </header>
+        <TeammatesTable data={preloadedTeammates!.data} />
       </Section>
     </div>
   );
@@ -155,7 +169,7 @@ PlayerPage.getInitialProps = async (
     useApi().playerApi.playerControllerPlayerSummary(playerId),
     useApi().matchApi.matchControllerPlayerMatches(playerId, page),
     useApi().playerApi.playerControllerHeroSummary(playerId),
-    useApi().playerApi.playerControllerTeammates(playerId),
+    useApi().playerApi.playerControllerTeammates(playerId, 0, 10),
   ]);
   return {
     playerId,

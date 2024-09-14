@@ -44,7 +44,9 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
               </div>
             </td>
             <td>
-              <PageLink link={AppRouter.players.player(player.steamId).link}>
+              <PageLink
+                link={AppRouter.players.player.index(player.steamId).link}
+              >
                 {player.name}
               </PageLink>
             </td>

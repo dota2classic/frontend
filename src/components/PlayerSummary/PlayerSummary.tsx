@@ -3,8 +3,9 @@ import React from "react";
 import c from "./PlayerSummary.module.scss";
 import cx from "classnames";
 import { formatWinrate } from "@/util/math";
-import { TimeAgo } from "@/components";
+import { PageLink, TimeAgo } from "@/components";
 import { steamPage } from "@/util/resources";
+import { AppRouter } from "@/route";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -34,8 +35,13 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = ({
   return (
     <div className={cx(c.panel, className)}>
       <div className={c.left}>
-        <img src={image} alt="image in panel" />
-        <div className={c.playerName}>{name}</div>
+        <PageLink
+          className={c.player}
+          link={AppRouter.players.player.index(steamId).link}
+        >
+          <img src={image} alt="image in panel" />
+          <div className={c.playerName}>{name}</div>
+        </PageLink>
         <a
           target="__blank"
           className={c.externalLink}

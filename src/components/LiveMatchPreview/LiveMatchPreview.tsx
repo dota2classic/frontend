@@ -35,7 +35,7 @@ const TeamListTable = ({
             {it.bot ? (
               <span>{"Бот"}</span>
             ) : (
-              <PageLink link={AppRouter.players.player(it.steamId).link}>
+              <PageLink link={AppRouter.players.player.index(it.steamId).link}>
                 <span>{it.name}</span>
               </PageLink>
             )}

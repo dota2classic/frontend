@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:local": "API_URL=http://localhost:6001 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,7 +14,7 @@
     "create-component-props": "node ./scripts/create-component-props.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "docker": "docker build . -t dota2classic/matchmaking:dotabuff && docker push dota2classic/matchmaking:dotabuff"
+    "docker": "docker build . --build-arg API_URL=https://dotaclassic.ru/api -t dota2classic/matchmaking:dotabuff && docker push dota2classic/matchmaking:dotabuff"
   },
   "dependencies": {
     "apisauce": "^3.0.1",

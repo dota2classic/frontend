@@ -16,6 +16,10 @@
   span {
     margin-left: 4px;
     text-transform: capitalize;
+    white-space: nowrap;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
