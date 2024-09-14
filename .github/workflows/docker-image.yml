@@ -20,6 +20,6 @@ jobs:
         uses: docker/build-push-action@v6.7.0
         with:
           build-args: |
-            API_URL=${{ env.API_URL }}
+            API_URL=https://dotaclassic.ru/api
           push: true
           tags: dota2classic/matchmaking:dotabuff
