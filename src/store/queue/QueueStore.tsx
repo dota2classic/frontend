@@ -317,7 +317,6 @@ export class QueueStore
     mode?: MatchmakingMode;
     version?: Dota2Version;
   }): void => {
-    console.log(mode, version, "QUEESTAE?");
     if (mode != null && version != null) {
       const qs: QueueState = { mode, version };
       this.searchingMode = qs;

@@ -1,11 +1,24 @@
 "use client";
 import React from "react";
-import { fromNow } from "@/util/time";
+
+export const formatDateStr = (
+  value: string | number,
+  locale?: string,
+): string => {
+  return new Date(value).toLocaleString(locale || "ru-RU", {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+};
 
 interface ITimeAgoProps {
   date: number | Date | string;
 }
 
 export const TimeAgo: React.FC<ITimeAgoProps> = ({ date }) => {
-  return <>{fromNow(date instanceof Date ? new Date(date) : date)}</>;
+  // return <>{fromNow(date instanceof Date ? new Date(date) : date)}</>;
+  return <>{formatDateStr(date as any)}</>;
 };

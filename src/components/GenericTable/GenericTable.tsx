@@ -26,6 +26,7 @@ export enum ColumnType {
   PercentWithBar,
   KDA,
   Items,
+  PM_PAIR,
 }
 
 interface Column {
@@ -35,6 +36,7 @@ interface Column {
   noname?: boolean;
 
   sortable?: boolean;
+  sortKey?: (d: any) => number;
   defaultSort?: "asc" | "desc";
 
   forceInteger?: boolean;
@@ -155,6 +157,12 @@ const ColRenderer: React.FC<{
         ))}
       </td>
     );
+  } else if (type === ColumnType.PM_PAIR) {
+    return (
+      <td>
+        {Math.round(value[0]).toString()} / {Math.round(value[1]).toString()}
+      </td>
+    );
   } else if (type === ColumnType.IntWithBar) {
     return (
       <td>
@@ -255,7 +263,13 @@ export const GenericTable: React.FC<Props> = ({
           const v1 = a[sortBy.columnIndex];
           const v2 = b[sortBy.columnIndex];
 
-          const diff = v1 - v2;
+          const sortFunction =
+            columns[sortBy.columnIndex].sortKey ||
+            function (t) {
+              return t;
+            };
+
+          const diff = sortFunction(v1) - sortFunction(v2);
 
           return sortBy.order === "asc" ? diff : -diff;
         });

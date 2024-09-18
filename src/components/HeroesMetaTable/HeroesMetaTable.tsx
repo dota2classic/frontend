@@ -27,9 +27,10 @@ export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
         it.hero,
         it.games,
         (it.wins / it.games) * 100,
+        it.pickrate * 100,
         (it.kills + it.assists) / (it.deaths === 0 ? 1 : it.deaths),
-        `${Math.round(it.gpm)} / ${Math.round(it.xpm)}`,
-        `${Math.round(it.lastHits)} / ${Math.round(it.denies)}`,
+        [it.gpm, it.xpm],
+        [it.lastHits, it.denies],
       ])}
       columns={[
         {
@@ -39,23 +40,41 @@ export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
         {
           type: ColumnType.IntWithBar,
           name: "Матчи",
+          sortable: true,
+          defaultSort: "desc",
         },
         {
           type: ColumnType.PercentWithBar,
           name: "Доля побед",
           color: colors.green,
+          sortable: true,
+        },
+        {
+          type: ColumnType.PercentWithBar,
+          name: "Частота выбора",
+          color: colors.grey,
+          sortable: true,
         },
         {
           type: ColumnType.FloatWithBar,
           name: "KDA",
+          sortable: true,
         },
         {
-          type: ColumnType.Raw,
+          type: ColumnType.PM_PAIR,
           name: "GPM/XPM",
+          sortable: true,
+          sortKey(d) {
+            return d[0];
+          },
         },
         {
-          type: ColumnType.Raw,
+          type: ColumnType.PM_PAIR,
           name: "LH/D",
+          sortable: true,
+          sortKey(d) {
+            return d[0];
+          },
         },
       ]}
     />

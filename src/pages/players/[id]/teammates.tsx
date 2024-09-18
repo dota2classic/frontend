@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import { PlayerSummaryDto, PlayerTeammatePageDto } from "@/api/back";
 import { useApi } from "@/api/hooks";
+import { maxBy } from "@/util/iter";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -21,23 +22,30 @@ export default function PlayerTeammates({
   playerId,
   summary,
 }: Props) {
-  const [totalData, setTotalData] = useState<PlayerTeammatePageDto[]>([
-    preloadedTeammates,
-  ]);
+  const [totalData, setTotalData] = useState<
+    Record<number, PlayerTeammatePageDto>
+  >({
+    [preloadedTeammates.page]: preloadedTeammates,
+  });
   const [reachedBottom, setReachedBottom] = useState(false);
 
   const onScrollToEnd = async () => {
     if (reachedBottom) return;
 
+    const maxPage = maxBy(Object.values(totalData), (it) => it.page)!.page;
     const data = await useApi().playerApi.playerControllerTeammates(
       playerId,
-      totalData.length,
+      maxPage + 1,
     );
     if (data.data.length === 0) {
       setReachedBottom(true);
       return;
     }
-    setTotalData([...totalData, data!]);
+
+    setTotalData({
+      ...totalData,
+      [data.page]: data,
+    });
   };
 
   return (
@@ -53,7 +61,9 @@ export default function PlayerTeammates({
       />
       <Section>
         <header>Тиммейты</header>
-        <TeammatesTable data={totalData.flatMap((it) => it.data)} />
+        <TeammatesTable
+          data={Object.values(totalData).flatMap((it) => it.data)}
+        />
         <ScrollDetector onScrolledTo={onScrollToEnd} />
       </Section>
     </>
