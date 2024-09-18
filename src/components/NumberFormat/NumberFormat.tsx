@@ -1,9 +1,4 @@
-
-import React from 'react'
-
-import { } from '..'
-
-import c from './NumberFormat.module.scss'
+import React from "react";
 
 interface INumberFormatProps {
   number: number;
@@ -11,7 +6,11 @@ interface INumberFormatProps {
 
 export const NumberFormat: React.FC<INumberFormatProps> = ({ number }) => {
   return (
-    <>{new Intl.NumberFormat("ru").format(number)}</>
-  )
-}
-
+    <>
+      {new Intl.NumberFormat("en-US", {
+        notation: "compact",
+        compactDisplay: "short", // Other option is 'long'
+      }).format(number)}
+    </>
+  );
+};
