@@ -37,4 +37,8 @@
 .stats {
   padding-inline-start: 20px;
   font-size: 0.8rem;
+
+  & li {
+    text-transform: capitalize;
+  }
 }

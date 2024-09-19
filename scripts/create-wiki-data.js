@@ -107,10 +107,10 @@ async function createItemDescriptions() {
     bash_stun: "Длительность оглушения",
     bash_cooldown: "Перезарядка оглушения",
     cleave_radius: "Радиус прорубания",
-    images_do_damage_percent_melee: "Урон иллюзий(ближний)",
-    images_take_damage_percent_melee: "Урон по иллюзиям(ближний)",
-    images_do_damage_percent_ranged: "Урон иллюзий(дальний)",
-    images_take_damage_percent_ranged: "Урон по иллюзиям(дальний)",
+    // images_do_damage_percent_melee: "Урон иллюзий(ближний)",
+    // images_take_damage_percent_melee: "Урон по иллюзиям(ближний)",
+    // images_do_damage_percent_ranged: "Урон иллюзий(дальний)",
+    // images_take_damage_percent_ranged: "Урон по иллюзиям(дальний)",
     // invuln_duration: "Длительность неуязвимости",
     unholy_bonus_damage: "Урон",
     unholy_bonus_attack_speed: "Скорость атаки",
@@ -250,13 +250,13 @@ async function createItemDescriptions() {
 
         const hasKey = key in locParameters;
 
-        console.log(`Special ${key} -> ${value}`);
-        console.log(
-          hasLocalisation,
-          hasKey,
-          locSpecial,
-          locSpecial.startsWith("+"),
-        );
+        // console.log(`Special ${key} -> ${value}`);
+        // console.log(
+        //   hasLocalisation,
+        //   hasKey,
+        //   locSpecial,
+        //   locSpecial.startsWith("+"),
+        // );
 
         if (hasLocalisation && !locSpecial.startsWith("+")) {
           locSpecial = `${locSpecial} ${value}${isPercent ? "%" : ""}`;
@@ -268,7 +268,7 @@ async function createItemDescriptions() {
           locSpecial = `${locParameters[key] || `missing_key [${key}]`}: ${locSpecial}`;
         }
 
-        return locSpecial;
+        return locSpecial.toLowerCase();
         // return locSpecial.toUpperCase();
       })
       .filter(Boolean);
