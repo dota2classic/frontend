@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useRef } from "react";
 
 import c from "./ItemIcon.module.scss";
 import cx from "classnames";
 import { ItemMap } from "@/const/items";
+import { TooltipContext } from "@/util/hooks";
 
 interface IItemIconProps {
   item: string | number;
@@ -10,6 +11,12 @@ interface IItemIconProps {
 }
 
 export const ItemIcon: React.FC<IItemIconProps> = ({ item, small }) => {
+  return <ItemIconRaw item={item} small={small} />;
+};
+
+export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
+  const ref = useRef<HTMLImageElement | null>(null);
+  const ctx = useContext(TooltipContext);
   const fItem =
     typeof item === "number"
       ? ItemMap.find((it) => it.id === item)!.name
@@ -20,6 +27,11 @@ export const ItemIcon: React.FC<IItemIconProps> = ({ item, small }) => {
     : `https://steamcdn-a.akamaihd.net/apps/dota2/images/items/${fItem}_lg.png`;
   return (
     <img
+      ref={ref}
+      onMouseEnter={(e) =>
+        ctx.setCtx({ item: "item_" + fItem, hovered: e.currentTarget! })
+      }
+      onMouseLeave={(e) => ctx.setCtx(undefined)}
       width={60}
       height={44}
       alt={`Item ${fItem}`}

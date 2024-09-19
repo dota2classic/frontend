@@ -1,5 +1,5 @@
 import Router, { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { parse, stringify } from "qs";
 import { useApi } from "@/api/hooks";
 import { querystring, RequestOpts } from "@/api/back";
@@ -108,3 +108,17 @@ export const useEventSource = <T extends {}>(
 
   return data;
 };
+
+interface TooltipContext2 {
+  hovered: HTMLElement;
+  item: string;
+}
+
+export interface TooltipContextData {
+  ctx?: TooltipContext2;
+  setCtx: (c?: TooltipContext2) => void;
+}
+
+export const TooltipContext = React.createContext<TooltipContextData>(
+  {} as any,
+);

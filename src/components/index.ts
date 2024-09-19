@@ -9,7 +9,7 @@ export { Duration } from './Duration/Duration'
 export { HeroName } from './HeroName/HeroName'
 export { PageLink } from './PageLink/PageLink'
 export { MatchTeamTable } from './MatchTeamTable/MatchTeamTable'
-export { ItemIcon } from './ItemIcon/ItemIcon'
+export { ItemIcon, ItemIconRaw } from "./ItemIcon/ItemIcon";
 export { Typography } from './Typography/Typography'
 export { MatchSummary, MatchSummaryScore } from "./MatchSummary/MatchSummary";
 export { NumberFormat } from './NumberFormat/NumberFormat'
@@ -34,3 +34,4 @@ export { SearchGameFloater } from "./SearchGameFloater/SearchGameFloater";
 export { SearchGameButton } from "./SearchGameButton/SearchGameButton";
 export { TeammatesTable } from "./TeammatesTable/TeammatesTable";
 export { ScrollDetector } from "./ScrollDetecter/ScrollDetector";
+export { ItemTooltip } from "./ItemTooltip/ItemTooltip";

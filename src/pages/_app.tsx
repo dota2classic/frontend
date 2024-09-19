@@ -5,7 +5,7 @@ import Cookies from "cookies";
 
 import localFont from "next/font/local";
 import { SWRConfig } from "swr";
-import { createContext } from "react";
+import React, { createContext } from "react";
 import { HydrateRootData, RootStore, useRootStore } from "@/store";
 import Head from "next/head";
 

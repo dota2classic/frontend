@@ -32,9 +32,10 @@ export default function Home() {
 
   return (
     <>
-      <Obs />
+      {/*<Obs />*/}
       {/*{(liveMatch && <LiveMatchPreview match={liveMatch} />) ||*/}
       {/*  "No live match yet"}*/}
+      {/*<ItemTooltip item={"item_vladmir"} hoveredElement={document.querySelector()} />*/}
     </>
   );
 }
