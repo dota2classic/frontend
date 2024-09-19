@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import App, { AppContext } from "next/app";
 import { Layout } from "@/components";
 import Cookies from "cookies";
-
+// import * as Fonts from 'next/font/google'
 import localFont from "next/font/local";
 import { SWRConfig } from "swr";
 import React, { createContext } from "react";

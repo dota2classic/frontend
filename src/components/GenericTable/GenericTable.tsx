@@ -15,6 +15,7 @@ import cx from "classnames";
 import { maxBy } from "@/util/iter";
 import { FaSort } from "react-icons/fa6";
 import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
+import { colors } from "@/colors";
 
 export enum ColumnType {
   Raw,
@@ -27,6 +28,7 @@ export enum ColumnType {
   KDA,
   Items,
   PM_PAIR,
+  ExternalLink,
 }
 
 interface Column {
@@ -195,6 +197,14 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.Raw) {
     return <td className={c.raw}>{col.format ? col.format(value) : value}</td>;
+  } else if (type === ColumnType.ExternalLink) {
+    return (
+      <td className={c.raw}>
+        <a style={{ color: colors.green }} target="__blank" href={value.link}>
+          {value.label}
+        </a>
+      </td>
+    );
   }
 
   return <td></td>;

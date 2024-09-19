@@ -18,6 +18,7 @@
     "docker": "docker build . --build-arg API_URL=https://dotaclassic.ru/api -t dota2classic/matchmaking:dotabuff && docker push dota2classic/matchmaking:dotabuff"
   },
   "dependencies": {
+    "aos": "^3.0.0-beta.6",
     "apisauce": "^3.0.1",
     "browser-cookies": "^1.2.0",
     "classnames": "^2.5.1",
@@ -44,6 +45,7 @@
     "@storybook/nextjs": "^8.2.9",
     "@storybook/react": "^8.2.9",
     "@storybook/test": "^8.2.9",
+    "@types/aos": "^3.0.7",
     "@types/cookies": "^0.9.0",
     "@types/howler": "^2.2.11",
     "@types/node": "^20",

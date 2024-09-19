@@ -1,0 +1,168 @@
+@import "../../common.scss";
+
+.promoVideoWrapper {
+  position: absolute;
+  top: -1px;
+  z-index: -2;
+  opacity: 0.5;
+
+  & video {
+    z-index: -2;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    background: #000;
+  }
+}
+
+.block {
+  position: relative;
+  height: 55vh;
+}
+
+.leadingIntent {
+  z-index: 5;
+  height: 100%;
+  width: fit-content;
+  max-width: 60%;
+  padding-left: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-end;
+  pointer-events: auto;
+
+  font-size: 2rem;
+}
+
+.playButton {
+  width: fit-content;
+
+  outline: none;
+  text-transform: uppercase;
+
+  z-index: 10;
+  white-space: pre;
+
+  border: 2px solid $primaryText;
+  border-radius: 6px;
+
+  font-size: 28px;
+  letter-spacing: 2.5px;
+
+  text-decoration: underline;
+
+  font-weight: bold;
+
+  padding: 20px 20px 20px 20px;
+  color: #ed3b1c;
+  //text-decoration: underline;
+  //text-underline-position: under;
+  transition: 0.2s ease;
+
+  &:hover {
+    color: #ee2c0a;
+    border-color: $primaryTextHighlight;
+  }
+
+  cursor: pointer;
+  text-align: left;
+}
+
+.backimage {
+  width: 100%;
+  height: auto;
+  opacity: 0.6;
+}
+
+.carousel {
+  width: 1200px;
+  max-width: 100%;
+  position: relative;
+  min-height: 308px;
+  margin: 160px auto 125px;
+  z-index: 100;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &__stat {
+    min-height: 150px;
+    margin: 60px auto 65px;
+  }
+
+  & a + a, & .stat + .stat {
+    margin-left: 30px;
+  }
+
+  & .stat {
+    padding: 12px;
+    flex: 1;
+    text-align: center;
+
+    background-color: $bg2;
+    box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+
+    & h3:first-child {
+      text-decoration: underline;
+      text-decoration-color: $primaryTextDark;
+    }
+
+    & h4 {
+      font-size: 16px;
+    }
+  }
+
+  & a {
+    width: 400px;
+    height: 245px;
+    justify-items: center;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      & img {
+        filter: brightness(0.2);
+      }
+    }
+
+    & h3 {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: fit-content;
+    }
+
+    & img {
+      width: 100%;
+      transition: 0.3s ease;
+      position: absolute;
+      filter: brightness(0.5);
+      left: 0;
+      bottom: 0;
+      top: 0;
+      right: 0;
+      object-fit: none;
+      z-index: -1;
+    }
+  }
+}
+
+.wow {
+  margin-top: 300px;
+  color: $primaryTextHighlight;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 105%;
+  font-size: 60px;
+  text-align: center;
+
+  & span {
+    font-size: 54px;
+    margin-bottom: 42px;
+  }
+}
