@@ -1,0 +1,52 @@
+@import "../../common.scss";
+
+
+.input2 {
+  border: 0px solid transparent;
+  outline: none;
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 4px;
+  transition: 0.3s ease;
+  color: $primaryText;
+
+  background-color: #25282a;
+  background-color: $bg2;
+
+  cursor: pointer;
+
+  &:focus, &:hover {
+    background: $transparentTint3;
+  }
+}
+
+.input {
+  padding: 12px;
+  border: none;
+  outline: none;
+  background: $evenDarkerBg;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: 0.3s ease;
+  font-family: "Trajan Pro 3", sans-serif;
+  color: $primaryText;
+
+  cursor: pointer;
+
+  &:hover {
+    color: $primaryTextHighlight;
+    background: $almostBlack;
+  }
+
+  margin-bottom: 20px;
+
+  &.small {
+    padding: 6px;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  &.iso {
+    margin-bottom: 0;
+  }
+}

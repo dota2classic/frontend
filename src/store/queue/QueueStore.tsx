@@ -111,6 +111,14 @@ export class QueueStore
     );
   }
 
+  @computed
+  public get isSearchingServer(): boolean {
+    if (!this.gameInfo) return false;
+    return (
+      this.gameInfo.accepted === this.gameInfo.total && !this.gameInfo.serverURL
+    );
+  }
+
   @action
   public cancelSearch() {
     this.searchingMode = undefined;

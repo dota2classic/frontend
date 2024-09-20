@@ -39,3 +39,5 @@ export { TeammatesTable } from "./TeammatesTable/TeammatesTable";
 export { ScrollDetector } from "./ScrollDetecter/ScrollDetector";
 export { ItemTooltip } from "./ItemTooltip/ItemTooltip";
 export { Landing } from "./Landing/Landing";
+export { AcceptGameModal } from "./AcceptGameModal/AcceptGameModal";
+export { Input } from "./Input/Input";

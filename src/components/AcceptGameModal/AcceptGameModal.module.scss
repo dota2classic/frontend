@@ -1,0 +1,118 @@
+@import "../../common.scss";
+
+.modalWrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal {
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  width: fit-content;
+  height: fit-content;
+  background: $evenDarkerBg;
+
+  padding: 40px;
+  border-radius: 0px;
+
+  box-shadow: 0 0 15px 10px rgba(150, 150, 150, 0.25);
+
+  & h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: normal;
+    color: #dcddde;
+  }
+
+  &.inline {
+    right: 50px !important;
+    left: unset;
+    top: unset;
+    bottom: 50px !important;
+    margin: unset;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+
+  & button + button {
+    margin-left: 10px;
+  }
+
+  justify-content: space-between;
+}
+
+
+.button2 {
+  border: 0px solid transparent;
+  outline: none;
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 4px;
+  transition: 0.3s ease;
+  color: $primaryText;
+
+  background-color: $bg2;
+
+  &:focus, &:hover {
+    background: $transparentTint;
+  }
+
+  &.active {
+    color: $gold;
+    background: $transparentTint;
+  }
+
+  cursor: pointer;
+}
+
+
+.copyHolder {
+  margin-top: 10px;
+  position: relative;
+  display: flex;
+
+  & input {
+    flex: 1;
+  }
+
+  & svg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 15px;
+    margin: auto;
+  }
+}
+
+
+@keyframes popup {
+  0% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.successCopy {
+  animation: popup 0.8s;
+}
