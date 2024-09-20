@@ -6,6 +6,17 @@
   margin-bottom: 20px;
 }
 
+.liveMatches {
+  display: flex;
+  flex-direction: column;
+}
+
+.liveCarousel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 
 .filters {
   & div + div {

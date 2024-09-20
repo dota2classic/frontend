@@ -54,7 +54,12 @@ export const SearchGameButton = observer(() => {
     );
   }
   return (
-    <button className={cx(c.button, queue.gameInfo?.serverURL && c.ingame)}>
+    <button
+      onClick={() => {
+        queue.cancelSearch();
+      }}
+      className={cx(c.button, queue.gameInfo?.serverURL && c.ingame)}
+    >
       Отменить поиск
     </button>
   );

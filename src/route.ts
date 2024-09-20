@@ -94,6 +94,7 @@ export const AppRouter = {
   },
 
   admin: {
+    servers: spage("/admin/servers"),
     tournamentMatch: {
       match: (id: number) =>
         page(`/admin/tournament_match/[id]`, `/admin/tournament_match/${id}`),

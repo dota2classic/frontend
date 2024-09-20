@@ -26,7 +26,10 @@ export { Panel } from './Panel/Panel'
 export { Section } from './Section/Section'
 export { GenericTable } from "./GenericTable/GenericTable";
 export { HeroPlayersTable } from "./HeroPlayersTable/HeroPlayersTable";
-export { LiveMatchPreview } from "./LiveMatchPreview/LiveMatchPreview";
+export {
+  LiveMatchPreview,
+  SmallLiveMatch,
+} from "./LiveMatchPreview/LiveMatchPreview";
 export { PartyInviteNotification } from "./PartyInviteNotification/PartyInviteNotification";
 export { Notifications } from "./Notifications/Notifications";
 export { MatchmakingOption } from "./MatchmakingOption/MatchmakingOption";

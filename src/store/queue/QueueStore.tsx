@@ -52,7 +52,7 @@ export class QueueStore
   public searchingMode: QueueState | undefined = undefined;
   @observable
   public selectedMode: QueueState = {
-    mode: MatchmakingMode.BOTS,
+    mode: MatchmakingMode.SOLOMID,
     version: Dota2Version.Dota_684,
   };
   @observable
@@ -111,7 +111,9 @@ export class QueueStore
     );
   }
 
+  @action
   public cancelSearch() {
+    this.searchingMode = undefined;
     this.socket.emit(Messages.LEAVE_ALL_QUEUES);
   }
 

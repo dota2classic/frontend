@@ -131,3 +131,21 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
     </>
   );
 };
+
+export const SmallLiveMatch: React.FC<ILiveMatchPreviewProps> = ({ match }) => {
+  return (
+    <div className={cx(c.map, c.map__small)}>
+      {match.heroes.map((hero) => (
+        <MinimapHero
+          angle={hero.angle}
+          dead={hero.respawnTime > 0}
+          key={hero.hero}
+          x={hero.posX}
+          y={hero.posY}
+          hero={hero.hero}
+          team={hero.team}
+        />
+      ))}
+    </div>
+  );
+};

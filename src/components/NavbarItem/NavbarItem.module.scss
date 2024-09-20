@@ -11,13 +11,15 @@
   justify-content: center;
 
   color: inherit;
+  transition: 0.3s ease;
 
   &:focus, &:hover {
-    background: $blueHighlight;
+    background: $transparentTint;
   }
 
   &.active {
-    color: red;
+    color: $gold;
+    background: $transparentTint;
   }
 }
 
@@ -27,4 +29,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+.admin {
+  color: $bronze;
 }

@@ -1,6 +1,5 @@
 import { useQueryBackedParameter, useRouterChanging } from "@/util/hooks";
 import Head from "next/head";
-import { NextPageContext } from "next";
 import { useApi } from "@/api/hooks";
 import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import {
@@ -20,6 +19,7 @@ import {
 import { numberOrDefault } from "@/util/urls";
 import { fullName, shortName } from "@/util/heroName";
 import { matchToPlayerMatchItem } from "@/util/mappers";
+import { NextPageContext } from "next";
 
 interface Props {
   playerId: string;
@@ -124,9 +124,14 @@ PlayerMatches.getInitialProps = async (
       hero,
     ),
   ]);
-  return {
+
+  const props = {
     playerId,
     preloadedSummary,
     initialMatches,
+  };
+
+  return {
+    ...props,
   };
 };
