@@ -131,6 +131,19 @@ export class QueueStore
     this.socket.emit(Messages.ENTER_QUEUE, qs);
   };
 
+  @action
+  public acceptGame = () => {
+    this.acceptPendingGame(this.gameInfo?.roomID);
+    if (this.gameInfo) this.gameInfo.iAccepted = true;
+  };
+
+  @action
+  public declineGame = () => {
+    this.declinePendingGame(this.gameInfo?.roomID);
+    this.gameInfo = undefined;
+    this.cancelSearch();
+  };
+
   // @action
   public enterQueue(): boolean {
     try {
@@ -145,7 +158,7 @@ export class QueueStore
     }
   }
 
-  public acceptPendingGame = (roomId: string) => {
+  public acceptPendingGame = (roomId?: string) => {
     this.socket.emit(Messages.SET_READY_CHECK, {
       roomID: roomId,
       accept: true,

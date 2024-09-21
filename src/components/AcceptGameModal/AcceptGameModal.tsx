@@ -2,10 +2,10 @@ import React, { useCallback, useState } from "react";
 import { observer } from "mobx-react-lite";
 import c from "./AcceptGameModal.module.scss";
 import cx from "classnames";
-import { MatchmakingMode } from "@/const/enums";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Input } from "@/components";
 import { FaCheck, FaCopy } from "react-icons/fa6";
+import { useStore } from "@/store";
 
 const CopySomething = ({ something }: { something: string }) => {
   const [copied, setCopied] = useState(false);
@@ -34,19 +34,8 @@ const CopySomething = ({ something }: { something: string }) => {
 };
 
 export const AcceptGameModal = observer(() => {
-  // const q = useStore().queue;
-
-  const q = {
-    isSearchingServer: false,
-    gameInfo: {
-      mode: MatchmakingMode.SOLOMID,
-      accepted: 1,
-      total: 2,
-      roomID: "asdfasfsadfasf",
-      iAccepted: false,
-      serverURL: "fsdf",
-    },
-  };
+  const qStore = useStore().queue;
+  const q = qStore;
 
   if (q.isSearchingServer)
     return (
@@ -74,5 +63,42 @@ export const AcceptGameModal = observer(() => {
       </div>
     );
 
-  return <></>;
+  if (!q.gameInfo) return null;
+
+  if (!q.gameInfo.iAccepted)
+    return (
+      <div className={c.modalWrapper}>
+        <div className={c.modal}>
+          <h2>Игра найдена!</h2>
+          <div className={c.buttons}>
+            <button className={c.button2} onClick={qStore.acceptGame}>
+              Принять игру
+            </button>
+            <button className={c.button2} onClick={qStore.declineGame}>
+              Отклонить игру
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+
+  return (
+    <div className={c.modalWrapper}>
+      <div className={c.modal}>
+        <h2>
+          Ожидаем остальных игроков <br />{" "}
+          {q.gameInfo!!.accepted === undefined ? 0 : q.gameInfo!!.accepted} из{" "}
+          {q.gameInfo.total}...
+        </h2>
+        <div className={c.dots}>
+          {new Array(q.gameInfo.total).fill(null).map((_, t) => (
+            <div
+              key={t}
+              className={t < q.gameInfo!!.accepted ? c.acceptedDot : undefined}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 });
