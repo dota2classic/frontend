@@ -197,10 +197,7 @@ const matchesMock = [
     ],
   },
 ];
-export default function MatchHistory({
-  matches,
-  liveMatches,
-}: MatchHistoryProps) {
+export default function MatchHistory({ matches }: MatchHistoryProps) {
   const [page, setPage] = useQueryBackedParameter("page");
   const [mode, setMode] = useQueryBackedParameter("mode");
 

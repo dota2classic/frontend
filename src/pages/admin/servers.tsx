@@ -1,7 +1,8 @@
 import { appApi, useApi } from "@/api/hooks";
 import { Table } from "@/components";
-import { Dota2Version, formatGameMode } from "@/util/gamemode";
+import { formatGameMode } from "@/util/gamemode";
 
+// todo: this is a big mess and we need to fix api generation
 export default function AdminServersPage() {
   const { data: serverPool } =
     useApi().adminApi.useServerControllerServerPool();
@@ -13,7 +14,7 @@ export default function AdminServersPage() {
 
   const modes = (allowedModes || [])
     .sort((a, b) => a.mode - b.mode)
-    .filter((it) => it.version === Dota2Version.Dota_684);
+    .filter((it) => (it.version as any) === "Dota_684");
   return (
     <>
       <h3>Режимы игры</h3>
@@ -86,18 +87,18 @@ export default function AdminServersPage() {
 
       <h3>Текущие сессии</h3>
 
-      <Table>
-        <thead>
-          <tr>
-            <th>Ссылка</th>
-            <th>ID матча</th>
-            <th>Режим</th>
-            <th>Команды</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
-        <tbody>{liveSessions?.map((t) => <LiveSession {...t} />)}</tbody>
-      </Table>
+      {/*<Table>*/}
+      {/*  <thead>*/}
+      {/*    <tr>*/}
+      {/*      <th>Ссылка</th>*/}
+      {/*      <th>ID матча</th>*/}
+      {/*      <th>Режим</th>*/}
+      {/*      <th>Команды</th>*/}
+      {/*      <th>Действия</th>*/}
+      {/*    </tr>*/}
+      {/*  </thead>*/}
+      {/*  <tbody>{liveSessions?.map((t) => <LiveSession {...t} />)}</tbody>*/}
+      {/*</Table>*/}
     </>
   );
 }

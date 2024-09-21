@@ -165,7 +165,7 @@ export class QueueStore
     });
   };
 
-  public declinePendingGame = (roomId: string) => {
+  public declinePendingGame = (roomId?: string) => {
     this.socket.emit(Messages.SET_READY_CHECK, {
       roomID: roomId,
       accept: false,

@@ -39,7 +39,7 @@ export default function LiveMatches({ data: initialData }: InitialProps) {
 LiveMatches.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<InitialProps> => {
-  const { data } = useApi().liveApi.liveMatchControllerListMatches();
+  const data = await useApi().liveApi.liveMatchControllerListMatches();
 
   return {
     data,
