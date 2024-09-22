@@ -8,6 +8,7 @@ import { useStore } from "@/store";
 import { NotificationDto } from "@/store/NotificationStore";
 import { PlayerPreviewDto } from "@/api/back";
 import cx from "classnames";
+import useOutsideClick from "@/util/useOutsideClick";
 
 interface IInvitePlayerModalProps {
   isOpen: boolean;
@@ -24,8 +25,8 @@ export const InvitePlayerModal: React.FC<IInvitePlayerModalProps> = ({
   const { data } = useApi().playerApi.usePlayerControllerSearch(search);
 
   const comp = useRef<HTMLDivElement | null>(null);
-  const { game, queue, notify } = useStore();
-  // useOutsideClick(close, comp);
+  const { queue, notify } = useStore();
+  useOutsideClick(close, comp);
 
   return (
     <GenericModal className={cx(!isOpen && "hidden")}>
