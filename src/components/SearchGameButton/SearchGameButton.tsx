@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { FaSteam } from "react-icons/fa";
 import { appApi } from "@/api/hooks";
 import cx from "classnames";
+import { formatDateStr } from "@/components/TimeAgo/TimeAgo";
 
 export const SearchGameButton = observer(() => {
   const { queue, auth } = useStore();
@@ -49,7 +50,9 @@ export const SearchGameButton = observer(() => {
           queue.gameInfo?.serverURL && c.ingame,
         )}
       >
-        Искать игру
+        {auth.me?.banStatus?.isBanned
+          ? `Поиск запрещен до ${formatDateStr(auth.me?.banStatus.bannedUntil!)}`
+          : "Искать игру"}
       </button>
     );
   }
@@ -63,38 +66,4 @@ export const SearchGameButton = observer(() => {
       Отменить поиск
     </button>
   );
-  //
-  // (queue.searchingMode !== undefined && (
-  //   <EmbedCancelSearch>
-  //     <SearchGameButtonComp
-  //       className={cx("cancel", queue.gameInfo?.serverURL && "ingame")}
-  //       onClick={() => queue.cancelSearch()}
-  //     >
-  //       {i18n.cancelSearch}
-  //     </SearchGameButtonComp>
-  //     {!isQueuePage && (
-  //       <GameSearchInfo>
-  //         {formatGameMode(queue.searchingMode.mode)},{" "}
-  //         {i18n.withValues.search({ s: queue.inQueueCount(queue.searchingMode.mode, queue.searchingMode.version) })}
-  //       </GameSearchInfo>
-  //     )}
-  //   </EmbedCancelSearch>
-  // )) || (
-  //   <GameSearchInfo>
-  //     <SearchGameButtonComp
-  //       disabled={queue.selectedModeBanned}
-  //       className={cx("search", auth.me?.banStatus.isBanned && "banned", queue.gameInfo?.serverURL && "ingame")}
-  //       onClick={() => {
-  //         if (!isQueuePage) {
-  //           router.push("/queue", "/queue").finally();
-  //           return;
-  //         }
-  //
-  //         queue.enterQueue();
-  //       }}
-  //     >
-  //       {i18n.searchGame}
-  //     </SearchGameButtonComp>
-  //   </GameSearchInfo>
-  // )
 });

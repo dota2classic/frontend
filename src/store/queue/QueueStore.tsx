@@ -60,9 +60,9 @@ export class QueueStore
   @observable
   public inQueue: QueueHolder = DefaultQueueHolder;
   @observable
-  public gameInfo?: GameInfo;
+  public gameInfo: GameInfo | undefined = undefined;
   @observable
-  public party?: PartyDto;
+  public party: PartyDto | undefined = undefined;
   @observable
   public connected: boolean = false;
   @observable
@@ -333,13 +333,14 @@ export class QueueStore
     this.fetchParty().finally();
   };
 
-  @action onQueueState = ({
-    mode,
-    version,
-  }: {
-    mode?: MatchmakingMode;
-    version?: Dota2Version;
-  }): void => {
+  @action onQueueState = (
+    e: {
+      mode?: MatchmakingMode;
+      version?: Dota2Version;
+    } | null,
+  ): void => {
+    if (!e) return;
+    const { mode, version } = e;
     if (mode != null && version != null) {
       const qs: QueueState = { mode, version };
       this.searchingMode = qs;
@@ -349,7 +350,12 @@ export class QueueStore
     }
   };
 
-  @action onReadyCheckUpdate = (data: ReadyCheckUpdate): void => {};
+  @action onReadyCheckUpdate = (data: ReadyCheckUpdate): void => {
+    if (!this.gameInfo) return;
+    this.gameInfo.accepted = data.accepted;
+    this.gameInfo.total = data.total;
+    this.gameInfo.mode = data.mode;
+  };
 
   @action onRoomNotReady = (): void => {
     this.gameInfo = undefined;
@@ -381,7 +387,19 @@ export class QueueStore
     }
   };
 
-  @action onServerReady = (data: LauncherServerStarted) => {};
+  @action onServerReady = (data: LauncherServerStarted) => {
+    if (!this.gameInfo) {
+      this.gameInfo = {
+        mode: data.info.mode as any,
+        accepted: 0,
+        total: 0,
+        roomID: data.info.roomId,
+        iAccepted: true,
+      };
+    }
+    this.gameInfo.serverURL = data.url;
+    this.roomReadySound.play();
+  };
 
   @action
   onQueueUpdate = ({

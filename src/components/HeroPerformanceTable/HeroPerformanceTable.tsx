@@ -24,8 +24,6 @@ export const HeroPerformanceTable: React.FC<IHeroPerformanceTableProps> = ({
   loading,
   steamId,
 }) => {
-  if (!data.length) return;
-
   return (
     <GenericTable
       className={className}

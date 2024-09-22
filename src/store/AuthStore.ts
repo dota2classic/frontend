@@ -1,4 +1,10 @@
-import { action, computed, makeObservable, observable } from "mobx";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
 import { HydratableStore } from "@/store/HydratableStore";
 import { parseJwt } from "@/util/math";
 import BrowserCookies from "browser-cookies";
@@ -37,11 +43,13 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @action
   public fetchMe = async () => {
-    try {
-      this.me = await appApi.playerApi.playerControllerMe();
-    } catch (e) {
-      this.me = undefined;
-    }
+    await runInAction(async () => {
+      try {
+        this.me = await appApi.playerApi.playerControllerMe();
+      } catch (e) {
+        this.me = undefined;
+      }
+    });
   };
 
   @computed
