@@ -8,7 +8,13 @@ import {
   RoomState,
 } from "@/util/messages";
 import { io, Socket } from "socket.io-client";
-import { action, computed, makeAutoObservable, observable } from "mobx";
+import {
+  action,
+  computed,
+  makeAutoObservable,
+  observable,
+  runInAction,
+} from "mobx";
 import { AppApi, useApi } from "@/api/hooks";
 import { GameCoordinatorListener } from "@/store/queue/game-coordinator.listener";
 import { AuthStore } from "@/store/AuthStore";
@@ -67,8 +73,11 @@ export class QueueStore
   public connected: boolean = false;
   @observable
   public authorized: boolean = false;
+
   private matchSound!: Howl;
   private roomReadySound!: Howl;
+  private partyInviteReceivedSound!: Howl;
+
   private socket!: Socket;
 
   constructor(
@@ -87,6 +96,10 @@ export class QueueStore
     });
     this.roomReadySound = new Howl({
       src: Sounds.NOTIFY_GAME,
+    });
+
+    this.partyInviteReceivedSound = new Howl({
+      src: Sounds.PARTY_INVITE,
     });
     this.connect();
   }
@@ -328,6 +341,7 @@ export class QueueStore
       t.inviteId,
     );
     this.notify.enqueueNotification(dto);
+    this.partyInviteReceivedSound.play();
   };
 
   @action onPartyUpdated = (): void => {
@@ -483,10 +497,9 @@ export class QueueStore
 
   @action
   private async fetchParty() {
-    try {
-      this.party = await useApi().playerApi.playerControllerMyParty();
-    } catch (e) {
-      this.party = undefined;
-    }
+    useApi()
+      .playerApi.playerControllerMyParty()
+      .then((data) => runInAction(() => (this.party = data)))
+      .catch((e) => (this.party = undefined));
   }
 }

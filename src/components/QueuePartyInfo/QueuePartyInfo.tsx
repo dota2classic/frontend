@@ -44,13 +44,19 @@ export const QueuePartyInfo = observer(() => {
   if (!queue.ready) {
     return <GameCoordinatorConnection readyState={queue.readyState} />;
   }
+
+  const isSoloParty = queue.party?.players?.length === 1;
+
   return (
     <div className={c.info}>
       <InvitePlayerModal isOpen={inviteOpen} close={close} />
 
       <div className={c.party}>
         {queue.party!!.players.map((t: PlayerInPartyDto) => (
-          <PageLink link={AppRouter.players.player.index(t.steamId).link}>
+          <PageLink
+            key={t.steamId}
+            link={AppRouter.players.player.index(t.steamId).link}
+          >
             <div
               className={cx(
                 c.partyItem,
@@ -73,7 +79,7 @@ export const QueuePartyInfo = observer(() => {
         </div>
       </div>
 
-      {party && party.players.length > 1 && (
+      {!isSoloParty && (
         <div className={c.cancelSearch} onClick={() => queue.leaveParty()}>
           Покинуть группу
         </div>

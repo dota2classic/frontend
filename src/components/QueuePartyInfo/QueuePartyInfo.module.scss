@@ -1,5 +1,4 @@
-@import '../../common.scss';
-
+@import "../../common.scss";
 
 .info {
   display: flex;
@@ -16,7 +15,6 @@
 }
 
 .searchGameBar {
-
   margin-left: 100px;
   display: flex;
   flex-direction: column;
@@ -26,9 +24,7 @@
   & span.info {
     font-size: 10px;
   }
-
 }
-
 
 .party {
   display: flex;
@@ -78,9 +74,8 @@
   }
 }
 
-
 .cancelSearch {
-
+  white-space: nowrap;
   padding: 10px;
 
   border: 1px solid grey;
@@ -96,12 +91,9 @@
     color: $primaryText;
     background-color: $darkBg;
   }
-
 }
 
-
 .infoTab {
-
   position: relative;
   font-size: 12px;
   padding: 12px;
@@ -114,5 +106,4 @@
   transition: 0.3s ease;
 
   color: $primaryText;
-
 }

@@ -43,13 +43,10 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @action
   public fetchMe = async () => {
-    await runInAction(async () => {
-      try {
-        this.me = await appApi.playerApi.playerControllerMe();
-      } catch (e) {
-        this.me = undefined;
-      }
-    });
+    appApi.playerApi
+      .playerControllerMe()
+      .then((data) => runInAction(() => (this.me = data)))
+      .catch(() => (this.me = undefined));
   };
 
   @computed
