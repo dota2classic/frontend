@@ -3,7 +3,7 @@ import { useStore } from "@/store";
 import { useApi } from "@/api/hooks";
 import { MatchmakingInfo } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
-import { MatchmakingOption } from "@/components";
+import { MatchmakingOption, QueuePartyInfo } from "@/components";
 import { NextPageContext } from "next";
 
 interface Props {
@@ -37,6 +37,9 @@ export default function QueuePage(props: Props) {
             mode={info.mode as any}
           />
         ))}
+      </div>
+      <div className={c.main}>
+        <QueuePartyInfo />
       </div>
     </div>
   );

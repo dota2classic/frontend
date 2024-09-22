@@ -31,3 +31,17 @@ $bronze: #91500d;
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
 }
 
+
+@keyframes pendingAnimation {
+  0% {
+    color: $primaryTextDark2;
+  }
+
+  50% {
+    color: white;
+  }
+
+  100% {
+    color: $primaryTextDark2;
+  }
+}

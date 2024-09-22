@@ -172,6 +172,7 @@ export class QueueStore
     });
   };
 
+  @action
   public inviteToParty = (id: string) => {
     this.socket.emit(Messages.INVITE_TO_PARTY, {
       id,
@@ -196,17 +197,21 @@ export class QueueStore
   public connect() {
     if (this.socket && this.socket.connected) return;
 
+    if (!this.authStore.parsedToken) {
+      console.warn("Trying to connect while unauthorized");
+      return;
+    }
+
     this.socket = io("wss://dotaclassic.ru", {
       // this.socket = io("ws://localhost:5010", {
       transports: ["websocket"],
       autoConnect: false,
-      // auth: {
-      //   token: this.authService.token
-      // }
+      auth: {
+        token: this.authStore.token,
+      },
     });
 
     this.socket.on("connect", () => {
-      this.authorize();
       this.onConnected();
     });
 
@@ -225,10 +230,6 @@ export class QueueStore
     //   },
     //   true,
     // );
-
-    if (this.authStore.parsedToken) {
-      this.authorize();
-    }
 
     this.socket.on("disconnect", () => {
       this.onDisconnected();

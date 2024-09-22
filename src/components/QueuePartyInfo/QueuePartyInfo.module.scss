@@ -1,0 +1,118 @@
+@import '../../common.scss';
+
+
+.info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px 10px;
+
+  height: 80px;
+  min-height: 80px;
+  max-height: 80px;
+  width: 100%;
+  border-bottom: 1px solid #242424;
+  border-top: 1px solid #242424;
+}
+
+.searchGameBar {
+
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  animation: pendingAnimation 2s linear infinite;
+
+  & span.info {
+    font-size: 10px;
+  }
+
+}
+
+
+.party {
+  display: flex;
+
+  position: relative;
+  flex-direction: row;
+
+  width: 400px;
+}
+
+.partyItem {
+  border: 1px solid #5f5e5e;
+  height: 50px;
+  width: 50px;
+
+  margin: 5px;
+
+  position: relative;
+
+  &.invite {
+    &::before {
+      content: "";
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.3);
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+  }
+
+  &.invite:hover {
+    &::before {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &.leader {
+    border: 1px solid #c8831c;
+  }
+
+  & img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+
+.cancelSearch {
+
+  padding: 10px;
+
+  border: 1px solid grey;
+
+  margin-right: 100px;
+  cursor: pointer;
+
+  transition: 0.3s ease;
+  color: $primaryTextDark;
+  background-color: $evenDarkerBg;
+
+  &:hover {
+    color: $primaryText;
+    background-color: $darkBg;
+  }
+
+}
+
+
+.infoTab {
+
+  position: relative;
+  font-size: 12px;
+  padding: 12px;
+  text-decoration: none;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: 0.3s ease;
+
+  color: $primaryText;
+
+}
