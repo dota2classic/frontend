@@ -1,6 +1,7 @@
 @import "../../common.scss";
 
 .promoVideoWrapper {
+  width: 100%;
   position: absolute;
   top: -1px;
   z-index: -2;
@@ -93,7 +94,8 @@
     margin: 60px auto 65px;
   }
 
-  & a + a, & .stat + .stat {
+  & a + a,
+  & .stat + .stat {
     margin-left: 30px;
   }
 
@@ -146,7 +148,7 @@
       bottom: 0;
       top: 0;
       right: 0;
-      object-fit: none;
+      object-fit: cover;
       z-index: -1;
     }
   }

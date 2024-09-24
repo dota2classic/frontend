@@ -14,10 +14,6 @@ const myFont = localFont({ src: "./TrajanPro3Regular.ttf" });
 
 export const MobxContext = createContext<RootStore>({} as any);
 
-// export default function App({ Component, pageProps }: AppProps) {
-//
-// }
-
 export default class MyApp extends App<{ initialState: HydrateRootData }> {
   static async getInitialProps(appContext: AppContext) {
     const appProps = await App.getInitialProps(appContext);

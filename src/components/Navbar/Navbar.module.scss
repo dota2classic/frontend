@@ -8,9 +8,10 @@
   background: $bg2;
   color: $primaryText;
 
-  //margin-bottom: 20px;
-
   z-index: 10000;
+
+  border-bottom: 1px solid $transparentTint2;
+  box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
 }
 
 .navbarInner {
@@ -31,7 +32,8 @@
   & li {
     float: left;
     list-style: none;
-    padding: 6px 8px;
+    padding: 0;
+    align-content: center;
   }
 }
 

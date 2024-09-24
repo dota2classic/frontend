@@ -6,6 +6,7 @@ import c from "./Landing.module.scss";
 import { Duration, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
+import Image from "next/image";
 
 export const Landing = () => {
   useEffect(() => {
@@ -67,7 +68,13 @@ export const Landing = () => {
       </div>
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>
-          <img className={c.backimage} src="/landing/landing_1.jpg" alt="" />
+          <Image
+            className={c.backimage}
+            src="/landing/landing_1.jpg"
+            width={1280}
+            height={720}
+            alt=""
+          />
         </div>
         <h3
           className={c.wow}
@@ -88,19 +95,39 @@ export const Landing = () => {
       >
         <PageLink link={AppRouter.players.leaderboard.link}>
           <h3>Лучшие игроки</h3>
-          <img style={{ scale: 1.1 }} src="/landing/leaderboard.jpg" alt="" />
+          <Image
+            width={380}
+            height={245}
+            style={{ scale: 1.1 }}
+            src="/landing/leaderboard.jpg"
+            alt="Leaderboard"
+          />
         </PageLink>
         <PageLink link={AppRouter.matches.index().link}>
           <h3>Матчи</h3>
-          <img src="/landing/fight.jpg" alt="" />
+          <Image
+            width={380}
+            height={245}
+            src="/landing/fight.jpg"
+            alt="Match history"
+          />
         </PageLink>
         <PageLink link={AppRouter.heroes.index.link}>
           <h3>Сильнейшие герои</h3>
-          <img
-            style={{ objectFit: "contain" }}
+          <Image
+            width={380}
+            height={245}
             src="/landing/invoker.jpg"
-            alt=""
+            alt="Strongest heroes"
           />
+        </PageLink>
+      </div>
+
+      <div className={c.block}>
+        <h2>Присоединяйся!</h2>
+        <br />
+        <PageLink link={AppRouter.index.link} className={c.playButton}>
+          Играть бесплатно
         </PageLink>
       </div>
     </>

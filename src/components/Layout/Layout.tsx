@@ -34,6 +34,10 @@ export const Layout = ({
         >
           {children}
         </main>
+        <footer className={c.footer}>
+          <div> © 2020 - 2024 dotaclassic.ru</div>
+          <div>Dota 2 is a registered trademark of Valve Corporation.</div>
+        </footer>
       </div>
     </TooltipContext.Provider>
   );

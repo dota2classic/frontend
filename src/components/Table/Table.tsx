@@ -1,9 +1,12 @@
 import React from "react";
 
-import {} from "..";
-
 import c from "./Table.module.scss";
 import cx from "classnames";
+import { JetBrains_Mono } from "next/font/google";
+
+const tableFont = JetBrains_Mono({
+  subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
+});
 
 export const Table = (
   props: React.DetailedHTMLProps<
@@ -12,6 +15,8 @@ export const Table = (
   >,
 ) => {
   return (
-    <table className={cx(c.table, props.className)}>{props.children}</table>
+    <table className={cx(c.table, props.className, tableFont.className)}>
+      {props.children}
+    </table>
   );
 };
