@@ -27,3 +27,14 @@
     }
   }
 }
+
+
+.preview {
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 0 3px rgba(77, 71, 71, 0.4);
+
+  & + & {
+    margin-top: 20px;
+  }
+}

@@ -139,6 +139,7 @@ export const AppRouter = {
   },
   matches: {
     match: (id: number) => page(`/matches/[id]`, `/matches/${id}`),
+    live: spage("/matches/live"),
     index: (page?: number, mode?: number | string) => {
       const q = queryParameters({
         page,

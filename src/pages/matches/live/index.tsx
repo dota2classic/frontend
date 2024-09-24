@@ -1,10 +1,13 @@
 import Head from "next/head";
 import { useApi } from "@/api/hooks";
 import c from "./LiveMatches.module.scss";
-import { LiveMatchPreview, PageLink } from "@/components";
+import { PageLink, SmallLiveMatch } from "@/components";
 import { AppRouter } from "@/route";
 import { NextPageContext } from "next";
 import { LiveMatchDto } from "@/api/back";
+import { formatGameMode } from "@/util/gamemode";
+import { watchUrl } from "@/util/urls";
+import React from "react";
 
 interface InitialProps {
   data: LiveMatchDto[];
@@ -31,7 +34,22 @@ export default function LiveMatches({ data: initialData }: InitialProps) {
         </div>
       )}
 
-      {data?.map((t) => <LiveMatchPreview match={t} />)}
+      {data?.map((t) => (
+        <PageLink
+          link={AppRouter.matches.match(t.matchId).link}
+          className={c.preview}
+        >
+          <SmallLiveMatch match={t} />
+          <div>
+            <h3>
+              Матч {t.matchId}, {formatGameMode(t.matchmakingMode)}
+            </h3>
+            <a target={"__blank"} href={watchUrl(t.server)}>
+              Смотреть в игре
+            </a>
+          </div>
+        </PageLink>
+      ))}
     </>
   );
 }

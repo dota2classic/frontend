@@ -14,6 +14,7 @@ import { items } from "@/util/iter";
 import cx from "classnames";
 import { shortName } from "@/util/heroName";
 import { formatGameMode } from "@/util/gamemode";
+import { watchUrl } from "@/util/urls";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -87,10 +88,6 @@ const MinimapHero = ({ x, y, hero, team, dead, angle }: MinimapHeroProps) => {
 export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
   match,
 }) => {
-  const host = match.server.split(":")[0];
-  const port = parseInt(match.server.split(":")[1]);
-  const watchUrl = `steam://connect/${host}:${port + 5}`;
-
   const radiant = match.heroes.filter((it) => it.team === 2);
   const dire = match.heroes.filter((it) => it.team === 3);
   return (
@@ -124,7 +121,7 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         <TeamListTable className={c.teamTable} players={dire} />
       </div>
       <div>
-        <a target={"__blank"} href={watchUrl}>
+        <a target={"__blank"} href={watchUrl(match.server)}>
           Смотреть в игре
         </a>
       </div>

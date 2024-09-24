@@ -54,7 +54,7 @@ export const Navbar = observer(() => {
           <NavbarItem link={AppRouter.heroes.index.link}>Герои</NavbarItem>
           <NavbarItem link={AppRouter.matches.index().link}>Матчи</NavbarItem>
           {liveMatches?.length !== 0 && (
-            <NavbarItem link={AppRouter.live.link}>Live</NavbarItem>
+            <NavbarItem link={AppRouter.matches.live.link}>Live</NavbarItem>
           )}
           {isAdmin && (
             <NavbarItem admin link={AppRouter.admin.servers.link}>

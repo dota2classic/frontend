@@ -18,6 +18,15 @@
   transition: 0.3s ease;
   background-color: $evenDarkerBg;
 
+  display: flex;
+  align-content: center;
+  align-items: center;
+
+  & svg {
+    margin-right: 6px;
+    margin-bottom: 2px;
+  }
+
 
   @media (max-width: 500px) {
     display: none;

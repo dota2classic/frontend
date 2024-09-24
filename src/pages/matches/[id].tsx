@@ -1,17 +1,28 @@
 import { NextPageContext } from "next";
 import React from "react";
-import { MatchSummary, MatchTeamTable, Typography } from "@/components";
+import {
+  LiveMatchPreview,
+  MatchSummary,
+  MatchTeamTable,
+  Typography,
+} from "@/components";
 import { FaTrophy } from "react-icons/fa";
 import { useApi } from "@/api/hooks";
-import { MatchDto } from "@/api/back";
+import { LiveMatchDto, LiveMatchDtoFromJSON, MatchDto } from "@/api/back";
 import Head from "next/head";
+import { useEventSource } from "@/util/hooks";
 
 interface InitialProps {
   matchId: number;
-  preloadedMatch?: MatchDto;
+  preloadedMatch: MatchDto | undefined;
+  liveMatches: LiveMatchDto[];
 }
 
-export default function MatchPage({ matchId, preloadedMatch }: InitialProps) {
+export default function MatchPage({
+  matchId,
+  preloadedMatch,
+  liveMatches,
+}: InitialProps) {
   const { data: match } = useApi().matchApi.useMatchControllerMatch(matchId, {
     fallbackData: preloadedMatch,
     isPaused() {
@@ -19,44 +30,63 @@ export default function MatchPage({ matchId, preloadedMatch }: InitialProps) {
     },
   });
 
-  if (!match) return null;
+  const isMatchLive =
+    liveMatches.findIndex((t) => t.matchId === matchId) !== -1;
 
-  return (
-    <>
-      <Head>
-        <title>{`Матч ${matchId}`}</title>
-      </Head>
-      <MatchSummary
-        radiantKills={match.radiant.reduce((a, b) => a + b.kills, 0)}
-        direKills={match.dire.reduce((a, b) => a + b.kills, 0)}
-        winner={match.winner}
-        matchId={match.id}
-        duration={match.duration}
-        timestamp={match.timestamp}
-        mode={match.mode}
-      />
-
-      <Typography.Header radiant>
-        Силы Света {match.winner === 2 && <FaTrophy color={"white"} />}
-      </Typography.Header>
-      <MatchTeamTable duration={match.duration} players={match.radiant} />
-      <br />
-
-      <Typography.Header dire>
-        Силы Тьмы {match.winner === 3 && <FaTrophy color={"white"} />}
-      </Typography.Header>
-      <MatchTeamTable duration={match.duration} players={match.dire} />
-    </>
+  const liveMatch = useEventSource<LiveMatchDto>(
+    useApi().liveApi.liveMatchControllerLiveMatchContext({ id: matchId }),
+    LiveMatchDtoFromJSON.bind(null),
   );
+
+  if (match)
+    return (
+      <>
+        <Head>
+          <title>{`Матч ${matchId}`}</title>
+        </Head>
+        <MatchSummary
+          radiantKills={match.radiant.reduce((a, b) => a + b.kills, 0)}
+          direKills={match.dire.reduce((a, b) => a + b.kills, 0)}
+          winner={match.winner}
+          matchId={match.id}
+          duration={match.duration}
+          timestamp={match.timestamp}
+          mode={match.mode}
+        />
+
+        <Typography.Header radiant>
+          Силы Света {match.winner === 2 && <FaTrophy color={"white"} />}
+        </Typography.Header>
+        <MatchTeamTable duration={match.duration} players={match.radiant} />
+        <br />
+
+        <Typography.Header dire>
+          Силы Тьмы {match.winner === 3 && <FaTrophy color={"white"} />}
+        </Typography.Header>
+        <MatchTeamTable duration={match.duration} players={match.dire} />
+      </>
+    );
+
+  // if no match, maybe it live?
+  if (isMatchLive && liveMatch) return <LiveMatchPreview match={liveMatch} />;
+
+  return null;
 }
 
 MatchPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<InitialProps> => {
   const matchId = parseInt(ctx.query.id as string);
-  const match = await useApi().matchApi.matchControllerMatch(matchId);
+  const [match, liveList] = await Promise.all<any>([
+    await useApi()
+      .matchApi.matchControllerMatch(matchId)
+      .catch(() => undefined),
+    useApi().liveApi.liveMatchControllerListMatches(),
+  ]);
+
   return {
     matchId,
     preloadedMatch: match,
+    liveMatches: liveList,
   };
 };

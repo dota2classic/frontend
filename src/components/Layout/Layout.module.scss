@@ -3,6 +3,7 @@
 .layout {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 .layoutInner {
@@ -13,12 +14,14 @@
   width: 100%;
   margin: 20px auto auto;
 
-  padding-bottom: 200px;
+  //padding-bottom: 200px;
 
   &.landing {
     max-width: unset;
     width: 100vw;
   }
+
+
 }
 
 .footer {
@@ -28,7 +31,7 @@
   width: 100%;
   margin: auto;
   font-family: monospace;
-  padding: 12px 4px 40px;
+  padding: 36px 4px;
 
   & div + div {
     margin-left: 20px
