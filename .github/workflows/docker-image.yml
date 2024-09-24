@@ -23,14 +23,3 @@ jobs:
             API_URL=https://dotaclassic.ru/api
           push: true
           tags: dota2classic/matchmaking:dotabuff
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: executing remote ssh commands using key
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          script: cd /root/ && touch helloworld.txt
