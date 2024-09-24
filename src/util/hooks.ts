@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { parse, stringify } from "qs";
 import { useApi } from "@/api/hooks";
 import { querystring, RequestOpts } from "@/api/back";
+import { numberOrDefault } from "@/util/urls";
 
 const preservedQuery = () => {
   if (typeof window === "undefined") return {};
@@ -107,6 +108,18 @@ export const useEventSource = <T extends {}>(
   }, [JSON.stringify(endpoint)]);
 
   return data;
+};
+
+export const useClampedPage = (
+  page: number | string | undefined,
+  totalPages: number | undefined,
+  setPage: (p: number | string) => void,
+) => {
+  useEffect(() => {
+    if (totalPages !== undefined && numberOrDefault(page, 0) >= totalPages) {
+      setPage(totalPages - 1);
+    }
+  }, [totalPages]);
 };
 
 interface TooltipContext2 {

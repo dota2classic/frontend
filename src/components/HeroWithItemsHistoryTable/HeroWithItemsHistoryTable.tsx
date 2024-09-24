@@ -1,6 +1,6 @@
 import React from "react";
 import { Duration, GenericTable, PageLink, TimeAgo } from "@/components";
-import c from "./PlayerMatchTable.module.scss";
+import c from "./HeroWithItemsHistoryTable.module.scss";
 import { MatchmakingMode } from "@/const/enums";
 import { AppRouter } from "@/route";
 import { KDABarChart } from "@/components/BarChart/BarChart";
@@ -35,7 +35,7 @@ interface IPlayerMatchTableProps {
   loading: boolean;
 }
 
-export const PlayerMatchTable: React.FC<IPlayerMatchTableProps> = ({
+export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
   data,
   className,
   loading,

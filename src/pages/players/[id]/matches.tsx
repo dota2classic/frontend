@@ -1,12 +1,17 @@
-import { useQueryBackedParameter, useRouterChanging } from "@/util/hooks";
+import {
+  useClampedPage,
+  useQueryBackedParameter,
+  useRouterChanging,
+} from "@/util/hooks";
 import Head from "next/head";
 import { useApi } from "@/api/hooks";
 import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import {
+  HeroWithItemsHistoryTable,
   Pagination,
   Panel,
-  PlayerMatchTable,
   PlayerSummary,
+  Section,
   SelectOptions,
 } from "@/components";
 import { AppRouter } from "@/route";
@@ -40,6 +45,8 @@ export default function PlayerMatches({
 
   const data = initialMatches;
 
+  useClampedPage(page, data?.pages, setPage);
+
   const formattedMatches = (data?.data || []).map((it) =>
     matchToPlayerMatchItem(it, (it) => it.steamId === playerId),
   );
@@ -57,32 +64,43 @@ export default function PlayerMatches({
         rank={preloadedSummary.rank}
         mmr={preloadedSummary.mmr}
         name={preloadedSummary.name}
-        className={c.panel}
         steamId={preloadedSummary.steamId}
       />
 
-      <Panel className={c.filters}>
-        <SelectOptions
-          options={GameModeOptions}
-          selected={mode === undefined ? "undefined" : mode}
-          onSelect={(value) => {
-            if (value === "undefined") setMode(undefined);
-            else setMode(value);
-          }}
-          defaultText={"Режим игры"}
+      <Section>
+        <Panel className={c.filters}>
+          <SelectOptions
+            options={GameModeOptions}
+            selected={mode === undefined ? "undefined" : mode}
+            onSelect={(value) => {
+              if (value === "undefined") setMode(undefined);
+              else setMode(value);
+            }}
+            defaultText={"Режим игры"}
+          />
+          <SelectOptions
+            options={HeroOptions}
+            selected={hero === undefined ? "undefined" : fullName(hero)}
+            onSelect={(value) => {
+              if (value === "undefined") setHero(undefined);
+              else setHero(shortName(value));
+            }}
+            defaultText={"Герой"}
+          />
+        </Panel>
+        <Pagination
+          linkProducer={(page) =>
+            AppRouter.players.playerMatches(
+              playerId,
+              hero,
+              page,
+              numberOrDefault(mode, undefined),
+            ).link
+          }
+          page={Number(page) || data?.page || 0}
+          maxPage={data?.pages || 0}
         />
-        <SelectOptions
-          options={HeroOptions}
-          selected={hero === undefined ? "undefined" : fullName(hero)}
-          onSelect={(value) => {
-            if (value === "undefined") setHero(undefined);
-            else setHero(shortName(value));
-          }}
-          defaultText={"Герой"}
-        />
-      </Panel>
-      <div>
-        <PlayerMatchTable
+        <HeroWithItemsHistoryTable
           withItems
           loading={isLoading}
           data={formattedMatches}
@@ -99,7 +117,7 @@ export default function PlayerMatches({
           page={Number(page) || data?.page || 0}
           maxPage={data?.pages || 0}
         />
-      </div>
+      </Section>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Duration, TimeAgo } from "..";
+import { Duration, Panel, TimeAgo } from "..";
 
 import c from "./MatchSummary.module.scss";
 import { MatchDtoModeEnum } from "@/api/back";
@@ -48,9 +48,9 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
 }) => {
   return (
     <>
-      <div className={c.matchSummary}>
-        <div className={c.primary}>Матч {matchId}</div>
-        <div className={c.secondary}>
+      <Panel>
+        <div className="left">Матч {matchId}</div>
+        <div className="right">
           <dl>
             <dd>{formatGameMode(mode)}</dd>
             <dt>Режим</dt>
@@ -68,13 +68,10 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
             <dt>Матч завершен</dt>
           </dl>
         </div>
-      </div>
+      </Panel>
       <div className={c.matchWinner}>
         <div
-          className={cx(
-            c.matchWinner__winner,
-            winner === 2 ? c.radiant : c.dire,
-          )}
+          className={cx(c.matchWinner__winner, winner === 2 ? "green" : "red")}
         >
           {winner === 2 ? "Победы Сил Света" : "Победы Сил Тьмы"}
         </div>

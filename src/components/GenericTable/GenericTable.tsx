@@ -80,7 +80,7 @@ export const KDATableData = ({
         </span>
       ) : (
         <span>
-          {kills.toFixed(2)} / {deaths.toFixed(2)} / {assists.toFixed(2)}
+          {kills.toFixed(1)} / {deaths.toFixed(1)} / {assists.toFixed(1)}
         </span>
       )}
       <KDABarChart kills={kills} deaths={deaths} assists={assists} />
@@ -121,7 +121,9 @@ const ColRenderer: React.FC<{
     return (
       <td className={cx({ [c.hero]: !col.noname })}>
         <PageLink
-          link={col.link ? col.link(data) : AppRouter.heroes.hero(value).link}
+          link={
+            col.link ? col.link(data) : AppRouter.heroes.hero.index(value).link
+          }
         >
           {col.noname ? (
             <HeroIcon small hero={value} />
@@ -295,7 +297,9 @@ export const GenericTable: React.FC<Props> = ({
 
             return (
               <th
-                className={cx(c.sortable)}
+                className={cx(c.sortable, {
+                  [c.hero]: col.type === ColumnType.Hero,
+                })}
                 key={index}
                 onClick={() => {
                   if (!sortable) return;

@@ -9,6 +9,9 @@
   flex-direction: row;
   align-items: center;
 
+  grid-column: span 12;
+
+
   & :global(.left) {
     display: flex;
     flex: 1;

@@ -122,9 +122,19 @@ export const AppRouter = {
   },
   heroes: {
     index: spage("/heroes"),
-    hero: (hero: string) => {
-      const fhero = hero.replace("npc_dota_hero_", "");
-      return page("/heroes/[hero]", `/heroes/${fhero}`);
+    hero: {
+      index: (hero: string) => {
+        const fhero = hero.replace("npc_dota_hero_", "");
+        return page("/heroes/[hero]", `/heroes/${fhero}`);
+      },
+      matches: (hero: string, _page?: number) => {
+        const fhero = hero.replace("npc_dota_hero_", "");
+        const q = queryParameters({ page: _page });
+        return page(
+          `/heroes/[hero]/matches${q}`,
+          `/heroes/${fhero}/matches${q}`,
+        );
+      },
     },
   },
   matches: {

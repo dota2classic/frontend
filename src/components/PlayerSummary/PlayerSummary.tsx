@@ -3,7 +3,7 @@ import React from "react";
 import c from "./PlayerSummary.module.scss";
 import cx from "classnames";
 import { formatWinrate } from "@/util/math";
-import { PageLink, TimeAgo } from "@/components";
+import { PageLink, Panel, TimeAgo } from "@/components";
 import { steamPage } from "@/util/resources";
 import { AppRouter } from "@/route";
 
@@ -33,7 +33,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = ({
   rank,
 }) => {
   return (
-    <div className={cx(c.panel, className)}>
+    <Panel className={cx(className)}>
       <div className={c.left}>
         <PageLink
           className={c.player}
@@ -90,6 +90,6 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = ({
           <dt>Ранг</dt>
         </dl>
       </div>
-    </div>
+    </Panel>
   );
 };

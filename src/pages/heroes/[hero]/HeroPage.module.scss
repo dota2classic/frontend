@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@import "../../../common.scss";
 
 
 .page {
@@ -8,9 +8,6 @@
 }
 
 
-.heroSummary {
-  grid-column: span 12;
-}
 
 
 .items {
@@ -21,9 +18,3 @@
 .matchHistory {
   grid-column: span 7;
 }
-
-
-.heroName {
-
-}
-

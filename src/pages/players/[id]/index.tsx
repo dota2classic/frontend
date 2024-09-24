@@ -1,7 +1,7 @@
 import {
   HeroPerformanceTable,
+  HeroWithItemsHistoryTable,
   PageLink,
-  PlayerMatchTable,
   PlayerSummary,
   Section,
   TeammatesTable,
@@ -16,33 +16,14 @@ import {
   PlayerTeammatePageDto,
 } from "@/api/back";
 import { useQueryBackedParameter } from "@/util/hooks";
-import { PlayerMatchItem } from "@/components/PlayerMatchTable/PlayerMatchTable";
+import { PlayerMatchItem } from "@/components/HeroWithItemsHistoryTable/HeroWithItemsHistoryTable";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import Head from "next/head";
 import { numberOrDefault } from "@/util/urls";
 import React from "react";
 import { AppRouter } from "@/route";
-//
-// const d2: any[] = Matches.map((it) => ({
-//   hero: it.radiant[0].hero,
-//   kills: it.radiant[0].kills,
-//   deaths: it.radiant[0].deaths,
-//   assists: it.radiant[0].assists,
-//   duration: it.duration,
-//   timestamp: it.timestamp,
-//   won: it.winner === 2,
-//   level: it.radiant[0].level,
-//   mode: it.mode,
-//   matchId: it.id,
-// }));
-//
-// const d3 = PlayerHeroSummary.map((it) => ({
-//   hero: it.hero,
-//   wins: it.wins,
-//   loss: it.loss,
-//   kda: it.kda,
-// })).toSorted((a, b) => b.wins + b.loss - (a.wins + a.loss)).slice(0, 10);
 
+//
 interface PlayerPageProps {
   playerId: string;
   preloadedSummary: PlayerSummaryDto;
@@ -121,7 +102,6 @@ export default function PlayerPage({
         rank={summary.rank}
         mmr={summary.mmr}
         name={summary.name}
-        className={c.playerInfo}
         steamId={summary.steamId}
       />
       <Section className={c.matchHistory}>
@@ -131,7 +111,10 @@ export default function PlayerPage({
             Показать еще
           </PageLink>
         </header>
-        <PlayerMatchTable loading={matchesLoading} data={formattedMatches} />
+        <HeroWithItemsHistoryTable
+          loading={matchesLoading}
+          data={formattedMatches}
+        />
       </Section>
       <Section className={c.heroPerformance}>
         <header>

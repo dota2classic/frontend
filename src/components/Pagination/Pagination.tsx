@@ -1,10 +1,12 @@
 import React, { PropsWithChildren } from "react";
 
-import { PageLink } from "..";
+import { PageLink, Panel } from "..";
 
 import c from "./Pagination.module.scss";
 import { NextLinkProp } from "@/route";
 import cx from "classnames";
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 interface IPaginationProps {
   linkProducer: (page: number) => NextLinkProp;
@@ -16,12 +18,19 @@ const PaginationItem = ({
   children,
   link,
   active,
+  numerical,
 }: PropsWithChildren<{
   link?: NextLinkProp;
   active?: boolean;
+  numerical?: boolean;
 }>) => {
   return (
-    <span className={cx(c.page, { [c.active]: active })}>
+    <span
+      className={cx(c.page, {
+        [c.active]: active,
+        [c.page__numerical]: numerical,
+      })}
+    >
       {link ? <PageLink link={link}>{children}</PageLink> : <>{children}</>}
     </span>
   );
@@ -32,7 +41,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
   maxPage,
   linkProducer,
 }) => {
-  const horOffset = 4;
+  const horOffset = 2;
 
   const iter = new Array(horOffset * 2 + 1)
     .fill(null)
@@ -45,16 +54,21 @@ export const Pagination: React.FC<IPaginationProps> = ({
   if (iter.length === 1) return null;
 
   return (
-    <nav className={c.pagination}>
+    <Panel className={c.pagination}>
       {page > 0 && (
         <>
-          <PaginationItem link={linkProducer(0)}>Первая</PaginationItem>
-          <PaginationItem link={linkProducer(page - 1)}>Пред.</PaginationItem>
+          <PaginationItem link={linkProducer(0)}>
+            <HiChevronDoubleLeft />
+          </PaginationItem>
+          <PaginationItem link={linkProducer(page - 1)}>
+            <IoChevronBack />
+          </PaginationItem>
         </>
       )}
       {hasMoreLeft && <PaginationItem>..</PaginationItem>}
       {iter.map((_page) => (
         <PaginationItem
+          numerical
           key={_page}
           link={linkProducer(_page)}
           active={page === _page}
@@ -67,13 +81,13 @@ export const Pagination: React.FC<IPaginationProps> = ({
       {page < maxPage - 1 && (
         <>
           <PaginationItem link={linkProducer(page + 1)}>
-            Следующая
+            <IoChevronForward />
           </PaginationItem>
           <PaginationItem link={linkProducer(maxPage - 1)}>
-            Последняя
+            <HiChevronDoubleRight />
           </PaginationItem>
         </>
       )}
-    </nav>
+    </Panel>
   );
 };

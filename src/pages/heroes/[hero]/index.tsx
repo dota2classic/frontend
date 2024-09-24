@@ -6,11 +6,11 @@ import {
   MatchPageDto,
 } from "@/api/back";
 import {
-  HeroIcon,
   HeroItemsTable,
   HeroPlayersTable,
-  Panel,
-  PlayerMatchTable,
+  HeroStatsHeader,
+  HeroWithItemsHistoryTable,
+  PageLink,
   Section,
 } from "@/components";
 import { useDidMount, useQueryBackedParameter } from "@/util/hooks";
@@ -19,9 +19,9 @@ import c from "./HeroPage.module.scss";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import React from "react";
 import heroName from "@/util/heroName";
-import { formatWinrate } from "@/util/math";
 import Head from "next/head";
 import { NextPageContext } from "next";
+import { AppRouter } from "@/route";
 
 interface InitialProps {
   initialMatchData: MatchPageDto;
@@ -92,37 +92,23 @@ export default function HeroHistoryPage({
       <Head>
         <title>{heroName(hero)}</title>
       </Head>
-      <Panel className={c.heroSummary}>
-        <div className={"left"}>
-          <HeroIcon hero={hero} />
-          <span className={c.heroName}>{heroName(hero)}</span>
-        </div>
-        <div className="right">
-          <dl>
-            <dd>{sortedSummaries.indexOf(summary) + 1}</dd>
-            <dt>Популярность</dt>
-          </dl>
-
-          <dl>
-            <dd className="green">{summary.games}</dd>
-            <dt>Матчи</dt>
-          </dl>
-          <dl>
-            <dd className="green">{summary.wins}</dd>
-            <dt>Победы</dt>
-          </dl>
-
-          <dl>
-            <dd className={summary.wins > summary.losses ? "green" : "red"}>
-              {formatWinrate(summary.wins, summary.losses)}
-            </dd>
-            <dt>Доля побед</dt>
-          </dl>
-        </div>
-      </Panel>
+      <HeroStatsHeader
+        popularity={sortedSummaries.indexOf(summary) + 1}
+        hero={hero}
+        wins={summary.wins}
+        games={summary.games}
+      />
       <Section className={c.matchHistory}>
-        <header>История матчей</header>
-        <PlayerMatchTable loading={isMatchesLoading} data={formattedMatches} />
+        <header>
+          История матчей
+          <PageLink link={AppRouter.heroes.hero.matches(hero).link}>
+            Показать еще
+          </PageLink>
+        </header>
+        <HeroWithItemsHistoryTable
+          loading={isMatchesLoading}
+          data={formattedMatches}
+        />
       </Section>
       <Section className={c.items}>
         <header>Лучшие игроки</header>

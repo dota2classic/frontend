@@ -2,12 +2,31 @@
 
 .pagination {
   padding: 6px 6px;
+  display: flex;
+
+
+  & + table, table + & {
+    //margin-top: 20px;
+  }
 }
+
+
 
 .page {
   padding: 4px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.page__numerical {
+
+    min-width: 20px;
+    max-width: 20px;
+  }
+
   & a {
     color: $green;
+
   }
   &.active {
     background-color: $transparentTint;

@@ -1,4 +1,4 @@
-import { PlayerMatchItem } from "@/components/PlayerMatchTable/PlayerMatchTable";
+import { PlayerMatchItem } from "@/components/HeroWithItemsHistoryTable/HeroWithItemsHistoryTable";
 import { MatchDto, PlayerInMatchDto } from "@/api/back";
 
 export const matchToPlayerMatchItem = (

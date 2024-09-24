@@ -37,7 +37,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
           <tr key={player.steamId}>
             <td>
               <div className={c.heroWithLevel}>
-                <PageLink link={AppRouter.heroes.hero(player.hero).link}>
+                <PageLink link={AppRouter.heroes.hero.index(player.hero).link}>
                   <HeroIcon hero={player.hero} />
                 </PageLink>
                 <span className={c.level}>{player.level}</span>
