@@ -33,7 +33,7 @@ export const HeroPerformanceTable: React.FC<IHeroPerformanceTableProps> = ({
         {
           type: ColumnType.Hero,
           name: "Герой",
-          noname: true,
+          noname: false,
           link: (d) => AppRouter.players.playerMatches(steamId, d[0]).link,
         },
         {

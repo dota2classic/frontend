@@ -73,7 +73,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
         <div
           className={cx(c.matchWinner__winner, winner === 2 ? "green" : "red")}
         >
-          {winner === 2 ? "Победы Сил Света" : "Победы Сил Тьмы"}
+          {winner === 2 ? "Победа Сил Света" : "Победа Сил Тьмы"}
         </div>
         <MatchSummaryScore
           direKills={direKills}

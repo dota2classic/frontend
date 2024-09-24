@@ -26,6 +26,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
           <th className="middle">K</th>
           <th className="middle">D</th>
           <th className="middle">A</th>
+          <th className="middle">HD</th>
+          <th className="middle">TD</th>
           <th className="middle">
             <FaCoins color={"#C9AF1D"} />
           </th>
@@ -47,7 +49,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
               <PageLink
                 link={AppRouter.players.player.index(player.steamId).link}
               >
-                {player.name}
+                {player.steamId.length > 2 ? player.name : "Бот"}
               </PageLink>
             </td>
             <td className="middle">
@@ -60,6 +62,9 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <td className="middle">{player.kills}</td>
             <td className="middle">{player.deaths}</td>
             <td className="middle">{player.assists}</td>
+
+            <td className="middle">{player.heroDamage}</td>
+            <td className="middle">{player.towerDamage}</td>
             <td className={c.gold}>
               <NumberFormat
                 number={Math.round(

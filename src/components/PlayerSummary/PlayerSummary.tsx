@@ -40,7 +40,9 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = ({
           link={AppRouter.players.player.index(steamId).link}
         >
           <img src={image} alt="image in panel" />
-          <div className={c.playerName}>{name}</div>
+          <div className={c.playerName}>
+            {steamId.length > 2 ? name : `Бот #${steamId}`}
+          </div>
         </PageLink>
         <a
           target="__blank"
