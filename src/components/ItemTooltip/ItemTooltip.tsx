@@ -1,22 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { ItemIconRaw } from "..";
 
 import c from "./ItemTooltip.module.scss";
-import { ItemData, ItemKey } from "@/const/itemdata";
+
 import { FaCoins } from "react-icons/fa";
 import cx from "classnames";
+import { ItemKey } from "@/const/itemdata";
 
 interface IItemTooltipProps {
   item: ItemKey | string;
   hoveredElement: HTMLElement;
 }
 
+export interface ItemDataEntry {
+  idx: number;
+  item_name: string;
+  description: string;
+  name: string;
+  cooldown: number;
+  specials: string[];
+  cost: number;
+  recipe: boolean;
+  notes: string[];
+}
+
 export const ItemTooltip: React.FC<IItemTooltipProps> = ({
   item,
   hoveredElement,
 }) => {
-  const d = ItemData.find((t) => t.item_name === item);
+  const [itemData, setItemData] = useState<ItemDataEntry[]>([]);
+
+  useEffect(() => {
+    if (itemData.length > 0) return;
+    import("@/const/itemdata").then((it) => {
+      setItemData(it.ItemData as any);
+    });
+  }, []);
+
+  const d = itemData.find((t) => t.item_name === item);
 
   if (!d) return null;
 
