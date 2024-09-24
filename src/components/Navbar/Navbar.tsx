@@ -22,7 +22,7 @@ const LoginProfileNavbarItem = observer(() => {
 
   return (
     <NavbarItem link={AppRouter.players.player.index(parsedToken.sub).link}>
-      {parsedToken.name}
+      <span>{parsedToken.name}</span>
       <img
         className={c.playerAvatar}
         src={parsedToken.avatar}

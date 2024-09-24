@@ -1,19 +1,20 @@
-@import '../../common.scss';
-
-
+@import "../../common.scss";
 
 .navbarItem {
   white-space: nowrap;
   padding: 6px 8px;
 
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 
   color: inherit;
   transition: 0.3s ease;
 
-  &:focus, &:hover {
+
+  &:focus,
+  &:hover {
     background: $transparentTint;
   }
 
@@ -23,14 +24,11 @@
   }
 }
 
-
-
 .navbarItemLink {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 
 .admin {
   color: $bronze;
