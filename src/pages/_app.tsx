@@ -38,7 +38,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
     return (
       <MobxContext.Provider value={store}>
         <Head>
-          <title>Dota 2 classic</title>
+          <title>Dota2Classic</title>
         </Head>
         <SWRConfig>
           <Layout className={myFont.className}>

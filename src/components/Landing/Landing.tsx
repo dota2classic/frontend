@@ -7,6 +7,7 @@ import { Duration, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
 import Image from "next/image";
+import Head from "next/head";
 
 export const Landing = () => {
   useEffect(() => {
@@ -14,6 +15,16 @@ export const Landing = () => {
   }, []);
   return (
     <>
+      <Head>
+        <title>Dota2Classic - играть в старую доту онлайн</title>
+        <meta
+          name="description"
+          content={
+            "Dota2Classic это единственный способ поиграть в старую доту из 2015 года. Здесь ты сможешь вспомнить ту самую игру."
+          }
+        />
+        <link rel="canonical" href="https://dotaclassic.ru" />
+      </Head>
       <div className={c.block}>
         <div className={c.promoVideoWrapper}>
           <video
@@ -30,7 +41,7 @@ export const Landing = () => {
           data-aos-delay="500"
           data-aos-duration="1500"
         >
-          <h2>Волшебный мир старой Доты, о котором ты скучал</h2>
+          <h1>Волшебный мир старой Доты, о котором ты скучал</h1>
 
           <PageLink link={AppRouter.index.link} className={c.playButton}>
             Играть бесплатно
@@ -43,28 +54,28 @@ export const Landing = () => {
         data-aos-delay="0"
         data-aos-duration="1500"
       >
-        <div className={c.stat}>
-          <h3>19 057 матчей</h3>
-          <h4>Сыграно за все время</h4>
-        </div>
-        <div className={c.stat}>
-          <h3>
+        <dl className={c.stat}>
+          <dd>19 057 матчей</dd>
+          <dt>Сыграно за все время</dt>
+        </dl>
+        <dl className={c.stat}>
+          <dd>
             <Duration big duration={35130960} />
-          </h3>
-          <h4>Общая длительность матчей</h4>
-        </div>
-        <div className={c.stat}>
-          <h3>5 лет</h3>
-          <h4>Существует проект</h4>
-        </div>
-        <div className={c.stat}>
-          <h3>8 турниров</h3>
-          <h4>С призовыми более миллиона ₽</h4>
-        </div>
-        <div className={c.stat}>
-          <h3>14 160</h3>
-          <h4>Уникальных игроков</h4>
-        </div>
+          </dd>
+          <dt>Общая длительность матчей</dt>
+        </dl>
+        <dl className={c.stat}>
+          <dd>5 лет</dd>
+          <dt>Существует проект</dt>
+        </dl>
+        <dl className={c.stat}>
+          <dd>8 турниров</dd>
+          <dt>С призовыми более миллиона ₽</dt>
+        </dl>
+        <dl className={c.stat}>
+          <dd>14 160</dd>
+          <dt>Уникальных игроков</dt>
+        </dl>
       </div>
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>

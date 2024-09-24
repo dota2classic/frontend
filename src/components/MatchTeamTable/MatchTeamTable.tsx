@@ -63,8 +63,12 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <td className="middle">{player.deaths}</td>
             <td className="middle">{player.assists}</td>
 
-            <td className="middle">{player.heroDamage}</td>
-            <td className="middle">{player.towerDamage}</td>
+            <td className="middle">
+              <NumberFormat number={player.heroDamage} />
+            </td>
+            <td className="middle">
+              <NumberFormat number={player.towerDamage} />
+            </td>
             <td className={c.gold}>
               <NumberFormat
                 number={Math.round(

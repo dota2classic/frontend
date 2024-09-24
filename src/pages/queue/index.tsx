@@ -5,6 +5,7 @@ import { MatchmakingInfo } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
 import { MatchmakingOption, QueuePartyInfo } from "@/components";
 import { NextPageContext } from "next";
+import Head from "next/head";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -28,6 +29,9 @@ export default function QueuePage(props: Props) {
 
   return (
     <div className={c.queue}>
+      <Head>
+        <title>Dota2Classic - поиск игры</title>
+      </Head>
       <div className={c.modes}>
         {d84.map((info) => (
           <MatchmakingOption

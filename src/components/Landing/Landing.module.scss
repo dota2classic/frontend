@@ -35,7 +35,9 @@
   align-content: flex-end;
   pointer-events: auto;
 
-  font-size: 2rem;
+  font-size: 1.8rem;
+
+
 }
 
 .playButton {
@@ -59,8 +61,6 @@
 
   padding: 20px 20px 20px 20px;
   color: #ed3b1c;
-  //text-decoration: underline;
-  //text-underline-position: under;
   transition: 0.2s ease;
 
   &:hover {
@@ -106,14 +106,23 @@
 
     background-color: $bg2;
     box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+    display: block;
 
-    & h3:first-child {
+
+    & dd:first-child {
       text-decoration: underline;
       text-decoration-color: $primaryTextDark;
     }
 
-    & h4 {
+    & dt {
       font-size: 16px;
+    }
+
+    & dd {
+      font-size: 1.2rem;
+      margin-inline-start: 0;
+      margin-block-start: 1em;
+      margin-bottom: 8px;
     }
   }
 
