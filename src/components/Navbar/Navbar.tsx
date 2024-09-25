@@ -14,14 +14,20 @@ const LoginProfileNavbarItem = observer(() => {
 
   if (!parsedToken)
     return (
-      <NavbarItem href={`${appApi.apiParams.basePath}/v1/auth/steam`}>
+      <NavbarItem
+        ignoreActive
+        href={`${appApi.apiParams.basePath}/v1/auth/steam`}
+      >
         <FaSteam style={{ marginRight: 4 }} />
         Войти
       </NavbarItem>
     );
 
   return (
-    <NavbarItem link={AppRouter.players.player.index(parsedToken.sub).link}>
+    <NavbarItem
+      ignoreActive
+      link={AppRouter.players.player.index(parsedToken.sub).link}
+    >
       <span>{parsedToken.name}</span>
       <img
         className={c.playerAvatar}

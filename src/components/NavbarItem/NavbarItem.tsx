@@ -10,6 +10,7 @@ interface INavbarItemProps {
   link?: NextLinkProp;
   href?: string;
   admin?: boolean;
+  ignoreActive?: boolean;
 }
 
 export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
@@ -17,9 +18,10 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
   link,
   href,
   admin,
+  ignoreActive,
 }) => {
   const r = useRouter();
-  const isActive = link?.href === r.pathname;
+  const isActive = link?.href === r.pathname && !ignoreActive;
 
   return (
     <li className={cx(c.navbarItem, admin && c.admin, isActive && c.active)}>
