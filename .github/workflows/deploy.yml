@@ -10,7 +10,6 @@ jobs:
   deploy:
     name: Deploy2
     runs-on: ubuntu-latest
-    needs: [ build ]
     steps:
       - name: Execute SSH commmands on remote server
         uses: JimCronqvist/action-ssh@master
