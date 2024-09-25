@@ -23,26 +23,26 @@ jobs:
             API_URL=https://dotaclassic.ru/api
           push: true
           tags: dota2classic/matchmaking:dotabuff
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Show saved file
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/staging.key
-          chmod 600 ~/.ssh/staging.key
-          cat >>~/.ssh/config <<END
-          Host staging
-            HostName $SSH_HOST
-            User $SSH_USER
-            ConnectionAttempts 10
-            IdentityFile ~/.ssh/staging.key
-            StrictHostKeyChecking no
-          END
-        env:
-          SSH_USER: ${{ secrets.DEPLOY_USER }}
-          SSH_KEY: ${{ secrets.DEPLOY_KEY }}
-          SSH_HOST: ${{ secrets.DEPLOY_HOST }}
-      - name: Update server
-        run: ssh staging 'cd /root/ && sh update.sh'
+#  deploy:
+#    name: Deploy
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Show saved file
+#        run: |
+#          mkdir -p ~/.ssh/
+#          echo "$SSH_KEY" > ~/.ssh/staging.key
+#          chmod 600 ~/.ssh/staging.key
+#          cat >>~/.ssh/config <<END
+#          Host staging
+#            HostName $SSH_HOST
+#            User $SSH_USER
+#            ConnectionAttempts 10
+#            IdentityFile ~/.ssh/staging.key
+#            StrictHostKeyChecking no
+#          END
+#        env:
+#          SSH_USER: ${{ secrets.DEPLOY_USER }}
+#          SSH_KEY: ${{ secrets.DEPLOY_KEY }}
+#          SSH_HOST: ${{ secrets.DEPLOY_HOST }}
+#      - name: Update server
+#        run: ssh staging 'cd /root/ && sh update.sh'
