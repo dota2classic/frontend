@@ -36,6 +36,7 @@ jobs:
           Host staging
             HostName $SSH_HOST
             User $SSH_USER
+            ConnectionAttempts 10
             IdentityFile ~/.ssh/staging.key
             StrictHostKeyChecking no
           END
