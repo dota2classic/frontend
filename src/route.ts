@@ -68,6 +68,8 @@ export const AppRouter = {
   players: {
     player: {
       index: (id: string | number) => page(`/players/[id]`, `/players/${id}`),
+      heroes: (id: string) =>
+        page(`/players/[id]/heroes`, `/players/${id}/heroes`),
       teammates: (id: string, _page?: number) => {
         const q = queryParameters({ page: _page });
         return page(

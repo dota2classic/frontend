@@ -14,14 +14,16 @@
 
 .page {
   padding: 4px 12px;
-  display: flex;
+  //display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.3s ease;
 
-  &.page__numerical {
+  min-width: 20px;
+  max-width: 20px;
 
-    min-width: 20px;
-    max-width: 20px;
+  & svg {
+    vertical-align: middle;
   }
 
   & a {
@@ -30,5 +32,9 @@
   }
   &.active {
     background-color: $transparentTint;
+  }
+
+  &:hover, &:focus {
+    background-color: $transparentTint3;
   }
 }

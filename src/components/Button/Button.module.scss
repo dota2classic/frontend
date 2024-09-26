@@ -1,0 +1,27 @@
+@import "../../common.scss";
+
+.button {
+  width: 100%;
+  border: 0px solid transparent;
+  outline: none;
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 4px;
+  transition: 0.3s ease;
+  color: $primaryText;
+
+  background-color: $bg2;
+
+
+  &:not([disabled]):focus,
+  &:not([disabled]):hover {
+    background: $transparentTint;
+  }
+
+  &.active {
+    color: $gold;
+    background: $transparentTint;
+  }
+
+  cursor: pointer;
+}

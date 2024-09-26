@@ -45,3 +45,5 @@ export { QueuePartyInfo } from "./QueuePartyInfo/QueuePartyInfo";
 export { InvitePlayerModal } from "./InvitePlayerModal/InvitePlayerModal";
 export { GenericModal } from "./GenericModal/GenericModal";
 export { HeroStatsHeader } from "./HeroStatsHeader/HeroStatsHeader";
+export { NoobFriendlyQueue } from "./NoobFriendlyQueue/NoobFriendlyQueue";
+export { Button } from "./Button/Button";

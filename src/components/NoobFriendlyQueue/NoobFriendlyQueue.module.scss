@@ -1,0 +1,39 @@
+@import "../../common.scss";
+
+.noobQueue {
+  display: flex;
+  flex-direction: column;
+}
+
+.requiredStep {
+  position: relative;
+  transition: 0.5s ease;
+  padding: 12px 12px;
+
+  & + & {
+    margin-top: 24px;
+  }
+
+
+  &__upcoming {
+    opacity: 0.2;
+  }
+
+
+  display: flex;
+  flex-direction: column;
+
+  & .complete {
+    background-color: $blueHighlight2;
+  }
+
+  & .button {
+    & svg {
+      margin-right: 10px;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

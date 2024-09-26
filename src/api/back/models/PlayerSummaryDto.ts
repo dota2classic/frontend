@@ -12,8 +12,7 @@
  * Do not edit the class manually.
  */
 
-import {exists} from "../runtime";
-
+import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
@@ -64,6 +63,12 @@ export interface PlayerSummaryDto {
   unrankedGamesLeft: number;
   /**
    *
+   * @type {boolean}
+   * @memberof PlayerSummaryDto
+   */
+  playedAnyGame: boolean;
+  /**
+   *
    * @type {number}
    * @memberof PlayerSummaryDto
    */
@@ -101,6 +106,7 @@ export function PlayerSummaryDtoFromJSONTyped(
     mmr: !exists(json, "mmr") ? undefined : json["mmr"],
     rank: !exists(json, "rank") ? undefined : json["rank"],
     unrankedGamesLeft: json["unrankedGamesLeft"],
+    playedAnyGame: json["playedAnyGame"],
     gamesPlayed: json["games_played"],
     wins: json["wins"],
     loss: json["loss"],
@@ -122,6 +128,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
     mmr: value.mmr,
     rank: value.rank,
     unrankedGamesLeft: value.unrankedGamesLeft,
+    playedAnyGame: value.playedAnyGame,
     games_played: value.gamesPlayed,
     wins: value.wins,
     loss: value.loss,

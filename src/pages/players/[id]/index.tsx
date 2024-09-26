@@ -119,6 +119,9 @@ export default function PlayerPage({
       <Section className={c.heroPerformance}>
         <header>
           <span>Лучшие герои</span>
+          <PageLink link={AppRouter.players.player.heroes(playerId).link}>
+            Показать еще
+          </PageLink>
         </header>
         <HeroPerformanceTable
           steamId={playerId}

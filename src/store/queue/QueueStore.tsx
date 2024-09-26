@@ -74,6 +74,9 @@ export class QueueStore
   @observable
   public authorized: boolean = false;
 
+  @observable
+  public online: number = 0;
+
   private matchSound!: Howl;
   private roomReadySound!: Howl;
   private partyInviteReceivedSound!: Howl;
@@ -265,6 +268,7 @@ export class QueueStore
     this.socket.on(Messages.PARTY_INVITE_EXPIRED, this.onPartyInviteExpired);
     this.socket.on(Messages.PARTY_UPDATED, this.onPartyUpdated);
     this.socket.on(Messages.BAD_AUTH, this.badAuth);
+    this.socket.on(Messages.ONLINE_UPDATE, this.onOnlineUpdate);
   }
 
   hydrate(d: HydrationData): void {}
@@ -305,6 +309,10 @@ export class QueueStore
 
   @action onMatchFinished = (): void => {
     this.gameInfo = undefined;
+  };
+
+  @action onOnlineUpdate = ({ online }: { online: number }): void => {
+    this.online = online;
   };
 
   @action onMatchState = (url?: string): void => {

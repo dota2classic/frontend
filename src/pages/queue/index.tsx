@@ -1,18 +1,25 @@
 import c from "./Queue.module.scss";
 import { useStore } from "@/store";
 import { useApi } from "@/api/hooks";
-import { MatchmakingInfo } from "@/api/back";
+import { MatchmakingInfo, PlayerSummaryDto } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
 import { MatchmakingOption, QueuePartyInfo } from "@/components";
 import { NextPageContext } from "next";
 import Head from "next/head";
+import Cookies from "cookies";
+import { AuthStore } from "@/store/AuthStore";
+import { withTemporaryToken } from "@/util/withTemporaryToken";
+import * as BrowserCookies from "browser-cookies";
+import { MatchmakingMode } from "@/const/enums";
 
 interface Props {
   modes: MatchmakingInfo[];
+  playerSummary?: PlayerSummaryDto;
 }
 
 export default function QueuePage(props: Props) {
   const mounted = useDidMount();
+
   const { data: modes } =
     useApi().statsApi.useStatsControllerGetMatchmakingInfo({
       fallbackData: props.modes,
@@ -21,10 +28,19 @@ export default function QueuePage(props: Props) {
       },
     });
 
+  // const playedAnyGame = !!props.playerSummary?.playedAnyGame
+  const playedAnyGame = false;
+
   const queueStore = useStore().queue;
 
   const d84 = modes!
     .filter((it) => it.version === "Dota_684" && it.enabled)
+    .filter(
+      (it) =>
+        playedAnyGame ||
+        it.mode === MatchmakingMode.SOLOMID ||
+        it.mode === MatchmakingMode.BOTS,
+    )
     .sort((a, b) => Number(a.mode) - Number(b.mode));
 
   return (
@@ -50,7 +66,26 @@ export default function QueuePage(props: Props) {
 }
 
 QueuePage.getInitialProps = async (ctx: NextPageContext) => {
+  // If we are on client, we need to use browser cookies
+  let cookies: { get: (key: string) => string | undefined | null };
+  if (typeof window === "undefined") {
+    cookies = new Cookies(ctx.req, ctx.res);
+  } else {
+    cookies = BrowserCookies;
+  }
+  const token = cookies.get(AuthStore.cookieTokenKey) || undefined;
+
+  const [modes, playerSummary] = await Promise.all<any>([
+    useApi().statsApi.statsControllerGetMatchmakingInfo(),
+    withTemporaryToken(token, (stores) => {
+      return useApi().playerApi.playerControllerPlayerSummary(
+        stores.auth.parsedToken!.sub,
+      );
+    }),
+  ]);
+
   return {
-    modes: await useApi().statsApi.statsControllerGetMatchmakingInfo(),
+    modes,
+    playerSummary,
   };
 };

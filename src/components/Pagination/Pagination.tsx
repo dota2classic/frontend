@@ -24,15 +24,15 @@ const PaginationItem = ({
   active?: boolean;
   numerical?: boolean;
 }>) => {
-  return (
-    <span
-      className={cx(c.page, {
-        [c.active]: active,
-        [c.page__numerical]: numerical,
-      })}
-    >
-      {link ? <PageLink link={link}>{children}</PageLink> : <>{children}</>}
-    </span>
+  const className = cx(c.page, {
+    [c.active]: active,
+  });
+  return link ? (
+    <PageLink className={className} link={link}>
+      {children}
+    </PageLink>
+  ) : (
+    <span className={className}>{children}</span>
   );
 };
 

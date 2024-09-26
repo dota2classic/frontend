@@ -170,7 +170,7 @@ const ColRenderer: React.FC<{
   } else if (type === ColumnType.IntWithBar) {
     return (
       <td>
-        <div>{col.format ? col.format(value) : value}</div>
+        <div>{col.format ? col.format(value) : Math.round(value)}</div>
         <SingleWeightedBarChart
           value={value / ctx.max}
           color={col.color || "red"}
