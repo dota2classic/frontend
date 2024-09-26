@@ -1,13 +1,16 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 
 import c from "./Button.module.scss";
 import cx from "classnames";
 
 export const Button: React.FC<
-  { link?: boolean } & React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  >
+  PropsWithChildren<{
+    link?: boolean;
+    disabled?: boolean;
+    href?: string;
+    className?: string;
+    onClick?: () => void;
+  }>
 > = ({ className, link, ...props }) => {
   if (link)
     return (

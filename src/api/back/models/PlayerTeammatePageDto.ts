@@ -12,13 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
-import {
-  PlayerTeammateDto,
-  PlayerTeammateDtoFromJSON,
-  PlayerTeammateDtoFromJSONTyped,
-  PlayerTeammateDtoToJSON,
-} from "./";
+import {PlayerTeammateDto, PlayerTeammateDtoFromJSON, PlayerTeammateDtoToJSON,} from "./";
 
 /**
  *

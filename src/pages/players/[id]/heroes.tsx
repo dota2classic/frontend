@@ -49,6 +49,7 @@ export default function PlayerHeroes({
               name: "Герой",
               noname: false,
               link: (d) => AppRouter.players.playerMatches(playerId, d[0]).link,
+              sortable: true,
             },
             {
               type: ColumnType.IntWithBar,
@@ -96,7 +97,7 @@ export default function PlayerHeroes({
           ]}
           placeholderRows={50}
           isLoading={false}
-          keyProvider={(it) => 0}
+          keyProvider={(it) => it[0]}
           data={formattedHeroStats.map((it) => [
             it.hero,
             it.games,

@@ -15,8 +15,6 @@ import Qs from "qs";
 const PROD_URL = (process.env.API_URL ||
   process.env.NEXT_PUBLIC_API_URL) as string;
 
-console.log(`API URL ${PROD_URL}`);
-
 export class AppApi {
   apiParams: ConfigurationParameters = {
     basePath: `${PROD_URL}`,

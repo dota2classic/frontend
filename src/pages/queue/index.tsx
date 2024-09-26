@@ -1,7 +1,11 @@
 import c from "./Queue.module.scss";
 import { useStore } from "@/store";
 import { useApi } from "@/api/hooks";
-import { MatchmakingInfo, PlayerSummaryDto } from "@/api/back";
+import {
+  MatchmakingInfo,
+  MatchmakingInfoModeEnum,
+  PlayerSummaryDto,
+} from "@/api/back";
 import { useDidMount } from "@/util/hooks";
 import { MatchmakingOption, QueuePartyInfo } from "@/components";
 import { NextPageContext } from "next";
@@ -10,7 +14,6 @@ import Cookies from "cookies";
 import { AuthStore } from "@/store/AuthStore";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import * as BrowserCookies from "browser-cookies";
-import { MatchmakingMode } from "@/const/enums";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -38,8 +41,8 @@ export default function QueuePage(props: Props) {
     .filter(
       (it) =>
         playedAnyGame ||
-        it.mode === MatchmakingMode.SOLOMID ||
-        it.mode === MatchmakingMode.BOTS,
+        it.mode === MatchmakingInfoModeEnum.NUMBER_2 || // solomid
+        it.mode === MatchmakingInfoModeEnum.NUMBER_7, // bots
     )
     .sort((a, b) => Number(a.mode) - Number(b.mode));
 
@@ -69,6 +72,7 @@ QueuePage.getInitialProps = async (ctx: NextPageContext) => {
   // If we are on client, we need to use browser cookies
   let cookies: { get: (key: string) => string | undefined | null };
   if (typeof window === "undefined") {
+    // @ts-ignore
     cookies = new Cookies(ctx.req, ctx.res);
   } else {
     cookies = BrowserCookies;

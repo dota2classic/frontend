@@ -37,8 +37,6 @@ export const AcceptGameModal = observer(() => {
   const qStore = useStore().queue;
   const q = qStore;
 
-  console.log("Render accept game modal!", JSON.stringify(q.gameInfo));
-
   if (q.isSearchingServer)
     return (
       <div className={c.modalWrapper}>

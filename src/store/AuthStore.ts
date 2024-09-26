@@ -29,11 +29,9 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   constructor() {
     makeObservable(this);
 
-    console.log(typeof window);
     if (typeof window !== "undefined") {
       // Get cookies from browser cookies
       const cookie = BrowserCookies.get(AuthStore.cookieTokenKey);
-      console.log(BrowserCookies.all());
       if (cookie) {
         this.setToken(cookie);
       }

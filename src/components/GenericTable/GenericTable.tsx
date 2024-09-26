@@ -66,6 +66,16 @@ interface KDATableDataProps {
   assists: number;
 }
 
+function Comparator(a: any, b: any) {
+  if (a < b) {
+    return -1;
+  }
+  if (a > b) {
+    return 1;
+  }
+  return 0;
+}
+
 export const KDATableData = ({
   kills,
   deaths,
@@ -281,7 +291,7 @@ export const GenericTable: React.FC<Props> = ({
               return t;
             };
 
-          const diff = sortFunction(v1) - sortFunction(v2);
+          const diff = Comparator(sortFunction(v1), sortFunction(v2));
 
           return sortBy.order === "asc" ? diff : -diff;
         });

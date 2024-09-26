@@ -31,7 +31,6 @@ export const MatchmakingOption = observer(
       queue.searchingMode?.mode === mode &&
       queue.searchingMode?.version === version;
 
-    console.log("Re-rener option", mode, queue.inQueueCount(mode, version));
     return (
       <div
         className={cx(

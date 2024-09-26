@@ -120,7 +120,7 @@ export default function PlayerPage({
         <header>
           <span>Лучшие герои</span>
           <PageLink link={AppRouter.players.player.heroes(playerId).link}>
-            Показать еще
+            Показать всех
           </PageLink>
         </header>
         <HeroPerformanceTable

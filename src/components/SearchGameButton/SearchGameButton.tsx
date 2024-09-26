@@ -41,7 +41,6 @@ export const SearchGameButton = observer(() => {
           }
 
           queue.enterQueue();
-          console.log("Enter queue called, wh norerernder");
         }}
         className={cx(
           c.button,
