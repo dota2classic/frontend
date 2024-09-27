@@ -99,7 +99,7 @@ export const QueuePartyInfo = observer(() => {
 
       {queue.searchingMode !== undefined && (
         <div className={c.searchGameBar}>
-          <span>Поиск {formatGameMode(queue.searchingMode)}</span>
+          <span>Поиск {formatGameMode(queue.searchingMode!.mode)}</span>
           <span className={"info"}>
             В поиске{" "}
             {queue.inQueueCount(

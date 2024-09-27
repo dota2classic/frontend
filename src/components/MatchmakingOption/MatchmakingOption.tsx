@@ -1,8 +1,8 @@
 import React from "react";
 
 import c from "./MatchmakingOption.module.scss";
-import { MatchmakingMode } from "@/const/enums";
-import { Dota2Version, formatGameMode } from "@/util/gamemode";
+import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
+import { formatGameMode } from "@/util/gamemode";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import cx from "classnames";

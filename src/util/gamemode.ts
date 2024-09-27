@@ -1,4 +1,4 @@
-import {MatchmakingMode} from "@/const/enums";
+import { MatchmakingMode } from "@/api/mapped-models";
 
 const messages = {
   // MatchmakingMode.TOURNAMENT
@@ -25,13 +25,6 @@ const messages = {
   [MatchmakingMode.CAPTAINS_MODE]: "Captains Mode",
 };
 
-
-export enum Dota2Version {
-  Dota_681 = "Dota_681",
-  Dota_678 = "Dota_678",
-  Dota_684 = "Dota_684",
+export function formatGameMode(mode: MatchmakingMode) {
+  return messages[mode];
 }
-
-export function formatGameMode (mode: any) {
-  return messages[mode as MatchmakingMode] as any;
-};

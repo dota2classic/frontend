@@ -3,15 +3,15 @@ import React from "react";
 import { Duration, Panel, TimeAgo } from "..";
 
 import c from "./MatchSummary.module.scss";
-import { MatchDtoModeEnum } from "@/api/back";
 import cx from "classnames";
 import { formatGameMode } from "@/util/gamemode";
+import { MatchmakingMode } from "@/api/mapped-models";
 
 interface IMatchSummaryProps {
   matchId: number;
   timestamp: number | string;
   duration: number;
-  mode: MatchDtoModeEnum;
+  mode: MatchmakingMode;
   winner: number;
   radiantKills: number;
   direKills: number;

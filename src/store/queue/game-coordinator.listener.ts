@@ -1,5 +1,4 @@
-import { MatchmakingMode } from "@/const/enums";
-import { Dota2Version } from "@/util/gamemode";
+import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
 import {
   GameFound,
   LauncherServerStarted,

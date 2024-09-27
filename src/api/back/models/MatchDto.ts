@@ -12,17 +12,13 @@
  * Do not edit the class manually.
  */
 
-import {exists} from '../runtime';
 import {
-    FakeEnum,
-    FakeEnumFromJSON,
-    FakeEnumToJSON,
-    MatchmakingMode,
-    MatchmakingModeFromJSON,
-    MatchmakingModeToJSON,
-    PlayerInMatchDto,
-    PlayerInMatchDtoFromJSON,
-    PlayerInMatchDtoToJSON,
+  MatchmakingMode,
+  MatchmakingModeFromJSON,
+  MatchmakingModeToJSON,
+  PlayerInMatchDto,
+  PlayerInMatchDtoFromJSON,
+  PlayerInMatchDtoToJSON,
 } from "./";
 
 /**
@@ -31,12 +27,6 @@ import {
  * @interface MatchDto
  */
 export interface MatchDto {
-  /**
-   *
-   * @type {FakeEnum}
-   * @memberof MatchDto
-   */
-  fakeEnum?: FakeEnum;
   /**
    *
    * @type {MatchmakingMode}
@@ -88,46 +78,45 @@ export interface MatchDto {
 }
 
 export function MatchDtoFromJSON(json: any): MatchDto {
-    return MatchDtoFromJSONTyped(json, false);
+  return MatchDtoFromJSONTyped(json, false);
 }
 
-export function MatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): MatchDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
-      fakeEnum: !exists(json, "fakeEnum")
-        ? undefined
-        : FakeEnumFromJSON(json["fakeEnum"]),
-      mode: MatchmakingModeFromJSON(json["mode"]),
-      id: json["id"],
-      radiant: (json["radiant"] as Array<any>).map(PlayerInMatchDtoFromJSON),
-      dire: (json["dire"] as Array<any>).map(PlayerInMatchDtoFromJSON),
-      winner: json["winner"],
-      duration: json["duration"],
-      reportable: json["reportable"],
-      timestamp: json["timestamp"],
-    };
+export function MatchDtoFromJSONTyped(
+  json: any,
+  ignoreDiscriminator: boolean,
+): MatchDto {
+  if (json === undefined || json === null) {
+    return json;
+  }
+  return {
+    mode: MatchmakingModeFromJSON(json["mode"]),
+    id: json["id"],
+    radiant: (json["radiant"] as Array<any>).map(PlayerInMatchDtoFromJSON),
+    dire: (json["dire"] as Array<any>).map(PlayerInMatchDtoFromJSON),
+    winner: json["winner"],
+    duration: json["duration"],
+    reportable: json["reportable"],
+    timestamp: json["timestamp"],
+  };
 }
 
 export function MatchDtoToJSON(value?: MatchDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
-      fakeEnum: FakeEnumToJSON(value.fakeEnum),
-      mode: MatchmakingModeToJSON(value.mode),
-      id: value.id,
-      radiant: (value.radiant as Array<any>).map(PlayerInMatchDtoToJSON),
-      dire: (value.dire as Array<any>).map(PlayerInMatchDtoToJSON),
-      winner: value.winner,
-      duration: value.duration,
-      reportable: value.reportable,
-      timestamp: value.timestamp,
-    };
+  if (value === undefined) {
+    return undefined;
+  }
+  if (value === null) {
+    return null;
+  }
+  return {
+    mode: MatchmakingModeToJSON(value.mode),
+    id: value.id,
+    radiant: (value.radiant as Array<any>).map(PlayerInMatchDtoToJSON),
+    dire: (value.dire as Array<any>).map(PlayerInMatchDtoToJSON),
+    winner: value.winner,
+    duration: value.duration,
+    reportable: value.reportable,
+    timestamp: value.timestamp,
+  };
 }
 
 

@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-
 /**
  * Public REST api for dota2classic
  * All stuff
@@ -19,18 +18,19 @@
  * @enum {string}
  */
 export enum MatchmakingMode {
-  NUMBER_0 = 0,
-  NUMBER_1 = 1,
-  NUMBER_2 = 2,
-  NUMBER_3 = 3,
-  NUMBER_4 = 4,
-  NUMBER_5 = 5,
-  NUMBER_6 = 6,
-  NUMBER_7 = 7,
-  NUMBER_8 = 8,
-  NUMBER_9 = 9,
-  NUMBER_10 = 10,
+  RANKED = 0,
+  UNRANKED = 1,
+  SOLOMID = 2,
+  DIRETIDE = 3,
+  GREEVILING = 4,
+  ABILITY_DRAFT = 5,
+  TOURNAMENT = 6,
+  BOTS = 7,
+  HIGHROOM = 8,
+  TOURNAMENT_SOLOMID = 9,
+  CAPTAINS_MODE = 10,
 }
+
 
 export function MatchmakingModeFromJSON(json: any): MatchmakingMode {
   return MatchmakingModeFromJSONTyped(json, false);
@@ -46,3 +46,4 @@ export function MatchmakingModeFromJSONTyped(
 export function MatchmakingModeToJSON(value?: MatchmakingMode | null): any {
   return value as any;
 }
+

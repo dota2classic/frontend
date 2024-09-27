@@ -18,8 +18,7 @@ import {
 import { AppApi, useApi } from "@/api/hooks";
 import { GameCoordinatorListener } from "@/store/queue/game-coordinator.listener";
 import { AuthStore } from "@/store/AuthStore";
-import { MatchmakingMode } from "@/const/enums";
-import { Dota2Version } from "@/util/gamemode";
+import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
 import { PartyDto } from "@/api/back";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { DefaultQueueHolder } from "@/store/queue/mock";

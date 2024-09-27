@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 import c from "./SelectOptions.module.scss";
-import { MatchmakingMode } from "@/const/enums";
+import { MatchmakingMode } from "@/api/mapped-models";
 import { formatGameMode } from "@/util/gamemode";
 import heroes from "@/util/texts/heroes";
 

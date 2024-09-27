@@ -1,7 +1,7 @@
 import React from "react";
 import { Duration, GenericTable, PageLink, TimeAgo } from "@/components";
 import c from "./HeroWithItemsHistoryTable.module.scss";
-import { MatchmakingMode } from "@/const/enums";
+import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 import { KDABarChart } from "@/components/BarChart/BarChart";
 import { formatGameMode } from "@/util/gamemode";

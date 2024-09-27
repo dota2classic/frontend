@@ -1,11 +1,7 @@
 import c from "./Queue.module.scss";
 import { useStore } from "@/store";
 import { useApi } from "@/api/hooks";
-import {
-  MatchmakingInfo,
-  MatchmakingInfoModeEnum,
-  PlayerSummaryDto,
-} from "@/api/back";
+import { MatchmakingInfo, MatchmakingMode, PlayerSummaryDto } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
 import { MatchmakingOption, QueuePartyInfo } from "@/components";
 import { NextPageContext } from "next";
@@ -41,8 +37,8 @@ export default function QueuePage(props: Props) {
     .filter(
       (it) =>
         playedAnyGame ||
-        it.mode === MatchmakingInfoModeEnum.NUMBER_2 || // solomid
-        it.mode === MatchmakingInfoModeEnum.NUMBER_7, // bots
+        it.mode === MatchmakingMode.SOLOMID || // solomid
+        it.mode === MatchmakingMode.BOTS, // bots
     )
     .sort((a, b) => Number(a.mode) - Number(b.mode));
 

@@ -9,7 +9,7 @@ import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
 import Head from "next/head";
 import { GameModeOptions } from "@/components/SelectOptions/SelectOptions";
-import { MatchmakingMode } from "@/const/enums";
+import { MatchmakingMode } from "@/api/mapped-models";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;

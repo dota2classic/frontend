@@ -1,6 +1,7 @@
 import { appApi, useApi } from "@/api/hooks";
 import { Table } from "@/components";
 import { formatGameMode } from "@/util/gamemode";
+import { Dota2Version, MatchmakingInfo } from "@/api/back";
 
 // todo: this is a big mess and we need to fix api generation
 export default function AdminServersPage() {
@@ -12,9 +13,9 @@ export default function AdminServersPage() {
   const { data: allowedModes, mutate } =
     useApi().statsApi.useStatsControllerGetMatchmakingInfo();
 
-  const modes = (allowedModes || [])
+  const modes = (allowedModes || ([] as MatchmakingInfo[]))
     .sort((a, b) => a.mode - b.mode)
-    .filter((it) => (it.version as any) === "Dota_684");
+    .filter((it) => it.version === Dota2Version.Dota_684);
   return (
     <>
       <h3>Режимы игры</h3>
@@ -37,8 +38,8 @@ export default function AdminServersPage() {
                   onChange={(e) => {
                     appApi.adminApi
                       .adminUserControllerUpdateGameMode({
-                        mode: t.mode as any,
-                        version: t.version as any,
+                        mode: t.mode,
+                        version: t.version,
                         enabled: e.target.checked,
                       })
                       .then((result) => mutate(result as any));

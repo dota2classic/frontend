@@ -1,6 +1,5 @@
-import { MatchInfoDto } from "../api/back/models";
-import { MatchmakingMode } from "@/const/enums";
-import { Dota2Version } from "@/util/gamemode";
+import { Dota2Version, MatchInfoDto } from "../api/back/models";
+import { MatchmakingMode } from "@/api/mapped-models";
 
 export class RoomState {
   constructor(
