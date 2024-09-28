@@ -47,6 +47,8 @@ export const Navbar = observer(() => {
       refreshInterval: 5000,
     });
 
+  const hasLiveMatches = liveMatches && liveMatches.length > 0;
+
   return (
     <div className={c.navbar}>
       <div className={c.navbarInner}>
@@ -59,7 +61,7 @@ export const Navbar = observer(() => {
           </NavbarItem>
           <NavbarItem link={AppRouter.heroes.index.link}>Герои</NavbarItem>
           <NavbarItem link={AppRouter.matches.index().link}>Матчи</NavbarItem>
-          {liveMatches?.length !== 0 && (
+          {hasLiveMatches && (
             <NavbarItem link={AppRouter.matches.live.link}>Live</NavbarItem>
           )}
           {isAdmin && (

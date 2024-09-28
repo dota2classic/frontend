@@ -63,8 +63,11 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
                 </div>
               </td>
               <td>{formatGameMode(it.mode)}</td>
-              <td className={it.winner === 2 ? c.radiant : c.dire}>
-                <PageLink link={AppRouter.matches.match(it.id).link}>
+              <td className={it.winner === 2 ? "green" : "red"}>
+                <PageLink
+                  className={it.winner === 2 ? "green" : "red"}
+                  link={AppRouter.matches.match(it.id).link}
+                >
                   {it.winner === 2 ? "Победа Сил Света" : "Победа Сил Тьмы"}
                 </PageLink>
               </td>
