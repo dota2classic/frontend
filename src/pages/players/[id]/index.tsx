@@ -1,4 +1,5 @@
 import {
+  EmbedProps,
   HeroPerformanceTable,
   HeroWithItemsHistoryTable,
   PageLink,
@@ -97,6 +98,11 @@ export default function PlayerPage({
       <Head>
         <title>{`${summary.name} - статистика`}</title>
       </Head>
+      <EmbedProps
+        title={`${summary.name} - статистика`}
+        description={`Dota2Classic - профиль и статистика игрока ${summary.name}`}
+        image={summary.avatar}
+      />
       <PlayerSummary
         image={summary.avatar || "/avatar.png"}
         wins={summary.wins}
