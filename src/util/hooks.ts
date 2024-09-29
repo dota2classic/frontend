@@ -95,6 +95,7 @@ export const useEventSource = <T extends {}>(
   const [data, setData] = useState<T | null>(null);
 
   useEffect(() => {
+    console.log("Creating event source, why?", JSON.stringify(endpoint));
     const es = new EventSource(
       `${bp}${endpoint.path}${endpoint.query && querystring(endpoint.query, "?")}`,
     );

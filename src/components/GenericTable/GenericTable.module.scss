@@ -25,12 +25,21 @@
 
 .raw {
   //letter-spacing: 2px;
+
+  // very bad hack to fit-content
+  width: 0%;
+
 }
 
 .item {
   & img {
     // margin-top: 4px;
     vertical-align: middle;
+  }
+
+  & span {
+    margin-left: 4px;
+    white-space: nowrap;
   }
 }
 
@@ -86,4 +95,10 @@
     margin-top: 1px;
     border-color: transparent transparent white transparent;
   }
+}
+
+
+.oneliner {
+  display: flex;
+  align-items: center;
 }

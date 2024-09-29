@@ -7,6 +7,7 @@ import { MobxContext } from "@/pages/_app";
 import { QueueStore } from "@/store/queue/QueueStore";
 import { useApi } from "@/api/hooks";
 import { NotificationStore } from "@/store/NotificationStore";
+import { UserCacheStore } from "@/store/UserCacheStore";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -25,10 +26,12 @@ function createStore(): RootStore {
   const auth = new AuthStore();
   const notify = new NotificationStore();
   const queue = new QueueStore(auth, notify, useApi());
+  const ucache = new UserCacheStore();
   return {
     auth,
     queue,
     notify,
+    user: ucache,
   };
 }
 
@@ -63,6 +66,7 @@ export function useRootStore(initData: HydrateRootData | undefined): RootStore {
 export interface RootStore {
   auth: AuthStore;
   queue: QueueStore;
+  user: UserCacheStore;
   notify: NotificationStore;
 }
 

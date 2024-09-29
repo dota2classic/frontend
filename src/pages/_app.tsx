@@ -26,6 +26,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
       auth: { token: cookieToken },
       queue: {},
       notify: {},
+      user: {},
     };
 
     return { ...appProps, initialState };

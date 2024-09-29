@@ -7,6 +7,7 @@ import c from "./ItemTooltip.module.scss";
 import { FaCoins } from "react-icons/fa";
 import cx from "classnames";
 import { ItemKey } from "@/const/itemdata";
+import { ItemMap } from "@/const/items";
 
 interface IItemTooltipProps {
   item: ItemKey | string;
@@ -25,9 +26,12 @@ export interface ItemDataEntry {
   notes: string[];
 }
 
-export const ItemTooltip: React.FC<IItemTooltipProps> = ({
+export const ItemTooltipRaw = ({
   item,
-  hoveredElement,
+  style,
+}: {
+  style?: any;
+  item: string | number;
 }) => {
   const [itemData, setItemData] = useState<ItemDataEntry[]>([]);
 
@@ -38,13 +42,16 @@ export const ItemTooltip: React.FC<IItemTooltipProps> = ({
     });
   }, []);
 
-  const d = itemData.find((t) => t.item_name === item);
+  const d = itemData.find((t) => {
+    return typeof item === "string"
+      ? t.item_name === item
+      : t.item_name === "item_" + ItemMap.find((t) => t.id === item)!.name;
+  });
 
   if (!d) return null;
 
-  const rect = hoveredElement.getBoundingClientRect();
   return (
-    <div className={c.tooltip} style={{ left: rect.left - 420, top: rect.top }}>
+    <div className={c.tooltip} style={style}>
       <div className={c.name}>
         <ItemIconRaw item={item} />
         <div>
@@ -76,5 +83,18 @@ export const ItemTooltip: React.FC<IItemTooltipProps> = ({
         {d.notes.join("\n")}
       </div>
     </div>
+  );
+};
+
+export const ItemTooltip: React.FC<IItemTooltipProps> = ({
+  item,
+  hoveredElement,
+}) => {
+  const rect = hoveredElement.getBoundingClientRect();
+  return (
+    <ItemTooltipRaw
+      item={item}
+      style={{ left: rect.left - 420, top: rect.top }}
+    />
   );
 };

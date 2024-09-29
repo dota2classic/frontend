@@ -61,6 +61,7 @@ export const Navbar = observer(() => {
           </NavbarItem>
           <NavbarItem link={AppRouter.heroes.index.link}>Герои</NavbarItem>
           <NavbarItem link={AppRouter.matches.index().link}>Матчи</NavbarItem>
+          <NavbarItem link={AppRouter.items.index.link}>Предметы</NavbarItem>
           {hasLiveMatches && (
             <NavbarItem link={AppRouter.matches.live.link}>Live</NavbarItem>
           )}

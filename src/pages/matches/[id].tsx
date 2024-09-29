@@ -4,13 +4,14 @@ import {
   LiveMatchPreview,
   MatchSummary,
   MatchTeamTable,
+  Thread,
   Typography,
 } from "@/components";
 import { FaTrophy } from "react-icons/fa";
 import { useApi } from "@/api/hooks";
-import { LiveMatchDto, LiveMatchDtoFromJSON, MatchDto } from "@/api/back";
+import { LiveMatchDto, MatchDto } from "@/api/back";
 import Head from "next/head";
-import { useEventSource } from "@/util/hooks";
+import { ThreadType } from "@/api/mapped-models/ThreadType";
 
 interface InitialProps {
   matchId: number;
@@ -33,10 +34,13 @@ export default function MatchPage({
   const isMatchLive =
     liveMatches.findIndex((t) => t.matchId === matchId) !== -1;
 
-  const liveMatch = useEventSource<LiveMatchDto>(
-    useApi().liveApi.liveMatchControllerLiveMatchContext({ id: matchId }),
-    LiveMatchDtoFromJSON.bind(null),
-  );
+  // const liveMatch = useEventSource<LiveMatchDto>(
+  //   useApi().liveApi.liveMatchControllerLiveMatchContext({ id: matchId }),
+  //   LiveMatchDtoFromJSON.bind(null),
+  // );
+  const liveMatch = undefined;
+
+  // const thread = useThread("a2a88589-3293-4090-8652-2e4d16aa6882")
 
   if (match)
     return (
@@ -64,6 +68,12 @@ export default function MatchPage({
           Силы Тьмы {match.winner === 3 && <FaTrophy color={"white"} />}
         </Typography.Header>
         <MatchTeamTable duration={match.duration} players={match.dire} />
+
+        <br />
+        <br />
+        <br />
+        {/*<div>{JSON.stringify(thread, null, 2)}</div>*/}
+        <Thread id={match.id} threadType={ThreadType.MATCH} />
       </>
     );
 

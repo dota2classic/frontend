@@ -139,6 +139,10 @@ export const AppRouter = {
       },
     },
   },
+  items: {
+    index: spage("/items"),
+    item: (id: number) => page("/items/[item]", `/items/${id}`),
+  },
   matches: {
     match: (id: number) => page(`/matches/[id]`, `/matches/${id}`),
     live: spage("/matches/live"),

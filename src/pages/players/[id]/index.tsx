@@ -5,6 +5,7 @@ import {
   PlayerSummary,
   Section,
   TeammatesTable,
+  Thread,
 } from "@/components";
 import c from "./PlayerPage.module.scss";
 import { useApi } from "@/api/hooks";
@@ -14,6 +15,7 @@ import {
   MatchPageDto,
   PlayerSummaryDto,
   PlayerTeammatePageDto,
+  ThreadType,
 } from "@/api/back";
 import { useQueryBackedParameter } from "@/util/hooks";
 import { PlayerMatchItem } from "@/components/HeroWithItemsHistoryTable/HeroWithItemsHistoryTable";
@@ -136,6 +138,11 @@ export default function PlayerPage({
         </header>
         <TeammatesTable data={preloadedTeammates!.data} />
       </Section>
+      <Thread
+        className={c.thread}
+        id={playerId}
+        threadType={ThreadType.PROFILE}
+      />
     </div>
   );
 }

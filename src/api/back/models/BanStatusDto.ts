@@ -56,17 +56,17 @@ export function BanStatusDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function BanStatusDtoToJSON(value?: BanStatusDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
-      status: BanReasonToJSON(value.status),
-      isBanned: value.isBanned,
-      bannedUntil: value.bannedUntil,
-    };
+  if (value === undefined) {
+    return undefined;
+  }
+  if (value === null) {
+    return null;
+  }
+  return {
+    status: BanReasonToJSON(value.status),
+    isBanned: value.isBanned,
+    bannedUntil: value.bannedUntil,
+  };
 }
 
 

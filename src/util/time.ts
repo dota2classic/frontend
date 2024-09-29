@@ -29,7 +29,7 @@ export function fromNow(
     { ge: HOUR, divisor: HOUR, unit: "hour" },
     { ge: MINUTE, divisor: MINUTE, unit: "minute" },
     { ge: 30 * SECOND, divisor: SECOND, unit: "seconds" },
-    { ge: 0, divisor: 1, text: "just now", unit: "seconds" },
+    { ge: 0, divisor: 1, text: "только что", unit: undefined },
   ];
   const now =
     typeof nowDate === "object"
@@ -38,6 +38,7 @@ export function fromNow(
   const diff =
     now - (typeof date === "object" ? date : new Date(date)).getTime();
   const diffAbs = Math.abs(diff);
+
   for (const interval of intervals) {
     if (diffAbs >= interval.ge) {
       const x = Math.round(Math.abs(diff) / interval.divisor);

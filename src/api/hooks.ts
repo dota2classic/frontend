@@ -1,5 +1,6 @@
 import {
   AdminApi,
+  ForumApi,
   LiveApi,
   MatchApi,
   MetaApi,
@@ -37,6 +38,7 @@ export class AppApi {
 
   readonly matchApi = new MatchApi(this.apiConfig);
   readonly liveApi = new LiveApi(this.apiConfig);
+  readonly forumApi = new ForumApi(this.apiConfig);
   readonly playerApi = new PlayerApi(this.apiConfig);
   readonly adminApi = new AdminApi(this.apiConfig);
   readonly statsApi = new StatsApi(this.apiConfig);

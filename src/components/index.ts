@@ -47,3 +47,6 @@ export { GenericModal } from "./GenericModal/GenericModal";
 export { HeroStatsHeader } from "./HeroStatsHeader/HeroStatsHeader";
 export { NoobFriendlyQueue } from "./NoobFriendlyQueue/NoobFriendlyQueue";
 export { Button } from "./Button/Button";
+export { Thread } from "./Thread/Thread";
+export { ForumUserEmbed } from "./ForumUserEmbed/ForumUserEmbed";
+export { MarkdownTextarea } from "./MarkdownTextarea/MarkdownTextarea";

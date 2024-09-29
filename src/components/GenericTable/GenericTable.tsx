@@ -3,6 +3,7 @@ import c from "./GenericTable.module.scss";
 import {
   HeroIcon,
   ItemIcon,
+  ItemIconRaw,
   KDABarChart,
   PageLink,
   Table,
@@ -10,7 +11,7 @@ import {
 } from "..";
 import { AppRouter, NextLinkProp } from "@/route";
 import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
-import heroName from "@/util/heroName";
+import heroName, { itemName } from "@/util/heroName";
 import cx from "classnames";
 import { maxBy } from "@/util/iter";
 import { FaSort } from "react-icons/fa6";
@@ -159,8 +160,18 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.Item) {
     return (
-      <td style={{ width: 20 }} className={c.item}>
-        <ItemIcon small item={value} />
+      <td style={{ width: col.noname ? 20 : 320 }} className={c.item}>
+        {col.noname ? (
+          <ItemIcon small item={value} />
+        ) : (
+          <PageLink
+            link={AppRouter.items.item(value).link}
+            className={c.oneliner}
+          >
+            <ItemIconRaw small item={value} />
+            <span>{!col.noname && itemName(value)}</span>
+          </PageLink>
+        )}
       </td>
     );
   } else if (type === ColumnType.Items) {

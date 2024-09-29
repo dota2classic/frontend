@@ -1,0 +1,60 @@
+@import '../../common.scss';
+
+
+.markdown {
+  position: relative;
+
+}
+
+
+.textInput {
+  outline: none;
+  font-size: 1rem;
+  padding: 4px;
+  border-radius: 4px;
+  transition: 0.3s ease;
+  color: $primaryText;
+  width: 100%;
+  flex: 1;
+
+  //margin-bottom: 24px;
+  background-color: $bg2;
+
+  resize: none;
+
+
+  cursor: pointer;
+
+  &:focus, &:hover {
+    background: $transparentTint3;
+  }
+}
+
+
+.messageTools {
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  padding: 4px;
+  display: flex;
+  flex-direction: row;
+
+  display: none;
+
+
+  & span {
+    &:not(:first-child) {
+      margin-left: 4px;
+    }
+
+    margin-bottom: 2px;
+    padding: 2px 4px;
+    background-color: $green;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+}

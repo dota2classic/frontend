@@ -1,0 +1,17 @@
+@import "../../common.scss";
+
+
+.itemPage {
+  display: grid;
+  grid-column-gap: 12px;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+
+.heroes {
+  grid-column: span 8;
+}
+
+.itemData {
+  grid-column: span 4;
+}
