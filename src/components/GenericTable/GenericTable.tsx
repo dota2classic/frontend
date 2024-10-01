@@ -55,7 +55,7 @@ interface Props {
   columns: Column[];
   data: Data[];
   keyProvider: (d: Data) => React.Key;
-  isLoading: boolean;
+  isLoading?: boolean;
   placeholderRows: number;
   className?: string;
 }
@@ -120,10 +120,10 @@ const ColRenderer: React.FC<{
             link={
               col.link
                 ? col.link(data)
-                : AppRouter.players.player.index(value.steam_id).link
+                : AppRouter.players.player.index(value.steamId).link
             }
           >
-            {Number(value.steam_id) > 10 ? value.name : "Бот"}
+            {Number(value.steamId) > 10 ? value.name : "Бот"}
           </PageLink>
         </div>
       </td>

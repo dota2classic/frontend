@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useState } from "react";
 
 import {
   Button,
@@ -6,6 +6,7 @@ import {
   MarkdownTextarea,
   PageLink,
   Panel,
+  PeriodicTimer,
   ScrollDetector,
 } from "..";
 
@@ -15,7 +16,6 @@ import { AppRouter } from "@/route";
 import { observer } from "mobx-react-lite";
 import { Rubik } from "next/font/google";
 import cx from "classnames";
-import { fromNow } from "@/util/time";
 import { useApi } from "@/api/hooks";
 import { useThread } from "@/util/threads";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
@@ -28,10 +28,13 @@ interface IThreadProps {
   id: string | number;
   threadType: ThreadType;
   className?: string;
+  populateMessages?: ThreadMessageDTO[];
+  small?: boolean;
 }
 
 interface IMessageProps {
   message: ThreadMessageDTO;
+  small?: boolean;
 }
 
 //
@@ -75,40 +78,29 @@ function useEnrichedMessage(msg2: string) {
   return <>{...parts}</>;
 }
 
-const PeriodicTimer = ({ time }: { time: string }) => {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!ref.current) return;
-      ref.current!.textContent = fromNow(time) || null;
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return <span ref={ref}>{fromNow(time)}</span>;
-};
-
 export const Message: React.FC<IMessageProps> = React.memo(
-  ({ message }: IMessageProps) => {
+  ({ message, small }: IMessageProps) => {
     const enrichedMessage = useEnrichedMessage(message.content);
 
     return (
-      <Panel className={cx(c.message, c.messageSmall)}>
+      <Panel
+        id={message.messageId}
+        className={cx(c.message, small && c.messageSmall)}
+      >
         <PageLink
-          link={AppRouter.players.player.index(message.steamId).link}
+          link={AppRouter.players.player.index(message.author.steamId).link}
           className={c.user}
         >
-          <img src={message.avatar} alt="" />
-          <h4>{message.name}</h4>
+          <img src={message.author.avatar} alt="" />
+          <h4>{message.author.name}</h4>
         </PageLink>
         <div className={c.right}>
           <div className={c.timeCreated}>
             <PageLink
-              link={AppRouter.players.player.index(message.steamId).link}
+              link={AppRouter.players.player.index(message.author.steamId).link}
               className={c.username}
             >
-              {message.name}
+              {message.author.name}
             </PageLink>
             <div>
               #{message.index + 1} Добавлено{" "}
@@ -168,14 +160,16 @@ export const Thread: React.FC<IThreadProps> = ({
   threadType,
   id,
   className,
+  populateMessages,
+  small,
 }) => {
-  const [thread, loadMore] = useThread(id, threadType);
+  const [thread, loadMore] = useThread(id, threadType, populateMessages);
 
   return (
     <div className={cx(c.thread, threadFont.className, className)}>
       <div className={c.messageContainer}>
         {thread.messages.map((msg) => (
-          <Message message={msg} key={msg.messageId} />
+          <Message small={small} message={msg} key={msg.messageId} />
         ))}
       </div>
       <ScrollDetector onScrolledTo={loadMore} />

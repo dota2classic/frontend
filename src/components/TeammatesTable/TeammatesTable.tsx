@@ -28,11 +28,7 @@ export const TeammatesTable: React.FC<ITeammatesTableProps> = ({ data }) => {
           name: "% Побед",
         },
       ]}
-      data={data.map((it) => [
-        { steam_id: it.steamId, name: it.name, avatar: it.avatar },
-        it.games,
-        it.winrate * 100,
-      ])}
+      data={data.map((it) => [it.user, it.games, it.winrate * 100])}
       isLoading={false}
       keyProvider={(it) => it[0].steam_id}
     />

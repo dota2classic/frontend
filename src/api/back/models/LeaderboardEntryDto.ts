@@ -12,7 +12,9 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import {exists} from "../runtime";
+import {UserDTO, UserDTOFromJSON, UserDTOToJSON,} from "./";
+
 /**
  *
  * @export
@@ -21,22 +23,10 @@ import { exists, mapValues } from "../runtime";
 export interface LeaderboardEntryDto {
   /**
    *
-   * @type {string}
+   * @type {UserDTO}
    * @memberof LeaderboardEntryDto
    */
-  steamId: string;
-  /**
-   *
-   * @type {string}
-   * @memberof LeaderboardEntryDto
-   */
-  name: string;
-  /**
-   *
-   * @type {string}
-   * @memberof LeaderboardEntryDto
-   */
-  avatar: string;
+  user: UserDTO;
   /**
    *
    * @type {string}
@@ -105,9 +95,7 @@ export function LeaderboardEntryDtoFromJSONTyped(
     return json;
   }
   return {
-    steamId: json["steam_id"],
-    name: json["name"],
-    avatar: json["avatar"],
+    user: UserDTOFromJSON(json["user"]),
     id: json["id"],
     mmr: !exists(json, "mmr") ? undefined : json["mmr"],
     rank: !exists(json, "rank") ? undefined : json["rank"],
@@ -130,9 +118,7 @@ export function LeaderboardEntryDtoToJSON(
     return null;
   }
   return {
-    steam_id: value.steamId,
-    name: value.name,
-    avatar: value.avatar,
+    user: UserDTOToJSON(value.user),
     id: value.id,
     mmr: value.mmr,
     rank: value.rank,

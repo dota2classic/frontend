@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import {UserDTO, UserDTOFromJSON, UserDTOToJSON,} from "./";
+
 /**
  *
  * @export
@@ -20,22 +22,10 @@
 export interface PlayerTeammateDto {
   /**
    *
-   * @type {string}
+   * @type {UserDTO}
    * @memberof PlayerTeammateDto
    */
-  steamId: string;
-  /**
-   *
-   * @type {string}
-   * @memberof PlayerTeammateDto
-   */
-  name: string;
-  /**
-   *
-   * @type {string}
-   * @memberof PlayerTeammateDto
-   */
-  avatar: string;
+  user: UserDTO;
   /**
    *
    * @type {number}
@@ -80,9 +70,7 @@ export function PlayerTeammateDtoFromJSONTyped(
     return json;
   }
   return {
-    steamId: json["steam_id"],
-    name: json["name"],
-    avatar: json["avatar"],
+    user: UserDTOFromJSON(json["user"]),
     games: json["games"],
     wins: json["wins"],
     losses: json["losses"],
@@ -99,9 +87,7 @@ export function PlayerTeammateDtoToJSON(value?: PlayerTeammateDto | null): any {
     return null;
   }
   return {
-    steam_id: value.steamId,
-    name: value.name,
-    avatar: value.avatar,
+    user: UserDTOToJSON(value.user),
     games: value.games,
     wins: value.wins,
     losses: value.losses,

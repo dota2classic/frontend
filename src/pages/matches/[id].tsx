@@ -72,8 +72,7 @@ export default function MatchPage({
         <br />
         <br />
         <br />
-        {/*<div>{JSON.stringify(thread, null, 2)}</div>*/}
-        <Thread id={match.id} threadType={ThreadType.MATCH} />
+        <Thread small id={match.id} threadType={ThreadType.MATCH} />
       </>
     );
 

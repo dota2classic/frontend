@@ -12,11 +12,12 @@ export interface Thread {
 export const useThread = (
   id: string | number,
   threadType: ThreadType,
+  initialMessages: ThreadMessageDTO[] = [],
 ): [Thread, () => void] => {
   const threadId = `${threadType}_${id}`;
   const defaultThread = {
     id: threadId,
-    messages: [],
+    messages: initialMessages,
   };
 
   if (typeof window === "undefined") return [defaultThread, () => undefined];

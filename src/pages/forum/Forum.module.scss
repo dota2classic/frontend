@@ -1,0 +1,34 @@
+@import "../../common.scss";
+
+.forumTable {
+  & th,
+  td {
+    padding: 8px !important;
+  }
+}
+
+.msg {
+  display: flex;
+  flex-direction: row;
+
+  & img {
+    vertical-align: middle;
+  }
+
+  & div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.createThread {
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  align-self: flex-end;
+
+  & button {
+    width: fit-content;
+  }
+}

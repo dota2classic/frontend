@@ -54,17 +54,17 @@ export default function PlayerMatches({
   return (
     <>
       <Head>
-        <title>{`${preloadedSummary.name}`}</title>
+        <title>{`${preloadedSummary.user.name}`}</title>
       </Head>
 
       <PlayerSummary
-        image={preloadedSummary.avatar || "/avatar.png"}
         wins={preloadedSummary.wins}
         loss={preloadedSummary.loss}
         rank={preloadedSummary.rank}
         mmr={preloadedSummary.mmr}
-        name={preloadedSummary.name}
-        steamId={preloadedSummary.steamId}
+        image={preloadedSummary.user.avatar || "/avatar.png"}
+        name={preloadedSummary.user.name}
+        steamId={preloadedSummary.user.steamId}
       />
 
       <Section>

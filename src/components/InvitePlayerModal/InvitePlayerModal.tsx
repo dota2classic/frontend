@@ -6,9 +6,9 @@ import c from "./InvitePlayerModal.module.scss";
 import { useApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { NotificationDto } from "@/store/NotificationStore";
-import { PlayerPreviewDto } from "@/api/back";
 import cx from "classnames";
 import useOutsideClick from "@/util/useOutsideClick";
+import { UserDTO } from "@/api/back";
 
 interface IInvitePlayerModalProps {
   isOpen: boolean;
@@ -41,13 +41,13 @@ export const InvitePlayerModal: React.FC<IInvitePlayerModalProps> = ({
 
         <div className={c.playerList}>
           {(data || [])
-            .filter((it) => it.id.length > 2)
-            .map((it: PlayerPreviewDto) => (
+            .filter((it) => it.steamId.length > 2)
+            .map((it: UserDTO) => (
               <div
                 className={c.playerPreview}
-                key={it.id}
+                key={it.steamId}
                 onClick={async () => {
-                  queue.inviteToParty(it.id);
+                  queue.inviteToParty(it.steamId);
                   notify.enqueueNotification(
                     new NotificationDto(`Приглашение отправлено ${it.name}`),
                   );

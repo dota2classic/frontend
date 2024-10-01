@@ -92,7 +92,7 @@ export default function LeaderboardPage({
         ]}
         data={data!.map((it) => [
           it.rank,
-          { steam_id: it.steamId, avatar: it.avatar, name: it.name },
+          it.user,
           it.mmr,
           it.games,
           it.wins,

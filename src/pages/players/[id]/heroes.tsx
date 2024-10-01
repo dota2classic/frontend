@@ -32,9 +32,9 @@ export default function PlayerHeroes({
   return (
     <>
       <PlayerSummary
-        image={summary.avatar}
-        name={summary.name}
-        steamId={summary.steamId}
+        image={summary.user.avatar}
+        name={summary.user.name}
+        steamId={summary.user.steamId}
         wins={summary.wins}
         loss={summary.loss}
         rank={summary.rank}

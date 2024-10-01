@@ -14,6 +14,7 @@ export const EmbedProps: React.FC<IEmbedPropsProps> = (p) => {
   return (
     <Head>
       <meta property="og:title" content={p.title} />
+      <title>{p.title}</title>
       <meta property="og:description" content={p.description} />
       <meta property="og:image" content={p.image} />
       <meta property="summary_large_image" content={p.image} />

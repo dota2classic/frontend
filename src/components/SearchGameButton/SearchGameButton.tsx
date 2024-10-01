@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { FaSteam } from "react-icons/fa";
 import { appApi } from "@/api/hooks";
 import cx from "classnames";
-import { formatDateStr } from "@/components/TimeAgo/TimeAgo";
+import { TimeAgo } from "@/components/TimeAgo/TimeAgo";
 
 export const SearchGameButton = observer(() => {
   const { queue, auth } = useStore();
@@ -50,7 +50,7 @@ export const SearchGameButton = observer(() => {
         )}
       >
         {auth.me?.banStatus?.isBanned
-          ? `Поиск запрещен до ${formatDateStr(auth.me?.banStatus.bannedUntil!)}`
+          ? `Поиск запрещен до ${(<TimeAgo date={auth.me?.banStatus.bannedUntil!} />)}`
           : "Искать игру"}
       </button>
     );

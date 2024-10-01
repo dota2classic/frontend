@@ -1,6 +1,7 @@
 export enum ThreadType {
   MATCH = "match",
   PROFILE = "profile",
+  FORUM = "forum",
 }
 
 export function ThreadTypeFromJSON(json: any): ThreadType {

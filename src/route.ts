@@ -1,6 +1,7 @@
 import Router from "next/router";
 import type { UrlObject } from "url";
 import { queryParameters } from "@/util/urls";
+import { ThreadType } from "@/api/mapped-models";
 
 export interface NextLinkProp {
   href: string | UrlObject;
@@ -137,6 +138,25 @@ export const AppRouter = {
           `/heroes/${fhero}/matches${q}`,
         );
       },
+    },
+  },
+  forum: {
+    index: (_page?: number) => {
+      const q = queryParameters({ page: _page });
+      return spage(`/forum${q}`);
+    },
+    createThread: spage("/forum/create"),
+    thread(id: string, threadType: ThreadType, messageId?: string) {
+      const q = messageId ? `#${messageId}` : "";
+      switch (threadType) {
+        case ThreadType.MATCH:
+          return page(`/matches/[id]${q}`, `/matches/${id}${q}`);
+        case ThreadType.PROFILE:
+          return page(`/players/[id]${q}`, `/players/${id}${q}`);
+
+        default:
+          return page(`/forum/[id]${q}`, `/forum/${id}${q}`);
+      }
     },
   },
   items: {

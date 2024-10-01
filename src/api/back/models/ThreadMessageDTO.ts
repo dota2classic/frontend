@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import {UserDTO, UserDTOFromJSON, UserDTOToJSON,} from "./";
+
 /**
  *
  * @export
@@ -20,22 +22,10 @@
 export interface ThreadMessageDTO {
   /**
    *
-   * @type {string}
+   * @type {UserDTO}
    * @memberof ThreadMessageDTO
    */
-  steamId: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ThreadMessageDTO
-   */
-  name: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ThreadMessageDTO
-   */
-  avatar: string;
+  author: UserDTO;
   /**
    *
    * @type {string}
@@ -80,9 +70,7 @@ export function ThreadMessageDTOFromJSONTyped(
     return json;
   }
   return {
-    steamId: json["steamId"],
-    name: json["name"],
-    avatar: json["avatar"],
+    author: UserDTOFromJSON(json["author"]),
     threadId: json["threadId"],
     messageId: json["messageId"],
     content: json["content"],
@@ -99,9 +87,7 @@ export function ThreadMessageDTOToJSON(value?: ThreadMessageDTO | null): any {
     return null;
   }
   return {
-    steamId: value.steamId,
-    name: value.name,
-    avatar: value.avatar,
+    author: UserDTOToJSON(value.author),
     threadId: value.threadId,
     messageId: value.messageId,
     content: value.content,

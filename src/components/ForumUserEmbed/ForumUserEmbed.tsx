@@ -19,10 +19,10 @@ export const ForumUserEmbed: React.FC<IForumUserEmbedProps> = observer(
         link={AppRouter.players.player.index(steamId).link}
       >
         <img
-          src={user.tryGetUser(steamId)?.avatar}
+          src={user.tryGetUser(steamId)?.user?.avatar}
           alt={`Avatar of user ${steamId}`}
         />
-        {user.tryGetUser(steamId)?.name || "Loading..."}
+        {user.tryGetUser(steamId)?.user?.name || "Loading..."}
       </PageLink>
     );
   },

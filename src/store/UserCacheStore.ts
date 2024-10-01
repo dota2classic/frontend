@@ -1,11 +1,10 @@
 import { makeObservable, observable, runInAction } from "mobx";
 import { HydratableStore } from "@/store/HydratableStore";
 import { useApi } from "@/api/hooks";
+import { UserDTO } from "@/api/back";
 
 interface UserEntry {
-  steamId: string;
-  avatar: string;
-  name: string;
+  user: UserDTO;
   rank?: number;
   mmr?: number;
   gamesPlayed: number;
@@ -44,9 +43,7 @@ export class UserCacheStore implements HydratableStore<{}> {
       .then((user) => {
         runInAction(() => {
           this.userMap.set(id, {
-            steamId: user.steamId,
-            name: user.name,
-            avatar: user.avatar,
+            user: user.user,
             gamesPlayed: user.gamesPlayed,
             wins: user.wins,
             loss: user.loss,

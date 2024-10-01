@@ -253,6 +253,36 @@ export class MetaApi extends runtime.BaseAPI {
 
   /**
    */
+  private async metaControllerItemRaw(
+    requestParameters: MetaControllerItemRequest,
+  ): Promise<runtime.ApiResponse<Array<ItemHeroDto>>> {
+    this.metaControllerItemValidation(requestParameters);
+    const context = this.metaControllerItemContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(ItemHeroDtoFromJSON),
+    );
+  }
+
+  /**
+   */
+  private metaControllerItemValidation(
+    requestParameters: MetaControllerItemRequest,
+  ) {
+    if (
+      requestParameters.item === null ||
+      requestParameters.item === undefined
+    ) {
+      throw new runtime.RequiredError(
+        "item",
+        "Required parameter requestParameters.item was null or undefined when calling metaControllerItem.",
+      );
+    }
+  }
+
+  /**
+   */
   metaControllerItemContext(
     requestParameters: MetaControllerItemRequest,
   ): runtime.RequestOpts {
@@ -298,6 +328,24 @@ export class MetaApi extends runtime.BaseAPI {
 
   /**
    */
+  private async metaControllerItemsRaw(): Promise<
+    runtime.ApiResponse<Array<ItemDto>>
+  > {
+    this.metaControllerItemsValidation();
+    const context = this.metaControllerItemsContext();
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(ItemDtoFromJSON),
+    );
+  }
+
+  /**
+   */
+  private metaControllerItemsValidation() {}
+
+  /**
+   */
   metaControllerItemsContext(): runtime.RequestOpts {
     const queryParameters: any = {};
 
@@ -328,52 +376,4 @@ export class MetaApi extends runtime.BaseAPI {
       config,
     );
   }
-
-  /**
-   */
-  private async metaControllerItemRaw(
-    requestParameters: MetaControllerItemRequest,
-  ): Promise<runtime.ApiResponse<Array<ItemHeroDto>>> {
-    this.metaControllerItemValidation(requestParameters);
-    const context = this.metaControllerItemContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(ItemHeroDtoFromJSON),
-    );
-  }
-
-  /**
-   */
-  private metaControllerItemValidation(
-    requestParameters: MetaControllerItemRequest,
-  ) {
-    if (
-      requestParameters.item === null ||
-      requestParameters.item === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "item",
-        "Required parameter requestParameters.item was null or undefined when calling metaControllerItem.",
-      );
-    }
-  }
-
-  /**
-   */
-  private async metaControllerItemsRaw(): Promise<
-    runtime.ApiResponse<Array<ItemDto>>
-  > {
-    this.metaControllerItemsValidation();
-    const context = this.metaControllerItemsContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(ItemDtoFromJSON),
-    );
-  }
-
-  /**
-   */
-  private metaControllerItemsValidation() {}
 }

@@ -13,6 +13,7 @@
  */
 
 import {exists} from "../runtime";
+import {UserDTO, UserDTOFromJSON, UserDTOToJSON,} from "./";
 
 /**
  *
@@ -22,22 +23,10 @@ import {exists} from "../runtime";
 export interface PlayerSummaryDto {
   /**
    *
-   * @type {string}
+   * @type {UserDTO}
    * @memberof PlayerSummaryDto
    */
-  steamId: string;
-  /**
-   *
-   * @type {string}
-   * @memberof PlayerSummaryDto
-   */
-  name: string;
-  /**
-   *
-   * @type {string}
-   * @memberof PlayerSummaryDto
-   */
-  avatar: string;
+  user: UserDTO;
   /**
    *
    * @type {string}
@@ -100,9 +89,7 @@ export function PlayerSummaryDtoFromJSONTyped(
     return json;
   }
   return {
-    steamId: json["steam_id"],
-    name: json["name"],
-    avatar: json["avatar"],
+    user: UserDTOFromJSON(json["user"]),
     id: json["id"],
     mmr: !exists(json, "mmr") ? undefined : json["mmr"],
     rank: !exists(json, "rank") ? undefined : json["rank"],
@@ -122,9 +109,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
     return null;
   }
   return {
-    steam_id: value.steamId,
-    name: value.name,
-    avatar: value.avatar,
+    user: UserDTOToJSON(value.user),
     id: value.id,
     mmr: value.mmr,
     rank: value.rank,

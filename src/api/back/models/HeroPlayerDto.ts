@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import {
+  UserDTO,
+  UserDTOFromJSON,
+  UserDTOFromJSONTyped,
+  UserDTOToJSON,
+} from "./";
+
 /**
  *
  * @export
@@ -21,22 +28,10 @@ import { exists, mapValues } from "../runtime";
 export interface HeroPlayerDto {
   /**
    *
-   * @type {string}
+   * @type {UserDTO}
    * @memberof HeroPlayerDto
    */
-  name: string;
-  /**
-   *
-   * @type {string}
-   * @memberof HeroPlayerDto
-   */
-  avatar: string;
-  /**
-   *
-   * @type {string}
-   * @memberof HeroPlayerDto
-   */
-  steamId: string;
+  user: UserDTO;
   /**
    *
    * @type {number}
@@ -87,9 +82,7 @@ export function HeroPlayerDtoFromJSONTyped(
     return json;
   }
   return {
-    name: json["name"],
-    avatar: json["avatar"],
-    steamId: json["steam_id"],
+    user: UserDTOFromJSON(json["user"]),
     games: json["games"],
     wins: json["wins"],
     score: json["score"],
@@ -107,9 +100,7 @@ export function HeroPlayerDtoToJSON(value?: HeroPlayerDto | null): any {
     return null;
   }
   return {
-    name: value.name,
-    avatar: value.avatar,
-    steam_id: value.steamId,
+    user: UserDTOToJSON(value.user),
     games: value.games,
     wins: value.wins,
     score: value.score,

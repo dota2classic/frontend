@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { useApi } from "@/api/hooks";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
-import { PlayerInPartyDto } from "@/api/back";
+import { UserDTO } from "@/api/back";
 import { InvitePlayerModal, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
@@ -52,7 +52,7 @@ export const QueuePartyInfo = observer(() => {
       <InvitePlayerModal isOpen={inviteOpen} close={close} />
 
       <div className={c.party}>
-        {queue.party!!.players.map((t: PlayerInPartyDto) => (
+        {queue.party!!.players.map((t: UserDTO) => (
           <PageLink
             key={t.steamId}
             link={AppRouter.players.player.index(t.steamId).link}

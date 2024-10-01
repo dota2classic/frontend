@@ -28,14 +28,14 @@ import {
   MyProfileDtoFromJSON,
   PartyDto,
   PartyDtoFromJSON,
-  PlayerPreviewDto,
-  PlayerPreviewDtoFromJSON,
   PlayerSummaryDto,
   PlayerSummaryDtoFromJSON,
   PlayerTeammatePageDto,
   PlayerTeammatePageDtoFromJSON,
   ReportDto,
   ReportDtoToJSON,
+  UserDTO,
+  UserDTOFromJSON,
 } from "../models";
 
 export interface PlayerControllerHeroSummaryRequest {
@@ -535,17 +535,10 @@ export class PlayerApi extends runtime.BaseAPI {
 
   /**
    */
-  private async playerControllerSearchRaw(
-    requestParameters: PlayerControllerSearchRequest,
-  ): Promise<runtime.ApiResponse<Array<PlayerPreviewDto>>> {
-    this.playerControllerSearchValidation(requestParameters);
-    const context = this.playerControllerSearchContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(PlayerPreviewDtoFromJSON),
-    );
-  }
+  playerControllerSearch = async (name: string): Promise<Array<UserDTO>> => {
+    const response = await this.playerControllerSearchRaw({ name: name });
+    return await response.value();
+  };
 
   /**
    */
@@ -584,18 +577,9 @@ export class PlayerApi extends runtime.BaseAPI {
     };
   }
 
-  /**
-   */
-  playerControllerSearch = async (
-    name: string,
-  ): Promise<Array<PlayerPreviewDto>> => {
-    const response = await this.playerControllerSearchRaw({ name: name });
-    return await response.value();
-  };
-
   usePlayerControllerSearch(
     name: string,
-    config?: SWRConfiguration<Array<PlayerPreviewDto>, Error>,
+    config?: SWRConfiguration<Array<UserDTO>, Error>,
   ) {
     let valid = true;
 
@@ -608,6 +592,20 @@ export class PlayerApi extends runtime.BaseAPI {
       context,
       valid ? () => this.playerControllerSearch(name!) : null,
       config,
+    );
+  }
+
+  /**
+   */
+  private async playerControllerSearchRaw(
+    requestParameters: PlayerControllerSearchRequest,
+  ): Promise<runtime.ApiResponse<Array<UserDTO>>> {
+    this.playerControllerSearchValidation(requestParameters);
+    const context = this.playerControllerSearchContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(UserDTOFromJSON),
     );
   }
 

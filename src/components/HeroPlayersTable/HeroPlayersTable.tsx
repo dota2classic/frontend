@@ -42,7 +42,7 @@ export const HeroPlayersTable: React.FC<IHeroPlayersTableProps> = ({
       data={data
         .slice(0, 8)
         .map((it) => [
-          { avatar: it.avatar, steam_id: it.steamId, name: it.name },
+          it.user,
           it.games,
           (it.wins / it.games) * 100,
           { kills: it.kills, deaths: it.deaths, assists: it.assists },

@@ -96,21 +96,21 @@ export default function PlayerPage({
   return (
     <div className={c.playerPage}>
       <Head>
-        <title>{`${summary.name} - статистика`}</title>
+        <title>{`${summary.user.name} - статистика`}</title>
       </Head>
       <EmbedProps
-        title={`${summary.name} - статистика`}
-        description={`Dota2Classic - профиль и статистика игрока ${summary.name}`}
-        image={summary.avatar}
+        title={`${summary.user.name} - статистика`}
+        description={`Dota2Classic - профиль и статистика игрока ${summary.user.name}`}
+        image={summary.user.avatar}
       />
       <PlayerSummary
-        image={summary.avatar || "/avatar.png"}
         wins={summary.wins}
         loss={summary.loss}
         rank={summary.rank}
         mmr={summary.mmr}
-        name={summary.name}
-        steamId={summary.steamId}
+        image={summary.user.avatar || "/avatar.png"}
+        name={summary.user.name}
+        steamId={summary.user.steamId}
       />
       <Section className={c.matchHistory}>
         <header>
