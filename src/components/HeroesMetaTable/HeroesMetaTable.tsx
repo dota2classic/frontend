@@ -36,6 +36,7 @@ export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
         {
           type: ColumnType.Hero,
           name: "Герой",
+          sortable: true,
         },
         {
           type: ColumnType.IntWithBar,
