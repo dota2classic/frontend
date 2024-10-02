@@ -43,7 +43,11 @@ export default function LeaderboardPage({
             name: "Ранг",
             format: (d) => (
               <div
-                style={{ fontSize: "1.4rem", width: 10, margin: "auto" }}
+                style={{
+                  fontSize: "1.1rem",
+                  textAlign: "center",
+                  margin: "auto",
+                }}
                 className={cx({
                   gold: d == 1,
                   silver: d == 2,

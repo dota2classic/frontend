@@ -9,7 +9,6 @@
   }
 }
 
-
 .player {
   display: flex;
   flex-direction: row;
@@ -33,7 +32,6 @@
 
   // very bad hack to fit-content
   width: 0%;
-
 }
 
 .item {
@@ -67,6 +65,10 @@
   //letter-spacing: 2px;
   display: flex;
   flex-direction: column;
+
+  & span {
+    white-space: nowrap;
+  }
 }
 
 .empty {
@@ -101,7 +103,6 @@
     border-color: transparent transparent white transparent;
   }
 }
-
 
 .oneliner {
   display: flex;
