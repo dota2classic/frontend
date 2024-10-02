@@ -68,6 +68,36 @@ export interface ForumControllerThreadsRequest {
 export class ForumApi extends runtime.BaseAPI {
   /**
    */
+  private async forumControllerCreateThreadRaw(
+    requestParameters: ForumControllerCreateThreadRequest,
+  ): Promise<runtime.ApiResponse<ThreadDTO>> {
+    this.forumControllerCreateThreadValidation(requestParameters);
+    const context = this.forumControllerCreateThreadContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      ThreadDTOFromJSON(jsonValue),
+    );
+  }
+
+  /**
+   */
+  private forumControllerCreateThreadValidation(
+    requestParameters: ForumControllerCreateThreadRequest,
+  ) {
+    if (
+      requestParameters.createThreadDTO === null ||
+      requestParameters.createThreadDTO === undefined
+    ) {
+      throw new runtime.RequiredError(
+        "createThreadDTO",
+        "Required parameter requestParameters.createThreadDTO was null or undefined when calling forumControllerCreateThread.",
+      );
+    }
+  }
+
+  /**
+   */
   forumControllerCreateThreadContext(
     requestParameters: ForumControllerCreateThreadRequest,
   ): runtime.RequestOpts {
@@ -108,96 +138,38 @@ export class ForumApi extends runtime.BaseAPI {
 
   /**
    */
-  forumControllerGetThreadContext(
-    requestParameters: ForumControllerGetThreadRequest,
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
+  private async forumControllerGetMessagesRaw(
+    requestParameters: ForumControllerGetMessagesRequest,
+  ): Promise<runtime.ApiResponse<Array<ThreadMessageDTO>>> {
+    this.forumControllerGetMessagesValidation(requestParameters);
+    const context = this.forumControllerGetMessagesContext(requestParameters);
+    const response = await this.request(context);
 
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    return {
-      path: `/v1/forum/thread/{id}/{threadType}`
-        .replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id)))
-        .replace(
-          `{${"threadType"}}`,
-          encodeURIComponent(String(requestParameters.threadType)),
-        ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  forumControllerGetThread = async (
-    id: string,
-    threadType: string,
-  ): Promise<ThreadDTO> => {
-    const response = await this.forumControllerGetThreadRaw({
-      id: id,
-      threadType: threadType,
-    });
-    return await response.value();
-  };
-
-  useForumControllerGetThread(
-    id: string,
-    threadType: string,
-    config?: SWRConfiguration<ThreadDTO, Error>,
-  ) {
-    let valid = true;
-
-    if (id === null || id === undefined || Number.isNaN(id)) {
-      valid = false;
-    }
-
-    if (
-      threadType === null ||
-      threadType === undefined ||
-      Number.isNaN(threadType)
-    ) {
-      valid = false;
-    }
-
-    const context = this.forumControllerGetThreadContext({
-      id: id!,
-      threadType: threadType!,
-    });
-    return useSWR(
-      context,
-      valid ? () => this.forumControllerGetThread(id!, threadType!) : null,
-      config,
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(ThreadMessageDTOFromJSON),
     );
   }
 
   /**
    */
-  forumControllerPostMessageContext(
-    requestParameters: ForumControllerPostMessageRequest,
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    headerParameters["Content-Type"] = "application/json";
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+  private forumControllerGetMessagesValidation(
+    requestParameters: ForumControllerGetMessagesRequest,
+  ) {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        "id",
+        "Required parameter requestParameters.id was null or undefined when calling forumControllerGetMessages.",
+      );
     }
-    return {
-      path: `/v1/forum/thread/message`,
-      method: "POST",
-      headers: headerParameters,
-      query: queryParameters,
-      body: CreateMessageDTOToJSON(requestParameters.createMessageDTO),
-    };
+    if (
+      requestParameters.threadType === null ||
+      requestParameters.threadType === undefined
+    ) {
+      throw new runtime.RequiredError(
+        "threadType",
+        "Required parameter requestParameters.threadType was null or undefined when calling forumControllerGetMessages.",
+      );
+    }
   }
 
   /**
@@ -286,26 +258,51 @@ export class ForumApi extends runtime.BaseAPI {
 
   /**
    */
-  forumControllerPostMessage = async (
-    createMessageDTO: CreateMessageDTO,
-  ): Promise<ThreadMessageDTO> => {
-    const response = await this.forumControllerPostMessageRaw({
-      createMessageDTO: createMessageDTO,
-    });
-    return await response.value();
-  };
+  private async forumControllerGetThreadRaw(
+    requestParameters: ForumControllerGetThreadRequest,
+  ): Promise<runtime.ApiResponse<ThreadDTO>> {
+    this.forumControllerGetThreadValidation(requestParameters);
+    const context = this.forumControllerGetThreadContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      ThreadDTOFromJSON(jsonValue),
+    );
+  }
 
   /**
    */
-  forumControllerThreadContext(
-    requestParameters: ForumControllerThreadRequest,
+  private forumControllerGetThreadValidation(
+    requestParameters: ForumControllerGetThreadRequest,
+  ) {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        "id",
+        "Required parameter requestParameters.id was null or undefined when calling forumControllerGetThread.",
+      );
+    }
+    if (
+      requestParameters.threadType === null ||
+      requestParameters.threadType === undefined
+    ) {
+      throw new runtime.RequiredError(
+        "threadType",
+        "Required parameter requestParameters.threadType was null or undefined when calling forumControllerGetThread.",
+      );
+    }
+  }
+
+  /**
+   */
+  forumControllerGetThreadContext(
+    requestParameters: ForumControllerGetThreadRequest,
   ): runtime.RequestOpts {
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
 
     return {
-      path: `/v1/forum/thread/{id}/{threadType}/sse`
+      path: `/v1/forum/thread/{id}/{threadType}`
         .replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id)))
         .replace(
           `{${"threadType"}}`,
@@ -319,54 +316,46 @@ export class ForumApi extends runtime.BaseAPI {
 
   /**
    */
-  forumControllerThread = async (
+  forumControllerGetThread = async (
     id: string,
     threadType: string,
-  ): Promise<ThreadMessageSseDto> => {
-    const response = await this.forumControllerThreadRaw({
+  ): Promise<ThreadDTO> => {
+    const response = await this.forumControllerGetThreadRaw({
       id: id,
       threadType: threadType,
     });
     return await response.value();
   };
 
-  /**
-   */
-  forumControllerThreadsContext(
-    requestParameters: ForumControllerThreadsRequest,
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
+  useForumControllerGetThread(
+    id: string,
+    threadType: string,
+    config?: SWRConfiguration<ThreadDTO, Error>,
+  ) {
+    let valid = true;
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+    if (id === null || id === undefined || Number.isNaN(id)) {
+      valid = false;
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["perPage"] = requestParameters.perPage;
+    if (
+      threadType === null ||
+      threadType === undefined ||
+      Number.isNaN(threadType)
+    ) {
+      valid = false;
     }
 
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    return {
-      path: `/v1/forum/threads`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  forumControllerThreads = async (
-    page: number,
-    perPage?: number,
-  ): Promise<ThreadPageDTO> => {
-    const response = await this.forumControllerThreadsRaw({
-      page: page,
-      perPage: perPage,
+    const context = this.forumControllerGetThreadContext({
+      id: id!,
+      threadType: threadType!,
     });
-    return await response.value();
-  };
+    return useSWR(
+      context,
+      valid ? () => this.forumControllerGetThread(id!, threadType!) : null,
+      config,
+    );
+  }
 
   /**
    */
@@ -398,41 +387,45 @@ export class ForumApi extends runtime.BaseAPI {
     }
   }
 
-  useForumControllerThreads(
-    page: number,
-    perPage?: number,
-    config?: SWRConfiguration<ThreadPageDTO, Error>,
-  ) {
-    let valid = true;
+  /**
+   */
+  forumControllerPostMessageContext(
+    requestParameters: ForumControllerPostMessageRequest,
+  ): runtime.RequestOpts {
+    const queryParameters: any = {};
 
-    if (page === null || page === undefined || Number.isNaN(page)) {
-      valid = false;
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    headerParameters["Content-Type"] = "application/json";
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken;
+      const tokenString =
+        typeof token === "function" ? token("bearer", []) : token;
+
+      if (tokenString) {
+        headerParameters["Authorization"] = `Bearer ${tokenString}`;
+      }
     }
-
-    const context = this.forumControllerThreadsContext({
-      page: page!,
-      perPage: perPage!,
-    });
-    return useSWR(
-      context,
-      valid ? () => this.forumControllerThreads(page!, perPage!) : null,
-      config,
-    );
+    return {
+      path: `/v1/forum/thread/message`,
+      method: "POST",
+      headers: headerParameters,
+      query: queryParameters,
+      body: CreateMessageDTOToJSON(requestParameters.createMessageDTO),
+    };
   }
 
   /**
    */
-  private async forumControllerCreateThreadRaw(
-    requestParameters: ForumControllerCreateThreadRequest,
-  ): Promise<runtime.ApiResponse<ThreadDTO>> {
-    this.forumControllerCreateThreadValidation(requestParameters);
-    const context = this.forumControllerCreateThreadContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ThreadDTOFromJSON(jsonValue),
-    );
-  }
+  forumControllerPostMessage = async (
+    createMessageDTO: CreateMessageDTO,
+  ): Promise<ThreadMessageDTO> => {
+    const response = await this.forumControllerPostMessageRaw({
+      createMessageDTO: createMessageDTO,
+    });
+    return await response.value();
+  };
 
   /**
    */
@@ -472,33 +465,38 @@ export class ForumApi extends runtime.BaseAPI {
 
   /**
    */
-  private forumControllerCreateThreadValidation(
-    requestParameters: ForumControllerCreateThreadRequest,
-  ) {
-    if (
-      requestParameters.createThreadDTO === null ||
-      requestParameters.createThreadDTO === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "createThreadDTO",
-        "Required parameter requestParameters.createThreadDTO was null or undefined when calling forumControllerCreateThread.",
-      );
-    }
+  forumControllerThreadContext(
+    requestParameters: ForumControllerThreadRequest,
+  ): runtime.RequestOpts {
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    return {
+      path: `/v1/forum/thread/{id}/{threadType}/sse`
+        .replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id)))
+        .replace(
+          `{${"threadType"}}`,
+          encodeURIComponent(String(requestParameters.threadType)),
+        ),
+      method: "GET",
+      headers: headerParameters,
+      query: queryParameters,
+    };
   }
 
   /**
    */
-  private async forumControllerGetMessagesRaw(
-    requestParameters: ForumControllerGetMessagesRequest,
-  ): Promise<runtime.ApiResponse<Array<ThreadMessageDTO>>> {
-    this.forumControllerGetMessagesValidation(requestParameters);
-    const context = this.forumControllerGetMessagesContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(ThreadMessageDTOFromJSON),
-    );
-  }
+  forumControllerThread = async (
+    id: string,
+    threadType: string,
+  ): Promise<ThreadMessageSseDto> => {
+    const response = await this.forumControllerThreadRaw({
+      id: id,
+      threadType: threadType,
+    });
+    return await response.value();
+  };
 
   useForumControllerThread(
     id: string,
@@ -532,64 +530,6 @@ export class ForumApi extends runtime.BaseAPI {
 
   /**
    */
-  private forumControllerGetMessagesValidation(
-    requestParameters: ForumControllerGetMessagesRequest,
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling forumControllerGetMessages.",
-      );
-    }
-    if (
-      requestParameters.threadType === null ||
-      requestParameters.threadType === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "threadType",
-        "Required parameter requestParameters.threadType was null or undefined when calling forumControllerGetMessages.",
-      );
-    }
-  }
-
-  /**
-   */
-  private async forumControllerGetThreadRaw(
-    requestParameters: ForumControllerGetThreadRequest,
-  ): Promise<runtime.ApiResponse<ThreadDTO>> {
-    this.forumControllerGetThreadValidation(requestParameters);
-    const context = this.forumControllerGetThreadContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ThreadDTOFromJSON(jsonValue),
-    );
-  }
-
-  /**
-   */
-  private forumControllerGetThreadValidation(
-    requestParameters: ForumControllerGetThreadRequest,
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling forumControllerGetThread.",
-      );
-    }
-    if (
-      requestParameters.threadType === null ||
-      requestParameters.threadType === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "threadType",
-        "Required parameter requestParameters.threadType was null or undefined when calling forumControllerGetThread.",
-      );
-    }
-  }
-
-  /**
-   */
   private async forumControllerThreadsRaw(
     requestParameters: ForumControllerThreadsRequest,
   ): Promise<runtime.ApiResponse<ThreadPageDTO>> {
@@ -616,5 +556,65 @@ export class ForumApi extends runtime.BaseAPI {
         "Required parameter requestParameters.page was null or undefined when calling forumControllerThreads.",
       );
     }
+  }
+
+  /**
+   */
+  forumControllerThreadsContext(
+    requestParameters: ForumControllerThreadsRequest,
+  ): runtime.RequestOpts {
+    const queryParameters: any = {};
+
+    if (requestParameters.page !== undefined) {
+      queryParameters["page"] = requestParameters.page;
+    }
+
+    if (requestParameters.perPage !== undefined) {
+      queryParameters["perPage"] = requestParameters.perPage;
+    }
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    return {
+      path: `/v1/forum/threads`,
+      method: "GET",
+      headers: headerParameters,
+      query: queryParameters,
+    };
+  }
+
+  /**
+   */
+  forumControllerThreads = async (
+    page: number,
+    perPage?: number,
+  ): Promise<ThreadPageDTO> => {
+    const response = await this.forumControllerThreadsRaw({
+      page: page,
+      perPage: perPage,
+    });
+    return await response.value();
+  };
+
+  useForumControllerThreads(
+    page: number,
+    perPage?: number,
+    config?: SWRConfiguration<ThreadPageDTO, Error>,
+  ) {
+    let valid = true;
+
+    if (page === null || page === undefined || Number.isNaN(page)) {
+      valid = false;
+    }
+
+    const context = this.forumControllerThreadsContext({
+      page: page!,
+      perPage: perPage!,
+    });
+    return useSWR(
+      context,
+      valid ? () => this.forumControllerThreads(page!, perPage!) : null,
+      config,
+    );
   }
 }

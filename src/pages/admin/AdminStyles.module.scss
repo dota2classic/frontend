@@ -1,0 +1,10 @@
+@import "../../common.scss";
+
+.withBorder {
+  border: 1px solid $primaryTextDark2;
+  padding: 12px 8px;
+
+  & + & {
+    margin-top: 14px;
+  }
+}

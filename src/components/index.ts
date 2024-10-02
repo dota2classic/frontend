@@ -53,3 +53,4 @@ export { MarkdownTextarea } from "./MarkdownTextarea/MarkdownTextarea";
 export { EmbedProps } from "./EmbedProps/EmbedProps";
 export { PeriodicTimer } from "./PeriodicTimer/PeriodicTimer";
 export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs'
+export { UserPreview } from "./UserPreview/UserPreview";

@@ -12,7 +12,17 @@
  * Do not edit the class manually.
  */
 
-import {BanStatusDto, BanStatusDtoFromJSON, BanStatusDtoToJSON, UserDTO, UserDTOFromJSON, UserDTOToJSON,} from "./";
+import {
+  BanStatusDto,
+  BanStatusDtoFromJSON,
+  BanStatusDtoToJSON,
+  Role,
+  RoleFromJSON,
+  RoleToJSON,
+  UserDTO,
+  UserDTOFromJSON,
+  UserDTOToJSON,
+} from "./";
 
 /**
  *
@@ -20,6 +30,12 @@ import {BanStatusDto, BanStatusDtoFromJSON, BanStatusDtoToJSON, UserDTO, UserDTO
  * @interface MeDto
  */
 export interface MeDto {
+  /**
+   *
+   * @type {Array<Role>}
+   * @memberof MeDto
+   */
+  roles: Array<Role>;
   /**
    *
    * @type {UserDTO}
@@ -38,12 +54,6 @@ export interface MeDto {
    * @memberof MeDto
    */
   mmr: number;
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof MeDto
-   */
-  roles: Array<MeDtoRolesEnum>;
   /**
    *
    * @type {number}
@@ -79,10 +89,10 @@ export function MeDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): MeD
         return json;
     }
     return {
+      roles: (json["roles"] as Array<any>).map(RoleFromJSON),
       user: UserDTOFromJSON(json["user"]),
       id: json["id"],
       mmr: json["mmr"],
-      roles: json["roles"],
       rank: json["rank"],
       unrankedGamesLeft: json["unrankedGamesLeft"],
       banStatus: BanStatusDtoFromJSON(json["banStatus"]),
@@ -91,34 +101,22 @@ export function MeDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): MeD
 }
 
 export function MeDtoToJSON(value?: MeDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
-      user: UserDTOToJSON(value.user),
-      id: value.id,
-      mmr: value.mmr,
-      roles: value.roles,
-      rank: value.rank,
-      unrankedGamesLeft: value.unrankedGamesLeft,
-      banStatus: BanStatusDtoToJSON(value.banStatus),
-      reportsAvailable: value.reportsAvailable,
-    };
-}
-
-/**
-* @export
-* @enum {string}
-*/
-export enum MeDtoRolesEnum {
-    PLAYER = 'PLAYER',
-    OLD = 'OLD',
-    HUMAN = 'HUMAN',
-    MODERATOR = 'MODERATOR',
-    ADMIN = 'ADMIN'
+  if (value === undefined) {
+    return undefined;
+  }
+  if (value === null) {
+    return null;
+  }
+  return {
+    roles: (value.roles as Array<any>).map(RoleToJSON),
+    user: UserDTOToJSON(value.user),
+    id: value.id,
+    mmr: value.mmr,
+    rank: value.rank,
+    unrankedGamesLeft: value.unrankedGamesLeft,
+    banStatus: BanStatusDtoToJSON(value.banStatus),
+    reportsAvailable: value.reportsAvailable,
+  };
 }
 
 

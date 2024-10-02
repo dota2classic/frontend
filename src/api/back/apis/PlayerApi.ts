@@ -535,10 +535,17 @@ export class PlayerApi extends runtime.BaseAPI {
 
   /**
    */
-  playerControllerSearch = async (name: string): Promise<Array<UserDTO>> => {
-    const response = await this.playerControllerSearchRaw({ name: name });
-    return await response.value();
-  };
+  private async playerControllerSearchRaw(
+    requestParameters: PlayerControllerSearchRequest,
+  ): Promise<runtime.ApiResponse<Array<UserDTO>>> {
+    this.playerControllerSearchValidation(requestParameters);
+    const context = this.playerControllerSearchContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(UserDTOFromJSON),
+    );
+  }
 
   /**
    */
@@ -577,6 +584,13 @@ export class PlayerApi extends runtime.BaseAPI {
     };
   }
 
+  /**
+   */
+  playerControllerSearch = async (name: string): Promise<Array<UserDTO>> => {
+    const response = await this.playerControllerSearchRaw({ name: name });
+    return await response.value();
+  };
+
   usePlayerControllerSearch(
     name: string,
     config?: SWRConfiguration<Array<UserDTO>, Error>,
@@ -592,20 +606,6 @@ export class PlayerApi extends runtime.BaseAPI {
       context,
       valid ? () => this.playerControllerSearch(name!) : null,
       config,
-    );
-  }
-
-  /**
-   */
-  private async playerControllerSearchRaw(
-    requestParameters: PlayerControllerSearchRequest,
-  ): Promise<runtime.ApiResponse<Array<UserDTO>>> {
-    this.playerControllerSearchValidation(requestParameters);
-    const context = this.playerControllerSearchContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(UserDTOFromJSON),
     );
   }
 

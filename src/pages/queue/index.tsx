@@ -6,10 +6,7 @@ import { useDidMount } from "@/util/hooks";
 import { MatchmakingOption, QueuePartyInfo } from "@/components";
 import { NextPageContext } from "next";
 import Head from "next/head";
-import Cookies from "cookies";
-import { AuthStore } from "@/store/AuthStore";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import * as BrowserCookies from "browser-cookies";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -65,19 +62,9 @@ export default function QueuePage(props: Props) {
 }
 
 QueuePage.getInitialProps = async (ctx: NextPageContext) => {
-  // If we are on client, we need to use browser cookies
-  let cookies: { get: (key: string) => string | undefined | null };
-  if (typeof window === "undefined") {
-    // @ts-ignore
-    cookies = new Cookies(ctx.req, ctx.res);
-  } else {
-    cookies = BrowserCookies;
-  }
-  const token = cookies.get(AuthStore.cookieTokenKey) || undefined;
-
   const [modes, playerSummary] = await Promise.all<any>([
     useApi().statsApi.statsControllerGetMatchmakingInfo(),
-    withTemporaryToken(token, (stores) => {
+    withTemporaryToken(ctx, (stores) => {
       return useApi().playerApi.playerControllerPlayerSummary(
         stores.auth.parsedToken!.sub,
       );

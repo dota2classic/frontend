@@ -1,0 +1,12 @@
+@import '../../../common.scss';
+
+.actions {
+
+  & button {
+    width: fit-content;
+  }
+
+  & button + button {
+    margin-left: 20px;
+  }
+}

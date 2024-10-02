@@ -2,8 +2,9 @@ import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { parse, stringify } from "qs";
 import { useApi } from "@/api/hooks";
-import { querystring, RequestOpts } from "@/api/back";
+import { querystring, RequestOpts, Role } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
+import { useStore } from "@/store";
 
 const preservedQuery = () => {
   if (typeof window === "undefined") return {};
@@ -15,6 +16,12 @@ const preservedQuery = () => {
       return {};
     }
   }
+};
+
+export const useIsAdmin = () => {
+  const t = useStore().auth.parsedToken;
+
+  return t ? t.roles.includes(Role.ADMIN) : false;
 };
 
 export const useQueryParameters = (): Record<string, string> => {

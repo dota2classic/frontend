@@ -8,6 +8,10 @@
   background: $bg2;
   color: $primaryText;
 
+  &__admin {
+    top: 42px;
+  }
+
   z-index: 10000;
 
   border-bottom: 1px solid $transparentTint2;

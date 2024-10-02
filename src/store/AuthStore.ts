@@ -9,11 +9,11 @@ import { HydratableStore } from "@/store/HydratableStore";
 import { parseJwt } from "@/util/math";
 import BrowserCookies from "browser-cookies";
 import { apiInner, appApi } from "@/api/hooks";
-import { MeDto } from "@/api/back";
+import { MeDto, Role } from "@/api/back";
 
 interface JwtAuthToken {
   sub: string;
-  roles: string[];
+  roles: Role[];
   name: string;
   avatar: string;
 }

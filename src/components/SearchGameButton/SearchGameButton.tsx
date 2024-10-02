@@ -30,7 +30,19 @@ export const SearchGameButton = observer(() => {
 
   if (!queue.ready) return <a className={c.button}>Идет соединение...</a>;
 
-  if (!isSearchModeDefined) {
+  if (isSearchModeDefined)
+    return (
+      <button
+        onClick={() => {
+          queue.cancelSearch();
+        }}
+        className={cx(c.button, queue.gameInfo?.serverURL && c.ingame)}
+      >
+        Отменить поиск
+      </button>
+    );
+
+  if (!isSearchModeDefined && isQueuePage) {
     return (
       <button
         disabled={queue.selectedModeBanned}
@@ -49,20 +61,16 @@ export const SearchGameButton = observer(() => {
           queue.gameInfo?.serverURL && c.ingame,
         )}
       >
-        {auth.me?.banStatus?.isBanned
-          ? `Поиск запрещен до ${(<TimeAgo date={auth.me?.banStatus.bannedUntil!} />)}`
-          : "Искать игру"}
+        {auth.me?.banStatus?.isBanned ? (
+          <>
+            Поиск запрещен до <TimeAgo date={auth.me?.banStatus.bannedUntil!} />
+          </>
+        ) : (
+          "Искать игру"
+        )}
       </button>
     );
   }
-  return (
-    <button
-      onClick={() => {
-        queue.cancelSearch();
-      }}
-      className={cx(c.button, queue.gameInfo?.serverURL && c.ingame)}
-    >
-      Отменить поиск
-    </button>
-  );
+
+  return null;
 });
