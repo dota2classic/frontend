@@ -3,7 +3,12 @@
 .avatar {
   height: 40px;
   object-fit: contain;
+
+  &__small {
+    height: 30px;
+  }
 }
+
 
 .player {
   display: flex;

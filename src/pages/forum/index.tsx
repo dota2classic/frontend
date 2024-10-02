@@ -1,7 +1,14 @@
 import { useApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { ThreadMessageDTO, ThreadPageDTO, ThreadType } from "@/api/back";
-import { Button, EmbedProps, PageLink, Pagination, Table } from "@/components";
+import {
+  Button,
+  EmbedProps,
+  PageLink,
+  Pagination,
+  Table,
+  TimeAgo,
+} from "@/components";
 import { FaUser } from "react-icons/fa";
 import c from "./Forum.module.scss";
 import { AppRouter } from "@/route";
@@ -21,10 +28,20 @@ const Msg = ({ message }: { message: ThreadMessageDTO }) => {
   const { author } = message;
   return (
     <div className={cx(c.msg, TableClasses.player)}>
-      <img className={TableClasses.avatar} src={author.avatar} alt="" />
-      <div>
-        <span style={{ fontSize: "1.1rem" }}>{author.name}</span>
-        <span className={TableClasses.oneliner}>{message.content}</span>
+      <img className={TableClasses.avatar__small} src={author.avatar} alt="" />
+      <div style={{ flex: 1 }}>
+        <PageLink
+          className={c.block}
+          link={AppRouter.players.player.index(message.author.steamId).link}
+        >
+          {author.name}
+        </PageLink>
+        <div
+          style={{marginLeft: 6 }}
+          className={cx( c.block)}
+        >
+          <TimeAgo date={message.createdAt} />
+        </div>
       </div>
     </div>
   );
@@ -57,22 +74,22 @@ export default function ForumIndexPage({ threads, page }: Props) {
             <th style={{ width: 20 }}></th>
             {/*<th style={{ width: 10 }}>M</th>*/}
             <th>Топик</th>
-            <th>Последнее сообщение</th>
-            <th style={{ width: 200 }}>Автор</th>
             <th style={{ width: 40 }}>Сообщений</th>
             <th style={{ width: 40 }}>Просмотров</th>
+            <th style={{ width: 200 }}>Автор</th>
+            <th>Последнее сообщение</th>
           </tr>
         </thead>
         <tbody>
           {threads.data.map((thread) => (
             <tr key={thread.externalId}>
-              <td style={{ textAlign: "center" }}>
+              <td style={{textAlign: "center"}}>
                 {thread.threadType === ThreadType.PROFILE ? (
-                  <FaUser />
+                  <FaUser/>
                 ) : thread.threadType === ThreadType.MATCH ? (
-                  <SiDota2 />
+                  <SiDota2/>
                 ) : (
-                  <FaMessage />
+                  <FaMessage/>
                 )}
               </td>
               <td>
@@ -86,18 +103,18 @@ export default function ForumIndexPage({ threads, page }: Props) {
                 </PageLink>
               </td>
               <td>
-                <PageLink
-                  link={
-                    AppRouter.forum.thread(
-                      thread.externalId,
-                      thread.threadType,
-                      thread.lastMessage.messageId,
-                    ).link
-                  }
-                >
-                  <Msg message={thread.lastMessage} />
-                </PageLink>
+                {thread.newMessageCount > 0 ? (
+                  <>
+                    {thread.messageCount - thread.newMessageCount}{" "}
+                    <span className={c.newMessages}>
+                      +{thread.newMessageCount}
+                    </span>
+                  </>
+                ) : (
+                  <>{thread.messageCount}</>
+                )}
               </td>
+              <td>{thread.views}</td>
               <td>
                 <PageLink
                   link={
@@ -108,24 +125,20 @@ export default function ForumIndexPage({ threads, page }: Props) {
                   className={TableClasses.player}
                 >
                   <img
-                    className={TableClasses.avatar}
+                    className={TableClasses.avatar__small}
                     src={thread.originalPoster.avatar || "/avatar.png"}
                     alt=""
                   />
-
-                  <span>
+                  <div style={{ marginLeft: 6 }}>
                     {Number(thread.originalPoster.steamId) > 10
                       ? thread.originalPoster.name
                       : "Бот"}
-                  </span>
+                  </div>
                 </PageLink>
               </td>
               <td>
-                {thread.newMessageCount > 0
-                  ? `${thread.messageCount} +${thread.newMessageCount}`
-                  : `${thread.messageCount}`}
+                <Msg message={thread.lastMessage}/>
               </td>
-              <td>{thread.views}</td>
             </tr>
           ))}
         </tbody>

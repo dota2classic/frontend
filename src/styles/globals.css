@@ -56,4 +56,9 @@ body {
 a {
   color: #92a525;
   text-decoration: none;
+  transition: 0.3s ease;
+
+  &:hover {
+    /*text-decoration: underline;*/
+  }
 }

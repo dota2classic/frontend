@@ -69,9 +69,8 @@ export default function MatchPage({
         </Typography.Header>
         <MatchTeamTable duration={match.duration} players={match.dire} />
 
-        <br />
-        <br />
-        <br />
+        <br/>
+        <br/>
         <Thread small id={match.id} threadType={ThreadType.MATCH} />
       </>
     );

@@ -1,11 +1,13 @@
 import React from "react";
 
-import { Duration, Panel, TimeAgo } from "..";
+import {Breadcrumbs, Duration, PageLink, Panel, TimeAgo} from "..";
 
 import c from "./MatchSummary.module.scss";
 import cx from "classnames";
 import { formatGameMode } from "@/util/gamemode";
 import { MatchmakingMode } from "@/api/mapped-models";
+import {AppRouter} from "@/route";
+import {useRouter} from "next/router";
 
 interface IMatchSummaryProps {
   matchId: number;
@@ -49,7 +51,12 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
   return (
     <>
       <Panel>
-        <div className="left">Матч {matchId}</div>
+        <div className="left">
+          <Breadcrumbs>
+            <PageLink link={AppRouter.matches.index().link}>Матчи</PageLink>
+            <span>Матч {matchId}</span>
+          </Breadcrumbs>
+        </div>
         <div className="right">
           <dl>
             <dd>{formatGameMode(mode)}</dd>

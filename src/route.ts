@@ -150,9 +150,9 @@ export const AppRouter = {
       const q = messageId ? `#${messageId}` : "";
       switch (threadType) {
         case ThreadType.MATCH:
-          return page(`/matches/[id]${q}`, `/matches/${id}${q}`);
+          return page(`/matches/[id]`, `/matches/${id}`);
         case ThreadType.PROFILE:
-          return page(`/players/[id]${q}`, `/players/${id}${q}`);
+          return page(`/players/[id]`, `/players/${id}`);
 
         default:
           return page(`/forum/[id]${q}`, `/forum/${id}${q}`);
