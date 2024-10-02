@@ -79,7 +79,8 @@ export default function AdminPlayerPage({
                   dateFormat={"dd MMMM yyyy"}
                   customInput={<Button className={"small"}>Назначить</Button>}
                   selected={endTime}
-                  onChange={(date: Date) => {
+                  onChange={(date: Date | null) => {
+                    if (!date) return;
                     setEndTime(date);
                     return commitChanges(date);
                   }}
@@ -92,7 +93,8 @@ export default function AdminPlayerPage({
                   dateFormat={"dd MMMM yyyy"}
                   customInput={<Input className={"iso"} />}
                   selected={endTime}
-                  onChange={(date: Date) => {
+                  onChange={(date: Date | null) => {
+                    if (!date) return;
                     setEndTime(date);
                     return commitChanges(date);
                   }}
