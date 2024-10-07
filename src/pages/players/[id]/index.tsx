@@ -1,8 +1,10 @@
 import {
+  AchievementStatus,
   EmbedProps,
   HeroPerformanceTable,
   HeroWithItemsHistoryTable,
   PageLink,
+  Panel,
   PlayerSummary,
   Section,
   TeammatesTable,
@@ -12,6 +14,8 @@ import c from "./PlayerPage.module.scss";
 import { useApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import {
+  AchievementDto,
+  AchievementKey,
   HeroStatsDto,
   MatchPageDto,
   PlayerSummaryDto,
@@ -33,6 +37,7 @@ interface PlayerPageProps {
   preloadedMatches: MatchPageDto;
   preloadedHeroStats: HeroStatsDto[];
   preloadedTeammates: PlayerTeammatePageDto;
+  preloadedAchievements: AchievementDto[];
 }
 
 export default function PlayerPage({
@@ -41,6 +46,7 @@ export default function PlayerPage({
   preloadedMatches,
   preloadedHeroStats,
   preloadedTeammates,
+  preloadedAchievements,
 }: PlayerPageProps) {
   const [page, setPage] = useQueryBackedParameter("page");
 
@@ -112,6 +118,11 @@ export default function PlayerPage({
         name={summary.user.name}
         steamId={summary.user.steamId}
       />
+      <Panel style={{ display: "flex", gap: "10px", marginTop: 20 }}>
+        {preloadedAchievements.map((t) => (
+          <AchievementStatus achievement={t} />
+        ))}
+      </Panel>
       <Section className={c.matchHistory}>
         <header>
           Матчи
@@ -164,17 +175,22 @@ PlayerPage.getInitialProps = async (
     preloadedMatches,
     preloadedHeroStats,
     preloadedTeammates,
+    preloadedAchievements,
   ] = await Promise.all<any>([
     useApi().playerApi.playerControllerPlayerSummary(playerId),
     useApi().matchApi.matchControllerPlayerMatches(playerId, page),
     useApi().playerApi.playerControllerHeroSummary(playerId),
     useApi().playerApi.playerControllerTeammates(playerId, 0, 10),
+    useApi().playerApi.playerControllerAchievements(playerId),
   ]);
+
+
   return {
     playerId,
     preloadedSummary,
     preloadedMatches,
     preloadedHeroStats,
     preloadedTeammates,
+    preloadedAchievements,
   };
 };

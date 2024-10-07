@@ -12,8 +12,13 @@
  * Do not edit the class manually.
  */
 
-import {exists} from "../runtime";
-import {ThreadMessageDTO, ThreadMessageDTOFromJSON, ThreadMessageDTOToJSON,} from "./";
+import { exists, mapValues } from "../runtime";
+import {
+  ThreadMessageDTO,
+  ThreadMessageDTOFromJSON,
+  ThreadMessageDTOFromJSONTyped,
+  ThreadMessageDTOToJSON,
+} from "./";
 
 /**
  *

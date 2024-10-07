@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import {ThreadType, ThreadTypeFromJSON, ThreadTypeToJSON,} from "./";
+import { exists, mapValues } from "../runtime";
+import {
+  ThreadType,
+  ThreadTypeFromJSON,
+  ThreadTypeFromJSONTyped,
+  ThreadTypeToJSON,
+} from "./";
 
 /**
  *

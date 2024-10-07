@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import {UserDTO, UserDTOFromJSON, UserDTOToJSON,} from "./";
+import { exists, mapValues } from "../runtime";
+import {
+  UserDTO,
+  UserDTOFromJSON,
+  UserDTOFromJSONTyped,
+  UserDTOToJSON,
+} from "./";
 
 /**
  *

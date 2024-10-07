@@ -12,12 +12,15 @@
  * Do not edit the class manually.
  */
 
+import { exists, mapValues } from "../runtime";
 import {
   MatchmakingMode,
   MatchmakingModeFromJSON,
+  MatchmakingModeFromJSONTyped,
   MatchmakingModeToJSON,
   QueueEntryDTO,
   QueueEntryDTOFromJSON,
+  QueueEntryDTOFromJSONTyped,
   QueueEntryDTOToJSON,
 } from "./";
 

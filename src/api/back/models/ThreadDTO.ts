@@ -12,15 +12,19 @@
  * Do not edit the class manually.
  */
 
+import { exists, mapValues } from "../runtime";
 import {
   ThreadMessageDTO,
   ThreadMessageDTOFromJSON,
+  ThreadMessageDTOFromJSONTyped,
   ThreadMessageDTOToJSON,
   ThreadType,
   ThreadTypeFromJSON,
+  ThreadTypeFromJSONTyped,
   ThreadTypeToJSON,
   UserDTO,
   UserDTOFromJSON,
+  UserDTOFromJSONTyped,
   UserDTOToJSON,
 } from "./";
 

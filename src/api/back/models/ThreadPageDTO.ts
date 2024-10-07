@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import {ThreadDTO, ThreadDTOFromJSON, ThreadDTOToJSON,} from "./";
+import { exists, mapValues } from "../runtime";
+import {
+  ThreadDTO,
+  ThreadDTOFromJSON,
+  ThreadDTOFromJSONTyped,
+  ThreadDTOToJSON,
+} from "./";
 
 /**
  *

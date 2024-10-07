@@ -1,3 +1,4 @@
+export * from "./AchievementDto";
 export * from './BanHammerDto';
 export * from './BanStatusDto';
 export * from './ConnectionDto';
