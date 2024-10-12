@@ -2,7 +2,6 @@ import Head from "next/head";
 import { Duration, GenericTable } from "@/components";
 import { useApi } from "@/api/hooks";
 import { LeaderboardEntryDto } from "@/api/back";
-import { useDidMount } from "@/util/hooks";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 import cx from "classnames";
@@ -15,18 +14,6 @@ interface LeaderboardPageProps {
 export default function LeaderboardPage({
   initialLeaderboard,
 }: LeaderboardPageProps) {
-  const mounted = useDidMount();
-
-  const { data, isLoading } = useApi().playerApi.usePlayerControllerLeaderboard(
-    undefined,
-    {
-      fallbackData: initialLeaderboard,
-      isPaused() {
-        return !mounted;
-      },
-    },
-  );
-
   return (
     <>
       <Head>
@@ -36,7 +23,7 @@ export default function LeaderboardPage({
       <GenericTable
         placeholderRows={100}
         keyProvider={(it) => it[1].steam_id}
-        isLoading={isLoading}
+        isLoading={false}
         columns={[
           {
             type: ColumnType.Raw,
@@ -94,7 +81,7 @@ export default function LeaderboardPage({
             format: (d) => <Duration big duration={d} />,
           },
         ]}
-        data={data!.map((it) => [
+        data={initialLeaderboard.map((it) => [
           it.rank,
           it.user,
           it.mmr,

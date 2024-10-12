@@ -42,7 +42,7 @@ export const SearchGameButton = observer(() => {
       </button>
     );
 
-  if (!isSearchModeDefined && isQueuePage) {
+  if (!isSearchModeDefined) {
     return (
       <button
         disabled={queue.selectedModeBanned}

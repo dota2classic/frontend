@@ -2,7 +2,6 @@ import { useApi } from "@/api/hooks";
 import { HeroSummaryDto } from "@/api/back";
 import { HeroesMetaTable } from "@/components";
 import Head from "next/head";
-import { useRouterChanging } from "@/util/hooks";
 import { NextPageContext } from "next";
 
 interface InitialProps {
@@ -10,13 +9,12 @@ interface InitialProps {
 }
 
 export default function Heroes({ heroes }: InitialProps) {
-  const [isLoading] = useRouterChanging();
   return (
     <>
       <Head>
         <title>Герои</title>
       </Head>
-      <HeroesMetaTable loading={false} data={heroes || []} />
+      <HeroesMetaTable loading={false} data={heroes} />
     </>
   );
 }

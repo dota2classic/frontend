@@ -160,7 +160,10 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.Item) {
     return (
-      <td style={{ width: col.noname ? 20 : 320 }} className={c.item}>
+      <td
+        style={{ width: col.noname ? 20 : 120, overflow: "hidden" }}
+        className={c.item}
+      >
         {col.noname ? (
           <ItemIcon small item={value} />
         ) : (

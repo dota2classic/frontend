@@ -1,12 +1,25 @@
 import c from "./Queue.module.scss";
 import { useStore } from "@/store";
 import { useApi } from "@/api/hooks";
-import { MatchmakingInfo, MatchmakingMode, PlayerSummaryDto } from "@/api/back";
+import {
+  MatchmakingInfo,
+  MatchmakingMode,
+  PlayerSummaryDto,
+  ThreadType,
+} from "@/api/back";
 import { useDidMount } from "@/util/hooks";
-import { MatchmakingOption, QueuePartyInfo } from "@/components";
-import { NextPageContext } from "next";
+import {
+  MatchmakingOption,
+  Panel,
+  QueuePartyInfo,
+  Section,
+  Thread,
+} from "@/components";
 import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
+import React from "react";
+import { NextPageContext } from "next";
+import { ThreadStyle } from "@/components/Thread/Thread";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -16,6 +29,10 @@ interface Props {
 export default function QueuePage(props: Props) {
   const mounted = useDidMount();
 
+  const { queue } = useStore();
+
+  const { data: onlineData } = useApi().statsApi.useStatsControllerOnline();
+
   const { data: modes } =
     useApi().statsApi.useStatsControllerGetMatchmakingInfo({
       fallbackData: props.modes,
@@ -24,8 +41,7 @@ export default function QueuePage(props: Props) {
       },
     });
 
-  // const playedAnyGame = !!props.playerSummary?.playedAnyGame
-  const playedAnyGame = false;
+  const playedAnyGame = !!props.playerSummary?.playedAnyGame;
 
   const queueStore = useStore().queue;
 
@@ -44,19 +60,41 @@ export default function QueuePage(props: Props) {
       <Head>
         <title>Dota2Classic - поиск игры</title>
       </Head>
-      <div className={c.modes}>
-        {d84.map((info) => (
-          <MatchmakingOption
-            key={`${info.mode}${info.version}`}
-            onSelect={queueStore.setSelectedMode}
-            version={info.version as any}
-            mode={info.mode as any}
-          />
-        ))}
-      </div>
-      <div className={c.main}>
+      <Section className={c.modes}>
+        <header>Режим игры</header>
+        <Panel className={c.modes}>
+          {d84.map((info) => (
+            <MatchmakingOption
+              key={`${info.mode}${info.version}`}
+              onSelect={queueStore.setSelectedMode}
+              version={info.version as any}
+              mode={info.mode as any}
+            />
+          ))}
+          <div style={{ flex: 1 }} />
+          {onlineData && (
+            <div className={c.onlineInfo}>
+              <span>{onlineData.inGame} в игре</span>
+              <span>{queue.online} онлайн</span>
+              <span>
+                Свободных серверов: {onlineData.servers - onlineData.sessions}
+              </span>
+              <span>Игр идет: {onlineData.sessions}</span>
+            </div>
+          )}
+        </Panel>
+      </Section>
+      <Section className={c.main}>
+        <header>Группа и поиск</header>
         <QueuePartyInfo />
-      </div>
+        <Thread
+          className={c.queueDiscussion}
+          showLastMessages={10}
+          threadStyle={ThreadStyle.TINY}
+          id={"17aa3530-d152-462e-a032-909ae69019ed"}
+          threadType={ThreadType.FORUM}
+        />
+      </Section>
     </div>
   );
 }

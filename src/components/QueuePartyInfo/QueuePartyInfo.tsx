@@ -6,7 +6,7 @@ import { useStore } from "@/store";
 import { useApi } from "@/api/hooks";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { UserDTO } from "@/api/back";
-import { InvitePlayerModal, PageLink } from "@/components";
+import { InvitePlayerModal, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
 import { formatGameMode } from "@/util/gamemode";
@@ -33,8 +33,6 @@ export const QueuePartyInfo = observer(() => {
   const { queue } = useStore();
   const { data } = useApi().playerApi.usePlayerControllerMyParty();
 
-  const { data: onlineData } = useApi().statsApi.useStatsControllerOnline();
-
   const { data: party } = useApi().playerApi.usePlayerControllerMyParty();
 
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -45,14 +43,14 @@ export const QueuePartyInfo = observer(() => {
     return <GameCoordinatorConnection readyState={queue.readyState} />;
   }
 
-  const isSoloParty = queue.party?.players?.length === 1;
+  const isSoloParty = party?.players?.length === 1;
 
   return (
-    <div className={c.info}>
+    <Panel className={c.info}>
       <InvitePlayerModal isOpen={inviteOpen} close={close} />
 
       <div className={c.party}>
-        {queue.party!!.players.map((t: UserDTO) => (
+        {party!.players.map((t: UserDTO) => (
           <PageLink
             key={t.steamId}
             link={AppRouter.players.player.index(t.steamId).link}
@@ -87,16 +85,6 @@ export const QueuePartyInfo = observer(() => {
 
       {/*<SearchGameButton />*/}
 
-      {onlineData && (
-        <div className={c.infoTab}>
-          <span>{onlineData.inGame} онлайн</span>
-          <span>
-            Свободных серверов: {onlineData.servers - onlineData.sessions}
-          </span>
-          <span>Игр идет: {onlineData.sessions}</span>
-        </div>
-      )}
-
       {queue.searchingMode !== undefined && (
         <div className={c.searchGameBar}>
           <span>Поиск {formatGameMode(queue.searchingMode!.mode)}</span>
@@ -109,6 +97,6 @@ export const QueuePartyInfo = observer(() => {
           </span>
         </div>
       )}
-    </div>
+    </Panel>
   );
 });

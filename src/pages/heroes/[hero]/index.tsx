@@ -13,7 +13,6 @@ import {
   PageLink,
   Section,
 } from "@/components";
-import { useDidMount, useQueryBackedParameter } from "@/util/hooks";
 import { numberOrDefault } from "@/util/urls";
 import c from "./HeroPage.module.scss";
 import { matchToPlayerMatchItem } from "@/util/mappers";
@@ -38,50 +37,11 @@ export default function HeroHistoryPage({
   initialHeroPlayers,
   hero,
 }: InitialProps) {
-  const [page, setPage] = useQueryBackedParameter("page");
-
-  const mounted = useDidMount();
-  const { data: matchesData, isLoading: isMatchesLoading } =
-    useApi().matchApi.useMatchControllerHeroMatches(
-      numberOrDefault(page, 0),
-      hero,
-      undefined,
-      {
-        fallbackData: initialMatchData,
-        isPaused() {
-          return !mounted;
-        },
-      },
-    );
-
-  const { data: itemsData, isLoading: isItemsLoading } =
-    useApi().metaApi.useMetaControllerHero(hero, {
-      fallbackData: initialHeroItemsData,
-      isPaused() {
-        return !mounted;
-      },
-    });
-
-  const { data: heroPlayers, isLoading: heroPlayersLoading } =
-    useApi().metaApi.useMetaControllerHeroPlayers(hero, {
-      fallbackData: initialHeroPlayers,
-      isPaused() {
-        return !mounted;
-      },
-    });
-
-  const { data: summaries } = useApi().metaApi.useMetaControllerHeroes({
-    fallbackData: initialHeroesMeta,
-    isPaused() {
-      return !mounted;
-    },
-  });
-
-  const sortedSummaries: HeroSummaryDto[] = (summaries || []).toSorted(
+  const sortedSummaries: HeroSummaryDto[] = initialHeroesMeta.toSorted(
     (a, b) => b.games - a.games,
   );
 
-  const formattedMatches = (matchesData?.data || []).map((it) =>
+  const formattedMatches = initialMatchData.data.map((it) =>
     matchToPlayerMatchItem(it, (it) => it.hero === hero),
   );
 
@@ -105,21 +65,15 @@ export default function HeroHistoryPage({
             Показать еще
           </PageLink>
         </header>
-        <HeroWithItemsHistoryTable
-          loading={isMatchesLoading}
-          data={formattedMatches}
-        />
+        <HeroWithItemsHistoryTable loading={false} data={formattedMatches} />
       </Section>
       <Section className={c.items}>
         <header>Лучшие игроки</header>
-        <HeroPlayersTable
-          loading={heroPlayersLoading}
-          data={heroPlayers || []}
-        />
+        <HeroPlayersTable loading={false} data={initialHeroPlayers} />
         <header>Предметы</header>
         <HeroItemsTable
-          loading={isItemsLoading}
-          data={(itemsData || []).slice(0, 20)}
+          loading={false}
+          data={initialHeroItemsData.slice(0, 20)}
         />
       </Section>
     </div>

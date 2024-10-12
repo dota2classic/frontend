@@ -43,6 +43,12 @@
   & span {
     margin-left: 4px;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & a {
+    max-width: 160px;
   }
 }
 
@@ -107,4 +113,6 @@
 .oneliner {
   display: flex;
   align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

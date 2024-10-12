@@ -12,6 +12,7 @@ import { useApi } from "@/api/hooks";
 import { LiveMatchDto, MatchDto } from "@/api/back";
 import Head from "next/head";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
+import { ThreadStyle } from "@/components/Thread/Thread";
 
 interface InitialProps {
   matchId: number;
@@ -69,9 +70,13 @@ export default function MatchPage({
         </Typography.Header>
         <MatchTeamTable duration={match.duration} players={match.dire} />
 
-        <br/>
-        <br/>
-        <Thread small id={match.id} threadType={ThreadType.MATCH} />
+        <br />
+        <br />
+        <Thread
+          threadStyle={ThreadStyle.SMALL}
+          id={match.id}
+          threadType={ThreadType.MATCH}
+        />
       </>
     );
 

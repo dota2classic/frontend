@@ -8,7 +8,7 @@ import { SWRConfig } from "swr";
 import React, { createContext } from "react";
 import { HydrateRootData, RootStore, useRootStore } from "@/store";
 import Head from "next/head";
-
+import "../ext";
 // Font files can be colocated inside of `pages`
 const myFont = localFont({ src: "./TrajanPro3Regular.ttf" });
 

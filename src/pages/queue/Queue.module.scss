@@ -1,27 +1,55 @@
 @import "../../common.scss";
 
 .queue {
-  width: 100%;
-  height: 100%;
-  color: $primaryText;
-  display: flex;
-  overflow: hidden;
-  flex-direction: row;
+  display: grid;
+  grid-column-gap: 12px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  flex: 1;
 }
-
 
 .modes {
+  grid-column: span 4;
+  grid-row: span 8;
+  position: relative;
+  align-items: unset;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #242424;
-  overflow-y: auto;
-  width: 400px;
+  flex: 1;
+}
 
+.main {
+  grid-column: span 8;
+  grid-row: span 8;
+}
 
+.onlineInfo {
+  position: absolute;
+  bottom: 0;
+  font-size: 12px;
+  padding: 12px;
+  text-decoration: none;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: 0.3s ease;
+
+  color: $primaryText;
 }
 
 
-.main {
-  flex: 1;
-  border: 1px solid red;
+.queuePanel {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.queueDiscussion {
+  max-height: 72vh;
+
+  & :global(.messageList) {
+    max-height: 51vh;
+  }
 }

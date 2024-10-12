@@ -7,11 +7,38 @@
 .messageContainer {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .messageSmall {
   & .user {
     width: 100px !important;
+  }
+
+  & h4 {
+    display: none;
+  }
+
+  & .username {
+    display: block !important;
+  }
+}
+
+.messageTiny {
+  & + & {
+    margin-top: 6px !important;
+  }
+
+  & .user {
+    width: 50px !important;
+  }
+
+  & .content {
+    padding-top: 2px !important;
+  }
+
+  & .right {
+    padding: 2px 8px !important;
   }
 
   & h4 {
@@ -47,7 +74,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
   }
 
   & .content {

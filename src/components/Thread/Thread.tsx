@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useState} from "react";
+import React, { ReactNode, useState } from "react";
 
 import {
   Button,
@@ -24,17 +24,24 @@ const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });
 
+export enum ThreadStyle {
+  NORMAL,
+  SMALL,
+  TINY,
+}
+
 interface IThreadProps {
   id: string | number;
   threadType: ThreadType;
   className?: string;
   populateMessages?: ThreadMessageDTO[];
-  small?: boolean;
+  threadStyle?: ThreadStyle;
+  showLastMessages?: number;
 }
 
 interface IMessageProps {
   message: ThreadMessageDTO;
-  small?: boolean;
+  threadStyle: ThreadStyle;
 }
 
 //
@@ -79,13 +86,16 @@ function useEnrichedMessage(msg2: string) {
 }
 
 export const Message: React.FC<IMessageProps> = React.memo(
-  ({ message, small }: IMessageProps) => {
+  ({ message, threadStyle }: IMessageProps) => {
     const enrichedMessage = useEnrichedMessage(message.content);
 
     return (
       <Panel
         id={message.messageId}
-        className={cx(c.message, small && c.messageSmall)}
+        className={cx(c.message, {
+          [c.messageTiny]: threadStyle === ThreadStyle.TINY,
+          [c.messageSmall]: threadStyle === ThreadStyle.SMALL,
+        })}
       >
         <PageLink
           link={AppRouter.players.player.index(message.author.steamId).link}
@@ -161,15 +171,26 @@ export const Thread: React.FC<IThreadProps> = ({
   id,
   className,
   populateMessages,
-  small,
+  threadStyle,
+  showLastMessages,
 }) => {
   const [thread, loadMore] = useThread(id, threadType, populateMessages);
 
+  const messages =
+    showLastMessages !== undefined
+      ? thread.messages.slice(
+          Math.max(0, thread.messages.length - showLastMessages),
+        )
+      : thread.messages;
   return (
     <div className={cx(c.thread, threadFont.className, className)}>
-      <div className={c.messageContainer}>
-        {thread.messages.map((msg) => (
-          <Message small={small} message={msg} key={msg.messageId} />
+      <div className={cx(c.messageContainer, "messageList")}>
+        {messages.map((msg) => (
+          <Message
+            threadStyle={threadStyle || ThreadStyle.NORMAL}
+            message={msg}
+            key={msg.messageId}
+          />
         ))}
       </div>
       <ScrollDetector onScrolledTo={loadMore} />
