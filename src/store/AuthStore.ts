@@ -26,6 +26,11 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   @observable
   public me: MeDto | undefined = undefined;
 
+  @computed
+  public get isAdmin(): boolean {
+    return this.parsedToken?.roles.includes(Role.ADMIN) || false;
+  }
+
   constructor() {
     makeObservable(this);
 

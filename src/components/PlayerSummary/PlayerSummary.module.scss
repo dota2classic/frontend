@@ -23,6 +23,8 @@
 .left {
   display: flex;
   flex: 1;
+  flex-grow: 3;
+
   align-items: center;
   justify-content: flex-start;
 

@@ -4,6 +4,12 @@ import c from "./SelectOptions.module.scss";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { formatGameMode } from "@/util/gamemode";
 import heroes from "@/util/texts/heroes";
+import Select from "react-select";
+import { JetBrains_Mono } from "next/font/google";
+
+const tableFont = JetBrains_Mono({
+  subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
+});
 
 export const GameModeOptions = [
   { value: "undefined", label: "Все режимы" },
@@ -34,7 +40,7 @@ interface ISelectOptionsProps {
     label: ReactNode;
   }[];
   selected: any;
-  onSelect: (v: any) => void;
+  onSelect: (v: { value: any; label: ReactNode }) => void;
   defaultText: ReactNode;
 }
 
@@ -45,14 +51,18 @@ export function SelectOptions({
   defaultText,
 }: ISelectOptionsProps) {
   return (
-    <div className={c.select}>
-      <select value={selected} onChange={(v) => onSelect(v.target.value)}>
-        {options.map((it) => (
-          <option key={it.value} value={it.value}>
-            {it.label}
-          </option>
-        ))}
-      </select>
-    </div>
+    <Select
+      className={tableFont.className}
+      classNames={{
+        control: () => c.select,
+        option: () => c.option,
+        menu: () => c.menu,
+      }}
+      placeholder={defaultText}
+      value={selected}
+      onChange={onSelect}
+      options={options}
+      defaultMenuIsOpen={true}
+    />
   );
 }

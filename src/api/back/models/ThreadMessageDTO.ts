@@ -12,13 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
-import {
-  UserDTO,
-  UserDTOFromJSON,
-  UserDTOFromJSONTyped,
-  UserDTOToJSON,
-} from "./";
+import {UserDTO, UserDTOFromJSON, UserDTOToJSON,} from "./";
 
 /**
  *
@@ -58,6 +52,12 @@ export interface ThreadMessageDTO {
   createdAt: string;
   /**
    *
+   * @type {boolean}
+   * @memberof ThreadMessageDTO
+   */
+  deleted: boolean;
+  /**
+   *
    * @type {number}
    * @memberof ThreadMessageDTO
    */
@@ -81,6 +81,7 @@ export function ThreadMessageDTOFromJSONTyped(
     messageId: json["messageId"],
     content: json["content"],
     createdAt: json["createdAt"],
+    deleted: json["deleted"],
     index: json["index"],
   };
 }
@@ -98,6 +99,7 @@ export function ThreadMessageDTOToJSON(value?: ThreadMessageDTO | null): any {
     messageId: value.messageId,
     content: value.content,
     createdAt: value.createdAt,
+    deleted: value.deleted,
     index: value.index,
   };
 }

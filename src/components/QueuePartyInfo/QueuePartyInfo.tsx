@@ -50,7 +50,7 @@ export const QueuePartyInfo = observer(() => {
       <InvitePlayerModal isOpen={inviteOpen} close={close} />
 
       <div className={c.party}>
-        {party!.players.map((t: UserDTO) => (
+        {(party?.players || []).map((t: UserDTO) => (
           <PageLink
             key={t.steamId}
             link={AppRouter.players.player.index(t.steamId).link}

@@ -72,7 +72,7 @@ export default function PlayerMatches({
           <SelectOptions
             options={GameModeOptions}
             selected={mode === undefined ? "undefined" : mode}
-            onSelect={(value) => {
+            onSelect={({ value }) => {
               if (value === "undefined") setMode(undefined);
               else setMode(value);
             }}
@@ -81,7 +81,7 @@ export default function PlayerMatches({
           <SelectOptions
             options={HeroOptions}
             selected={hero === undefined ? "undefined" : fullName(hero)}
-            onSelect={(value) => {
+            onSelect={({ value }) => {
               if (value === "undefined") setHero(undefined);
               else setHero(shortName(value));
             }}

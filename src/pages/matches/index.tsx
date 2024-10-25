@@ -41,7 +41,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
         <SelectOptions
           options={GameModeOptions}
           selected={mode === undefined ? "undefined" : mode}
-          onSelect={(value) => {
+          onSelect={({ value }) => {
             if (value === "undefined") setMode(undefined);
             else setMode(value);
           }}

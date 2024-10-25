@@ -1,4 +1,10 @@
-import React, { ReactNode, useState } from "react";
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import {
   Button,
@@ -19,6 +25,8 @@ import cx from "classnames";
 import { useApi } from "@/api/hooks";
 import { useThread } from "@/util/threads";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
+import { useStore } from "@/store";
+import { MdDelete } from "react-icons/md";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -37,11 +45,13 @@ interface IThreadProps {
   populateMessages?: ThreadMessageDTO[];
   threadStyle?: ThreadStyle;
   showLastMessages?: number;
+  scrollToLast?: boolean;
 }
 
 interface IMessageProps {
   message: ThreadMessageDTO;
   threadStyle: ThreadStyle;
+  onDelete?: (id: string) => void;
 }
 
 //
@@ -86,8 +96,14 @@ function useEnrichedMessage(msg2: string) {
 }
 
 export const Message: React.FC<IMessageProps> = React.memo(
-  ({ message, threadStyle }: IMessageProps) => {
+  ({ message, threadStyle, onDelete }: IMessageProps) => {
     const enrichedMessage = useEnrichedMessage(message.content);
+
+    const isDeletable = !!onDelete;
+    const onDeleteWrap = useCallback(
+      () => onDelete && onDelete(message.messageId),
+      [message],
+    );
 
     return (
       <Panel
@@ -115,9 +131,14 @@ export const Message: React.FC<IMessageProps> = React.memo(
             <div>
               #{message.index + 1} Добавлено{" "}
               {<PeriodicTimer time={message.createdAt} />}
+              {isDeletable && (
+                <MdDelete className={c.delete} onClick={onDeleteWrap} />
+              )}
             </div>
           </div>
-          <div className={c.content}>{enrichedMessage}</div>
+          <div className={c.content}>
+            {enrichedMessage} {message.deleted ? "delted" : "real"}
+          </div>
         </div>
       </Panel>
     );
@@ -132,6 +153,9 @@ export const MessageInput = observer(
   }) => {
     const [value, setValue] = useState("");
     const [error, setError] = useState<string | null>(null);
+
+    const isValid = value.length >= 5;
+
     const submit = () => {
       useApi()
         .forumApi.forumControllerPostMessage({
@@ -159,46 +183,83 @@ export const MessageInput = observer(
           }}
         />
         {/*<div className={c.markdown}>Поддерживается разметка markdown</div>*/}
-        <Button className={(error && "red") || undefined} onClick={submit}>
+        <Button
+          disabled={!isValid}
+          className={(error && "red") || undefined}
+          onClick={submit}
+        >
           {error || "Отправить"}
         </Button>
       </Panel>
     );
   },
 );
-export const Thread: React.FC<IThreadProps> = ({
-  threadType,
-  id,
-  className,
-  populateMessages,
-  threadStyle,
-  showLastMessages,
-}) => {
-  const [thread, loadMore] = useThread(id, threadType, populateMessages);
+export const Thread: React.FC<IThreadProps> = observer(
+  ({
+    threadType,
+    id,
+    className,
+    populateMessages,
+    threadStyle,
+    showLastMessages,
+    scrollToLast,
+  }) => {
+    const { auth } = useStore();
+    const scrollableRef = useRef<HTMLDivElement | null>(null);
+    const [thread, loadMore, consumeMessages] = useThread(
+      id,
+      threadType,
+      populateMessages,
+    );
 
-  const messages =
-    showLastMessages !== undefined
-      ? thread.messages.slice(
-          Math.max(0, thread.messages.length - showLastMessages),
-        )
-      : thread.messages;
-  return (
-    <div className={cx(c.thread, threadFont.className, className)}>
-      <div className={cx(c.messageContainer, "messageList")}>
-        {messages.map((msg) => (
-          <Message
-            threadStyle={threadStyle || ThreadStyle.NORMAL}
-            message={msg}
-            key={msg.messageId}
-          />
-        ))}
+    const messages =
+      showLastMessages !== undefined
+        ? thread.messages.slice(
+            Math.max(0, thread.messages.length - showLastMessages),
+          )
+        : thread.messages;
+
+    useEffect(() => {
+      if (messages.length > 0 && scrollToLast) {
+        const element = scrollableRef.current;
+        if (!element) return;
+
+        element.scroll({ top: element.scrollHeight + 100, behavior: "smooth" });
+      }
+    }, [messages, scrollableRef]);
+
+    const deleteMessage = useCallback(
+      (id: string) => {
+        if (!auth.isAdmin) return;
+        useApi()
+          .forumApi.forumControllerDeleteMessage(id)
+          .then((data) => consumeMessages([data]));
+      },
+      [auth.isAdmin],
+    );
+
+    return (
+      <div className={cx(c.thread, threadFont.className, className)}>
+        <div
+          ref={scrollableRef}
+          className={cx(c.messageContainer, "messageList")}
+        >
+          {messages.map((msg) => (
+            <Message
+              threadStyle={threadStyle || ThreadStyle.NORMAL}
+              message={msg}
+              key={msg.messageId}
+              onDelete={deleteMessage}
+            />
+          ))}
+        </div>
+        <ScrollDetector onScrolledTo={loadMore} />
+        <MessageInput
+          id={id.toString()}
+          threadType={threadType}
+          onMessage={() => undefined}
+        />
       </div>
-      <ScrollDetector onScrolledTo={loadMore} />
-      <MessageInput
-        id={id.toString()}
-        threadType={threadType}
-        onMessage={() => undefined}
-      />
-    </div>
-  );
-};
+    );
+  },
+);

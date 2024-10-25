@@ -13,14 +13,15 @@ export const useThread = (
   id: string | number,
   threadType: ThreadType,
   initialMessages: ThreadMessageDTO[] = [],
-): [Thread, () => void] => {
+): [Thread, () => void, (messages: ThreadMessageDTO[]) => void] => {
   const threadId = `${threadType}_${id}`;
   const defaultThread = {
     id: threadId,
     messages: initialMessages,
   };
 
-  if (typeof window === "undefined") return [defaultThread, () => undefined];
+  if (typeof window === "undefined")
+    return [defaultThread, () => undefined, () => undefined];
   const bp = useApi().apiParams.basePath;
 
   const [data, setData] = useState<Thread>(defaultThread);
@@ -35,7 +36,7 @@ export const useThread = (
         threadType,
         latest ? new Date(latest).getTime() : undefined,
       )
-      .then(appendMessages);
+      .then(consumeMessages);
   }, [data.messages]);
 
   // endpoint: RequestOpts,
@@ -45,20 +46,34 @@ export const useThread = (
     id: id.toString(),
     threadType: threadType,
   });
-  const appendMessages = useCallback(
+
+  const consumeMessages = useCallback(
     (msgs: ThreadMessageDTO[]) => {
       setData((d) => {
-        const m2 = msgs.filter(
-          (t) =>
-            d.messages.findIndex((m1) => m1.messageId === t.messageId) === -1,
-        );
+        let newMessages: ThreadMessageDTO[] = [...d.messages];
+
+        for (let newMessage of msgs) {
+          const idx = newMessages.findIndex(
+            (m1) => m1.messageId === newMessage.messageId,
+          );
+          if (idx === -1) {
+            // It's a new message, we append
+            newMessages.push(newMessage);
+          } else {
+            // existing, update data
+            newMessages[idx] = newMessage;
+          }
+        }
 
         return {
           ...data,
-          messages: [...d.messages, ...m2].sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-          ),
+          messages: newMessages
+            .filter((t) => !t.deleted)
+            .sort(
+              (a, b) =>
+                new Date(a.createdAt).getTime() -
+                new Date(b.createdAt).getTime(),
+            ),
         };
       });
     },
@@ -72,11 +87,11 @@ export const useThread = (
 
     es.onmessage = ({ data: msg }) => {
       const raw: ThreadMessageDTO = JSON.parse(msg);
-      appendMessages([raw]);
+      consumeMessages([raw]);
     };
 
     return () => es.close();
   }, [JSON.stringify(endpoint)]);
 
-  return [data, loadMore];
+  return [data, loadMore, consumeMessages];
 };

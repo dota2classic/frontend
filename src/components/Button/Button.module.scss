@@ -13,6 +13,11 @@
   background-color: $bg2;
 
 
+  &:disabled {
+    cursor: not-allowed;
+    color: $primaryTextDark;
+  }
+
   &:not([disabled]):focus,
   &:not([disabled]):hover {
     background: $transparentTint;

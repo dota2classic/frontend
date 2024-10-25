@@ -14,7 +14,7 @@
 
 
 .filters {
-  & div + div {
+  & > div + div {
     margin-left: 10px;
   }
 }

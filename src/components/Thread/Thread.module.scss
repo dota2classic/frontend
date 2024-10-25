@@ -31,6 +31,7 @@
 
   & .user {
     width: 50px !important;
+    padding: 4px 2px !important;;
   }
 
   & .content {
@@ -141,4 +142,16 @@
 .createThread {
   display: flex;
   flex-direction: column;
+}
+
+
+.delete {
+  vertical-align: middle;
+  margin-left: 4px;
+  transition: 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: $red;
+  }
 }
