@@ -62,7 +62,6 @@ export function SelectOptions({
       value={selected}
       onChange={onSelect}
       options={options}
-      defaultMenuIsOpen={true}
     />
   );
 }
