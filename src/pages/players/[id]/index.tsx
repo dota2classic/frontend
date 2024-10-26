@@ -15,7 +15,6 @@ import { useApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import {
   AchievementDto,
-  AchievementKey,
   HeroStatsDto,
   MatchPageDto,
   PlayerSummaryDto,
@@ -158,7 +157,7 @@ export default function PlayerPage({
       <Thread
         className={c.thread}
         id={playerId}
-        threadType={ThreadType.PROFILE}
+        threadType={ThreadType.PLAYER}
       />
     </div>
   );
@@ -183,7 +182,6 @@ PlayerPage.getInitialProps = async (
     useApi().playerApi.playerControllerTeammates(playerId, 0, 10),
     useApi().playerApi.playerControllerAchievements(playerId),
   ]);
-
 
   return {
     playerId,

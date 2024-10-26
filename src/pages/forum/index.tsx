@@ -36,10 +36,7 @@ const Msg = ({ message }: { message: ThreadMessageDTO }) => {
         >
           {author.name}
         </PageLink>
-        <div
-          style={{marginLeft: 6 }}
-          className={cx( c.block)}
-        >
+        <div style={{ marginLeft: 6 }} className={cx(c.block)}>
           <TimeAgo date={message.createdAt} />
         </div>
       </div>
@@ -83,13 +80,13 @@ export default function ForumIndexPage({ threads, page }: Props) {
         <tbody>
           {threads.data.map((thread) => (
             <tr key={thread.externalId}>
-              <td style={{textAlign: "center"}}>
-                {thread.threadType === ThreadType.PROFILE ? (
-                  <FaUser/>
+              <td style={{ textAlign: "center" }}>
+                {thread.threadType === ThreadType.PLAYER ? (
+                  <FaUser />
                 ) : thread.threadType === ThreadType.MATCH ? (
-                  <SiDota2/>
+                  <SiDota2 />
                 ) : (
-                  <FaMessage/>
+                  <FaMessage />
                 )}
               </td>
               <td>
@@ -137,7 +134,7 @@ export default function ForumIndexPage({ threads, page }: Props) {
                 </PageLink>
               </td>
               <td>
-                <Msg message={thread.lastMessage}/>
+                <Msg message={thread.lastMessage} />
               </td>
             </tr>
           ))}

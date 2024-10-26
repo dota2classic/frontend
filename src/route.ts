@@ -154,7 +154,7 @@ export const AppRouter = {
       switch (threadType) {
         case ThreadType.MATCH:
           return page(`/matches/[id]`, `/matches/${id}`);
-        case ThreadType.PROFILE:
+        case ThreadType.PLAYER:
           return page(`/players/[id]`, `/players/${id}`);
 
         default:

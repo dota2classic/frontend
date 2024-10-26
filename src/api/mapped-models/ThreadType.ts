@@ -1,6 +1,6 @@
 export enum ThreadType {
   MATCH = "match",
-  PROFILE = "profile",
+  PLAYER = "player",
   FORUM = "forum",
 }
 
