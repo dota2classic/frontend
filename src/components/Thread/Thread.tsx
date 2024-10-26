@@ -136,9 +136,7 @@ export const Message: React.FC<IMessageProps> = React.memo(
               )}
             </div>
           </div>
-          <div className={c.content}>
-            {enrichedMessage} {message.deleted ? "delted" : "real"}
-          </div>
+          <div className={c.content}>{enrichedMessage}</div>
         </div>
       </Panel>
     );
