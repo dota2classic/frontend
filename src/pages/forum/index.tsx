@@ -134,7 +134,7 @@ export default function ForumIndexPage({ threads, page }: Props) {
                 </PageLink>
               </td>
               <td>
-                <Msg message={thread.lastMessage} />
+                {thread.lastMessage && <Msg message={thread.lastMessage} />}
               </td>
             </tr>
           ))}

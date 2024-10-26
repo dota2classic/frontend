@@ -87,7 +87,7 @@ export interface ThreadDTO {
    * @type {ThreadMessageDTO}
    * @memberof ThreadDTO
    */
-  lastMessage: ThreadMessageDTO;
+  lastMessage?: ThreadMessageDTO;
 }
 
 export function ThreadDTOFromJSON(json: any): ThreadDTO {
@@ -110,7 +110,9 @@ export function ThreadDTOFromJSONTyped(
     newMessageCount: json["newMessageCount"],
     views: json["views"],
     originalPoster: UserDTOFromJSON(json["originalPoster"]),
-    lastMessage: ThreadMessageDTOFromJSON(json["lastMessage"]),
+    lastMessage: !exists(json, "lastMessage")
+      ? undefined
+      : ThreadMessageDTOFromJSON(json["lastMessage"]),
   };
 }
 
