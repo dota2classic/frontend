@@ -12,6 +12,7 @@ import { NextPageContext } from "next";
 import { useQueryBackedParameter, useRouterChanging } from "@/util/hooks";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import { AppRouter } from "@/route";
+import { MatchComparator } from "@/util/sorts";
 
 interface Props {
   hero: string;
@@ -38,9 +39,9 @@ export default function HeroMatches({
   );
   const formattedMatches = useMemo(
     () =>
-      (initialMatchData?.data || []).map((it) =>
-        matchToPlayerMatchItem(it, (it) => it.hero === hero),
-      ),
+      (initialMatchData?.data || [])
+        .sort(MatchComparator)
+        .map((it) => matchToPlayerMatchItem(it, (it) => it.hero === hero)),
     [initialMatchData],
   );
 

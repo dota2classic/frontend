@@ -13,6 +13,7 @@ import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
 import Head from "next/head";
 import { GameModeOptions } from "@/components/SelectOptions/SelectOptions";
+import { MatchComparator } from "@/util/sorts";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
@@ -49,7 +50,10 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
         />
       </Panel>
       <div>
-        <MatchHistoryTable loading={isLoading} data={data?.data || []} />
+        <MatchHistoryTable
+          loading={isLoading}
+          data={(data?.data || []).sort(MatchComparator)}
+        />
         <Pagination
           linkProducer={(page) =>
             AppRouter.matches.index(page, mode || undefined).link

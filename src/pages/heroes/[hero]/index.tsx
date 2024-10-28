@@ -21,6 +21,7 @@ import heroName from "@/util/heroName";
 import Head from "next/head";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
+import { MatchComparator } from "@/util/sorts";
 
 interface InitialProps {
   initialMatchData: MatchPageDto;
@@ -41,9 +42,9 @@ export default function HeroHistoryPage({
     (a, b) => b.games - a.games,
   );
 
-  const formattedMatches = initialMatchData.data.map((it) =>
-    matchToPlayerMatchItem(it, (it) => it.hero === hero),
-  );
+  const formattedMatches = initialMatchData.data
+    .sort(MatchComparator)
+    .map((it) => matchToPlayerMatchItem(it, (it) => it.hero === hero));
 
   const summary = sortedSummaries.find((it) => it.hero === hero)!;
 

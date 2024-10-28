@@ -28,6 +28,7 @@ import Head from "next/head";
 import { numberOrDefault } from "@/util/urls";
 import React from "react";
 import { AppRouter } from "@/route";
+import { MatchComparator } from "@/util/sorts";
 
 //
 interface PlayerPageProps {
@@ -84,9 +85,9 @@ export default function PlayerPage({
 
   if (!summary) return null;
 
-  const formattedMatches: PlayerMatchItem[] = (matches?.data || []).map((it) =>
-    matchToPlayerMatchItem(it, (it) => it.steamId === playerId),
-  );
+  const formattedMatches: PlayerMatchItem[] = (matches?.data || [])
+    .sort(MatchComparator)
+    .map((it) => matchToPlayerMatchItem(it, (it) => it.steamId === playerId));
 
   const formattedHeroStats = (preloadedHeroStats || [])
     .toSorted((a, b) => b.games - a.games)

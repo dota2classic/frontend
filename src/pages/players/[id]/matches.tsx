@@ -25,6 +25,7 @@ import { numberOrDefault } from "@/util/urls";
 import { fullName, shortName } from "@/util/heroName";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import { NextPageContext } from "next";
+import { MatchComparator } from "@/util/sorts";
 
 interface Props {
   playerId: string;
@@ -47,9 +48,9 @@ export default function PlayerMatches({
 
   useClampedPage(page, data?.pages, setPage);
 
-  const formattedMatches = (data?.data || []).map((it) =>
-    matchToPlayerMatchItem(it, (it) => it.steamId === playerId),
-  );
+  const formattedMatches = (data?.data || [])
+    .sort(MatchComparator)
+    .map((it) => matchToPlayerMatchItem(it, (it) => it.steamId === playerId));
 
   return (
     <>
