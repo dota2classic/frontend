@@ -87,7 +87,9 @@ export default function PlayerPage({
 
   const formattedMatches: PlayerMatchItem[] = (matches?.data || [])
     .sort(MatchComparator)
-    .map((it) => matchToPlayerMatchItem(it, (it) => it.steamId === playerId));
+    .map((it) =>
+      matchToPlayerMatchItem(it, (it) => it.user.steamId === playerId),
+    );
 
   const formattedHeroStats = (preloadedHeroStats || [])
     .toSorted((a, b) => b.games - a.games)

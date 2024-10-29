@@ -53,7 +53,7 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
                 <div className={c.matchId}>
                   <PageLink
                     link={AppRouter.matches.match(it.id).link}
-                    className={c.matchId__id}
+                    className={cx(c.matchId__id)}
                   >
                     {it.id}
                   </PageLink>

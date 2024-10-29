@@ -50,7 +50,9 @@ export default function PlayerMatches({
 
   const formattedMatches = (data?.data || [])
     .sort(MatchComparator)
-    .map((it) => matchToPlayerMatchItem(it, (it) => it.steamId === playerId));
+    .map((it) =>
+      matchToPlayerMatchItem(it, (it) => it.user.steamId === playerId),
+    );
 
   return (
     <>

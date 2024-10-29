@@ -1,4 +1,4 @@
-const locale = "ru"
+const locale = "ru";
 
 /**
  * Human readable elapsed or remaining time (example: 3 minutes ago)
@@ -50,3 +50,7 @@ export function fromNow(
     }
   }
 }
+
+const nf = new Intl.NumberFormat("ru-RU", { signDisplay: "exceptZero" });
+
+export const signedNumber = (n: number) => nf.format(n);

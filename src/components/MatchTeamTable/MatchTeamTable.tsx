@@ -5,6 +5,7 @@ import { PlayerInMatchDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import c from "./MatchTeamTable.module.scss";
 import { FaCoins } from "react-icons/fa";
+import { signedNumber } from "@/util/time";
 
 interface IMatchTeamTableProps {
   players: PlayerInMatchDto[];
@@ -32,11 +33,12 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <FaCoins color={"#C9AF1D"} />
           </th>
           <th>Предметы</th>
+          <th>ММР</th>
         </tr>
       </thead>
       <tbody>
         {players.map((player) => (
-          <tr key={player.steamId}>
+          <tr key={player.user.steamId}>
             <td>
               <div className={c.heroWithLevel}>
                 <PageLink link={AppRouter.heroes.hero.index(player.hero).link}>
@@ -47,9 +49,10 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             </td>
             <td>
               <PageLink
-                link={AppRouter.players.player.index(player.steamId).link}
+                className={"link"}
+                link={AppRouter.players.player.index(player.user.steamId).link}
               >
-                {player.steamId.length > 2 ? player.name : "Бот"}
+                {player.user.steamId.length > 2 ? player.user.name : "Бот"}
               </PageLink>
             </td>
             <td className="middle">
@@ -83,6 +86,13 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
               <ItemIcon item={player.item3} />
               <ItemIcon item={player.item4} />
               <ItemIcon item={player.item5} />
+            </td>
+            <td
+              className={
+                Math.sign(player.mmr?.change || 0) > 0 ? "green" : "red"
+              }
+            >
+              {signedNumber(player.mmr?.change || 0)}
             </td>
           </tr>
         ))}

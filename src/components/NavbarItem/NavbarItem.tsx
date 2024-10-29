@@ -26,9 +26,13 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
   return (
     <li className={cx(c.navbarItem, admin && c.admin, isActive && c.active)}>
       {href ? (
-        <a href={href}>{children}</a>
+        <a className={"link"} href={href}>
+          {children}
+        </a>
       ) : (
-        <PageLink link={link!}>{children}</PageLink>
+        <PageLink className={"link"} link={link!}>
+          {children}
+        </PageLink>
       )}
     </li>
   );

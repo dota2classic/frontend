@@ -57,8 +57,24 @@ a {
   color: #92a525;
   text-decoration: none;
   transition: 0.3s ease;
+}
 
-  &:hover {
-    /*text-decoration: underline;*/
+.link {
+  position: relative;
+
+  &::before {
+    transition: 0.3s ease;
+    content: "";
+    background: #c23c2a;
+    display: block;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 3px;
+  }
+
+  &:hover::before {
+    width: 100%;
   }
 }

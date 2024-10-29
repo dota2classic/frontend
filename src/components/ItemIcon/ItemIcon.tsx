@@ -35,6 +35,8 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
       ? ItemMap.find((it) => it.id === item)!.name
       : item.replace("item_", "");
 
+  if (fItem.includes("empty")) return <span className={c.img2} />;
+
   const url = fItem.includes("empty")
     ? `/items/emptyitembg.webp`
     : fItem.includes("recipe")

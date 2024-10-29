@@ -23,6 +23,7 @@ export * from './MatchPageDto';
 export * from './MatchmakingInfo';
 export * from './MatchmakingModeStatusEntity';
 export * from './MeDto';
+export * from "./MmrChangeDto";
 export * from './MyProfileDto';
 export * from './PartyDto';
 export * from './PlayerInMatchDto';
