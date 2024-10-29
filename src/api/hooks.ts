@@ -32,7 +32,9 @@ export class AppApi {
         });
         const r = new Response(data, {
           status: 200,
-          "Content-Type": "application/json",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
 
         return r.clone() as any;

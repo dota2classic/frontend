@@ -1,13 +1,13 @@
 export interface StoreProvider {
-  setItem(key: string, value: string | undefined): void;
+  setItem(key: string, value: string | null): void;
 
-  getItem(key: string): string | undefined;
+  getItem(key: string): string | null;
 
   removeItem(key: string): void;
 }
 
 interface StoredValue {
-  data: object;
+  data: any;
   createTime: number;
 }
 
@@ -29,7 +29,7 @@ export class StoreWrapper {
     const sv: StoredValue = JSON.parse(d);
     if (new Date().getTime() - sv.createTime >= this.options.ttl) {
       // Invalidated
-      this.store.setItem(key, undefined);
+      this.store.setItem(key, null);
       return null;
     }
 
@@ -54,7 +54,7 @@ const createUniversalCache = () => {
 
     return new StoreWrapper(
       {
-        getItem(key: string): string | undefined {
+        getItem(key: string): string | null {
           return map.get(key);
         },
         setItem(key: string, value: string) {
