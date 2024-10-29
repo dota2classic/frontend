@@ -3,13 +3,17 @@
 
 .hero {
   height: 40px;
+  width: 71px;
+
   object-fit: contain;
 
   @media (max-width: 1200px) {
+    width: 53px;
     height: 30px;
   }
 
   &.small{
+    width: 53px;
     height: 30px;
   }
 }
