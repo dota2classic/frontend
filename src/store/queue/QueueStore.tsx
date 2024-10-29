@@ -285,7 +285,8 @@ export class QueueStore
 
   @action
   public onConnected = () => {
-    this.readyState = GameCoordinatorState.CONNECTED;
+    if (this.readyState === GameCoordinatorState.DISCONNECTED)
+      this.readyState = GameCoordinatorState.CONNECTED;
   };
 
   @action
