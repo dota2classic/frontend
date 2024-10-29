@@ -1,9 +1,9 @@
 export interface StoreProvider {
-  setItem(key: string, value: string | undefined);
+  setItem(key: string, value: string | undefined): void;
 
   getItem(key: string): string | undefined;
 
-  removeItem(key: string);
+  removeItem(key: string): void;
 }
 
 interface StoredValue {
