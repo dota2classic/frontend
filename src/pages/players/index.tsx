@@ -22,7 +22,7 @@ export default function LeaderboardPage({
 
       <GenericTable
         placeholderRows={100}
-        keyProvider={(it) => it[1].steam_id}
+        keyProvider={(it) => it[1].steamId}
         isLoading={false}
         columns={[
           {

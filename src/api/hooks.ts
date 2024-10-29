@@ -10,6 +10,7 @@ import {
 import { Configuration, ConfigurationParameters } from "./back";
 import { create } from "apisauce";
 import Qs from "qs";
+import { getCache } from "@/api/api-cache";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
@@ -17,21 +18,38 @@ const PROD_URL = (process.env.API_URL ||
   process.env.NEXT_PUBLIC_API_URL) as string;
 
 export class AppApi {
+  cache = getCache();
+
   apiParams: ConfigurationParameters = {
     basePath: `${PROD_URL}`,
-    fetchApi: (input: any, init: any) => {
-      return fetch(input, init)
-        .then((t) => {
-          // if (t.status === 401 && AuthService.authorized && typeof window !== "undefined") {
-          //   AuthService.logout();
-          //   window.location.reload();
-          // }
-          return t;
-        })
-        .catch((e) => {
-          console.log("hehehe", e);
-          return undefined as any;
+    fetchApi: async (input: any, init: any): Promise<Response> => {
+      const key = JSON.stringify(input);
+      const cached = this.cache.get(key);
+      if (cached) {
+        // Need to create mock of response
+        const data = new Blob([JSON.stringify(cached)], {
+          type: "application/json",
         });
+        const r = new Response(data, {
+          status: 200,
+          "Content-Type": "application/json",
+        });
+
+        return r.clone() as any;
+      }
+
+      const result = fetch(input, init).catch((e) => {
+        console.log("hehehe", e);
+        return undefined as any;
+      });
+
+      result
+        .then((it) => it.clone().json())
+        .then((json) => {
+          this.cache.set(key, json);
+          return json;
+        });
+      return result;
     },
   };
   private readonly apiConfig = new Configuration(this.apiParams);
