@@ -13,7 +13,7 @@ import cx from "classnames";
 import { Role } from "@/api/mapped-models";
 
 const LoginProfileNavbarItem = observer(() => {
-  const { parsedToken } = useStore().auth;
+  const { parsedToken, smallAvatar } = useStore().auth;
 
   if (!parsedToken)
     return (
@@ -32,11 +32,7 @@ const LoginProfileNavbarItem = observer(() => {
       link={AppRouter.players.player.index(parsedToken.sub).link}
     >
       <span>{parsedToken.name}</span>
-      <img
-        className={c.playerAvatar}
-        src={parsedToken.avatar}
-        alt="User avatar"
-      />
+      <img className={c.playerAvatar} src={smallAvatar} alt="User avatar" />
     </NavbarItem>
   );
 });

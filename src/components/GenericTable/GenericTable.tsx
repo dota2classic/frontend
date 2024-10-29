@@ -113,7 +113,7 @@ const ColRenderer: React.FC<{
         <div className={c.player}>
           <img
             className={c.avatar}
-            src={value.avatar || "/avatar.png"}
+            src={value.avatarSmall || "/avatar.png"}
             alt=""
           />
           <PageLink

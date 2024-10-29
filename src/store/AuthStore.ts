@@ -63,6 +63,13 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     return parseJwt<JwtAuthToken>(this.token);
   }
 
+  @computed
+  public get smallAvatar(): string | undefined {
+    const av = this.parsedToken?.avatar;
+    if (!av) return undefined;
+    return av.replace("_full", "_medium");
+  }
+
   @action
   public setToken = (token: string | undefined) => {
     this.token = token;

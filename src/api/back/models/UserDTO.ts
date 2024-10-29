@@ -36,6 +36,12 @@ export interface UserDTO {
    * @type {string}
    * @memberof UserDTO
    */
+  avatarSmall: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UserDTO
+   */
   name: string;
 }
 
@@ -53,6 +59,7 @@ export function UserDTOFromJSONTyped(
   return {
     steamId: json["steamId"],
     avatar: json["avatar"],
+    avatarSmall: json["avatarSmall"],
     name: json["name"],
   };
 }
@@ -67,6 +74,7 @@ export function UserDTOToJSON(value?: UserDTO | null): any {
   return {
     steamId: value.steamId,
     avatar: value.avatar,
+    avatarSmall: value.avatarSmall,
     name: value.name,
   };
 }
