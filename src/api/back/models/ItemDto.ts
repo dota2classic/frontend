@@ -51,7 +51,7 @@ export function ItemDtoFromJSON(json: any): ItemDto {
 
 export function ItemDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): ItemDto {
   if (json === undefined || json === null) {
     return json;

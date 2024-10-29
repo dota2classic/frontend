@@ -99,7 +99,7 @@ export function HeroSummaryDtoFromJSON(json: any): HeroSummaryDto {
 
 export function HeroSummaryDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): HeroSummaryDto {
   if (json === undefined || json === null) {
     return json;

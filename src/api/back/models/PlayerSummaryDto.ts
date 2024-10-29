@@ -88,7 +88,7 @@ export function PlayerSummaryDtoFromJSON(json: any): PlayerSummaryDto {
 
 export function PlayerSummaryDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): PlayerSummaryDto {
   if (json === undefined || json === null) {
     return json;

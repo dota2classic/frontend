@@ -78,7 +78,7 @@ export function AchievementDtoFromJSON(json: any): AchievementDto {
 
 export function AchievementDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): AchievementDto {
   if (json === undefined || json === null) {
     return json;

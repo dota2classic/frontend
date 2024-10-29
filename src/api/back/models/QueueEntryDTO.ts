@@ -46,7 +46,7 @@ export function QueueEntryDTOFromJSON(json: any): QueueEntryDTO {
 
 export function QueueEntryDTOFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): QueueEntryDTO {
   if (json === undefined || json === null) {
     return json;

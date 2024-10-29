@@ -51,7 +51,7 @@ export function HeroItemDtoFromJSON(json: any): HeroItemDto {
 
 export function HeroItemDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): HeroItemDto {
   if (json === undefined || json === null) {
     return json;

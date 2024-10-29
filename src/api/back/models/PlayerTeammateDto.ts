@@ -70,7 +70,7 @@ export function PlayerTeammateDtoFromJSON(json: any): PlayerTeammateDto {
 
 export function PlayerTeammateDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): PlayerTeammateDto {
   if (json === undefined || json === null) {
     return json;

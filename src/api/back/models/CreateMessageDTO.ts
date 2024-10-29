@@ -52,7 +52,7 @@ export function CreateMessageDTOFromJSON(json: any): CreateMessageDTO {
 
 export function CreateMessageDTOFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): CreateMessageDTO {
   if (json === undefined || json === null) {
     return json;

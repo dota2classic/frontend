@@ -165,7 +165,7 @@ export function PlayerInfoFromJSON(json: any): PlayerInfo {
 
 export function PlayerInfoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): PlayerInfo {
   if (json === undefined || json === null) {
     return json;

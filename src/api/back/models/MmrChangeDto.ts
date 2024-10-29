@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
@@ -50,7 +51,7 @@ export function MmrChangeDtoFromJSON(json: any): MmrChangeDto {
 
 export function MmrChangeDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): MmrChangeDto {
   if (json === undefined || json === null) {
     return json;

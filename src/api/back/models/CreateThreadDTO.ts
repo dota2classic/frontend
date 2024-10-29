@@ -39,7 +39,7 @@ export function CreateThreadDTOFromJSON(json: any): CreateThreadDTO {
 
 export function CreateThreadDTOFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): CreateThreadDTO {
   if (json === undefined || json === null) {
     return json;

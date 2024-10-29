@@ -58,7 +58,7 @@ export function ThreadPageDTOFromJSON(json: any): ThreadPageDTO {
 
 export function ThreadPageDTOFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): ThreadPageDTO {
   if (json === undefined || json === null) {
     return json;

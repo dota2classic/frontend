@@ -12,8 +12,17 @@
  * Do not edit the class manually.
  */
 
-import {exists} from "../runtime";
-import {MmrChangeDto, MmrChangeDtoFromJSON, MmrChangeDtoToJSON, UserDTO, UserDTOFromJSON, UserDTOToJSON,} from "./";
+import { exists, mapValues } from "../runtime";
+import {
+  MmrChangeDto,
+  MmrChangeDtoFromJSON,
+  MmrChangeDtoFromJSONTyped,
+  MmrChangeDtoToJSON,
+  UserDTO,
+  UserDTOFromJSON,
+  UserDTOFromJSONTyped,
+  UserDTOToJSON,
+} from "./";
 
 /**
  *
@@ -162,38 +171,41 @@ export interface PlayerInMatchDto {
 }
 
 export function PlayerInMatchDtoFromJSON(json: any): PlayerInMatchDto {
-    return PlayerInMatchDtoFromJSONTyped(json, false);
+  return PlayerInMatchDtoFromJSONTyped(json, false);
 }
 
-export function PlayerInMatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): PlayerInMatchDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
-      user: UserDTOFromJSON(json["user"]),
-      team: json["team"],
-      hero: json["hero"],
-      level: json["level"],
-      kills: json["kills"],
-      deaths: json["deaths"],
-      assists: json["assists"],
-      gpm: json["gpm"],
-      xpm: json["xpm"],
-      heroHealing: json["hero_healing"],
-      heroDamage: json["hero_damage"],
-      towerDamage: json["tower_damage"],
-      lastHits: json["last_hits"],
-      denies: json["denies"],
-      gold: json["gold"],
-      item0: json["item0"],
-      item1: json["item1"],
-      item2: json["item2"],
-      item3: json["item3"],
-      item4: json["item4"],
-      item5: json["item5"],
-      abandoned: json["abandoned"],
-      mmr: !exists(json, "mmr") ? undefined : MmrChangeDtoFromJSON(json["mmr"]),
-    };
+export function PlayerInMatchDtoFromJSONTyped(
+  json: any,
+  ignoreDiscriminator: boolean
+): PlayerInMatchDto {
+  if (json === undefined || json === null) {
+    return json;
+  }
+  return {
+    user: UserDTOFromJSON(json["user"]),
+    team: json["team"],
+    hero: json["hero"],
+    level: json["level"],
+    kills: json["kills"],
+    deaths: json["deaths"],
+    assists: json["assists"],
+    gpm: json["gpm"],
+    xpm: json["xpm"],
+    heroHealing: json["hero_healing"],
+    heroDamage: json["hero_damage"],
+    towerDamage: json["tower_damage"],
+    lastHits: json["last_hits"],
+    denies: json["denies"],
+    gold: json["gold"],
+    item0: json["item0"],
+    item1: json["item1"],
+    item2: json["item2"],
+    item3: json["item3"],
+    item4: json["item4"],
+    item5: json["item5"],
+    abandoned: json["abandoned"],
+    mmr: !exists(json, "mmr") ? undefined : MmrChangeDtoFromJSON(json["mmr"]),
+  };
 }
 
 export function PlayerInMatchDtoToJSON(value?: PlayerInMatchDto | null): any {
@@ -229,5 +241,3 @@ export function PlayerInMatchDtoToJSON(value?: PlayerInMatchDto | null): any {
     mmr: MmrChangeDtoToJSON(value.mmr),
   };
 }
-
-

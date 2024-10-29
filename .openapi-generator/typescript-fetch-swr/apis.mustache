@@ -2,18 +2,18 @@
 /* eslint-disable */
 {{>licenseInfo}}
 
-import * as runtime from '../runtime';
+import * as runtime from "../runtime";
 import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 {{#imports.0}}
 import {
-    {{#imports}}
-    {{className}},
-    {{className}}FromJSON,
-    {{className}}ToJSON,
-    {{/imports}}
-} from '../models';
+  {{#imports}}
+  {{className}},
+  {{className}}FromJSON,
+  {{className}}ToJSON,
+  {{/imports}}
+} from "../models";
 {{/imports.0}}
 
 {{#operations}}
@@ -21,7 +21,7 @@ import {
 {{#allParams.0}}
 export interface {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request {
 {{#allParams}}
-    {{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};
+  {{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};
 {{/allParams}}
 }
 
@@ -50,7 +50,7 @@ export interface {{classname}}Interface {
      * @throws {RequiredError}
      * @memberof {{classname}}Interface
      */
-    {{nickname}}Raw({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{/allParams.0}}): Promise<runtime.ApiResponse<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>>;
+  {{nickname}}Raw({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{/allParams.0}}): Promise<runtime.ApiResponse<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>>;
 
     /**
      {{#notes}}
@@ -60,12 +60,12 @@ export interface {{classname}}Interface {
      * {{&summary}}
      {{/summary}}
      */
-    {{^useSingleRequestParameter}}
-    {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{#hasMore}}, {{/hasMore}}{{/allParams}}): Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>;
-    {{/useSingleRequestParameter}}
-    {{#useSingleRequestParameter}}
-    {{nickname}}({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{/allParams.0}}): Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>;
-    {{/useSingleRequestParameter}}
+  {{^useSingleRequestParameter}}
+  {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{#hasMore}}, {{/hasMore}}{{/allParams}}): Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>;
+  {{/useSingleRequestParameter}}
+  {{#useSingleRequestParameter}}
+  {{nickname}}({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{/allParams.0}}): Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>;
+  {{/useSingleRequestParameter}}
 
 {{/operation}}
 }
@@ -147,7 +147,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{#allParams}}
         {{#required}}
         if (requestParameters.{{paramName}} === null || requestParameters.{{paramName}} === undefined) {
-            throw new runtime.RequiredError('{{paramName}}','Required parameter requestParameters.{{paramName}} was null or undefined when calling {{nickname}}.');
+            throw new runtime.RequiredError("{{paramName}}","Required parameter requestParameters.{{paramName}} was null or undefined when calling {{nickname}}.");
         }
         {{/required}}
         {{/allParams}}
@@ -168,10 +168,10 @@ export class {{classname}} extends runtime.BaseAPI {
         {{#isListContainer}}
         if (requestParameters.{{paramName}}) {
             {{#isCollectionFormatMulti}}
-            queryParameters['{{baseName}}'] = requestParameters.{{paramName}};
+            queryParameters["{{baseName}}"] = requestParameters.{{paramName}};
             {{/isCollectionFormatMulti}}
             {{^isCollectionFormatMulti}}
-            queryParameters['{{baseName}}'] = requestParameters.{{paramName}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
+            queryParameters["{{baseName}}"] = requestParameters.{{paramName}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
             {{/isCollectionFormatMulti}}
         }
 
@@ -179,14 +179,14 @@ export class {{classname}} extends runtime.BaseAPI {
         {{^isListContainer}}
         if (requestParameters.{{paramName}} !== undefined) {
             {{#isDateTime}}
-            queryParameters['{{baseName}}'] = (requestParameters.{{paramName}} as any).toISOString();
+            queryParameters["{{baseName}}"] = (requestParameters.{{paramName}} as any).toISOString();
             {{/isDateTime}}
             {{^isDateTime}}
             {{#isDate}}
-            queryParameters['{{baseName}}'] = (requestParameters.{{paramName}} as any).toISOString().substr(0,10);
+            queryParameters["{{baseName}}"] = (requestParameters.{{paramName}} as any).toISOString().substr(0,10);
             {{/isDate}}
             {{^isDate}}
-            queryParameters['{{baseName}}'] = requestParameters.{{paramName}};
+            queryParameters["{{baseName}}"] = requestParameters.{{paramName}};
             {{/isDate}}
             {{/isDateTime}}
         }
@@ -197,24 +197,24 @@ export class {{classname}} extends runtime.BaseAPI {
 
         {{#bodyParam}}
         {{^consumes}}
-        headerParameters['Content-Type'] = 'application/json';
+        headerParameters["Content-Type"] = "application/json";
 
         {{/consumes}}
         {{#consumes.0}}
-        headerParameters['Content-Type'] = '{{{mediaType}}}';
+        headerParameters["Content-Type"] = "{{{mediaType}}}";
 
         {{/consumes.0}}
         {{/bodyParam}}
         {{#headerParams}}
         {{#isListContainer}}
         if (requestParameters.{{paramName}}) {
-            headerParameters['{{baseName}}'] = requestParameters.{{paramName}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
+            headerParameters["{{baseName}}"] = requestParameters.{{paramName}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
         }
 
         {{/isListContainer}}
         {{^isListContainer}}
         if (requestParameters.{{paramName}} !== undefined && requestParameters.{{paramName}} !== null) {
-            headerParameters['{{baseName}}'] = String(requestParameters.{{paramName}});
+            headerParameters["{{baseName}}"] = String(requestParameters.{{paramName}});
         }
 
         {{/isListContainer}}
@@ -229,7 +229,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{#isBasicBearer}}
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("{{name}}", [{{#scopes}}"{{{scope}}}"{{^-last}}, {{/-last}}{{/scopes}}]) : token;
+            const tokenString = typeof token === "function" ? token("{{name}}", [{{#scopes}}"{{{scope}}}"{{^-last}}, {{/-last}}{{/scopes}}]) : token;
 
             if (tokenString) {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
@@ -254,7 +254,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{#isOAuth}}
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            if (typeof this.configuration.accessToken === 'function') {
+            if (typeof this.configuration.accessToken === "function") {
                 headerParameters["Authorization"] = this.configuration.accessToken("{{name}}", [{{#scopes}}"{{{scope}}}"{{^-last}}, {{/-last}}{{/scopes}}]);
             } else {
                 headerParameters["Authorization"] = this.configuration.accessToken;
@@ -266,7 +266,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{#hasFormParams}}
         const consumes: runtime.Consume[] = [
             {{#consumes}}
-            { contentType: '{{{mediaType}}}' },
+            { contentType: "{{{mediaType}}}" },
             {{/consumes}}
         ];
         // @ts-ignore: canConsumeForm may be unused
@@ -291,18 +291,18 @@ export class {{classname}} extends runtime.BaseAPI {
         if (requestParameters.{{paramName}}) {
             {{#isCollectionFormatMulti}}
             requestParameters.{{paramName}}.forEach((element) => {
-                formParams.append('{{baseName}}', element as any);
+                formParams.append("{{baseName}}", element as any);
             })
             {{/isCollectionFormatMulti}}
             {{^isCollectionFormatMulti}}
-            formParams.append('{{baseName}}', requestParameters.{{paramName}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]));
+            formParams.append("{{baseName}}", requestParameters.{{paramName}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]));
             {{/isCollectionFormatMulti}}
         }
 
         {{/isListContainer}}
         {{^isListContainer}}
         if (requestParameters.{{paramName}} !== undefined) {
-            formParams.append('{{baseName}}', requestParameters.{{paramName}} as any);
+            formParams.append("{{baseName}}", requestParameters.{{paramName}} as any);
         }
 
         {{/isListContainer}}
@@ -310,7 +310,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{/hasFormParams}}
         return {
             path: `{{{path}}}`{{#pathParams}}.replace(`{${"{{baseName}}"}}`, encodeURIComponent(String(requestParameters.{{paramName}}))){{/pathParams}},
-            method: '{{httpMethod}}',
+            method: "{{httpMethod}}",
             headers: headerParameters,
             query: queryParameters,
             {{#hasBodyParam}}

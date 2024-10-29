@@ -53,14 +53,14 @@ export interface PlayerTeammatePageDto {
 }
 
 export function PlayerTeammatePageDtoFromJSON(
-  json: any,
+  json: any
 ): PlayerTeammatePageDto {
   return PlayerTeammatePageDtoFromJSONTyped(json, false);
 }
 
 export function PlayerTeammatePageDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): PlayerTeammatePageDto {
   if (json === undefined || json === null) {
     return json;
@@ -74,7 +74,7 @@ export function PlayerTeammatePageDtoFromJSONTyped(
 }
 
 export function PlayerTeammatePageDtoToJSON(
-  value?: PlayerTeammatePageDto | null,
+  value?: PlayerTeammatePageDto | null
 ): any {
   if (value === undefined) {
     return undefined;

@@ -76,7 +76,7 @@ export function ThreadMessageDTOFromJSON(json: any): ThreadMessageDTO {
 
 export function ThreadMessageDTOFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): ThreadMessageDTO {
   if (json === undefined || json === null) {
     return json;

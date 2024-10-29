@@ -58,7 +58,7 @@ export function ThreadMessageSseDtoFromJSON(json: any): ThreadMessageSseDto {
 
 export function ThreadMessageSseDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): ThreadMessageSseDto {
   if (json === undefined || json === null) {
     return json;
@@ -72,7 +72,7 @@ export function ThreadMessageSseDtoFromJSONTyped(
 }
 
 export function ThreadMessageSseDtoToJSON(
-  value?: ThreadMessageSseDto | null,
+  value?: ThreadMessageSseDto | null
 ): any {
   if (value === undefined) {
     return undefined;

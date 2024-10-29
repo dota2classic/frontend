@@ -94,7 +94,7 @@ export function LeaderboardEntryDtoFromJSON(json: any): LeaderboardEntryDto {
 
 export function LeaderboardEntryDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): LeaderboardEntryDto {
   if (json === undefined || json === null) {
     return json;
@@ -114,7 +114,7 @@ export function LeaderboardEntryDtoFromJSONTyped(
 }
 
 export function LeaderboardEntryDtoToJSON(
-  value?: LeaderboardEntryDto | null,
+  value?: LeaderboardEntryDto | null
 ): any {
   if (value === undefined) {
     return undefined;

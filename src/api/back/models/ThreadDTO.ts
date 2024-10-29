@@ -96,7 +96,7 @@ export function ThreadDTOFromJSON(json: any): ThreadDTO {
 
 export function ThreadDTOFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): ThreadDTO {
   if (json === undefined || json === null) {
     return json;

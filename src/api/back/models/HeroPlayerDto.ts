@@ -76,7 +76,7 @@ export function HeroPlayerDtoFromJSON(json: any): HeroPlayerDto {
 
 export function HeroPlayerDtoFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): HeroPlayerDto {
   if (json === undefined || json === null) {
     return json;

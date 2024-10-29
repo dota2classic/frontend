@@ -50,7 +50,7 @@ export function QueueStateDTOFromJSON(json: any): QueueStateDTO {
 
 export function QueueStateDTOFromJSONTyped(
   json: any,
-  ignoreDiscriminator: boolean,
+  ignoreDiscriminator: boolean
 ): QueueStateDTO {
   if (json === undefined || json === null) {
     return json;
