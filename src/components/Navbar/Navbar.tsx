@@ -8,7 +8,6 @@ import { FaSteam } from "react-icons/fa";
 import { appApi, getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { useRouter } from "next/router";
 import cx from "classnames";
 import { Role } from "@/api/mapped-models";
 import Image from "next/image";

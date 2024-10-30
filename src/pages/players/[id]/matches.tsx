@@ -42,13 +42,11 @@ export default function PlayerMatches({
   const [hero, setHero] = useQueryBackedParameter("hero");
   const [mode, setMode] = useQueryBackedParameter("mode");
 
-  // const [isLoading] = useRouterChanging();
+  const [isLoading] = useRouterChanging();
 
   const data = initialMatches;
 
   useClampedPage(page, data?.pages, setPage);
-
-  console.log(GameModeOptions, mode);
 
   const formattedMatches = (data?.data || [])
     .sort(MatchComparator)
@@ -107,7 +105,7 @@ export default function PlayerMatches({
         />
         <HeroWithItemsHistoryTable
           withItems
-          loading={false}
+          loading={isLoading}
           data={formattedMatches}
         />
         <Pagination

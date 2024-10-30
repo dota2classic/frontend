@@ -5,7 +5,7 @@ import c from "./SelectOptions.module.scss";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { formatGameMode } from "@/util/gamemode";
 import heroes from "@/util/texts/heroes";
-import Select from "react-select";
+import Select, { SingleValue } from "react-select";
 import { JetBrains_Mono } from "next/font/google";
 
 const tableFont = JetBrains_Mono({
@@ -36,12 +36,9 @@ export const HeroOptions = [
 ];
 
 interface ISelectOptionsProps {
-  options: {
-    value: any;
-    label: ReactNode;
-  }[];
+  options: SingleValue<any>[];
   selected: any;
-  onSelect: (v: { value: any; label: ReactNode }) => void;
+  onSelect: (v: SingleValue<any>) => void;
   defaultText: ReactNode;
 }
 
