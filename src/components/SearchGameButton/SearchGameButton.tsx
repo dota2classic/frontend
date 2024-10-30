@@ -63,7 +63,7 @@ export const SearchGameButton = observer(() => {
       >
         {auth.me?.banStatus?.isBanned ? (
           <>
-            Поиск запрещен до <TimeAgo date={auth.me?.banStatus.bannedUntil!} />
+            Поиск запрещен до <TimeAgo date={auth.me!.banStatus.bannedUntil} />
           </>
         ) : (
           "Искать игру"

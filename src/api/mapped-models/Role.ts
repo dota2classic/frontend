@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum Role {
   PLAYER = "PLAYER",
   OLD = "OLD",

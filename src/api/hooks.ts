@@ -22,7 +22,7 @@ export class AppApi {
 
   apiParams: ConfigurationParameters = {
     basePath: `${PROD_URL}`,
-    fetchApi: async (input: any, init: any): Promise<Response> => {
+    fetchApi: async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
       const key = JSON.stringify(input);
       const cached = this.cache.get(key);
       if (cached) {
@@ -37,12 +37,12 @@ export class AppApi {
           },
         });
 
-        return r.clone() as any;
+        return r.clone() as Response;
       }
 
       const result = fetch(input, init).catch((e) => {
         console.log("hehehe", e);
-        return undefined as any;
+        return undefined as unknown;
       });
 
       result
@@ -67,7 +67,7 @@ export class AppApi {
 
 export const appApi = new AppApi();
 
-export const useApi = () => appApi;
+export const getApi = () => appApi;
 
 export const apiInner = create({
   baseURL: `${PROD_URL}/api`,

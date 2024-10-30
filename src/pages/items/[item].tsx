@@ -1,5 +1,5 @@
 import { NextPageContext } from "next";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { ItemHeroDto } from "@/api/back";
 import { GenericTable, Section } from "@/components";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
@@ -61,7 +61,7 @@ ItemPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const itemId = parseInt(ctx.query.item as string);
 
   return {
-    data: await useApi().metaApi.metaControllerItem(itemId),
+    data: await getApi().metaApi.metaControllerItem(itemId),
     item: itemId,
   };
 };

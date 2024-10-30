@@ -2,7 +2,7 @@
 import React from "react";
 
 export const formatDateStr = (
-  value: string | number,
+  value: string | number | Date,
   locale?: string,
 ): string => {
   return new Date(value).toLocaleString(locale || "ru-RU", {
@@ -20,6 +20,5 @@ interface ITimeAgoProps {
 }
 
 export const TimeAgo: React.FC<ITimeAgoProps> = ({ date }) => {
-  // return <>{fromNow(date instanceof Date ? new Date(date) : date)}</>;
-  return <>{formatDateStr(date as any)}</>;
+  return <>{formatDateStr(date)}</>;
 };

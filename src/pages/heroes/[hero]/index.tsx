@@ -1,4 +1,4 @@
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import {
   HeroItemDto,
   HeroPlayerDto,
@@ -92,11 +92,11 @@ HeroHistoryPage.getInitialProps = async (ctx: NextPageContext) => {
     initialHeroItemsData,
     initialHeroesMeta,
     initialHeroPlayers,
-  ] = await Promise.all<any>([
-    useApi().matchApi.matchControllerHeroMatches(page, hero, undefined),
-    useApi().metaApi.metaControllerHero(hero),
-    useApi().metaApi.metaControllerHeroes(),
-    useApi().metaApi.metaControllerHeroPlayers(hero),
+  ] = await Promise.all<unknown>([
+    getApi().matchApi.matchControllerHeroMatches(page, hero, undefined),
+    getApi().metaApi.metaControllerHero(hero),
+    getApi().metaApi.metaControllerHeroes(),
+    getApi().metaApi.metaControllerHeroPlayers(hero),
   ]);
 
   return {

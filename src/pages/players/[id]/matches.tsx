@@ -4,7 +4,7 @@ import {
   useRouterChanging,
 } from "@/util/hooks";
 import Head from "next/head";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import {
   HeroWithItemsHistoryTable,
@@ -135,9 +135,9 @@ PlayerMatches.getInitialProps = async (
   const page = numberOrDefault(ctx.query.page, 0);
   const mode = numberOrDefault(ctx.query.mode, undefined);
 
-  const [preloadedSummary, initialMatches] = await Promise.all<any>([
-    useApi().playerApi.playerControllerPlayerSummary(playerId),
-    useApi().matchApi.matchControllerPlayerMatches(
+  const [preloadedSummary, initialMatches] = await Promise.all<unknown>([
+    getApi().playerApi.playerControllerPlayerSummary(playerId),
+    getApi().matchApi.matchControllerPlayerMatches(
       playerId,
       numberOrDefault(page, 0),
       undefined,

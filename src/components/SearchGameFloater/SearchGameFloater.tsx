@@ -4,9 +4,8 @@ import { AcceptGameModal, SearchGameButton } from "..";
 
 import c from "./SearchGameFloater.module.scss";
 
-interface ISearchGameFloaterProps {}
 
-export const SearchGameFloater: React.FC<ISearchGameFloaterProps> = ({}) => {
+export const SearchGameFloater: React.FC<unknown> = ({}) => {
   return (
     <div className={c.container}>
       <AcceptGameModal />

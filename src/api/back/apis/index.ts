@@ -5,3 +5,4 @@ export * from "./MatchApi";
 export * from "./MetaApi";
 export * from "./PlayerApi";
 export * from "./StatsApi";
+export * from "../../mapped-models";

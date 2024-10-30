@@ -1,23 +1,22 @@
-import React, { useCallback, useState } from "react";
+import React, {useCallback, useState} from "react";
 
 import c from "./QueuePartyInfo.module.scss";
-import { observer } from "mobx-react-lite";
-import { useStore } from "@/store";
-import { useApi } from "@/api/hooks";
-import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
-import { UserDTO } from "@/api/back";
-import { InvitePlayerModal, PageLink, Panel } from "@/components";
-import { AppRouter } from "@/route";
+import {observer} from "mobx-react-lite";
+import {useStore} from "@/store";
+import {getApi} from "@/api/hooks";
+import {GameCoordinatorState} from "@/store/queue/game-coordinator.state";
+import {UserDTO} from "@/api/back";
+import {InvitePlayerModal, PageLink, Panel} from "@/components";
+import {AppRouter} from "@/route";
 import cx from "classnames";
-import { formatGameMode } from "@/util/gamemode";
+import {formatGameMode} from "@/util/gamemode";
+import Image from "next/image"
 
 const GameCoordinatorConnection = ({
   readyState,
 }: {
   readyState: GameCoordinatorState;
 }) => {
-  const { queue } = useStore();
-
   return (
     <div className={c.info}>
       {readyState === GameCoordinatorState.DISCONNECTED ? (
@@ -31,9 +30,9 @@ const GameCoordinatorConnection = ({
 
 export const QueuePartyInfo = observer(() => {
   const { queue } = useStore();
-  const { data } = useApi().playerApi.usePlayerControllerMyParty();
+  const { data } = getApi().playerApi.usePlayerControllerMyParty();
 
-  const { data: party } = useApi().playerApi.usePlayerControllerMyParty();
+  const { data: party } = getApi().playerApi.usePlayerControllerMyParty();
 
   const [inviteOpen, setInviteOpen] = useState(false);
 
@@ -61,19 +60,19 @@ export const QueuePartyInfo = observer(() => {
                 t.steamId === data?.leader.steamId && c.leader,
               )}
             >
-              <img src={t.avatar} alt="" />
+              <Image src={t.avatar} alt="" />
             </div>
           </PageLink>
         ))}
 
         <div
           className={cx(c.partyItem, c.invite)}
-          onClick={(e: any) => {
+          onClick={(e: React<MouseEvent>) => {
             e.nativeEvent.nasty = true;
             setInviteOpen(true);
           }}
         >
-          <img src={`/plus.png`} alt="" />
+          <Image src={`/plus.png`} alt="" />
         </div>
       </div>
 

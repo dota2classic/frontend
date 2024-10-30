@@ -11,7 +11,7 @@ import {
   Thread,
 } from "@/components";
 import c from "./PlayerPage.module.scss";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import {
   AchievementDto,
@@ -21,11 +21,9 @@ import {
   PlayerTeammatePageDto,
   ThreadType,
 } from "@/api/back";
-import { useQueryBackedParameter } from "@/util/hooks";
 import { PlayerMatchItem } from "@/components/HeroWithItemsHistoryTable/HeroWithItemsHistoryTable";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import Head from "next/head";
-import { numberOrDefault } from "@/util/urls";
 import React from "react";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
@@ -48,44 +46,8 @@ export default function PlayerPage({
   preloadedTeammates,
   preloadedAchievements,
 }: PlayerPageProps) {
-  const [page, setPage] = useQueryBackedParameter("page");
 
-  const { data: summary } = useApi().playerApi.usePlayerControllerPlayerSummary(
-    playerId,
-    {
-      fallbackData: preloadedSummary,
-      isPaused() {
-        return !!preloadedSummary;
-      },
-    },
-  );
-
-  const { data: matches, isLoading: matchesLoading } =
-    useApi().matchApi.useMatchControllerPlayerMatches(
-      playerId,
-      numberOrDefault(page, 0),
-      undefined,
-      undefined,
-      undefined,
-      {
-        fallbackData: preloadedMatches,
-        isPaused() {
-          return !!preloadedMatches;
-        },
-      },
-    );
-
-  const { data: heroStats, isLoading: heroStatsLoading } =
-    useApi().playerApi.usePlayerControllerHeroSummary(playerId, {
-      fallbackData: preloadedHeroStats,
-      isPaused() {
-        return !!preloadedHeroStats;
-      },
-    });
-
-  if (!summary) return null;
-
-  const formattedMatches: PlayerMatchItem[] = (matches?.data || [])
+  const formattedMatches: PlayerMatchItem[] = (preloadedMatches?.data || [])
     .sort(MatchComparator)
     .map((it) =>
       matchToPlayerMatchItem(it, (it) => it.user.steamId === playerId),
@@ -104,25 +66,25 @@ export default function PlayerPage({
   return (
     <div className={c.playerPage}>
       <Head>
-        <title>{`${summary.user.name} - статистика`}</title>
+        <title>{`${preloadedSummary.user.name} - статистика`}</title>
       </Head>
       <EmbedProps
-        title={`${summary.user.name} - статистика`}
-        description={`Dota2Classic - профиль и статистика игрока ${summary.user.name}`}
-        image={summary.user.avatar}
+        title={`${preloadedSummary.user.name} - статистика`}
+        description={`Dota2Classic - профиль и статистика игрока ${preloadedSummary.user.name}`}
+        image={preloadedSummary.user.avatar}
       />
       <PlayerSummary
-        wins={summary.wins}
-        loss={summary.loss}
-        rank={summary.rank}
-        mmr={summary.mmr}
-        image={summary.user.avatar || "/avatar.png"}
-        name={summary.user.name}
-        steamId={summary.user.steamId}
+        wins={preloadedSummary.wins}
+        loss={preloadedSummary.loss}
+        rank={preloadedSummary.rank}
+        mmr={preloadedSummary.mmr}
+        image={preloadedSummary.user.avatar || "/avatar.png"}
+        name={preloadedSummary.user.name}
+        steamId={preloadedSummary.user.steamId}
       />
       <Panel style={{ display: "flex", gap: "10px", marginTop: 20 }}>
         {preloadedAchievements.map((t) => (
-          <AchievementStatus achievement={t} />
+          <AchievementStatus key={t.key} achievement={t} />
         ))}
       </Panel>
       <Section className={c.matchHistory}>
@@ -133,7 +95,7 @@ export default function PlayerPage({
           </PageLink>
         </header>
         <HeroWithItemsHistoryTable
-          loading={matchesLoading}
+          loading={false}
           data={formattedMatches}
         />
       </Section>
@@ -146,7 +108,7 @@ export default function PlayerPage({
         </header>
         <HeroPerformanceTable
           steamId={playerId}
-          loading={heroStatsLoading}
+          loading={false}
           data={formattedHeroStats}
         />
         <header>
@@ -178,12 +140,12 @@ PlayerPage.getInitialProps = async (
     preloadedHeroStats,
     preloadedTeammates,
     preloadedAchievements,
-  ] = await Promise.all<any>([
-    useApi().playerApi.playerControllerPlayerSummary(playerId),
-    useApi().matchApi.matchControllerPlayerMatches(playerId, page),
-    useApi().playerApi.playerControllerHeroSummary(playerId),
-    useApi().playerApi.playerControllerTeammates(playerId, 0, 10),
-    useApi().playerApi.playerControllerAchievements(playerId),
+  ] = await Promise.all<unknown>([
+    getApi().playerApi.playerControllerPlayerSummary(playerId),
+    getApi().matchApi.matchControllerPlayerMatches(playerId, page),
+    getApi().playerApi.playerControllerHeroSummary(playerId),
+    getApi().playerApi.playerControllerTeammates(playerId, 0, 10),
+    getApi().playerApi.playerControllerAchievements(playerId),
   ]);
 
   return {

@@ -3,12 +3,13 @@ import React, { useRef, useState } from "react";
 import { GenericModal, Input } from "..";
 
 import c from "./InvitePlayerModal.module.scss";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { NotificationDto } from "@/store/NotificationStore";
 import cx from "classnames";
 import useOutsideClick from "@/util/useOutsideClick";
 import { UserDTO } from "@/api/back";
+import Image from "next/image";
 
 interface IInvitePlayerModalProps {
   isOpen: boolean;
@@ -22,7 +23,7 @@ export const InvitePlayerModal: React.FC<IInvitePlayerModalProps> = ({
 }) => {
   const [search, setSearch] = useState("");
 
-  const { data } = useApi().playerApi.usePlayerControllerSearch(search);
+  const { data } = getApi().playerApi.usePlayerControllerSearch(search);
 
   const comp = useRef<HTMLDivElement | null>(null);
   const { queue, notify } = useStore();
@@ -54,7 +55,7 @@ export const InvitePlayerModal: React.FC<IInvitePlayerModalProps> = ({
                   close();
                 }}
               >
-                <img src={it.avatar} alt={`Avatar of ${it.name}`} />
+                <Image src={it.avatar} alt={`Avatar of ${it.name}`} />
                 <span>{it.name}</span>
               </div>
             ))}

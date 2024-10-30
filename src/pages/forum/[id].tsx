@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
 import {Breadcrumbs, PageLink, Panel, Thread} from "@/components";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import {ThreadDTO, ThreadMessageDTO} from "@/api/back";
 import { NextPageContext } from "next";
 import {AppRouter} from "@/route";
@@ -43,11 +43,11 @@ ThreadPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const tid = ctx.query.id as string;
 
   return {
-    messages: await useApi().forumApi.forumControllerGetMessages(
+    messages: await getApi().forumApi.forumControllerGetMessages(
       tid,
       ThreadType.FORUM,
     ),
-    thread: await useApi().forumApi.forumControllerGetThread(
+    thread: await getApi().forumApi.forumControllerGetThread(
       tid,
       ThreadType.FORUM,
     )

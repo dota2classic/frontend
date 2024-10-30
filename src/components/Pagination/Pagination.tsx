@@ -17,12 +17,10 @@ interface IPaginationProps {
 const PaginationItem = ({
   children,
   link,
-  active,
-  numerical,
+  active
 }: PropsWithChildren<{
   link?: NextLinkProp;
   active?: boolean;
-  numerical?: boolean;
 }>) => {
   const className = cx(c.page, {
     [c.active]: active,

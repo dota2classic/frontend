@@ -1,32 +1,19 @@
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, {ReactNode, useCallback, useEffect, useRef, useState,} from "react";
 
-import {
-  Button,
-  ForumUserEmbed,
-  MarkdownTextarea,
-  PageLink,
-  Panel,
-  PeriodicTimer,
-  ScrollDetector,
-} from "..";
+import {Button, ForumUserEmbed, MarkdownTextarea, PageLink, Panel, PeriodicTimer, ScrollDetector,} from "..";
 
 import c from "./Thread.module.scss";
-import { ThreadMessageDTO } from "@/api/back";
-import { AppRouter } from "@/route";
-import { observer } from "mobx-react-lite";
-import { Rubik } from "next/font/google";
+import {ThreadMessageDTO} from "@/api/back";
+import {AppRouter} from "@/route";
+import {observer} from "mobx-react-lite";
+import {Rubik} from "next/font/google";
 import cx from "classnames";
-import { useApi } from "@/api/hooks";
-import { useThread } from "@/util/threads";
-import { ThreadType } from "@/api/mapped-models/ThreadType";
-import { useStore } from "@/store";
-import { MdDelete } from "react-icons/md";
+import {getApi} from "@/api/hooks";
+import {useThread} from "@/util/threads";
+import {ThreadType} from "@/api/mapped-models/ThreadType";
+import {useStore} from "@/store";
+import {MdDelete} from "react-icons/md";
+import Image from "next/image";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -56,7 +43,7 @@ interface IMessageProps {
 
 //
 function useEnrichedMessage(msg2: string) {
-  let msg = msg2.replace(/\n\s*\n/g, "\n");
+  const msg = msg2.replace(/\n\s*\n/g, "\n");
 
   const parts: ReactNode[] = [];
   const r = new RegExp(
@@ -96,13 +83,13 @@ function useEnrichedMessage(msg2: string) {
 }
 
 export const Message: React.FC<IMessageProps> = React.memo(
-  ({ message, threadStyle, onDelete }: IMessageProps) => {
+  function Message({ message, threadStyle, onDelete }: IMessageProps){
     const enrichedMessage = useEnrichedMessage(message.content);
 
     const isDeletable = !!onDelete;
     const onDeleteWrap = useCallback(
       () => onDelete && onDelete(message.messageId),
-      [message],
+      [message.messageId, onDelete],
     );
 
     return (
@@ -117,7 +104,7 @@ export const Message: React.FC<IMessageProps> = React.memo(
           link={AppRouter.players.player.index(message.author.steamId).link}
           className={c.user}
         >
-          <img src={message.author.avatar} alt="" />
+          <Image src={message.author.avatar} alt="" />
           <h4>{message.author.name}</h4>
         </PageLink>
         <div className={c.right}>
@@ -155,7 +142,7 @@ export const MessageInput = observer(
     const isValid = value.length >= 5;
 
     const submit = () => {
-      useApi()
+      getApi()
         .forumApi.forumControllerPostMessage({
           id: p.id,
           content: value,
@@ -165,7 +152,7 @@ export const MessageInput = observer(
           setValue("");
           p.onMessage(msg);
         })
-        .catch((e) => {
+        .catch(() => {
           setError("Слишком часто отправляете сообщения!");
         });
     };
@@ -224,16 +211,16 @@ export const Thread: React.FC<IThreadProps> = observer(
 
         element.scroll({ top: element.scrollHeight + 100, behavior: "smooth" });
       }
-    }, [messages, scrollableRef]);
+    }, [messages, scrollToLast, scrollableRef]);
 
     const deleteMessage = useCallback(
       (id: string) => {
         if (!auth.isAdmin) return;
-        useApi()
+        getApi()
           .forumApi.forumControllerDeleteMessage(id)
           .then((data) => consumeMessages([data]));
       },
-      [auth.isAdmin],
+      [auth.isAdmin, consumeMessages],
     );
 
     return (

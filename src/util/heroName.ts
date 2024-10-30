@@ -2,13 +2,11 @@ import heroes from "./texts/heroes";
 import { ItemMap } from "@/const/items";
 import { ItemData } from "@/const/itemdata";
 
-export default (fullName?: string) => {
+const heroName = (fullName?: string) => {
   return heroes.find((it) => it.tag === fullName)?.name || "";
 };
+export default heroName;
 
-// export const heroId = (fullName: string) => {
-//   return heroes.find(it => it.tag === fullName).
-// }
 
 export const fullName = (hero: string) =>
   hero.includes("npc_dota_hero_") ? hero : `npc_dota_hero_${hero}`;

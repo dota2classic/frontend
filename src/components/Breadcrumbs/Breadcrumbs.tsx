@@ -1,13 +1,8 @@
-import React, { PropsWithChildren } from "react";
-import { NextLinkProp } from "@/route";
+import React, {PropsWithChildren} from "react";
 import c from './Breadcrumbs.module.scss'
-interface Link {
-  link: NextLinkProp;
-}
 
-interface IBreadcrumbsProps {}
 
-export const Breadcrumbs: React.FC<PropsWithChildren<IBreadcrumbsProps>> = ({
+export const Breadcrumbs: React.FC<PropsWithChildren<unknown>> = ({
   children,
 }) => {
   const wrappedChildren = React.Children.toArray(children).map((child, index) => (

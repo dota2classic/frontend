@@ -11,7 +11,6 @@ import c from "./NoobFriendlyQueue.module.scss";
 import { AppRouter } from "@/route";
 import { FaCheck } from "react-icons/fa6";
 import cx from "classnames";
-import { FaArrowRight } from "react-icons/fa";
 
 interface RequiredStepProps {
   complete: boolean;

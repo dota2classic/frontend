@@ -1,6 +1,6 @@
 import { makeObservable, observable, runInAction } from "mobx";
 import { HydratableStore } from "@/store/HydratableStore";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { UserDTO } from "@/api/back";
 
 interface UserEntry {
@@ -12,9 +12,9 @@ interface UserEntry {
   loss: number;
 }
 
-export class UserCacheStore implements HydratableStore<{}> {
+export class UserCacheStore implements HydratableStore<unknown> {
   @observable
-  public userMap: Map<string, UserEntry | Promise<any>> = new Map();
+  public userMap: Map<string, UserEntry | Promise<void>> = new Map();
 
   constructor() {
     makeObservable(this);
@@ -38,7 +38,7 @@ export class UserCacheStore implements HydratableStore<{}> {
   public requestUser(id: string) {
     console.trace("User requested");
 
-    const promise = useApi()
+    const promise = getApi()
       .playerApi.playerControllerPlayerSummary(id)
       .then((user) => {
         runInAction(() => {
@@ -56,5 +56,5 @@ export class UserCacheStore implements HydratableStore<{}> {
     this.userMap.set(id, promise);
   }
 
-  hydrate(d: {}): void {}
+  hydrate(): void {}
 }

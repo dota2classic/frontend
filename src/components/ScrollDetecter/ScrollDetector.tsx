@@ -32,6 +32,6 @@ export const ScrollDetector: React.FC<IScrollDetectorProps> = ({
 
   useEffect(() => {
     if (isVisible) onScrolledTo();
-  }, [isVisible]);
+  }, [isVisible, onScrolledTo]);
   return <span ref={ref} />;
 };

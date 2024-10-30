@@ -1,10 +1,8 @@
 import { Button, Input, MarkdownTextarea } from "@/components";
 import React, { useCallback, useState } from "react";
 import c from "@/components/Thread/Thread.module.scss";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { useRouter } from "next/router";
-
-interface Props {}
 
 export default function CreateThreadPage() {
   const [title, setTitle] = useState("");
@@ -12,13 +10,13 @@ export default function CreateThreadPage() {
   const router = useRouter();
 
   const createThread = useCallback(() => {
-    useApi()
+    getApi()
       .forumApi.forumControllerCreateThread({
         content,
         title,
       })
       .then((res) => router.push(`/forum/[id]`, `/forum/${res.externalId}`));
-  }, [title, content]);
+  }, [content, title, router]);
 
   return (
     <div className={c.createThread}>

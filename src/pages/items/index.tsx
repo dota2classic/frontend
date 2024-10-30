@@ -1,5 +1,4 @@
-import { NextPageContext } from "next";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { ItemDto } from "@/api/back";
 import { GenericTable } from "@/components";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
@@ -53,8 +52,8 @@ export default function ItemsPage({ items }: Props) {
   );
 }
 
-ItemsPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+ItemsPage.getInitialProps = async (): Promise<Props> => {
   return {
-    items: await useApi().metaApi.metaControllerItems(),
+    items: await getApi().metaApi.metaControllerItems(),
   };
 };

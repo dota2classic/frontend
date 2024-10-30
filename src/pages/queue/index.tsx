@@ -1,6 +1,6 @@
 import c from "./Queue.module.scss";
 import { useStore } from "@/store";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import {
   MatchmakingInfo,
   MatchmakingMode,
@@ -31,10 +31,10 @@ export default function QueuePage(props: Props) {
 
   const { queue } = useStore();
 
-  const { data: onlineData } = useApi().statsApi.useStatsControllerOnline();
+  const { data: onlineData } = getApi().statsApi.useStatsControllerOnline();
 
   const { data: modes } =
-    useApi().statsApi.useStatsControllerGetMatchmakingInfo({
+    getApi().statsApi.useStatsControllerGetMatchmakingInfo({
       fallbackData: props.modes,
       isPaused() {
         return !mounted;
@@ -67,8 +67,8 @@ export default function QueuePage(props: Props) {
             <MatchmakingOption
               key={`${info.mode}${info.version}`}
               onSelect={queueStore.setSelectedMode}
-              version={info.version as any}
-              mode={info.mode as any}
+              version={info.version}
+              mode={info.mode}
             />
           ))}
           <div style={{ flex: 1 }} />
@@ -100,10 +100,10 @@ export default function QueuePage(props: Props) {
 }
 
 QueuePage.getInitialProps = async (ctx: NextPageContext) => {
-  const [modes, playerSummary] = await Promise.all<any>([
-    useApi().statsApi.statsControllerGetMatchmakingInfo(),
+  const [modes, playerSummary] = await Promise.all<unknown>([
+    getApi().statsApi.statsControllerGetMatchmakingInfo(),
     withTemporaryToken(ctx, (stores) => {
-      return useApi().playerApi.playerControllerPlayerSummary(
+      return getApi().playerApi.playerControllerPlayerSummary(
         stores.auth.parsedToken!.sub,
       );
     }),

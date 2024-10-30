@@ -1,6 +1,6 @@
 import { NextPageContext } from "next";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { QueueStateDTO } from "@/api/back";
 import { Typography, UserPreview } from "@/components";
 import { formatGameMode } from "@/util/gamemode";
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function QueuesPage({ queues: initialQueues }: Props) {
-  const { data } = useApi().adminApi.useServerControllerQueues({
+  const { data } = getApi().adminApi.useServerControllerQueues({
     fallbackData: initialQueues,
     refreshInterval: 5000,
   });
@@ -44,7 +44,7 @@ export default function QueuesPage({ queues: initialQueues }: Props) {
 QueuesPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   return {
     queues: await withTemporaryToken(ctx, () =>
-      useApi().adminApi.serverControllerQueues(),
+      getApi().adminApi.serverControllerQueues(),
     ),
   };
 };

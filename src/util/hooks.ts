@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { parse, stringify } from "qs";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { querystring, RequestOpts, Role } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
 import { useStore } from "@/store";
@@ -25,16 +26,16 @@ export const useIsAdmin = () => {
 };
 
 export const useQueryParameters = (): Record<string, string> => {
-  return useRouter().query as any;
+  return useRouter().query as Record<string, string>
 };
 
 export const useQueryBackedParameter = (
   tabName: string = "tab",
-): [string | undefined, (a: any) => void] => {
+): [string | undefined, (a: string | number | undefined) => void] => {
   const router = useRouter();
   const { [tabName]: routerTab } = router.query;
 
-  const setTabAction = (tab?: any) => {
+  const setTabAction = (tab?: string | number) => {
     const href = Router.pathname.split("?")[0];
     const asPath = Router.asPath.split("?")[0];
 
@@ -65,11 +66,11 @@ export const useRouterChanging = () => {
     [boolean, string | undefined, boolean | undefined]
   >([false, "", false]);
   useEffect(() => {
-    const handleRouteChange = (url: string, obj: any) => {
+    const handleRouteChange = (url: string, obj: { shallow: boolean}) => {
       setIsChanging([true, url, obj.shallow]);
     };
 
-    const handleRouteChangeComplete = (url: string, obj: any) => {
+    const handleRouteChangeComplete = (url: string, obj: { shallow: boolean}) => {
       setIsChanging([false, url, obj.shallow]);
     };
 
@@ -92,14 +93,17 @@ export const useDidMount = () => {
   return mount;
 };
 
-export const useEventSource = <T extends {}>(
+export const useEventSource = <T extends object>(
   endpoint: RequestOpts,
-  transformer: (raw: any) => T,
+  transformer: (raw: object) => T,
 ) => {
   if (typeof window === "undefined") return null;
-  const bp = useApi().apiParams.basePath;
+
+  const bp = getApi().apiParams.basePath;
 
   const [data, setData] = useState<T | null>(null);
+
+  const context = JSON.stringify(endpoint)
 
   useEffect(() => {
     console.log("Creating event source, why?", JSON.stringify(endpoint));
@@ -113,7 +117,7 @@ export const useEventSource = <T extends {}>(
     };
 
     return () => es.close();
-  }, [JSON.stringify(endpoint)]);
+  }, [bp, context, endpoint, transformer]);
 
   return data;
 };
@@ -127,7 +131,7 @@ export const useClampedPage = (
     if (totalPages !== undefined && numberOrDefault(page, 0) >= totalPages) {
       setPage(Math.max(0, totalPages - 1));
     }
-  }, [totalPages]);
+  }, [page, setPage, totalPages]);
 };
 
 interface TooltipContext2 {
@@ -141,5 +145,5 @@ export interface TooltipContextData {
 }
 
 export const TooltipContext = React.createContext<TooltipContextData>(
-  {} as any,
+  {} as TooltipContextData,
 );

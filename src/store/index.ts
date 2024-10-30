@@ -5,7 +5,7 @@ import { HydratableStore } from "@/store/HydratableStore";
 import { useContext } from "react";
 import { MobxContext } from "@/pages/_app";
 import { QueueStore } from "@/store/queue/QueueStore";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { NotificationStore } from "@/store/NotificationStore";
 import { UserCacheStore } from "@/store/UserCacheStore";
 
@@ -25,7 +25,7 @@ let clientStore: RootStore;
 function createStore(): RootStore {
   const auth = new AuthStore();
   const notify = new NotificationStore();
-  const queue = new QueueStore(auth, notify, useApi());
+  const queue = new QueueStore(auth, notify, getApi());
   const ucache = new UserCacheStore();
   return {
     auth,
@@ -42,7 +42,7 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
   if (initData) {
     Object.entries(initData).forEach(([storeName, hydrateData]) => {
       const sKey = storeName as keyof RootStore;
-      const subStore = store[sKey] as HydratableStore<any> | undefined;
+      const subStore = store[sKey] as HydratableStore<unknown> | undefined;
       if (!subStore) return;
       subStore.hydrate(hydrateData);
     });
@@ -53,13 +53,12 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
   // Otherwise it's client, remember this store and return
   if (!clientStore) clientStore = store;
 
-  // @ts-ignore
-  window.store = clientStore;
+  window['store'] = clientStore;
   return store;
 };
 
 // Hook for using store
-export function useRootStore(initData: HydrateRootData | undefined): RootStore {
+export function getRootStore(initData: HydrateRootData | undefined): RootStore {
   return initStore(initData);
 }
 

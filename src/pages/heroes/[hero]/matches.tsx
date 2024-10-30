@@ -7,7 +7,7 @@ import {
 } from "@/components";
 import React, { useMemo } from "react";
 import { numberOrDefault } from "@/util/urls";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import { useQueryBackedParameter, useRouterChanging } from "@/util/hooks";
 import { matchToPlayerMatchItem } from "@/util/mappers";
@@ -26,7 +26,7 @@ export default function HeroMatches({
   initialHeroesMeta,
 }: Props) {
   const [isLoading] = useRouterChanging();
-  const [page, setPage] = useQueryBackedParameter("page");
+  const [page] = useQueryBackedParameter("page");
 
   const sortedSummaries: HeroSummaryDto[] = useMemo(
     () => (initialHeroesMeta || []).toSorted((a, b) => b.games - a.games),
@@ -35,14 +35,14 @@ export default function HeroMatches({
 
   const summary = useMemo(
     () => sortedSummaries.find((it) => it.hero === hero)!,
-    [initialHeroesMeta],
+    [hero, sortedSummaries],
   );
   const formattedMatches = useMemo(
     () =>
       (initialMatchData?.data || [])
         .sort(MatchComparator)
         .map((it) => matchToPlayerMatchItem(it, (it) => it.hero === hero)),
-    [initialMatchData],
+    [hero, initialMatchData?.data],
   );
 
   return (
@@ -84,9 +84,9 @@ HeroMatches.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
 
   const page = numberOrDefault(ctx.query.page as string, 0);
 
-  const [initialMatchData, initialHeroesMeta] = await Promise.all<any>([
-    useApi().matchApi.matchControllerHeroMatches(page, hero, undefined),
-    useApi().metaApi.metaControllerHeroes(),
+  const [initialMatchData, initialHeroesMeta] = await Promise.all<unknown>([
+    getApi().matchApi.matchControllerHeroMatches(page, hero, undefined),
+    getApi().metaApi.metaControllerHeroes(),
   ]);
 
   return {

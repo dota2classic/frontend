@@ -1,4 +1,4 @@
-export default [
+const Heroes = [
   { tag: "npc_dota_hero_shadow_shaman", name: "Shadow Shaman" },
   { tag: "npc_dota_hero_beastmaster", name: "Beastmaster" },
   { tag: "npc_dota_hero_nevermore", name: "Shadow Fiend" },
@@ -116,3 +116,4 @@ export default [
   { tag: "npc_dota_hero_slark", name: "Slark" },
   // { tag: "npc_dota_hero_dark_willow", name: "Dark Willow" }
 ];
+export default Heroes;

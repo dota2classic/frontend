@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {CSSProperties, useEffect, useState} from "react";
 
 import { ItemIconRaw } from "..";
 
@@ -30,7 +30,7 @@ export const ItemTooltipRaw = ({
   item,
   style,
 }: {
-  style?: any;
+  style?: CSSProperties;
   item: string | number;
 }) => {
   const [itemData, setItemData] = useState<ItemDataEntry[]>([]);
@@ -38,9 +38,9 @@ export const ItemTooltipRaw = ({
   useEffect(() => {
     if (itemData.length > 0) return;
     import("@/const/itemdata").then((it) => {
-      setItemData(it.ItemData as any);
+      setItemData(it.ItemData as ItemDataEntry[]);
     });
-  }, []);
+  }, [itemData.length]);
 
   const d = itemData.find((t) => {
     return typeof item === "string"

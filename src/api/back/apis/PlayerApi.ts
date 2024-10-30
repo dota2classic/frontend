@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import * as runtime from "../runtime";
 import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
@@ -83,773 +84,580 @@ export interface PlayerControllerTeammatesRequest {
  *
  */
 export class PlayerApi extends runtime.BaseAPI {
-  /**
-   */
-  playerControllerAchievementsContext(
-    requestParameters: PlayerControllerAchievementsRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
 
-    const headerParameters: runtime.HTTPHeaders = {};
+    /**
+     */
+    playerControllerAchievementsContext(requestParameters: PlayerControllerAchievementsRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-    return {
-      path: `/v1/player/{id}/achievements`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(requestParameters.id))
-      ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
+        const headerParameters: runtime.HTTPHeaders = {};
 
-  /**
-   */
-  playerControllerAchievements = async (
-    id: string
-  ): Promise<Array<AchievementDto>> => {
-    const response = await this.playerControllerAchievementsRaw({ id: id });
-    return await response.value();
-  };
-
-  usePlayerControllerAchievements(
-    id: string,
-    config?: SWRConfiguration<Array<AchievementDto>, Error>
-  ) {
-    let valid = true;
-
-    if (id === null || id === undefined || Number.isNaN(id)) {
-      valid = false;
+        return {
+            path: `/v1/player/{id}/achievements`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
 
-    const context = this.playerControllerAchievementsContext({ id: id! });
-    return useSWR(
-      context,
-      valid ? () => this.playerControllerAchievements(id!) : null,
-      config
-    );
-  }
-
-  usePlayerControllerConnections(
-    config?: SWRConfiguration<MyProfileDto, Error>
-  ) {
-    let valid = true;
-
-    const context = this.playerControllerConnectionsContext();
-    return useSWR(
-      context,
-      valid ? () => this.playerControllerConnections() : null,
-      config
-    );
-  }
-
-  /**
-   */
-  playerControllerHeroSummaryContext(
-    requestParameters: PlayerControllerHeroSummaryRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    return {
-      path: `/v1/player/summary/hero/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(requestParameters.id))
-      ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  playerControllerHeroSummary = async (
-    id: string
-  ): Promise<Array<HeroStatsDto>> => {
-    const response = await this.playerControllerHeroSummaryRaw({ id: id });
-    return await response.value();
-  };
-
-  /**
-   */
-  private playerControllerConnectionsValidation() {}
-
-  /**
-   */
-  playerControllerConnectionsContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
-    }
-    return {
-      path: `/v1/player/connections`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  playerControllerConnections = async (): Promise<MyProfileDto> => {
-    const response = await this.playerControllerConnectionsRaw();
-    return await response.value();
-  };
-
-  usePlayerControllerHeroSummary(
-    id: string,
-    config?: SWRConfiguration<Array<HeroStatsDto>, Error>
-  ) {
-    let valid = true;
-
-    if (id === null || id === undefined || Number.isNaN(id)) {
-      valid = false;
+    /**
+     */
+    playerControllerAchievements = async (id: string): Promise<Array<AchievementDto>> => {
+        const response = await this.playerControllerAchievementsRaw({ id: id });
+        return await response.value();
     }
 
-    const context = this.playerControllerHeroSummaryContext({ id: id! });
-    return useSWR(
-      context,
-      valid ? () => this.playerControllerHeroSummary(id!) : null,
-      config
-    );
-  }
+    usePlayerControllerAchievements(id: string, config?: SWRConfiguration<Array<AchievementDto>, Error>) {
+        let valid = true
 
-  /**
-   */
-  playerControllerLeaderboardContext(
-    requestParameters: PlayerControllerLeaderboardRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
 
-    if (requestParameters.version !== undefined) {
-      queryParameters["version"] = requestParameters.version;
+        const context = this.playerControllerAchievementsContext({ id: id! });
+        return useSWR(context, valid ? () => this.playerControllerAchievements(id!) : null, config)
     }
 
-    const headerParameters: runtime.HTTPHeaders = {};
+    /**
+     */
+    playerControllerConnectionsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-    return {
-      path: `/v1/player/leaderboard`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
+        const headerParameters: runtime.HTTPHeaders = {};
 
-  /**
-   */
-  playerControllerLeaderboard = async (
-    version?: string
-  ): Promise<Array<LeaderboardEntryDto>> => {
-    const response = await this.playerControllerLeaderboardRaw({
-      version: version,
-    });
-    return await response.value();
-  };
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
 
-  usePlayerControllerLeaderboard(
-    version?: string,
-    config?: SWRConfiguration<Array<LeaderboardEntryDto>, Error>
-  ) {
-    let valid = true;
-
-    const context = this.playerControllerLeaderboardContext({
-      version: version!,
-    });
-    return useSWR(
-      context,
-      valid ? () => this.playerControllerLeaderboard(version!) : null,
-      config
-    );
-  }
-
-  usePlayerControllerMe(config?: SWRConfiguration<MeDto, Error>) {
-    let valid = true;
-
-    const context = this.playerControllerMeContext();
-    return useSWR(
-      context,
-      valid ? () => this.playerControllerMe() : null,
-      config
-    );
-  }
-
-  usePlayerControllerMyParty(config?: SWRConfiguration<PartyDto, Error>) {
-    let valid = true;
-
-    const context = this.playerControllerMyPartyContext();
-    return useSWR(
-      context,
-      valid ? () => this.playerControllerMyParty() : null,
-      config
-    );
-  }
-
-  /**
-   */
-  playerControllerPlayerSummaryContext(
-    requestParameters: PlayerControllerPlayerSummaryRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    return {
-      path: `/v1/player/{id}/summary`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(requestParameters.id))
-      ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  playerControllerPlayerSummary = async (
-    id: string
-  ): Promise<PlayerSummaryDto> => {
-    const response = await this.playerControllerPlayerSummaryRaw({ id: id });
-    return await response.value();
-  };
-
-  usePlayerControllerPlayerSummary(
-    id: string,
-    config?: SWRConfiguration<PlayerSummaryDto, Error>
-  ) {
-    let valid = true;
-
-    if (id === null || id === undefined || Number.isNaN(id)) {
-      valid = false;
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/connections`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
 
-    const context = this.playerControllerPlayerSummaryContext({ id: id! });
-    return useSWR(
-      context,
-      valid ? () => this.playerControllerPlayerSummary(id!) : null,
-      config
-    );
-  }
-
-  /**
-   */
-  playerControllerReportPlayerContext(
-    requestParameters: PlayerControllerReportPlayerRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    headerParameters["Content-Type"] = "application/json";
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
-    }
-    return {
-      path: `/v1/player/report`,
-      method: "POST",
-      headers: headerParameters,
-      query: queryParameters,
-      body: ReportDtoToJSON(requestParameters.reportDto),
-    };
-  }
-
-  /**
-   */
-  playerControllerReportPlayer = async (
-    reportDto: ReportDto
-  ): Promise<boolean> => {
-    const response = await this.playerControllerReportPlayerRaw({
-      reportDto: reportDto,
-    });
-    return await response.value();
-  };
-
-  /**
-   */
-  playerControllerSearchContext(
-    requestParameters: PlayerControllerSearchRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    if (requestParameters.name !== undefined) {
-      queryParameters["name"] = requestParameters.name;
+    /**
+     */
+    playerControllerConnections = async (): Promise<MyProfileDto> => {
+        const response = await this.playerControllerConnectionsRaw();
+        return await response.value();
     }
 
-    const headerParameters: runtime.HTTPHeaders = {};
+    usePlayerControllerConnections(config?: SWRConfiguration<MyProfileDto, Error>) {
+        let valid = true
 
-    return {
-      path: `/v1/player/search`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  private playerControllerMeValidation() {}
-
-  /**
-   */
-  playerControllerMeContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
-    }
-    return {
-      path: `/v1/player/me`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  playerControllerMe = async (): Promise<MeDto> => {
-    const response = await this.playerControllerMeRaw();
-    return await response.value();
-  };
-
-  usePlayerControllerSearch(
-    name: string,
-    config?: SWRConfiguration<Array<UserDTO>, Error>
-  ) {
-    let valid = true;
-
-    if (name === null || name === undefined || Number.isNaN(name)) {
-      valid = false;
+        const context = this.playerControllerConnectionsContext();
+        return useSWR(context, valid ? () => this.playerControllerConnections() : null, config)
     }
 
-    const context = this.playerControllerSearchContext({ name: name! });
-    return useSWR(
-      context,
-      valid ? () => this.playerControllerSearch(name!) : null,
-      config
-    );
-  }
+    /**
+     */
+    playerControllerHeroSummaryContext(requestParameters: PlayerControllerHeroSummaryRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-  /**
-   */
-  playerControllerTeammatesContext(
-    requestParameters: PlayerControllerTeammatesRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
+        const headerParameters: runtime.HTTPHeaders = {};
 
-    if (requestParameters.page !== undefined) {
-      queryParameters["page"] = requestParameters.page;
+        return {
+            path: `/v1/player/summary/hero/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
 
-    if (requestParameters.perPage !== undefined) {
-      queryParameters["per_page"] = requestParameters.perPage;
+    /**
+     */
+    playerControllerHeroSummary = async (id: string): Promise<Array<HeroStatsDto>> => {
+        const response = await this.playerControllerHeroSummaryRaw({ id: id });
+        return await response.value();
     }
 
-    const headerParameters: runtime.HTTPHeaders = {};
+    usePlayerControllerHeroSummary(id: string, config?: SWRConfiguration<Array<HeroStatsDto>, Error>) {
+        let valid = true
 
-    return {
-      path: `/v1/player/{id}/teammates`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(requestParameters.id))
-      ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
 
-  /**
-   */
-  private playerControllerMyPartyValidation() {}
-
-  /**
-   */
-  playerControllerMyPartyContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
-    }
-    return {
-      path: `/v1/player/party`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  playerControllerMyParty = async (): Promise<PartyDto> => {
-    const response = await this.playerControllerMyPartyRaw();
-    return await response.value();
-  };
-
-  /**
-   */
-  playerControllerTeammates = async (
-    id: string,
-    page: number,
-    perPage?: number
-  ): Promise<PlayerTeammatePageDto> => {
-    const response = await this.playerControllerTeammatesRaw({
-      id: id,
-      page: page,
-      perPage: perPage,
-    });
-    return await response.value();
-  };
-
-  usePlayerControllerTeammates(
-    id: string,
-    page: number,
-    perPage?: number,
-    config?: SWRConfiguration<PlayerTeammatePageDto, Error>
-  ) {
-    let valid = true;
-
-    if (id === null || id === undefined || Number.isNaN(id)) {
-      valid = false;
+        const context = this.playerControllerHeroSummaryContext({ id: id! });
+        return useSWR(context, valid ? () => this.playerControllerHeroSummary(id!) : null, config)
     }
 
-    if (page === null || page === undefined || Number.isNaN(page)) {
-      valid = false;
+    /**
+     */
+    playerControllerLeaderboardContext(requestParameters: PlayerControllerLeaderboardRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.version !== undefined) {
+            queryParameters["version"] = requestParameters.version;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/player/leaderboard`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
 
-    const context = this.playerControllerTeammatesContext({
-      id: id!,
-      page: page!,
-      perPage: perPage!,
-    });
-    return useSWR(
-      context,
-      valid ? () => this.playerControllerTeammates(id!, page!, perPage!) : null,
-      config
-    );
-  }
-
-  /**
-   */
-  private async playerControllerAchievementsRaw(
-    requestParameters: PlayerControllerAchievementsRequest
-  ): Promise<runtime.ApiResponse<Array<AchievementDto>>> {
-    this.playerControllerAchievementsValidation(requestParameters);
-    const context = this.playerControllerAchievementsContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(AchievementDtoFromJSON)
-    );
-  }
-
-  /**
-   */
-  private playerControllerAchievementsValidation(
-    requestParameters: PlayerControllerAchievementsRequest
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling playerControllerAchievements."
-      );
+    /**
+     */
+    playerControllerLeaderboard = async (version?: string): Promise<Array<LeaderboardEntryDto>> => {
+        const response = await this.playerControllerLeaderboardRaw({ version: version });
+        return await response.value();
     }
-  }
 
-  /**
-   */
-  private async playerControllerConnectionsRaw(): Promise<
-    runtime.ApiResponse<MyProfileDto>
-  > {
-    this.playerControllerConnectionsValidation();
-    const context = this.playerControllerConnectionsContext();
-    const response = await this.request(context);
+    usePlayerControllerLeaderboard(version?: string, config?: SWRConfiguration<Array<LeaderboardEntryDto>, Error>) {
+        let valid = true
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      MyProfileDtoFromJSON(jsonValue)
-    );
-  }
-
-  /**
-   */
-  private async playerControllerHeroSummaryRaw(
-    requestParameters: PlayerControllerHeroSummaryRequest
-  ): Promise<runtime.ApiResponse<Array<HeroStatsDto>>> {
-    this.playerControllerHeroSummaryValidation(requestParameters);
-    const context = this.playerControllerHeroSummaryContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(HeroStatsDtoFromJSON)
-    );
-  }
-
-  /**
-   */
-  private playerControllerHeroSummaryValidation(
-    requestParameters: PlayerControllerHeroSummaryRequest
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling playerControllerHeroSummary."
-      );
+        const context = this.playerControllerLeaderboardContext({ version: version! });
+        return useSWR(context, valid ? () => this.playerControllerLeaderboard(version!) : null, config)
     }
-  }
 
-  /**
-   */
-  private async playerControllerLeaderboardRaw(
-    requestParameters: PlayerControllerLeaderboardRequest
-  ): Promise<runtime.ApiResponse<Array<LeaderboardEntryDto>>> {
-    this.playerControllerLeaderboardValidation(requestParameters);
-    const context = this.playerControllerLeaderboardContext(requestParameters);
-    const response = await this.request(context);
+    /**
+     */
+    playerControllerMeContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(LeaderboardEntryDtoFromJSON)
-    );
-  }
+        const headerParameters: runtime.HTTPHeaders = {};
 
-  /**
-   */
-  private playerControllerLeaderboardValidation(
-    requestParameters: PlayerControllerLeaderboardRequest
-  ) {}
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
 
-  /**
-   */
-  private async playerControllerMeRaw(): Promise<runtime.ApiResponse<MeDto>> {
-    this.playerControllerMeValidation();
-    const context = this.playerControllerMeContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      MeDtoFromJSON(jsonValue)
-    );
-  }
-
-  /**
-   */
-  private async playerControllerMyPartyRaw(): Promise<
-    runtime.ApiResponse<PartyDto>
-  > {
-    this.playerControllerMyPartyValidation();
-    const context = this.playerControllerMyPartyContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      PartyDtoFromJSON(jsonValue)
-    );
-  }
-
-  /**
-   */
-  private async playerControllerPlayerSummaryRaw(
-    requestParameters: PlayerControllerPlayerSummaryRequest
-  ): Promise<runtime.ApiResponse<PlayerSummaryDto>> {
-    this.playerControllerPlayerSummaryValidation(requestParameters);
-    const context = this.playerControllerPlayerSummaryContext(
-      requestParameters
-    );
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      PlayerSummaryDtoFromJSON(jsonValue)
-    );
-  }
-
-  /**
-   */
-  private playerControllerPlayerSummaryValidation(
-    requestParameters: PlayerControllerPlayerSummaryRequest
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling playerControllerPlayerSummary."
-      );
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/me`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
-  }
 
-  /**
-   */
-  playerControllerSearch = async (name: string): Promise<Array<UserDTO>> => {
-    const response = await this.playerControllerSearchRaw({ name: name });
-    return await response.value();
-  };
-
-  /**
-   */
-  private async playerControllerReportPlayerRaw(
-    requestParameters: PlayerControllerReportPlayerRequest
-  ): Promise<runtime.ApiResponse<boolean>> {
-    this.playerControllerReportPlayerValidation(requestParameters);
-    const context = this.playerControllerReportPlayerContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.TextApiResponse(response) as any;
-  }
-
-  /**
-   */
-  private playerControllerReportPlayerValidation(
-    requestParameters: PlayerControllerReportPlayerRequest
-  ) {
-    if (
-      requestParameters.reportDto === null ||
-      requestParameters.reportDto === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "reportDto",
-        "Required parameter requestParameters.reportDto was null or undefined when calling playerControllerReportPlayer."
-      );
+    /**
+     */
+    playerControllerMe = async (): Promise<MeDto> => {
+        const response = await this.playerControllerMeRaw();
+        return await response.value();
     }
-  }
 
-  /**
-   */
-  private async playerControllerSearchRaw(
-    requestParameters: PlayerControllerSearchRequest
-  ): Promise<runtime.ApiResponse<Array<UserDTO>>> {
-    this.playerControllerSearchValidation(requestParameters);
-    const context = this.playerControllerSearchContext(requestParameters);
-    const response = await this.request(context);
+    usePlayerControllerMe(config?: SWRConfiguration<MeDto, Error>) {
+        let valid = true
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(UserDTOFromJSON)
-    );
-  }
-
-  /**
-   */
-  private playerControllerSearchValidation(
-    requestParameters: PlayerControllerSearchRequest
-  ) {
-    if (
-      requestParameters.name === null ||
-      requestParameters.name === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "name",
-        "Required parameter requestParameters.name was null or undefined when calling playerControllerSearch."
-      );
+        const context = this.playerControllerMeContext();
+        return useSWR(context, valid ? () => this.playerControllerMe() : null, config)
     }
-  }
 
-  /**
-   */
-  private async playerControllerTeammatesRaw(
-    requestParameters: PlayerControllerTeammatesRequest
-  ): Promise<runtime.ApiResponse<PlayerTeammatePageDto>> {
-    this.playerControllerTeammatesValidation(requestParameters);
-    const context = this.playerControllerTeammatesContext(requestParameters);
-    const response = await this.request(context);
+    /**
+     */
+    playerControllerMyPartyContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      PlayerTeammatePageDtoFromJSON(jsonValue)
-    );
-  }
+        const headerParameters: runtime.HTTPHeaders = {};
 
-  /**
-   */
-  private playerControllerTeammatesValidation(
-    requestParameters: PlayerControllerTeammatesRequest
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling playerControllerTeammates."
-      );
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/party`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
-    if (
-      requestParameters.page === null ||
-      requestParameters.page === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "page",
-        "Required parameter requestParameters.page was null or undefined when calling playerControllerTeammates."
-      );
+
+    /**
+     */
+    playerControllerMyParty = async (): Promise<PartyDto> => {
+        const response = await this.playerControllerMyPartyRaw();
+        return await response.value();
     }
-  }
 
-  /**
-   */
-  private async playerControllerUploadImageRaw(): Promise<
-    runtime.ApiResponse<object>
-  > {
-    this.playerControllerUploadImageValidation();
-    const context = this.playerControllerUploadImageContext();
-    const response = await this.request(context);
+    usePlayerControllerMyParty(config?: SWRConfiguration<PartyDto, Error>) {
+        let valid = true
 
-    return new runtime.JSONApiResponse<any>(response);
-  }
-
-  /**
-   */
-  private playerControllerUploadImageValidation() {}
-
-  /**
-   */
-  playerControllerUploadImageContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+        const context = this.playerControllerMyPartyContext();
+        return useSWR(context, valid ? () => this.playerControllerMyParty() : null, config)
     }
-    return {
-      path: `/v1/player/upload`,
-      method: "POST",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
 
-  /**
-   */
-  playerControllerUploadImage = async (): Promise<object> => {
-    const response = await this.playerControllerUploadImageRaw();
-    return await response.value();
-  };
+    /**
+     */
+    playerControllerPlayerSummaryContext(requestParameters: PlayerControllerPlayerSummaryRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/player/{id}/summary`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerPlayerSummary = async (id: string): Promise<PlayerSummaryDto> => {
+        const response = await this.playerControllerPlayerSummaryRaw({ id: id });
+        return await response.value();
+    }
+
+    usePlayerControllerPlayerSummary(id: string, config?: SWRConfiguration<PlayerSummaryDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.playerControllerPlayerSummaryContext({ id: id! });
+        return useSWR(context, valid ? () => this.playerControllerPlayerSummary(id!) : null, config)
+    }
+
+    /**
+     */
+    playerControllerReportPlayerContext(requestParameters: PlayerControllerReportPlayerRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/report`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReportDtoToJSON(requestParameters.reportDto),
+        };
+    }
+
+    /**
+     */
+    playerControllerReportPlayer = async (reportDto: ReportDto): Promise<boolean> => {
+        const response = await this.playerControllerReportPlayerRaw({ reportDto: reportDto });
+        return await response.value();
+    }
+
+    /**
+     */
+    playerControllerSearchContext(requestParameters: PlayerControllerSearchRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.name !== undefined) {
+            queryParameters["name"] = requestParameters.name;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/player/search`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerSearch = async (name: string): Promise<Array<UserDTO>> => {
+        const response = await this.playerControllerSearchRaw({ name: name });
+        return await response.value();
+    }
+
+    usePlayerControllerSearch(name: string, config?: SWRConfiguration<Array<UserDTO>, Error>) {
+        let valid = true
+
+        if (name === null || name === undefined || Number.isNaN(name)) {
+            valid = false
+        }
+
+        const context = this.playerControllerSearchContext({ name: name! });
+        return useSWR(context, valid ? () => this.playerControllerSearch(name!) : null, config)
+    }
+
+    /**
+     */
+    playerControllerTeammatesContext(requestParameters: PlayerControllerTeammatesRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.page !== undefined) {
+            queryParameters["page"] = requestParameters.page;
+        }
+
+        if (requestParameters.perPage !== undefined) {
+            queryParameters["per_page"] = requestParameters.perPage;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/player/{id}/teammates`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerTeammates = async (id: string, page: number, perPage?: number): Promise<PlayerTeammatePageDto> => {
+        const response = await this.playerControllerTeammatesRaw({ id: id, page: page, perPage: perPage });
+        return await response.value();
+    }
+
+    usePlayerControllerTeammates(id: string, page: number, perPage?: number, config?: SWRConfiguration<PlayerTeammatePageDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        if (page === null || page === undefined || Number.isNaN(page)) {
+            valid = false
+        }
+
+        const context = this.playerControllerTeammatesContext({ id: id!, page: page!, perPage: perPage! });
+        return useSWR(context, valid ? () => this.playerControllerTeammates(id!, page!, perPage!) : null, config)
+    }
+
+    /**
+     */
+    playerControllerUploadImageContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/upload`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerUploadImage = async (): Promise<object> => {
+        const response = await this.playerControllerUploadImageRaw();
+        return await response.value();
+    }
+
+    /**
+     */
+    private async playerControllerAchievementsRaw(requestParameters: PlayerControllerAchievementsRequest): Promise<runtime.ApiResponse<Array<AchievementDto>>> {
+        this.playerControllerAchievementsValidation(requestParameters);
+        const context = this.playerControllerAchievementsContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AchievementDtoFromJSON));
+    }
+
+    /**
+     */
+    private playerControllerAchievementsValidation(requestParameters: PlayerControllerAchievementsRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerAchievements.");
+        }
+    }
+
+    /**
+     */
+    private async playerControllerConnectionsRaw(): Promise<runtime.ApiResponse<MyProfileDto>> {
+        this.playerControllerConnectionsValidation();
+        const context = this.playerControllerConnectionsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MyProfileDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    private playerControllerConnectionsValidation() {
+    }
+
+    /**
+     */
+    private async playerControllerHeroSummaryRaw(requestParameters: PlayerControllerHeroSummaryRequest): Promise<runtime.ApiResponse<Array<HeroStatsDto>>> {
+        this.playerControllerHeroSummaryValidation(requestParameters);
+        const context = this.playerControllerHeroSummaryContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(HeroStatsDtoFromJSON));
+    }
+
+    /**
+     */
+    private playerControllerHeroSummaryValidation(requestParameters: PlayerControllerHeroSummaryRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerHeroSummary.");
+        }
+    }
+
+    /**
+     */
+    private async playerControllerLeaderboardRaw(requestParameters: PlayerControllerLeaderboardRequest): Promise<runtime.ApiResponse<Array<LeaderboardEntryDto>>> {
+        this.playerControllerLeaderboardValidation(requestParameters);
+        const context = this.playerControllerLeaderboardContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LeaderboardEntryDtoFromJSON));
+    }
+
+    /**
+     */
+    private playerControllerLeaderboardValidation(requestParameters: PlayerControllerLeaderboardRequest) {
+    }
+
+    /**
+     */
+    private async playerControllerMeRaw(): Promise<runtime.ApiResponse<MeDto>> {
+        this.playerControllerMeValidation();
+        const context = this.playerControllerMeContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MeDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    private playerControllerMeValidation() {
+    }
+
+    /**
+     */
+    private async playerControllerMyPartyRaw(): Promise<runtime.ApiResponse<PartyDto>> {
+        this.playerControllerMyPartyValidation();
+        const context = this.playerControllerMyPartyContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PartyDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    private playerControllerMyPartyValidation() {
+    }
+
+    /**
+     */
+    private async playerControllerPlayerSummaryRaw(requestParameters: PlayerControllerPlayerSummaryRequest): Promise<runtime.ApiResponse<PlayerSummaryDto>> {
+        this.playerControllerPlayerSummaryValidation(requestParameters);
+        const context = this.playerControllerPlayerSummaryContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PlayerSummaryDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    private playerControllerPlayerSummaryValidation(requestParameters: PlayerControllerPlayerSummaryRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerPlayerSummary.");
+        }
+    }
+
+    /**
+     */
+    private async playerControllerReportPlayerRaw(requestParameters: PlayerControllerReportPlayerRequest): Promise<runtime.ApiResponse<boolean>> {
+        this.playerControllerReportPlayerValidation(requestParameters);
+        const context = this.playerControllerReportPlayerContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.TextApiResponse(response) as any;
+    }
+
+    /**
+     */
+    private playerControllerReportPlayerValidation(requestParameters: PlayerControllerReportPlayerRequest) {
+        if (requestParameters.reportDto === null || requestParameters.reportDto === undefined) {
+            throw new runtime.RequiredError("reportDto","Required parameter requestParameters.reportDto was null or undefined when calling playerControllerReportPlayer.");
+        }
+    }
+
+    /**
+     */
+    private async playerControllerSearchRaw(requestParameters: PlayerControllerSearchRequest): Promise<runtime.ApiResponse<Array<UserDTO>>> {
+        this.playerControllerSearchValidation(requestParameters);
+        const context = this.playerControllerSearchContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UserDTOFromJSON));
+    }
+
+    /**
+     */
+    private playerControllerSearchValidation(requestParameters: PlayerControllerSearchRequest) {
+        if (requestParameters.name === null || requestParameters.name === undefined) {
+            throw new runtime.RequiredError("name","Required parameter requestParameters.name was null or undefined when calling playerControllerSearch.");
+        }
+    }
+
+    /**
+     */
+    private async playerControllerTeammatesRaw(requestParameters: PlayerControllerTeammatesRequest): Promise<runtime.ApiResponse<PlayerTeammatePageDto>> {
+        this.playerControllerTeammatesValidation(requestParameters);
+        const context = this.playerControllerTeammatesContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PlayerTeammatePageDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    private playerControllerTeammatesValidation(requestParameters: PlayerControllerTeammatesRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerTeammates.");
+        }
+        if (requestParameters.page === null || requestParameters.page === undefined) {
+            throw new runtime.RequiredError("page","Required parameter requestParameters.page was null or undefined when calling playerControllerTeammates.");
+        }
+    }
+
+    /**
+     */
+    private async playerControllerUploadImageRaw(): Promise<runtime.ApiResponse<object>> {
+        this.playerControllerUploadImageValidation();
+        const context = this.playerControllerUploadImageContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     */
+    private playerControllerUploadImageValidation() {
+    }
+
+
 }

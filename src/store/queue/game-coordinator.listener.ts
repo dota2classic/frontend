@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
 import {
   GameFound,

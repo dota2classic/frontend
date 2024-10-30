@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum BanReason {
   GAME_DECLINE,
   LOAD_FAILURE,

@@ -7,6 +7,7 @@ import { FaCheck } from "react-icons/fa6";
 import { RiCloseFill } from "react-icons/ri";
 import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
+import Image from "next/image";
 
 interface IAchievementStatusProps {
   achievement: AchievementDto;
@@ -77,7 +78,7 @@ export const AchievementStatus: React.FC<IAchievementStatusProps> = ({
         !achievement.isComplete && c.achievement__incomplete,
       )}
     >
-      <img src={keyMap[achievement.key]?.img || "/avatar.png"} alt="" />
+      <Image src={keyMap[achievement.key]?.img || "/avatar.png"} alt="" />
       {achievement.maxProgress === 1 ? (
         <div className={c.progress}>
           {achievement.isComplete ? <FaCheck /> : <RiCloseFill />}

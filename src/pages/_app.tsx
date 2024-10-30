@@ -6,13 +6,13 @@ import Cookies from "cookies";
 import localFont from "next/font/local";
 import { SWRConfig } from "swr";
 import React, { createContext } from "react";
-import { HydrateRootData, RootStore, useRootStore } from "@/store";
+import { HydrateRootData, RootStore, getRootStore } from "@/store";
 import Head from "next/head";
 import "../ext";
 // Font files can be colocated inside of `pages`
 const myFont = localFont({ src: "./TrajanPro3Regular.ttf" });
 
-export const MobxContext = createContext<RootStore>({} as any);
+export const MobxContext = createContext<RootStore>({} as RootStore);
 
 export default class MyApp extends App<{ initialState: HydrateRootData }> {
   static async getInitialProps(appContext: AppContext) {
@@ -34,7 +34,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
 
   render() {
     const { Component, pageProps, initialState } = this.props;
-    const store = useRootStore(initialState);
+    const store = getRootStore(initialState);
 
     return (
       <MobxContext.Provider value={store}>

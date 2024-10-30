@@ -7,7 +7,7 @@ export interface StoreProvider {
 }
 
 interface StoredValue {
-  data: any;
+  data: unknown;
   createTime: number;
 }
 
@@ -36,7 +36,7 @@ export class StoreWrapper {
     return sv.data as T;
   }
 
-  public set<T>(key: string, value: T | null, ttl = this.options.ttl) {
+  public set<T>(key: string, value: T | null) {
     this.store.setItem(
       key,
       JSON.stringify({

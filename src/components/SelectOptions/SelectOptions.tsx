@@ -36,11 +36,11 @@ export const HeroOptions = [
 
 interface ISelectOptionsProps {
   options: {
-    value: any;
+    value: unknown;
     label: ReactNode;
   }[];
-  selected: any;
-  onSelect: (v: { value: any; label: ReactNode }) => void;
+  selected: unknown;
+  onSelect: (v: { value: unknown; label: ReactNode }) => void;
   defaultText: ReactNode;
 }
 

@@ -1,8 +1,8 @@
-import { useApi } from "@/api/hooks";
-import { useCallback, useEffect, useState } from "react";
-import { querystring, ThreadMessageDTO } from "@/api/back";
-import { ThreadType } from "@/api/mapped-models/ThreadType";
-import { maxBy } from "@/util/iter";
+import {getApi} from "@/api/hooks";
+import {useCallback, useEffect, useState} from "react";
+import {querystring, ThreadMessageDTO} from "@/api/back";
+import {ThreadType} from "@/api/mapped-models/ThreadType";
+import {maxBy} from "@/util/iter";
 
 export interface Thread {
   id: string;
@@ -20,39 +20,16 @@ export const useThread = (
     messages: initialMessages,
   };
 
-  if (typeof window === "undefined")
-    return [defaultThread, () => undefined, () => undefined];
-  const bp = useApi().apiParams.basePath;
+  const bp = getApi().apiParams.basePath;
 
   const [data, setData] = useState<Thread>(defaultThread);
-
-  const loadMore = useCallback(() => {
-    const latest = maxBy(data.messages, (it) =>
-      new Date(it.createdAt).getTime(),
-    )?.createdAt;
-    useApi()
-      .forumApi.forumControllerGetMessages(
-        id.toString(),
-        threadType,
-        latest ? new Date(latest).getTime() : undefined,
-      )
-      .then(consumeMessages);
-  }, [data.messages]);
-
-  // endpoint: RequestOpts,
-  //   transformer: (raw: any) => T,
-
-  const endpoint = useApi().forumApi.forumControllerThreadContext({
-    id: id.toString(),
-    threadType: threadType,
-  });
 
   const consumeMessages = useCallback(
     (msgs: ThreadMessageDTO[]) => {
       setData((d) => {
-        let newMessages: ThreadMessageDTO[] = [...d.messages];
+        const newMessages: ThreadMessageDTO[] = [...d.messages];
 
-        for (let newMessage of msgs) {
+        for (const newMessage of msgs) {
           const idx = newMessages.findIndex(
             (m1) => m1.messageId === newMessage.messageId,
           );
@@ -77,9 +54,31 @@ export const useThread = (
         };
       });
     },
-    [data, data.messages],
+    [data],
   );
 
+
+  const loadMore = useCallback(() => {
+    const latest = maxBy(data.messages, (it) =>
+      new Date(it.createdAt).getTime(),
+    )?.createdAt;
+    getApi()
+      .forumApi.forumControllerGetMessages(
+        id.toString(),
+        threadType,
+        latest ? new Date(latest).getTime() : undefined,
+      )
+      .then(consumeMessages);
+  }, [consumeMessages, data.messages, id, threadType]);
+
+
+
+  const endpoint = getApi().forumApi.forumControllerThreadContext({
+    id: id.toString(),
+    threadType: threadType,
+  });
+
+  const context= JSON.stringify(endpoint)
   useEffect(() => {
     const es = new EventSource(
       `${bp}${endpoint.path}${endpoint.query && querystring(endpoint.query, "?")}`,
@@ -91,7 +90,11 @@ export const useThread = (
     };
 
     return () => es.close();
-  }, [JSON.stringify(endpoint)]);
+  }, [bp, consumeMessages, context, endpoint.path, endpoint.query]);
+
+
+  if (typeof window === "undefined")
+    return [defaultThread, () => undefined, () => undefined];
 
   return [data, loadMore, consumeMessages];
 };

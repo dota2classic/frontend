@@ -1,11 +1,10 @@
 import Head from "next/head";
 import { Duration, GenericTable } from "@/components";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { LeaderboardEntryDto } from "@/api/back";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 import cx from "classnames";
-import { NextPageContext } from "next";
 
 interface LeaderboardPageProps {
   initialLeaderboard: LeaderboardEntryDto[];
@@ -96,10 +95,8 @@ export default function LeaderboardPage({
   );
 }
 
-LeaderboardPage.getInitialProps = async (
-  ctx: NextPageContext,
-): Promise<LeaderboardPageProps> => {
+LeaderboardPage.getInitialProps = async (): Promise<LeaderboardPageProps> => {
   return {
-    initialLeaderboard: await useApi().playerApi.playerControllerLeaderboard(),
+    initialLeaderboard: await getApi().playerApi.playerControllerLeaderboard(),
   };
 };

@@ -10,7 +10,7 @@ interface IHeroesMetaTableProps {
   data: HeroSummaryDto[];
 }
 
-const heroTiers = ["S", "A", "B", "C", "D"];
+// const heroTiers = ["S", "A", "B", "C", "D"];
 
 export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
   loading,

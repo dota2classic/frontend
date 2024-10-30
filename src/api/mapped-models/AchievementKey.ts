@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum AchievementKey {
   HARDCORE,
   GPM_1000,

@@ -1,4 +1,4 @@
-import { appApi, useApi } from "@/api/hooks";
+import { appApi, getApi } from "@/api/hooks";
 import { Button, GenericTable, Table } from "@/components";
 import { formatGameMode } from "@/util/gamemode";
 import { Dota2Version, GameSessionDto, MatchmakingInfo } from "@/api/back";
@@ -8,12 +8,12 @@ import { ColumnType } from "@/components/GenericTable/GenericTable";
 // todo: this is a big mess and we need to fix api generation
 export default function AdminServersPage() {
   const { data: serverPool } =
-    useApi().adminApi.useServerControllerServerPool();
+    getApi().adminApi.useServerControllerServerPool();
   const { data: liveSessions, mutate: mutateLiveSessions } =
-    useApi().adminApi.useServerControllerLiveSessions();
+    getApi().adminApi.useServerControllerLiveSessions();
 
   const { data: allowedModes, mutate } =
-    useApi().statsApi.useStatsControllerGetMatchmakingInfo();
+    getApi().statsApi.useStatsControllerGetMatchmakingInfo();
 
   const modes = (allowedModes || ([] as MatchmakingInfo[]))
     .sort((a, b) => a.mode - b.mode)
@@ -50,7 +50,7 @@ export default function AdminServersPage() {
                         version: t.version,
                         enabled: e.target.checked,
                       })
-                      .then((result) => mutate(result as any));
+                      .then((result) => mutate(result as MatchmakingInfo[]));
                   }}
                   type="checkbox"
                   checked={t.enabled}

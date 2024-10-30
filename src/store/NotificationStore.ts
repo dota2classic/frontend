@@ -9,7 +9,7 @@ export class NotificationDto {
   ) {}
 }
 
-export class NotificationStore implements HydratableStore<any> {
+export class NotificationStore implements HydratableStore<unknown> {
   public static readonly NOTIFICATION_LIFETIME = 3000;
 
   @observable
@@ -51,5 +51,5 @@ export class NotificationStore implements HydratableStore<any> {
     this.currentPendingNotification = this.notificationQueue.shift();
   }
 
-  hydrate(d: any): void {}
+  hydrate(): void {}
 }

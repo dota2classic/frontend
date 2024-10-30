@@ -1,4 +1,4 @@
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Button, Input, PlayerSummary, Table } from "@/components";
@@ -21,7 +21,7 @@ export default function AdminPlayerPage({
   const { id } = useRouter().query;
   const steamId = id as string;
 
-  const { data, mutate } = useApi().adminApi.useAdminUserControllerBanOf(
+  const { data, mutate } = getApi().adminApi.useAdminUserControllerBanOf(
     steamId,
     {
       fallbackData: preloadedBans,
@@ -32,7 +32,7 @@ export default function AdminPlayerPage({
     new Date(new Date().setDate(new Date().getDate() - 1)),
   );
 
-  const api = useApi().adminApi;
+  const api = getApi().adminApi;
 
   const commitChanges = (d: Date) => {
     return api
@@ -161,10 +161,10 @@ AdminPlayerPage.getInitialProps = async (
 ): Promise<AdminPlayerPageProps> => {
   const playerId = ctx.query.id as string;
 
-  const [preloadedSummary, preloadedBans] = await Promise.all<any>([
-    useApi().playerApi.playerControllerPlayerSummary(playerId),
+  const [preloadedSummary, preloadedBans] = await Promise.all<unknown>([
+    getApi().playerApi.playerControllerPlayerSummary(playerId),
     withTemporaryToken(ctx, () =>
-      useApi().adminApi.adminUserControllerBanOf(playerId),
+      getApi().adminApi.adminUserControllerBanOf(playerId),
     ),
   ]);
 

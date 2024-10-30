@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import * as runtime from "../runtime";
 import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
@@ -89,825 +90,629 @@ export interface ServerControllerStopServerRequest {
  *
  */
 export class AdminApi extends runtime.BaseAPI {
-  /**
-   */
-  adminUserControllerBanIdContext(
-    requestParameters: AdminUserControllerBanIdRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
 
-    const headerParameters: runtime.HTTPHeaders = {};
+    /**
+     */
+    adminUserControllerBanIdContext(requestParameters: AdminUserControllerBanIdRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-    headerParameters["Content-Type"] = "application/json";
+        const headerParameters: runtime.HTTPHeaders = {};
 
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
+        headerParameters["Content-Type"] = "application/json";
 
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
-    }
-    return {
-      path: `/v1/admin/users/ban/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(requestParameters.id))
-      ),
-      method: "POST",
-      headers: headerParameters,
-      query: queryParameters,
-      body: BanHammerDtoToJSON(requestParameters.banHammerDto),
-    };
-  }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
 
-  /**
-   */
-  adminUserControllerBanId = async (
-    id: string,
-    banHammerDto: BanHammerDto
-  ): Promise<void> => {
-    await this.adminUserControllerBanIdRaw({
-      id: id,
-      banHammerDto: banHammerDto,
-    });
-  };
-
-  /**
-   */
-  adminUserControllerBanOfContext(
-    requestParameters: AdminUserControllerBanOfRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
-    }
-    return {
-      path: `/v1/admin/users/ban/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(requestParameters.id))
-      ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  useAdminUserControllerBanOf(
-    id: string,
-    config?: SWRConfiguration<UserBanSummaryDto, Error>
-  ) {
-    let valid = true;
-
-    if (id === null || id === undefined || Number.isNaN(id)) {
-      valid = false;
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/ban/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: BanHammerDtoToJSON(requestParameters.banHammerDto),
+        };
     }
 
-    const context = this.adminUserControllerBanOfContext({ id: id! });
-    return useSWR(
-      context,
-      valid ? () => this.adminUserControllerBanOf(id!) : null,
-      config
-    );
-  }
-
-  useAdminUserControllerListRoles(
-    config?: SWRConfiguration<Array<UserRoleSummaryDto>, Error>
-  ) {
-    let valid = true;
-
-    const context = this.adminUserControllerListRolesContext();
-    return useSWR(
-      context,
-      valid ? () => this.adminUserControllerListRoles() : null,
-      config
-    );
-  }
-
-  /**
-   */
-  adminUserControllerRoleOfContext(
-    requestParameters: AdminUserControllerRoleOfRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
-    }
-    return {
-      path: `/v1/admin/users/roles/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(requestParameters.id))
-      ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  adminUserControllerRoleOf = async (
-    id: string
-  ): Promise<UserRoleSummaryDto> => {
-    const response = await this.adminUserControllerRoleOfRaw({ id: id });
-    return await response.value();
-  };
-
-  /**
-   */
-  adminUserControllerBanOf = async (id: string): Promise<UserBanSummaryDto> => {
-    const response = await this.adminUserControllerBanOfRaw({ id: id });
-    return await response.value();
-  };
-
-  useAdminUserControllerRoleOf(
-    id: string,
-    config?: SWRConfiguration<UserRoleSummaryDto, Error>
-  ) {
-    let valid = true;
-
-    if (id === null || id === undefined || Number.isNaN(id)) {
-      valid = false;
+    /**
+     */
+    adminUserControllerBanId = async (id: string, banHammerDto: BanHammerDto): Promise<void> => {
+        await this.adminUserControllerBanIdRaw({ id: id, banHammerDto: banHammerDto });
     }
 
-    const context = this.adminUserControllerRoleOfContext({ id: id! });
-    return useSWR(
-      context,
-      valid ? () => this.adminUserControllerRoleOf(id!) : null,
-      config
-    );
-  }
+    /**
+     */
+    adminUserControllerBanOfContext(requestParameters: AdminUserControllerBanOfRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-  /**
-   */
-  adminUserControllerUpdateGameModeContext(
-    requestParameters: AdminUserControllerUpdateGameModeRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
+        const headerParameters: runtime.HTTPHeaders = {};
 
-    const headerParameters: runtime.HTTPHeaders = {};
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
 
-    headerParameters["Content-Type"] = "application/json";
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/ban/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
-    return {
-      path: `/v1/admin/users/updateGameMode`,
-      method: "POST",
-      headers: headerParameters,
-      query: queryParameters,
-      body: UpdateModeDTOToJSON(requestParameters.updateModeDTO),
-    };
-  }
 
-  /**
-   */
-  private adminUserControllerListRolesValidation() {}
-
-  /**
-   */
-  adminUserControllerListRolesContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+    /**
+     */
+    adminUserControllerBanOf = async (id: string): Promise<UserBanSummaryDto> => {
+        const response = await this.adminUserControllerBanOfRaw({ id: id });
+        return await response.value();
     }
-    return {
-      path: `/v1/admin/users/roles`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
 
-  /**
-   */
-  adminUserControllerListRoles = async (): Promise<
-    Array<UserRoleSummaryDto>
-  > => {
-    const response = await this.adminUserControllerListRolesRaw();
-    return await response.value();
-  };
+    useAdminUserControllerBanOf(id: string, config?: SWRConfiguration<UserBanSummaryDto, Error>) {
+        let valid = true
 
-  /**
-   */
-  adminUserControllerUpdateGameMode = async (
-    updateModeDTO: UpdateModeDTO
-  ): Promise<Array<MatchmakingModeStatusEntity>> => {
-    const response = await this.adminUserControllerUpdateGameModeRaw({
-      updateModeDTO: updateModeDTO,
-    });
-    return await response.value();
-  };
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
 
-  /**
-   */
-  adminUserControllerUpdateRoleContext(
-    requestParameters: AdminUserControllerUpdateRoleRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    headerParameters["Content-Type"] = "application/json";
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+        const context = this.adminUserControllerBanOfContext({ id: id! });
+        return useSWR(context, valid ? () => this.adminUserControllerBanOf(id!) : null, config)
     }
-    return {
-      path: `/v1/admin/users/update_role`,
-      method: "POST",
-      headers: headerParameters,
-      query: queryParameters,
-      body: UpdateRolesDtoToJSON(requestParameters.updateRolesDto),
-    };
-  }
 
-  /**
-   */
-  adminUserControllerUpdateRole = async (
-    updateRolesDto: UpdateRolesDto
-  ): Promise<void> => {
-    await this.adminUserControllerUpdateRoleRaw({
-      updateRolesDto: updateRolesDto,
-    });
-  };
+    /**
+     */
+    adminUserControllerListRolesContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-  /**
-   */
-  serverControllerDebugCommandContext(
-    requestParameters: ServerControllerDebugCommandRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
+        const headerParameters: runtime.HTTPHeaders = {};
 
-    const headerParameters: runtime.HTTPHeaders = {};
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
 
-    headerParameters["Content-Type"] = "application/json";
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/roles`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
-    return {
-      path: `/v1/servers/debug_command`,
-      method: "POST",
-      headers: headerParameters,
-      query: queryParameters,
-      body: EventAdminDtoToJSON(requestParameters.eventAdminDto),
-    };
-  }
 
-  /**
-   */
-  serverControllerDebugCommand = async (
-    eventAdminDto: EventAdminDto
-  ): Promise<object> => {
-    const response = await this.serverControllerDebugCommandRaw({
-      eventAdminDto: eventAdminDto,
-    });
-    return await response.value();
-  };
-
-  /**
-   */
-  serverControllerDebugEventContext(
-    requestParameters: ServerControllerDebugEventRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    headerParameters["Content-Type"] = "application/json";
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+    /**
+     */
+    adminUserControllerListRoles = async (): Promise<Array<UserRoleSummaryDto>> => {
+        const response = await this.adminUserControllerListRolesRaw();
+        return await response.value();
     }
-    return {
-      path: `/v1/servers/debug_event`,
-      method: "POST",
-      headers: headerParameters,
-      query: queryParameters,
-      body: EventAdminDtoToJSON(requestParameters.eventAdminDto),
-    };
-  }
 
-  /**
-   */
-  serverControllerDebugEvent = async (
-    eventAdminDto: EventAdminDto
-  ): Promise<void> => {
-    await this.serverControllerDebugEventRaw({ eventAdminDto: eventAdminDto });
-  };
+    useAdminUserControllerListRoles(config?: SWRConfiguration<Array<UserRoleSummaryDto>, Error>) {
+        let valid = true
 
-  useServerControllerLiveSessions(
-    config?: SWRConfiguration<Array<GameSessionDto>, Error>
-  ) {
-    let valid = true;
-
-    const context = this.serverControllerLiveSessionsContext();
-    return useSWR(
-      context,
-      valid ? () => this.serverControllerLiveSessions() : null,
-      config
-    );
-  }
-
-  useServerControllerQueues(
-    config?: SWRConfiguration<Array<QueueStateDTO>, Error>
-  ) {
-    let valid = true;
-
-    const context = this.serverControllerQueuesContext();
-    return useSWR(
-      context,
-      valid ? () => this.serverControllerQueues() : null,
-      config
-    );
-  }
-
-  useServerControllerServerPool(
-    config?: SWRConfiguration<Array<GameServerDto>, Error>
-  ) {
-    let valid = true;
-
-    const context = this.serverControllerServerPoolContext();
-    return useSWR(
-      context,
-      valid ? () => this.serverControllerServerPool() : null,
-      config
-    );
-  }
-
-  /**
-   */
-  serverControllerStopServerContext(
-    requestParameters: ServerControllerStopServerRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    headerParameters["Content-Type"] = "application/json";
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+        const context = this.adminUserControllerListRolesContext();
+        return useSWR(context, valid ? () => this.adminUserControllerListRoles() : null, config)
     }
-    return {
-      path: `/v1/servers/stop_server`,
-      method: "POST",
-      headers: headerParameters,
-      query: queryParameters,
-      body: StopServerDtoToJSON(requestParameters.stopServerDto),
-    };
-  }
 
-  /**
-   */
-  serverControllerStopServer = async (
-    stopServerDto: StopServerDto
-  ): Promise<void> => {
-    await this.serverControllerStopServerRaw({ stopServerDto: stopServerDto });
-  };
+    /**
+     */
+    adminUserControllerRoleOfContext(requestParameters: AdminUserControllerRoleOfRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-  /**
-   */
-  private async adminUserControllerBanIdRaw(
-    requestParameters: AdminUserControllerBanIdRequest
-  ): Promise<runtime.ApiResponse<void>> {
-    this.adminUserControllerBanIdValidation(requestParameters);
-    const context = this.adminUserControllerBanIdContext(requestParameters);
-    const response = await this.request(context);
+        const headerParameters: runtime.HTTPHeaders = {};
 
-    return new runtime.VoidApiResponse(response);
-  }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
 
-  /**
-   */
-  private adminUserControllerBanIdValidation(
-    requestParameters: AdminUserControllerBanIdRequest
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling adminUserControllerBanId."
-      );
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/roles/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
-    if (
-      requestParameters.banHammerDto === null ||
-      requestParameters.banHammerDto === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "banHammerDto",
-        "Required parameter requestParameters.banHammerDto was null or undefined when calling adminUserControllerBanId."
-      );
+
+    /**
+     */
+    adminUserControllerRoleOf = async (id: string): Promise<UserRoleSummaryDto> => {
+        const response = await this.adminUserControllerRoleOfRaw({ id: id });
+        return await response.value();
     }
-  }
 
-  /**
-   */
-  private async adminUserControllerBanOfRaw(
-    requestParameters: AdminUserControllerBanOfRequest
-  ): Promise<runtime.ApiResponse<UserBanSummaryDto>> {
-    this.adminUserControllerBanOfValidation(requestParameters);
-    const context = this.adminUserControllerBanOfContext(requestParameters);
-    const response = await this.request(context);
+    useAdminUserControllerRoleOf(id: string, config?: SWRConfiguration<UserRoleSummaryDto, Error>) {
+        let valid = true
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      UserBanSummaryDtoFromJSON(jsonValue)
-    );
-  }
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
 
-  /**
-   */
-  private adminUserControllerBanOfValidation(
-    requestParameters: AdminUserControllerBanOfRequest
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling adminUserControllerBanOf."
-      );
+        const context = this.adminUserControllerRoleOfContext({ id: id! });
+        return useSWR(context, valid ? () => this.adminUserControllerRoleOf(id!) : null, config)
     }
-  }
 
-  /**
-   */
-  private async adminUserControllerListRolesRaw(): Promise<
-    runtime.ApiResponse<Array<UserRoleSummaryDto>>
-  > {
-    this.adminUserControllerListRolesValidation();
-    const context = this.adminUserControllerListRolesContext();
-    const response = await this.request(context);
+    /**
+     */
+    adminUserControllerUpdateGameModeContext(requestParameters: AdminUserControllerUpdateGameModeRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(UserRoleSummaryDtoFromJSON)
-    );
-  }
+        const headerParameters: runtime.HTTPHeaders = {};
 
-  /**
-   */
-  private async adminUserControllerRoleOfRaw(
-    requestParameters: AdminUserControllerRoleOfRequest
-  ): Promise<runtime.ApiResponse<UserRoleSummaryDto>> {
-    this.adminUserControllerRoleOfValidation(requestParameters);
-    const context = this.adminUserControllerRoleOfContext(requestParameters);
-    const response = await this.request(context);
+        headerParameters["Content-Type"] = "application/json";
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      UserRoleSummaryDtoFromJSON(jsonValue)
-    );
-  }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
 
-  /**
-   */
-  private adminUserControllerRoleOfValidation(
-    requestParameters: AdminUserControllerRoleOfRequest
-  ) {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
-      throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling adminUserControllerRoleOf."
-      );
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/updateGameMode`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateModeDTOToJSON(requestParameters.updateModeDTO),
+        };
     }
-  }
 
-  /**
-   */
-  private async adminUserControllerUpdateGameModeRaw(
-    requestParameters: AdminUserControllerUpdateGameModeRequest
-  ): Promise<runtime.ApiResponse<Array<MatchmakingModeStatusEntity>>> {
-    this.adminUserControllerUpdateGameModeValidation(requestParameters);
-    const context = this.adminUserControllerUpdateGameModeContext(
-      requestParameters
-    );
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(MatchmakingModeStatusEntityFromJSON)
-    );
-  }
-
-  /**
-   */
-  private adminUserControllerUpdateGameModeValidation(
-    requestParameters: AdminUserControllerUpdateGameModeRequest
-  ) {
-    if (
-      requestParameters.updateModeDTO === null ||
-      requestParameters.updateModeDTO === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "updateModeDTO",
-        "Required parameter requestParameters.updateModeDTO was null or undefined when calling adminUserControllerUpdateGameMode."
-      );
+    /**
+     */
+    adminUserControllerUpdateGameMode = async (updateModeDTO: UpdateModeDTO): Promise<Array<MatchmakingModeStatusEntity>> => {
+        const response = await this.adminUserControllerUpdateGameModeRaw({ updateModeDTO: updateModeDTO });
+        return await response.value();
     }
-  }
 
-  /**
-   */
-  private async adminUserControllerUpdateRoleRaw(
-    requestParameters: AdminUserControllerUpdateRoleRequest
-  ): Promise<runtime.ApiResponse<void>> {
-    this.adminUserControllerUpdateRoleValidation(requestParameters);
-    const context = this.adminUserControllerUpdateRoleContext(
-      requestParameters
-    );
-    const response = await this.request(context);
+    /**
+     */
+    adminUserControllerUpdateRoleContext(requestParameters: AdminUserControllerUpdateRoleRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-    return new runtime.VoidApiResponse(response);
-  }
+        const headerParameters: runtime.HTTPHeaders = {};
 
-  /**
-   */
-  private adminUserControllerUpdateRoleValidation(
-    requestParameters: AdminUserControllerUpdateRoleRequest
-  ) {
-    if (
-      requestParameters.updateRolesDto === null ||
-      requestParameters.updateRolesDto === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "updateRolesDto",
-        "Required parameter requestParameters.updateRolesDto was null or undefined when calling adminUserControllerUpdateRole."
-      );
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/update_role`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateRolesDtoToJSON(requestParameters.updateRolesDto),
+        };
     }
-  }
 
-  /**
-   */
-  private serverControllerLiveSessionsValidation() {}
-
-  /**
-   */
-  serverControllerLiveSessionsContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
-
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+    /**
+     */
+    adminUserControllerUpdateRole = async (updateRolesDto: UpdateRolesDto): Promise<void> => {
+        await this.adminUserControllerUpdateRoleRaw({ updateRolesDto: updateRolesDto });
     }
-    return {
-      path: `/v1/servers/live_sessions`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
 
-  /**
-   */
-  serverControllerLiveSessions = async (): Promise<Array<GameSessionDto>> => {
-    const response = await this.serverControllerLiveSessionsRaw();
-    return await response.value();
-  };
+    /**
+     */
+    serverControllerDebugCommandContext(requestParameters: ServerControllerDebugCommandRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-  /**
-   */
-  private async serverControllerDebugCommandRaw(
-    requestParameters: ServerControllerDebugCommandRequest
-  ): Promise<runtime.ApiResponse<object>> {
-    this.serverControllerDebugCommandValidation(requestParameters);
-    const context = this.serverControllerDebugCommandContext(requestParameters);
-    const response = await this.request(context);
+        const headerParameters: runtime.HTTPHeaders = {};
 
-    return new runtime.JSONApiResponse<any>(response);
-  }
+        headerParameters["Content-Type"] = "application/json";
 
-  /**
-   */
-  private serverControllerDebugCommandValidation(
-    requestParameters: ServerControllerDebugCommandRequest
-  ) {
-    if (
-      requestParameters.eventAdminDto === null ||
-      requestParameters.eventAdminDto === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "eventAdminDto",
-        "Required parameter requestParameters.eventAdminDto was null or undefined when calling serverControllerDebugCommand."
-      );
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/servers/debug_command`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: EventAdminDtoToJSON(requestParameters.eventAdminDto),
+        };
     }
-  }
 
-  /**
-   */
-  private serverControllerQueuesValidation() {}
-
-  /**
-   */
-  serverControllerQueuesContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    return {
-      path: `/v1/servers/queues`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  serverControllerQueues = async (): Promise<Array<QueueStateDTO>> => {
-    const response = await this.serverControllerQueuesRaw();
-    return await response.value();
-  };
-
-  /**
-   */
-  private async serverControllerDebugEventRaw(
-    requestParameters: ServerControllerDebugEventRequest
-  ): Promise<runtime.ApiResponse<void>> {
-    this.serverControllerDebugEventValidation(requestParameters);
-    const context = this.serverControllerDebugEventContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.VoidApiResponse(response);
-  }
-
-  /**
-   */
-  private serverControllerDebugEventValidation(
-    requestParameters: ServerControllerDebugEventRequest
-  ) {
-    if (
-      requestParameters.eventAdminDto === null ||
-      requestParameters.eventAdminDto === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "eventAdminDto",
-        "Required parameter requestParameters.eventAdminDto was null or undefined when calling serverControllerDebugEvent."
-      );
+    /**
+     */
+    serverControllerDebugCommand = async (eventAdminDto: EventAdminDto): Promise<object> => {
+        const response = await this.serverControllerDebugCommandRaw({ eventAdminDto: eventAdminDto });
+        return await response.value();
     }
-  }
 
-  /**
-   */
-  private serverControllerServerPoolValidation() {}
+    /**
+     */
+    serverControllerDebugEventContext(requestParameters: ServerControllerDebugEventRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-  /**
-   */
-  serverControllerServerPoolContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
+        const headerParameters: runtime.HTTPHeaders = {};
 
-    const headerParameters: runtime.HTTPHeaders = {};
+        headerParameters["Content-Type"] = "application/json";
 
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString =
-        typeof token === "function" ? token("bearer", []) : token;
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
 
-      if (tokenString) {
-        headerParameters["Authorization"] = `Bearer ${tokenString}`;
-      }
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/servers/debug_event`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: EventAdminDtoToJSON(requestParameters.eventAdminDto),
+        };
     }
-    return {
-      path: `/v1/servers/server_pool`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
 
-  /**
-   */
-  serverControllerServerPool = async (): Promise<Array<GameServerDto>> => {
-    const response = await this.serverControllerServerPoolRaw();
-    return await response.value();
-  };
-
-  /**
-   */
-  private async serverControllerLiveSessionsRaw(): Promise<
-    runtime.ApiResponse<Array<GameSessionDto>>
-  > {
-    this.serverControllerLiveSessionsValidation();
-    const context = this.serverControllerLiveSessionsContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(GameSessionDtoFromJSON)
-    );
-  }
-
-  /**
-   */
-  private async serverControllerQueuesRaw(): Promise<
-    runtime.ApiResponse<Array<QueueStateDTO>>
-  > {
-    this.serverControllerQueuesValidation();
-    const context = this.serverControllerQueuesContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(QueueStateDTOFromJSON)
-    );
-  }
-
-  /**
-   */
-  private async serverControllerServerPoolRaw(): Promise<
-    runtime.ApiResponse<Array<GameServerDto>>
-  > {
-    this.serverControllerServerPoolValidation();
-    const context = this.serverControllerServerPoolContext();
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(GameServerDtoFromJSON)
-    );
-  }
-
-  /**
-   */
-  private async serverControllerStopServerRaw(
-    requestParameters: ServerControllerStopServerRequest
-  ): Promise<runtime.ApiResponse<void>> {
-    this.serverControllerStopServerValidation(requestParameters);
-    const context = this.serverControllerStopServerContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.VoidApiResponse(response);
-  }
-
-  /**
-   */
-  private serverControllerStopServerValidation(
-    requestParameters: ServerControllerStopServerRequest
-  ) {
-    if (
-      requestParameters.stopServerDto === null ||
-      requestParameters.stopServerDto === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "stopServerDto",
-        "Required parameter requestParameters.stopServerDto was null or undefined when calling serverControllerStopServer."
-      );
+    /**
+     */
+    serverControllerDebugEvent = async (eventAdminDto: EventAdminDto): Promise<void> => {
+        await this.serverControllerDebugEventRaw({ eventAdminDto: eventAdminDto });
     }
-  }
+
+    /**
+     */
+    serverControllerLiveSessionsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/servers/live_sessions`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    serverControllerLiveSessions = async (): Promise<Array<GameSessionDto>> => {
+        const response = await this.serverControllerLiveSessionsRaw();
+        return await response.value();
+    }
+
+    useServerControllerLiveSessions(config?: SWRConfiguration<Array<GameSessionDto>, Error>) {
+        let valid = true
+
+        const context = this.serverControllerLiveSessionsContext();
+        return useSWR(context, valid ? () => this.serverControllerLiveSessions() : null, config)
+    }
+
+    /**
+     */
+    serverControllerQueuesContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/servers/queues`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    serverControllerQueues = async (): Promise<Array<QueueStateDTO>> => {
+        const response = await this.serverControllerQueuesRaw();
+        return await response.value();
+    }
+
+    useServerControllerQueues(config?: SWRConfiguration<Array<QueueStateDTO>, Error>) {
+        let valid = true
+
+        const context = this.serverControllerQueuesContext();
+        return useSWR(context, valid ? () => this.serverControllerQueues() : null, config)
+    }
+
+    /**
+     */
+    serverControllerServerPoolContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/servers/server_pool`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    serverControllerServerPool = async (): Promise<Array<GameServerDto>> => {
+        const response = await this.serverControllerServerPoolRaw();
+        return await response.value();
+    }
+
+    useServerControllerServerPool(config?: SWRConfiguration<Array<GameServerDto>, Error>) {
+        let valid = true
+
+        const context = this.serverControllerServerPoolContext();
+        return useSWR(context, valid ? () => this.serverControllerServerPool() : null, config)
+    }
+
+    /**
+     */
+    serverControllerStopServerContext(requestParameters: ServerControllerStopServerRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/servers/stop_server`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: StopServerDtoToJSON(requestParameters.stopServerDto),
+        };
+    }
+
+    /**
+     */
+    serverControllerStopServer = async (stopServerDto: StopServerDto): Promise<void> => {
+        await this.serverControllerStopServerRaw({ stopServerDto: stopServerDto });
+    }
+
+    /**
+     */
+    private async adminUserControllerBanIdRaw(requestParameters: AdminUserControllerBanIdRequest): Promise<runtime.ApiResponse<void>> {
+        this.adminUserControllerBanIdValidation(requestParameters);
+        const context = this.adminUserControllerBanIdContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    private adminUserControllerBanIdValidation(requestParameters: AdminUserControllerBanIdRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling adminUserControllerBanId.");
+        }
+        if (requestParameters.banHammerDto === null || requestParameters.banHammerDto === undefined) {
+            throw new runtime.RequiredError("banHammerDto","Required parameter requestParameters.banHammerDto was null or undefined when calling adminUserControllerBanId.");
+        }
+    }
+
+    /**
+     */
+    private async adminUserControllerBanOfRaw(requestParameters: AdminUserControllerBanOfRequest): Promise<runtime.ApiResponse<UserBanSummaryDto>> {
+        this.adminUserControllerBanOfValidation(requestParameters);
+        const context = this.adminUserControllerBanOfContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserBanSummaryDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    private adminUserControllerBanOfValidation(requestParameters: AdminUserControllerBanOfRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling adminUserControllerBanOf.");
+        }
+    }
+
+    /**
+     */
+    private async adminUserControllerListRolesRaw(): Promise<runtime.ApiResponse<Array<UserRoleSummaryDto>>> {
+        this.adminUserControllerListRolesValidation();
+        const context = this.adminUserControllerListRolesContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UserRoleSummaryDtoFromJSON));
+    }
+
+    /**
+     */
+    private adminUserControllerListRolesValidation() {
+    }
+
+    /**
+     */
+    private async adminUserControllerRoleOfRaw(requestParameters: AdminUserControllerRoleOfRequest): Promise<runtime.ApiResponse<UserRoleSummaryDto>> {
+        this.adminUserControllerRoleOfValidation(requestParameters);
+        const context = this.adminUserControllerRoleOfContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserRoleSummaryDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    private adminUserControllerRoleOfValidation(requestParameters: AdminUserControllerRoleOfRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling adminUserControllerRoleOf.");
+        }
+    }
+
+    /**
+     */
+    private async adminUserControllerUpdateGameModeRaw(requestParameters: AdminUserControllerUpdateGameModeRequest): Promise<runtime.ApiResponse<Array<MatchmakingModeStatusEntity>>> {
+        this.adminUserControllerUpdateGameModeValidation(requestParameters);
+        const context = this.adminUserControllerUpdateGameModeContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MatchmakingModeStatusEntityFromJSON));
+    }
+
+    /**
+     */
+    private adminUserControllerUpdateGameModeValidation(requestParameters: AdminUserControllerUpdateGameModeRequest) {
+        if (requestParameters.updateModeDTO === null || requestParameters.updateModeDTO === undefined) {
+            throw new runtime.RequiredError("updateModeDTO","Required parameter requestParameters.updateModeDTO was null or undefined when calling adminUserControllerUpdateGameMode.");
+        }
+    }
+
+    /**
+     */
+    private async adminUserControllerUpdateRoleRaw(requestParameters: AdminUserControllerUpdateRoleRequest): Promise<runtime.ApiResponse<void>> {
+        this.adminUserControllerUpdateRoleValidation(requestParameters);
+        const context = this.adminUserControllerUpdateRoleContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    private adminUserControllerUpdateRoleValidation(requestParameters: AdminUserControllerUpdateRoleRequest) {
+        if (requestParameters.updateRolesDto === null || requestParameters.updateRolesDto === undefined) {
+            throw new runtime.RequiredError("updateRolesDto","Required parameter requestParameters.updateRolesDto was null or undefined when calling adminUserControllerUpdateRole.");
+        }
+    }
+
+    /**
+     */
+    private async serverControllerDebugCommandRaw(requestParameters: ServerControllerDebugCommandRequest): Promise<runtime.ApiResponse<object>> {
+        this.serverControllerDebugCommandValidation(requestParameters);
+        const context = this.serverControllerDebugCommandContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     */
+    private serverControllerDebugCommandValidation(requestParameters: ServerControllerDebugCommandRequest) {
+        if (requestParameters.eventAdminDto === null || requestParameters.eventAdminDto === undefined) {
+            throw new runtime.RequiredError("eventAdminDto","Required parameter requestParameters.eventAdminDto was null or undefined when calling serverControllerDebugCommand.");
+        }
+    }
+
+    /**
+     */
+    private async serverControllerDebugEventRaw(requestParameters: ServerControllerDebugEventRequest): Promise<runtime.ApiResponse<void>> {
+        this.serverControllerDebugEventValidation(requestParameters);
+        const context = this.serverControllerDebugEventContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    private serverControllerDebugEventValidation(requestParameters: ServerControllerDebugEventRequest) {
+        if (requestParameters.eventAdminDto === null || requestParameters.eventAdminDto === undefined) {
+            throw new runtime.RequiredError("eventAdminDto","Required parameter requestParameters.eventAdminDto was null or undefined when calling serverControllerDebugEvent.");
+        }
+    }
+
+    /**
+     */
+    private async serverControllerLiveSessionsRaw(): Promise<runtime.ApiResponse<Array<GameSessionDto>>> {
+        this.serverControllerLiveSessionsValidation();
+        const context = this.serverControllerLiveSessionsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GameSessionDtoFromJSON));
+    }
+
+    /**
+     */
+    private serverControllerLiveSessionsValidation() {
+    }
+
+    /**
+     */
+    private async serverControllerQueuesRaw(): Promise<runtime.ApiResponse<Array<QueueStateDTO>>> {
+        this.serverControllerQueuesValidation();
+        const context = this.serverControllerQueuesContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(QueueStateDTOFromJSON));
+    }
+
+    /**
+     */
+    private serverControllerQueuesValidation() {
+    }
+
+    /**
+     */
+    private async serverControllerServerPoolRaw(): Promise<runtime.ApiResponse<Array<GameServerDto>>> {
+        this.serverControllerServerPoolValidation();
+        const context = this.serverControllerServerPoolContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GameServerDtoFromJSON));
+    }
+
+    /**
+     */
+    private serverControllerServerPoolValidation() {
+    }
+
+    /**
+     */
+    private async serverControllerStopServerRaw(requestParameters: ServerControllerStopServerRequest): Promise<runtime.ApiResponse<void>> {
+        this.serverControllerStopServerValidation(requestParameters);
+        const context = this.serverControllerStopServerContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    private serverControllerStopServerValidation(requestParameters: ServerControllerStopServerRequest) {
+        if (requestParameters.stopServerDto === null || requestParameters.stopServerDto === undefined) {
+            throw new runtime.RequiredError("stopServerDto","Required parameter requestParameters.stopServerDto was null or undefined when calling serverControllerStopServer.");
+        }
+    }
+
+
 }

@@ -6,6 +6,7 @@ import { ItemMap } from "@/const/items";
 import { TooltipContext } from "@/util/hooks";
 import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
+import Image from "next/image";
 
 interface IItemIconProps {
   item: string | number;
@@ -43,13 +44,13 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
       ? "/items/recipe.jpg"
       : `https://steamcdn-a.akamaihd.net/apps/dota2/images/items/${fItem}_lg.png`;
   return (
-    <img
+    <Image
       data-item-id={item}
       ref={ref}
       onMouseEnter={(e) =>
         ctx.setCtx({ item: "item_" + fItem, hovered: e.currentTarget! })
       }
-      onMouseLeave={(e) => ctx.setCtx(undefined)}
+      onMouseLeave={() => ctx.setCtx(undefined)}
       width={60}
       height={44}
       alt={`Item ${fItem}`}

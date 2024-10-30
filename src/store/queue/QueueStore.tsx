@@ -15,7 +15,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
-import { AppApi, useApi } from "@/api/hooks";
+import { AppApi, getApi } from "@/api/hooks";
 import { GameCoordinatorListener } from "@/store/queue/game-coordinator.listener";
 import { AuthStore } from "@/store/AuthStore";
 import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
@@ -28,7 +28,6 @@ import { blinkTab } from "@/util/blinkTab";
 import { NotificationDto, NotificationStore } from "@/store/NotificationStore";
 import { PartyInviteNotification } from "@/components";
 
-interface HydrationData {}
 
 export interface QueueState {
   mode: MatchmakingMode;
@@ -49,7 +48,7 @@ export interface GameInfo {
 }
 
 export class QueueStore
-  implements HydratableStore<HydrationData>, GameCoordinatorListener
+  implements HydratableStore<unknown>, GameCoordinatorListener
 {
   @observable
   public pendingPartyInvite?: PartyInviteReceivedMessage = undefined;
@@ -168,7 +167,8 @@ export class QueueStore
       } else {
         return false;
       }
-    } catch (e) {
+    } catch (e: Error) {
+      console.warn(e);
       return true;
     }
   }
@@ -232,20 +232,6 @@ export class QueueStore
 
     this.socket.connect();
 
-    // @ts-ignore
-    // observe<AuthStore>(
-    //   this.authStore,
-    //   "parsedToken",
-    //   (change: IValueDidChange) => {
-    //     console.log(
-    //       "Authorize cause steamID observe",
-    //       change.oldValue,
-    //       change.newValue,
-    //     );
-    //   },
-    //   true,
-    // );
-
     this.socket.on("disconnect", () => {
       this.onDisconnected();
       this.connected = false;
@@ -270,7 +256,7 @@ export class QueueStore
     this.socket.on(Messages.ONLINE_UPDATE, this.onOnlineUpdate);
   }
 
-  hydrate(d: HydrationData): void {}
+  hydrate(): void {}
 
   @action
   onAuthResponse = ({ success }: { success: boolean }) => {
@@ -413,7 +399,7 @@ export class QueueStore
   @action onServerReady = (data: LauncherServerStarted) => {
     if (!this.gameInfo) {
       this.gameInfo = {
-        mode: data.info.mode as any,
+        mode: data.info.mode,
         accepted: 0,
         total: 0,
         roomID: data.info.roomId,
@@ -484,7 +470,7 @@ export class QueueStore
     if (!this.ready) throw new Error("Not ready");
     if (
       this.selectedMode.mode === MatchmakingMode.CAPTAINS_MODE &&
-      this.party!!.players.length !== 5
+      this.party!.players.length !== 5
     ) {
       return false;
     }
@@ -505,9 +491,9 @@ export class QueueStore
 
   @action
   private async fetchParty() {
-    useApi()
+    getApi()
       .playerApi.playerControllerMyParty()
       .then((data) => runInAction(() => (this.party = data)))
-      .catch((e) => (this.party = undefined));
+      .catch(() => (this.party = undefined));
   }
 }

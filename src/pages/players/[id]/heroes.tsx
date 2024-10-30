@@ -2,7 +2,7 @@ import { NextPageContext } from "next";
 import { GenericTable, PlayerSummary, Section } from "@/components";
 import React from "react";
 import { HeroStatsDto, PlayerSummaryDto } from "@/api/back";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { AppRouter } from "@/route";
 import { colors } from "@/colors";
@@ -118,9 +118,9 @@ PlayerHeroes.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const playerId = ctx.query.id as string;
 
   return {
-    summary: await useApi().playerApi.playerControllerPlayerSummary(playerId),
+    summary: await getApi().playerApi.playerControllerPlayerSummary(playerId),
     preloadedHeroStats:
-      await useApi().playerApi.playerControllerHeroSummary(playerId),
+      await getApi().playerApi.playerControllerHeroSummary(playerId),
     playerId,
   };
 };

@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum DotaGameMode {
   ALLPICK = 1,
   CAPTAINS_MODE = 2,

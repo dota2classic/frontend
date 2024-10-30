@@ -8,11 +8,12 @@ import {
   Typography,
 } from "@/components";
 import { FaTrophy } from "react-icons/fa";
-import { useApi } from "@/api/hooks";
-import { LiveMatchDto, MatchDto } from "@/api/back";
+import { getApi } from "@/api/hooks";
+import {LiveMatchDto, LiveMatchDtoFromJSON, MatchDto} from "@/api/back";
 import Head from "next/head";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { ThreadStyle } from "@/components/Thread/Thread";
+import {useEventSource} from "@/util/hooks";
 
 interface InitialProps {
   matchId: number;
@@ -25,7 +26,7 @@ export default function MatchPage({
   preloadedMatch,
   liveMatches,
 }: InitialProps) {
-  const { data: match } = useApi().matchApi.useMatchControllerMatch(matchId, {
+  const { data: match } = getApi().matchApi.useMatchControllerMatch(matchId, {
     fallbackData: preloadedMatch,
     isPaused() {
       return !!preloadedMatch;
@@ -35,13 +36,10 @@ export default function MatchPage({
   const isMatchLive =
     liveMatches.findIndex((t) => t.matchId === matchId) !== -1;
 
-  // const liveMatch = useEventSource<LiveMatchDto>(
-  //   useApi().liveApi.liveMatchControllerLiveMatchContext({ id: matchId }),
-  //   LiveMatchDtoFromJSON.bind(null),
-  // );
-  const liveMatch = undefined;
-
-  // const thread = useThread("a2a88589-3293-4090-8652-2e4d16aa6882")
+  const liveMatch = useEventSource<LiveMatchDto>(
+    getApi().liveApi.liveMatchControllerLiveMatchContext({ id: matchId }),
+    LiveMatchDtoFromJSON.bind(null),
+  );
 
   if (match)
     return (
@@ -90,11 +88,11 @@ MatchPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<InitialProps> => {
   const matchId = parseInt(ctx.query.id as string);
-  const [match, liveList] = await Promise.all<any>([
-    await useApi()
+  const [match, liveList] = await Promise.all<unknown>([
+    await getApi()
       .matchApi.matchControllerMatch(matchId)
       .catch(() => undefined),
-    useApi().liveApi.liveMatchControllerListMatches(),
+    getApi().liveApi.liveMatchControllerListMatches(),
   ]);
 
   return {

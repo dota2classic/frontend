@@ -35,7 +35,7 @@ export function parseJwt<T>(token: string): T {
   const jsonPayload = decodeURIComponent(
     atob(base64)
       .split("")
-      .map(function (c: any) {
+      .map(function (c: string) {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
       })
       .join(""),

@@ -1,11 +1,11 @@
 import Qs from "qs";
 
-export function numberOrDefault(value: any | undefined, defaultValue: any) {
+export function numberOrDefault<T = number>(value: string | number | string[] | undefined, defaultValue: T): T | number {
   const v = Number(value);
   return Number.isNaN(v) ? defaultValue : v;
 }
 
-export function queryParameters(params: Record<string, any>) {
+export function queryParameters(params: Record<string, string | string[] | number>) {
   const q = Qs.stringify(params);
 
   // console.log(q)

@@ -8,7 +8,7 @@ import {
 } from "@/components";
 import React, { useState } from "react";
 import { PlayerSummaryDto, PlayerTeammatePageDto } from "@/api/back";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { maxBy } from "@/util/iter";
 
 interface Props {
@@ -33,7 +33,7 @@ export default function PlayerTeammates({
     if (reachedBottom) return;
 
     const maxPage = maxBy(Object.values(totalData), (it) => it.page)!.page;
-    const data = await useApi().playerApi.playerControllerTeammates(
+    const data = await getApi().playerApi.playerControllerTeammates(
       playerId,
       maxPage + 1,
     );
@@ -78,8 +78,8 @@ PlayerTeammates.getInitialProps = async (
   const page = numberOrDefault(ctx.query.page, 0);
 
   return {
-    summary: await useApi().playerApi.playerControllerPlayerSummary(playerId),
-    preloadedTeammates: await useApi().playerApi.playerControllerTeammates(
+    summary: await getApi().playerApi.playerControllerPlayerSummary(playerId),
+    preloadedTeammates: await getApi().playerApi.playerControllerTeammates(
       playerId,
       page,
       undefined,

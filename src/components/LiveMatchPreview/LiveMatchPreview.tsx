@@ -1,36 +1,28 @@
 import React from "react";
-import { LiveMatchDto, PlayerInfo } from "@/api/back";
+import {LiveMatchDto, PlayerInfo} from "@/api/back";
 import c from "./LiveMatchPreview.module.scss";
-import {
-  HeroIcon,
-  ItemIcon,
-  MatchSummaryScore,
-  PageLink,
-  Panel,
-} from "@/components";
-import { AppRouter } from "@/route";
-import { KDATableData } from "@/components/GenericTable/GenericTable";
-import { items } from "@/util/iter";
+import {HeroIcon, ItemIcon, MatchSummaryScore, PageLink, Panel,} from "@/components";
+import {AppRouter} from "@/route";
+import {KDATableData} from "@/components/GenericTable/GenericTable";
+import {items} from "@/util/iter";
 import cx from "classnames";
-import { shortName } from "@/util/heroName";
-import { formatGameMode } from "@/util/gamemode";
-import { watchUrl } from "@/util/urls";
+import {shortName} from "@/util/heroName";
+import {formatGameMode} from "@/util/gamemode";
+import {watchUrl} from "@/util/urls";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
 }
 
 const TeamListTable = ({
-  players,
-  className,
+  players
 }: {
   players: PlayerInfo[];
-  className: string;
 }) => {
   return (
     <div className={c.teamTable}>
       {players.map((it) => (
-        <div className={c.playerRow}>
+        <div key={it.steamId} className={c.playerRow}>
           <div className={c.playerHeroRow}>
             <HeroIcon small hero={it.hero} />
             {it.bot ? (
@@ -48,8 +40,8 @@ const TeamListTable = ({
             />
           </div>
           <div className={c.itemRow}>
-            {items(it).map((it) => (
-              <ItemIcon item={it} />
+            {items(it).map((it, index) => (
+              <ItemIcon key={index} item={it} />
             ))}
           </div>
         </div>

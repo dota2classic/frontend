@@ -10,11 +10,11 @@ export const PeriodicTimer: React.FC<IPeriodicTimerProps> = ({ time }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!ref.current) return;
-      ref.current!.textContent = fromNow(time) || null;
+      ref.current!.textContent = fromNow(time) || "";
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [time]);
 
   return <span ref={ref}>{fromNow(time)}</span>;
 };

@@ -26,7 +26,7 @@ export const BarChart: React.FC<IBarChartProps> = ({ data }) => {
   const totalWidth = data.reduce((a, b) => a + b.value, 0);
   return (
     <div className={c.bar}>
-      {data.map((it, index) => (
+      {data.map((it) => (
         <span
           key={it.color}
           className={c.segment}

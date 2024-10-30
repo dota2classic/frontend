@@ -4,7 +4,7 @@ import {
   Panel,
   SelectOptions,
 } from "@/components";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import { MatchPageDto } from "@/api/back";
 import { AppRouter } from "@/route";
@@ -31,7 +31,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
     if (data && numberOrDefault(page, 0) >= data.pages) {
       setPage(data.pages - 1);
     }
-  }, [data?.pages]);
+  }, [data, data.pages, page, setPage]);
 
   return (
     <>
@@ -72,10 +72,7 @@ MatchHistory.getInitialProps = async (
   const page = numberOrDefault(ctx.query.page as string, 0);
   const mode = numberOrDefault(ctx.query.mode, undefined);
 
-  const [matches, liveMatches] = await Promise.all<any>([
-    useApi().matchApi.matchControllerMatches(page, undefined, mode),
-  ]);
   return {
-    matches,
+    matches: await getApi().matchApi.matchControllerMatches(page, undefined, mode)
   };
 };

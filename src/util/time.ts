@@ -9,6 +9,26 @@ const locale = "ru";
  * @author github.com/victornpb
  * @see https://stackoverflow.com/a/67338038/938822
  */
+
+type RegularTimeDesc = { ge: number, divisor: number, unit:
+  | "year"
+  | "years"
+  | "quarter"
+  | "quarters"
+  | "month"
+  | "months"
+  | "week"
+  | "weeks"
+  | "day"
+  | "days"
+  | "hour"
+  | "hours"
+  | "minute"
+  | "minutes"
+  | "second"
+  | "seconds"; };
+type ExtraTimeDesc = { ge: number, divisor: number, unit: undefined, text: string };
+
 export function fromNow(
   date: Date | number | string,
   nowDate = new Date(),
@@ -21,7 +41,7 @@ export function fromNow(
   const WEEK = 7 * DAY;
   const YEAR = 365 * DAY;
   const MONTH = YEAR / 12;
-  const intervals = [
+  const intervals: (RegularTimeDesc | ExtraTimeDesc)[] = [
     { ge: YEAR, divisor: YEAR, unit: "year" },
     { ge: MONTH, divisor: MONTH, unit: "month" },
     { ge: WEEK, divisor: WEEK, unit: "week" },
@@ -43,9 +63,9 @@ export function fromNow(
     if (diffAbs >= interval.ge) {
       const x = Math.round(Math.abs(diff) / interval.divisor);
       const isFuture = diff < 0;
-      // @ts-ignore
-      return interval.unit
-        ? rft.format(isFuture ? x : -x, interval.unit as any)
+
+      return interval.unit !== undefined
+        ? rft.format(isFuture ? x : -x, interval.unit)
         : interval.text;
     }
   }

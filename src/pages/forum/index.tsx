@@ -1,4 +1,4 @@
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { ThreadMessageDTO, ThreadPageDTO, ThreadType } from "@/api/back";
 import {
@@ -18,6 +18,7 @@ import React from "react";
 import TableClasses from "@/components/GenericTable/GenericTable.module.scss";
 import cx from "classnames";
 import { NextPageContext } from "next";
+import Image from "next/image";
 
 interface Props {
   threads: ThreadPageDTO;
@@ -28,7 +29,7 @@ const Msg = ({ message }: { message: ThreadMessageDTO }) => {
   const { author } = message;
   return (
     <div className={cx(c.msg, TableClasses.player)}>
-      <img className={TableClasses.avatar__small} src={author.avatar} alt="" />
+      <Image className={TableClasses.avatar__small} src={author.avatar} alt="" />
       <div style={{ flex: 1 }}>
         <PageLink
           className={c.block}
@@ -121,7 +122,7 @@ export default function ForumIndexPage({ threads, page }: Props) {
                   }
                   className={TableClasses.player}
                 >
-                  <img
+                  <Image
                     className={TableClasses.avatar__small}
                     src={thread.originalPoster.avatar || "/avatar.png"}
                     alt=""
@@ -149,7 +150,7 @@ ForumIndexPage.getInitialProps = async (
 ): Promise<Props> => {
   const page = numberOrDefault(ctx.query.page as string, 0);
 
-  const threads = await useApi().forumApi.forumControllerThreads(page);
+  const threads = await getApi().forumApi.forumControllerThreads(page);
 
   return {
     threads,

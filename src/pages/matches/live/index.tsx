@@ -1,9 +1,8 @@
 import Head from "next/head";
-import { useApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import c from "./LiveMatches.module.scss";
 import { PageLink, SmallLiveMatch } from "@/components";
 import { AppRouter } from "@/route";
-import { NextPageContext } from "next";
 import { LiveMatchDto } from "@/api/back";
 import { formatGameMode } from "@/util/gamemode";
 import { watchUrl } from "@/util/urls";
@@ -14,7 +13,7 @@ interface InitialProps {
 }
 
 export default function LiveMatches({ data: initialData }: InitialProps) {
-  const { data } = useApi().liveApi.useLiveMatchControllerListMatches({
+  const { data } = getApi().liveApi.useLiveMatchControllerListMatches({
     refreshInterval: 3000,
     fallbackData: initialData,
   });
@@ -36,6 +35,7 @@ export default function LiveMatches({ data: initialData }: InitialProps) {
 
       {data?.map((t) => (
         <PageLink
+          key={t.matchId}
           link={AppRouter.matches.match(t.matchId).link}
           className={c.preview}
         >
@@ -54,10 +54,8 @@ export default function LiveMatches({ data: initialData }: InitialProps) {
   );
 }
 
-LiveMatches.getInitialProps = async (
-  ctx: NextPageContext,
-): Promise<InitialProps> => {
-  const data = await useApi().liveApi.liveMatchControllerListMatches();
+LiveMatches.getInitialProps = async (): Promise<InitialProps> => {
+  const data = await getApi().liveApi.liveMatchControllerListMatches();
 
   return {
     data,

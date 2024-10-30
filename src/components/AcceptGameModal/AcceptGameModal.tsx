@@ -9,7 +9,7 @@ import { useStore } from "@/store";
 
 const CopySomething = ({ something }: { something: string }) => {
   const [copied, setCopied] = useState(false);
-  const [cancelTimeout, setCancelTimeout] = useState<number | undefined>(
+  const [cancelTimeout] = useState<number | undefined>(
     undefined,
   );
 
@@ -21,7 +21,7 @@ const CopySomething = ({ something }: { something: string }) => {
 
       setCopied(true);
     }
-  }, []);
+  }, [cancelTimeout]);
 
   return (
     <CopyToClipboard text={something} onCopy={onCopy}>
@@ -87,14 +87,14 @@ export const AcceptGameModal = observer(() => {
       <div className={c.modal}>
         <h2>
           Ожидаем остальных игроков <br />{" "}
-          {q.gameInfo!!.accepted === undefined ? 0 : q.gameInfo!!.accepted} из{" "}
+          {q.gameInfo?.accepted === undefined ? 0 : q.gameInfo!.accepted} из{" "}
           {q.gameInfo.total}...
         </h2>
         <div className={c.dots}>
           {new Array(q.gameInfo.total).fill(null).map((_, t) => (
             <div
               key={t}
-              className={t < q.gameInfo!!.accepted ? c.acceptedDot : undefined}
+              className={t < q.gameInfo!.accepted ? c.acceptedDot : undefined}
             />
           ))}
         </div>

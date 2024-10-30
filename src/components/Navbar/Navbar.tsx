@@ -5,12 +5,13 @@ import { NavbarItem } from "..";
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";
 import { FaSteam } from "react-icons/fa";
-import { appApi, useApi } from "@/api/hooks";
+import { appApi, getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import cx from "classnames";
 import { Role } from "@/api/mapped-models";
+import Image from "next/image";
 
 const LoginProfileNavbarItem = observer(() => {
   const { parsedToken, smallAvatar } = useStore().auth;
@@ -32,7 +33,7 @@ const LoginProfileNavbarItem = observer(() => {
       link={AppRouter.players.player.index(parsedToken.sub).link}
     >
       <span>{parsedToken.name}</span>
-      <img className={c.playerAvatar} src={smallAvatar} alt="User avatar" />
+      <Image className={c.playerAvatar} src={smallAvatar} alt="User avatar" />
     </NavbarItem>
   );
 });
@@ -44,7 +45,7 @@ export const Navbar = observer(() => {
   const isAdminPath = useRouter().pathname.startsWith("/admin/");
 
   const { data: liveMatches } =
-    useApi().liveApi.useLiveMatchControllerListMatches({
+    getApi().liveApi.useLiveMatchControllerListMatches({
       refreshInterval: 5000,
     });
 
