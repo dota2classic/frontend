@@ -15,6 +15,7 @@ import cx from "classnames";
 import { shortName } from "@/util/heroName";
 import { formatGameMode } from "@/util/gamemode";
 import { watchUrl } from "@/util/urls";
+import { FaSkull } from "react-icons/fa";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -72,7 +73,9 @@ const MinimapHero = ({ hero }: MinimapHeroProps) => {
         bottom: `${posY * 100}%`,
       }}
     >
-      <span style={{ transform: `rotate(${-angle - 45}deg)` }} />
+      {/*<FaSkull*/}
+      {/*  className={cx(c.deadIndicator, dead && c.deadIndicator__visible)}*/}
+      {/*/>*/}
     </div>
   );
 };
