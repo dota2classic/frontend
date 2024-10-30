@@ -31,7 +31,11 @@ export const ScrollDetector: React.FC<IScrollDetectorProps> = ({
   const isVisible = useIsVisible(ref);
 
   useEffect(() => {
-    if (isVisible) onScrolledTo();
-  }, [isVisible, onScrolledTo]);
+    if (isVisible) {
+      console.log("View detected");
+      onScrolledTo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVisible]);
   return <span ref={ref} />;
 };

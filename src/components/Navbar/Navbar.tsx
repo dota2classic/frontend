@@ -33,7 +33,13 @@ const LoginProfileNavbarItem = observer(() => {
       link={AppRouter.players.player.index(parsedToken.sub).link}
     >
       <span>{parsedToken.name}</span>
-      <Image className={c.playerAvatar} src={smallAvatar} alt="User avatar" />
+      <Image
+        width={30}
+        height={30}
+        className={c.playerAvatar}
+        src={smallAvatar || "/avatar.jpg"}
+        alt="User avatar"
+      />
     </NavbarItem>
   );
 });

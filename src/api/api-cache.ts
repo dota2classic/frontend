@@ -26,7 +26,9 @@ export class StoreWrapper {
     const d = this.store.getItem(key);
     if (!d) return null;
 
+    console.trace(d);
     const sv: StoredValue = JSON.parse(d);
+
     if (new Date().getTime() - sv.createTime >= this.options.ttl) {
       // Invalidated
       this.store.setItem(key, null);

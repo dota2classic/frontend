@@ -114,6 +114,8 @@ const ColRenderer: React.FC<{
       <td>
         <div className={c.player}>
           <Image
+            width={40}
+            height={40}
             className={c.avatar}
             src={value.avatarSmall || "/avatar.png"}
             alt=""

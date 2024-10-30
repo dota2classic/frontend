@@ -27,6 +27,9 @@ export const ItemIcon: React.FC<IItemIconProps> = ({ item, small }) => {
   );
 };
 
+const smallImageStyles = { width: 40, height: 30 };
+const bigImageStyles = { width: 53, height: 40 };
+
 export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
   const ref = useRef<HTMLImageElement | null>(null);
   const ctx = useContext(TooltipContext);
@@ -36,7 +39,13 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
       ? ItemMap.find((it) => it.id === item)!.name
       : item.replace("item_", "");
 
-  if (fItem.includes("empty")) return <span className={c.img2} />;
+  if (fItem.includes("empty"))
+    return (
+      <span
+        style={small ? smallImageStyles : bigImageStyles}
+        className={c.img2}
+      />
+    );
 
   const url = fItem.includes("empty")
     ? `/items/emptyitembg.webp`
@@ -44,15 +53,15 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
       ? "/items/recipe.jpg"
       : `https://steamcdn-a.akamaihd.net/apps/dota2/images/items/${fItem}_lg.png`;
   return (
-    <Image
+    <img
       data-item-id={item}
       ref={ref}
       onMouseEnter={(e) =>
         ctx.setCtx({ item: "item_" + fItem, hovered: e.currentTarget! })
       }
       onMouseLeave={() => ctx.setCtx(undefined)}
-      width={60}
-      height={44}
+      width={small ? smallImageStyles.width : bigImageStyles.width}
+      height={small ? smallImageStyles.width : bigImageStyles.width}
       alt={`Item ${fItem}`}
       className={cx(c.item, { [c.small]: small })}
       src={url}

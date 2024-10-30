@@ -45,7 +45,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
             className={c.player}
             link={AppRouter.players.player.index(steamId).link}
           >
-            <Image src={image} alt="image in panel" />
+            <Image width={65} height={65} src={image} alt="image in panel" />
             <div className={c.playerName}>
               {steamId.length > 2 ? name : `Бот #${steamId}`}
             </div>

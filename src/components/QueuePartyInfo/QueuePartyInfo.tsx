@@ -60,7 +60,7 @@ export const QueuePartyInfo = observer(() => {
                 t.steamId === data?.leader.steamId && c.leader,
               )}
             >
-              <Image src={t.avatar} alt="" />
+              <Image width={50} height={50} src={t.avatar} alt="" />
             </div>
           </PageLink>
         ))}
@@ -70,9 +70,10 @@ export const QueuePartyInfo = observer(() => {
           onClick={(e: React<MouseEvent>) => {
             e.nativeEvent.nasty = true;
             setInviteOpen(true);
+            console.log("WTF?");
           }}
         >
-          <Image src={`/plus.png`} alt="" />
+          <Image width={50} height={50} src={`/plus.png`} alt="" />
         </div>
       </div>
 

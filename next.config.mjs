@@ -2,6 +2,18 @@ import bundleAnalyzer from "@next/bundle-analyzer"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.steamstatic.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'steamcdn-a.akamaihd.net'
+      }
+    ]
+  },
   reactStrictMode: true,
   output: "standalone",
   env: {

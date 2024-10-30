@@ -121,7 +121,7 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
         link={AppRouter.players.player.index(message.author.steamId).link}
         className={c.user}
       >
-        <Image src={message.author.avatar} alt="" />
+        <img src={message.author.avatar} alt="" />
         <h4>{message.author.name}</h4>
       </PageLink>
       <div className={c.right}>

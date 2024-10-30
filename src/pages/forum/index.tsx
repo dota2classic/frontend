@@ -32,6 +32,8 @@ const Msg = ({ message }: { message: ThreadMessageDTO }) => {
       <Image
         className={TableClasses.avatar__small}
         src={author.avatar}
+        width={30}
+        height={30}
         alt=""
       />
       <div style={{ flex: 1 }}>
@@ -127,6 +129,8 @@ export default function ForumIndexPage({ threads, page }: Props) {
                   className={TableClasses.player}
                 >
                   <Image
+                    width={30}
+                    height={30}
                     className={TableClasses.avatar__small}
                     src={thread.originalPoster.avatar || "/avatar.png"}
                     alt=""

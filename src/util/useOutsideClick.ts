@@ -6,7 +6,7 @@ export default function useOutsideClick(
 ) {
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if (!ref.current || ref.current["nasty"]) return false;
+      if (!ref.current || e["nasty"]) return false;
       return !ref.current?.contains(e.target) && onClickOut?.();
     };
     document.addEventListener("click", onClick);

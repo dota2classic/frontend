@@ -26,35 +26,34 @@ export class AppApi {
       input: RequestInfo | URL,
       init?: RequestInit,
     ): Promise<Response> => {
-      const key = JSON.stringify(input);
-      const cached = this.cache.get(key);
-      if (cached) {
-        // Need to create mock of response
-        const data = new Blob([JSON.stringify(cached)], {
-          type: "application/json",
-        });
-        const r = new Response(data, {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+      // const key = JSON.stringify(input);
+      // const cached = this.cache.get(key);
+      // if (cached) {
+      //   // Need to create mock of response
+      //   const data = new Blob([JSON.stringify(cached)], {
+      //     type: "application/json",
+      //   });
+      //   const r = new Response(data, {
+      //     status: 200,
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   });
+      //
+      //   return r.clone() as Response;
+      // }
 
-        return r.clone() as Response;
-      }
-
-      const result = fetch(input, init).catch((e) => {
+      //
+      // result
+      //   .then((it) => it.clone().json())
+      //   .then((json) => {
+      //     this.cache.set(key, json);
+      //     return json;
+      //   });
+      return fetch(input, init).catch((e) => {
         console.log("hehehe", e);
         return undefined as unknown;
       });
-
-      result
-        .then((it) => it.clone().json())
-        .then((json) => {
-          this.cache.set(key, json);
-          return json;
-        });
-      return result;
     },
   };
   private readonly apiConfig = new Configuration(this.apiParams);

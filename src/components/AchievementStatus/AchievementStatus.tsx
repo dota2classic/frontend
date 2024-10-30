@@ -78,7 +78,12 @@ export const AchievementStatus: React.FC<IAchievementStatusProps> = ({
         !achievement.isComplete && c.achievement__incomplete,
       )}
     >
-      <Image src={keyMap[achievement.key]?.img || "/avatar.png"} alt="" />
+      <Image
+        width={100}
+        height={100}
+        src={keyMap[achievement.key]?.img || "/avatar.png"}
+        alt=""
+      />
       {achievement.maxProgress === 1 ? (
         <div className={c.progress}>
           {achievement.isComplete ? <FaCheck /> : <RiCloseFill />}
