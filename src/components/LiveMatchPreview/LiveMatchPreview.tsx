@@ -53,25 +53,22 @@ const TeamListTable = ({ players }: { players: PlayerInfo[] }) => {
 };
 
 interface MinimapHeroProps {
-  x: number;
-  y: number;
-  team: number;
-  angle: number;
-  hero: string;
-  dead: boolean;
+  hero: PlayerInfo;
 }
 
-const MinimapHero = ({ x, y, hero, team, dead, angle }: MinimapHeroProps) => {
+const MinimapHero = ({ hero }: MinimapHeroProps) => {
+  const { posX, posY, team, respawnTime, angle, name } = hero;
+  const dead = respawnTime > 0;
   return (
     <div
-      className={cx(c.hero, shortName(hero), "d2mh", {
+      className={cx(c.hero, shortName(name), "d2mh", {
         [c.radiant]: team === 2,
         [c.dire]: team === 3,
         [c.dead]: dead,
       })}
       style={{
-        left: `${x * 100}%`,
-        bottom: `${y * 100}%`,
+        left: `${posX * 100}%`,
+        bottom: `${posY * 100}%`,
       }}
     >
       <span style={{ transform: `rotate(${-angle - 45}deg)` }} />
@@ -101,15 +98,7 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         <TeamListTable players={radiant} />
         <div className={c.map}>
           {match.heroes.map((hero) => (
-            <MinimapHero
-              angle={hero.angle}
-              dead={hero.respawnTime > 0}
-              key={hero.hero}
-              x={hero.posX}
-              y={hero.posY}
-              hero={hero.hero}
-              team={hero.team}
-            />
+            <MinimapHero key={hero.steamId} hero={hero} />
           ))}
         </div>
         <TeamListTable players={dire} />
@@ -127,15 +116,7 @@ export const SmallLiveMatch: React.FC<ILiveMatchPreviewProps> = ({ match }) => {
   return (
     <div className={cx(c.map, c.map__small)}>
       {match.heroes.map((hero) => (
-        <MinimapHero
-          angle={hero.angle}
-          dead={hero.respawnTime > 0}
-          key={hero.hero}
-          x={hero.posX}
-          y={hero.posY}
-          hero={hero.hero}
-          team={hero.team}
-        />
+        <MinimapHero key={hero.steamId} hero={hero} />
       ))}
     </div>
   );

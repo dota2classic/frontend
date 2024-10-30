@@ -120,7 +120,7 @@ export const useEventSource = <T extends object>(
     };
 
     return () => es.close();
-  }, [bp, context, endpoint, transformer]);
+  }, [context]);
 
   return data;
 };
@@ -132,9 +132,10 @@ export const useClampedPage = (
 ) => {
   useEffect(() => {
     if (totalPages !== undefined && numberOrDefault(page, 0) >= totalPages) {
+      console.log("Clamp", totalPages, page);
       setPage(Math.max(0, totalPages - 1));
     }
-  }, [page, setPage, totalPages]);
+  }, [page, totalPages]);
 };
 
 interface TooltipContext2 {

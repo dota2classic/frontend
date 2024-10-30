@@ -91,7 +91,6 @@
   background-size: contain;
   background-image: url("/minimap.webp");
 
-
   &__small {
     width: 250px;
     height: 250px;
@@ -109,7 +108,7 @@
   & span {
     content: "";
 
-    border: solid $red;
+    //border: solid $red;
     border-width: 0 5px 5px 0;
     display: inline-block;
     padding: 3px;
@@ -122,7 +121,6 @@
     scale: 0.6;
     transition: 0.3s ease-in-out;
     display: none;
-
   }
 
   &.small {
@@ -133,7 +131,7 @@
     filter: drop-shadow(1px 1px 0 #c0de15) drop-shadow(-1px -1px 0 #c0de15);
 
     & span {
-      border-color: #c0de15;
+      border-color: $green;
     }
   }
 
@@ -145,7 +143,34 @@
     filter: drop-shadow(1px 1px 0 #c23c2a) drop-shadow(-1px -1px 0 #c23c2a);
   }
 
-  .dead {
-    opacity: 0.3;
+  &.dead {
+    opacity: 0.5;
+    filter: drop-shadow(1px 1px 0 #000000) drop-shadow(-1px -1px 0 #595959);
+  }
+}
+
+.hpMana {
+  height: 4px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  & span {
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+  }
+}
+
+.hp {
+  & span {
+    background-color: $green;
+  }
+}
+.mana {
+  & span {
+    background-color: blue;
   }
 }

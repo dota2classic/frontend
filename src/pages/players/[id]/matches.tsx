@@ -42,11 +42,13 @@ export default function PlayerMatches({
   const [hero, setHero] = useQueryBackedParameter("hero");
   const [mode, setMode] = useQueryBackedParameter("mode");
 
-  const [isLoading] = useRouterChanging();
+  // const [isLoading] = useRouterChanging();
 
   const data = initialMatches;
 
   useClampedPage(page, data?.pages, setPage);
+
+  console.log(GameModeOptions, mode);
 
   const formattedMatches = (data?.data || [])
     .sort(MatchComparator)
@@ -74,7 +76,7 @@ export default function PlayerMatches({
         <Panel className={c.filters}>
           <SelectOptions
             options={GameModeOptions}
-            selected={mode === undefined ? "undefined" : mode}
+            selected={mode}
             onSelect={({ value }) => {
               if (value === "undefined") setMode(undefined);
               else setMode(value);
@@ -105,7 +107,7 @@ export default function PlayerMatches({
         />
         <HeroWithItemsHistoryTable
           withItems
-          loading={isLoading}
+          loading={false}
           data={formattedMatches}
         />
         <Pagination
@@ -134,6 +136,7 @@ PlayerMatches.getInitialProps = async (
 
   const page = numberOrDefault(ctx.query.page, 0);
   const mode = numberOrDefault(ctx.query.mode, undefined);
+  console.log(hero, playerId, page, mode);
 
   const [preloadedSummary, initialMatches] = await Promise.combine<
     PlayerSummaryDto,
@@ -149,13 +152,9 @@ PlayerMatches.getInitialProps = async (
     ),
   ]);
 
-  const props = {
+  return {
     playerId,
     preloadedSummary,
     initialMatches,
-  };
-
-  return {
-    ...props,
   };
 };

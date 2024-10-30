@@ -86,6 +86,7 @@ export default function QueuePage(props: Props) {
         <header>Группа и поиск</header>
         <QueuePartyInfo />
         <Thread
+          scrollToLast
           className={c.queueDiscussion}
           showLastMessages={10}
           threadStyle={ThreadStyle.TINY}

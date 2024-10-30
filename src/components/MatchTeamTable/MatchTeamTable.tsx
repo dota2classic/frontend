@@ -33,7 +33,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <FaCoins color={"#C9AF1D"} />
           </th>
           <th>Предметы</th>
-          <th>ММР</th>
+          <th className="middle">ММР</th>
         </tr>
       </thead>
       <tbody>
@@ -87,12 +87,20 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
               <ItemIcon item={player.item4} />
               <ItemIcon item={player.item5} />
             </td>
-            <td
-              className={
-                Math.sign(player.mmr?.change || 0) > 0 ? "green" : "red"
-              }
-            >
-              {signedNumber(player.mmr?.change || 0)}
+            <td>
+              {(player.mmr?.change && (
+                <>
+                  {player.mmr?.mmrBefore}{" "}
+                  <span
+                    className={
+                      Math.sign(player.mmr?.change || 0) > 0 ? "green" : "red"
+                    }
+                  >
+                    {signedNumber(player.mmr?.change || 0)}
+                  </span>
+                </>
+              )) ||
+                "-"}
             </td>
           </tr>
         ))}

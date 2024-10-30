@@ -14,7 +14,7 @@ interface IUserPreviewProps {
 export const UserPreview: React.FC<IUserPreviewProps> = ({ user }) => {
   return (
     <div className={c.user}>
-      <Image src={user.avatar} alt="" />
+      <Image width={30} height={30} src={user.avatar} alt="" />
       <PageLink link={AppRouter.players.player.index(user.steamId).link}>
         {user.name}
       </PageLink>

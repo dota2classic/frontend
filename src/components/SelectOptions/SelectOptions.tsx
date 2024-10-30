@@ -20,7 +20,7 @@ export const GameModeOptions = [
     MatchmakingMode.SOLOMID,
     MatchmakingMode.BOTS,
   ].map((it) => ({
-    value: it,
+    value: it.toString(),
     label: formatGameMode(it),
   })),
 ];
@@ -58,9 +58,10 @@ export function SelectOptions({
         control: () => c.select,
         option: () => c.option,
         menu: () => c.menu,
+        singleValue: () => c.preview,
       }}
       placeholder={defaultText}
-      value={selected}
+      value={options.find((t) => t.value === selected)}
       onChange={onSelect}
       options={options}
     />

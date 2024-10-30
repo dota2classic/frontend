@@ -48,8 +48,6 @@ export const Navbar = observer(() => {
   const { auth } = useStore();
   const isAdmin = auth.parsedToken?.roles.includes(Role.ADMIN);
 
-  const isAdminPath = useRouter().pathname.startsWith("/admin/");
-
   const { data: liveMatches } =
     getApi().liveApi.useLiveMatchControllerListMatches({
       refreshInterval: 5000,
@@ -84,7 +82,7 @@ export const Navbar = observer(() => {
           </ul>
         </div>
       </div>
-      {isAdminPath && (
+      {isAdmin && (
         <div className={cx(c.navbar, c.navbar__admin)}>
           <div className={c.navbarInner}>
             <ul className={c.navbarList}>
