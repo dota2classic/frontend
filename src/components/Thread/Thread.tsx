@@ -182,7 +182,7 @@ export const MessageInput = observer(
 
     const isValid = value.length >= 5;
 
-    const submit = () => {
+    const submit = useCallback(() => {
       getApi()
         .forumApi.forumControllerPostMessage({
           id: p.id,
@@ -196,10 +196,21 @@ export const MessageInput = observer(
         .catch(() => {
           setError("Слишком часто отправляете сообщения!");
         });
-    };
+    }, [value, p.id, p.threadType]);
+
+    const onEnterKeyPressed = useCallback(
+      (e: React.KeyboardEvent) => {
+        if (e.keyCode === 13 && !e.shiftKey) {
+          // enter
+          submit();
+        }
+      },
+      [submit],
+    );
     return (
       <Panel className={c.createMessage}>
         <MarkdownTextarea
+          onKeyUp={onEnterKeyPressed}
           className={c.text}
           placeholder={"Введите сообщение"}
           value={value}
@@ -284,7 +295,7 @@ export const Thread: React.FC<IThreadProps> = observer(
         <MessageInput
           id={id.toString()}
           threadType={threadType}
-          onMessage={() => undefined}
+          onMessage={(msg) => consumeMessages([msg])}
         />
       </div>
     );
