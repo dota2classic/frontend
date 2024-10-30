@@ -15,7 +15,7 @@ import cx from "classnames";
 import { shortName } from "@/util/heroName";
 import { formatGameMode } from "@/util/gamemode";
 import { watchUrl } from "@/util/urls";
-import { FaSkull } from "react-icons/fa";
+import { TbGrave2 } from "react-icons/tb";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -28,6 +28,10 @@ const TeamListTable = ({ players }: { players: PlayerInfo[] }) => {
         <div key={it.steamId} className={c.playerRow}>
           <div className={cx(c.playerHeroRow, it.respawnTime > 0 && c.dead)}>
             <HeroIcon small hero={it.hero} />
+            <TbGrave2
+              style={{ opacity: it.respawnTime > 0 ? 1 : 0 }}
+              className={c.skull}
+            />
             {it.bot ? (
               <span>{"Бот"}</span>
             ) : (
