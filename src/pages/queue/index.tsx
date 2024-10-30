@@ -109,7 +109,7 @@ QueuePage.getInitialProps = async (ctx: NextPageContext) => {
       ctx.res.writeHead(307, { Location: "/queue/guide" });
       ctx.res.end();
     } else {
-      window.location = "/queue/guide";
+      window.location = "/queue/guide" as never;
       // While the page is loading, code execution will
       // continue, so we'll await a never-resolving
       // promise to make sure our page never
