@@ -158,7 +158,11 @@ ForumIndexPage.getInitialProps = async (
 ): Promise<Props> => {
   const page = numberOrDefault(ctx.query.page as string, 0);
 
-  const threads = await getApi().forumApi.forumControllerThreads(page);
+  const threads = await getApi().forumApi.forumControllerThreads(
+    page,
+    undefined,
+    ThreadType.FORUM,
+  );
 
   return {
     threads,

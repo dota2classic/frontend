@@ -58,7 +58,7 @@ interface MinimapHeroProps {
 }
 
 const MinimapHero = ({ hero }: MinimapHeroProps) => {
-  const { posX, posY, team, respawnTime, angle } = hero;
+  const { posX, posY, team, respawnTime } = hero;
   const dead = respawnTime > 0;
 
   return (

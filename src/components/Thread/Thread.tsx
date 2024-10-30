@@ -56,7 +56,7 @@ interface IMessageProps {
 }
 
 //
-function useEnrichedMessage(msg2: string) {
+function enrichMessage(msg2: string) {
   const msg = msg2.replace(/\n\s*\n/g, "\n");
 
   const parts: ReactNode[] = [];
@@ -104,7 +104,10 @@ function useEnrichedMessage(msg2: string) {
       // match
       const matchId = match[2];
       parts.push(
-        <PageLink link={AppRouter.matches.match(Number(matchId)).link}>
+        <PageLink
+          className="link"
+          link={AppRouter.matches.match(Number(matchId)).link}
+        >
           Матч {matchId}
         </PageLink>,
       );
@@ -123,7 +126,7 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
   threadStyle,
   onDelete,
 }: IMessageProps) {
-  const enrichedMessage = useEnrichedMessage(message.content);
+  const enrichedMessage = enrichMessage(message.content);
 
   const isDeletable = !!onDelete;
   const onDeleteWrap = useCallback(
@@ -141,7 +144,7 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
     >
       <PageLink
         link={AppRouter.players.player.index(message.author.steamId).link}
-        className={c.user}
+        className={cx(c.user)}
       >
         <img src={message.author.avatar} alt="" />
         <h4>{message.author.name}</h4>

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import * as runtime from "../runtime";
 import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
@@ -50,334 +51,246 @@ export interface MetaControllerItemRequest {
  *
  */
 export class MetaApi extends runtime.BaseAPI {
-  /**
-   */
-  metaControllerHeroContext(
-    requestParameters: MetaControllerHeroRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
 
-    const headerParameters: runtime.HTTPHeaders = {};
+    /**
+     */
+    metaControllerHeroContext(requestParameters: MetaControllerHeroRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-    return {
-      path: `/v1/meta/hero/{hero}`.replace(
-        `{${"hero"}}`,
-        encodeURIComponent(String(requestParameters.hero))
-      ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
+        const headerParameters: runtime.HTTPHeaders = {};
 
-  /**
-   */
-  metaControllerHero = async (hero: string): Promise<Array<HeroItemDto>> => {
-    const response = await this.metaControllerHeroRaw({ hero: hero });
-    return await response.value();
-  };
-
-  useMetaControllerHero(
-    hero: string,
-    config?: SWRConfiguration<Array<HeroItemDto>, Error>
-  ) {
-    let valid = true;
-
-    if (hero === null || hero === undefined || Number.isNaN(hero)) {
-      valid = false;
+        return {
+            path: `/v1/meta/hero/{hero}`.replace(`{${"hero"}}`, encodeURIComponent(String(requestParameters.hero))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
 
-    const context = this.metaControllerHeroContext({ hero: hero! });
-    return useSWR(
-      context,
-      valid ? () => this.metaControllerHero(hero!) : null,
-      config
-    );
-  }
-
-  /**
-   */
-  metaControllerHeroPlayersContext(
-    requestParameters: MetaControllerHeroPlayersRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    return {
-      path: `/v1/meta/hero/{hero}/players`.replace(
-        `{${"hero"}}`,
-        encodeURIComponent(String(requestParameters.hero))
-      ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  metaControllerHeroPlayers = async (
-    hero: string
-  ): Promise<Array<HeroPlayerDto>> => {
-    const response = await this.metaControllerHeroPlayersRaw({ hero: hero });
-    return await response.value();
-  };
-
-  useMetaControllerHeroPlayers(
-    hero: string,
-    config?: SWRConfiguration<Array<HeroPlayerDto>, Error>
-  ) {
-    let valid = true;
-
-    if (hero === null || hero === undefined || Number.isNaN(hero)) {
-      valid = false;
+    /**
+     */
+    metaControllerHero = async (hero: string): Promise<Array<HeroItemDto>> => {
+        const response = await this.metaControllerHeroRaw({ hero: hero });
+        return await response.value();
     }
 
-    const context = this.metaControllerHeroPlayersContext({ hero: hero! });
-    return useSWR(
-      context,
-      valid ? () => this.metaControllerHeroPlayers(hero!) : null,
-      config
-    );
-  }
+    useMetaControllerHero(hero: string, config?: SWRConfiguration<Array<HeroItemDto>, Error>) {
+        let valid = true
 
-  /**
-   */
-  metaControllerHeroesContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
+        if (hero === null || hero === undefined || Number.isNaN(hero)) {
+            valid = false
+        }
 
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    return {
-      path: `/v1/meta/heroes`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  metaControllerHeroes = async (): Promise<Array<HeroSummaryDto>> => {
-    const response = await this.metaControllerHeroesRaw();
-    return await response.value();
-  };
-
-  useMetaControllerHeroes(
-    config?: SWRConfiguration<Array<HeroSummaryDto>, Error>
-  ) {
-    let valid = true;
-
-    const context = this.metaControllerHeroesContext();
-    return useSWR(
-      context,
-      valid ? () => this.metaControllerHeroes() : null,
-      config
-    );
-  }
-
-  /**
-   */
-  metaControllerItemContext(
-    requestParameters: MetaControllerItemRequest
-  ): runtime.RequestOpts {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    return {
-      path: `/v1/meta/item/{item}`.replace(
-        `{${"item"}}`,
-        encodeURIComponent(String(requestParameters.item))
-      ),
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  metaControllerItem = async (item: number): Promise<Array<ItemHeroDto>> => {
-    const response = await this.metaControllerItemRaw({ item: item });
-    return await response.value();
-  };
-
-  useMetaControllerItem(
-    item: number,
-    config?: SWRConfiguration<Array<ItemHeroDto>, Error>
-  ) {
-    let valid = true;
-
-    if (item === null || item === undefined || Number.isNaN(item)) {
-      valid = false;
+        const context = this.metaControllerHeroContext({ hero: hero! });
+        return useSWR(context, valid ? () => this.metaControllerHero(hero!) : null, config)
     }
 
-    const context = this.metaControllerItemContext({ item: item! });
-    return useSWR(
-      context,
-      valid ? () => this.metaControllerItem(item!) : null,
-      config
-    );
-  }
+    /**
+     */
+    metaControllerHeroPlayersContext(requestParameters: MetaControllerHeroPlayersRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-  /**
-   */
-  metaControllerItemsContext(): runtime.RequestOpts {
-    const queryParameters: any = {};
+        const headerParameters: runtime.HTTPHeaders = {};
 
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    return {
-      path: `/v1/meta/items`,
-      method: "GET",
-      headers: headerParameters,
-      query: queryParameters,
-    };
-  }
-
-  /**
-   */
-  metaControllerItems = async (): Promise<Array<ItemDto>> => {
-    const response = await this.metaControllerItemsRaw();
-    return await response.value();
-  };
-
-  useMetaControllerItems(config?: SWRConfiguration<Array<ItemDto>, Error>) {
-    let valid = true;
-
-    const context = this.metaControllerItemsContext();
-    return useSWR(
-      context,
-      valid ? () => this.metaControllerItems() : null,
-      config
-    );
-  }
-
-  /**
-   */
-  private async metaControllerHeroRaw(
-    requestParameters: MetaControllerHeroRequest
-  ): Promise<runtime.ApiResponse<Array<HeroItemDto>>> {
-    this.metaControllerHeroValidation(requestParameters);
-    const context = this.metaControllerHeroContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(HeroItemDtoFromJSON)
-    );
-  }
-
-  /**
-   */
-  private metaControllerHeroValidation(
-    requestParameters: MetaControllerHeroRequest
-  ) {
-    if (
-      requestParameters.hero === null ||
-      requestParameters.hero === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "hero",
-        "Required parameter requestParameters.hero was null or undefined when calling metaControllerHero."
-      );
+        return {
+            path: `/v1/meta/hero/{hero}/players`.replace(`{${"hero"}}`, encodeURIComponent(String(requestParameters.hero))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
     }
-  }
 
-  /**
-   */
-  private async metaControllerHeroPlayersRaw(
-    requestParameters: MetaControllerHeroPlayersRequest
-  ): Promise<runtime.ApiResponse<Array<HeroPlayerDto>>> {
-    this.metaControllerHeroPlayersValidation(requestParameters);
-    const context = this.metaControllerHeroPlayersContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(HeroPlayerDtoFromJSON)
-    );
-  }
-
-  /**
-   */
-  private metaControllerHeroPlayersValidation(
-    requestParameters: MetaControllerHeroPlayersRequest
-  ) {
-    if (
-      requestParameters.hero === null ||
-      requestParameters.hero === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "hero",
-        "Required parameter requestParameters.hero was null or undefined when calling metaControllerHeroPlayers."
-      );
+    /**
+     */
+    metaControllerHeroPlayers = async (hero: string): Promise<Array<HeroPlayerDto>> => {
+        const response = await this.metaControllerHeroPlayersRaw({ hero: hero });
+        return await response.value();
     }
-  }
 
-  /**
-   */
-  private async metaControllerHeroesRaw(): Promise<
-    runtime.ApiResponse<Array<HeroSummaryDto>>
-  > {
-    this.metaControllerHeroesValidation();
-    const context = this.metaControllerHeroesContext();
-    const response = await this.request(context);
+    useMetaControllerHeroPlayers(hero: string, config?: SWRConfiguration<Array<HeroPlayerDto>, Error>) {
+        let valid = true
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(HeroSummaryDtoFromJSON)
-    );
-  }
+        if (hero === null || hero === undefined || Number.isNaN(hero)) {
+            valid = false
+        }
 
-  /**
-   */
-  private metaControllerHeroesValidation() {}
-
-  /**
-   */
-  private async metaControllerItemRaw(
-    requestParameters: MetaControllerItemRequest
-  ): Promise<runtime.ApiResponse<Array<ItemHeroDto>>> {
-    this.metaControllerItemValidation(requestParameters);
-    const context = this.metaControllerItemContext(requestParameters);
-    const response = await this.request(context);
-
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(ItemHeroDtoFromJSON)
-    );
-  }
-
-  /**
-   */
-  private metaControllerItemValidation(
-    requestParameters: MetaControllerItemRequest
-  ) {
-    if (
-      requestParameters.item === null ||
-      requestParameters.item === undefined
-    ) {
-      throw new runtime.RequiredError(
-        "item",
-        "Required parameter requestParameters.item was null or undefined when calling metaControllerItem."
-      );
+        const context = this.metaControllerHeroPlayersContext({ hero: hero! });
+        return useSWR(context, valid ? () => this.metaControllerHeroPlayers(hero!) : null, config)
     }
-  }
 
-  /**
-   */
-  private async metaControllerItemsRaw(): Promise<
-    runtime.ApiResponse<Array<ItemDto>>
-  > {
-    this.metaControllerItemsValidation();
-    const context = this.metaControllerItemsContext();
-    const response = await this.request(context);
+    /**
+     */
+    metaControllerHeroesContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(ItemDtoFromJSON)
-    );
-  }
+        const headerParameters: runtime.HTTPHeaders = {};
 
-  /**
-   */
-  private metaControllerItemsValidation() {}
+        return {
+            path: `/v1/meta/heroes`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    metaControllerHeroes = async (): Promise<Array<HeroSummaryDto>> => {
+        const response = await this.metaControllerHeroesRaw();
+        return await response.value();
+    }
+
+    useMetaControllerHeroes(config?: SWRConfiguration<Array<HeroSummaryDto>, Error>) {
+        let valid = true
+
+        const context = this.metaControllerHeroesContext();
+        return useSWR(context, valid ? () => this.metaControllerHeroes() : null, config)
+    }
+
+    /**
+     */
+    metaControllerItemContext(requestParameters: MetaControllerItemRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/meta/item/{item}`.replace(`{${"item"}}`, encodeURIComponent(String(requestParameters.item))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    metaControllerItem = async (item: number): Promise<Array<ItemHeroDto>> => {
+        const response = await this.metaControllerItemRaw({ item: item });
+        return await response.value();
+    }
+
+    useMetaControllerItem(item: number, config?: SWRConfiguration<Array<ItemHeroDto>, Error>) {
+        let valid = true
+
+        if (item === null || item === undefined || Number.isNaN(item)) {
+            valid = false
+        }
+
+        const context = this.metaControllerItemContext({ item: item! });
+        return useSWR(context, valid ? () => this.metaControllerItem(item!) : null, config)
+    }
+
+    /**
+     */
+    metaControllerItemsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/meta/items`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    metaControllerItems = async (): Promise<Array<ItemDto>> => {
+        const response = await this.metaControllerItemsRaw();
+        return await response.value();
+    }
+
+    useMetaControllerItems(config?: SWRConfiguration<Array<ItemDto>, Error>) {
+        let valid = true
+
+        const context = this.metaControllerItemsContext();
+        return useSWR(context, valid ? () => this.metaControllerItems() : null, config)
+    }
+
+    /**
+     */
+    private async metaControllerHeroRaw(requestParameters: MetaControllerHeroRequest): Promise<runtime.ApiResponse<Array<HeroItemDto>>> {
+        this.metaControllerHeroValidation(requestParameters);
+        const context = this.metaControllerHeroContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(HeroItemDtoFromJSON));
+    }
+
+    /**
+     */
+    private metaControllerHeroValidation(requestParameters: MetaControllerHeroRequest) {
+        if (requestParameters.hero === null || requestParameters.hero === undefined) {
+            throw new runtime.RequiredError("hero","Required parameter requestParameters.hero was null or undefined when calling metaControllerHero.");
+        }
+    }
+
+    /**
+     */
+    private async metaControllerHeroPlayersRaw(requestParameters: MetaControllerHeroPlayersRequest): Promise<runtime.ApiResponse<Array<HeroPlayerDto>>> {
+        this.metaControllerHeroPlayersValidation(requestParameters);
+        const context = this.metaControllerHeroPlayersContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(HeroPlayerDtoFromJSON));
+    }
+
+    /**
+     */
+    private metaControllerHeroPlayersValidation(requestParameters: MetaControllerHeroPlayersRequest) {
+        if (requestParameters.hero === null || requestParameters.hero === undefined) {
+            throw new runtime.RequiredError("hero","Required parameter requestParameters.hero was null or undefined when calling metaControllerHeroPlayers.");
+        }
+    }
+
+    /**
+     */
+    private async metaControllerHeroesRaw(): Promise<runtime.ApiResponse<Array<HeroSummaryDto>>> {
+        this.metaControllerHeroesValidation();
+        const context = this.metaControllerHeroesContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(HeroSummaryDtoFromJSON));
+    }
+
+    /**
+     */
+    private metaControllerHeroesValidation() {
+    }
+
+    /**
+     */
+    private async metaControllerItemRaw(requestParameters: MetaControllerItemRequest): Promise<runtime.ApiResponse<Array<ItemHeroDto>>> {
+        this.metaControllerItemValidation(requestParameters);
+        const context = this.metaControllerItemContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ItemHeroDtoFromJSON));
+    }
+
+    /**
+     */
+    private metaControllerItemValidation(requestParameters: MetaControllerItemRequest) {
+        if (requestParameters.item === null || requestParameters.item === undefined) {
+            throw new runtime.RequiredError("item","Required parameter requestParameters.item was null or undefined when calling metaControllerItem.");
+        }
+    }
+
+    /**
+     */
+    private async metaControllerItemsRaw(): Promise<runtime.ApiResponse<Array<ItemDto>>> {
+        this.metaControllerItemsValidation();
+        const context = this.metaControllerItemsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ItemDtoFromJSON));
+    }
+
+    /**
+     */
+    private metaControllerItemsValidation() {
+    }
+
 }
