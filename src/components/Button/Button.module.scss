@@ -9,7 +9,7 @@
   border-radius: 4px;
   transition: 0.3s ease;
   color: $primaryText;
-
+  cursor: pointer;
   background-color: $bg2;
 
 
@@ -28,5 +28,4 @@
     background: $transparentTint;
   }
 
-  cursor: pointer;
 }

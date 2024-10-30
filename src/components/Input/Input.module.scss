@@ -30,14 +30,13 @@
   font-family: "Trajan Pro 3", sans-serif;
   color: $primaryText;
 
+  margin-bottom: 20px;
   cursor: pointer;
 
   &:hover {
     color: $primaryTextHighlight;
     background: $almostBlack;
   }
-
-  margin-bottom: 20px;
 
   &.small {
     padding: 6px;
