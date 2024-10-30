@@ -8,8 +8,6 @@ import {
   StatsApi,
 } from "./back/apis";
 import { Configuration, ConfigurationParameters } from "./back";
-import { create } from "apisauce";
-import Qs from "qs";
 import { getCache } from "@/api/api-cache";
 
 // const PROD_URL = "http://localhost:6001";
@@ -67,8 +65,3 @@ export class AppApi {
 export const appApi = new AppApi();
 
 export const getApi = () => appApi;
-
-export const apiInner = create({
-  baseURL: `${PROD_URL}/api`,
-  paramsSerializer: (params) => Qs.stringify(params, { arrayFormat: "repeat" }),
-});

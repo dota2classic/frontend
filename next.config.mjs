@@ -21,7 +21,8 @@ const nextConfig = {
     NEXT_PUBLIC_API_URL: process.env.API_URL,
   },
   experimental: {
-    scrollRestoration: true
+    scrollRestoration: true,
+    fallbackNodePolyfills: false
   }
 };
 

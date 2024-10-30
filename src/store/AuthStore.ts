@@ -8,7 +8,7 @@ import {
 import { HydratableStore } from "@/store/HydratableStore";
 import { parseJwt } from "@/util/math";
 import BrowserCookies from "browser-cookies";
-import { apiInner, appApi } from "@/api/hooks";
+import { appApi } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
 
 interface JwtAuthToken {
@@ -74,7 +74,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   public setToken = (token: string | undefined) => {
     this.token = token;
     appApi.apiParams.accessToken = token;
-    apiInner.setHeader(`Authorization`, `Bearer ${token}`);
+    // apiInner.setHeader(`Authorization`, `Bearer ${token}`);
   };
 
   @action
