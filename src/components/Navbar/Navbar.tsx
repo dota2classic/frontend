@@ -36,7 +36,7 @@ const LoginProfileNavbarItem = observer(() => {
         width={30}
         height={30}
         className={c.playerAvatar}
-        src={smallAvatar || "/avatar.jpg"}
+        src={smallAvatar || "/avatar.png"}
         alt="User avatar"
       />
     </NavbarItem>

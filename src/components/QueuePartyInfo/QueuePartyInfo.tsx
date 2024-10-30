@@ -60,7 +60,12 @@ export const QueuePartyInfo = observer(() => {
                 t.steamId === data?.leader.steamId && c.leader,
               )}
             >
-              <Image width={50} height={50} src={t.avatar} alt="" />
+              <img
+                width={50}
+                height={50}
+                src={t.avatar || "/avatar.png"}
+                alt=""
+              />
             </div>
           </PageLink>
         ))}
@@ -73,7 +78,7 @@ export const QueuePartyInfo = observer(() => {
             setInviteOpen(true);
           }}
         >
-          <Image width={50} height={50} src={`/plus.png`} alt="" />
+          <img width={50} height={50} src={`/plus.png`} alt="" />
         </div>
       </div>
 

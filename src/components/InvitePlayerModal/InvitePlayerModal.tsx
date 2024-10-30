@@ -58,7 +58,7 @@ export const InvitePlayerModal: React.FC<IInvitePlayerModalProps> = ({
                 <Image
                   width={40}
                   height={40}
-                  src={it.avatar}
+                  src={it.avatar || "/avatar.png"}
                   alt={`Avatar of ${it.name}`}
                 />
                 <span>{it.name}</span>
