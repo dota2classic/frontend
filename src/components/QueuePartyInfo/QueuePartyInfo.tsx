@@ -10,7 +10,6 @@ import { InvitePlayerModal, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
 import { formatGameMode } from "@/util/gamemode";
-import Image from "next/image";
 
 const GameCoordinatorConnection = ({
   readyState,
