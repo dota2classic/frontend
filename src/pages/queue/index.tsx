@@ -43,8 +43,6 @@ export default function QueuePage(props: Props) {
 
   const playedAnyGame = !!props.playerSummary?.playedAnyGame;
 
-  const queueStore = useStore().queue;
-
   const d84 = modes!
     .filter((it) => it.version === "Dota_684" && it.enabled)
     .filter(
@@ -66,7 +64,7 @@ export default function QueuePage(props: Props) {
           {d84.map((info) => (
             <MatchmakingOption
               key={`${info.mode}${info.version}`}
-              onSelect={queueStore.setSelectedMode}
+              onSelect={queue.setSelectedMode}
               version={info.version}
               mode={info.mode}
             />
@@ -100,6 +98,27 @@ export default function QueuePage(props: Props) {
 }
 
 QueuePage.getInitialProps = async (ctx: NextPageContext) => {
+  // We need to check if we are logged in
+  const jwt = withTemporaryToken(ctx, (store) => store.auth.parsedToken);
+  if (!jwt) {
+    // not logged in
+    if (ctx.res) {
+      // On the server, we'll use an HTTP response to
+      // redirect with the status code of our choice.
+      // 307 is for temporary redirects.
+      ctx.res.writeHead(307, { Location: "/queue/guide" });
+      ctx.res.end();
+    } else {
+      window.location = "/queue/guide";
+      // While the page is loading, code execution will
+      // continue, so we'll await a never-resolving
+      // promise to make sure our page never
+      // gets rendered.
+      await new Promise(() => {});
+    }
+    return;
+  }
+
   const [modes, playerSummary] = await Promise.all<unknown>([
     getApi().statsApi.statsControllerGetMatchmakingInfo(),
     withTemporaryToken(ctx, (stores) => {

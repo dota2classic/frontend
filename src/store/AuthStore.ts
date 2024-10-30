@@ -80,11 +80,12 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   @action
   public logout() {
     this.token = undefined;
-    // apiInner.deleteHeader(`Authorization`);
-    // appApi.apiParams.accessToken = undefined;
-    // localStorage.removeItem("token");
+    appApi.apiParams.accessToken = undefined;
+    localStorage.removeItem("AuthStore.cookieTokenKey");
     BrowserCookies.erase(AuthStore.cookieTokenKey);
-    // cookies.erase(AuthServiceService.cookieTokenKey);
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
   }
 
   hydrate = (data?: { token?: string }) => {

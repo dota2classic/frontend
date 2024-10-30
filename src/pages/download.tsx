@@ -45,6 +45,10 @@ export default function DownloadPage() {
             type: ColumnType.ExternalLink,
             name: "Яндекс Диск",
           },
+          {
+            type: ColumnType.ExternalLink,
+            name: "Torrent",
+          },
         ]}
         data={[
           [
@@ -63,6 +67,10 @@ export default function DownloadPage() {
             {
               link: "https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw",
               label: "Windows + base game todo",
+            },
+            {
+              link: "https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw",
+              label: "Windows + base game TODO",
             },
           ],
 
@@ -83,6 +91,10 @@ export default function DownloadPage() {
               link: "https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw",
               label: "Linux binaries todo",
             },
+            {
+              link: "https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw",
+              label: "Linux binaries TODO",
+            },
           ],
 
           [
@@ -101,6 +113,10 @@ export default function DownloadPage() {
             {
               link: "https://mega.nz/file/Ea5HURST#GeBiVze4vrv5VPyeM55pYJs8C_ItkmEB2z0xE7uiDHY",
               label: "MacOS binaries todo",
+            },
+            {
+              link: "https://mega.nz/file/Ea5HURST#GeBiVze4vrv5VPyeM55pYJs8C_ItkmEB2z0xE7uiDHY",
+              label: "MacOS binaries TODO",
             },
           ],
         ]}

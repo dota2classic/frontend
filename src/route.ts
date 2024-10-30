@@ -58,6 +58,7 @@ export const AppRouter = {
   stats: spage("/stats/leaderboard"),
   blog: spage("/blog"),
   queue: spage("/queue"),
+  queueGuide: spage("/queue/guide"),
   leaderboard: spage("/stats/leaderboard"),
   live: spage("/stats/live"),
 
