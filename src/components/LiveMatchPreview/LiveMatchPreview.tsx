@@ -25,7 +25,7 @@ const TeamListTable = ({ players }: { players: PlayerInfo[] }) => {
     <div className={c.teamTable}>
       {players.map((it) => (
         <div key={it.steamId} className={c.playerRow}>
-          <div className={c.playerHeroRow}>
+          <div className={cx(c.playerHeroRow, it.respawnTime > 0 && c.dead)}>
             <HeroIcon small hero={it.hero} />
             {it.bot ? (
               <span>{"Бот"}</span>
@@ -57,11 +57,12 @@ interface MinimapHeroProps {
 }
 
 const MinimapHero = ({ hero }: MinimapHeroProps) => {
-  const { posX, posY, team, respawnTime, angle, name } = hero;
+  const { posX, posY, team, respawnTime, angle } = hero;
   const dead = respawnTime > 0;
+
   return (
     <div
-      className={cx(c.hero, shortName(name), "d2mh", {
+      className={cx(c.hero, shortName(hero.hero), "d2mh", {
         [c.radiant]: team === 2,
         [c.dire]: team === 3,
         [c.dead]: dead,

@@ -81,11 +81,16 @@ export default function PlayerPage({
         name={preloadedSummary.user.name}
         steamId={preloadedSummary.user.steamId}
       />
-      <Panel style={{ display: "flex", gap: "10px", marginTop: 20 }}>
-        {preloadedAchievements.map((t) => (
-          <AchievementStatus key={t.key} achievement={t} />
-        ))}
-      </Panel>
+      <Section style={{ gridColumn: "span 12" }}>
+        <header>Достижения</header>
+        <Panel style={{ display: "flex", gap: "10px" }}>
+          {preloadedAchievements
+            .sort((a, b) => b.key - a.key)
+            .map((t) => (
+              <AchievementStatus key={t.key} achievement={t} />
+            ))}
+        </Panel>
+      </Section>
       <Section className={c.matchHistory}>
         <header>
           Матчи
