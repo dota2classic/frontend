@@ -27,6 +27,7 @@ import { useThread } from "@/util/threads";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useStore } from "@/store";
 import { MdDelete } from "react-icons/md";
+import { youtubeVideo } from "@/util/regex";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -60,7 +61,7 @@ function useEnrichedMessage(msg2: string) {
 
   const parts: ReactNode[] = [];
   const r = new RegExp(
-    `(https:\\/\\/dotaclassic.ru\\/matches\\/(\\d+))|(https:\\/\\/dotaclassic.ru\\/players\\/(\\d+))`,
+    `(https:\\/\\/dotaclassic.ru\\/matches\\/(\\d+))|(https:\\/\\/dotaclassic.ru\\/players\\/(\\d+))|(https?:\\/\\/([\\S]+)\\.[\\S]+)`,
     "g",
   );
   const matches = Array.from(msg.matchAll(r));
@@ -77,6 +78,28 @@ function useEnrichedMessage(msg2: string) {
       // somehow fetch user?
       const playerId = match[4];
       parts.push(<ForumUserEmbed steamId={playerId} />);
+    } else if (match[5]) {
+      const domain = match[6];
+
+      const videoId = youtubeVideo(match[5]);
+
+      if ((domain === "youtube" || domain === "www.youtube") && videoId) {
+        // we can try to embed it
+        parts.push(
+          <iframe
+            className={c.iframe}
+            src={`https://www.youtube.com/embed/${videoId}`}
+          ></iframe>,
+        );
+      } else {
+        // Can we embed it?
+        // regular link
+        parts.push(
+          <a className="link" href={match[5]} target="__blank">
+            {match[5]}
+          </a>,
+        );
+      }
     } else {
       // match
       const matchId = match[2];
