@@ -22,7 +22,10 @@ export class AppApi {
 
   apiParams: ConfigurationParameters = {
     basePath: `${PROD_URL}`,
-    fetchApi: async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+    fetchApi: async (
+      input: RequestInfo | URL,
+      init?: RequestInit,
+    ): Promise<Response> => {
       const key = JSON.stringify(input);
       const cached = this.cache.get(key);
       if (cached) {

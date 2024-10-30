@@ -29,7 +29,11 @@ const Msg = ({ message }: { message: ThreadMessageDTO }) => {
   const { author } = message;
   return (
     <div className={cx(c.msg, TableClasses.player)}>
-      <Image className={TableClasses.avatar__small} src={author.avatar} alt="" />
+      <Image
+        className={TableClasses.avatar__small}
+        src={author.avatar}
+        alt=""
+      />
       <div style={{ flex: 1 }}>
         <PageLink
           className={c.block}

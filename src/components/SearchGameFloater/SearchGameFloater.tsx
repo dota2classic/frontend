@@ -4,7 +4,6 @@ import { AcceptGameModal, SearchGameButton } from "..";
 
 import c from "./SearchGameFloater.module.scss";
 
-
 export const SearchGameFloater: React.FC<unknown> = ({}) => {
   return (
     <div className={c.container}>

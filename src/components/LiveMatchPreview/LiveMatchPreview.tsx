@@ -1,24 +1,26 @@
 import React from "react";
-import {LiveMatchDto, PlayerInfo} from "@/api/back";
+import { LiveMatchDto, PlayerInfo } from "@/api/back";
 import c from "./LiveMatchPreview.module.scss";
-import {HeroIcon, ItemIcon, MatchSummaryScore, PageLink, Panel,} from "@/components";
-import {AppRouter} from "@/route";
-import {KDATableData} from "@/components/GenericTable/GenericTable";
-import {items} from "@/util/iter";
+import {
+  HeroIcon,
+  ItemIcon,
+  MatchSummaryScore,
+  PageLink,
+  Panel,
+} from "@/components";
+import { AppRouter } from "@/route";
+import { KDATableData } from "@/components/GenericTable/GenericTable";
+import { items } from "@/util/iter";
 import cx from "classnames";
-import {shortName} from "@/util/heroName";
-import {formatGameMode} from "@/util/gamemode";
-import {watchUrl} from "@/util/urls";
+import { shortName } from "@/util/heroName";
+import { formatGameMode } from "@/util/gamemode";
+import { watchUrl } from "@/util/urls";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
 }
 
-const TeamListTable = ({
-  players
-}: {
-  players: PlayerInfo[];
-}) => {
+const TeamListTable = ({ players }: { players: PlayerInfo[] }) => {
   return (
     <div className={c.teamTable}>
       {players.map((it) => (

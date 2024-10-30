@@ -1,3 +1,4 @@
+/* eslint-disable */
 const commit = `563b88615b971078d786d5c653dfd7238b3b7a40`;
 const itemsJsonUrl = `https://github.com/dotabuff/d2vpkr/raw/${commit}/dota/scripts/npc/items.json`;
 const abilitiesJsonUrl = `https://raw.githubusercontent.com/dotabuff/d2vpkr/${commit}/dota/resource/dota_russian.json`;

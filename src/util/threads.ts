@@ -1,8 +1,8 @@
-import {getApi} from "@/api/hooks";
-import {useCallback, useEffect, useState} from "react";
-import {querystring, ThreadMessageDTO} from "@/api/back";
-import {ThreadType} from "@/api/mapped-models/ThreadType";
-import {maxBy} from "@/util/iter";
+import { getApi } from "@/api/hooks";
+import { useCallback, useEffect, useState } from "react";
+import { querystring, ThreadMessageDTO } from "@/api/back";
+import { ThreadType } from "@/api/mapped-models/ThreadType";
+import { maxBy } from "@/util/iter";
 
 export interface Thread {
   id: string;
@@ -57,7 +57,6 @@ export const useThread = (
     [data],
   );
 
-
   const loadMore = useCallback(() => {
     const latest = maxBy(data.messages, (it) =>
       new Date(it.createdAt).getTime(),
@@ -71,14 +70,12 @@ export const useThread = (
       .then(consumeMessages);
   }, [consumeMessages, data.messages, id, threadType]);
 
-
-
   const endpoint = getApi().forumApi.forumControllerThreadContext({
     id: id.toString(),
     threadType: threadType,
   });
 
-  const context= JSON.stringify(endpoint)
+  const context = JSON.stringify(endpoint);
   useEffect(() => {
     const es = new EventSource(
       `${bp}${endpoint.path}${endpoint.query && querystring(endpoint.query, "?")}`,
@@ -91,7 +88,6 @@ export const useThread = (
 
     return () => es.close();
   }, [bp, consumeMessages, context, endpoint.path, endpoint.query]);
-
 
   if (typeof window === "undefined")
     return [defaultThread, () => undefined, () => undefined];

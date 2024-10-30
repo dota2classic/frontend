@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
-import {Breadcrumbs, PageLink, Panel, Thread} from "@/components";
+import { Breadcrumbs, PageLink, Panel, Thread } from "@/components";
 import { getApi } from "@/api/hooks";
-import {ThreadDTO, ThreadMessageDTO} from "@/api/back";
+import { ThreadDTO, ThreadMessageDTO } from "@/api/back";
 import { NextPageContext } from "next";
-import {AppRouter} from "@/route";
-import {useEffect} from "react";
+import { AppRouter } from "@/route";
+import { useEffect } from "react";
 
 interface Props {
   messages: ThreadMessageDTO[];
@@ -14,7 +14,7 @@ interface Props {
 
 export default function ThreadPage({ messages, thread }: Props) {
   const r = useRouter();
-  console.log(r)
+  console.log(r);
   useEffect(() => {
     // document.addEventListener("scrollend", e => {
     //   console.log("Yay remove anchor")
@@ -50,6 +50,6 @@ ThreadPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
     thread: await getApi().forumApi.forumControllerGetThread(
       tid,
       ThreadType.FORUM,
-    )
+    ),
   };
 };

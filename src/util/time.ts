@@ -10,24 +10,33 @@ const locale = "ru";
  * @see https://stackoverflow.com/a/67338038/938822
  */
 
-type RegularTimeDesc = { ge: number, divisor: number, unit:
-  | "year"
-  | "years"
-  | "quarter"
-  | "quarters"
-  | "month"
-  | "months"
-  | "week"
-  | "weeks"
-  | "day"
-  | "days"
-  | "hour"
-  | "hours"
-  | "minute"
-  | "minutes"
-  | "second"
-  | "seconds"; };
-type ExtraTimeDesc = { ge: number, divisor: number, unit: undefined, text: string };
+type RegularTimeDesc = {
+  ge: number;
+  divisor: number;
+  unit:
+    | "year"
+    | "years"
+    | "quarter"
+    | "quarters"
+    | "month"
+    | "months"
+    | "week"
+    | "weeks"
+    | "day"
+    | "days"
+    | "hour"
+    | "hours"
+    | "minute"
+    | "minutes"
+    | "second"
+    | "seconds";
+};
+type ExtraTimeDesc = {
+  ge: number;
+  divisor: number;
+  unit: undefined;
+  text: string;
+};
 
 export function fromNow(
   date: Date | number | string,

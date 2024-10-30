@@ -1,15 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {ReactNode, useState} from "react";
+import React, { ReactNode, useState } from "react";
 import c from "./GenericTable.module.scss";
-import {HeroIcon, ItemIcon, ItemIconRaw, KDABarChart, PageLink, Table, TableRowLoading,} from "..";
-import {AppRouter, NextLinkProp} from "@/route";
-import {SingleWeightedBarChart} from "@/components/BarChart/BarChart";
-import heroName, {itemName} from "@/util/heroName";
+import {
+  HeroIcon,
+  ItemIcon,
+  ItemIconRaw,
+  KDABarChart,
+  PageLink,
+  Table,
+  TableRowLoading,
+} from "..";
+import { AppRouter, NextLinkProp } from "@/route";
+import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
+import heroName, { itemName } from "@/util/heroName";
 import cx from "classnames";
-import {maxBy} from "@/util/iter";
-import {FaSort} from "react-icons/fa6";
-import {FaSortAmountDown, FaSortAmountUp} from "react-icons/fa";
-import {colors} from "@/colors";
+import { maxBy } from "@/util/iter";
+import { FaSort } from "react-icons/fa6";
+import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
+import { colors } from "@/colors";
 import Image from "next/image";
 
 export enum ColumnType {
@@ -231,7 +239,7 @@ const ColRenderer: React.FC<{
 };
 
 const RowRendererMemo: React.FC<{ data: Data; columns: Column[]; ctx: any[] }> =
-  React.memo(function RowRenderer ({ data, columns, ctx }){
+  React.memo(function RowRenderer({ data, columns, ctx }) {
     return (
       <tr>
         {data.slice(0, columns.length).map((it, index) => (

@@ -28,7 +28,6 @@ import { blinkTab } from "@/util/blinkTab";
 import { NotificationDto, NotificationStore } from "@/store/NotificationStore";
 import { PartyInviteNotification } from "@/components";
 
-
 export interface QueueState {
   mode: MatchmakingMode;
   version: Dota2Version;

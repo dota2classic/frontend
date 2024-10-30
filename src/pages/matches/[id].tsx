@@ -9,11 +9,11 @@ import {
 } from "@/components";
 import { FaTrophy } from "react-icons/fa";
 import { getApi } from "@/api/hooks";
-import {LiveMatchDto, LiveMatchDtoFromJSON, MatchDto} from "@/api/back";
+import { LiveMatchDto, LiveMatchDtoFromJSON, MatchDto } from "@/api/back";
 import Head from "next/head";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { ThreadStyle } from "@/components/Thread/Thread";
-import {useEventSource} from "@/util/hooks";
+import { useEventSource } from "@/util/hooks";
 
 interface InitialProps {
   matchId: number;

@@ -17,7 +17,7 @@ interface IPaginationProps {
 const PaginationItem = ({
   children,
   link,
-  active
+  active,
 }: PropsWithChildren<{
   link?: NextLinkProp;
   active?: boolean;

@@ -7,7 +7,6 @@ const heroName = (fullName?: string) => {
 };
 export default heroName;
 
-
 export const fullName = (hero: string) =>
   hero.includes("npc_dota_hero_") ? hero : `npc_dota_hero_${hero}`;
 export const shortName = (hero: string) =>

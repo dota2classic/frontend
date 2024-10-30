@@ -1,12 +1,12 @@
 import React from "react";
 
-import {Breadcrumbs, Duration, PageLink, Panel, TimeAgo} from "..";
+import { Breadcrumbs, Duration, PageLink, Panel, TimeAgo } from "..";
 
 import c from "./MatchSummary.module.scss";
 import cx from "classnames";
-import {formatGameMode} from "@/util/gamemode";
-import {MatchmakingMode} from "@/api/mapped-models";
-import {AppRouter} from "@/route";
+import { formatGameMode } from "@/util/gamemode";
+import { MatchmakingMode } from "@/api/mapped-models";
+import { AppRouter } from "@/route";
 
 interface IMatchSummaryProps {
   matchId: number;

@@ -1,16 +1,16 @@
-import React, {useCallback, useState} from "react";
+import React, { useCallback, useState } from "react";
 
 import c from "./QueuePartyInfo.module.scss";
-import {observer} from "mobx-react-lite";
-import {useStore} from "@/store";
-import {getApi} from "@/api/hooks";
-import {GameCoordinatorState} from "@/store/queue/game-coordinator.state";
-import {UserDTO} from "@/api/back";
-import {InvitePlayerModal, PageLink, Panel} from "@/components";
-import {AppRouter} from "@/route";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/store";
+import { getApi } from "@/api/hooks";
+import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
+import { UserDTO } from "@/api/back";
+import { InvitePlayerModal, PageLink, Panel } from "@/components";
+import { AppRouter } from "@/route";
 import cx from "classnames";
-import {formatGameMode} from "@/util/gamemode";
-import Image from "next/image"
+import { formatGameMode } from "@/util/gamemode";
+import Image from "next/image";
 
 const GameCoordinatorConnection = ({
   readyState,

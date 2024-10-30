@@ -5,7 +5,7 @@ import { PageLink } from "..";
 import c from "./UserPreview.module.scss";
 import { UserDTO } from "@/api/back";
 import { AppRouter } from "@/route";
-import Image from "next/image"
+import Image from "next/image";
 
 interface IUserPreviewProps {
   user: UserDTO;

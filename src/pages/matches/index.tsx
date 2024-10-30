@@ -73,6 +73,10 @@ MatchHistory.getInitialProps = async (
   const mode = numberOrDefault(ctx.query.mode, undefined);
 
   return {
-    matches: await getApi().matchApi.matchControllerMatches(page, undefined, mode)
+    matches: await getApi().matchApi.matchControllerMatches(
+      page,
+      undefined,
+      mode,
+    ),
   };
 };

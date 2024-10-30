@@ -9,19 +9,20 @@ import { useStore } from "@/store";
 
 const CopySomething = ({ something }: { something: string }) => {
   const [copied, setCopied] = useState(false);
-  const [cancelTimeout] = useState<number | undefined>(
-    undefined,
-  );
+  const [cancelTimeout] = useState<number | undefined>(undefined);
 
-  const onCopy = useCallback((text: string, success: boolean) => {
-    if (success) {
-      if (cancelTimeout) {
-        clearTimeout(cancelTimeout);
+  const onCopy = useCallback(
+    (text: string, success: boolean) => {
+      if (success) {
+        if (cancelTimeout) {
+          clearTimeout(cancelTimeout);
+        }
+
+        setCopied(true);
       }
-
-      setCopied(true);
-    }
-  }, [cancelTimeout]);
+    },
+    [cancelTimeout],
+  );
 
   return (
     <CopyToClipboard text={something} onCopy={onCopy}>

@@ -10,7 +10,6 @@ export function winrate(wins: number, loss: number) {
   return wins / Math.max(1, total);
 }
 
-
 /**
  *
  *
@@ -21,13 +20,11 @@ export function winrate(wins: number, loss: number) {
  *
  */
 
-
-export function steam32to64(steam32: string | number){
-  steam32 = typeof steam32 === 'string' ? parseInt(steam32) : steam32;
+export function steam32to64(steam32: string | number) {
+  steam32 = typeof steam32 === "string" ? parseInt(steam32) : steam32;
   const res = BigInt("76561197960265728") + BigInt(steam32);
-  return res.toString()
+  return res.toString();
 }
-
 
 export function parseJwt<T>(token: string): T {
   const base64Url = token.split(".")[1];

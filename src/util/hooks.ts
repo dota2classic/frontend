@@ -26,7 +26,7 @@ export const useIsAdmin = () => {
 };
 
 export const useQueryParameters = (): Record<string, string> => {
-  return useRouter().query as Record<string, string>
+  return useRouter().query as Record<string, string>;
 };
 
 export const useQueryBackedParameter = (
@@ -66,11 +66,14 @@ export const useRouterChanging = () => {
     [boolean, string | undefined, boolean | undefined]
   >([false, "", false]);
   useEffect(() => {
-    const handleRouteChange = (url: string, obj: { shallow: boolean}) => {
+    const handleRouteChange = (url: string, obj: { shallow: boolean }) => {
       setIsChanging([true, url, obj.shallow]);
     };
 
-    const handleRouteChangeComplete = (url: string, obj: { shallow: boolean}) => {
+    const handleRouteChangeComplete = (
+      url: string,
+      obj: { shallow: boolean },
+    ) => {
       setIsChanging([false, url, obj.shallow]);
     };
 
@@ -103,7 +106,7 @@ export const useEventSource = <T extends object>(
 
   const [data, setData] = useState<T | null>(null);
 
-  const context = JSON.stringify(endpoint)
+  const context = JSON.stringify(endpoint);
 
   useEffect(() => {
     console.log("Creating event source, why?", JSON.stringify(endpoint));

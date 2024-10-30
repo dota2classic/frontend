@@ -46,7 +46,6 @@ export default function PlayerPage({
   preloadedTeammates,
   preloadedAchievements,
 }: PlayerPageProps) {
-
   const formattedMatches: PlayerMatchItem[] = (preloadedMatches?.data || [])
     .sort(MatchComparator)
     .map((it) =>
@@ -94,10 +93,7 @@ export default function PlayerPage({
             Показать еще
           </PageLink>
         </header>
-        <HeroWithItemsHistoryTable
-          loading={false}
-          data={formattedMatches}
-        />
+        <HeroWithItemsHistoryTable loading={false} data={formattedMatches} />
       </Section>
       <Section className={c.heroPerformance}>
         <header>

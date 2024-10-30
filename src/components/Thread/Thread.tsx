@@ -1,18 +1,32 @@
-import React, {ReactNode, useCallback, useEffect, useRef, useState,} from "react";
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-import {Button, ForumUserEmbed, MarkdownTextarea, PageLink, Panel, PeriodicTimer, ScrollDetector,} from "..";
+import {
+  Button,
+  ForumUserEmbed,
+  MarkdownTextarea,
+  PageLink,
+  Panel,
+  PeriodicTimer,
+  ScrollDetector,
+} from "..";
 
 import c from "./Thread.module.scss";
-import {ThreadMessageDTO} from "@/api/back";
-import {AppRouter} from "@/route";
-import {observer} from "mobx-react-lite";
-import {Rubik} from "next/font/google";
+import { ThreadMessageDTO } from "@/api/back";
+import { AppRouter } from "@/route";
+import { observer } from "mobx-react-lite";
+import { Rubik } from "next/font/google";
 import cx from "classnames";
-import {getApi} from "@/api/hooks";
-import {useThread} from "@/util/threads";
-import {ThreadType} from "@/api/mapped-models/ThreadType";
-import {useStore} from "@/store";
-import {MdDelete} from "react-icons/md";
+import { getApi } from "@/api/hooks";
+import { useThread } from "@/util/threads";
+import { ThreadType } from "@/api/mapped-models/ThreadType";
+import { useStore } from "@/store";
+import { MdDelete } from "react-icons/md";
 import Image from "next/image";
 
 const threadFont = Rubik({
@@ -82,53 +96,55 @@ function useEnrichedMessage(msg2: string) {
   return <>{...parts}</>;
 }
 
-export const Message: React.FC<IMessageProps> = React.memo(
-  function Message({ message, threadStyle, onDelete }: IMessageProps){
-    const enrichedMessage = useEnrichedMessage(message.content);
+export const Message: React.FC<IMessageProps> = React.memo(function Message({
+  message,
+  threadStyle,
+  onDelete,
+}: IMessageProps) {
+  const enrichedMessage = useEnrichedMessage(message.content);
 
-    const isDeletable = !!onDelete;
-    const onDeleteWrap = useCallback(
-      () => onDelete && onDelete(message.messageId),
-      [message.messageId, onDelete],
-    );
+  const isDeletable = !!onDelete;
+  const onDeleteWrap = useCallback(
+    () => onDelete && onDelete(message.messageId),
+    [message.messageId, onDelete],
+  );
 
-    return (
-      <Panel
-        id={message.messageId}
-        className={cx(c.message, {
-          [c.messageTiny]: threadStyle === ThreadStyle.TINY,
-          [c.messageSmall]: threadStyle === ThreadStyle.SMALL,
-        })}
+  return (
+    <Panel
+      id={message.messageId}
+      className={cx(c.message, {
+        [c.messageTiny]: threadStyle === ThreadStyle.TINY,
+        [c.messageSmall]: threadStyle === ThreadStyle.SMALL,
+      })}
+    >
+      <PageLink
+        link={AppRouter.players.player.index(message.author.steamId).link}
+        className={c.user}
       >
-        <PageLink
-          link={AppRouter.players.player.index(message.author.steamId).link}
-          className={c.user}
-        >
-          <Image src={message.author.avatar} alt="" />
-          <h4>{message.author.name}</h4>
-        </PageLink>
-        <div className={c.right}>
-          <div className={c.timeCreated}>
-            <PageLink
-              link={AppRouter.players.player.index(message.author.steamId).link}
-              className={c.username}
-            >
-              {message.author.name}
-            </PageLink>
-            <div>
-              #{message.index + 1} Добавлено{" "}
-              {<PeriodicTimer time={message.createdAt} />}
-              {isDeletable && (
-                <MdDelete className={c.delete} onClick={onDeleteWrap} />
-              )}
-            </div>
+        <Image src={message.author.avatar} alt="" />
+        <h4>{message.author.name}</h4>
+      </PageLink>
+      <div className={c.right}>
+        <div className={c.timeCreated}>
+          <PageLink
+            link={AppRouter.players.player.index(message.author.steamId).link}
+            className={c.username}
+          >
+            {message.author.name}
+          </PageLink>
+          <div>
+            #{message.index + 1} Добавлено{" "}
+            {<PeriodicTimer time={message.createdAt} />}
+            {isDeletable && (
+              <MdDelete className={c.delete} onClick={onDeleteWrap} />
+            )}
           </div>
-          <div className={c.content}>{enrichedMessage}</div>
         </div>
-      </Panel>
-    );
-  },
-);
+        <div className={c.content}>{enrichedMessage}</div>
+      </div>
+    </Panel>
+  );
+});
 
 export const MessageInput = observer(
   (p: {

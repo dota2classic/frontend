@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const fs = require('fs')
+/* eslint-disable */
+const fs = require("fs");
 
-const componentName = process.argv[2]
+const componentName = process.argv[2];
 
 const componentSource = `
 import React from 'react'
@@ -21,20 +22,20 @@ export const ${componentName}: React.FC<I${componentName}Props> = ({ }) => {
   )
 }
 
-`
+`;
 
 const componentStyle = `@import '../../common.scss';\n`;
 
-fs.mkdirSync(`./src/components/${componentName}`)
+fs.mkdirSync(`./src/components/${componentName}`);
 fs.appendFileSync(
   `./src/components/${componentName}/${componentName}.module.scss`,
-  componentStyle
-)
+  componentStyle,
+);
 fs.appendFileSync(
   `./src/components/${componentName}/${componentName}.tsx`,
-  componentSource
-)
+  componentSource,
+);
 fs.appendFileSync(
-  './src/components/index.ts',
-  `export { ${componentName} } from './${componentName}/${componentName}'\n`
-)
+  "./src/components/index.ts",
+  `export { ${componentName} } from './${componentName}/${componentName}'\n`,
+);
