@@ -88,8 +88,8 @@ MatchPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<InitialProps> => {
   const matchId = parseInt(ctx.query.id as string);
-  const [match, liveList] = await Promise.all<unknown>([
-    await getApi()
+  const [match, liveList] = await Promise.combine([
+    getApi()
       .matchApi.matchControllerMatch(matchId)
       .catch(() => undefined),
     getApi().liveApi.liveMatchControllerListMatches(),

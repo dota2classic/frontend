@@ -98,7 +98,7 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
       </Panel>
 
       <div className={c.liveMatch}>
-        <TeamListTable className={c.teamTable} players={radiant} />
+        <TeamListTable players={radiant} />
         <div className={c.map}>
           {match.heroes.map((hero) => (
             <MinimapHero
@@ -112,7 +112,7 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
             />
           ))}
         </div>
-        <TeamListTable className={c.teamTable} players={dire} />
+        <TeamListTable players={dire} />
       </div>
       <div>
         <a target={"__blank"} href={watchUrl(match.server)}>

@@ -161,7 +161,7 @@ AdminPlayerPage.getInitialProps = async (
 ): Promise<AdminPlayerPageProps> => {
   const playerId = ctx.query.id as string;
 
-  const [preloadedSummary, preloadedBans] = await Promise.all<unknown>([
+  const [preloadedSummary, preloadedBans] = await Promise.combine([
     getApi().playerApi.playerControllerPlayerSummary(playerId),
     withTemporaryToken(ctx, () =>
       getApi().adminApi.adminUserControllerBanOf(playerId),

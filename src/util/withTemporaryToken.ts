@@ -11,7 +11,7 @@ export function withTemporaryToken<T>(
   let cookies: { get: (key: string) => string | undefined | null };
   // If we are on client, we need to use browser cookies
   if (typeof window === "undefined") {
-    cookies = new Cookies(ctx.req, ctx.res);
+    cookies = new Cookies(ctx.req!, ctx.res!);
   } else {
     cookies = BrowserCookies;
   }

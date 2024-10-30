@@ -9,7 +9,7 @@ export function numberOrDefault<T = number>(
 }
 
 export function queryParameters(
-  params: Record<string, string | string[] | number>,
+  params: Record<string, string | string[] | number | undefined>,
 ) {
   const q = Qs.stringify(params);
 

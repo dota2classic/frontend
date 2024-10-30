@@ -49,12 +49,13 @@
   display: flex;
   flex-direction: row;
   margin-top: 40px;
+  justify-content: space-between;
 
   & button + button {
     margin-left: 10px;
   }
 
-  justify-content: space-between;
+
 }
 
 
@@ -67,7 +68,7 @@
   border-radius: 4px;
   transition: 0.3s ease;
   color: $primaryText;
-
+  cursor: pointer;
   background-color: $bg2;
 
   &:focus, &:hover {
@@ -79,7 +80,7 @@
     background: $transparentTint;
   }
 
-  cursor: pointer;
+
 }
 
 

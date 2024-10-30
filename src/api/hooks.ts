@@ -26,6 +26,7 @@ export class AppApi {
       input: RequestInfo | URL,
       init?: RequestInit,
     ): Promise<Response> => {
+      return fetch(input, init);
       // const key = JSON.stringify(input);
       // const cached = this.cache.get(key);
       // if (cached) {
@@ -50,10 +51,6 @@ export class AppApi {
       //     this.cache.set(key, json);
       //     return json;
       //   });
-      return fetch(input, init).catch((e) => {
-        console.log("hehehe", e);
-        return undefined as unknown;
-      });
     },
   };
   private readonly apiConfig = new Configuration(this.apiParams);

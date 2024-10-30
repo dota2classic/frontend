@@ -26,7 +26,7 @@ export const page = (
   link: { href, as, shallow, passHref: true },
   open: (hard?: boolean) => {
     if (hard) {
-      window.open(as);
+      window.open(as as never);
     } else {
       return Router.push(href, as);
     }

@@ -66,7 +66,6 @@ export const Pagination: React.FC<IPaginationProps> = ({
       {hasMoreLeft && <PaginationItem>..</PaginationItem>}
       {iter.map((_page) => (
         <PaginationItem
-          numerical
           key={_page}
           link={linkProducer(_page)}
           active={page === _page}

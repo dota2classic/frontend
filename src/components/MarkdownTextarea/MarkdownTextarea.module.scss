@@ -47,14 +47,14 @@
 
 
   & span {
-    &:not(:first-child) {
-      margin-left: 4px;
-    }
-
     margin-bottom: 2px;
     padding: 2px 4px;
     background-color: $green;
     border-radius: 2px;
     cursor: pointer;
+
+    &:not(:first-child) {
+      margin-left: 4px;
+    }
   }
 }

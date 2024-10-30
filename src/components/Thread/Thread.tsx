@@ -27,7 +27,6 @@ import { useThread } from "@/util/threads";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useStore } from "@/store";
 import { MdDelete } from "react-icons/md";
-import Image from "next/image";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],

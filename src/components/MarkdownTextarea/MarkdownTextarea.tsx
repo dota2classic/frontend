@@ -13,7 +13,7 @@ export const MarkdownTextarea: React.FC<
   const ref = useRef<HTMLTextAreaElement | null>(null);
   const wrap =
     (start: string, end: string = start) =>
-    (e: React<MouseEvent>) => {
+    (e: React.MouseEvent) => {
       const ta = ref.current;
       if (!ta) return;
       e.preventDefault();

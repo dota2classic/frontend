@@ -166,7 +166,7 @@ export class QueueStore
       } else {
         return false;
       }
-    } catch (e: Error) {
+    } catch (e: unknown) {
       console.warn(e);
       return true;
     }

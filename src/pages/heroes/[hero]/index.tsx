@@ -92,7 +92,7 @@ HeroHistoryPage.getInitialProps = async (ctx: NextPageContext) => {
     initialHeroItemsData,
     initialHeroesMeta,
     initialHeroPlayers,
-  ] = await Promise.all<unknown>([
+  ] = await Promise.combine([
     getApi().matchApi.matchControllerHeroMatches(page, hero, undefined),
     getApi().metaApi.metaControllerHero(hero),
     getApi().metaApi.metaControllerHeroes(),

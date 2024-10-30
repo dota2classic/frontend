@@ -67,10 +67,10 @@ export const QueuePartyInfo = observer(() => {
 
         <div
           className={cx(c.partyItem, c.invite)}
-          onClick={(e: React<MouseEvent>) => {
-            e.nativeEvent.nasty = true;
+          onClick={(e: React.MouseEvent) => {
+            // Some hacking to do
+            (e.nativeEvent as { nasty?: boolean }).nasty = true;
             setInviteOpen(true);
-            console.log("WTF?");
           }}
         >
           <Image width={50} height={50} src={`/plus.png`} alt="" />

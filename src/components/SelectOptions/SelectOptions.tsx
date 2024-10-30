@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactNode } from "react";
 
 import c from "./SelectOptions.module.scss";
@@ -36,11 +37,11 @@ export const HeroOptions = [
 
 interface ISelectOptionsProps {
   options: {
-    value: unknown;
+    value: any;
     label: ReactNode;
   }[];
-  selected: unknown;
-  onSelect: (v: { value: unknown; label: ReactNode }) => void;
+  selected: any;
+  onSelect: (v: { value: any; label: ReactNode }) => void;
   defaultText: ReactNode;
 }
 

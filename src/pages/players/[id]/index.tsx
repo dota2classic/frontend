@@ -136,7 +136,7 @@ PlayerPage.getInitialProps = async (
     preloadedHeroStats,
     preloadedTeammates,
     preloadedAchievements,
-  ] = await Promise.all<unknown>([
+  ] = await Promise.combine([
     getApi().playerApi.playerControllerPlayerSummary(playerId),
     getApi().matchApi.matchControllerPlayerMatches(playerId, page),
     getApi().playerApi.playerControllerHeroSummary(playerId),

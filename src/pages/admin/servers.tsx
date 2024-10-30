@@ -50,7 +50,7 @@ export default function AdminServersPage() {
                         version: t.version,
                         enabled: e.target.checked,
                       })
-                      .then((result) => mutate(result as MatchmakingInfo[]));
+                      .then(() => mutate());
                   }}
                   type="checkbox"
                   checked={t.enabled}

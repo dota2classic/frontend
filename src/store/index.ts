@@ -53,7 +53,7 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
   // Otherwise it's client, remember this store and return
   if (!clientStore) clientStore = store;
 
-  window["store"] = clientStore;
+  window.store = clientStore;
   return store;
 };
 

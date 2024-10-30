@@ -84,7 +84,7 @@ HeroMatches.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
 
   const page = numberOrDefault(ctx.query.page as string, 0);
 
-  const [initialMatchData, initialHeroesMeta] = await Promise.all<unknown>([
+  const [initialMatchData, initialHeroesMeta] = await Promise.combine([
     getApi().matchApi.matchControllerHeroMatches(page, hero, undefined),
     getApi().metaApi.metaControllerHeroes(),
   ]);

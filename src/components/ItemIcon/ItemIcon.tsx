@@ -6,7 +6,6 @@ import { ItemMap } from "@/const/items";
 import { TooltipContext } from "@/util/hooks";
 import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
-import Image from "next/image";
 
 interface IItemIconProps {
   item: string | number;
