@@ -210,6 +210,7 @@ export const Thread: React.FC<IThreadProps> = observer(
       id,
       threadType,
       populateMessages,
+      (showLastMessages && showLastMessages > 0) || false,
     );
 
     const messages =

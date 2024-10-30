@@ -35,6 +35,7 @@ export * from "./QueueEntryDTO";
 export * from "./QueueStateDTO";
 export * from "./ReportDto";
 export * from "./RoleSubscriptionEntryDto";
+export * from "./SortOrder";
 export * from "./StopServerDto";
 export * from "./ThreadDTO";
 export * from "./ThreadMessageDTO";

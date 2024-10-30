@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import * as runtime from "../runtime";
 import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
@@ -34,100 +33,130 @@ export interface LiveMatchControllerLiveMatchRequest {
  *
  */
 export class LiveApi extends runtime.BaseAPI {
+  /**
+   */
+  liveMatchControllerListMatchesContext(): runtime.RequestOpts {
+    const queryParameters: any = {};
 
-    /**
-     */
-    liveMatchControllerListMatchesContext(): runtime.RequestOpts {
-        const queryParameters: any = {};
+    const headerParameters: runtime.HTTPHeaders = {};
 
-        const headerParameters: runtime.HTTPHeaders = {};
+    return {
+      path: `/v1/live/list`,
+      method: "GET",
+      headers: headerParameters,
+      query: queryParameters,
+    };
+  }
 
-        return {
-            path: `/v1/live/list`,
-            method: "GET",
-            headers: headerParameters,
-            query: queryParameters,
-        };
+  /**
+   */
+  liveMatchControllerListMatches = async (): Promise<Array<LiveMatchDto>> => {
+    const response = await this.liveMatchControllerListMatchesRaw();
+    return await response.value();
+  };
+
+  useLiveMatchControllerListMatches(
+    config?: SWRConfiguration<Array<LiveMatchDto>, Error>
+  ) {
+    let valid = true;
+
+    const context = this.liveMatchControllerListMatchesContext();
+    return useSWR(
+      context,
+      valid ? () => this.liveMatchControllerListMatches() : null,
+      config
+    );
+  }
+
+  /**
+   */
+  liveMatchControllerLiveMatchContext(
+    requestParameters: LiveMatchControllerLiveMatchRequest
+  ): runtime.RequestOpts {
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    return {
+      path: `/v1/live/{id}`.replace(
+        `{${"id"}}`,
+        encodeURIComponent(String(requestParameters.id))
+      ),
+      method: "GET",
+      headers: headerParameters,
+      query: queryParameters,
+    };
+  }
+
+  /**
+   */
+  liveMatchControllerLiveMatch = async (
+    id: number
+  ): Promise<LiveMatchSseDto> => {
+    const response = await this.liveMatchControllerLiveMatchRaw({ id: id });
+    return await response.value();
+  };
+
+  useLiveMatchControllerLiveMatch(
+    id: number,
+    config?: SWRConfiguration<LiveMatchSseDto, Error>
+  ) {
+    let valid = true;
+
+    if (id === null || id === undefined || Number.isNaN(id)) {
+      valid = false;
     }
 
-    /**
-     */
-    liveMatchControllerListMatches = async (): Promise<Array<LiveMatchDto>> => {
-        const response = await this.liveMatchControllerListMatchesRaw();
-        return await response.value();
+    const context = this.liveMatchControllerLiveMatchContext({ id: id! });
+    return useSWR(
+      context,
+      valid ? () => this.liveMatchControllerLiveMatch(id!) : null,
+      config
+    );
+  }
+
+  /**
+   */
+  private async liveMatchControllerListMatchesRaw(): Promise<
+    runtime.ApiResponse<Array<LiveMatchDto>>
+  > {
+    this.liveMatchControllerListMatchesValidation();
+    const context = this.liveMatchControllerListMatchesContext();
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(LiveMatchDtoFromJSON)
+    );
+  }
+
+  /**
+   */
+  private liveMatchControllerListMatchesValidation() {}
+
+  /**
+   */
+  private async liveMatchControllerLiveMatchRaw(
+    requestParameters: LiveMatchControllerLiveMatchRequest
+  ): Promise<runtime.ApiResponse<LiveMatchSseDto>> {
+    this.liveMatchControllerLiveMatchValidation(requestParameters);
+    const context = this.liveMatchControllerLiveMatchContext(requestParameters);
+    const response = await this.request(context);
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      LiveMatchSseDtoFromJSON(jsonValue)
+    );
+  }
+
+  /**
+   */
+  private liveMatchControllerLiveMatchValidation(
+    requestParameters: LiveMatchControllerLiveMatchRequest
+  ) {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        "id",
+        "Required parameter requestParameters.id was null or undefined when calling liveMatchControllerLiveMatch."
+      );
     }
-
-    useLiveMatchControllerListMatches(config?: SWRConfiguration<Array<LiveMatchDto>, Error>) {
-        let valid = true
-
-        const context = this.liveMatchControllerListMatchesContext();
-        return useSWR(context, valid ? () => this.liveMatchControllerListMatches() : null, config)
-    }
-
-    /**
-     */
-    liveMatchControllerLiveMatchContext(requestParameters: LiveMatchControllerLiveMatchRequest): runtime.RequestOpts {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        return {
-            path: `/v1/live/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: "GET",
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     */
-    liveMatchControllerLiveMatch = async (id: number): Promise<LiveMatchSseDto> => {
-        const response = await this.liveMatchControllerLiveMatchRaw({ id: id });
-        return await response.value();
-    }
-
-    useLiveMatchControllerLiveMatch(id: number, config?: SWRConfiguration<LiveMatchSseDto, Error>) {
-        let valid = true
-
-        if (id === null || id === undefined || Number.isNaN(id)) {
-            valid = false
-        }
-
-        const context = this.liveMatchControllerLiveMatchContext({ id: id! });
-        return useSWR(context, valid ? () => this.liveMatchControllerLiveMatch(id!) : null, config)
-    }
-
-    /**
-     */
-    private async liveMatchControllerListMatchesRaw(): Promise<runtime.ApiResponse<Array<LiveMatchDto>>> {
-        this.liveMatchControllerListMatchesValidation();
-        const context = this.liveMatchControllerListMatchesContext();
-        const response = await this.request(context);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LiveMatchDtoFromJSON));
-    }
-
-    /**
-     */
-    private liveMatchControllerListMatchesValidation() {
-    }
-
-    /**
-     */
-    private async liveMatchControllerLiveMatchRaw(requestParameters: LiveMatchControllerLiveMatchRequest): Promise<runtime.ApiResponse<LiveMatchSseDto>> {
-        this.liveMatchControllerLiveMatchValidation(requestParameters);
-        const context = this.liveMatchControllerLiveMatchContext(requestParameters);
-        const response = await this.request(context);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => LiveMatchSseDtoFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    private liveMatchControllerLiveMatchValidation(requestParameters: LiveMatchControllerLiveMatchRequest) {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling liveMatchControllerLiveMatch.");
-        }
-    }
-
+  }
 }

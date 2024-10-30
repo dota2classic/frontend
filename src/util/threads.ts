@@ -1,6 +1,6 @@
 import { getApi } from "@/api/hooks";
 import { useCallback, useEffect, useState } from "react";
-import { querystring, ThreadMessageDTO } from "@/api/back";
+import { querystring, SortOrder, ThreadMessageDTO } from "@/api/back";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { maxBy } from "@/util/iter";
 
@@ -13,6 +13,7 @@ export const useThread = (
   id: string | number,
   threadType: ThreadType,
   initialMessages: ThreadMessageDTO[] = [],
+  loadLatest: boolean = false,
 ): [Thread, () => void, (messages: ThreadMessageDTO[]) => void] => {
   const threadId = `${threadType}_${id}`;
   const defaultThread = {
@@ -66,9 +67,11 @@ export const useThread = (
         id.toString(),
         threadType,
         latest ? new Date(latest).getTime() : undefined,
+        10,
+        loadLatest ? SortOrder.DESC : SortOrder.ASC,
       )
       .then(consumeMessages);
-  }, [consumeMessages, data.messages, id, threadType]);
+  }, [consumeMessages, data.messages, id, threadType, loadLatest]);
 
   const endpoint = getApi().forumApi.forumControllerThreadContext({
     id: id.toString(),

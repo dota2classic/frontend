@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import * as runtime from "../runtime";
 import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
@@ -30,93 +29,109 @@ import {
  *
  */
 export class StatsApi extends runtime.BaseAPI {
+  /**
+   */
+  statsControllerGetMatchmakingInfoContext(): runtime.RequestOpts {
+    const queryParameters: any = {};
 
-    /**
-     */
-    statsControllerGetMatchmakingInfoContext(): runtime.RequestOpts {
-        const queryParameters: any = {};
+    const headerParameters: runtime.HTTPHeaders = {};
 
-        const headerParameters: runtime.HTTPHeaders = {};
+    return {
+      path: `/v1/stats/matchmaking`,
+      method: "GET",
+      headers: headerParameters,
+      query: queryParameters,
+    };
+  }
 
-        return {
-            path: `/v1/stats/matchmaking`,
-            method: "GET",
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
+  /**
+   */
+  statsControllerGetMatchmakingInfo = async (): Promise<
+    Array<MatchmakingInfo>
+  > => {
+    const response = await this.statsControllerGetMatchmakingInfoRaw();
+    return await response.value();
+  };
 
-    /**
-     */
-    statsControllerGetMatchmakingInfo = async (): Promise<Array<MatchmakingInfo>> => {
-        const response = await this.statsControllerGetMatchmakingInfoRaw();
-        return await response.value();
-    }
+  useStatsControllerGetMatchmakingInfo(
+    config?: SWRConfiguration<Array<MatchmakingInfo>, Error>
+  ) {
+    let valid = true;
 
-    useStatsControllerGetMatchmakingInfo(config?: SWRConfiguration<Array<MatchmakingInfo>, Error>) {
-        let valid = true
+    const context = this.statsControllerGetMatchmakingInfoContext();
+    return useSWR(
+      context,
+      valid ? () => this.statsControllerGetMatchmakingInfo() : null,
+      config
+    );
+  }
 
-        const context = this.statsControllerGetMatchmakingInfoContext();
-        return useSWR(context, valid ? () => this.statsControllerGetMatchmakingInfo() : null, config)
-    }
+  /**
+   */
+  statsControllerOnlineContext(): runtime.RequestOpts {
+    const queryParameters: any = {};
 
-    /**
-     */
-    statsControllerOnlineContext(): runtime.RequestOpts {
-        const queryParameters: any = {};
+    const headerParameters: runtime.HTTPHeaders = {};
 
-        const headerParameters: runtime.HTTPHeaders = {};
+    return {
+      path: `/v1/stats/online`,
+      method: "GET",
+      headers: headerParameters,
+      query: queryParameters,
+    };
+  }
 
-        return {
-            path: `/v1/stats/online`,
-            method: "GET",
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
+  /**
+   */
+  statsControllerOnline = async (): Promise<CurrentOnlineDto> => {
+    const response = await this.statsControllerOnlineRaw();
+    return await response.value();
+  };
 
-    /**
-     */
-    statsControllerOnline = async (): Promise<CurrentOnlineDto> => {
-        const response = await this.statsControllerOnlineRaw();
-        return await response.value();
-    }
+  useStatsControllerOnline(config?: SWRConfiguration<CurrentOnlineDto, Error>) {
+    let valid = true;
 
-    useStatsControllerOnline(config?: SWRConfiguration<CurrentOnlineDto, Error>) {
-        let valid = true
+    const context = this.statsControllerOnlineContext();
+    return useSWR(
+      context,
+      valid ? () => this.statsControllerOnline() : null,
+      config
+    );
+  }
 
-        const context = this.statsControllerOnlineContext();
-        return useSWR(context, valid ? () => this.statsControllerOnline() : null, config)
-    }
+  /**
+   */
+  private async statsControllerGetMatchmakingInfoRaw(): Promise<
+    runtime.ApiResponse<Array<MatchmakingInfo>>
+  > {
+    this.statsControllerGetMatchmakingInfoValidation();
+    const context = this.statsControllerGetMatchmakingInfoContext();
+    const response = await this.request(context);
 
-    /**
-     */
-    private async statsControllerGetMatchmakingInfoRaw(): Promise<runtime.ApiResponse<Array<MatchmakingInfo>>> {
-        this.statsControllerGetMatchmakingInfoValidation();
-        const context = this.statsControllerGetMatchmakingInfoContext();
-        const response = await this.request(context);
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      jsonValue.map(MatchmakingInfoFromJSON)
+    );
+  }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MatchmakingInfoFromJSON));
-    }
+  /**
+   */
+  private statsControllerGetMatchmakingInfoValidation() {}
 
-    /**
-     */
-    private statsControllerGetMatchmakingInfoValidation() {
-    }
+  /**
+   */
+  private async statsControllerOnlineRaw(): Promise<
+    runtime.ApiResponse<CurrentOnlineDto>
+  > {
+    this.statsControllerOnlineValidation();
+    const context = this.statsControllerOnlineContext();
+    const response = await this.request(context);
 
-    /**
-     */
-    private async statsControllerOnlineRaw(): Promise<runtime.ApiResponse<CurrentOnlineDto>> {
-        this.statsControllerOnlineValidation();
-        const context = this.statsControllerOnlineContext();
-        const response = await this.request(context);
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      CurrentOnlineDtoFromJSON(jsonValue)
+    );
+  }
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CurrentOnlineDtoFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    private statsControllerOnlineValidation() {
-    }
-
+  /**
+   */
+  private statsControllerOnlineValidation() {}
 }
