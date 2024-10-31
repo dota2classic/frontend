@@ -63,3 +63,4 @@ export { Message } from "./Message/Message";
 export { TooltipIcon } from "./TooltipIcon/TooltipIcon";
 export { PlayerAvatar } from "./PlayerAvatar/PlayerAvatar";
 export { Tabs } from "./Tabs/Tabs";
+export { PushNotificationManager } from "./PushNotificationManager/PushNotificationManager";

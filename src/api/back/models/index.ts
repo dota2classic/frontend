@@ -52,3 +52,5 @@ export * from "./UserBanSummaryDto";
 export * from "./UserDTO";
 export * from "./UserRoleSummaryDto";
 export * from "../../mapped-models";
+export * from './SubscriptionDto';
+export * from './SubscriptionDtoKeys';

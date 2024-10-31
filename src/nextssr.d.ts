@@ -10,6 +10,7 @@ declare global {
 
   interface Window {
     store: RootStore;
+    registration?: ServiceWorkerRegistration;
     api: AppApi;
   }
 
