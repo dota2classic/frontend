@@ -55,3 +55,4 @@ export { PeriodicTimer } from "./PeriodicTimer/PeriodicTimer";
 export { Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
 export { UserPreview } from "./UserPreview/UserPreview";
 export { AchievementStatus } from "./AchievementStatus/AchievementStatus";
+export { PushNotificationManager } from './PushNotificationManager/PushNotificationManager'

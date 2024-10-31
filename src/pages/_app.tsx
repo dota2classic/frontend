@@ -1,13 +1,13 @@
 import "@/styles/globals.css";
 import App, { AppContext } from "next/app";
-import { Layout } from "@/components";
+import { Layout, PushNotificationManager } from "@/components";
 import Cookies from "cookies";
 import "../util/promise";
 // import * as Fonts from 'next/font/google'
 import localFont from "next/font/local";
 import { SWRConfig } from "swr";
 import React, { createContext } from "react";
-import { HydrateRootData, RootStore, getRootStore } from "@/store";
+import { getRootStore, HydrateRootData, RootStore } from "@/store";
 import Head from "next/head";
 import "../ext";
 // Font files can be colocated inside of `pages`
@@ -33,6 +33,14 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
     return { ...appProps, initialState };
   }
 
+  componentDidMount() {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((registration) => console.log("scope is: ", registration.scope));
+    }
+  }
+
   render() {
     const { Component, pageProps, initialState } = this.props;
     const store = getRootStore(initialState);
@@ -43,6 +51,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
           <title>Dota2Classic</title>
         </Head>
         <SWRConfig>
+          {/*<PushNotificationManager />*/}
           <Layout className={myFont.className}>
             <Component {...pageProps} />
           </Layout>

@@ -9,6 +9,7 @@ import {
 } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
 import {
+  Button,
   MatchmakingOption,
   Panel,
   QueuePartyInfo,
@@ -20,11 +21,45 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import React from "react";
 import { NextPageContext } from "next";
 import { ThreadStyle } from "@/components/Thread/Thread";
+import { FaBell } from "react-icons/fa";
+import { observer } from "mobx-react-lite";
 
 interface Props {
   modes: MatchmakingInfo[];
   playerSummary?: PlayerSummaryDto;
 }
+
+const NotificationSetting = observer(() => {
+  const { notify } = useStore();
+
+  if (!notify.isPushSupported) return null;
+
+  if (!notify.registration) return;
+
+  if (!notify.subscription) {
+    return (
+      <Button
+        style={{ display: "flex", alignItems: "center" }}
+        onClick={() => {
+          notify.subscribeToPush();
+        }}
+      >
+        <span style={{ flex: 1 }}>Включить уведомления</span>
+        <FaBell style={{ float: "right" }} />
+      </Button>
+    );
+  }
+
+  return (
+    <Button
+      style={{ display: "flex", alignItems: "center" }}
+      onClick={() => notify.unsubscribe()}
+    >
+      <span style={{ flex: 1 }}>Отключить уведомления</span>
+      <FaBell style={{ float: "right" }} />
+    </Button>
+  );
+});
 
 export default function QueuePage(props: Props) {
   const mounted = useDidMount();
@@ -69,6 +104,7 @@ export default function QueuePage(props: Props) {
               mode={info.mode}
             />
           ))}
+          <NotificationSetting />
           <div style={{ flex: 1 }} />
           {onlineData && (
             <div className={c.onlineInfo}>

@@ -1,6 +1,9 @@
-import { action, makeObservable, observable } from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import { ReactNode } from "react";
 import { HydratableStore } from "@/store/HydratableStore";
+import { urlBase64ToUint8Array } from "@/util/math";
+import { getApi } from "@/api/hooks";
+import { SubscriptionDto } from "@/api/back";
 
 export class NotificationDto {
   constructor(
@@ -19,12 +22,80 @@ export class NotificationStore implements HydratableStore<unknown> {
   @observable
   private notificationQueue: NotificationDto[] = [];
 
+  @observable
+  public isPushSupported: boolean = false;
+
+  @observable
+  public subscription: PushSubscription | undefined = undefined;
+
+  @observable
+  public registration: ServiceWorkerRegistration | undefined = undefined;
+
   constructor() {
     makeObservable(this);
     setInterval(
       () => this.processQueue(),
       NotificationStore.NOTIFICATION_LIFETIME,
     );
+    if (
+      typeof window !== "undefined" &&
+      "serviceWorker" in navigator &&
+      "PushManager" in window
+    ) {
+      runInAction(() => {
+        this.isPushSupported = true;
+      });
+      this.registerServiceWorker();
+    }
+  }
+
+  @action
+  public async registerServiceWorker() {
+    const registration = await navigator.serviceWorker.register(
+      "/service-worker.js",
+      {
+        scope: "/",
+        updateViaCache: "none",
+      },
+    );
+
+    runInAction(() => {
+      registration.update();
+      this.registration = registration;
+    });
+
+    this.setSubscription(
+      (await registration.pushManager.getSubscription()) || undefined,
+    );
+  }
+
+  public async subscribeToPush() {
+    const registration = await navigator.serviceWorker.ready;
+    const sub = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(
+        process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
+      ),
+    });
+    this.setSubscription(sub);
+    // await subscribeUser(sub as any);
+  }
+
+  public async unsubscribe() {
+    if (!this.subscription) return;
+    await this.subscription.unsubscribe();
+    runInAction(() => {
+      this.subscription = undefined;
+    });
+  }
+
+  private setSubscription(s: PushSubscription | undefined) {
+    runInAction(() => (this.subscription = s));
+    if (s) {
+      getApi().notificationApi.notificationControllerSubscribe(
+        s.toJSON() as any,
+      );
+    }
   }
 
   @action

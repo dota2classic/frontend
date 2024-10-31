@@ -19,6 +19,7 @@ const nextConfig = {
   env: {
     API_URL: process.env.API_URL,
     NEXT_PUBLIC_API_URL: process.env.API_URL,
+    NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.VAPID_PUBLIC_KEY,
   },
   experimental: {
     scrollRestoration: true,

@@ -4,6 +4,7 @@ import {
   LiveApi,
   MatchApi,
   MetaApi,
+  NotificationApi,
   PlayerApi,
   StatsApi,
 } from "./back/apis";
@@ -60,6 +61,7 @@ export class AppApi {
   readonly adminApi = new AdminApi(this.apiConfig);
   readonly statsApi = new StatsApi(this.apiConfig);
   readonly metaApi = new MetaApi(this.apiConfig);
+  readonly notificationApi = new NotificationApi(this.apiConfig);
 }
 
 export const appApi = new AppApi();

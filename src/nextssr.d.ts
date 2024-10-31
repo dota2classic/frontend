@@ -9,6 +9,7 @@ declare global {
 
   interface Window {
     store: RootStore;
+    registration?: ServiceWorkerRegistration;
   }
 
   interface PromiseConstructor {
