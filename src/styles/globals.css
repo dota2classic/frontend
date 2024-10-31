@@ -79,7 +79,17 @@ a {
   }
 }
 
-
 iframe {
-  border: none !important;;
+  border: none !important;
+}
+
+.adminicon {
+  transition: 0.3s ease;
+
+  cursor: pointer;
+
+  &:hover {
+    color: #c23c2a;
+    scale: 1.5;
+  }
 }

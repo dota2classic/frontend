@@ -78,6 +78,12 @@ export interface ThreadDTO {
     views: number;
     /**
      * 
+     * @type {boolean}
+     * @memberof ThreadDTO
+     */
+    pinned: boolean;
+    /**
+     * 
      * @type {UserDTO}
      * @memberof ThreadDTO
      */
@@ -107,6 +113,7 @@ export function ThreadDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'messageCount': json['messageCount'],
         'newMessageCount': json['newMessageCount'],
         'views': json['views'],
+        'pinned': json['pinned'],
         'originalPoster': UserDTOFromJSON(json['originalPoster']),
         'lastMessage': !exists(json, 'lastMessage') ? undefined : ThreadMessageDTOFromJSON(json['lastMessage']),
     };
@@ -128,6 +135,7 @@ export function ThreadDTOToJSON(value?: ThreadDTO | null): any {
         'messageCount': value.messageCount,
         'newMessageCount': value.newMessageCount,
         'views': value.views,
+        'pinned': value.pinned,
         'originalPoster': UserDTOToJSON(value.originalPoster),
         'lastMessage': ThreadMessageDTOToJSON(value.lastMessage),
     };

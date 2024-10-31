@@ -43,6 +43,7 @@ export * from "./ThreadMessageSseDto";
 export * from "./ThreadPageDTO";
 export * from "./UpdateModeDTO";
 export * from "./UpdateRolesDto";
+export * from "./UpdateThreadDTO";
 export * from "./UserBanSummaryDto";
 export * from "./UserDTO";
 export * from "./UserRoleSummaryDto";
