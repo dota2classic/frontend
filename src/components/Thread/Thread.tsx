@@ -276,12 +276,11 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
 
   const deleteMessage = useCallback(
     (id: string) => {
-      if (!auth.isAdmin) return;
       getApi()
         .forumApi.forumControllerDeleteMessage(id)
         .then((data) => consumeMessages([data]));
     },
-    [auth.isAdmin, consumeMessages],
+    [consumeMessages],
   );
 
   const displayInput =
@@ -305,7 +304,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
             threadStyle={threadStyle || ThreadStyle.NORMAL}
             message={msg}
             key={msg.messageId}
-            onDelete={deleteMessage}
+            onDelete={auth.isAdmin ? deleteMessage : undefined}
           />
         ))}
       </div>
