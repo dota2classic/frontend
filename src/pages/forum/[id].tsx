@@ -2,26 +2,21 @@ import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
 import { Breadcrumbs, PageLink, Panel, Thread } from "@/components";
 import { getApi } from "@/api/hooks";
-import { ThreadDTO, ThreadMessageDTO } from "@/api/back";
+import { ThreadDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
-import { useEffect } from "react";
+import { numberOrDefault } from "@/util/urls";
 
 interface Props {
-  messages: ThreadMessageDTO[];
+  messages: ThreadMessagePageDTO;
   thread: ThreadDTO;
+  page: number;
 }
 
-export default function ThreadPage({ messages, thread }: Props) {
+export default function ThreadPage({ messages, thread, page }: Props) {
   const r = useRouter();
-  console.log(r);
-  useEffect(() => {
-    // document.addEventListener("scrollend", e => {
-    //   console.log("Yay remove anchor")
-    // })
-    // r.replace(r.pathname, `/forum/${thread.externalId}`)
-  }, []);
 
+  console.log(page, "PAGE?");
   return (
     <>
       <Panel>
@@ -34,6 +29,12 @@ export default function ThreadPage({ messages, thread }: Props) {
         populateMessages={messages}
         threadType={ThreadType.FORUM}
         id={r.query.id as string}
+        pagination={{
+          page: numberOrDefault(page, 0),
+          pageProvider: (p) =>
+            AppRouter.forum.thread(thread.externalId, thread.threadType, p)
+              .link,
+        }}
       />
     </>
   );
@@ -41,11 +42,14 @@ export default function ThreadPage({ messages, thread }: Props) {
 
 ThreadPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const tid = ctx.query.id as string;
+  const page = numberOrDefault(ctx.query.page as string, 0);
 
   return {
-    messages: await getApi().forumApi.forumControllerGetMessages(
+    page,
+    messages: await getApi().forumApi.forumControllerMessagesPage(
       tid,
       ThreadType.FORUM,
+      page,
     ),
     thread: await getApi().forumApi.forumControllerGetThread(
       tid,

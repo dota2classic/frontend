@@ -121,6 +121,7 @@ const ColRenderer: React.FC<{
             alt=""
           />
           <PageLink
+            className="link"
             link={
               col.link
                 ? col.link(data)

@@ -150,8 +150,8 @@ export const AppRouter = {
       return spage(`/forum${q}`);
     },
     createThread: spage("/forum/create"),
-    thread(id: string, threadType: ThreadType, messageId?: string) {
-      const q = messageId ? `#${messageId}` : "";
+    thread(id: string, threadType: ThreadType, _page?: number) {
+      const q = queryParameters({ page: _page });
       switch (threadType) {
         case ThreadType.MATCH:
           return page(`/matches/[id]`, `/matches/${id}`);

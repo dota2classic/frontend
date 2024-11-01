@@ -48,6 +48,7 @@ export { HeroStatsHeader } from "./HeroStatsHeader/HeroStatsHeader";
 export { NoobFriendlyQueue } from "./NoobFriendlyQueue/NoobFriendlyQueue";
 export { Button } from "./Button/Button";
 export { Thread } from "./Thread/Thread";
+export { ClientThread } from "./Thread/ClientThread";
 export { ForumUserEmbed } from "./ForumUserEmbed/ForumUserEmbed";
 export { MarkdownTextarea } from "./MarkdownTextarea/MarkdownTextarea";
 export { EmbedProps } from "./EmbedProps/EmbedProps";

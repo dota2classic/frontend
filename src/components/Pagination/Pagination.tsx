@@ -26,7 +26,7 @@ const PaginationItem = ({
     [c.active]: active,
   });
   return link ? (
-    <PageLink className={className} link={link}>
+    <PageLink className={cx(className, "link")} link={link}>
       {children}
     </PageLink>
   ) : (

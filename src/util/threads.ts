@@ -1,78 +1,27 @@
 import { getApi } from "@/api/hooks";
-import { useCallback, useEffect, useState } from "react";
-import { querystring, SortOrder, ThreadMessageDTO } from "@/api/back";
+import { useCallback, useEffect } from "react";
+import {
+  querystring,
+  SortOrder,
+  ThreadMessageDTO,
+  ThreadMessagePageDTO,
+} from "@/api/back";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { maxBy } from "@/util/iter";
+import { useLocalObservable } from "mobx-react-lite";
+import { action, computed, makeObservable, observable } from "mobx";
 
 export interface Thread {
   id: string;
   messages: ThreadMessageDTO[];
 }
 
-export const useThread = (
-  id: string | number,
+const useThreadEventSource = (
+  id: string,
   threadType: ThreadType,
-  initialMessages: ThreadMessageDTO[] = [],
-  loadLatest: boolean = false,
-): [Thread, () => void, (messages: ThreadMessageDTO[]) => void] => {
-  const threadId = `${threadType}_${id}`;
-  const defaultThread = {
-    id: threadId,
-    messages: initialMessages,
-  };
-
+  consumeMessages: (messages: ThreadMessageDTO[]) => void,
+) => {
   const bp = getApi().apiParams.basePath;
-
-  const [data, setData] = useState<Thread>(defaultThread);
-
-  const consumeMessages = useCallback(
-    (msgs: ThreadMessageDTO[]) => {
-      setData((d) => {
-        const newMessages: ThreadMessageDTO[] = [...d.messages];
-
-        for (const newMessage of msgs) {
-          const idx = newMessages.findIndex(
-            (m1) => m1.messageId === newMessage.messageId,
-          );
-          if (idx === -1) {
-            // It's a new message, we append
-            newMessages.push(newMessage);
-          } else {
-            // existing, update data
-            newMessages[idx] = newMessage;
-          }
-        }
-
-        return {
-          ...data,
-          messages: newMessages
-            .filter((t) => !t.deleted)
-            .sort(
-              (a, b) =>
-                new Date(a.createdAt).getTime() -
-                new Date(b.createdAt).getTime(),
-            ),
-        };
-      });
-    },
-    [data],
-  );
-
-  const loadMore = useCallback(() => {
-    const latest = maxBy(data.messages, (it) =>
-      new Date(it.createdAt).getTime(),
-    )?.createdAt;
-    getApi()
-      .forumApi.forumControllerGetMessages(
-        id.toString(),
-        threadType,
-        latest ? new Date(latest).getTime() : undefined,
-        10,
-        loadLatest ? SortOrder.DESC : SortOrder.ASC,
-      )
-      .then(consumeMessages);
-  }, [consumeMessages, data.messages, id, threadType, loadLatest]);
-
   const endpoint = getApi().forumApi.forumControllerThreadContext({
     id: id.toString(),
     threadType: threadType,
@@ -90,10 +39,134 @@ export const useThread = (
     };
 
     return () => es.close();
-  }, [bp, consumeMessages, context, endpoint.path, endpoint.query]);
+  }, [consumeMessages, context]);
+};
+
+// interface ThreadLocalState {
+//   thread: Thread;
+//   messageMap: Map<string, ThreadMessageDTO>;
+// }
+
+class ThreadLocalState {
+  @observable
+  messageMap: Map<string, ThreadMessageDTO> = new Map();
+  @observable
+  pg: ThreadMessagePageDTO | undefined = undefined;
+  @observable
+  page: number | undefined = undefined;
+
+  constructor(
+    public id: string,
+    public threadType: ThreadType,
+    init: ThreadMessageDTO[] | ThreadMessagePageDTO | undefined,
+    page: number | undefined,
+  ) {
+    makeObservable(this);
+    this.page = page;
+    if (init) {
+      if ("page" in init) {
+        // start with page and messages for good measure
+        this.pg = init;
+        this.messageMap = new Map(init.data.map((it) => [it.messageId, it]));
+      } else {
+        // just messages
+        this.messageMap = new Map(init.map((it) => [it.messageId, it]));
+      }
+    }
+  }
+
+  @computed
+  public get thread(): Thread {
+    const messagePool = this.pg
+      ? this.pg.data
+      : Array.from(this.messageMap.values());
+    return {
+      id: this.id,
+      messages: messagePool
+        .filter((t) => !t.deleted)
+        .sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+        ),
+    };
+  }
+
+  @action consumeMessages = (msgs: ThreadMessageDTO[]) => {
+    msgs.forEach((message) => this.messageMap.set(message.messageId, message));
+  };
+
+  @action setPageData = (pg: ThreadMessagePageDTO) => {
+    this.pg = pg;
+    this.consumeMessages(pg.data);
+  };
+
+  loadMore = async (loadLatest: boolean) => {
+    const latest = maxBy(this.thread.messages, (it) =>
+      new Date(it.createdAt).getTime(),
+    )?.createdAt;
+    getApi()
+      .forumApi.forumControllerGetMessages(
+        this.id.toString(),
+        this.threadType,
+        latest ? new Date(latest).getTime() : undefined,
+        10,
+        loadLatest ? SortOrder.DESC : SortOrder.ASC,
+      )
+      .then(this.consumeMessages);
+  };
+}
+
+// TODO: this is unoptimized mess
+export const useThread = (
+  id: string | number,
+  threadType: ThreadType,
+  initialMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO,
+  loadLatest: boolean = false,
+  page?: number,
+): [
+  Thread,
+  () => void,
+  (messages: ThreadMessageDTO[]) => void,
+  pg: ThreadMessagePageDTO | undefined,
+  (page: number) => void,
+] => {
+  const state = useLocalObservable<ThreadLocalState>(
+    () =>
+      new ThreadLocalState(id.toString(), threadType, initialMessages, page),
+  );
+
+  const loadPage = useCallback(
+    (page: number) => {
+      getApi()
+        .forumApi.forumControllerMessagesPage(id.toString(), threadType, page)
+        .then((pg) => state.setPageData(pg));
+    },
+    [id, threadType],
+  );
+
+  useEffect(() => {
+    if (page !== undefined && typeof window !== "undefined") {
+      loadPage(page);
+    }
+  }, [loadPage, page]);
+
+  const loadMore = useCallback(() => {
+    state.loadMore(loadLatest);
+  }, [loadLatest, state]);
+
+  useThreadEventSource(id.toString(), threadType, state.consumeMessages);
 
   if (typeof window === "undefined")
-    return [defaultThread, () => undefined, () => undefined];
+    return [
+      state.thread,
+      () => undefined,
+      () => undefined,
+      state.pg,
+      () => undefined,
+    ];
 
-  return [data, loadMore, consumeMessages];
+  // If we are paginated, we return a page
+  // otherwise all sorted
+
+  return [state.thread, loadMore, state.consumeMessages, state.pg, loadPage];
 };

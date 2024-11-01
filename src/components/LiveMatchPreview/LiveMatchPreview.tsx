@@ -16,6 +16,7 @@ import { shortName } from "@/util/heroName";
 import { formatGameMode } from "@/util/gamemode";
 import { watchUrl } from "@/util/urls";
 import { TbGrave2 } from "react-icons/tb";
+import { remap } from "@/util/math";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -65,6 +66,10 @@ const MinimapHero = ({ hero }: MinimapHeroProps) => {
   const { posX, posY, team, respawnTime } = hero;
   const dead = respawnTime > 0;
 
+  // const remappedX = 5 + posX * 90;
+  const remappedX = remap(posX, 0, 1, 0.02, 0.96) * 100;
+  const remappedY = remap(posY, 0, 1, 0.02, 0.96) * 100;
+
   return (
     <div
       className={cx(c.hero, shortName(hero.hero), "d2mh", {
@@ -73,8 +78,8 @@ const MinimapHero = ({ hero }: MinimapHeroProps) => {
         [c.dead]: dead,
       })}
       style={{
-        left: `${posX * 100}%`,
-        bottom: `${posY * 100}%`,
+        left: `${remappedX}%`,
+        bottom: `${remappedY}%`,
       }}
     >
       {/*<FaSkull*/}

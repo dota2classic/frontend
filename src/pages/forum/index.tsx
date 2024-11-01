@@ -152,7 +152,6 @@ export default function ForumIndexPage({ threads, page }: Props) {
 
   const threadsData = data || threads;
 
-  console.log(data, threads);
   return (
     <>
       <EmbedProps

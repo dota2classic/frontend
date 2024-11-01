@@ -1,3 +1,5 @@
+"use client";
+
 import React, {
   ReactNode,
   useCallback,
@@ -11,14 +13,15 @@ import {
   ForumUserEmbed,
   MarkdownTextarea,
   PageLink,
+  Pagination,
   Panel,
   PeriodicTimer,
   ScrollDetector,
 } from "..";
 
 import c from "./Thread.module.scss";
-import { ThreadMessageDTO } from "@/api/back";
-import { AppRouter } from "@/route";
+import { ThreadMessageDTO, ThreadMessagePageDTO } from "@/api/back";
+import { AppRouter, NextLinkProp } from "@/route";
 import { observer } from "mobx-react-lite";
 import { Rubik } from "next/font/google";
 import cx from "classnames";
@@ -43,10 +46,14 @@ interface IThreadProps {
   id: string | number;
   threadType: ThreadType;
   className?: string;
-  populateMessages?: ThreadMessageDTO[];
+  populateMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO;
   threadStyle?: ThreadStyle;
   showLastMessages?: number;
   scrollToLast?: boolean;
+  pagination?: {
+    pageProvider: (page: number) => NextLinkProp;
+    page: number;
+  };
 }
 
 interface IMessageProps {
@@ -180,7 +187,7 @@ export const MessageInput = observer(
     const [value, setValue] = useState("");
     const [error, setError] = useState<string | null>(null);
 
-    const isValid = value.length >= 5;
+    const isValid = value.trim().length >= 5;
 
     const submit = useCallback(() => {
       getApi()
@@ -231,73 +238,87 @@ export const MessageInput = observer(
     );
   },
 );
-export const Thread: React.FC<IThreadProps> = observer(
-  ({
-    threadType,
+export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
+  threadType,
+  id,
+  className,
+  populateMessages,
+  threadStyle,
+  showLastMessages,
+  scrollToLast,
+  pagination,
+}) {
+  const { auth } = useStore();
+  const scrollableRef = useRef<HTMLDivElement | null>(null);
+  const [thread, loadMore, consumeMessages, pg] = useThread(
     id,
-    className,
+    threadType,
     populateMessages,
-    threadStyle,
-    showLastMessages,
-    scrollToLast,
-  }) => {
-    const { auth } = useStore();
-    const scrollableRef = useRef<HTMLDivElement | null>(null);
-    const [thread, loadMore, consumeMessages] = useThread(
-      id,
-      threadType,
-      populateMessages,
-      (showLastMessages && showLastMessages > 0) || false,
-    );
+    (showLastMessages && showLastMessages > 0) || false,
+    pagination?.page,
+  );
 
-    const messages =
-      showLastMessages !== undefined
-        ? thread.messages.slice(
-            Math.max(0, thread.messages.length - showLastMessages),
-          )
-        : thread.messages;
+  const messages =
+    showLastMessages !== undefined
+      ? thread.messages.slice(
+          Math.max(0, thread.messages.length - showLastMessages),
+        )
+      : thread.messages;
 
-    useEffect(() => {
-      if (messages.length > 0 && scrollToLast) {
-        const element = scrollableRef.current;
-        if (!element) return;
+  useEffect(() => {
+    if (messages.length > 0 && scrollToLast) {
+      const element = scrollableRef.current;
+      if (!element) return;
 
-        element.scroll({ top: element.scrollHeight + 100, behavior: "smooth" });
-      }
-    }, [messages, scrollToLast, scrollableRef]);
+      element.scroll({ top: element.scrollHeight + 100, behavior: "smooth" });
+    }
+  }, [messages, scrollToLast, scrollableRef]);
 
-    const deleteMessage = useCallback(
-      (id: string) => {
-        if (!auth.isAdmin) return;
-        getApi()
-          .forumApi.forumControllerDeleteMessage(id)
-          .then((data) => consumeMessages([data]));
-      },
-      [auth.isAdmin, consumeMessages],
-    );
+  const deleteMessage = useCallback(
+    (id: string) => {
+      if (!auth.isAdmin) return;
+      getApi()
+        .forumApi.forumControllerDeleteMessage(id)
+        .then((data) => consumeMessages([data]));
+    },
+    [auth.isAdmin, consumeMessages],
+  );
 
-    return (
-      <div className={cx(c.thread, threadFont.className, className)}>
-        <div
-          ref={scrollableRef}
-          className={cx(c.messageContainer, "messageList")}
-        >
-          {messages.map((msg) => (
-            <Message
-              threadStyle={threadStyle || ThreadStyle.NORMAL}
-              message={msg}
-              key={msg.messageId}
-              onDelete={deleteMessage}
-            />
-          ))}
-        </div>
-        <ScrollDetector onScrolledTo={loadMore} />
-        <MessageInput
-          id={id.toString()}
-          threadType={threadType}
-          onMessage={(msg) => consumeMessages([msg])}
+  return (
+    <div className={cx(c.thread, threadFont.className, className)}>
+      {pagination && (
+        <Pagination
+          page={pagination.page}
+          maxPage={pg?.pages || 0}
+          linkProducer={(page) => pagination!.pageProvider(page)}
         />
+      )}
+      <div
+        ref={scrollableRef}
+        className={cx(c.messageContainer, "messageList")}
+      >
+        {messages.map((msg) => (
+          <Message
+            threadStyle={threadStyle || ThreadStyle.NORMAL}
+            message={msg}
+            key={msg.messageId}
+            onDelete={deleteMessage}
+          />
+        ))}
       </div>
-    );
-  },
-);
+      {!pagination && <ScrollDetector onScrolledTo={loadMore} />}
+      {pagination && (
+        <Pagination
+          page={pagination.page}
+          maxPage={pg?.pages || 0}
+          linkProducer={(page) => pagination!.pageProvider(page)}
+        />
+      )}
+      <MessageInput
+        id={id.toString()}
+        threadType={threadType}
+        onMessage={(msg) => consumeMessages([msg])}
+      />
+    </div>
+  );
+});
