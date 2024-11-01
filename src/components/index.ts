@@ -53,6 +53,7 @@ export { ForumUserEmbed } from "./ForumUserEmbed/ForumUserEmbed";
 export { MarkdownTextarea } from "./MarkdownTextarea/MarkdownTextarea";
 export { EmbedProps } from "./EmbedProps/EmbedProps";
 export { PeriodicTimer } from "./PeriodicTimer/PeriodicTimer";
+export { PeriodicTimerClient } from "./PeriodicTimer/PeriodicTimerClient";
 export { Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
 export { UserPreview } from "./UserPreview/UserPreview";
 export { AchievementStatus } from "./AchievementStatus/AchievementStatus";

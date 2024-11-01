@@ -32,6 +32,12 @@
   & .user {
     width: 50px !important;
     padding: 4px 2px !important;;
+
+
+    & img {
+      width: 45px !important;
+      height: 45px !important;
+    }
   }
 
   & .content {

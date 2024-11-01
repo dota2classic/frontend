@@ -15,7 +15,7 @@ import {
   PageLink,
   Pagination,
   Panel,
-  PeriodicTimer,
+  PeriodicTimerClient,
   ScrollDetector,
 } from "..";
 
@@ -166,7 +166,7 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
           </PageLink>
           <div>
             #{message.index + 1} Добавлено{" "}
-            {<PeriodicTimer time={message.createdAt} />}
+            {<PeriodicTimerClient time={message.createdAt} />}
             {isDeletable && (
               <MdDelete className={c.delete} onClick={onDeleteWrap} />
             )}
@@ -284,6 +284,9 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
     [auth.isAdmin, consumeMessages],
   );
 
+  const displayInput =
+    !pagination || !pg || pg.pages === 1 || pg.page == pg.pages - 1;
+
   return (
     <div className={cx(c.thread, threadFont.className, className)}>
       {pagination && (
@@ -314,11 +317,13 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
           linkProducer={(page) => pagination!.pageProvider(page)}
         />
       )}
-      <MessageInput
-        id={id.toString()}
-        threadType={threadType}
-        onMessage={(msg) => consumeMessages([msg])}
-      />
+      {displayInput && (
+        <MessageInput
+          id={id.toString()}
+          threadType={threadType}
+          onMessage={(msg) => consumeMessages([msg])}
+        />
+      )}
     </div>
   );
 });

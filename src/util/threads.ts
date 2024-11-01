@@ -93,6 +93,26 @@ class ThreadLocalState {
 
   @action consumeMessages = (msgs: ThreadMessageDTO[]) => {
     msgs.forEach((message) => this.messageMap.set(message.messageId, message));
+    // Here we have a tricky part and don't like it
+    if (msgs.length === 1 && this.pg && this.pg.data.length > 0) {
+      const msg = msgs[0];
+      // if we only consume a single message, aka "send message" or receive update via socket
+      // if we know its later than our known last and fits into perPage size
+      if (msg.index > this.pg.data[this.pg.data.length - 1].index) {
+        // we can append it
+        if (this.pg.data.length < this.pg.perPage) {
+          this.pg.data.push(msg);
+        } else if (this.pg.pages === 1 || this.pg.page === this.pg.pages - 1) {
+          // otherwise we know its next page
+          this.pg.pages += 1;
+        }
+      } else if (msg.deleted) {
+        const idx = this.pg.data.findIndex(
+          (t) => t.messageId === msg.messageId,
+        );
+        if (idx !== -1) this.pg.data[idx] = msg;
+      }
+    }
   };
 
   @action setPageData = (pg: ThreadMessagePageDTO) => {
