@@ -1,4 +1,5 @@
 import { Head, Html, Main, NextScript } from "next/document";
+import { YandexMetrika } from "@/components";
 
 export default function Document() {
   return (
@@ -6,6 +7,7 @@ export default function Document() {
       <Head>
         <link rel="stylesheet" href={`/minimap.css`} />
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <YandexMetrika />
       </Head>
       <body>
         <Main />
