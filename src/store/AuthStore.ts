@@ -45,6 +45,11 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   }
 
   @action
+  public makeDefaultUser = () => {
+    this.token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTY1MTQ5NDUiLCJyb2xlcyI6W10sIm5hbWUiOiJQc3ljaG9sb2d5IFByb2Zlc3NvciIsImF2YXRhciI6Imh0dHBzOi8vYXZhdGFycy5zdGVhbXN0YXRpYy5jb20vNzJiODZhYzc5NGQ0YzBhOGMyNTIyZWEyYzJhMzZlZGI5Zjg5YTk4OV9mdWxsLmpwZyIsImlhdCI6MTczMDI5MTA5OCwiZXhwIjoxNzM4OTMxMDk4fQ.KZp6Si-ItozPMRWAArEJxCoOr13PXPz-VWc8KKdnhlw`;
+  };
+
+  @action
   public fetchMe = async () => {
     appApi.playerApi
       .playerControllerMe()
@@ -78,7 +83,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   };
 
   @action
-  public logout() {
+  public logout = () => {
     this.token = undefined;
     appApi.apiParams.accessToken = undefined;
     localStorage.removeItem("AuthStore.cookieTokenKey");
@@ -86,7 +91,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     if (typeof window !== "undefined") {
       window.location.reload();
     }
-  }
+  };
 
   hydrate = (data?: { token?: string }) => {
     if (!data) return;

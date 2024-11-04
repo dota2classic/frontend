@@ -30,7 +30,7 @@ export const TeammatesTable: React.FC<ITeammatesTableProps> = ({ data }) => {
       ]}
       data={data.map((it) => [it.user, it.games, it.winrate * 100])}
       isLoading={false}
-      keyProvider={(it) => it[0].steam_id}
+      keyProvider={(it) => it[0].steamId}
     />
   );
 };

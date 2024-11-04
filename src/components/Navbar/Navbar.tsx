@@ -8,12 +8,11 @@ import { FaSteam } from "react-icons/fa";
 import { appApi, getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import cx from "classnames";
 import { Role } from "@/api/mapped-models";
 import Image from "next/image";
 
-const LoginProfileNavbarItem = observer(() => {
-  const { parsedToken, smallAvatar } = useStore().auth;
+const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
+  const { parsedToken, smallAvatar, logout } = useStore().auth;
 
   if (!parsedToken)
     return (
@@ -30,6 +29,16 @@ const LoginProfileNavbarItem = observer(() => {
     <NavbarItem
       ignoreActive
       link={AppRouter.players.player.index(parsedToken.sub).link}
+      options={[
+        {
+          label: "Матчи",
+          action: AppRouter.players.playerMatches(parsedToken.sub).link,
+        },
+        {
+          label: "Выйти",
+          action: logout,
+        },
+      ]}
     >
       <span>{parsedToken.name}</span>
       <Image
@@ -80,9 +89,7 @@ export const Navbar = observer(() => {
             <LoginProfileNavbarItem />
           </ul>
         </div>
-      </div>
-      {isAdmin && (
-        <div className={cx(c.navbar, c.navbar__admin)}>
+        {isAdmin && (
           <div className={c.navbarInner}>
             <ul className={c.navbarList}>
               <NavbarItem link={AppRouter.admin.servers.link}>
@@ -93,8 +100,8 @@ export const Navbar = observer(() => {
               </NavbarItem>
             </ul>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 });

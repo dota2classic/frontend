@@ -3,13 +3,14 @@
 .navbarItem {
   white-space: nowrap;
   padding: 6px 8px;
+  position: relative;
 
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 
-  & a {
+  & > a {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -19,10 +20,13 @@
   color: inherit;
   transition: 0.3s ease;
 
-
   &:focus,
   &:hover {
     background: $transparentTint;
+    & .options {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 
   &.active {
@@ -39,4 +43,28 @@
 
 .admin {
   color: $bronze;
+}
+
+.options {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  padding: 6px 8px;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease;
+  background: #243446;
+}
+
+.option {
+  cursor: pointer;
+  color: $primaryText;
+
+  & + & {
+    margin-top: 12px;
+  }
 }
