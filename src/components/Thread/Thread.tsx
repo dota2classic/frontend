@@ -316,7 +316,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
           linkProducer={(page) => pagination!.pageProvider(page)}
         />
       )}
-      {displayInput && (
+      {auth.isAuthorized && displayInput && (
         <MessageInput
           id={id.toString()}
           threadType={threadType}
