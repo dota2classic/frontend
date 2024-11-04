@@ -57,4 +57,4 @@ export { PeriodicTimerClient } from "./PeriodicTimer/PeriodicTimerClient";
 export { Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
 export { UserPreview } from "./UserPreview/UserPreview";
 export { AchievementStatus } from "./AchievementStatus/AchievementStatus";
-export { YandexMetrika } from './YandexMetrika/YandexMetrika'
+export { YandexMetrika } from "./YandexMetrika/YandexMetrika";
