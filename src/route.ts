@@ -100,6 +100,11 @@ export const AppRouter = {
   admin: {
     servers: spage("/admin/servers"),
     queues: spage("/admin/queues"),
+    crimes: (pg?: number) => {
+      const q = queryParameters({ page: pg });
+
+      return page(`/admin/crimes${q}`, `/admin/crimes${q}`);
+    },
     player: (id: string | number) =>
       page(`/admin/players/[id]`, `/admin/players/${id}`),
     tournamentMatch: {

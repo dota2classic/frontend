@@ -98,29 +98,33 @@ export default function QueuePage(props: Props) {
   );
 }
 
+const redirectToDownload = async (ctx: NextPageContext) => {
+  if (ctx.res) {
+    // On the server, we'll use an HTTP response to
+    // redirect with the status code of our choice.
+    // 307 is for temporary redirects.
+    ctx.res.writeHead(307, { Location: "/download" });
+    ctx.res.end();
+  } else {
+    window.location = "/download" as never;
+    // While the page is loading, code execution will
+    // continue, so we'll await a never-resolving
+    // promise to make sure our page never
+    // gets rendered.
+    await new Promise(() => {});
+  }
+};
+
 QueuePage.getInitialProps = async (ctx: NextPageContext) => {
   // We need to check if we are logged in
   const jwt = withTemporaryToken(ctx, (store) => store.auth.parsedToken);
   if (!jwt) {
     // not logged in
-    if (ctx.res) {
-      // On the server, we'll use an HTTP response to
-      // redirect with the status code of our choice.
-      // 307 is for temporary redirects.
-      ctx.res.writeHead(307, { Location: "/queue/guide" });
-      ctx.res.end();
-    } else {
-      window.location = "/queue/guide" as never;
-      // While the page is loading, code execution will
-      // continue, so we'll await a never-resolving
-      // promise to make sure our page never
-      // gets rendered.
-      await new Promise(() => {});
-    }
+    await redirectToDownload(ctx);
     return;
   }
 
-  const [modes, playerSummary] = await Promise.all<unknown>([
+  const [modes, playerSummary] = await Promise.combine([
     getApi().statsApi.statsControllerGetMatchmakingInfo(),
     withTemporaryToken(ctx, (stores) => {
       return getApi().playerApi.playerControllerPlayerSummary(

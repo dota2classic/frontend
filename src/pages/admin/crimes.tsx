@@ -3,9 +3,10 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { BanReason, CrimeLogPageDto } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
-import { GenericTable, TimeAgo } from "@/components";
+import { GenericTable, Pagination, TimeAgo } from "@/components";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import React, { ReactNode } from "react";
+import { AppRouter } from "@/route";
 
 interface Props {
   crime: CrimeLogPageDto;
@@ -21,6 +22,11 @@ const s: Record<BanReason, ReactNode> = {
 export default function CrimesPage({ crime }: Props) {
   return (
     <>
+      <Pagination
+        page={crime.page}
+        maxPage={crime.pages}
+        linkProducer={(pg) => AppRouter.admin.crimes(pg).link}
+      />
       <GenericTable
         keyProvider={(it) => it[3]}
         columns={[
@@ -47,6 +53,11 @@ export default function CrimesPage({ crime }: Props) {
         ]}
         data={crime.data.map((t) => [t.user, t.crime, t.createdAt, t.id])}
         placeholderRows={5}
+      />
+      <Pagination
+        page={crime.page}
+        maxPage={crime.pages}
+        linkProducer={(pg) => AppRouter.admin.crimes(pg).link}
       />
     </>
   );

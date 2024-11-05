@@ -55,6 +55,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
 export const Navbar = observer(() => {
   const { auth } = useStore();
   const isAdmin = auth.parsedToken?.roles.includes(Role.ADMIN);
+  const isAuthorized = auth.isAuthorized;
 
   const { data: liveMatches } =
     getApi().liveApi.useLiveMatchControllerListMatches({
@@ -69,7 +70,10 @@ export const Navbar = observer(() => {
         <div className={c.navbarInner}>
           <ul className={c.navbarList}>
             <NavbarItem link={AppRouter.index.link}>DOTA2CLASSIC</NavbarItem>
-            <NavbarItem link={AppRouter.queue.link}>Играть</NavbarItem>
+            {isAuthorized && (
+              <NavbarItem link={AppRouter.queue.link}>Играть</NavbarItem>
+            )}
+
             <NavbarItem link={AppRouter.download.link}>Скачать</NavbarItem>
             <NavbarItem link={AppRouter.players.leaderboard.link}>
               Игроки
@@ -97,6 +101,9 @@ export const Navbar = observer(() => {
               </NavbarItem>
               <NavbarItem link={AppRouter.admin.queues.link}>
                 Очереди
+              </NavbarItem>
+              <NavbarItem link={AppRouter.admin.crimes().link}>
+                Нарушения
               </NavbarItem>
             </ul>
           </div>

@@ -1,0 +1,34 @@
+@import "../../common.scss";
+
+.options {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 8px;
+
+  & > div {
+  }
+}
+
+.option {
+  box-shadow: inset 0 -1px 0 rgba(154, 154, 154, 0.3);
+  cursor: pointer;
+  transition: 0.3s ease;
+  &:hover {
+    box-shadow: inset 0 -2px 0 rgba(64, 118, 161, 0.6) !important;
+  }
+
+  &.active {
+    box-shadow: inset 0 -2px 0 rgba(217, 217, 217, 0.6) !important;
+  }
+}
+
+
+.guide {
+  font-size: 20px;
+
+  & > li {
+    margin-top: 8px;
+  }
+}

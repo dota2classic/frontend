@@ -79,7 +79,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   public setToken = (token: string | undefined) => {
     this.token = token;
     appApi.apiParams.accessToken = token;
-    // apiInner.setHeader(`Authorization`, `Bearer ${token}`);
   };
 
   @action
