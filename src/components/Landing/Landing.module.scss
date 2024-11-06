@@ -2,7 +2,6 @@
 
 .promoVideoWrapper {
   width: 100%;
-  position: absolute;
   top: -1px;
   z-index: -2;
   opacity: 0.5;
@@ -20,10 +19,25 @@
 
 .block {
   position: relative;
-  height: 55vh;
+}
+
+.intent {
+  & h3 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  & ol {
+    font-size: 20px;
+    & li {
+      margin-top: 10px;
+    }
+  }
 }
 
 .leadingIntent {
+  position: absolute;
+  top: 0;
   z-index: 5;
   height: 100%;
   width: fit-content;
@@ -36,34 +50,26 @@
   pointer-events: auto;
 
   font-size: 1.8rem;
-
-
 }
 
 .playButton {
   width: fit-content;
-
   outline: none;
   text-transform: uppercase;
-
   z-index: 10;
   white-space: pre;
-
+  color: #ed3b1c;
   border: 2px solid $primaryText;
   border-radius: 6px;
-
   font-size: 28px;
   letter-spacing: 2.5px;
-
-  text-decoration: underline;
-
   font-weight: bold;
-
+  background-color: rgba(0, 0, 0, 0.3);
   padding: 20px 20px 20px 20px;
-  color: #ed3b1c;
   transition: 0.2s ease;
 
   &:hover {
+    background-color: rgba(0, 0, 0, 0.6);
     color: #ee2c0a;
     border-color: $primaryTextHighlight;
   }
@@ -83,7 +89,7 @@
   max-width: 100%;
   position: relative;
   min-height: 308px;
-  margin: 160px auto 125px;
+  margin: 20px auto 65px;
   z-index: 100;
   display: flex;
   flex-direction: row;
@@ -107,7 +113,6 @@
     background-color: $bg2;
     box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
     display: block;
-
 
     & dd:first-child {
       text-decoration: underline;
@@ -164,16 +169,21 @@
 }
 
 .wow {
-  margin-top: 300px;
+  position: absolute;
+  top: 0;
+  margin-top: 200px;
   color: $primaryTextHighlight;
   text-transform: uppercase;
   letter-spacing: 2px;
-  line-height: 105%;
-  font-size: 60px;
+  line-height: 145%;
+  font-size: 40px;
   text-align: center;
 
   & span {
-    font-size: 54px;
-    margin-bottom: 42px;
+    font-size: 64px;
+  }
+
+  & div {
+    margin-top: 82px;
   }
 }

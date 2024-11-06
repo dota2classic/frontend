@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import c from "./Landing.module.scss";
-import { Duration, PageLink } from "@/components";
+import { AuthLink, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
 import Image from "next/image";
@@ -41,41 +41,60 @@ export const Landing = () => {
           data-aos-delay="500"
           data-aos-duration="1500"
         >
-          <h1>Волшебный мир старой Доты, о котором ты скучал</h1>
-
-          <PageLink link={AppRouter.index.link} className={c.playButton}>
+          <h1>Волшебный мир старой Доты</h1>
+          <PageLink link={AppRouter.download.link} className={c.playButton}>
             Играть бесплатно
           </PageLink>
         </div>
       </div>
-      <div
-        className={cx(c.carousel__stat, c.carousel)}
-        data-aos="fade-up"
-        data-aos-delay="0"
-        data-aos-duration="1500"
-      >
-        <dl className={c.stat}>
-          <dd>19 057 матчей</dd>
-          <dt>Сыграно за все время</dt>
-        </dl>
-        <dl className={c.stat}>
-          <dd>
-            <Duration big duration={35130960} />
-          </dd>
-          <dt>Общая длительность матчей</dt>
-        </dl>
-        <dl className={c.stat}>
-          <dd>5 лет</dd>
-          <dt>Существует проект</dt>
-        </dl>
-        <dl className={c.stat}>
-          <dd>8 турниров</dd>
-          <dt>С призовыми более миллиона ₽</dt>
-        </dl>
-        <dl className={c.stat}>
-          <dd>14 160</dd>
-          <dt>Уникальных игроков</dt>
-        </dl>
+      {/*<div*/}
+      {/*  className={cx(c.carousel__stat, c.carousel)}*/}
+      {/*  data-aos="fade-up"*/}
+      {/*  data-aos-delay="0"*/}
+      {/*  data-aos-duration="1500"*/}
+      {/*>*/}
+      {/*  <dl className={c.stat}>*/}
+      {/*    <dd>19 057 матчей</dd>*/}
+      {/*    <dt>Сыграно за все время</dt>*/}
+      {/*  </dl>*/}
+      {/*  <dl className={c.stat}>*/}
+      {/*    <dd>*/}
+      {/*      <Duration big duration={35130960} />*/}
+      {/*    </dd>*/}
+      {/*    <dt>Общая длительность матчей</dt>*/}
+      {/*  </dl>*/}
+      {/*  <dl className={c.stat}>*/}
+      {/*    <dd>5 лет</dd>*/}
+      {/*    <dt>Существует проект</dt>*/}
+      {/*  </dl>*/}
+      {/*  <dl className={c.stat}>*/}
+      {/*    <dd>8 турниров</dd>*/}
+      {/*    <dt>С призовыми более миллиона ₽</dt>*/}
+      {/*  </dl>*/}
+      {/*  <dl className={c.stat}>*/}
+      {/*    <dd>14 160</dd>*/}
+      {/*    <dt>Уникальных игроков</dt>*/}
+      {/*  </dl>*/}
+      {/*</div>*/}
+      <div className={c.block}>
+        <div className={c.intent}>
+          <h3>От погружения в ностальгию тебя отделяет лишь 3 шага:</h3>
+          <ol>
+            <li>
+              <PageLink link={AppRouter.download.link} className="link">
+                Скачать
+              </PageLink>{" "}
+              старый клиент на Source 1
+            </li>
+            <li>
+              <AuthLink>Авторизоваться</AuthLink> на сайте через Steam
+            </li>
+            <li>
+              <PageLink link={AppRouter.queue.link}>Запустить поиск</PageLink>{" "}
+              игры на нашем сайте
+            </li>
+          </ol>
+        </div>
       </div>
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>
@@ -134,10 +153,8 @@ export const Landing = () => {
         </PageLink>
       </div>
 
-      <div className={c.block}>
-        <h2>Присоединяйся!</h2>
-        <br />
-        <PageLink link={AppRouter.index.link} className={c.playButton}>
+      <div className={c.block} style={{ paddingBottom: 100 }}>
+        <PageLink link={AppRouter.download.link} className={c.playButton}>
           Играть бесплатно
         </PageLink>
       </div>
