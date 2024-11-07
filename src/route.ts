@@ -94,7 +94,10 @@ export const AppRouter = {
       });
       return page(`/players/[id]/matches${q}`, `/players/${id}/matches${q}`);
     },
-    leaderboard: spage("/players"),
+    leaderboard: (pg?: number) => {
+      const q = queryParameters({ page: pg });
+      return page(`/players${q}`, `/players${q}`);
+    },
   },
 
   admin: {

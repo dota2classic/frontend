@@ -1,13 +1,16 @@
 import Head from "next/head";
-import { Duration, GenericTable } from "@/components";
+import { Duration, GenericTable, Pagination } from "@/components";
 import { getApi } from "@/api/hooks";
-import { LeaderboardEntryDto } from "@/api/back";
+import { LeaderboardEntryPageDto } from "@/api/back";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 import cx from "classnames";
+import { numberOrDefault } from "@/util/urls";
+import { NextPageContext } from "next";
+import { AppRouter } from "@/route";
 
 interface LeaderboardPageProps {
-  initialLeaderboard: LeaderboardEntryDto[];
+  initialLeaderboard: LeaderboardEntryPageDto;
 }
 
 export default function LeaderboardPage({
@@ -80,7 +83,7 @@ export default function LeaderboardPage({
             format: (d) => <Duration big duration={d} />,
           },
         ]}
-        data={initialLeaderboard.map((it) => [
+        data={initialLeaderboard.data.map((it) => [
           it.rank,
           it.user,
           it.mmr,
@@ -91,12 +94,24 @@ export default function LeaderboardPage({
           it.playTime,
         ])}
       />
+      <Pagination
+        page={initialLeaderboard.page}
+        maxPage={initialLeaderboard.pages}
+        linkProducer={(pg) => AppRouter.players.leaderboard(pg).link}
+      />
     </>
   );
 }
 
-LeaderboardPage.getInitialProps = async (): Promise<LeaderboardPageProps> => {
+LeaderboardPage.getInitialProps = async (
+  ctx: NextPageContext,
+): Promise<LeaderboardPageProps> => {
+  const page = numberOrDefault(ctx.query.page as string, 0);
+
   return {
-    initialLeaderboard: await getApi().playerApi.playerControllerLeaderboard(),
+    initialLeaderboard: await getApi().playerApi.playerControllerLeaderboard(
+      page,
+      100,
+    ),
   };
 };

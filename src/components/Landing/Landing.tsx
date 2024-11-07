@@ -123,7 +123,7 @@ export const Landing = () => {
         data-aos-delay="0"
         data-aos-duration="1500"
       >
-        <PageLink link={AppRouter.players.leaderboard.link}>
+        <PageLink link={AppRouter.players.leaderboard().link}>
           <h3>Лучшие игроки</h3>
           <Image
             width={380}

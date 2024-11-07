@@ -75,7 +75,7 @@ export const Navbar = observer(() => {
             )}
 
             <NavbarItem link={AppRouter.download.link}>Скачать</NavbarItem>
-            <NavbarItem link={AppRouter.players.leaderboard.link}>
+            <NavbarItem link={AppRouter.players.leaderboard().link}>
               Игроки
             </NavbarItem>
             <NavbarItem link={AppRouter.heroes.index.link}>Герои</NavbarItem>

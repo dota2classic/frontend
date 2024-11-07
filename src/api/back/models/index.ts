@@ -17,6 +17,7 @@ export * from "./HeroSummaryDto";
 export * from "./ItemDto";
 export * from "./ItemHeroDto";
 export * from "./LeaderboardEntryDto";
+export * from "./LeaderboardEntryPageDto";
 export * from "./LiveMatchDto";
 export * from "./LiveMatchSseDto";
 export * from "./MatchDto";
