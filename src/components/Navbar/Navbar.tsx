@@ -111,21 +111,21 @@ export const Navbar = observer(() => {
             </div>
           </ul>
         </div>
-        {/*{isAdmin && (*/}
-        {/*  <div className={c.navbarInner}>*/}
-        {/*    <ul className={c.navbarList}>*/}
-        {/*      <NavbarItem action={AppRouter.admin.servers.link}>*/}
-        {/*        Сервера*/}
-        {/*      </NavbarItem>*/}
-        {/*      <NavbarItem action={AppRouter.admin.queues.link}>*/}
-        {/*        Очереди*/}
-        {/*      </NavbarItem>*/}
-        {/*      <NavbarItem action={AppRouter.admin.crimes().link}>*/}
-        {/*        Нарушения*/}
-        {/*      </NavbarItem>*/}
-        {/*    </ul>*/}
-        {/*  </div>*/}
-        {/*)}*/}
+        {isAdmin && (
+          <div className={c.navbarInner}>
+            <ul className={c.navbarList}>
+              <NavbarItem action={AppRouter.admin.servers.link}>
+                Сервера
+              </NavbarItem>
+              <NavbarItem action={AppRouter.admin.queues.link}>
+                Очереди
+              </NavbarItem>
+              <NavbarItem action={AppRouter.admin.crimes().link}>
+                Нарушения
+              </NavbarItem>
+            </ul>
+          </div>
+        )}
       </div>
     </>
   );
