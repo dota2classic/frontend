@@ -58,4 +58,4 @@ export { Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
 export { UserPreview } from "./UserPreview/UserPreview";
 export { AchievementStatus } from "./AchievementStatus/AchievementStatus";
 export { YandexMetrika } from "./YandexMetrika/YandexMetrika";
-export { AuthLink } from './AuthLink/AuthLink'
+export { AuthLink } from "./AuthLink/AuthLink";

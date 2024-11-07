@@ -5,11 +5,11 @@ const fs = require("fs");
 const componentName = process.argv[2];
 
 const componentSource = `
-import React from 'react'
+import React from "react"
 
-import { } from '..'
+import { } from ".."
 
-import c from './${componentName}.module.scss'
+import c from "./${componentName}.module.scss"
 
 export const ${componentName} = () => {
 
@@ -20,7 +20,7 @@ export const ${componentName} = () => {
 }
 `;
 
-const componentStyle = `@import '../../common.scss';\n`;
+const componentStyle = `@import "../../common.scss";\n`;
 
 fs.mkdirSync(`./src/components/${componentName}`);
 fs.appendFileSync(
@@ -33,5 +33,5 @@ fs.appendFileSync(
 );
 fs.appendFileSync(
   "./src/components/index.ts",
-  `export { ${componentName} } from './${componentName}/${componentName}'\n`,
+  `export { ${componentName} } from "./${componentName}/${componentName}"\n`,
 );
