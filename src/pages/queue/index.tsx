@@ -23,7 +23,7 @@ import { ThreadStyle } from "@/components/Thread/Thread";
 
 interface Props {
   modes: MatchmakingInfo[];
-  playerSummary?: PlayerSummaryDto;
+  playerSummary: PlayerSummaryDto;
 }
 
 export default function QueuePage(props: Props) {
@@ -41,7 +41,7 @@ export default function QueuePage(props: Props) {
       },
     });
 
-  const playedAnyGame = !!props.playerSummary?.playedAnyGame;
+  const playedAnyGame = !!props.playerSummary.playedAnyGame;
 
   const d84 = modes!
     .filter((it) => it.version === "Dota_684" && it.enabled)

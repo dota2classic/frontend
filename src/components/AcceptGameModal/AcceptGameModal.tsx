@@ -6,6 +6,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Input } from "@/components";
 import { FaCheck, FaCopy } from "react-icons/fa6";
 import { useStore } from "@/store";
+import { formatGameMode } from "@/util/gamemode";
 
 const CopySomething = ({ something }: { something: string }) => {
   const [copied, setCopied] = useState(false);
@@ -70,13 +71,22 @@ export const AcceptGameModal = observer(() => {
     return (
       <div className={c.modalWrapper}>
         <div className={c.modal}>
-          <h2>Игра найдена!</h2>
+          <div className={c.header}>
+            <h4>Ваша игра готова</h4>
+            <h3>{formatGameMode(q.gameInfo.mode)}</h3>
+          </div>
           <div className={c.buttons}>
-            <button className={c.button2} onClick={qStore.acceptGame}>
-              Принять игру
+            <button
+              className={cx(c.button2, c.accept)}
+              onClick={qStore.acceptGame}
+            >
+              Принять
             </button>
-            <button className={c.button2} onClick={qStore.declineGame}>
-              Отклонить игру
+            <button
+              className={cx(c.button2, c.decline)}
+              onClick={qStore.declineGame}
+            >
+              Отклонить
             </button>
           </div>
         </div>
@@ -86,11 +96,13 @@ export const AcceptGameModal = observer(() => {
   return (
     <div className={c.modalWrapper}>
       <div className={c.modal}>
-        <h2>
-          Ожидаем остальных игроков <br />{" "}
-          {q.gameInfo?.accepted === undefined ? 0 : q.gameInfo!.accepted} из{" "}
-          {q.gameInfo.total}...
-        </h2>
+        <div className={c.header}>
+          <h4>Ожидаем остальных игроков</h4>
+          <h3>
+            {q.gameInfo?.accepted === undefined ? 0 : q.gameInfo!.accepted} из{" "}
+            {q.gameInfo.total}...
+          </h3>
+        </div>
         <div className={c.dots}>
           {new Array(q.gameInfo.total).fill(null).map((_, t) => (
             <div

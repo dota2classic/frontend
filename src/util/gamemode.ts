@@ -18,7 +18,7 @@ const messages = {
   // MatchmakingMode.HIGHROOM
   [MatchmakingMode.HIGHROOM]: "High room",
   // MatchmakingMode.BOTS
-  [MatchmakingMode.BOTS]: "Обычная(новички)",
+  [MatchmakingMode.BOTS]: "Обучение",
   // MatchmakingMode.GREEVILING
   [MatchmakingMode.GREEVILING]: "Гряволы",
   // MatchmakingMode.CAPTAINS_MODE
