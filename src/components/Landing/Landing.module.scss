@@ -21,10 +21,15 @@
   position: relative;
 }
 
+
+.longtext {
+  font-size: 20px;
+  line-height: 28px;
+}
+
 .intent {
   & h3 {
     font-size: 24px;
-    text-align: center;
   }
 
   & ol {

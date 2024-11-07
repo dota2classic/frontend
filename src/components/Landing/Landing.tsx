@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import c from "./Landing.module.scss";
-import { AuthLink, PageLink } from "@/components";
+import { AuthLink, Duration, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
 import Image from "next/image";
@@ -47,55 +47,6 @@ export const Landing = () => {
           </PageLink>
         </div>
       </div>
-      {/*<div*/}
-      {/*  className={cx(c.carousel__stat, c.carousel)}*/}
-      {/*  data-aos="fade-up"*/}
-      {/*  data-aos-delay="0"*/}
-      {/*  data-aos-duration="1500"*/}
-      {/*>*/}
-      {/*  <dl className={c.stat}>*/}
-      {/*    <dd>19 057 матчей</dd>*/}
-      {/*    <dt>Сыграно за все время</dt>*/}
-      {/*  </dl>*/}
-      {/*  <dl className={c.stat}>*/}
-      {/*    <dd>*/}
-      {/*      <Duration big duration={35130960} />*/}
-      {/*    </dd>*/}
-      {/*    <dt>Общая длительность матчей</dt>*/}
-      {/*  </dl>*/}
-      {/*  <dl className={c.stat}>*/}
-      {/*    <dd>5 лет</dd>*/}
-      {/*    <dt>Существует проект</dt>*/}
-      {/*  </dl>*/}
-      {/*  <dl className={c.stat}>*/}
-      {/*    <dd>8 турниров</dd>*/}
-      {/*    <dt>С призовыми более миллиона ₽</dt>*/}
-      {/*  </dl>*/}
-      {/*  <dl className={c.stat}>*/}
-      {/*    <dd>14 160</dd>*/}
-      {/*    <dt>Уникальных игроков</dt>*/}
-      {/*  </dl>*/}
-      {/*</div>*/}
-      <div className={c.block}>
-        <div className={c.intent}>
-          <h3>От погружения в ностальгию тебя отделяет лишь 3 шага:</h3>
-          <ol>
-            <li>
-              <PageLink link={AppRouter.download.link} className="link">
-                Скачать
-              </PageLink>{" "}
-              старый клиент на Source 1
-            </li>
-            <li>
-              <AuthLink>Авторизоваться</AuthLink> на сайте через Steam
-            </li>
-            <li>
-              <PageLink link={AppRouter.queue.link}>Запустить поиск</PageLink>{" "}
-              игры на нашем сайте
-            </li>
-          </ol>
-        </div>
-      </div>
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>
           <Image
@@ -116,6 +67,50 @@ export const Landing = () => {
           <br />
           <div>К тысячам игроков, которые предпочитают настоящую доту</div>
         </h3>
+      </div>
+      <div className={c.block}>
+        <div className={c.intent}>
+          <h3>От погружения в ностальгию тебя отделяет лишь 3 шага:</h3>
+          <ol>
+            <li>
+              <PageLink link={AppRouter.download.link} className="link">
+                Скачать
+              </PageLink>{" "}
+              старый клиент на Source 1
+            </li>
+            <li>
+              <AuthLink>Авторизоваться</AuthLink> на сайте через Steam
+            </li>
+            <li>
+              <PageLink link={AppRouter.queue.link}>Запустить поиск</PageLink>{" "}
+              игры на нашем сайте
+            </li>
+          </ol>
+          <h3>Кто мы такие</h3>
+          <div className={c.longtext}>
+            <ol>
+              <li>dota2classic - проект энтузиастов и фанатов старой Dota 2</li>
+              <li>
+                Проект существует <b className="gold">4 года</b>, за это время
+                более <b className="gold">14 тысяч игроков</b> сыграло более{" "}
+                <b className="gold">20 тысяч матчей</b> продолжительностью{" "}
+                <span className="gold">
+                  <Duration big duration={35130960} />
+                </span>
+              </li>
+              <li>
+                Весь исходный код можно найти на{" "}
+                <a
+                  target="__blank"
+                  href="https://github.com/dota2classic"
+                  className="link"
+                >
+                  Github
+                </a>
+              </li>
+            </ol>
+          </div>
+        </div>
       </div>
       <div
         className={cx(c.block, c.carousel)}
