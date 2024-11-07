@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { NavbarItem } from "..";
 
@@ -10,6 +10,8 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { Role } from "@/api/mapped-models";
 import Image from "next/image";
+import { IoMenu } from "react-icons/io5";
+import cx from "classnames";
 
 const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   const { parsedToken, smallAvatar, logout } = useStore().auth;
@@ -18,7 +20,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
     return (
       <NavbarItem
         ignoreActive
-        href={`${appApi.apiParams.basePath}/v1/auth/steam`}
+        action={`${appApi.apiParams.basePath}/v1/auth/steam`}
       >
         <FaSteam style={{ marginRight: 4 }} />
         Войти
@@ -28,7 +30,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   return (
     <NavbarItem
       ignoreActive
-      link={AppRouter.players.player.index(parsedToken.sub).link}
+      action={AppRouter.players.player.index(parsedToken.sub).link}
       options={[
         {
           label: "Матчи",
@@ -56,6 +58,7 @@ export const Navbar = observer(() => {
   const { auth } = useStore();
   const isAdmin = auth.parsedToken?.roles.includes(Role.ADMIN);
   const isAuthorized = auth.isAuthorized;
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: liveMatches } =
     getApi().liveApi.useLiveMatchControllerListMatches({
@@ -69,45 +72,60 @@ export const Navbar = observer(() => {
       <div className={c.navbar}>
         <div className={c.navbarInner}>
           <ul className={c.navbarList}>
-            <NavbarItem link={AppRouter.index.link}>DOTA2CLASSIC</NavbarItem>
-            {isAuthorized && (
-              <NavbarItem link={AppRouter.queue.link}>Играть</NavbarItem>
-            )}
-
-            <NavbarItem link={AppRouter.download.link}>Скачать</NavbarItem>
-            <NavbarItem link={AppRouter.players.leaderboard().link}>
-              Игроки
-            </NavbarItem>
-            <NavbarItem link={AppRouter.heroes.index.link}>Герои</NavbarItem>
-            <NavbarItem link={AppRouter.matches.index().link}>Матчи</NavbarItem>
-            <NavbarItem link={AppRouter.forum.index().link}>Форум</NavbarItem>
-            {hasLiveMatches && (
-              <NavbarItem link={AppRouter.matches.live.link}>Live</NavbarItem>
-            )}
-            {isAdmin && (
-              <NavbarItem admin link={AppRouter.admin.servers.link}>
-                Админка
+            <NavbarItem action={AppRouter.index.link}>DOTA2CLASSIC</NavbarItem>
+            <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
+              {isAuthorized && (
+                <NavbarItem action={AppRouter.queue.link}>Играть</NavbarItem>
+              )}
+              <NavbarItem action={AppRouter.download.link}>Скачать</NavbarItem>
+              <NavbarItem action={AppRouter.players.leaderboard().link}>
+                Игроки
               </NavbarItem>
-            )}
-            <div className={c.spacer} />
-            <LoginProfileNavbarItem />
+              <NavbarItem action={AppRouter.heroes.index.link}>
+                Герои
+              </NavbarItem>
+              <NavbarItem action={AppRouter.matches.index().link}>
+                Матчи
+              </NavbarItem>
+              <NavbarItem action={AppRouter.forum.index().link}>
+                Форум
+              </NavbarItem>
+              {hasLiveMatches && (
+                <NavbarItem action={AppRouter.matches.live.link}>
+                  Live
+                </NavbarItem>
+              )}
+              {isAdmin && (
+                <NavbarItem admin action={AppRouter.admin.servers.link}>
+                  Админка
+                </NavbarItem>
+              )}
+              <div className={c.spacer} />
+              <LoginProfileNavbarItem />
+            </div>
+
+            <div className={c.mobileMenu}>
+              <NavbarItem action={() => setMenuOpen((t) => !t)}>
+                <IoMenu />
+              </NavbarItem>
+            </div>
           </ul>
         </div>
-        {isAdmin && (
-          <div className={c.navbarInner}>
-            <ul className={c.navbarList}>
-              <NavbarItem link={AppRouter.admin.servers.link}>
-                Сервера
-              </NavbarItem>
-              <NavbarItem link={AppRouter.admin.queues.link}>
-                Очереди
-              </NavbarItem>
-              <NavbarItem link={AppRouter.admin.crimes().link}>
-                Нарушения
-              </NavbarItem>
-            </ul>
-          </div>
-        )}
+        {/*{isAdmin && (*/}
+        {/*  <div className={c.navbarInner}>*/}
+        {/*    <ul className={c.navbarList}>*/}
+        {/*      <NavbarItem action={AppRouter.admin.servers.link}>*/}
+        {/*        Сервера*/}
+        {/*      </NavbarItem>*/}
+        {/*      <NavbarItem action={AppRouter.admin.queues.link}>*/}
+        {/*        Очереди*/}
+        {/*      </NavbarItem>*/}
+        {/*      <NavbarItem action={AppRouter.admin.crimes().link}>*/}
+        {/*        Нарушения*/}
+        {/*      </NavbarItem>*/}
+        {/*    </ul>*/}
+        {/*  </div>*/}
+        {/*)}*/}
       </div>
     </>
   );

@@ -85,11 +85,11 @@ iframe {
 
 .adminicon {
   transition: 0.3s ease;
-
   cursor: pointer;
+  width: 1.5em;
+  height: 1.5em;
 
   &:hover {
-    color: #c23c2a;
-    scale: 1.5;
+    color: #c9af1d !important;
   }
 }

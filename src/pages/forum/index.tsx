@@ -27,6 +27,7 @@ import Image from "next/image";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { useDidMount } from "@/util/hooks";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 interface Props {
   threads: ThreadPageDTO;
@@ -128,6 +129,14 @@ const RowRenderer = observer(
             <FaMapPin
               className={cx("adminicon", thread.pinned ? "green" : "red")}
               onClick={togglePin}
+            />
+          ) : thread.pinned ? (
+            <FaMapPin className={c.icon} />
+          ) : null}
+          {thread.adminOnly ? (
+            <MdAdminPanelSettings
+              style={{ scale: 1.2, marginBottom: 2 }}
+              className={c.icon}
             />
           ) : null}
         </td>

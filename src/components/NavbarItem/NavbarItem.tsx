@@ -6,40 +6,58 @@ import { PageLink } from "@/components";
 import cx from "classnames";
 import { useRouter } from "next/router";
 
+type Action = NextLinkProp | (() => void) | string;
+
 interface DropdownOption {
   action: NextLinkProp | (() => void);
   label: ReactNode;
 }
 interface INavbarItemProps {
-  link?: NextLinkProp;
-  href?: string;
+  action: Action;
   admin?: boolean;
   ignoreActive?: boolean;
   options?: DropdownOption[];
 }
 
+function isPageLink(action: Action): action is NextLinkProp {
+  return typeof action === "object" && "href" in action;
+}
+
 export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
   children,
-  link,
-  href,
+  action,
   admin,
   ignoreActive,
   options,
 }) => {
   const r = useRouter();
-  const isActive = link?.href === r.pathname && !ignoreActive;
+  let isActive: boolean = false;
+
+  if (isPageLink(action)) {
+    isActive = action.href === r.pathname && !ignoreActive;
+  }
+
+  let renderedLink: ReactNode;
+
+  if (isPageLink(action)) {
+    renderedLink = (
+      <PageLink className={"link"} link={action}>
+        {children}
+      </PageLink>
+    );
+  } else if (typeof action === "string") {
+    renderedLink = (
+      <a className={"link"} href={action}>
+        {children}
+      </a>
+    );
+  } else {
+    renderedLink = <a onClick={action}>{children}</a>;
+  }
 
   return (
     <li className={cx(c.navbarItem, admin && c.admin, isActive && c.active)}>
-      {href ? (
-        <a className={"link"} href={href}>
-          {children}
-        </a>
-      ) : (
-        <PageLink className={"link"} link={link!}>
-          {children}
-        </PageLink>
-      )}
+      {renderedLink}
       {options && (
         <div className={c.options}>
           {options.map((op, index) =>

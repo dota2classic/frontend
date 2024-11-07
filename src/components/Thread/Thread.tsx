@@ -181,6 +181,7 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
 export const MessageInput = observer(
   (p: {
     id: string;
+    canMessage: boolean;
     threadType: ThreadType;
     onMessage: (mgs: ThreadMessageDTO) => void;
   }) => {
@@ -217,9 +218,14 @@ export const MessageInput = observer(
     return (
       <Panel className={c.createMessage}>
         <MarkdownTextarea
+          readOnly={!p.canMessage}
           onKeyUp={onEnterKeyPressed}
           className={c.text}
-          placeholder={"Введите сообщение"}
+          placeholder={
+            p.canMessage
+              ? "Введите сообщение"
+              : "У вас нет прав на отправку сообщений"
+          }
           value={value}
           onChange={(e) => {
             setError(null);
@@ -228,7 +234,7 @@ export const MessageInput = observer(
         />
         {/*<div className={c.markdown}>Поддерживается разметка markdown</div>*/}
         <Button
-          disabled={!isValid}
+          disabled={!isValid || !p.canMessage}
           className={(error && "red") || undefined}
           onClick={submit}
         >
@@ -250,7 +256,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
 }) {
   const { auth } = useStore();
   const scrollableRef = useRef<HTMLDivElement | null>(null);
-  const [thread, loadMore, consumeMessages, pg] = useThread(
+  const [thread, rawThread, loadMore, consumeMessages, pg] = useThread(
     id,
     threadType,
     populateMessages,
@@ -286,6 +292,9 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
   const displayInput =
     !pagination || !pg || pg.pages === 1 || pg.page == pg.pages - 1;
 
+  const hasRightToMessage =
+    auth.isAuthorized && (!rawThread?.adminOnly || auth.isAdmin);
+
   return (
     <div className={cx(c.thread, threadFont.className, className)}>
       {pagination && (
@@ -316,8 +325,9 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
           linkProducer={(page) => pagination!.pageProvider(page)}
         />
       )}
-      {auth.isAuthorized && displayInput && (
+      {displayInput && (
         <MessageInput
+          canMessage={hasRightToMessage}
           id={id.toString()}
           threadType={threadType}
           onMessage={(msg) => consumeMessages([msg])}

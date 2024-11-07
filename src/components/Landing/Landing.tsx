@@ -11,7 +11,10 @@ import Head from "next/head";
 
 export const Landing = () => {
   useEffect(() => {
-    if (typeof window !== "undefined") AOS.init();
+    if (typeof window !== "undefined")
+      AOS.init({
+        disable: "mobile",
+      });
   }, []);
   return (
     <>
@@ -57,16 +60,15 @@ export const Landing = () => {
             alt=""
           />
         </div>
-        <h3
+        <div
           className={c.wow}
           data-aos="fade-up"
           data-aos-delay="0"
           data-aos-duration="1500"
         >
-          <span>Присоединяйся</span>
-          <br />
+          <h2>Присоединяйся</h2>
           <div>К тысячам игроков, которые предпочитают настоящую доту</div>
-        </h3>
+        </div>
       </div>
       <div className={c.block}>
         <div className={c.intent}>

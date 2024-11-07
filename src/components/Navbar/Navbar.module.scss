@@ -14,7 +14,21 @@
   &__admin {
     top: 42px;
   }
+}
 
+.mobileMenu {
+  flex: 1;
+  justify-content: flex-end;
+  display: none;
+
+  @media (max-width: 600px) {
+    display: flex;
+  }
+
+  & svg {
+    width: 2em;
+    height: 2em;
+  }
 }
 
 .navbarInner {
@@ -32,6 +46,34 @@
   margin-inline-end: 0px;
   padding-inline-start: 0;
 
+  &__desktop {
+    display: inline-flex;
+    flex: 1;
+
+    @media (max-width: 600px) {
+      position: absolute;
+      display: none !important;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 100%;
+      transition: 0.3s ease;
+    }
+
+    &.visible {
+      display: flex !important;
+      flex-direction: column;
+      width: 100vw;
+      background: $bg2;
+      height: 100dvh;
+      top: 44px;
+      font-size: 22px;
+      gap: 10px;
+      color: white !important;
+      bottom: 0;
+    }
+  }
+
   & li {
     float: left;
     list-style: none;
@@ -42,7 +84,6 @@
 .spacer {
   flex: 1;
 }
-
 
 .playerAvatar {
   width: 30px;

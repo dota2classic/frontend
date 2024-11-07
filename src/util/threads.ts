@@ -3,6 +3,7 @@ import { useCallback, useEffect } from "react";
 import {
   querystring,
   SortOrder,
+  ThreadDTO,
   ThreadMessageDTO,
   ThreadMessagePageDTO,
 } from "@/api/back";
@@ -145,6 +146,7 @@ export const useThread = (
   page?: number,
 ): [
   Thread,
+  ThreadDTO | undefined,
   () => void,
   (messages: ThreadMessageDTO[]) => void,
   pg: ThreadMessagePageDTO | undefined,
@@ -153,6 +155,11 @@ export const useThread = (
   const state = useLocalObservable<ThreadLocalState>(
     () =>
       new ThreadLocalState(id.toString(), threadType, initialMessages, page),
+  );
+
+  const { data: rawThread } = getApi().forumApi.useForumControllerGetThread(
+    id.toString(),
+    threadType,
   );
 
   const loadPage = useCallback(
@@ -179,6 +186,7 @@ export const useThread = (
   if (typeof window === "undefined")
     return [
       state.thread,
+      undefined,
       () => undefined,
       () => undefined,
       state.pg,
@@ -188,5 +196,12 @@ export const useThread = (
   // If we are paginated, we return a page
   // otherwise all sorted
 
-  return [state.thread, loadMore, state.consumeMessages, state.pg, loadPage];
+  return [
+    state.thread,
+    rawThread,
+    loadMore,
+    state.consumeMessages,
+    state.pg,
+    loadPage,
+  ];
 };

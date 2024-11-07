@@ -29,9 +29,7 @@ export const Layout = ({
         <Navbar />
         <Notifications />
         <SearchGameFloater />
-        <main
-          className={cx(c.layoutInner, r.pathname === "/asdf" && c.landing)}
-        >
+        <main className={cx(c.layoutInner, r.pathname === "/" && c.landing)}>
           {children}
         </main>
         <footer className={c.footer}>
