@@ -1,0 +1,33 @@
+@import "../../common.scss";
+
+
+
+.tooltipIcon {
+  position: relative;
+
+
+  &:hover {
+    & .tooltipText {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+
+.tooltipText {
+  opacity: 0;
+  visibility: hidden;
+  background-color: $bg1;
+  color: $primaryText;
+  text-align: center;
+  padding:6px 8px;
+  border-radius: 6px;
+  transition: 0.3s ease;
+  top: -4px;
+  left: 120%;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}

@@ -13,12 +13,25 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    Role,
+    RoleFromJSON,
+    RoleFromJSONTyped,
+    RoleToJSON,
+} from './';
+
 /**
  * 
  * @export
  * @interface UserDTO
  */
 export interface UserDTO {
+    /**
+     * 
+     * @type {Array<Role>}
+     * @memberof UserDTO
+     */
+    roles: Array<Role>;
     /**
      * 
      * @type {string}
@@ -55,6 +68,7 @@ export function UserDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
     }
     return {
         
+        'roles': ((json['roles'] as Array<any>).map(RoleFromJSON)),
         'steamId': json['steamId'],
         'avatar': json['avatar'],
         'avatarSmall': json['avatarSmall'],
@@ -71,6 +85,7 @@ export function UserDTOToJSON(value?: UserDTO | null): any {
     }
     return {
         
+        'roles': ((value.roles as Array<any>).map(RoleToJSON)),
         'steamId': value.steamId,
         'avatar': value.avatar,
         'avatarSmall': value.avatarSmall,

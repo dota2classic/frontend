@@ -5,16 +5,15 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Button,
   MarkdownTextarea,
-  PageLink,
+  Message,
   Pagination,
   Panel,
-  PeriodicTimerClient,
   ScrollDetector,
 } from "..";
 
 import c from "./Thread.module.scss";
 import { ThreadMessageDTO, ThreadMessagePageDTO } from "@/api/back";
-import { AppRouter, NextLinkProp } from "@/route";
+import { NextLinkProp } from "@/route";
 import { observer } from "mobx-react-lite";
 import { Rubik } from "next/font/google";
 import cx from "classnames";
@@ -22,8 +21,6 @@ import { getApi } from "@/api/hooks";
 import { useThread } from "@/util/threads";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useStore } from "@/store";
-import { MdDelete } from "react-icons/md";
-import { enrichMessage } from "@/components/Thread/richMessage";
 import { ThreadStyle } from "@/components/Thread/types";
 import { IoSend } from "react-icons/io5";
 
@@ -45,64 +42,68 @@ interface IThreadProps {
   };
 }
 
-interface IMessageProps {
-  message: ThreadMessageDTO;
-  threadStyle: ThreadStyle;
-  onDelete?: (id: string) => void;
-}
-
 //
 
-const Message: React.FC<IMessageProps> = React.memo(function Message({
-  message,
-  threadStyle,
-  onDelete,
-}: IMessageProps) {
-  const enrichedMessage = enrichMessage(message.content);
-
-  const isDeletable = !!onDelete;
-  const onDeleteWrap = useCallback(
-    () => onDelete && onDelete(message.messageId),
-    [message.messageId, onDelete],
-  );
-
-  return (
-    <Panel
-      id={message.messageId}
-      className={cx(c.message, {
-        [c.messageTiny]: threadStyle === ThreadStyle.TINY,
-        [c.messageSmall]: threadStyle === ThreadStyle.SMALL,
-      })}
-    >
-      <PageLink
-        link={AppRouter.players.player.index(message.author.steamId).link}
-        className={cx(c.user)}
-      >
-        <img src={message.author.avatar} alt="" />
-        <h4>{message.author.name}</h4>
-      </PageLink>
-      <div className={c.right}>
-        <div className={c.timeCreated}>
-          <PageLink
-            link={AppRouter.players.player.index(message.author.steamId).link}
-            className={c.username}
-          >
-            {message.author.name}
-          </PageLink>
-
-          <div>
-            #{message.index + 1} Добавлено{" "}
-            {<PeriodicTimerClient time={message.createdAt} />}
-            {isDeletable && (
-              <MdDelete className={c.delete} onClick={onDeleteWrap} />
-            )}
-          </div>
-        </div>
-        <div className={c.content}>{enrichedMessage}</div>
-      </div>
-    </Panel>
-  );
-});
+// const Message: React.FC<IMessageProps> = React.memo(function Message({
+//   message,
+//   threadStyle,
+//   onDelete,
+// }: IMessageProps) {
+//   const enrichedMessage = enrichMessage(message.content);
+//
+//   const isDeletable = !!onDelete;
+//   const onDeleteWrap = useCallback(
+//     () => onDelete && onDelete(message.messageId),
+//     [message.messageId, onDelete],
+//   );
+//
+//   const roles = (
+//     <>{message.author.roles.includes(Role.ADMIN) && <MdAdminPanelSettings />}</>
+//   );
+//
+//   return (
+//     <Panel
+//       id={message.messageId}
+//       className={cx(c.message, {
+//         [c.messageTiny]: threadStyle === ThreadStyle.TINY,
+//         [c.messageSmall]: threadStyle === ThreadStyle.SMALL,
+//       })}
+//     >
+//       <div className={cx(c.user)}>
+//         <img src={message.author.avatar} alt="" />
+//         <span className={c.roles}>{roles}</span>
+//         <PageLink
+//           link={AppRouter.players.player.index(message.author.steamId).link}
+//           className={c.username}
+//         >
+//           {message.author.name}
+//         </PageLink>
+//       </div>
+//       <div className={c.right}>
+//         <div className={c.timeCreated}>
+//           <span className={c.usernameWrapper}>
+//             <PageLink
+//               link={AppRouter.players.player.index(message.author.steamId).link}
+//               className={c.username}
+//             >
+//               {message.author.name}{" "}
+//             </PageLink>
+//             <span className={c.roles}>{roles}</span>
+//           </span>
+//
+//           <div>
+//             #{message.index + 1} Добавлено{" "}
+//             {<PeriodicTimerClient time={message.createdAt} />}
+//             {isDeletable && (
+//               <MdDelete className={c.delete} onClick={onDeleteWrap} />
+//             )}
+//           </div>
+//         </div>
+//         <div className={c.content}>{enrichedMessage}</div>
+//       </div>
+//     </Panel>
+//   );
+// });
 
 export const MessageInput = observer(
   (p: {
@@ -111,11 +112,12 @@ export const MessageInput = observer(
     threadType: ThreadType;
     onMessage: (mgs: ThreadMessageDTO) => void;
     rows: number;
+    className?: string;
   }) => {
     const [value, setValue] = useState("");
     const [error, setError] = useState<string | null>(null);
 
-    const isValid = value.trim().length >= 5;
+    const isValid = value.trim().length >= 2;
 
     const submit = useCallback(() => {
       if (!isValid) {
@@ -156,7 +158,7 @@ export const MessageInput = observer(
       [submit],
     );
     return (
-      <Panel className={c.createMessage}>
+      <Panel className={cx(c.createMessage, p.className)}>
         <MarkdownTextarea
           rows={p.rows}
           readOnly={!p.canMessage}
@@ -221,7 +223,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
       const element = scrollableRef.current;
       if (!element) return;
 
-      element.scroll({ top: element.scrollHeight + 100, behavior: "smooth" });
+      element.scroll({ top: element.scrollHeight + 100, behavior: "instant" });
     }
   }, [messages, scrollToLast, scrollableRef]);
 
@@ -251,7 +253,11 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
       )}
       <div
         ref={scrollableRef}
-        className={cx(c.messageContainer, "messageList")}
+        className={cx(
+          c.messageContainer,
+          "messageList",
+          threadStyle === ThreadStyle.TINY && c.messageContainer__tiny,
+        )}
       >
         {messages.map((msg) => (
           <Message
@@ -272,6 +278,9 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
       )}
       {displayInput && (
         <MessageInput
+          className={
+            threadStyle === ThreadStyle.TINY ? c.createMessage_tiny : undefined
+          }
           rows={
             (threadStyle || ThreadStyle.NORMAL) === ThreadStyle.NORMAL
               ? 4

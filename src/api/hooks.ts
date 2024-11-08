@@ -9,6 +9,8 @@ import {
 } from "./back/apis";
 import { Configuration, ConfigurationParameters } from "./back";
 import { getCache } from "@/api/api-cache";
+import BrowserCookies from "browser-cookies";
+import { AuthStore } from "@/store/AuthStore";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
@@ -20,6 +22,10 @@ export class AppApi {
 
   apiParams: ConfigurationParameters = {
     basePath: `${PROD_URL}`,
+    accessToken:
+      typeof window !== "undefined"
+        ? BrowserCookies.get(AuthStore.cookieTokenKey) || undefined
+        : undefined,
     fetchApi: async (
       input: RequestInfo | URL,
       init?: RequestInit,

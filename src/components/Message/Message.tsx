@@ -1,0 +1,86 @@
+import React, { useCallback } from "react";
+
+import { PageLink, Panel, PeriodicTimerClient, TooltipIcon } from "..";
+
+import c from "./Message.module.scss";
+import { Role } from "@/api/mapped-models";
+import { MdAdminPanelSettings, MdDelete, MdLocalPolice } from "react-icons/md";
+import cx from "classnames";
+import { ThreadStyle } from "@/components/Thread/types";
+import { AppRouter } from "@/route";
+import { ThreadMessageDTO } from "@/api/back";
+
+interface IMessageProps {
+  message: ThreadMessageDTO;
+  threadStyle: ThreadStyle;
+  onDelete?: (id: string) => void;
+}
+
+export const Message: React.FC<IMessageProps> = React.memo(function Message({
+  message,
+  threadStyle,
+  onDelete,
+}: IMessageProps) {
+  // const enrichedMessage = enrichMessage(message.content);
+  const enrichedMessage = message.content;
+
+  const isDeletable = !!onDelete;
+  const onDeleteWrap = useCallback(
+    () => onDelete && onDelete(message.messageId),
+    [message.messageId, onDelete],
+  );
+
+  const roles = (
+    <>
+      {message.author.roles.includes(Role.ADMIN) && (
+        <TooltipIcon tooltip={"Администратор"} className="gold">
+          <MdAdminPanelSettings />
+        </TooltipIcon>
+      )}
+      {message.author.roles.includes(Role.MODERATOR) && (
+        <TooltipIcon tooltip={"Модератор"}>
+          <MdLocalPolice />
+        </TooltipIcon>
+      )}
+    </>
+  );
+
+  return (
+    <Panel
+      id={message.messageId}
+      className={cx(c.message, threadStyle === ThreadStyle.TINY && c.tiny)}
+    >
+      <div className={cx(c.user)}>
+        <img src={message.author.avatar} alt="" />
+        <PageLink
+          link={AppRouter.players.player.index(message.author.steamId).link}
+          className={cx(c.user__username, "link")}
+        >
+          {message.author.name}
+        </PageLink>
+      </div>
+      <div className={c.right}>
+        <div className={c.heading}>
+          <span className={c.heading__left}>
+            <PageLink
+              link={AppRouter.players.player.index(message.author.steamId).link}
+              className={cx(c.heading, "link")}
+            >
+              {message.author.name}
+            </PageLink>
+            {roles}
+          </span>
+
+          <div className={c.right__timeCreated}>
+            <span>#{message.index + 1} Добавлено </span>
+            {<PeriodicTimerClient time={message.createdAt} />}
+            {isDeletable && (
+              <MdDelete className={c.delete} onClick={onDeleteWrap} />
+            )}
+          </div>
+        </div>
+        <div className={c.content}>{enrichedMessage}</div>
+      </div>
+    </Panel>
+  );
+});

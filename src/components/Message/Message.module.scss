@@ -1,0 +1,110 @@
+@import "../../common.scss";
+
+.message {
+  display: flex;
+  flex-direction: row;
+
+  & .user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    padding: 8px 12px;
+
+    & img {
+      width: 160px;
+      height: 160px;
+    }
+
+    &__roles {
+      font-size: 2rem;
+      min-height: 2rem;
+    }
+
+    &__username {
+      display: none;
+    }
+  }
+
+  & .right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-self: stretch;
+    padding: 12px 8px;
+    margin-left: 10px;
+
+    & .heading {
+      display: flex;
+      flex-direction: row;
+
+      &__left {
+        display: flex;
+        flex: 1;
+        font-size: 1.2rem;
+
+        & svg {
+          margin-left: 2px;
+          //vertical-align: middle;
+        }
+      }
+
+      &__roles {
+        vertical-align: middle;
+      }
+    }
+
+    &__timeCreated {
+      display: flex;
+      flex-direction: row;
+      color: $primaryTextDark;
+      gap: 4px;
+      align-items: center;
+    }
+
+    & .content {
+      white-space: pre-line;
+      flex: 1;
+      padding-top: 12px;
+    }
+  }
+}
+
+.tiny {
+  padding: 2px;
+
+  & .user {
+    padding: 2px;
+
+    & img {
+      width: 45px;
+      height: 45px;
+    }
+  }
+
+  & .right {
+    padding: 2px 8px;
+
+    margin-left: 0;
+
+    & .heading {
+      font-size: 1rem;
+    }
+
+    & .content {
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+  }
+}
+
+.delete {
+  vertical-align: middle;
+  margin-left: 4px;
+  transition: 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: $red;
+  }
+}

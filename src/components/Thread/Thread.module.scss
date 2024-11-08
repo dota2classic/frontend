@@ -8,6 +8,10 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  gap: 16px;
+  &__tiny {
+    gap: 6px;
+  }
 }
 
 .messageSmall {
@@ -22,6 +26,22 @@
   & .username {
     display: block !important;
   }
+
+  & .roles {
+  }
+
+  & .usernameWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & svg {
+      vertical-align: middle;
+      margin-left: 2px;
+      width: 1.2em;
+      height: 1.2em;
+    }
+  }
 }
 
 .messageTiny {
@@ -31,8 +51,7 @@
 
   & .user {
     width: 50px !important;
-    padding: 4px 2px !important;;
-
+    padding: 4px 2px !important;
 
     & img {
       width: 45px !important;
@@ -52,6 +71,12 @@
     display: none;
   }
 
+  & .user {
+    & .roles {
+      display: none;
+    }
+  }
+
   & .username {
     display: block !important;
   }
@@ -68,19 +93,22 @@
     margin-top: 20px;
   }
 
-
   & .right {
     display: flex;
     flex-direction: column;
     flex: 1;
     padding: 12px 8px;
+
+    & .roles {
+      display: none;
+    }
   }
 
   & .timeCreated {
     color: $primaryTextDark;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    //justify-content: space-between;
   }
 
   & .content {
@@ -112,6 +140,10 @@
       height: 160px;
     }
 
+    & .roles {
+      font-size: 2rem;
+    }
+
     & h4 {
       white-space: nowrap;
     }
@@ -129,6 +161,10 @@
   grid-column-gap: 12px;
   grid-template-columns: repeat(24, 1fr);
 
+  &_tiny {
+    margin-top: 8px;
+  }
+
   & .text {
     width: 100%;
     flex: 1;
@@ -140,7 +176,6 @@
     align-self: flex-start;
     color: $primaryTextDark;
     width: unset;
-
   }
 
   & button {
@@ -153,7 +188,7 @@
     grid-row: span 1;
     display: flex;
     align-items: center;
-    border: none
+    border: none;
 
     //display: inline-block;
     //align-self: flex-end;
@@ -174,25 +209,10 @@
   }
 }
 
-
 .createThread {
   display: flex;
   flex-direction: column;
 }
-
-
-.delete {
-  vertical-align: middle;
-  margin-left: 4px;
-  transition: 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    color: $red;
-  }
-}
-
-
 
 .iframe {
   height: 200px;

@@ -30,6 +30,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
 
   return (
     <NavbarItem
+      className={c.user}
       ignoreActive
       action={AppRouter.players.player.index(parsedToken.sub).link}
       options={[
