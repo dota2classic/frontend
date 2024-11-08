@@ -1,7 +1,7 @@
-import { GenericTable, PageLink, Section } from "@/components";
+import { EmbedProps, GenericTable, PageLink, Section } from "@/components";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { AppRouter } from "@/route";
-import { useState } from "react";
+import React, { useState } from "react";
 import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
 
@@ -98,6 +98,12 @@ export default function DownloadPage({ initialOS }: Props) {
   }
   return (
     <>
+      <EmbedProps
+        title={"Начать играть"}
+        description={
+          "Подробная инструкция для скачивания, установки и поиска игры Dota 2. Скачать старую версию dota 2 здесь"
+        }
+      />
       <h2>Как начать играть?</h2>
       <ol className={c.guide}>
         <li>Скачай клиент игры (windows), используя таблицу</li>
@@ -136,6 +142,10 @@ export default function DownloadPage({ initialOS }: Props) {
           <PageLink className="link" link={AppRouter.queue.link}>
             онлайн игру
           </PageLink>
+        </li>
+        <li>
+          <span className="gold">ВАЖНО</span>: Steam аккаунт для игры и на сайте
+          должны совпадать.
         </li>
       </ol>
       <Section>

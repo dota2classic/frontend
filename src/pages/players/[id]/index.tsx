@@ -69,7 +69,7 @@ export default function PlayerPage({
       </Head>
       <EmbedProps
         title={`${preloadedSummary.user.name} - статистика`}
-        description={`Dota2Classic - профиль и статистика игрока ${preloadedSummary.user.name}`}
+        description={`Профиль и статистика игрока ${preloadedSummary.user.name}`}
         image={preloadedSummary.user.avatar}
       />
       <PlayerSummary

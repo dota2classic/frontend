@@ -25,6 +25,7 @@ import { useStore } from "@/store";
 import { MdDelete } from "react-icons/md";
 import { enrichMessage } from "@/components/Thread/richMessage";
 import { ThreadStyle } from "@/components/Thread/types";
+import { IoSend } from "react-icons/io5";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -52,7 +53,7 @@ interface IMessageProps {
 
 //
 
-export const Message: React.FC<IMessageProps> = React.memo(function Message({
+const Message: React.FC<IMessageProps> = React.memo(function Message({
   message,
   threadStyle,
   onDelete,
@@ -109,6 +110,7 @@ export const MessageInput = observer(
     canMessage: boolean;
     threadType: ThreadType;
     onMessage: (mgs: ThreadMessageDTO) => void;
+    rows: number;
   }) => {
     const [value, setValue] = useState("");
     const [error, setError] = useState<string | null>(null);
@@ -116,6 +118,10 @@ export const MessageInput = observer(
     const isValid = value.trim().length >= 5;
 
     const submit = useCallback(() => {
+      if (!isValid) {
+        setError("Слишком короткое сообщение!");
+        return;
+      }
       // Do it optimistically, first
       const msg = value;
       setValue("");
@@ -138,11 +144,11 @@ export const MessageInput = observer(
 
     const onEnterKeyPressed = useCallback(
       (e: React.KeyboardEvent) => {
-        e.preventDefault();
-        if (!isValid || !p.canMessage) {
-          return;
-        }
+        // if (!isValid || !p.canMessage) {
+        //   return;
+        // }
         if (e.keyCode === 13 && !e.shiftKey) {
+          e.preventDefault();
           // enter
           submit();
         }
@@ -152,8 +158,9 @@ export const MessageInput = observer(
     return (
       <Panel className={c.createMessage}>
         <MarkdownTextarea
+          rows={p.rows}
           readOnly={!p.canMessage}
-          onKeyUp={onEnterKeyPressed}
+          onKeyDown={onEnterKeyPressed}
           className={c.text}
           placeholder={
             p.canMessage
@@ -166,14 +173,17 @@ export const MessageInput = observer(
             setValue(e.target.value!);
           }}
         />
+
         {/*<div className={c.markdown}>Поддерживается разметка markdown</div>*/}
         <Button
           disabled={!isValid || !p.canMessage}
           className={(error && "red") || undefined}
           onClick={submit}
         >
-          {error || "Отправить"}
+          {/*{error || "Отправить"}*/}
+          {<IoSend className={error ? "red" : undefined} />}
         </Button>
+        <div className={cx(c.test, error && c.visible)}>{error || ""}</div>
       </Panel>
     );
   },
@@ -262,6 +272,13 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
       )}
       {displayInput && (
         <MessageInput
+          rows={
+            (threadStyle || ThreadStyle.NORMAL) === ThreadStyle.NORMAL
+              ? 4
+              : threadStyle === ThreadStyle.SMALL
+                ? 3
+                : 2
+          }
           canMessage={hasRightToMessage}
           id={id.toString()}
           threadType={threadType}

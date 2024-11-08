@@ -1,4 +1,5 @@
 import {
+  EmbedProps,
   MatchHistoryTable,
   Pagination,
   Panel,
@@ -11,7 +12,6 @@ import { AppRouter } from "@/route";
 import { useQueryBackedParameter, useRouterChanging } from "@/util/hooks";
 import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
-import Head from "next/head";
 import { GameModeOptions } from "@/components/SelectOptions/SelectOptions";
 import { MatchComparator } from "@/util/sorts";
 
@@ -35,9 +35,12 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
 
   return (
     <>
-      <Head>
-        <title>Матчи</title>
-      </Head>
+      <EmbedProps
+        title={"История матчей"}
+        description={
+          "История матчей старой Dota 2, список матчей сыгранных на сайте dotaclassic.ru"
+        }
+      />
       <Panel>
         <SelectOptions
           options={GameModeOptions}

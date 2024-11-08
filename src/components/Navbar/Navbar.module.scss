@@ -91,3 +91,14 @@
   margin-left: 4px;
   border-radius: 2px;
 }
+
+.root {
+  //background-color: $bg15;
+  & a {
+    & svg {
+      margin-bottom: 4px;
+      margin-right: 4px;
+    }
+    color: #ed3b1c !important;
+  }
+}

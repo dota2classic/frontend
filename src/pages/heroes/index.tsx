@@ -1,7 +1,7 @@
 import { getApi } from "@/api/hooks";
 import { HeroSummaryDto } from "@/api/back";
-import { HeroesMetaTable } from "@/components";
-import Head from "next/head";
+import { EmbedProps, HeroesMetaTable } from "@/components";
+import React from "react";
 
 interface InitialProps {
   heroes: HeroSummaryDto[];
@@ -10,9 +10,12 @@ interface InitialProps {
 export default function Heroes({ heroes }: InitialProps) {
   return (
     <>
-      <Head>
-        <title>Герои</title>
-      </Head>
+      <EmbedProps
+        title={"Герои"}
+        description={
+          "Статистика героев в старой Dota 2, сыгранных на сайте dotaclassic.ru"
+        }
+      />
       <HeroesMetaTable loading={false} data={heroes} />
     </>
   );

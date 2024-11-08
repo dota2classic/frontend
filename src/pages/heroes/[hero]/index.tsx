@@ -6,6 +6,7 @@ import {
   MatchPageDto,
 } from "@/api/back";
 import {
+  EmbedProps,
   HeroItemsTable,
   HeroPlayersTable,
   HeroStatsHeader,
@@ -18,7 +19,6 @@ import c from "./HeroPage.module.scss";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import React from "react";
 import heroName from "@/util/heroName";
-import Head from "next/head";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
@@ -50,9 +50,10 @@ export default function HeroHistoryPage({
 
   return (
     <div className={c.page}>
-      <Head>
-        <title>{heroName(hero)}</title>
-      </Head>
+      <EmbedProps
+        title={`${heroName(hero)}`}
+        description={`Статистика и история матчей героя ${heroName(hero)} на сайте dotaclassic.ru, матчи сыгранные на старом кленте dota 2, ${sortedSummaries.indexOf(summary) + 1} по популярности герой`}
+      />
       <HeroStatsHeader
         popularity={sortedSummaries.indexOf(summary) + 1}
         hero={hero}

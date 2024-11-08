@@ -4,24 +4,34 @@
   display: grid;
   grid-column-gap: 12px;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  flex: 1;
+  grid-template-rows: repeat(12, 1fr);
+  height: 100%;
 }
 
 .modes {
   grid-column: span 4;
-  grid-row: span 8;
+  grid-row: span 12;
   position: relative;
   align-items: unset;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+
+  & header {
+    grid-row: span 1;
+    padding: 0;
+  }
+
+  &__list {
+    align-items: stretch;
+    grid-row: span 23;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
-.main {
-  grid-column: span 8;
-  grid-row: span 8;
-}
+
 
 .onlineInfo {
   position: absolute;
@@ -44,18 +54,34 @@
   display: flex;
   flex-direction: column;
 }
+.main {
+  grid-row-gap: 12px;
+  grid-column: span 8;
+  grid-row: span 12;
 
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+
+  & header {
+    grid-row: span 1;
+    padding: 0;
+  }
+}
 
 .queueDiscussion {
-  max-height: 72vh;
+
+  grid-row: span 22;
+
+
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 0;
 
   & :global(.messageList) {
-    max-height: 51vh;
+    flex: 1;
   }
 
-  @media (max-height: 800px) {
-    & :global(.messageList) {
-      max-height: 30vh;
-    }
-  }
+
 }

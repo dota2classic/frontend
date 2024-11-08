@@ -12,6 +12,7 @@ import { Role } from "@/api/mapped-models";
 import Image from "next/image";
 import { IoMenu } from "react-icons/io5";
 import cx from "classnames";
+import { SiDota2 } from "react-icons/si";
 
 const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   const { parsedToken, smallAvatar, logout } = useStore().auth;
@@ -72,7 +73,10 @@ export const Navbar = observer(() => {
       <div className={c.navbar}>
         <div className={c.navbarInner}>
           <ul className={c.navbarList}>
-            <NavbarItem action={AppRouter.index.link}>DOTA2CLASSIC</NavbarItem>
+            <NavbarItem className={c.root} action={AppRouter.index.link}>
+              <SiDota2 />
+              DOTA2CLASSIC
+            </NavbarItem>
             <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
               {isAuthorized && (
                 <NavbarItem action={AppRouter.queue.link}>Играть</NavbarItem>

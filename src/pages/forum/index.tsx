@@ -164,8 +164,8 @@ export default function ForumIndexPage({ threads, page }: Props) {
   return (
     <>
       <EmbedProps
-        title="Dota2Classic форум"
-        description="Dota2Classic форум - место для обсуждения матчей, игроков, героев и важных вопросов"
+        title="Форум"
+        description="Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов"
       />
 
       <PageLink

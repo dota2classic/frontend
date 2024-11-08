@@ -121,33 +121,59 @@
 .createMessage {
   margin-top: 20px;
   padding: 12px 20px;
-  display: flex;
-  flex-direction: column;
+  //display: flex;
+  //flex-direction: column;
   position: relative;
 
+  display: grid;
+  grid-column-gap: 12px;
+  grid-template-columns: repeat(24, 1fr);
+
+  & .text {
+    width: 100%;
+    flex: 1;
+    grid-column: span 23;
+    grid-row: auto;
+  }
   & .markdown {
     display: inline-block;
     align-self: flex-start;
     color: $primaryTextDark;
     width: unset;
+
   }
 
   & button {
-    position: absolute;
-    bottom: 30px;
-    left: 35px;
+    //position: absolute;
+    //bottom: 30px;
+    //left: 35px;
+    //margin-top: 10px;
 
-    display: inline-block;
-    align-self: flex-end;
-    width: unset;
-    margin-right: 10px;
+    grid-column: span 1;
+    grid-row: span 1;
+    display: flex;
+    align-items: center;
+    border: none
+
+    //display: inline-block;
+    //align-self: flex-end;
+    //width: unset;
   }
 }
 
-.text {
-  width: 100%;
-  flex: 1;
+.test {
+  grid-column: span 23;
+  grid-row: span 1;
+  color: $red;
+  transition: 0.3s ease;
+
+  height: 0;
+
+  &.visible {
+    height: 100%;
+  }
 }
+
 
 .createThread {
   display: flex;

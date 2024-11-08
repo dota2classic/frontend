@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
-import { Breadcrumbs, PageLink, Panel, Thread } from "@/components";
+import { Breadcrumbs, EmbedProps, PageLink, Panel, Thread } from "@/components";
 import { getApi } from "@/api/hooks";
 import { ThreadDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import { numberOrDefault } from "@/util/urls";
+import React from "react";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -16,9 +17,12 @@ interface Props {
 export default function ThreadPage({ messages, thread, page }: Props) {
   const r = useRouter();
 
-  console.log(page, "PAGE?");
   return (
     <>
+      <EmbedProps
+        title={`${thread.title}`}
+        description={`Форум на сайте dotaclassic.ru: ${thread.title}`}
+      />
       <Panel>
         <Breadcrumbs>
           <PageLink link={AppRouter.forum.index().link}>Форум</PageLink>

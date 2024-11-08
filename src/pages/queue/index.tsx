@@ -61,7 +61,7 @@ export default function QueuePage(props: Props) {
       </Head>
       <Section className={c.modes}>
         <header>Режим игры</header>
-        <Panel className={c.modes}>
+        <Panel className={c.modes__list}>
           {d84.map((info) => (
             <MatchmakingOption
               key={`${info.mode}${info.version}`}

@@ -17,6 +17,7 @@ interface INavbarItemProps {
   admin?: boolean;
   ignoreActive?: boolean;
   options?: DropdownOption[];
+  className?: string;
 }
 
 function isPageLink(action: Action): action is NextLinkProp {
@@ -29,6 +30,7 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
   admin,
   ignoreActive,
   options,
+  className,
 }) => {
   const r = useRouter();
   let isActive: boolean = false;
@@ -56,7 +58,14 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
   }
 
   return (
-    <li className={cx(c.navbarItem, admin && c.admin, isActive && c.active)}>
+    <li
+      className={cx(
+        c.navbarItem,
+        admin && c.admin,
+        isActive && c.active,
+        className,
+      )}
+    >
       {renderedLink}
       {options && (
         <div className={c.options}>

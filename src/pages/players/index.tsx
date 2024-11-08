@@ -1,5 +1,4 @@
-import Head from "next/head";
-import { Duration, GenericTable, Pagination } from "@/components";
+import { Duration, EmbedProps, GenericTable, Pagination } from "@/components";
 import { getApi } from "@/api/hooks";
 import { LeaderboardEntryPageDto } from "@/api/back";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
@@ -8,6 +7,7 @@ import cx from "classnames";
 import { numberOrDefault } from "@/util/urls";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
+import React from "react";
 
 interface LeaderboardPageProps {
   initialLeaderboard: LeaderboardEntryPageDto;
@@ -18,9 +18,12 @@ export default function LeaderboardPage({
 }: LeaderboardPageProps) {
   return (
     <>
-      <Head>
-        <title>Таблица лидеров</title>
-      </Head>
+      <EmbedProps
+        title={"Игроки"}
+        description={
+          "Таблица лидеров игроков сайта dotaclassic.ru, лучшие игроки и их статистика"
+        }
+      />
 
       <GenericTable
         placeholderRows={100}
