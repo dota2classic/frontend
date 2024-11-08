@@ -96,6 +96,8 @@
   background-color: rgba(0, 0, 0, 0.3);
   padding: 20px 20px 20px 20px;
   transition: 0.2s ease;
+  cursor: pointer;
+  text-align: left;
 
   @media (max-width: 600px) {
     font-size: 1.2rem;
@@ -112,8 +114,6 @@
     border-color: $primaryTextHighlight;
   }
 
-  cursor: pointer;
-  text-align: left;
 }
 
 .backimage {

@@ -33,7 +33,7 @@
   }
 
   &.current {
-    background: rgba(248, 228, 0, 0.03);
+    background: $transparentTint;
   }
 
   &.active {

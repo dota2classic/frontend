@@ -15,7 +15,14 @@
   display: flex;
   flex-direction: column;
   border: none;
-  animation: pendingAnimation 2s linear infinite;
+
+  font-size: 1rem;
+
+
+  &__pending {
+    animation: pendingAnimation 2s linear infinite;
+  }
+
 
   & span.info {
     font-size: 10px;

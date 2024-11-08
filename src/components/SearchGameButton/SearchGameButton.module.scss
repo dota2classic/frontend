@@ -57,3 +57,42 @@
   }
 
 }
+
+
+
+
+.playButton {
+  outline: none;
+  text-transform: uppercase;
+  z-index: 10;
+  white-space: pre;
+  color: #ed3b1c;
+  border: 2px solid $primaryText;
+  border-radius: 6px;
+  font-size: 1.4rem;
+  letter-spacing: 2.5px;
+  font-weight: bold;
+  //background-color: rgba(0, 0, 0, 0.3);
+  background-color: $bg15;
+  padding: 20px 20px 20px 20px;
+  transition: 0.2s ease;
+  cursor: pointer;
+  text-align: center;
+
+  @media (max-width: 600px) {
+    font-size: 1.2rem;
+    padding: 16px 10px;
+    margin:auto;
+    display: block;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    //background-color: rgba(0, 0, 0, 0.6);
+    background-color: $bg1;
+    color: #ff2f0d;
+    border-color: $primaryTextHighlight;
+  }
+
+}

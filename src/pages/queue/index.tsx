@@ -12,6 +12,7 @@ import {
   MatchmakingOption,
   Panel,
   QueuePartyInfo,
+  SearchGameButton,
   Section,
   Thread,
 } from "@/components";
@@ -30,8 +31,6 @@ export default function QueuePage(props: Props) {
   const mounted = useDidMount();
 
   const { queue } = useStore();
-
-  const { data: onlineData } = getApi().statsApi.useStatsControllerOnline();
 
   const { data: modes } =
     getApi().statsApi.useStatsControllerGetMatchmakingInfo({
@@ -70,16 +69,7 @@ export default function QueuePage(props: Props) {
             />
           ))}
           <div style={{ flex: 1 }} />
-          {onlineData && (
-            <div className={c.onlineInfo}>
-              <span>{onlineData.inGame} в игре</span>
-              <span>{queue.online} онлайн</span>
-              <span>
-                Свободных серверов: {onlineData.servers - onlineData.sessions}
-              </span>
-              <span>Игр идет: {onlineData.sessions}</span>
-            </div>
-          )}
+          <SearchGameButton visible={true} />
         </Panel>
       </Section>
       <Section className={c.main}>

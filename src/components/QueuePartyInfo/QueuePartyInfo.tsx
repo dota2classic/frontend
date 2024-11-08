@@ -30,6 +30,7 @@ const GameCoordinatorConnection = ({
 export const QueuePartyInfo = observer(() => {
   const { queue } = useStore();
   const { data } = getApi().playerApi.usePlayerControllerMyParty();
+  const { data: onlineData } = getApi().statsApi.useStatsControllerOnline();
 
   const { data: party } = getApi().playerApi.usePlayerControllerMyParty();
 
@@ -89,9 +90,14 @@ export const QueuePartyInfo = observer(() => {
 
       {/*<SearchGameButton />*/}
 
-      {queue.searchingMode !== undefined && (
-        <div className={c.searchGameBar}>
-          <span>Поиск {formatGameMode(queue.searchingMode!.mode)}</span>
+      {queue.searchingMode !== undefined ? (
+        <div className={cx(c.searchGameBar, c.searchGameBar__pending)}>
+          <span>
+            Поиск{" "}
+            <span className="gold">
+              {formatGameMode(queue.searchingMode!.mode)}
+            </span>
+          </span>
           <span className={"info"}>
             В поиске{" "}
             {queue.inQueueCount(
@@ -100,7 +106,17 @@ export const QueuePartyInfo = observer(() => {
             )}
           </span>
         </div>
-      )}
+      ) : onlineData ? (
+        <div className={c.searchGameBar}>
+          <span>
+            {onlineData.inGame} в игре, {queue.online} онлайн
+          </span>
+          <span>
+            Свободных серверов: {onlineData.servers - onlineData.sessions}
+          </span>
+          <span>Игр идет: {onlineData.sessions}</span>
+        </div>
+      ) : null}
     </Panel>
   );
 });

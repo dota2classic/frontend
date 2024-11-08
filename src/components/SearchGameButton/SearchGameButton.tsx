@@ -9,13 +9,18 @@ import { appApi } from "@/api/hooks";
 import cx from "classnames";
 import { TimeAgo } from "@/components/TimeAgo/TimeAgo";
 
-export const SearchGameButton = observer(() => {
+interface Props {
+  visible: boolean;
+}
+export const SearchGameButton = observer((p: Props) => {
   const { queue, auth } = useStore();
   const router = useRouter();
 
   const isQueuePage = router.pathname === "/queue";
 
   const isSearchModeDefined = queue.searchingMode !== undefined;
+
+  if (!p.visible) return null;
 
   if (queue.needAuth)
     return (
@@ -28,7 +33,7 @@ export const SearchGameButton = observer(() => {
       </a>
     );
 
-  if (!queue.ready) return <a className={c.button}>Идет соединение...</a>;
+  if (!queue.ready) return <a className={c.playButton}>Подключаемся...</a>;
 
   if (isSearchModeDefined)
     return (
@@ -36,7 +41,7 @@ export const SearchGameButton = observer(() => {
         onClick={() => {
           queue.cancelSearch();
         }}
-        className={cx(c.button, queue.gameInfo?.serverURL && c.ingame)}
+        className={cx(c.playButton, queue.gameInfo?.serverURL && c.ingame)}
       >
         Отменить поиск
       </button>
@@ -55,7 +60,7 @@ export const SearchGameButton = observer(() => {
           queue.enterQueue();
         }}
         className={cx(
-          c.button,
+          c.playButton,
           c.search,
           auth.me?.banStatus.isBanned && c.banned,
           queue.gameInfo?.serverURL && c.ingame,
