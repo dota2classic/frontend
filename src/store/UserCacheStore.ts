@@ -36,8 +36,6 @@ export class UserCacheStore implements HydratableStore<unknown> {
   }
 
   public requestUser(id: string) {
-    console.trace("User requested");
-
     const promise = getApi()
       .playerApi.playerControllerPlayerSummary(id)
       .then((user) => {

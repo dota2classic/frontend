@@ -127,7 +127,7 @@ export default function AdminServersPage() {
           },
         ]}
         data={sessions.map((t) => [
-          t.url,
+          { link: `steam://connect/${t.url}`, label: t.url },
           t.matchId,
           t.info.mode,
           `${t.info.radiant.map((t) => t.name)} vs ${t.info.dire.map((t) => t.name)}`,

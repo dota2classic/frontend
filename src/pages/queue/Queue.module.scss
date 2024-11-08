@@ -52,4 +52,10 @@
   & :global(.messageList) {
     max-height: 51vh;
   }
+
+  @media (max-height: 800px) {
+    & :global(.messageList) {
+      max-height: 30vh;
+    }
+  }
 }

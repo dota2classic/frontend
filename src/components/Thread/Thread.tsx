@@ -1,16 +1,9 @@
 "use client";
 
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   Button,
-  ForumUserEmbed,
   MarkdownTextarea,
   PageLink,
   Pagination,
@@ -30,17 +23,12 @@ import { useThread } from "@/util/threads";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useStore } from "@/store";
 import { MdDelete } from "react-icons/md";
-import { youtubeVideo } from "@/util/regex";
+import { enrichMessage } from "@/components/Thread/richMessage";
+import { ThreadStyle } from "@/components/Thread/types";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });
-
-export enum ThreadStyle {
-  NORMAL,
-  SMALL,
-  TINY,
-}
 
 interface IThreadProps {
   id: string | number;
@@ -63,70 +51,6 @@ interface IMessageProps {
 }
 
 //
-function enrichMessage(msg2: string) {
-  const msg = msg2.replace(/\n\s*\n/g, "\n");
-
-  const parts: ReactNode[] = [];
-  const r = new RegExp(
-    `(https:\\/\\/dotaclassic.ru\\/matches\\/(\\d+))|(https:\\/\\/dotaclassic.ru\\/players\\/(\\d+))|(https?:\\/\\/([\\S]+)\\.[\\S]+)`,
-    "g",
-  );
-  const matches = Array.from(msg.matchAll(r));
-
-  let prevIdx = 0;
-  matches.forEach((match) => {
-    const prev = msg.slice(prevIdx, match.index);
-    parts.push(prev);
-
-    const atIndex = match.index;
-
-    if (match[4]) {
-      // player
-      // somehow fetch user?
-      const playerId = match[4];
-      parts.push(<ForumUserEmbed steamId={playerId} />);
-    } else if (match[5]) {
-      const domain = match[6];
-
-      const videoId = youtubeVideo(match[5]);
-
-      if ((domain === "youtube" || domain === "www.youtube") && videoId) {
-        // we can try to embed it
-        parts.push(
-          <iframe
-            className={c.iframe}
-            src={`https://www.youtube.com/embed/${videoId}`}
-          ></iframe>,
-        );
-      } else {
-        // Can we embed it?
-        // regular link
-        parts.push(
-          <a className="link" href={match[5]} target="__blank">
-            {match[5]}
-          </a>,
-        );
-      }
-    } else {
-      // match
-      const matchId = match[2];
-      parts.push(
-        <PageLink
-          className="link"
-          link={AppRouter.matches.match(Number(matchId)).link}
-        >
-          Матч {matchId}
-        </PageLink>,
-      );
-    }
-
-    prevIdx = atIndex + match[0].length;
-  });
-
-  parts.push(msg.slice(prevIdx));
-
-  return <>{...parts}</>;
-}
 
 export const Message: React.FC<IMessageProps> = React.memo(function Message({
   message,
@@ -164,6 +88,7 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
           >
             {message.author.name}
           </PageLink>
+
           <div>
             #{message.index + 1} Добавлено{" "}
             {<PeriodicTimerClient time={message.createdAt} />}
@@ -191,10 +116,14 @@ export const MessageInput = observer(
     const isValid = value.trim().length >= 5;
 
     const submit = useCallback(() => {
+      // Do it optimistically, first
+      const msg = value;
+      setValue("");
+
       getApi()
         .forumApi.forumControllerPostMessage({
           id: p.id,
-          content: value,
+          content: msg,
           threadType: p.threadType,
         })
         .then((msg) => {
@@ -203,11 +132,16 @@ export const MessageInput = observer(
         })
         .catch(() => {
           setError("Слишком часто отправляете сообщения!");
+          setValue(msg);
         });
     }, [value, p.id, p.threadType]);
 
     const onEnterKeyPressed = useCallback(
       (e: React.KeyboardEvent) => {
+        e.preventDefault();
+        if (!isValid || !p.canMessage) {
+          return;
+        }
         if (e.keyCode === 13 && !e.shiftKey) {
           // enter
           submit();
@@ -262,6 +196,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
     populateMessages,
     (showLastMessages && showLastMessages > 0) || false,
     pagination?.page,
+    showLastMessages,
   );
 
   const messages =

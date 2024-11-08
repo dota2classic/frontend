@@ -12,7 +12,7 @@ import { getApi } from "@/api/hooks";
 import { LiveMatchDto, LiveMatchDtoFromJSON, MatchDto } from "@/api/back";
 import Head from "next/head";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
-import { ThreadStyle } from "@/components/Thread/Thread";
+import { ThreadStyle } from "@/components/Thread/types";
 import { useEventSource } from "@/util/hooks";
 
 interface InitialProps {

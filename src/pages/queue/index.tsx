@@ -20,7 +20,7 @@ import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import React from "react";
 import { NextPageContext } from "next";
-import { ThreadStyle } from "@/components/Thread/Thread";
+import { ThreadStyle } from "@/components/Thread/types";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -50,6 +50,8 @@ export default function QueuePage(props: Props) {
         it.mode === MatchmakingMode.SOLOMID || // solomid
         it.mode === MatchmakingMode.BOTS, // bots
     )
+    // For now enable bots to everhbody
+    // .filter((t) => t.mode !== MatchmakingMode.BOTS || !playedAnyGame)
     .sort((a, b) => Number(a.mode) - Number(b.mode));
 
   return (
@@ -78,7 +80,7 @@ export default function QueuePage(props: Props) {
         <Thread
           scrollToLast
           className={c.queueDiscussion}
-          showLastMessages={20}
+          showLastMessages={30}
           threadStyle={ThreadStyle.TINY}
           id={"17aa3530-d152-462e-a032-909ae69019ed"}
           threadType={ThreadType.FORUM}

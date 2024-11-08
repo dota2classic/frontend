@@ -121,7 +121,7 @@ class ThreadLocalState {
     this.consumeMessages(pg.data);
   };
 
-  loadMore = async (loadLatest: boolean) => {
+  loadMore = async (loadLatest: boolean, loadCount: number = 10) => {
     const latest = maxBy(this.thread.messages, (it) =>
       new Date(it.createdAt).getTime(),
     )?.createdAt;
@@ -130,7 +130,7 @@ class ThreadLocalState {
         this.id.toString(),
         this.threadType,
         latest ? new Date(latest).getTime() : undefined,
-        10,
+        loadCount,
         loadLatest ? SortOrder.DESC : SortOrder.ASC,
       )
       .then(this.consumeMessages);
@@ -144,6 +144,7 @@ export const useThread = (
   initialMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO,
   loadLatest: boolean = false,
   page?: number,
+  batchSize?: number,
 ): [
   Thread,
   ThreadDTO | undefined,
@@ -178,7 +179,7 @@ export const useThread = (
   }, [loadPage, page]);
 
   const loadMore = useCallback(() => {
-    state.loadMore(loadLatest);
+    state.loadMore(loadLatest, batchSize);
   }, [loadLatest, state]);
 
   useThreadEventSource(id.toString(), threadType, state.consumeMessages);
