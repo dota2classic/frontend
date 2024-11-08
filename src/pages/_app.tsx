@@ -11,7 +11,7 @@ import { HydrateRootData, RootStore, getRootStore } from "@/store";
 import Head from "next/head";
 import "../ext";
 // Font files can be colocated inside of `pages`
-const myFont = localFont({ src: "./TrajanPro3Regular.ttf" });
+const myFont = localFont({ src: "./Trajan Pro 3 Regular.otf" });
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
