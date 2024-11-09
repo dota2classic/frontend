@@ -41,6 +41,7 @@ export class AppApi {
   cache = getCache();
 
   readonly authApi = new AuthApi(this.apiConfig);
+
   private readonly apiConfig = new Configuration(this.apiParams);
   apiParams: ConfigurationParameters = {
     basePath: `${PROD_URL}`,
