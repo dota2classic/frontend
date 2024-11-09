@@ -40,8 +40,15 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       if (cookie) {
         this.setToken(cookie);
       }
-      this.fetchMe().finally();
+      this.periodicallyFetchMe();
     }
+  }
+
+  private periodicallyFetchMe() {
+    this.fetchMe().finally();
+    setInterval(() => {
+      this.fetchMe().finally();
+    }, 5000);
   }
 
   @action

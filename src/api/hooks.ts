@@ -1,5 +1,6 @@
 import {
   AdminApi,
+  AuthApi,
   ForumApi,
   LiveApi,
   MatchApi,
@@ -7,30 +8,93 @@ import {
   PlayerApi,
   StatsApi,
 } from "./back/apis";
-import { Configuration, ConfigurationParameters } from "./back";
+import {
+  Configuration,
+  ConfigurationParameters,
+  FetchParams,
+  RequestContext,
+  Role,
+} from "./back";
 import { getCache } from "@/api/api-cache";
 import BrowserCookies from "browser-cookies";
 import { AuthStore } from "@/store/AuthStore";
+import { parseJwt } from "@/util/math";
+import { __unsafeGetClientStore } from "@/store";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
 const PROD_URL = (process.env.API_URL ||
   process.env.NEXT_PUBLIC_API_URL) as string;
 
+interface JwtPayload {
+  sub: string;
+  roles: Role[];
+  name: string | undefined;
+  avatar: string | undefined;
+  version?: "1";
+
+  exp: number;
+  iat: number;
+}
+
 export class AppApi {
   cache = getCache();
 
+  readonly authApi = new AuthApi(this.apiConfig);
+  private readonly apiConfig = new Configuration(this.apiParams);
   apiParams: ConfigurationParameters = {
     basePath: `${PROD_URL}`,
     accessToken:
       typeof window !== "undefined"
         ? BrowserCookies.get(AuthStore.cookieTokenKey) || undefined
         : undefined,
+    middleware: [
+      {
+        pre: async (context: RequestContext): Promise<FetchParams | void> => {
+          if (context.url.includes("refresh_token")) {
+            // Do nothing
+            return;
+          }
+
+          const h = context.init.headers as Record<string, string>;
+          const auth = h["Authorization"];
+          if (auth) {
+            const token = auth.replace("Bearer ", "");
+            const jwt = parseJwt<JwtPayload>(token);
+
+            const isExpiringSoon =
+              jwt.exp * 1000 - new Date().getTime() <= 1000 * 60; // Less than a
+
+            const isTokenStale =
+              new Date().getTime() - jwt.iat * 1000 >= 1000 * 60 * 5; // 5 minutes is stale enough
+
+            const shouldRevalidateToken = isExpiringSoon || isTokenStale;
+
+            if (jwt.version === undefined || shouldRevalidateToken) {
+              // We should refresh token
+              console.log(
+                `Need refresh token because: ${jwt.version === undefined} or ${isExpiringSoon}`,
+              );
+
+              this.apiParams.accessToken =
+                await this.authApi.steamControllerRefreshToken();
+            }
+          }
+        },
+      },
+    ],
     fetchApi: async (
       input: RequestInfo | URL,
       init?: RequestInit,
     ): Promise<Response> => {
-      return fetch(input, init);
+      return fetch(input, init).then((t) => {
+        if (typeof window === "undefined") return t;
+        const auth = __unsafeGetClientStore().auth;
+        if (t.status === 401 && auth.isAuthorized) {
+          auth.logout();
+        }
+        return t;
+      });
       // const key = JSON.stringify(input);
       // const cached = this.cache.get(key);
       // if (cached) {
@@ -57,8 +121,6 @@ export class AppApi {
       //   });
     },
   };
-  private readonly apiConfig = new Configuration(this.apiParams);
-
   readonly matchApi = new MatchApi(this.apiConfig);
   readonly liveApi = new LiveApi(this.apiConfig);
   readonly forumApi = new ForumApi(this.apiConfig);

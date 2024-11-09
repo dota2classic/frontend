@@ -208,8 +208,11 @@ export class QueueStore
     this.socket.disconnect();
   }
 
-  public connect() {
+  public async connect() {
     if (this.socket && this.socket.connected) return;
+
+    // Make sure token is not stale
+    await this.authStore.fetchMe();
 
     if (!this.authStore.parsedToken) {
       console.warn("Trying to connect while unauthorized");

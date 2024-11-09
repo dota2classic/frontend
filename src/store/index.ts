@@ -34,6 +34,7 @@ function createStore(): RootStore {
     user: ucache,
   };
 }
+export const __unsafeGetClientStore = () => clientStore;
 
 const initStore = (initData: HydrateRootData | undefined): RootStore => {
   // check if we already declare store (client Store), otherwise create one

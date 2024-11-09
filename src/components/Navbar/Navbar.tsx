@@ -23,7 +23,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
         ignoreActive
         action={`${appApi.apiParams.basePath}/v1/auth/steam`}
       >
-        <FaSteam style={{ marginRight: 4 }} />
+        <FaSteam style={{ marginRight: 4, marginTop: "-3px" }} />
         Войти
       </NavbarItem>
     );

@@ -3,11 +3,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import c from "./Landing.module.scss";
-import { AuthLink, Duration, PageLink } from "@/components";
+import { AuthLink, Duration, EmbedProps, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
 import Image from "next/image";
-import Head from "next/head";
 
 export const Landing = () => {
   useEffect(() => {
@@ -18,16 +17,14 @@ export const Landing = () => {
   }, []);
   return (
     <>
-      <Head>
-        <title>Dota2Classic - играть в старую доту онлайн</title>
-        <meta
-          name="description"
-          content={
-            "Dota2Classic это единственный способ поиграть в старую доту из 2015 года. Здесь ты сможешь вспомнить ту самую игру."
-          }
-        />
+      <EmbedProps
+        title={"Играть в старую доту онлайн"}
+        description={
+          "Dota2Classic это единственный способ поиграть в старую доту из 2015 года. Здесь ты сможешь вспомнить ту самую игру."
+        }
+      >
         <link rel="canonical" href="https://dotaclassic.ru" />
-      </Head>
+      </EmbedProps>
       <div className={c.block}>
         <div className={c.promoVideoWrapper}>
           <video

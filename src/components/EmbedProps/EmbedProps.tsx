@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -9,7 +9,9 @@ interface IEmbedPropsProps {
   image?: string;
 }
 
-export const EmbedProps: React.FC<IEmbedPropsProps> = (p) => {
+export const EmbedProps: React.FC<PropsWithChildren<IEmbedPropsProps>> = (
+  p,
+) => {
   const url = useRouter().asPath;
   const title = `DOTA2CLASSIC - ${p.title}`;
   return (
@@ -20,6 +22,7 @@ export const EmbedProps: React.FC<IEmbedPropsProps> = (p) => {
       <meta property="og:image" content={p.image} />
       <meta property="summary_large_image" content={p.image} />
       <meta property="og:url" content={p.url || url} />
+      {p.children}
     </Head>
   );
 };

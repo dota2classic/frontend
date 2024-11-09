@@ -80,6 +80,7 @@ export class BaseAPI {
         for (const middleware of this.middleware) {
             if (middleware.pre) {
                 fetchParams = await middleware.pre({
+                    runtime: this,
                     fetch: this.fetchApi,
                     ...fetchParams,
                 }) || fetchParams;
@@ -89,6 +90,7 @@ export class BaseAPI {
         for (const middleware of this.middleware) {
             if (middleware.post) {
                 response = await middleware.post({
+                    runtime: this,
                     fetch: this.fetchApi,
                     url,
                     init,
@@ -258,12 +260,14 @@ export interface Consume {
 }
 
 export interface RequestContext {
+    runtime: BaseAPI;
     fetch: FetchAPI;
     url: string;
     init: RequestInit;
 }
 
 export interface ResponseContext {
+    runtime: BaseAPI;
     fetch: FetchAPI;
     url: string;
     init: RequestInit;
