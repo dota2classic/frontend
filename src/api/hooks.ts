@@ -39,10 +39,6 @@ interface JwtPayload {
 
 export class AppApi {
   cache = getCache();
-
-  readonly authApi = new AuthApi(this.apiConfig);
-
-  private readonly apiConfig = new Configuration(this.apiParams);
   apiParams: ConfigurationParameters = {
     basePath: `${PROD_URL}`,
     accessToken:
@@ -122,6 +118,9 @@ export class AppApi {
       //   });
     },
   };
+  private readonly apiConfig = new Configuration(this.apiParams);
+
+  readonly authApi = new AuthApi(this.apiConfig);
   readonly matchApi = new MatchApi(this.apiConfig);
   readonly liveApi = new LiveApi(this.apiConfig);
   readonly forumApi = new ForumApi(this.apiConfig);
