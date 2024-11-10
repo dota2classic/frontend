@@ -18,9 +18,11 @@
   & svg {
     margin-right: 2px;
   }
-
-  &:hover {
-    background: rgba(1, 1, 1, 0.1);
+  &:hover.mode__disabled {
+    box-shadow: 0 0 4px 4px rgba(211, 38, 38, 0.25) inset;
+  }
+  &:hover:not(.mode__disabled) {
+    box-shadow: 0 0 4px 4px rgba(183, 183, 183, 0.25) inset;
   }
 
   & span.info {
@@ -57,7 +59,7 @@
     color: $primaryTextDark;
 
     &:hover {
-      background: unset;
+      // background: unset;
     }
   }
 }
