@@ -1,13 +1,23 @@
-@import '../../common.scss';
-
+@import "../../common.scss";
 
 .mode {
   display: flex;
-
   flex-direction: column;
   padding: 20px 20px;
   cursor: pointer;
   transition: 0.3s ease;
+
+
+  &__name {
+    color: $gold;
+    line-height: 1.4rem;
+    font-size: 1.2rem;
+    padding-bottom: 4px;
+  }
+
+  & svg {
+    margin-right: 2px;
+  }
 
   &:hover {
     background: rgba(1, 1, 1, 0.1);
@@ -46,7 +56,8 @@
     &:hover {
       background: unset;
     }
+    background-color: rgba(0, 0,0,0.3);
 
-    color: #4a4a4a;
+    color: $primaryTextDark;
   }
 }

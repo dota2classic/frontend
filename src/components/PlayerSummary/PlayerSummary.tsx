@@ -3,7 +3,7 @@ import React from "react";
 import c from "./PlayerSummary.module.scss";
 import cx from "classnames";
 import { formatWinrate } from "@/util/math";
-import { PageLink, Panel, TimeAgo } from "@/components";
+import { PageLink, Panel, PlayerAvatar, TimeAgo } from "@/components";
 import { steamPage } from "@/util/resources";
 import { AppRouter } from "@/route";
 import { useIsAdmin } from "@/util/hooks";
@@ -45,7 +45,12 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
             className={c.player}
             link={AppRouter.players.player.index(steamId).link}
           >
-            <Image width={65} height={65} src={image} alt="image in panel" />
+            <PlayerAvatar
+              width={65}
+              height={65}
+              src={image}
+              alt={`Avatar of player ${name}`}
+            />
             <div className={c.playerName}>
               {steamId.length > 2 ? name : `Бот #${steamId}`}
             </div>

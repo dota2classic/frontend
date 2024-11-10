@@ -8,7 +8,7 @@ const messages = {
   // MatchmakingMode.RANKED
   [MatchmakingMode.RANKED]: "Рейтинг",
   // MatchmakingMode.UNRANKED
-  [MatchmakingMode.UNRANKED]: "Обычная",
+  [MatchmakingMode.UNRANKED]: "Обычная 5x5",
   // MatchmakingMode.SOLOMID
   [MatchmakingMode.SOLOMID]: "1x1 мид",
   // MatchmakingMode.ABILITY_DRAFT

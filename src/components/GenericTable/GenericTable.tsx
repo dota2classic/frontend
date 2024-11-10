@@ -7,6 +7,7 @@ import {
   ItemIconRaw,
   KDABarChart,
   PageLink,
+  PlayerAvatar,
   Table,
   TableRowLoading,
 } from "..";
@@ -113,12 +114,12 @@ const ColRenderer: React.FC<{
     return (
       <td>
         <div className={c.player}>
-          <Image
+          <PlayerAvatar
             width={40}
             height={40}
             className={c.avatar}
             src={value.avatarSmall || "/avatar.png"}
-            alt=""
+            alt={`Avatar of player ${value.name}`}
           />
           <PageLink
             className="link"

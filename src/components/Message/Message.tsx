@@ -1,6 +1,12 @@
 import React, { useCallback, useState } from "react";
 
-import { PageLink, Panel, PeriodicTimerClient, TooltipIcon } from "..";
+import {
+  PageLink,
+  Panel,
+  PeriodicTimerClient,
+  PlayerAvatar,
+  TooltipIcon,
+} from "..";
 
 import c from "./Message.module.scss";
 import { Role } from "@/api/mapped-models";
@@ -24,7 +30,6 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
   onDelete,
 }: IMessageProps) {
   const enrichedMessage = enrichMessage(message.content);
-  const [error, setError] = useState<unknown>(null);
 
   const isDeletable = !!onDelete;
   const onDeleteWrap = useCallback(
@@ -53,12 +58,11 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
       className={cx(c.message, threadStyle === ThreadStyle.TINY && c.tiny)}
     >
       <div className={cx(c.user)}>
-        <Image
+        <PlayerAvatar
           width={threadStyle === ThreadStyle.TINY ? 45 : 100}
           height={threadStyle === ThreadStyle.TINY ? 45 : 100}
-          src={error ? "/avatar.png" : message.author.avatar}
-          alt=""
-          onError={setError}
+          src={message.author.avatar}
+          alt={`Avatar of player ${message.author.name}`}
         />
         <PageLink
           link={AppRouter.players.player.index(message.author.steamId).link}

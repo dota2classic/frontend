@@ -43,17 +43,16 @@ export const MatchmakingOption = observer(
           }
         }}
       >
-        <span>{formatGameMode(mode)}</span>
-        {disabled ? (
-          <>
-            <FaLock />
-            {disabled}
-          </>
-        ) : (
-          <span className={"info"}>
-            {queue.inQueueCount(mode, version)} в поиске
-          </span>
-        )}
+        <span className={c.mode__name}>
+          {disabled ? <FaLock /> : null} {formatGameMode(mode)}
+        </span>
+        <span>
+          {disabled ? (
+            <>{disabled}</>
+          ) : (
+            <>{queue.inQueueCount(mode, version)} в поиске</>
+          )}
+        </span>
       </div>
     );
   },
