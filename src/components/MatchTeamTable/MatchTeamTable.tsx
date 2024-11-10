@@ -6,6 +6,8 @@ import { AppRouter } from "@/route";
 import c from "./MatchTeamTable.module.scss";
 import { FaCoins } from "react-icons/fa";
 import { signedNumber } from "@/util/time";
+import cx from "classnames";
+import Image from "next/image";
 
 interface IMatchTeamTableProps {
   players: PlayerInMatchDto[];
@@ -44,6 +46,16 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
                 <PageLink link={AppRouter.heroes.hero.index(player.hero).link}>
                   <HeroIcon hero={player.hero} />
                 </PageLink>
+                <Image
+                  className={cx(
+                    c.abandon,
+                    player.abandoned && c.abandon__visible,
+                  )}
+                  alt={`Player ${player.user.name} abandoned`}
+                  src="/abandon.png"
+                  width={71}
+                  height={18}
+                />
                 <span className={c.level}>{player.level}</span>
               </div>
             </td>

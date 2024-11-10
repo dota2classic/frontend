@@ -61,4 +61,4 @@ export { YandexMetrika } from "./YandexMetrika/YandexMetrika";
 export { AuthLink } from "./AuthLink/AuthLink";
 export { Message } from "./Message/Message";
 export { TooltipIcon } from "./TooltipIcon/TooltipIcon";
-export { PlayerAvatar } from "./PlayerAvatar/PlayerAvatar"
+export { PlayerAvatar } from "./PlayerAvatar/PlayerAvatar";

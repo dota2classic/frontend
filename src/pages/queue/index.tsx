@@ -21,40 +21,24 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import React, { ReactNode } from "react";
 import { NextPageContext } from "next";
 import { ThreadStyle } from "@/components/Thread/types";
+import { observer } from "mobx-react-lite";
 
 interface Props {
   modes: MatchmakingInfo[];
   playerSummary: PlayerSummaryDto;
 }
 
-export default function QueuePage(props: Props) {
-  const mounted = useDidMount();
-
+const ModeList = observer(({ modes, playerSummary }: Props) => {
   const { queue } = useStore();
 
-  const { data: modes } =
-    getApi().statsApi.useStatsControllerGetMatchmakingInfo({
-      fallbackData: props.modes,
-      isPaused() {
-        return !mounted;
-      },
-    });
-
-  const playedAnyGame = !!props.playerSummary.playedAnyGame;
+  const playedAnyGame = playerSummary.playedAnyGame;
 
   const d84 = modes!
     .filter((it) => it.version === "Dota_684" && it.enabled)
-    // .filter(
-    //   (it) =>
-    //     playedAnyGame ||
-    //     it.mode === MatchmakingMode.SOLOMID || // solomid
-    //     it.mode === MatchmakingMode.BOTS, // bots
-    // )
     .sort((a, b) => Number(a.mode) - Number(b.mode));
 
   const modEnableCondition = (mode: MatchmakingMode): ReactNode | undefined => {
-    // if (mode === MatchmakingMode.UNRANKED && !playedAnyGame) {
-    if (mode === MatchmakingMode.UNRANKED) {
+    if (mode === MatchmakingMode.UNRANKED && !playedAnyGame) {
       return (
         <>
           Нужно сыграть хотя бы 1 игру в <span className="gold">обучение</span>{" "}
@@ -65,26 +49,53 @@ export default function QueuePage(props: Props) {
   };
 
   return (
+    <Section className={c.modes}>
+      <header>Режим игры</header>
+      <Panel className={c.modes__list}>
+        {d84.map((info) => (
+          <MatchmakingOption
+            selected={
+              queue.searchingMode?.mode === info.mode &&
+              queue.searchingMode?.version === info.version
+            }
+            localSelected={
+              queue.selectedMode?.mode === info.mode &&
+              queue.selectedMode?.version === info.version
+            }
+            disabled={modEnableCondition(info.mode)}
+            key={`${info.mode}${info.version}`}
+            onSelect={queue.setSelectedMode}
+            version={info.version}
+            mode={info.mode}
+          />
+        ))}
+        <div style={{ flex: 1 }} />
+        <SearchGameButton visible={true} />
+      </Panel>
+    </Section>
+  );
+});
+
+export default function QueuePage(props: Props) {
+  const mounted = useDidMount();
+
+  const { data: modes } =
+    getApi().statsApi.useStatsControllerGetMatchmakingInfo({
+      fallbackData: props.modes,
+      isPaused() {
+        return !mounted;
+      },
+    });
+
+  return (
     <div className={c.queue}>
       <Head>
         <title>Dota2Classic - поиск игры</title>
       </Head>
-      <Section className={c.modes}>
-        <header>Режим игры</header>
-        <Panel className={c.modes__list}>
-          {d84.map((info) => (
-            <MatchmakingOption
-              disabled={modEnableCondition(info.mode)}
-              key={`${info.mode}${info.version}`}
-              onSelect={queue.setSelectedMode}
-              version={info.version}
-              mode={info.mode}
-            />
-          ))}
-          <div style={{ flex: 1 }} />
-          <SearchGameButton visible={true} />
-        </Panel>
-      </Section>
+      <ModeList
+        modes={modes || props.modes}
+        playerSummary={props.playerSummary}
+      />
       <Section className={c.main}>
         <header>Группа и поиск</header>
         <QueuePartyInfo />

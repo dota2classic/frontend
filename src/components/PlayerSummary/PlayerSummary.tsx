@@ -8,7 +8,6 @@ import { steamPage } from "@/util/resources";
 import { AppRouter } from "@/route";
 import { useIsAdmin } from "@/util/hooks";
 import { observer } from "mobx-react-lite";
-import Image from "next/image";
 
 interface IPlayerSummaryProps {
   className?: string;

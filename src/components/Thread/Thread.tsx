@@ -23,7 +23,7 @@ import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useStore } from "@/store";
 import { ThreadStyle } from "@/components/Thread/types";
 import { IoSend } from "react-icons/io5";
-import { throttle, useThrottle } from "@/util/throttle";
+import { useThrottle } from "@/util/throttle";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],

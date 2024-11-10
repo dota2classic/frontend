@@ -5,6 +5,18 @@
 
 .heroWithLevel {
   position: relative;
+
+  & .abandon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+
+    &__visible {
+      display: block;
+    }
+  }
 }
 
 .level {

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 
 import {
   PageLink,
@@ -16,7 +16,6 @@ import { ThreadStyle } from "@/components/Thread/types";
 import { AppRouter } from "@/route";
 import { ThreadMessageDTO } from "@/api/back";
 import { enrichMessage } from "@/components/Thread/richMessage";
-import Image from "next/image";
 
 interface IMessageProps {
   message: ThreadMessageDTO;

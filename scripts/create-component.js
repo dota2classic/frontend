@@ -33,5 +33,5 @@ fs.appendFileSync(
 );
 fs.appendFileSync(
   "./src/components/index.ts",
-  `export { ${componentName} } from "./${componentName}/${componentName}"\n`,
+  `export { ${componentName} } from "./${componentName}/${componentName}";\n`,
 );

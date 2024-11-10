@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// TODO: Refactor from any => Types for columns and type guards by column type
 import React, { ReactNode, useState } from "react";
 import c from "./GenericTable.module.scss";
 import {
@@ -19,7 +20,6 @@ import { maxBy } from "@/util/iter";
 import { FaSort } from "react-icons/fa6";
 import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 import { colors } from "@/colors";
-import Image from "next/image";
 
 export enum ColumnType {
   Raw,

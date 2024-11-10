@@ -12,33 +12,33 @@ interface MatchmakingOptionProps {
   mode: MatchmakingMode;
   version: Dota2Version;
   onSelect: (mode: MatchmakingMode, version: Dota2Version) => void;
+  selected: boolean;
+  localSelected: boolean;
   disabled: ReactNode;
 }
 
 export const MatchmakingOption = observer(
-  ({ mode, version, onSelect, disabled }: MatchmakingOptionProps) => {
+  ({
+    mode,
+    version,
+    onSelect,
+    disabled,
+    selected,
+    localSelected,
+  }: MatchmakingOptionProps) => {
     const { queue } = useStore();
-
-    const localSelected =
-      queue.selectedMode?.mode === mode &&
-      queue.selectedMode?.version === version;
-
-    const isSelected =
-      queue.searchingMode?.mode === mode &&
-      queue.searchingMode?.version === version;
 
     return (
       <div
         className={cx(
           c.mode,
-          isSelected && c.active,
-          (localSelected && c.current) || undefined,
-          queue.searchingMode !== undefined && !isSelected && c.disabled,
-          disabled && c.disabled,
+          localSelected ? c.mode__current : undefined,
+          selected ? c.mode__active : undefined,
+          disabled ? c.mode__disabled : undefined,
         )}
         onClick={() => {
           if (disabled) return;
-          if (!(queue.searchingMode !== undefined && !isSelected)) {
+          if (!(queue.searchingMode !== undefined && !selected)) {
             onSelect(mode, version);
           }
         }}

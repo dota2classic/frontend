@@ -42,22 +42,22 @@
     }
   }
 
-  &.current {
+  &__current {
     background: $transparentTint;
   }
 
-  &.active {
+  &__active {
     animation: pendingAnimation 2s linear infinite;
   }
 
-  &.disabled {
+  &__disabled {
     cursor: not-allowed;
+
+    background-color: rgba(0, 0,0,0.3);
+    color: $primaryTextDark;
 
     &:hover {
       background: unset;
     }
-    background-color: rgba(0, 0,0,0.3);
-
-    color: $primaryTextDark;
   }
 }
