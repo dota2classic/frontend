@@ -95,11 +95,12 @@
 .root {
   //background-color: $bg15;
   & a {
+    color: #ed3b1c !important;
+
     & svg {
       margin-bottom: 4px;
       margin-right: 4px;
     }
-    color: #ed3b1c !important;
   }
 }
 

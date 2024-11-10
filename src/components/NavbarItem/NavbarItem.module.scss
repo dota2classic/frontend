@@ -10,15 +10,15 @@
   align-items: center;
   justify-content: center;
 
+  color: inherit;
+  transition: 0.3s ease;
+
   & > a {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
   }
-
-  color: inherit;
-  transition: 0.3s ease;
 
   &:focus,
   &:hover {

@@ -44,6 +44,8 @@
 .playerHeroRow {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  color: white;
 
   & .player-wrap {
     flex: 1;
@@ -71,9 +73,6 @@
     margin-right: 10px;
   }
 
-  align-items: center;
-
-  color: white;
 }
 
 .itemRow {
@@ -141,11 +140,11 @@
   }
 
   &.dire {
+    filter: drop-shadow(1px 1px 0 #c23c2a) drop-shadow(-1px -1px 0 #c23c2a);
+
     & span {
       border-color: $red;
     }
-
-    filter: drop-shadow(1px 1px 0 #c23c2a) drop-shadow(-1px -1px 0 #c23c2a);
   }
 
   &.dead {

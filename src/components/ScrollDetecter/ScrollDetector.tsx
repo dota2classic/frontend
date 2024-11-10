@@ -4,7 +4,7 @@ interface IScrollDetectorProps {
   onScrolledTo: () => void;
 }
 
-export function useIsVisible(ref: React.RefObject<HTMLDivElement>) {
+export function useIsVisible(ref: React.RefObject<HTMLDivElement | null>) {
   const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export function useIsVisible(ref: React.RefObject<HTMLDivElement>) {
       setIntersecting(entry.isIntersecting),
     );
 
-    observer.observe(ref.current);
+    observer.observe(ref.current!);
     return () => {
       observer.disconnect();
     };

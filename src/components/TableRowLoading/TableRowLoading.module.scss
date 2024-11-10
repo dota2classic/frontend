@@ -29,6 +29,7 @@
 
 .loading {
   animation: placeHolderShimmer 5s infinite;
+  height: 40px;
 
   &:nth-child(5n){
     animation-delay: -0.3s;
@@ -45,5 +46,5 @@
   &:nth-child(5n + 4){
     animation-delay: -2.5s;
   }
-  height: 40px;
+
 }

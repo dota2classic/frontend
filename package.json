@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "API_URL=https://dotaclassic.ru/api next dev",
-    "dev:turbo": "API_URL=https://dotaclassic.ru/api next dev --turbo",
+    "dev:turbo": "API_URL=https://dotaclassic.ru/api next dev --turbopack",
     "dev:local": "API_URL=http://localhost:6001 next dev",
     "build": "next build",
     "build:errors": "__NEXT_TEST_MODE=true next build",
@@ -20,7 +20,7 @@
     "docker": "docker build . --build-arg API_URL=https://dotaclassic.ru/api -t dota2classic/matchmaking:dotabuff && docker push dota2classic/matchmaking:dotabuff"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^14.2.13",
+    "@next/bundle-analyzer": "15.0.3",
     "aos": "^3.0.0-beta.6",
     "browser-cookies": "^1.2.0",
     "classnames": "^2.5.1",
@@ -29,11 +29,11 @@
     "howler": "^2.2.4",
     "mobx": "^6.13.2",
     "mobx-react-lite": "^4.0.7",
-    "next": "14.2.8",
-    "react": "^18",
+    "next": "15.0.3",
+    "react": "19.0.0-rc-66855b96-20241106",
     "react-copy-to-clipboard": "^5.1.0",
     "react-datepicker": "^7.4.0",
-    "react-dom": "^18",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-icons": "^5.3.0",
     "react-select": "^5.8.1",
     "sass": "^1.78.0",
@@ -54,15 +54,19 @@
     "@types/cookies": "^0.9.0",
     "@types/howler": "^2.2.11",
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-copy-to-clipboard": "^5.0.7",
-    "@types/react-dom": "^18",
-    "eslint-config-next": "^14.2.16",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "nodemon": "^3.1.5",
     "prettier": "3.3.3",
     "storybook": "^8.2.9",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }

@@ -51,13 +51,13 @@
     color: $primaryText;
 
     width: fit-content;
+    cursor: pointer;
 
     &:disabled {
       background: rgba(0, 0, 0, 0.3);
       cursor: not-allowed;
     }
 
-    cursor: pointer;
 
     &:hover:not(:disabled) {
       background: rgba(0, 0, 0, 0.8);
