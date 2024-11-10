@@ -18,7 +18,7 @@ import {
 } from "@/components";
 import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import React from "react";
+import React, { ReactNode } from "react";
 import { NextPageContext } from "next";
 import { ThreadStyle } from "@/components/Thread/types";
 
@@ -44,15 +44,20 @@ export default function QueuePage(props: Props) {
 
   const d84 = modes!
     .filter((it) => it.version === "Dota_684" && it.enabled)
-    .filter(
-      (it) =>
-        playedAnyGame ||
-        it.mode === MatchmakingMode.SOLOMID || // solomid
-        it.mode === MatchmakingMode.BOTS, // bots
-    )
-    // For now enable bots to everhbody
-    // .filter((t) => t.mode !== MatchmakingMode.BOTS || !playedAnyGame)
+    // .filter(
+    //   (it) =>
+    //     playedAnyGame ||
+    //     it.mode === MatchmakingMode.SOLOMID || // solomid
+    //     it.mode === MatchmakingMode.BOTS, // bots
+    // )
     .sort((a, b) => Number(a.mode) - Number(b.mode));
+
+  const modEnableCondition = (mode: MatchmakingMode): ReactNode | undefined => {
+    // if (mode === MatchmakingMode.UNRANKED && !playedAnyGame) {
+    if (mode === MatchmakingMode.UNRANKED) {
+      return "Нужно сыграть хотя бы 1 игру в обучение или 1х1";
+    }
+  };
 
   return (
     <div className={c.queue}>
@@ -64,6 +69,7 @@ export default function QueuePage(props: Props) {
         <Panel className={c.modes__list}>
           {d84.map((info) => (
             <MatchmakingOption
+              disabled={modEnableCondition(info.mode)}
               key={`${info.mode}${info.version}`}
               onSelect={queue.setSelectedMode}
               version={info.version}

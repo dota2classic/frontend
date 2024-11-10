@@ -23,6 +23,7 @@ import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useStore } from "@/store";
 import { ThreadStyle } from "@/components/Thread/types";
 import { IoSend } from "react-icons/io5";
+import { throttle, useThrottle } from "@/util/throttle";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -119,7 +120,11 @@ export const MessageInput = observer(
 
     const isValid = value.trim().length >= 2;
 
-    const submit = useCallback(() => {
+    // const throttledSubmit = useCallback(
+    //   [value, p.id, p.threadType],
+    // );
+
+    const throttledSubmit = useThrottle(() => {
       if (!isValid) {
         setError("Слишком короткое сообщение!");
         return;
@@ -142,7 +147,7 @@ export const MessageInput = observer(
           setError("Слишком часто отправляете сообщения!");
           setValue(msg);
         });
-    }, [value, p.id, p.threadType]);
+    }, 250);
 
     const onEnterKeyPressed = useCallback(
       (e: React.KeyboardEvent) => {
@@ -152,10 +157,10 @@ export const MessageInput = observer(
         if (e.keyCode === 13 && !e.shiftKey) {
           e.preventDefault();
           // enter
-          submit();
+          throttledSubmit();
         }
       },
-      [submit],
+      [throttledSubmit],
     );
     return (
       <Panel className={cx(c.createMessage, p.className)}>
@@ -180,10 +185,15 @@ export const MessageInput = observer(
         <Button
           disabled={!isValid || !p.canMessage}
           className={(error && "red") || undefined}
-          onClick={submit}
+          onClick={throttledSubmit}
         >
           {/*{error || "Отправить"}*/}
-          {<IoSend className={error ? "red" : undefined} />}
+          {
+            <IoSend
+              className={error ? "red" : undefined}
+              onClick={throttledSubmit}
+            />
+          }
         </Button>
         <div className={cx(c.test, error && c.visible)}>{error || ""}</div>
       </Panel>
