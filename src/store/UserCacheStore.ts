@@ -12,46 +12,52 @@ interface UserEntry {
   loss: number;
 }
 
+interface UserHolder {
+  entry?: UserEntry;
+  resolver?: Promise<unknown>;
+}
+
 export class UserCacheStore implements HydratableStore<unknown> {
   @observable
-  public userMap: Map<string, UserEntry | Promise<void>> = new Map();
+  // public userMap: Map<string, UserEntry | Promise<void>> = new Map();
+  public userMap: Record<string, UserHolder> = {};
 
   constructor() {
     makeObservable(this);
   }
 
-  public tryGetUser(id: string): UserEntry | undefined {
-    const v = this.userMap.get(id);
-
+  public tryGetUser(id: string): UserHolder {
+    let v = this.userMap[id];
     if (!v) {
-      this.requestUser(id);
-      return undefined;
+      this.userMap[id] = { entry: undefined, resolver: undefined };
+      v = this.userMap[id];
     }
 
-    if (v instanceof Promise) {
-      return undefined;
+    if (!v.entry && !v.resolver) {
+      this.requestUser(id);
     }
 
     return v;
   }
 
   public requestUser(id: string) {
-    const promise = getApi()
+    this.userMap[id].resolver = getApi()
       .playerApi.playerControllerPlayerSummary(id)
       .then((user) => {
+        console.log("User loaded, resoving into entry");
         runInAction(() => {
-          this.userMap.set(id, {
+          this.userMap[id].entry = {
             user: user.user,
             gamesPlayed: user.gamesPlayed,
             wins: user.wins,
             loss: user.loss,
             rank: user.rank,
             mmr: user.mmr,
-          });
+          };
+          this.userMap[id].resolver = undefined;
         });
       })
       .catch();
-    this.userMap.set(id, promise);
   }
 
   hydrate(): void {}

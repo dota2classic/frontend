@@ -28,7 +28,7 @@ export const ForumUserEmbed: React.FC<IForumUserEmbedProps> = observer(
         {/*  height={30}*/}
         {/*  src={user.tryGetUser(steamId)?.user?.avatar || "/avatar.png"}*/}
         {/*  alt={`Avatar of user ${steamId}`}*/}
-        {/*/>*/}@{user.tryGetUser(steamId)?.user?.name || "Loading..."}
+        {/*/>*/}@{user.tryGetUser(steamId)?.entry?.user?.name || "Loading..."}
       </PageLink>
     );
   },

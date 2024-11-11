@@ -219,8 +219,8 @@ export class QueueStore
       return;
     }
 
-    this.socket = io("wss://dotaclassic.ru", {
-      // this.socket = io("ws://localhost:5010", {
+    // this.socket = io("wss://dotaclassic.ru", {
+    this.socket = io("ws://localhost:5010", {
       transports: ["websocket"],
       autoConnect: false,
       auth: {

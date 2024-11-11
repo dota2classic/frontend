@@ -42,7 +42,7 @@ const ModeList = observer(({ modes, playerSummary }: Props) => {
       return (
         <>
           Нужно сыграть хотя бы 1 игру в <span className="gold">обучение</span>{" "}
-          или <span className="gold">1х1</span>
+          {/*или <span className="gold">1х1</span>*/}
         </>
       );
     }

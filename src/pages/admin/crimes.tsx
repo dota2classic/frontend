@@ -50,8 +50,19 @@ export default function CrimesPage({ crime }: Props) {
               </span>
             ),
           },
+          {
+            type: ColumnType.Raw,
+            name: "Обработано?",
+            format: (t) => <input type="checkbox" readOnly checked={t} />,
+          },
         ]}
-        data={crime.data.map((t) => [t.user, t.crime, t.createdAt, t.id])}
+        data={crime.data.map((t) => [
+          t.user,
+          t.crime,
+          t.createdAt,
+          t.handled,
+          t.id,
+        ])}
         placeholderRows={5}
       />
       <Pagination
