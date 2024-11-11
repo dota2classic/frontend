@@ -55,7 +55,7 @@ export class QueueStore
   public searchingMode: QueueState | undefined = undefined;
   @observable
   public selectedMode: QueueState = {
-    mode: MatchmakingMode.SOLOMID,
+    mode: MatchmakingMode.BOTS,
     version: Dota2Version.Dota_684,
   };
   @observable
