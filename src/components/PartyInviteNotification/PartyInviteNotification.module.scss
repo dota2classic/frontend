@@ -15,9 +15,8 @@
 }
 
 .invite {
-  width: 250px;
-  height: 100px;
-  background: #1d1f22;
+  width: 350px;
+  background: $bg2;
   box-shadow: 0 0 10px 3px rgba(150, 150, 150, 0.25);
 
   display: flex;
@@ -27,9 +26,17 @@
   animation: pendingAnimation 2s linear infinite;
 
   & header {
-    font-size: 12px;
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    background-color: $bg1;
+    padding: 16px 12px;
     text-align: center;
     color: $primaryText;
+
+    & span {
+      font-size: 1.4rem;
+    }
   }
 }
 
@@ -39,28 +46,45 @@
   width: 100%;
   flex-direction: row;
 
+  padding: 10px 8px;
+
   & button {
-    padding: 4px;
-    border: none;
+    font-family: "Trajan Pro 3", sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 160px;
+    border: 0px solid transparent;
     outline: none;
-    background: rgba(0, 0, 0, 0.3);
-    font-size: 18px;
+    font-size: 1rem;
+    padding: 12px;
     border-radius: 4px;
     transition: 0.3s ease;
-    font-family: "Trajan Pro 3", sans-serif;
-    color: $primaryText;
-
-    width: fit-content;
+    color: $primaryTextTint;
     cursor: pointer;
+    background-color: $bg2;
 
     &:disabled {
       background: rgba(0, 0, 0, 0.3);
       cursor: not-allowed;
     }
+  }
+}
 
+.accept {
+  box-shadow: 0 0 8px rgba(10, 10, 10, 0.4);
+  background: radial-gradient(circle, rgb(11 97 12) 0%, rgb(21 61 25) 114%);
 
-    &:hover:not(:disabled) {
-      background: rgba(0, 0, 0, 0.8);
-    }
+  &:hover {
+    box-shadow: 0 0 8px rgba(100, 187, 120, 0.32);
+  }
+}
+
+.decline {
+  box-shadow: 0 0 8px rgba(10, 10, 10, 0.4);
+  background: radial-gradient(circle, rgb(126 18 18) 0%, rgb(40 0 0) 115%);
+  text-transform: uppercase;
+
+  &:hover {
+    box-shadow: 0 0 8px rgba(166, 13, 13, 0.62);
   }
 }

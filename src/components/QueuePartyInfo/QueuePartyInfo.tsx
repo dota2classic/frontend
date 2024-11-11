@@ -32,7 +32,7 @@ export const QueuePartyInfo = observer(() => {
   const { data } = getApi().playerApi.usePlayerControllerMyParty();
   const { data: onlineData } = getApi().statsApi.useStatsControllerOnline();
 
-  const { data: party } = getApi().playerApi.usePlayerControllerMyParty();
+  const party = queue.party;
 
   const [inviteOpen, setInviteOpen] = useState(false);
 

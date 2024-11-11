@@ -52,9 +52,9 @@ export const AcceptGameModal = observer(() => {
     return (
       <div className={cx(c.modal, c.inline)}>
         <h2>Игра готова!</h2>
-        <div className={c.buttons}>
+        <div className={c.connectInfo}>
           <a
-            className={c.button2}
+            className={cx(c.button2, c.accept)}
             target={"__blank"}
             href={`steam://connect/${q.gameInfo?.serverURL}`}
           >

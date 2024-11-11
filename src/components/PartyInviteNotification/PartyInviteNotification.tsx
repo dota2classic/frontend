@@ -13,11 +13,17 @@ export const PartyInviteNotification: React.FC<
 > = ({ onAccept, onDecline, inviter }) => {
   return (
     <div className={c.invite}>
-      <header>{inviter} приглашает в группу</header>
+      <header>
+        <span className="gold">{inviter}</span> приглашает в группу
+      </header>
 
       <div className={c.buttons}>
-        <button onClick={onAccept}>Принять</button>
-        <button onClick={onDecline}>Отклонить</button>
+        <button className={c.accept} onClick={onAccept}>
+          Принять
+        </button>
+        <button className={c.decline} onClick={onDecline}>
+          Отклонить
+        </button>
       </div>
     </div>
   );

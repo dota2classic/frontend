@@ -79,12 +79,19 @@
   cursor: pointer;
   text-align: center;
 
+
   @media (max-width: 600px) {
     font-size: 1.2rem;
     padding: 16px 10px;
     margin:auto;
     display: block;
   }
+
+
+
+  &:disabled {
+    cursor: not-allowed;
+  };
 
   &:hover,
   &:focus,
@@ -95,4 +102,10 @@
     border-color: $primaryTextHighlight;
   }
 
+}
+
+.longText {
+  font-size: 1rem;
+  white-space: normal;
+  max-width: 400px;
 }

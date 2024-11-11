@@ -66,6 +66,8 @@
     top: unset;
     bottom: 50px !important;
     margin: unset;
+
+    padding: 12px 10px;
   }
 }
 
@@ -179,4 +181,18 @@
 
 .acceptedDot {
   background: $gold !important;
+}
+
+
+
+.connectInfo {
+
+  & a {
+    width: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
 }

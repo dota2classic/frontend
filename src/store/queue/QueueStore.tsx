@@ -100,6 +100,7 @@ export class QueueStore
 
     this.partyInviteReceivedSound = new Howl({
       src: Sounds.PARTY_INVITE,
+      volume: 0.4,
     });
     this.connect();
   }
@@ -220,6 +221,7 @@ export class QueueStore
     }
 
     this.socket = io("wss://dotaclassic.ru", {
+      // this.socket = io("ws://localhost:5010", {
       transports: ["websocket"],
       autoConnect: false,
       auth: {

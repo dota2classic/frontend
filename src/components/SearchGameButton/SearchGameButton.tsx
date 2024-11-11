@@ -64,6 +64,7 @@ export const SearchGameButton = observer((p: Props) => {
           c.search,
           auth.me?.banStatus.isBanned && c.banned,
           queue.gameInfo?.serverURL && c.ingame,
+          auth.me?.banStatus?.isBanned && c.longText,
         )}
       >
         {auth.me?.banStatus?.isBanned ? (

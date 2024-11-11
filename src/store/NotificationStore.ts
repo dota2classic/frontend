@@ -37,6 +37,7 @@ export class NotificationStore implements HydratableStore<unknown> {
 
   @action
   public enqueueNotification(notif: NotificationDto) {
+    console.log("Enqueue notification", notif);
     if (notif.id !== undefined) {
       this.permanentQueue.push(notif);
     } else {
