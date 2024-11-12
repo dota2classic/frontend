@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { NavbarItem } from "..";
 
@@ -8,11 +8,11 @@ import { FaSteam } from "react-icons/fa";
 import { appApi, getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { Role } from "@/api/mapped-models";
 import Image from "next/image";
 import { IoMenu } from "react-icons/io5";
 import cx from "classnames";
 import { SiDota2 } from "react-icons/si";
+import { useRouterChanging } from "@/util/hooks";
 
 const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   const { parsedToken, smallAvatar, logout } = useStore().auth;
@@ -58,9 +58,15 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
 
 export const Navbar = observer(() => {
   const { auth } = useStore();
-  const isAdmin = auth.parsedToken?.roles.includes(Role.ADMIN);
+  const { isAdmin, isModerator } = auth;
   const isAuthorized = auth.isAuthorized;
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const [changing] = useRouterChanging();
+
+  useEffect(() => {
+    if (changing && menuOpen) setMenuOpen(false);
+  }, [changing, menuOpen]);
 
   const { data: liveMatches } =
     getApi().liveApi.useLiveMatchControllerListMatches({
@@ -100,11 +106,6 @@ export const Navbar = observer(() => {
                   Live
                 </NavbarItem>
               )}
-              {isAdmin && (
-                <NavbarItem admin action={AppRouter.admin.servers.link}>
-                  Админка
-                </NavbarItem>
-              )}
               <div className={c.spacer} />
               <LoginProfileNavbarItem />
             </div>
@@ -116,8 +117,8 @@ export const Navbar = observer(() => {
             </div>
           </ul>
         </div>
-        {isAdmin && (
-          <div className={c.navbarInner}>
+        {(isAdmin || isModerator) && (
+          <div className={cx(c.navbarInner, c.navbar__admin)}>
             <ul className={c.navbarList}>
               <NavbarItem action={AppRouter.admin.servers.link}>
                 Сервера

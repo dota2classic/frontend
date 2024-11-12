@@ -2,6 +2,12 @@
 
 .header {
   font-size: 1.8rem;
+
+  @media (max-width: 600px) {
+    font-size: 1.2rem;
+    margin-inline-start: 10px;
+    margin-block-end: 10px;
+  }
 }
 
 .radiant {

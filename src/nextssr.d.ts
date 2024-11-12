@@ -1,5 +1,6 @@
 import { NextPageContext } from "next";
 import { RootStore } from "@/store";
+import { AppApi } from "@/api/hooks";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -9,6 +10,7 @@ declare global {
 
   interface Window {
     store: RootStore;
+    api: AppApi;
   }
 
   interface PromiseConstructor {

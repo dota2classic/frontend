@@ -55,6 +55,7 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
   if (!clientStore) clientStore = store;
 
   window.store = clientStore;
+  window.api = getApi();
   return store;
 };
 

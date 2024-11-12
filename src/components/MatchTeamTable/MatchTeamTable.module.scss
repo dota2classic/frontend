@@ -1,7 +1,4 @@
-@import '../../common.scss';
-
-
-
+@import "../../common.scss";
 
 .heroWithLevel {
   position: relative;
@@ -12,6 +9,7 @@
     left: 0;
     right: 0;
     display: none;
+    width: 100%;
 
     &__visible {
       display: block;
@@ -29,12 +27,32 @@
   border-radius: 4px;
 }
 
-
 .gold {
   color: $gold !important;
 }
 
-
 .fixedWidth {
-  width: 300px
+  width: 300px;
+
+  @media (max-width: 600px) {
+    margin-left: 6px;
+    text-transform: capitalize;
+    white-space: nowrap;
+    width: 200px;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.mobileHidden {
+  @media (max-width: 600px) {
+    display: none !important;
+  }
+}
+
+.items {
+  @media (max-width: 600px) {
+    min-width: 140px;
+  }
 }

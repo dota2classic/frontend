@@ -44,7 +44,7 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
         </TooltipIcon>
       )}
       {message.author.roles.includes(Role.MODERATOR) && (
-        <TooltipIcon tooltip={"Модератор"}>
+        <TooltipIcon tooltip={"Модератор"} className="bronze">
           <MdLocalPolice />
         </TooltipIcon>
       )}
@@ -73,13 +73,20 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
       <div className={c.right}>
         <div className={c.heading}>
           <span className={c.heading__left}>
+            <PlayerAvatar
+              className={c.mobileAvatar}
+              width={40}
+              height={40}
+              src={message.author.avatar}
+              alt={`Avatar of player ${message.author.name}`}
+            />
+            {roles}
             <PageLink
               link={AppRouter.players.player.index(message.author.steamId).link}
               className={cx(c.heading, "link")}
             >
               {message.author.name}
             </PageLink>
-            {roles}
           </span>
 
           <div className={c.right__timeCreated}>

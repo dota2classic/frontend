@@ -9,7 +9,6 @@ import { UserDTO } from "@/api/back";
 import { InvitePlayerModal, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
-import { formatGameMode } from "@/util/gamemode";
 
 const GameCoordinatorConnection = ({
   readyState,
@@ -90,26 +89,10 @@ export const QueuePartyInfo = observer(() => {
 
       {/*<SearchGameButton />*/}
 
-      {queue.searchingMode !== undefined ? (
-        <div className={cx(c.searchGameBar, c.searchGameBar__pending)}>
-          <span>
-            Поиск{" "}
-            <span className="gold">
-              {formatGameMode(queue.searchingMode!.mode)}
-            </span>
-          </span>
-          <span className={"info"}>
-            В поиске{" "}
-            {queue.inQueueCount(
-              queue.searchingMode.mode,
-              queue.searchingMode.version,
-            )}
-          </span>
-        </div>
-      ) : onlineData ? (
+      {onlineData ? (
         <div className={c.searchGameBar}>
           <span>
-            {onlineData.inGame} в игре, {queue.online} онлайн
+            {onlineData.inGame} в игре, {queue.online.length} онлайн
           </span>
           <span>
             Свободных серверов: {onlineData.servers - onlineData.sessions}

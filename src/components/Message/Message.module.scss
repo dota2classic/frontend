@@ -1,8 +1,21 @@
 @import "../../common.scss";
 
+
+.mobileAvatar {
+  display: none;
+  width: 40px !important;
+  height: 40px !important;;
+  @media (max-width: 600px) {
+    display: block;
+  }
+}
 .message {
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 
   & .user {
     display: flex;
@@ -10,6 +23,10 @@
     align-items: center;
     align-self: stretch;
     padding: 8px 12px;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
 
     & img {
       width: 100px;
@@ -38,10 +55,16 @@
       display: flex;
       flex-direction: row;
 
+      @media (max-width: 600px) {
+        flex-direction: column;
+        gap: 4px;
+      }
+
       &__left {
         display: flex;
         flex: 1;
         font-size: 1.2rem;
+        align-items: center;
 
         & svg {
           margin-left: 2px;

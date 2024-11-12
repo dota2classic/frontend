@@ -91,7 +91,7 @@ const RowRenderer = observer(
             {thread.title}
           </PageLink>
         </td>
-        <td>
+        <td className="omit">
           {thread.newMessageCount > 0 ? (
             <>
               {thread.messageCount - thread.newMessageCount}{" "}
@@ -101,8 +101,8 @@ const RowRenderer = observer(
             <>{thread.messageCount}</>
           )}
         </td>
-        <td>{thread.views}</td>
-        <td>
+        <td className="omit">{thread.views}</td>
+        <td className="omit">
           <PageLink
             link={
               AppRouter.players.player.index(thread.originalPoster.steamId).link
@@ -124,7 +124,7 @@ const RowRenderer = observer(
           </PageLink>
         </td>
         <td>{thread.lastMessage && <Msg message={thread.lastMessage} />}</td>
-        <td>
+        <td className="omit">
           {isAdmin ? (
             <FaMapPin
               className={cx("adminicon", thread.pinned ? "green" : "red")}
@@ -187,11 +187,17 @@ export default function ForumIndexPage({ threads, page }: Props) {
             <th style={{ width: 20 }}></th>
             {/*<th style={{ width: 10 }}>M</th>*/}
             <th>Топик</th>
-            <th style={{ width: 40 }}>Сообщений</th>
-            <th style={{ width: 40 }}>Просмотров</th>
-            <th style={{ width: 200 }}>Автор</th>
+            <th className="omit" style={{ width: 40 }}>
+              Сообщений
+            </th>
+            <th className="omit" style={{ width: 40 }}>
+              Просмотров
+            </th>
+            <th className="omit" style={{ width: 200 }}>
+              Автор
+            </th>
             <th>Последнее сообщение</th>
-            <th></th>
+            <th className="omit"></th>
           </tr>
         </thead>
         <tbody>

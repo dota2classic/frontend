@@ -54,17 +54,20 @@ export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
           type: ColumnType.PercentWithBar,
           name: "Частота выбора",
           color: colors.grey,
+          mobileOmit: true,
           sortable: true,
         },
         {
           type: ColumnType.FloatWithBar,
           name: "KDA",
+          mobileOmit: true,
           sortable: true,
         },
         {
           type: ColumnType.PM_PAIR,
           name: "GPM/XPM",
           sortable: true,
+          mobileOmit: true,
           sortKey(d) {
             return d[0];
           },
@@ -73,6 +76,7 @@ export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
           type: ColumnType.PM_PAIR,
           name: "LH/D",
           sortable: true,
+          mobileOmit: true,
           sortKey(d) {
             return d[0];
           },

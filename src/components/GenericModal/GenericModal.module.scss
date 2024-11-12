@@ -9,7 +9,7 @@
   background: rgba(0, 0, 0, 0.6);
   z-index: 90;
 
-  &:global(.hidden) {
+  &:global(.mobileHidden) {
     display: none;
   }
 

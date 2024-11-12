@@ -8,3 +8,24 @@
     margin-top: 14px;
   }
 }
+
+
+
+
+.gridPanel {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+}
+
+.grid8 {
+  grid-column: span 8;
+}
+
+.grid4 {
+  grid-column: span 4;
+}
+
+.grid12 {
+  grid-column: span 12;
+}

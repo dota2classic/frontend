@@ -39,6 +39,7 @@ interface JwtPayload {
 
 export class AppApi {
   cache = getCache();
+
   apiParams: ConfigurationParameters = {
     basePath: `${PROD_URL}`,
     accessToken:
@@ -48,6 +49,8 @@ export class AppApi {
     middleware: [
       {
         pre: async (context: RequestContext): Promise<FetchParams | void> => {
+          if (typeof window === "undefined") return;
+
           if (context.url.includes("refresh_token")) {
             // Do nothing
             return;
@@ -57,25 +60,7 @@ export class AppApi {
           const auth = h["Authorization"];
           if (auth) {
             const token = auth.replace("Bearer ", "");
-            const jwt = parseJwt<JwtPayload>(token);
-
-            const isExpiringSoon =
-              jwt.exp * 1000 - new Date().getTime() <= 1000 * 60; // Less than a
-
-            const isTokenStale =
-              new Date().getTime() - jwt.iat * 1000 >= 1000 * 60 * 5; // 5 minutes is stale enough
-
-            const shouldRevalidateToken = isExpiringSoon || isTokenStale;
-
-            if (jwt.version === undefined || shouldRevalidateToken) {
-              // We should refresh token
-              console.log(
-                `Need refresh token because: ${jwt.version === undefined} or ${isExpiringSoon}`,
-              );
-
-              this.apiParams.accessToken =
-                await this.authApi.steamControllerRefreshToken();
-            }
+            await this.refreshToken(token);
           }
         },
       },
@@ -118,6 +103,40 @@ export class AppApi {
       //   });
     },
   };
+
+  refreshToken = async (token: string) => {
+    const jwt = parseJwt<JwtPayload>(token);
+
+    const isExpiringSoon = jwt.exp * 1000 - new Date().getTime() <= 1000 * 60; // Less than a
+
+    const isTokenStale = new Date().getTime() - jwt.iat * 1000 >= 1000 * 60 * 5; // 5 minutes is stale enough
+
+    // console.log(
+    //   new Date().getTime() - jwt.iat * 1000,
+    //   new Date().getTime(),
+    //   jwt.iat * 1000,
+    // );
+    const shouldRevalidateToken = isExpiringSoon || isTokenStale;
+
+    if (jwt.version === undefined || shouldRevalidateToken) {
+      // We should refresh token
+      console.log(
+        `Need refresh token because: ${jwt.version === undefined} or ${isExpiringSoon} | ${isTokenStale}`,
+      );
+
+      const newToken = await this.authApi.steamControllerRefreshToken();
+
+      // console.log(parseJwt(newToken));
+      // getRootStore(undefined).auth.setToken(newToken);
+      BrowserCookies.set(AuthStore.cookieTokenKey, newToken);
+      // const tmp = BrowserCookies.get(AuthStore.cookieTokenKey);
+      // if (tmp) {
+      //   console.log(parseJwt(newToken));
+      // }
+      this.apiParams.accessToken = newToken;
+    }
+  };
+
   private readonly apiConfig = new Configuration(this.apiParams);
 
   readonly authApi = new AuthApi(this.apiConfig);

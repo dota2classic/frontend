@@ -39,8 +39,8 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
           <th>Режим игры</th>
           <th>Результат</th>
           <th>Длительность</th>
-          <th>Силы Света</th>
-          <th>Силы Тьмы</th>
+          <th className="omit">Силы Света</th>
+          <th className="omit">Силы Тьмы</th>
         </tr>
       </thead>
       <tbody>
@@ -78,12 +78,12 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
                   color={colors.grey}
                 />
               </td>
-              <td className={c.heroes}>
+              <td className={cx(c.heroes, "omit")}>
                 {it.radiant.map((plr) => (
                   <HeroIcon small key={plr.hero} hero={plr.hero} />
                 ))}
               </td>
-              <td className={c.heroes}>
+              <td className={cx(c.heroes, "omit")}>
                 {it.dire.map((plr) => (
                   <HeroIcon small key={plr.hero} hero={plr.hero} />
                 ))}

@@ -5,6 +5,12 @@
   display: flex;
 
 
+  @media (max-width: 600px) {
+    // Overwrite for panel
+    flex-direction: row !important;
+  }
+
+
   & + table, table + & {
     //margin-top: 20px;
   }

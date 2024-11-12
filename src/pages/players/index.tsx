@@ -33,6 +33,7 @@ export default function LeaderboardPage({
           {
             type: ColumnType.Raw,
             name: "Ранг",
+            mobileOmit: true,
             format: (d) => (
               <div
                 style={{
@@ -69,6 +70,7 @@ export default function LeaderboardPage({
             type: ColumnType.IntWithBar,
             name: "Победы",
             color: colors.green,
+            mobileOmit: true,
           },
           {
             type: ColumnType.PercentWithBar,
@@ -78,11 +80,13 @@ export default function LeaderboardPage({
           {
             type: ColumnType.KDA,
             name: "KDA",
+            mobileOmit: true,
           },
           {
             type: ColumnType.IntWithBar,
             name: "Игровое время",
             color: colors.grey,
+            mobileOmit: true,
             format: (d) => <Duration big duration={d} />,
           },
         ]}

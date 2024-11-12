@@ -11,6 +11,11 @@
 
   grid-column: span 12;
 
+  @media (max-width: 600px) {
+
+    flex-direction: column;;
+  }
+
 
   & :global(.left) {
     display: flex;

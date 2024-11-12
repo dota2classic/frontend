@@ -21,9 +21,12 @@
     margin-left: 6px;
     text-transform: capitalize;
     white-space: nowrap;
-    max-width: 140px;
+    max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
+    @media (max-width: 600px) {
+      max-width: 120px;
+    }
   }
 }
 

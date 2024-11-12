@@ -41,6 +41,8 @@ interface Column {
   color?: string;
   noname?: boolean;
 
+  mobileOmit?: boolean;
+
   sortable?: boolean;
   sortKey?: (d: any) => number;
   defaultSort?: "asc" | "desc";
@@ -112,7 +114,7 @@ const ColRenderer: React.FC<{
 
   if (type === ColumnType.Player) {
     return (
-      <td>
+      <td className={col.mobileOmit ? "omit" : undefined}>
         <div className={c.player}>
           <PlayerAvatar
             width={40}
@@ -136,7 +138,7 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.Hero) {
     return (
-      <td className={cx({ [c.hero]: !col.noname })}>
+      <td className={cx({ [c.hero]: !col.noname, omit: col.mobileOmit })}>
         <PageLink
           link={
             col.link ? col.link(data) : AppRouter.heroes.hero.index(value).link
@@ -155,7 +157,7 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.KDA) {
     return (
-      <td>
+      <td className={col.mobileOmit ? "omit" : undefined}>
         <KDATableData
           forceInteger={col.forceInteger}
           deaths={value.deaths}
@@ -168,7 +170,7 @@ const ColRenderer: React.FC<{
     return (
       <td
         style={{ width: col.noname ? 20 : 120, overflow: "hidden" }}
-        className={c.item}
+        className={cx(c.item, col.mobileOmit ? "omit" : undefined)}
       >
         {col.noname ? (
           <ItemIcon small item={value} />
@@ -185,7 +187,7 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.Items) {
     return (
-      <td>
+      <td className={col.mobileOmit ? "omit" : undefined}>
         {value.map((item: string, idx: number) => (
           <ItemIcon small key={idx} item={item} />
         ))}
@@ -193,13 +195,13 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.PM_PAIR) {
     return (
-      <td>
+      <td className={col.mobileOmit ? "omit" : undefined}>
         {Math.round(value[0]).toString()} / {Math.round(value[1]).toString()}
       </td>
     );
   } else if (type === ColumnType.IntWithBar) {
     return (
-      <td>
+      <td className={col.mobileOmit ? "omit" : undefined}>
         <div>{col.format ? col.format(value) : Math.round(value)}</div>
         <SingleWeightedBarChart
           value={value / ctx.max}
@@ -209,7 +211,7 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.FloatWithBar) {
     return (
-      <td>
+      <td className={col.mobileOmit ? "omit" : undefined}>
         <div>{value.toFixed(2)}</div>
         <SingleWeightedBarChart
           value={value / ctx.max}
@@ -219,7 +221,7 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.PercentWithBar) {
     return (
-      <td>
+      <td className={col.mobileOmit ? "omit" : undefined}>
         <div>{value.toFixed(2)}%</div>
         <SingleWeightedBarChart
           value={value / ctx.max}
@@ -228,10 +230,14 @@ const ColRenderer: React.FC<{
       </td>
     );
   } else if (type === ColumnType.Raw) {
-    return <td className={c.raw}>{col.format ? col.format(value) : value}</td>;
+    return (
+      <td className={cx(c.raw, col.mobileOmit ? "omit" : undefined)}>
+        {col.format ? col.format(value) : value}
+      </td>
+    );
   } else if (type === ColumnType.ExternalLink) {
     return (
-      <td className={c.raw}>
+      <td className={cx(c.raw, col.mobileOmit ? "omit" : undefined)}>
         <a style={{ color: colors.green }} target="__blank" href={value.link}>
           {value.label}
         </a>
@@ -329,6 +335,7 @@ export const GenericTable: React.FC<Props> = ({
               <th
                 className={cx(c.sortable, {
                   [c.hero]: col.type === ColumnType.Hero,
+                  omit: col.mobileOmit,
                 })}
                 key={index}
                 onClick={() => {

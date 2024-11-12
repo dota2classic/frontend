@@ -72,7 +72,7 @@ export class QueueStore
   public authorized: boolean = false;
 
   @observable
-  public online: number = 0;
+  public online: string[] = [];
 
   private matchSound!: Howl;
   private roomReadySound!: Howl;
@@ -300,7 +300,7 @@ export class QueueStore
     this.gameInfo = undefined;
   };
 
-  @action onOnlineUpdate = ({ online }: { online: number }): void => {
+  @action onOnlineUpdate = ({ online }: { online: string[] }): void => {
     this.online = online;
   };
 

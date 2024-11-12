@@ -113,9 +113,9 @@ export const Landing = () => {
       </div>
       <div
         className={cx(c.block, c.carousel)}
-        data-aos="fade-up"
-        data-aos-delay="0"
-        data-aos-duration="1500"
+        // data-aos="fade-up"
+        // data-aos-delay="0"
+        // data-aos-duration="1500"
       >
         <PageLink link={AppRouter.players.leaderboard().link}>
           <h3>Лучшие игроки</h3>

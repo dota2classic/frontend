@@ -23,6 +23,10 @@
   -webkit-border-vertical-spacing: 0px;
 
   border-spacing: 0;
+  @media (max-width: 600px) {
+    padding: 0;
+  }
+
   & thead > tr {
     background-color: $bg2 !important;
   }
@@ -124,8 +128,8 @@
       text-decoration: none;
     }
 
-    & td.omit,
-    th.omit {
+    & td:global(.omit),
+    th:global(.omit) {
       @media (max-width: 600px) {
         display: none;
       }

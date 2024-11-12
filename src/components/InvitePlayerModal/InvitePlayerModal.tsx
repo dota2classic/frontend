@@ -30,7 +30,7 @@ export const InvitePlayerModal: React.FC<IInvitePlayerModalProps> = ({
   useOutsideClick(close, comp);
 
   return (
-    <GenericModal className={cx(!isOpen && "hidden")}>
+    <GenericModal className={cx(!isOpen && "mobileHidden")}>
       <div className="modal" ref={comp}>
         <h2>Искать</h2>
         <Input

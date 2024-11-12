@@ -31,6 +31,11 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     return this.parsedToken?.roles.includes(Role.ADMIN) || false;
   }
 
+  @computed
+  public get isModerator(): boolean {
+    return this.parsedToken?.roles.includes(Role.MODERATOR) || false;
+  }
+
   constructor() {
     makeObservable(this);
 
@@ -54,6 +59,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   @action
   public makeDefaultUser = () => {
     this.token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTY1MTQ5NDUiLCJyb2xlcyI6W10sIm5hbWUiOiJQc3ljaG9sb2d5IFByb2Zlc3NvciIsImF2YXRhciI6Imh0dHBzOi8vYXZhdGFycy5zdGVhbXN0YXRpYy5jb20vNzJiODZhYzc5NGQ0YzBhOGMyNTIyZWEyYzJhMzZlZGI5Zjg5YTk4OV9mdWxsLmpwZyIsImlhdCI6MTczMDI5MTA5OCwiZXhwIjoxNzM4OTMxMDk4fQ.KZp6Si-ItozPMRWAArEJxCoOr13PXPz-VWc8KKdnhlw`;
+    appApi.apiParams.accessToken = this.token;
   };
 
   @action

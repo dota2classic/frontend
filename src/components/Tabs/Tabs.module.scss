@@ -1,0 +1,21 @@
+@import "../../common.scss";
+
+
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.tab {
+  padding: 12px 8px;
+  background-color: $bg2;
+  color: $primaryTextDark;
+  border-radius: 4px 4px 0px 0px;
+
+  &__active {
+    background-color: $bg15;
+    color: $primaryText;
+  }
+}

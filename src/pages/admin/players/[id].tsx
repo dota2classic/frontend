@@ -1,13 +1,93 @@
 import { getApi } from "@/api/hooks";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Input, PlayerSummary, Table } from "@/components";
+import { Button, Input, PlayerSummary, Section, Table } from "@/components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { NextPageContext } from "next";
-import { PlayerSummaryDto, UserBanSummaryDto } from "@/api/back";
+import {
+  PlayerSummaryDto,
+  Role,
+  RoleSubscriptionEntryDto,
+  UserBanSummaryDto,
+} from "@/api/back";
 import c from "./AdminPlayerPage.module.scss";
+import c2 from "../AdminStyles.module.scss";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
+import { RoleNames } from "@/const/roles";
+
+const RoleRow = (props: RoleSubscriptionEntryDto) => {
+  const [endTime, setEndTime] = useState(new Date(props.endTime));
+  const api = getApi().adminApi;
+
+  const isExpired = endTime.getTime() < new Date().getTime();
+
+  const commitChanges = (d: Date | null) => {
+    if (!d) return;
+    return api.adminUserControllerUpdateRole({
+      steamId: props.steamId,
+      role: props.role,
+      endTime: d.getTime(),
+    });
+  };
+
+  const removeRole = () => {
+    const d = new Date();
+
+    d.setMonth(d.getMonth() - 2);
+    setEndTime(d);
+    return commitChanges(d);
+  };
+
+  const addMonth = () => {
+    const d = new Date(endTime);
+    d.setMonth(endTime.getMonth() + 1);
+    setEndTime(d);
+    return commitChanges(d);
+  };
+
+  return (
+    <tr>
+      <td className={`ROLE_${props.role}`}>{RoleNames[props.role]}</td>
+      <td>
+        {isExpired ? (
+          <DatePicker
+            customInputRef={""}
+            dateFormat={"dd MMMM yyyy"}
+            customInput={<Button className={"small"}>Назначить</Button>}
+            selected={endTime}
+            onChange={(date: Date | null) => {
+              if (!date) return;
+              setEndTime(date);
+              return commitChanges(date);
+            }}
+          />
+        ) : (
+          <DatePicker
+            customInputRef={""}
+            dateFormat={"dd MMMM yyyy"}
+            customInput={<Input className={"iso"} />}
+            selected={endTime}
+            onChange={(date: Date | null) => {
+              if (!date) return;
+              setEndTime(date);
+              return commitChanges(date);
+            }}
+          />
+        )}
+      </td>
+      <td>
+        <Button className="small" onClick={removeRole}>
+          Убрать роль
+        </Button>
+        <span style={{ marginLeft: 10 }} />
+        <Button className="small" onClick={addMonth}>
+          Добавить месяц
+        </Button>
+      </td>
+    </tr>
+  );
+};
 
 interface AdminPlayerPageProps {
   preloadedSummary: PlayerSummaryDto;
@@ -27,6 +107,41 @@ export default function AdminPlayerPage({
       fallbackData: preloadedBans,
     },
   );
+
+  const { data: roleData } =
+    getApi().adminApi.useAdminUserControllerRoleOf(steamId);
+
+  const [combinedRoles, setCombinedRoles] = useState<
+    RoleSubscriptionEntryDto[]
+  >([]);
+
+  const managedRoles: Role[] = [
+    Role.OLD,
+    Role.HUMAN,
+    Role.MODERATOR,
+    Role.ADMIN,
+  ];
+
+  useEffect(() => {
+    const tmp: RoleSubscriptionEntryDto[] = [];
+    if (roleData) {
+      tmp.push(...roleData.entries);
+    }
+    managedRoles.forEach((t) => {
+      if (tmp.find((z) => z.role === t)) {
+        // if there is role, skip
+      } else {
+        const endTime = new Date();
+        endTime.setDate(endTime.getDate() - 1);
+        tmp.push({
+          role: t,
+          endTime: endTime.getTime(),
+          steamId: steamId,
+        });
+      }
+    });
+    setCombinedRoles(tmp);
+  }, [roleData, steamId]);
 
   const [endTime, setEndTime] = useState(
     new Date(new Date().setDate(new Date().getDate() - 1)),
@@ -50,8 +165,9 @@ export default function AdminPlayerPage({
   const isBanActive = endTime.getTime() < new Date().getTime();
 
   return (
-    <>
+    <div className={c2.gridPanel}>
       <PlayerSummary
+        className={c2.grid12}
         wins={preloadedSummary.wins}
         loss={preloadedSummary.loss}
         rank={preloadedSummary.rank}
@@ -60,99 +176,110 @@ export default function AdminPlayerPage({
         name={preloadedSummary.user.name}
         steamId={preloadedSummary.user.steamId}
       />
-      <Table>
-        <thead>
-          <tr>
-            <th>Время окончания</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <tr>
-            <td>
-              {isBanActive ? (
-                <DatePicker
-                  customInputRef={""}
-                  showTimeSelect
-                  locale={"ru-RU"}
-                  dateFormat={"dd MMMM yyyy"}
-                  customInput={<Button className={"small"}>Назначить</Button>}
-                  selected={endTime}
-                  onChange={(date: Date | null) => {
-                    if (!date) return;
-                    setEndTime(date);
-                    return commitChanges(date);
+      <Section className={c2.grid12}>
+        <header>Роли и баны</header>
+        <Table>
+          <thead>
+            <tr>
+              <th>Параметр/Роль</th>
+              <th>Время окончания</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Бан</td>
+              <td>
+                {isBanActive ? (
+                  <DatePicker
+                    customInputRef={""}
+                    showTimeSelect
+                    locale={"ru-RU"}
+                    dateFormat={"dd MMMM yyyy"}
+                    customInput={<Button className={"small"}>Назначить</Button>}
+                    selected={endTime}
+                    onChange={(date: Date | null) => {
+                      if (!date) return;
+                      setEndTime(date);
+                      return commitChanges(date);
+                    }}
+                  />
+                ) : (
+                  <DatePicker
+                    customInputRef={""}
+                    showTimeSelect
+                    locale={"ru-RU"}
+                    dateFormat={"dd MMMM yyyy"}
+                    customInput={<Input className={"iso"} />}
+                    selected={endTime}
+                    onChange={(date: Date | null) => {
+                      if (!date) return;
+                      setEndTime(date);
+                      return commitChanges(date);
+                    }}
+                  />
+                )}
+              </td>
+
+              <td className={c.actions}>
+                <Button
+                  className="small"
+                  onClick={() => {
+                    const d = new Date();
+                    d.setDate(d.getDate() - 2);
+                    setEndTime(d);
+                    return commitChanges(d);
                   }}
-                />
-              ) : (
-                <DatePicker
-                  customInputRef={""}
-                  showTimeSelect
-                  locale={"ru-RU"}
-                  dateFormat={"dd MMMM yyyy"}
-                  customInput={<Input className={"iso"} />}
-                  selected={endTime}
-                  onChange={(date: Date | null) => {
-                    if (!date) return;
-                    setEndTime(date);
-                    return commitChanges(date);
+                >
+                  Разбанить
+                </Button>
+
+                <Button
+                  className="small"
+                  onClick={() => {
+                    const d = new Date(endTime.getTime());
+                    d.setDate(d.getDate() + 1);
+                    setEndTime(d);
+                    return commitChanges(d);
                   }}
-                />
-              )}
-            </td>
-
-            <td className={c.actions}>
-              <Button
-                className="small"
-                onClick={() => {
-                  const d = new Date();
-                  d.setDate(d.getDate() - 2);
-                  setEndTime(d);
-                  return commitChanges(d);
-                }}
-              >
-                Разбанить
-              </Button>
-
-              <Button
-                className="small"
-                onClick={() => {
-                  const d = new Date(endTime.getTime());
-                  d.setDate(d.getDate() + 1);
-                  setEndTime(d);
-                  return commitChanges(d);
-                }}
-              >
-                +Сутки
-              </Button>
-              <Button
-                className="small"
-                onClick={() => {
-                  const d = new Date(endTime.getTime());
-                  d.setDate(d.getDate() + 7);
-                  setEndTime(d);
-                  return commitChanges(d);
-                }}
-              >
-                +Неделя
-              </Button>
-              <Button
-                className="small"
-                onClick={() => {
-                  const d = new Date();
-                  d.setFullYear(2048);
-                  setEndTime(d);
-                  return commitChanges(d);
-                }}
-              >
-                Перма бан
-              </Button>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-    </>
+                >
+                  +Сутки
+                </Button>
+                <Button
+                  className="small"
+                  onClick={() => {
+                    const d = new Date(endTime.getTime());
+                    d.setDate(d.getDate() + 7);
+                    setEndTime(d);
+                    return commitChanges(d);
+                  }}
+                >
+                  +Неделя
+                </Button>
+                <Button
+                  className="small"
+                  onClick={() => {
+                    const d = new Date();
+                    d.setFullYear(2048);
+                    setEndTime(d);
+                    return commitChanges(d);
+                  }}
+                >
+                  Перма бан
+                </Button>
+              </td>
+            </tr>
+            {combinedRoles
+              .sort((a, b) => a.role.localeCompare(b.role))
+              .map((z) => (
+                <RoleRow key={z.role} {...z} />
+              ))}
+          </tbody>
+        </Table>
+      </Section>
+    </div>
   );
 }
 
