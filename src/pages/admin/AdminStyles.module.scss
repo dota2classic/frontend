@@ -29,3 +29,16 @@
 .grid12 {
   grid-column: span 12;
 }
+
+
+.parties {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+
+.onlineList {
+  & li {
+    margin-top: 8px;
+  }
+}

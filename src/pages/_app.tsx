@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import App, { AppContext } from "next/app";
-import { Layout, PushNotificationManager } from "@/components";
+import { Layout } from "@/components";
 import Cookies from "cookies";
 import "../util/promise";
 // import * as Fonts from 'next/font/google'

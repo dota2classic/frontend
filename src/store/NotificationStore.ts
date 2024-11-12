@@ -45,7 +45,10 @@ export class NotificationStore implements HydratableStore<unknown> {
       runInAction(() => {
         this.isPushSupported = true;
       });
-      this.registerServiceWorker();
+      // For a good measure
+      setTimeout(() => {
+        this.registerServiceWorker();
+      }, 1000);
     }
   }
 
@@ -69,7 +72,7 @@ export class NotificationStore implements HydratableStore<unknown> {
     );
   }
 
-  public async subscribeToPush() {
+  public subscribeToPush = async () => {
     const registration = await navigator.serviceWorker.ready;
     const sub = await registration.pushManager.subscribe({
       userVisibleOnly: true,
@@ -78,22 +81,23 @@ export class NotificationStore implements HydratableStore<unknown> {
       ),
     });
     this.setSubscription(sub);
-    // await subscribeUser(sub as any);
-  }
+  };
 
-  public async unsubscribe() {
+  public unsubscribe = async () => {
     if (!this.subscription) return;
     await this.subscription.unsubscribe();
+    await getApi().notificationApi.notificationControllerUnsubscribe();
+
     runInAction(() => {
       this.subscription = undefined;
     });
-  }
+  };
 
   private setSubscription(s: PushSubscription | undefined) {
     runInAction(() => (this.subscription = s));
     if (s) {
       getApi().notificationApi.notificationControllerSubscribe(
-        s.toJSON() as any,
+        s.toJSON() as SubscriptionDto,
       );
     }
   }
@@ -108,7 +112,6 @@ export class NotificationStore implements HydratableStore<unknown> {
 
   @action
   public enqueueNotification(notif: NotificationDto) {
-    console.log("Enqueue notification", notif);
     if (notif.id !== undefined) {
       this.permanentQueue.push(notif);
     } else {

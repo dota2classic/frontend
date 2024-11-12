@@ -19,11 +19,12 @@ import {
 } from "@/components";
 import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useTransition } from "react";
 import { NextPageContext } from "next";
-import { ThreadStyle } from "@/components/Thread/Thread";
+import { ThreadStyle } from "@/components/Thread/types";
 import { FaBell } from "react-icons/fa";
 import { observer } from "mobx-react-lite";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -33,6 +34,8 @@ interface Props {
 const NotificationSetting = observer(() => {
   const { notify } = useStore();
 
+  const [isPending, startTransition] = useTransition();
+
   if (!notify.isPushSupported) return null;
 
   if (!notify.registration) return;
@@ -40,21 +43,23 @@ const NotificationSetting = observer(() => {
   if (!notify.subscription) {
     return (
       <Button
-        style={{ display: "flex", alignItems: "center" }}
-        onClick={() => {
-          notify.subscribeToPush();
-        }}
+        className={c.notify}
+        onClick={() => startTransition(notify.subscribeToPush)}
       >
         <span style={{ flex: 1 }}>Включить уведомления</span>
-        <FaBell style={{ float: "right" }} />
+        {isPending ? (
+          <AiOutlineLoading3Quarters className="loading" />
+        ) : (
+          <FaBell style={{ float: "right" }} />
+        )}
       </Button>
     );
   }
 
   return (
     <Button
-      style={{ display: "flex", alignItems: "center" }}
-      onClick={() => notify.unsubscribe()}
+      className={c.notify}
+      onClick={() => startTransition(notify.unsubscribe)}
     >
       <span style={{ flex: 1 }}>Отключить уведомления</span>
       <FaBell style={{ float: "right" }} />
@@ -63,56 +68,6 @@ const NotificationSetting = observer(() => {
 });
 
 const ModeList = observer(({ modes, playerSummary }: Props) => {
-  const { queue } = useStore();
-
-  const playedAnyGame = playerSummary.playedAnyGame;
-
-  const d84 = modes!
-    .filter((it) => it.version === "Dota_684" && it.enabled)
-    .sort((a, b) => Number(a.mode) - Number(b.mode));
-
-  const modEnableCondition = (mode: MatchmakingMode): ReactNode | undefined => {
-    if (mode === MatchmakingMode.UNRANKED && !playedAnyGame) {
-      return (
-        <>
-          Нужно сыграть хотя бы 1 игру в <span className="gold">обучение</span>{" "}
-          {/*или <span className="gold">1х1</span>*/}
-        </>
-      );
-    }
-  };
-
-  return (
-    <Section className={c.modes}>
-      <header>Режим игры</header>
-      <Panel className={c.modes__list}>
-        {d84.map((info) => (
-          <MatchmakingOption
-            selected={
-              queue.searchingMode?.mode === info.mode &&
-              queue.searchingMode?.version === info.version
-            }
-            localSelected={
-              queue.selectedMode?.mode === info.mode &&
-              queue.selectedMode?.version === info.version
-            }
-            disabled={modEnableCondition(info.mode)}
-            key={`${info.mode}${info.version}`}
-            onSelect={queue.setSelectedMode}
-            version={info.version}
-            mode={info.mode}
-          />
-        ))}
-        <div style={{ flex: 1 }} />
-        <SearchGameButton visible={true} />
-      </Panel>
-    </Section>
-  );
-});
-
-export default function QueuePage(props: Props) {
-  const mounted = useDidMount();
-
   const { queue } = useStore();
 
   const playedAnyGame = playerSummary.playedAnyGame;

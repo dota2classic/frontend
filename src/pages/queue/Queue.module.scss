@@ -32,8 +32,6 @@
   }
 }
 
-
-
 .onlineInfo {
   position: absolute;
   bottom: 0;
@@ -49,7 +47,6 @@
 
   color: $primaryText;
 }
-
 
 .queuePanel {
   display: flex;
@@ -71,9 +68,7 @@
 }
 
 .queueDiscussion {
-
   grid-row: span 22;
-
 
   display: flex;
   flex-direction: column;
@@ -83,6 +78,9 @@
   & :global(.messageList) {
     flex: 1;
   }
+}
 
-
+.notify {
+  display: flex;
+  align-items: center
 }
