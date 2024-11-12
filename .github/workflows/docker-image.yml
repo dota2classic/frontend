@@ -21,6 +21,7 @@ jobs:
         with:
           build-args: |
             API_URL=https://dotaclassic.ru/api
+            VAPID_PUBLIC_KEY=BLeadyll3oCNn_oM62pZBJzSVu2ktZwE6lciUq57Xa8aS3eAyGZ67mFgNVsDg0stn5otBlVW4HIr8E5zkFUp1u8
           push: true
           tags: dota2classic/matchmaking:dotabuff
 #  deploy:
