@@ -29,6 +29,8 @@ COPY . .
 ARG API_URL
 ENV API_URL=$API_URL
 
+ARG VAPID_PUBLIC_KEY
+ENV VAPID_PUBLIC_KEY=$VAPID_PUBLIC_KEY
 
 RUN bun run build
 
@@ -63,6 +65,9 @@ ENV PORT=3000
 
 ARG API_URL
 ENV API_URL=$API_URL
+
+ARG VAPID_PUBLIC_KEY
+ENV VAPID_PUBLIC_KEY=$VAPID_PUBLIC_KEY
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
