@@ -48,6 +48,9 @@ import {
   UpdateThreadDTO,
   UpdateThreadDTOFromJSON,
   UpdateThreadDTOToJSON,
+  UpdateUserDTO,
+  UpdateUserDTOFromJSON,
+  UpdateUserDTOToJSON,
 } from "../models";
 
 export interface ForumControllerCreateThreadRequest {
@@ -96,6 +99,11 @@ export interface ForumControllerThreadsRequest {
 export interface ForumControllerUpdateThreadRequest {
   id: string;
   updateThreadDTO: UpdateThreadDTO;
+}
+
+export interface ForumControllerUpdateUserRequest {
+  id: string;
+  updateUserDTO: UpdateUserDTO;
 }
 
 /**
@@ -657,6 +665,63 @@ export class ForumApi extends runtime.BaseAPI {
      */
     forumControllerUpdateThread = async (id: string, updateThreadDTO: UpdateThreadDTO): Promise<ThreadDTO> => {
         const response = await this.forumControllerUpdateThreadRaw({ id: id, updateThreadDTO: updateThreadDTO });
+        return await response.value();
+    }
+
+
+    /**
+     */
+    private async forumControllerUpdateUserRaw(requestParameters: ForumControllerUpdateUserRequest): Promise<runtime.ApiResponse<number>> {
+        this.forumControllerUpdateUserValidation(requestParameters);
+        const context = this.forumControllerUpdateUserContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.TextApiResponse(response) as any;
+    }
+
+
+
+    /**
+     */
+    private forumControllerUpdateUserValidation(requestParameters: ForumControllerUpdateUserRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling forumControllerUpdateUser.");
+        }
+        if (requestParameters.updateUserDTO === null || requestParameters.updateUserDTO === undefined) {
+            throw new runtime.RequiredError("updateUserDTO","Required parameter requestParameters.updateUserDTO was null or undefined when calling forumControllerUpdateUser.");
+        }
+    }
+
+    /**
+     */
+    forumControllerUpdateUserContext(requestParameters: ForumControllerUpdateUserRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/forum/user/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateUserDTOToJSON(requestParameters.updateUserDTO),
+        };
+    }
+
+    /**
+     */
+    forumControllerUpdateUser = async (id: string, updateUserDTO: UpdateUserDTO): Promise<number> => {
+        const response = await this.forumControllerUpdateUserRaw({ id: id, updateUserDTO: updateUserDTO });
         return await response.value();
     }
 

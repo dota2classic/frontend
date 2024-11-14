@@ -10,7 +10,12 @@ import {
 
 import c from "./Message.module.scss";
 import { Role } from "@/api/mapped-models";
-import { MdAdminPanelSettings, MdDelete, MdLocalPolice } from "react-icons/md";
+import {
+  MdAdminPanelSettings,
+  MdDelete,
+  MdLocalPolice,
+  MdVolumeMute,
+} from "react-icons/md";
 import cx from "classnames";
 import { ThreadStyle } from "@/components/Thread/types";
 import { AppRouter } from "@/route";
@@ -21,18 +26,25 @@ interface IMessageProps {
   message: ThreadMessageDTO;
   threadStyle: ThreadStyle;
   onDelete?: (id: string) => void;
+  onMute?: (id: string) => void;
 }
 
 export const Message: React.FC<IMessageProps> = React.memo(function Message({
   message,
   threadStyle,
   onDelete,
+  onMute,
 }: IMessageProps) {
   const enrichedMessage = enrichMessage(message.content);
 
   const isDeletable = !!onDelete;
   const onDeleteWrap = useCallback(
     () => onDelete && onDelete(message.messageId),
+    [message.messageId, onDelete],
+  );
+
+  const onMuteWrap = useCallback(
+    () => onMute && onMute(message.author.steamId),
     [message.messageId, onDelete],
   );
 
@@ -94,6 +106,9 @@ export const Message: React.FC<IMessageProps> = React.memo(function Message({
             {<PeriodicTimerClient time={message.createdAt} />}
             {isDeletable && (
               <MdDelete className={c.delete} onClick={onDeleteWrap} />
+            )}
+            {isDeletable && (
+              <MdVolumeMute className={c.delete} onClick={onMuteWrap} />
             )}
           </div>
         </div>

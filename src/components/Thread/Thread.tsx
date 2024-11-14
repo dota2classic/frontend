@@ -108,9 +108,8 @@ interface IThreadProps {
 
 export const MessageInput = observer(
   (p: {
-    id: string;
+    threadId: string;
     canMessage: boolean;
-    threadType: ThreadType;
     onMessage: (mgs: ThreadMessageDTO) => void;
     rows: number;
     className?: string;
@@ -135,16 +134,19 @@ export const MessageInput = observer(
 
       getApi()
         .forumApi.forumControllerPostMessage({
-          id: p.id,
+          threadId: p.threadId,
           content: msg,
-          threadType: p.threadType,
         })
         .then((msg) => {
           setValue("");
           p.onMessage(msg);
         })
-        .catch(() => {
-          setError("Слишком часто отправляете сообщения!");
+        .catch((err) => {
+          if (err.status === 403) {
+            setError("Вам запрещено отправлять сообщения!");
+          } else {
+            setError("Слишком часто отправляете сообщения!");
+          }
           setValue(msg);
         });
     }, 250);
@@ -246,6 +248,18 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
     [consumeMessages],
   );
 
+  const muteUser = useCallback(
+    (steamId: string) => {
+      // I don't like it but 6 hrs for now
+      getApi().forumApi.forumControllerUpdateUser(steamId, {
+        muteUntil: new Date(
+          new Date().getTime() + 1000 * 60 * 60 * 6,
+        ).toUTCString(),
+      });
+    },
+    [consumeMessages],
+  );
+
   const displayInput =
     !pagination || !pg || pg.pages === 1 || pg.page == pg.pages - 1;
 
@@ -275,6 +289,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
             message={msg}
             key={msg.messageId}
             onDelete={auth.isAdmin ? deleteMessage : undefined}
+            onMute={auth.isAdmin ? muteUser : undefined}
           />
         ))}
       </div>
@@ -299,8 +314,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
                 : 2
           }
           canMessage={hasRightToMessage}
-          id={id.toString()}
-          threadType={threadType}
+          threadId={thread.id}
           onMessage={(msg) => consumeMessages([msg])}
         />
       )}
