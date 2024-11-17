@@ -84,7 +84,7 @@ export const Navbar = observer((p: { className?: string }) => {
       <div className={c.navbarInner}>
         <ul className={c.navbarList}>
           <NavbarItem className={c.root} action={AppRouter.index.link}>
-            <SiDota2/>
+            <SiDota2 />
             DOTA2CLASSIC
           </NavbarItem>
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
@@ -95,15 +95,11 @@ export const Navbar = observer((p: { className?: string }) => {
             <NavbarItem action={AppRouter.players.leaderboard().link}>
               Игроки
             </NavbarItem>
-            <NavbarItem action={AppRouter.heroes.index.link}>
-              Герои
-            </NavbarItem>
+            <NavbarItem action={AppRouter.heroes.index.link}>Герои</NavbarItem>
             <NavbarItem action={AppRouter.matches.index().link}>
               Матчи
             </NavbarItem>
-            <NavbarItem action={AppRouter.forum.index().link}>
-              Форум
-            </NavbarItem>
+            <NavbarItem action={AppRouter.forum.index().link}>Форум</NavbarItem>
             {hasLiveMatches && (
               <NavbarItem
                 action={AppRouter.matches.live.link}
@@ -112,13 +108,13 @@ export const Navbar = observer((p: { className?: string }) => {
                 Live
               </NavbarItem>
             )}
-            <div className={c.spacer}/>
-            <LoginProfileNavbarItem/>
+            <div className={c.spacer} />
+            <LoginProfileNavbarItem />
           </div>
 
           <div className={c.mobileMenu}>
             <NavbarItem action={() => setMenuOpen((t) => !t)}>
-              <IoMenu/>
+              <IoMenu />
             </NavbarItem>
           </div>
         </ul>

@@ -13,17 +13,16 @@ interface Props {
   visible: boolean;
 }
 export const SearchGameButton = observer((p: Props) => {
-  const { queue, auth } = useStore();
+  const { queue } = useStore();
   const router = useRouter();
 
   const isQueuePage = router.pathname === "/queue";
 
   const isSearchModeDefined = queue.searchingMode !== undefined;
 
-  let ban = queue.partyBanStatus;
+  const ban = queue.partyBanStatus;
 
   if (!p.visible) return null;
-
 
   if (queue.needAuth)
     return (

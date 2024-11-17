@@ -12,6 +12,10 @@
   }
 }
 
+.layoutQueue {
+  height: calc(100vh - 73px);
+}
+
 .layoutInner {
   display: flex;
   flex-direction: column;

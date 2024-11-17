@@ -1,14 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { observer } from "mobx-react-lite";
 import c from "./AcceptGameModal.module.scss";
 import cx from "classnames";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { GameReadyModal, Input } from "@/components";
-import { FaCheck, FaCopy } from "react-icons/fa6";
+import { GameReadyModal } from "@/components";
 import { useStore } from "@/store";
 import { formatGameMode } from "@/util/gamemode";
-import {useRouter} from "next/router";
-
+import { useRouter } from "next/router";
 
 export const AcceptGameModal = observer(() => {
   const qStore = useStore().queue;
@@ -16,7 +13,6 @@ export const AcceptGameModal = observer(() => {
 
   const router = useRouter();
   const isQueuePage = router.pathname === "/queue";
-
 
   if (q.isSearchingServer)
     return (
@@ -27,8 +23,11 @@ export const AcceptGameModal = observer(() => {
       </div>
     );
 
-  if (q.gameInfo?.serverURL && !isQueuePage)
-    return <GameReadyModal className={cx(c.modal, c.inline)} />;
+  if (q.gameInfo?.serverURL) {
+    if (!isQueuePage)
+      return <GameReadyModal className={cx(c.modal, c.inline)} />;
+    return null;
+  }
 
   if (!q.gameInfo) return null;
 

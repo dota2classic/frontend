@@ -43,8 +43,9 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/service-worker.js")
-        .then((registration) => console.log("" +
-          "scope is: ", registration.scope));
+        .then((registration) =>
+          console.log("" + "scope is: ", registration.scope),
+        );
     }
   }
 

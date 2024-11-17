@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState } from "react";
 
-import {ItemTooltip, Navbar, Notifications, ScrollFixer, SearchGameFloater} from "..";
+import { ItemTooltip, Navbar, Notifications, SearchGameFloater } from "..";
 
 import c from "./Layout.module.scss";
 import cx from "classnames";
@@ -16,6 +16,7 @@ export const Layout = ({
 }: PropsWithChildren<LayoutProps>) => {
   const [ctx, setCtx] = useState<TooltipContextData["ctx"]>(undefined);
   const r = useRouter();
+  const isQueuePage = r.pathname === "/queue";
 
   return (
     <TooltipContext.Provider
@@ -24,9 +25,8 @@ export const Layout = ({
         setCtx,
       }}
     >
-      {/*<ScrollFixer />*/}
       <Navbar className={className} />
-      <div className={cx(c.layout, className)}>
+      <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
         {ctx && <ItemTooltip hoveredElement={ctx.hovered} item={ctx.item} />}
         <Notifications />
         <SearchGameFloater />

@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
-import {PartyMemberDTO, UserDTO} from "@/api/back";
+import { PartyMemberDTO } from "@/api/back";
 import { InvitePlayerModal, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
@@ -57,7 +57,7 @@ export const QueuePartyInfo = observer(() => {
               className={cx(
                 c.partyItem,
                 t.user.steamId === data?.leader.steamId && c.leader,
-                t.banStatus?.isBanned && c.banned
+                t.banStatus?.isBanned && c.banned,
               )}
             >
               <img

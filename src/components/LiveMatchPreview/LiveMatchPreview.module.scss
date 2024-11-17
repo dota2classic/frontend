@@ -70,7 +70,7 @@
   & img {
     width: auto;
     height: 30px;
-    margin-right: 10px;
+    margin-right: 4px;
   }
 
 }
@@ -202,8 +202,13 @@
   color: white;
   background: rgba(0, 0, 0, 0.7);
   padding: 4px;
+  margin-right: 4px;
   border-radius: 4px;
   font-size: 14px;
+  display: block;
+  width: 14px;
+  text-align: center;
+  flex: unset !important;
 }
 
 .skull {
@@ -217,4 +222,10 @@
   border-radius: 4px;
 
 
+}
+
+
+.watchLive {
+  font-size: 1.4rem;
+  text-align: center;
 }

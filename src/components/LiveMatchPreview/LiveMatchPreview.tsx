@@ -117,8 +117,8 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         </div>
         <TeamListTable players={dire} />
       </div>
-      <div>
-        <a target={"__blank"} href={watchUrl(match.server)}>
+      <div className={c.watchLive}>
+        <a target={"__blank"} className="link" href={watchUrl(match.server)}>
           Смотреть в игре
         </a>
       </div>

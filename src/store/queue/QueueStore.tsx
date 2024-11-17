@@ -19,7 +19,7 @@ import { AppApi, getApi } from "@/api/hooks";
 import { GameCoordinatorListener } from "@/store/queue/game-coordinator.listener";
 import { AuthStore } from "@/store/AuthStore";
 import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
-import {BanStatusDto, PartyDto, PartyMemberDTO} from "@/api/back";
+import { BanStatusDto, PartyDto, PartyMemberDTO } from "@/api/back";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { DefaultQueueHolder } from "@/store/queue/mock";
 import { Howl } from "howler";
@@ -89,7 +89,6 @@ export class QueueStore
 
     if (typeof window === "undefined") return;
 
-
     this.matchSound = new Howl({
       src: Sounds.MATCH_GAME,
     });
@@ -130,7 +129,7 @@ export class QueueStore
   @computed
   public get selectedModeBanned(): boolean {
     if (this.selectedMode.mode === MatchmakingMode.BOTS) return false;
-    return this.partyBanStatus?.isBanned || false
+    return this.partyBanStatus?.isBanned || false;
   }
 
   @computed

@@ -9,8 +9,8 @@ import {
 } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
 import {
-  AcceptGameModal,
-  Button, GameReadyModal,
+  Button,
+  GameReadyModal,
   MatchmakingOption,
   Panel,
   QueuePartyInfo,
@@ -96,10 +96,7 @@ const ModeList = observer(({ modes, playerSummary }: Props) => {
     }
   };
 
-
-  const isAbleToQueue = !queue.gameInfo
-
-
+  const isAbleToQueue = !queue.gameInfo;
 
   return (
     <Section className={c.modes}>
@@ -125,7 +122,9 @@ const ModeList = observer(({ modes, playerSummary }: Props) => {
         <NotificationSetting />
         <div style={{ flex: 1 }} />
         {isAbleToQueue && <SearchGameButton visible={true} />}
-        {queue.gameInfo?.serverURL && <GameReadyModal className={c.gameReady}/> }
+        {queue.gameInfo?.serverURL && (
+          <GameReadyModal className={c.gameReady} />
+        )}
       </Panel>
     </Section>
   );
