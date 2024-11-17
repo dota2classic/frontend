@@ -1,6 +1,12 @@
-import { EmbedProps, GenericTable, PageLink, Section } from "@/components";
+import {
+  CoolList,
+  EmbedProps,
+  FAQ,
+  GenericTable,
+  PageLink,
+  Section,
+} from "@/components";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
-import { AppRouter } from "@/route";
 import React, { useState } from "react";
 import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
@@ -8,6 +14,9 @@ import { NextPageContext } from "next";
 import c from "./Download.module.scss";
 import cx from "classnames";
 import { appApi } from "@/api/hooks";
+import { formatGameMode } from "@/util/gamemode";
+import { MatchmakingMode } from "@/api/mapped-models";
+import { AppRouter } from "@/route";
 
 const _data = [
   [
@@ -16,7 +25,7 @@ const _data = [
       label: "Игровой клиент",
     },
     {
-      link: "https://www.mediafire.com/file/37a334itg8iv6zz/Dota_2_6.84_Source_1_%25281504%2529.7z/file",
+      link: "https://disk.yandex.ru/d/Vl8rITrAzB04MA",
       label: "Игровой клиент",
     },
     // {
@@ -39,7 +48,7 @@ const _data = [
       label: "Linux библиотеки",
     },
     {
-      link: "https://www.mediafire.com/file/box3btsn4ttiz1o/Dota_2_6.84_Source_1_Linux.tar.gz/file",
+      link: "https://disk.yandex.ru/d/blQdLqXZwOrqjQ",
       label: "Linux библиотеки",
     },
     // {
@@ -70,8 +79,8 @@ const _data = [
     //   label: "MacOS библиотеки",
     // },
     {
-      link: "https://mega.nz/file/Ea5HURST#GeBiVze4vrv5VPyeM55pYJs8C_ItkmEB2z0xE7uiDHY",
-      label: "MacOS библиотеки todo",
+      link: "https://disk.yandex.ru/d/xOqxdW7BeIxKDg",
+      label: "MacOS библиотеки",
     },
     {
       link: "https://mega.nz/file/Ea5HURST#GeBiVze4vrv5VPyeM55pYJs8C_ItkmEB2z0xE7uiDHY",
@@ -104,54 +113,171 @@ export default function DownloadPage({ initialOS }: Props) {
           "Подробная инструкция для скачивания, установки и поиска игры Dota 2. Скачать старую версию dota 2 здесь"
         }
       />
-      <h2>Как начать играть?</h2>
-      <ol className={c.guide}>
-        <li>Скачай клиент игры (windows), используя таблицу</li>
-        <li>Распакуй архив с клиентом игры в удобное тебе место</li>
-        {(OS === OperatingSystem.MAC_OS || OS === OperatingSystem.LINUX) && (
-          <li>
-            Так же тебе нужно скачать библиотеки для своей системы и извлечь их
-            в папку с игрой
-          </li>
-        )}
-        <li>
-          Убедись, что у тебя запущен{" "}
-          <a
-            target="__blank"
-            href="https://store.steampowered.com/about/"
-            className="link"
-          >
-            Steam
-          </a>
-          . Без него игра работать не будет
-        </li>
-        <li>Зайди в папку с игрой и запусти dota.bat</li>
-        <li>Запусти одиночную игру с ботами, привыкни к игре</li>
-        <li>
-          Понравилось? Тогда{" "}
-          <a
-            className="link"
-            href={`${appApi.apiParams.basePath}/v1/auth/steam`}
-          >
-            авторизуйся
-          </a>{" "}
-          на сайте через Steam
-        </li>
-        <li>
-          И сыграй свою первую{" "}
-          <PageLink className="link" link={AppRouter.queue.link}>
-            онлайн игру
-          </PageLink>
-        </li>
-        <li>
-          <span className="gold">ВАЖНО</span>: Steam аккаунт для игры и на сайте
-          должны совпадать.
-        </li>
-        <li>
-          <span className="gold">ВАЖНО</span>: Перед подключением к найденной
-          онлайн игре необходимо открыть клиент старой доты
-        </li>
-      </ol>
+      <h2 style={{ textAlign: "center" }}>Как начать играть?</h2>
+      <CoolList
+        items={[
+          {
+            title: "Скачать игровой клиент",
+            content: (
+              <>
+                Для игры в старую доту нужен старый клиент игры. Мы скачали и
+                собрали его по кусочкам, чтобы тебе осталось только скачать
+                архив с готовой игрой из таблицы ниже.
+                {(OS === OperatingSystem.MAC_OS ||
+                  OS === OperatingSystem.LINUX) && (
+                  <>
+                    <br />
+                    <span className="gold">
+                      Так же тебе нужно скачать библиотеки для своей системы и
+                      извлечь их в папку с игрой
+                    </span>
+                  </>
+                )}
+              </>
+            ),
+          },
+          {
+            title: "Запустить игру",
+            content: (
+              <>
+                Запускать игру из архива не нужно: для этого сначала нужно
+                распаковать архив. Распакуй в удобную тебе папку и запусти
+                dota.bat. Если при запуске игры возникли неполадки, попробуй
+                установить DirectX и MicrosoftVisualC++. Это необходимые
+                библиотеки для запуска игры, которые должен скачивать Steam
+                <ul>
+                  <li>
+                    <a
+                      className="link"
+                      href="https://www.microsoft.com/ru-ru/download/details.aspx?id=35"
+                      target="__blank"
+                    >
+                      DirectX
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="link"
+                      href="https://aka.ms/vs/16/release/vc_redist.x86.exe"
+                      target="__blank"
+                    >
+                      скачать Microsoft Visual C++ для 32 бит
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="link"
+                      href="https://aka.ms/vs/16/release/vc_redist.x64.exe"
+                      target="__blank"
+                    >
+                      скачать Microsoft Visual C++ для 64 бит
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="link"
+                      href="http://forum.ru-board.com/topic.cgi?forum=5&amp;topic=10616&amp;start=820"
+                      target="__blank"
+                    >
+                      скачать NET Framework
+                    </a>
+                  </li>
+                </ul>
+              </>
+            ),
+          },
+          {
+            title: "Первый матч с ботами",
+            content: (
+              <>
+                Старая дота очень сильно отличается от современной версии: даже
+                если ты опытный игрок, тебе будет очень непривычно. Мы
+                рекомендуем сначала поиграть с ботами, чтобы настроить бинды,
+                привыкнуть к старым героям, карте и способностям.
+              </>
+            ),
+          },
+          {
+            title: "Авторизоваться на сайте",
+            content: (
+              <>
+                Для игры с людьми был создан этот сайт: ты не можешь просто
+                нажать поиск в самом клиенте, это начнет поиск в актуальной
+                версии игры.
+                <br />
+                Поэтому у нас свой матчмейкинг, для которого нужно{" "}
+                <a
+                  className="link"
+                  href={`${appApi.apiParams.basePath}/v1/auth/steam`}
+                >
+                  авторизоваться через Steam.
+                </a>{" "}
+                Это безопасно и нужно для поиска онлайн игры.
+                <br />
+                <span className="gold">ВАЖНО</span>: Steam аккаунт для игры и на
+                сайте должны совпадать.
+              </>
+            ),
+          },
+          {
+            title: "Первая онлайн игра",
+            content: (
+              <>
+                Ты близок к онлайн игре как никогда! Но для игры через сайт
+                нужно В поиске через сайт нет ничего сложного, но перед игрой с
+                другими игроками тебе нужно сыграть обучение. Это обычный матч с
+                ботами, но на наших серверах. Тебе предстоит:
+                <ol>
+                  <li>
+                    <PageLink link={AppRouter.queue.link} className="link">
+                      Поставить поиск
+                    </PageLink>{" "}
+                    на нашем сайте в {formatGameMode(MatchmakingMode.BOTS)}
+                  </li>
+                  <li>Принять найденную игру</li>
+                  <li>Открыть игровой клиент</li>
+                  <li>Загрузиться на сервер по инструкции из найденной игры</li>
+                  <li>Завершить игру с ботами</li>
+                </ol>
+              </>
+            ),
+          },
+          {
+            title: "Пришло время для настоящих игр!",
+            content: (
+              <>
+                Поздравляю, ты завершил свой первый онлайн матч!
+                <br />
+                Мы ждем тебя в{" "}
+                <PageLink link={AppRouter.queue.link} className="link">
+                  поиске
+                </PageLink>{" "}
+                в режиме {formatGameMode(MatchmakingMode.UNRANKED)}. Играем мы
+                обычно вечером, примерно с 18:00 по МСК.
+                <br />А пока можешь изучить{" "}
+                <PageLink
+                  className="link"
+                  link={AppRouter.matches.index().link}
+                >
+                  историю матчей
+                </PageLink>
+                ,{" "}
+                <PageLink className="link" link={AppRouter.heroes.index.link}>
+                  сильнейших героев
+                </PageLink>{" "}
+                или{" "}
+                <PageLink
+                  className="link"
+                  link={AppRouter.players.leaderboard().link}
+                >
+                  таблицу лидеров.
+                </PageLink>
+              </>
+            ),
+          },
+        ]}
+      />
+      <h2 style={{ textAlign: "center" }}>Ссылки на скачивание игры</h2>
       <Section>
         <div className={cx(c.options)}>
           {[
@@ -177,26 +303,136 @@ export default function DownloadPage({ initialOS }: Props) {
               type: ColumnType.ExternalLink,
               name: "Google диск",
             },
-            // {
-            //   type: ColumnType.ExternalLink,
-            //   name: "Media fire",
-            // },
-            // {
-            //   type: ColumnType.ExternalLink,
-            //   name: "Mega",
-            // },
             {
               type: ColumnType.ExternalLink,
               name: "Яндекс Диск",
             },
-            {
-              type: ColumnType.ExternalLink,
-              name: "Torrent",
-            },
+            // {
+            //   type: ColumnType.ExternalLink,
+            //   name: "Torrent",
+            // },
           ]}
           data={filteredData}
         />
       </Section>
+
+      <h2 style={{ textAlign: "center", marginTop: 40 }}>
+        FAQ - часто задаваемые вопросы
+      </h2>
+      <FAQ
+        items={[
+          {
+            title: "Какая версия игры используется?",
+            content: (
+              <>
+                Мы играем на версии 6.84c. Это последняя версия игры на{" "}
+                <span className="gold">Source 1</span>, а так же самый
+                популярный патч по количеству игроков.
+              </>
+            ),
+          },
+          {
+            title: "Это безопасно?",
+            content: (
+              <>
+                Если ты не будешь искать и использовать читы на эту версию - да.
+                По сути наш проект это как общественные сервера по CS 1.6. Мы
+                запускаем официальный сервер от Valve, только старой версии
+              </>
+            ),
+          },
+          {
+            title: "Могу ли я играть с баном в доте?",
+            content: (
+              <>
+                Баны в актуальной версии игры не работают на нашем сайте.
+                Однако, если будешь часто покидать игры, руинить игры и в целом
+                плохо себя вести - будешь забанен и здесь.
+              </>
+            ),
+          },
+          {
+            title: "Не запускается игра, что делать?",
+            content: (
+              <>
+                Скорее всего тебе чего-то не хватает. Возможные решения:
+                <ul>
+                  <li>
+                    Ты не распаковал архив с игрой и пытаешься запустить игру из
+                    архива. Распакуй архив и запусти игру.
+                  </li>
+                  <li>
+                    Установить{" "}
+                    <a
+                      className="link"
+                      href="https://www.microsoft.com/ru-ru/download/details.aspx?id=35"
+                      target="__blank"
+                    >
+                      DirectX
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="link"
+                      href="https://aka.ms/vs/16/release/vc_redist.x86.exe"
+                      target="__blank"
+                    >
+                      Установить Microsoft Visual C++ для 32 бит
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="link"
+                      href="https://aka.ms/vs/16/release/vc_redist.x64.exe"
+                      target="__blank"
+                    >
+                      Установить Microsoft Visual C++ для 64 бит
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="link"
+                      href="http://forum.ru-board.com/topic.cgi?forum=5&amp;topic=10616&amp;start=820"
+                      target="__blank"
+                    >
+                      Установить NET Framework
+                    </a>
+                  </li>
+                </ul>
+              </>
+            ),
+          },
+          {
+            title: "Steam client is missing or out of date",
+            content: (
+              <>
+                Один из нижеперечисленных вариантов поможет вам исправить эту
+                проблему:
+                <ul>
+                  <li>Войти в аккаунт Steam</li>
+                  <li>Перезапустить Steam</li>
+                  <li>Перезагрузить пк</li>
+                  <li>Выключить режим невидимки в Steam</li>
+                  <li>
+                    Запустить DOTA Classic и Steam от имени администратора
+                  </li>
+                </ul>
+              </>
+            ),
+          },
+          {
+            title: "Failed to load the launcher DLL",
+            content: (
+              <>
+                Для ее исправления необходимо исключить русские/кириллические
+                буквы в пути или же распаковать архив на рабочий стол. Если это
+                вам не помогает, то распакуйте архив с игрой в корень диска C:\
+                или D:\
+              </>
+            ),
+          },
+        ]}
+      />
     </>
   );
 }

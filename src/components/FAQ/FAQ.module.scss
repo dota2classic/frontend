@@ -1,0 +1,63 @@
+@import "../../common.scss";
+
+.faq {
+  display: flex;
+  flex-direction: column;
+
+  & li {
+    line-height: 1.4rem;
+  }
+}
+
+.entry {
+  display: flex;
+  flex-direction: row;
+
+  & + & {
+    border-top: 1px solid $primaryTextDark2;
+  }
+
+
+
+  &[open] {
+    & .title {
+      color: $gold;
+    }
+    & svg {
+      rotate: 180deg;
+    }
+  }
+
+  & summary {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    font-size: 1.2rem;
+    flex: 1;
+    cursor: pointer;
+    font-weight: bold;
+
+    padding: 1.25rem;
+
+    & .title {
+      flex: 1;
+      color: $primaryText;
+    }
+
+    & svg {
+      transition: 0.3s ease;
+    }
+  }
+}
+
+.entry__full {
+  flex: 1;
+  transition: 0.3s ease;
+  overflow: hidden;
+  padding: 1.25rem;
+}
+
+.open {
+  //display: block;
+  //height: 100%;
+}

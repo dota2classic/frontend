@@ -18,6 +18,7 @@ interface INavbarItemProps {
   ignoreActive?: boolean;
   options?: DropdownOption[];
   className?: string;
+  tip?: ReactNode;
 }
 
 function isPageLink(action: Action): action is NextLinkProp {
@@ -31,6 +32,7 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
   ignoreActive,
   options,
   className,
+  tip,
 }) => {
   const r = useRouter();
   let isActive: boolean = false;
@@ -66,6 +68,7 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
         className,
       )}
     >
+      {tip && <span className={c.tip}>{tip}</span>}
       {renderedLink}
       {options && (
         <div className={c.options}>

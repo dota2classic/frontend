@@ -63,3 +63,6 @@ export { Message } from "./Message/Message";
 export { TooltipIcon } from "./TooltipIcon/TooltipIcon";
 export { PlayerAvatar } from "./PlayerAvatar/PlayerAvatar";
 export { Tabs } from "./Tabs/Tabs";
+export { NewLanding } from "./NewLanding/NewLanding";
+export { CoolList } from "./CoolList/CoolList";
+export { FAQ } from "./FAQ/FAQ";

@@ -86,9 +86,9 @@ export const Navbar = observer(() => {
             </NavbarItem>
             <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
               {isAuthorized && (
-                <NavbarItem action={AppRouter.queue.link}>Играть</NavbarItem>
+                <NavbarItem action={AppRouter.queue.link}>Поиск</NavbarItem>
               )}
-              <NavbarItem action={AppRouter.download.link}>Скачать</NavbarItem>
+              <NavbarItem action={AppRouter.download.link}>Играть</NavbarItem>
               <NavbarItem action={AppRouter.players.leaderboard().link}>
                 Игроки
               </NavbarItem>
@@ -102,7 +102,10 @@ export const Navbar = observer(() => {
                 Форум
               </NavbarItem>
               {hasLiveMatches && (
-                <NavbarItem action={AppRouter.matches.live.link}>
+                <NavbarItem
+                  action={AppRouter.matches.live.link}
+                  tip={liveMatches?.length}
+                >
                   Live
                 </NavbarItem>
               )}

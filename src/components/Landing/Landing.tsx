@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import c from "./Landing.module.scss";
-import { AuthLink, Duration, EmbedProps, PageLink } from "@/components";
+import { CoolList, Duration, EmbedProps, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
 import Image from "next/image";
@@ -32,7 +32,7 @@ export const Landing = () => {
             loop
             autoPlay
             controls={false}
-            src={`/landing/d2video.mp4`}
+            src={`/landing/d2video-new.webm`}
           />
         </div>
         <div
@@ -69,22 +69,58 @@ export const Landing = () => {
       </div>
       <div className={c.block}>
         <div className={c.intent}>
-          <h3>От погружения в ностальгию тебя отделяет лишь 3 шага:</h3>
-          <ol>
-            <li>
-              <PageLink link={AppRouter.download.link} className="link">
-                Скачать
-              </PageLink>{" "}
-              старый клиент на Source 1
-            </li>
-            <li>
-              <AuthLink>Авторизоваться</AuthLink> на сайте через Steam
-            </li>
-            <li>
-              <PageLink link={AppRouter.queue.link}>Запустить поиск</PageLink>{" "}
-              игры на нашем сайте
-            </li>
-          </ol>
+          <CoolList
+            items={[
+              {
+                title: "Скачать игровой клиент",
+                content: (
+                  <>
+                    Для игры в старую доту нужен старый клиент игры. Мы скачали
+                    и собрали его по кусочкам, чтобы тебе осталось только
+                    скачать архив с готовой игрой.{" "}
+                    <PageLink link={AppRouter.download.link} className="link">
+                      Скачать архив с игрой
+                    </PageLink>
+                  </>
+                ),
+              },
+              {
+                title: "Первый запуск игры",
+                content: (
+                  <>
+                    Запускать игру из архива не нужно: для этого сначала нужно
+                    распаковать архив. Распакуй в удобную тебе папку и запусти
+                    dota.bat.
+                  </>
+                ),
+              },
+              {
+                title: "Первый матч с ботами",
+                content: (
+                  <>
+                    Старая дота очень сильно отличается от современной версии:
+                    даже если ты опытный игрок, тебе будет очень непривычно. Мы
+                    рекомендуем сначала поиграть с ботами, чтобы настроить
+                    бинды, привыкнуть к старым героям, карте и способностям.
+                  </>
+                ),
+              },
+              {
+                title: "Первая онлайн игра",
+                content: (
+                  <>
+                    Для игры с людьми был создан этот сайт: ты не можешь просто
+                    нажать поиск в самом клиенте. В поиске через сайт нет ничего
+                    сложного, но перед игрой с другими игроками тебе нужно
+                    сыграть обучение. Это обычный матч с ботами, но на наших
+                    серверах. Тебе предстоит принять игру, подключить к игровому
+                    серверу и завершить матч.
+                  </>
+                ),
+              },
+            ]}
+          />
+
           <h3>Кто мы такие</h3>
           <div className={c.longtext}>
             <ol>
