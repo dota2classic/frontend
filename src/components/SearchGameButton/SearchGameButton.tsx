@@ -20,7 +20,10 @@ export const SearchGameButton = observer((p: Props) => {
 
   const isSearchModeDefined = queue.searchingMode !== undefined;
 
+  let ban = queue.partyBanStatus;
+
   if (!p.visible) return null;
+
 
   if (queue.needAuth)
     return (
@@ -62,14 +65,14 @@ export const SearchGameButton = observer((p: Props) => {
         className={cx(
           c.playButton,
           c.search,
-          auth.me?.banStatus.isBanned && c.banned,
+          queue.selectedModeBanned && ban?.isBanned && c.banned,
           queue.gameInfo?.serverURL && c.ingame,
-          auth.me?.banStatus?.isBanned && c.longText,
+          queue.selectedModeBanned && ban?.isBanned && c.longText,
         )}
       >
-        {auth.me?.banStatus?.isBanned ? (
+        {queue.selectedModeBanned && ban?.isBanned ? (
           <>
-            Поиск запрещен до <TimeAgo date={auth.me!.banStatus.bannedUntil} />
+            Поиск запрещен до <TimeAgo date={ban.bannedUntil} />
           </>
         ) : (
           "Искать игру"

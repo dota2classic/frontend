@@ -9,13 +9,15 @@ import {
 } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
 import {
-  Button,
+  AcceptGameModal,
+  Button, GameReadyModal,
   MatchmakingOption,
   Panel,
   QueuePartyInfo,
   SearchGameButton,
   Section,
   Thread,
+  TimeAgo,
 } from "@/components";
 import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
@@ -77,6 +79,13 @@ const ModeList = observer(({ modes, playerSummary }: Props) => {
     .sort((a, b) => Number(a.mode) - Number(b.mode));
 
   const modEnableCondition = (mode: MatchmakingMode): ReactNode | undefined => {
+    if (mode !== MatchmakingMode.BOTS && queue.partyBanStatus?.isBanned) {
+      return (
+        <>
+          Поиск запрещен до <TimeAgo date={queue.partyBanStatus!.bannedUntil} />
+        </>
+      );
+    }
     if (mode === MatchmakingMode.UNRANKED && !playedAnyGame) {
       return (
         <>
@@ -86,6 +95,11 @@ const ModeList = observer(({ modes, playerSummary }: Props) => {
       );
     }
   };
+
+
+  const isAbleToQueue = !queue.gameInfo
+
+
 
   return (
     <Section className={c.modes}>
@@ -110,7 +124,8 @@ const ModeList = observer(({ modes, playerSummary }: Props) => {
         ))}
         <NotificationSetting />
         <div style={{ flex: 1 }} />
-        <SearchGameButton visible={true} />
+        {isAbleToQueue && <SearchGameButton visible={true} />}
+        {queue.gameInfo?.serverURL && <GameReadyModal className={c.gameReady}/> }
       </Panel>
     </Section>
   );

@@ -39,6 +39,10 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
           action: AppRouter.players.playerMatches(parsedToken.sub).link,
         },
         {
+          label: "Герои",
+          action: AppRouter.players.player.heroes(parsedToken.sub).link,
+        },
+        {
           label: "Выйти",
           action: logout,
         },
@@ -56,7 +60,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   );
 });
 
-export const Navbar = observer(() => {
+export const Navbar = observer((p: { className?: string }) => {
   const { auth } = useStore();
   const { isAdmin, isModerator } = auth;
   const isAuthorized = auth.isAuthorized;
@@ -76,66 +80,64 @@ export const Navbar = observer(() => {
   const hasLiveMatches = liveMatches && liveMatches.length > 0;
 
   return (
-    <>
-      <div className={c.navbar}>
-        <div className={c.navbarInner}>
-          <ul className={c.navbarList}>
-            <NavbarItem className={c.root} action={AppRouter.index.link}>
-              <SiDota2 />
-              DOTA2CLASSIC
+    <div className={cx(c.navbar, p.className)}>
+      <div className={c.navbarInner}>
+        <ul className={c.navbarList}>
+          <NavbarItem className={c.root} action={AppRouter.index.link}>
+            <SiDota2/>
+            DOTA2CLASSIC
+          </NavbarItem>
+          <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
+            {isAuthorized && (
+              <NavbarItem action={AppRouter.queue.link}>Поиск</NavbarItem>
+            )}
+            <NavbarItem action={AppRouter.download.link}>Играть</NavbarItem>
+            <NavbarItem action={AppRouter.players.leaderboard().link}>
+              Игроки
             </NavbarItem>
-            <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
-              {isAuthorized && (
-                <NavbarItem action={AppRouter.queue.link}>Поиск</NavbarItem>
-              )}
-              <NavbarItem action={AppRouter.download.link}>Играть</NavbarItem>
-              <NavbarItem action={AppRouter.players.leaderboard().link}>
-                Игроки
+            <NavbarItem action={AppRouter.heroes.index.link}>
+              Герои
+            </NavbarItem>
+            <NavbarItem action={AppRouter.matches.index().link}>
+              Матчи
+            </NavbarItem>
+            <NavbarItem action={AppRouter.forum.index().link}>
+              Форум
+            </NavbarItem>
+            {hasLiveMatches && (
+              <NavbarItem
+                action={AppRouter.matches.live.link}
+                tip={liveMatches?.length}
+              >
+                Live
               </NavbarItem>
-              <NavbarItem action={AppRouter.heroes.index.link}>
-                Герои
-              </NavbarItem>
-              <NavbarItem action={AppRouter.matches.index().link}>
-                Матчи
-              </NavbarItem>
-              <NavbarItem action={AppRouter.forum.index().link}>
-                Форум
-              </NavbarItem>
-              {hasLiveMatches && (
-                <NavbarItem
-                  action={AppRouter.matches.live.link}
-                  tip={liveMatches?.length}
-                >
-                  Live
-                </NavbarItem>
-              )}
-              <div className={c.spacer} />
-              <LoginProfileNavbarItem />
-            </div>
+            )}
+            <div className={c.spacer}/>
+            <LoginProfileNavbarItem/>
+          </div>
 
-            <div className={c.mobileMenu}>
-              <NavbarItem action={() => setMenuOpen((t) => !t)}>
-                <IoMenu />
-              </NavbarItem>
-            </div>
+          <div className={c.mobileMenu}>
+            <NavbarItem action={() => setMenuOpen((t) => !t)}>
+              <IoMenu/>
+            </NavbarItem>
+          </div>
+        </ul>
+      </div>
+      {(isAdmin || isModerator) && (
+        <div className={cx(c.navbarInner, c.navbar__admin)}>
+          <ul className={c.navbarList}>
+            <NavbarItem action={AppRouter.admin.servers.link}>
+              Сервера
+            </NavbarItem>
+            <NavbarItem action={AppRouter.admin.queues.link}>
+              Очереди
+            </NavbarItem>
+            <NavbarItem action={AppRouter.admin.crimes().link}>
+              Нарушения
+            </NavbarItem>
           </ul>
         </div>
-        {(isAdmin || isModerator) && (
-          <div className={cx(c.navbarInner, c.navbar__admin)}>
-            <ul className={c.navbarList}>
-              <NavbarItem action={AppRouter.admin.servers.link}>
-                Сервера
-              </NavbarItem>
-              <NavbarItem action={AppRouter.admin.queues.link}>
-                Очереди
-              </NavbarItem>
-              <NavbarItem action={AppRouter.admin.crimes().link}>
-                Нарушения
-              </NavbarItem>
-            </ul>
-          </div>
-        )}
-      </div>
-    </>
+      )}
+    </div>
   );
 });

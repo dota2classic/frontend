@@ -19,7 +19,7 @@ import { AppApi, getApi } from "@/api/hooks";
 import { GameCoordinatorListener } from "@/store/queue/game-coordinator.listener";
 import { AuthStore } from "@/store/AuthStore";
 import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
-import { PartyDto } from "@/api/back";
+import {BanStatusDto, PartyDto, PartyMemberDTO} from "@/api/back";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { DefaultQueueHolder } from "@/store/queue/mock";
 import { Howl } from "howler";
@@ -89,7 +89,6 @@ export class QueueStore
 
     if (typeof window === "undefined") return;
 
-    this.fetchParty().finally();
 
     this.matchSound = new Howl({
       src: Sounds.MATCH_GAME,
@@ -103,12 +102,35 @@ export class QueueStore
       volume: 0.4,
     });
     this.connect();
+
+    this.periodicallyFetchParty();
+  }
+
+  private periodicallyFetchParty() {
+    this.fetchParty().finally();
+    setInterval(() => {
+      this.fetchParty().finally();
+    }, 5000);
+  }
+
+  @computed
+  public get partyBanStatus(): BanStatusDto | undefined {
+    let ban: BanStatusDto | undefined;
+    if (this.authStore.me?.banStatus?.isBanned) {
+      ban = this.authStore.me!.banStatus;
+    } else if (this.party) {
+      const activeBan = this.party?.players?.find(
+        (t: PartyMemberDTO) => t.banStatus?.isBanned,
+      );
+      ban = activeBan?.banStatus;
+    }
+    return ban;
   }
 
   @computed
   public get selectedModeBanned(): boolean {
     if (this.selectedMode.mode === MatchmakingMode.BOTS) return false;
-    return !!this.authStore.me?.banStatus.isBanned;
+    return this.partyBanStatus?.isBanned || false
   }
 
   @computed

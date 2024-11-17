@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState } from "react";
 
-import { ItemTooltip, Navbar, Notifications, SearchGameFloater } from "..";
+import {ItemTooltip, Navbar, Notifications, ScrollFixer, SearchGameFloater} from "..";
 
 import c from "./Layout.module.scss";
 import cx from "classnames";
@@ -24,9 +24,10 @@ export const Layout = ({
         setCtx,
       }}
     >
+      {/*<ScrollFixer />*/}
+      <Navbar className={className} />
       <div className={cx(c.layout, className)}>
         {ctx && <ItemTooltip hoveredElement={ctx.hovered} item={ctx.item} />}
-        <Navbar />
         <Notifications />
         <SearchGameFloater />
         <main

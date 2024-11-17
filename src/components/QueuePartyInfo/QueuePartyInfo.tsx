@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
-import { UserDTO } from "@/api/back";
+import {PartyMemberDTO, UserDTO} from "@/api/back";
 import { InvitePlayerModal, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "classnames";
@@ -48,21 +48,22 @@ export const QueuePartyInfo = observer(() => {
       <InvitePlayerModal isOpen={inviteOpen} close={close} />
 
       <div className={c.party}>
-        {(party?.players || []).map((t: UserDTO) => (
+        {(party?.players || []).map((t: PartyMemberDTO) => (
           <PageLink
-            key={t.steamId}
-            link={AppRouter.players.player.index(t.steamId).link}
+            key={t.user.steamId}
+            link={AppRouter.players.player.index(t.user.steamId).link}
           >
             <div
               className={cx(
                 c.partyItem,
-                t.steamId === data?.leader.steamId && c.leader,
+                t.user.steamId === data?.leader.steamId && c.leader,
+                t.banStatus?.isBanned && c.banned
               )}
             >
               <img
                 width={50}
                 height={50}
-                src={t.avatar || "/avatar.png"}
+                src={t.user.avatar || "/avatar.png"}
                 alt=""
               />
             </div>
@@ -86,8 +87,6 @@ export const QueuePartyInfo = observer(() => {
           Покинуть группу
         </div>
       )}
-
-      {/*<SearchGameButton />*/}
 
       {onlineData ? (
         <div className={c.searchGameBar}>

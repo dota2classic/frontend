@@ -29,6 +29,7 @@ export * from "./MeDto";
 export * from "./MmrChangeDto";
 export * from "./MyProfileDto";
 export * from "./PartyDto";
+export * from "./PartyMemberDTO";
 export * from "./PlayerInMatchDto";
 export * from "./PlayerInfo";
 export * from "./PlayerSummaryDto";

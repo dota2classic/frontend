@@ -17,6 +17,7 @@ const s: Record<BanReason, ReactNode> = {
   [BanReason.INFINITE_BAN]: "Пермабан",
   [BanReason.REPORTS]: "Репорт",
   [BanReason.LOAD_FAILURE]: "Не загрузился",
+  [BanReason.ABANDONED]: "Покинул игру",
 };
 
 export default function CrimesPage({ crime }: Props) {
@@ -28,7 +29,7 @@ export default function CrimesPage({ crime }: Props) {
         linkProducer={(pg) => AppRouter.admin.crimes(pg).link}
       />
       <GenericTable
-        keyProvider={(it) => it[3]}
+        keyProvider={(it) => it[4]}
         columns={[
           {
             type: ColumnType.Player,

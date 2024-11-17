@@ -3,41 +3,20 @@ import { observer } from "mobx-react-lite";
 import c from "./AcceptGameModal.module.scss";
 import cx from "classnames";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Input } from "@/components";
+import { GameReadyModal, Input } from "@/components";
 import { FaCheck, FaCopy } from "react-icons/fa6";
 import { useStore } from "@/store";
 import { formatGameMode } from "@/util/gamemode";
+import {useRouter} from "next/router";
 
-const CopySomething = ({ something }: { something: string }) => {
-  const [copied, setCopied] = useState(false);
-  const [cancelTimeout] = useState<number | undefined>(undefined);
-
-  const onCopy = useCallback(
-    (text: string, success: boolean) => {
-      if (success) {
-        if (cancelTimeout) {
-          clearTimeout(cancelTimeout);
-        }
-
-        setCopied(true);
-      }
-    },
-    [cancelTimeout],
-  );
-
-  return (
-    <CopyToClipboard text={something} onCopy={onCopy}>
-      <div className={c.copyHolder}>
-        <Input id="copy" readOnly className="iso" value={something} />
-        {copied ? <FaCheck className={c.successCopy} /> : <FaCopy />}
-      </div>
-    </CopyToClipboard>
-  );
-};
 
 export const AcceptGameModal = observer(() => {
   const qStore = useStore().queue;
   const q = qStore;
+
+  const router = useRouter();
+  const isQueuePage = router.pathname === "/queue";
+
 
   if (q.isSearchingServer)
     return (
@@ -48,22 +27,8 @@ export const AcceptGameModal = observer(() => {
       </div>
     );
 
-  if (q.gameInfo?.serverURL)
-    return (
-      <div className={cx(c.modal, c.inline)}>
-        <h2>Игра готова!</h2>
-        <div className={c.connectInfo}>
-          <a
-            className={cx(c.button2, c.accept)}
-            target={"__blank"}
-            href={`steam://connect/${q.gameInfo?.serverURL}`}
-          >
-            Подключиться к игре
-          </a>
-        </div>
-        <CopySomething something={`connect ${q.gameInfo?.serverURL}`} />
-      </div>
-    );
+  if (q.gameInfo?.serverURL && !isQueuePage)
+    return <GameReadyModal className={cx(c.modal, c.inline)} />;
 
   if (!q.gameInfo) return null;
 

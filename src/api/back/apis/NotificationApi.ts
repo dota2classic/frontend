@@ -41,12 +41,12 @@ export class NotificationApi extends runtime.BaseAPI {
 
     /**
      */
-    private async notificationControllerNotifyAboutQueueRaw(requestParameters: NotificationControllerNotifyAboutQueueRequest): Promise<runtime.ApiResponse<number>> {
+    private async notificationControllerNotifyAboutQueueRaw(requestParameters: NotificationControllerNotifyAboutQueueRequest): Promise<runtime.ApiResponse<void>> {
         this.notificationControllerNotifyAboutQueueValidation(requestParameters);
         const context = this.notificationControllerNotifyAboutQueueContext(requestParameters);
         const response = await this.request(context);
 
-        return new runtime.TextApiResponse(response) as any;
+        return new runtime.VoidApiResponse(response);
     }
 
 
@@ -87,9 +87,8 @@ export class NotificationApi extends runtime.BaseAPI {
 
     /**
      */
-    notificationControllerNotifyAboutQueue = async (tagPlayerForQueue: TagPlayerForQueue): Promise<number> => {
-        const response = await this.notificationControllerNotifyAboutQueueRaw({ tagPlayerForQueue: tagPlayerForQueue });
-        return await response.value();
+    notificationControllerNotifyAboutQueue = async (tagPlayerForQueue: TagPlayerForQueue): Promise<void> => {
+        await this.notificationControllerNotifyAboutQueueRaw({ tagPlayerForQueue: tagPlayerForQueue });
     }
 
 

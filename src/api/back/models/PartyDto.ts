@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    PartyMemberDTO,
+    PartyMemberDTOFromJSON,
+    PartyMemberDTOFromJSONTyped,
+    PartyMemberDTOToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -40,10 +44,10 @@ export interface PartyDto {
     leader: UserDTO;
     /**
      * 
-     * @type {Array<UserDTO>}
+     * @type {Array<PartyMemberDTO>}
      * @memberof PartyDto
      */
-    players: Array<UserDTO>;
+    players: Array<PartyMemberDTO>;
 }
 
 export function PartyDtoFromJSON(json: any): PartyDto {
@@ -58,7 +62,7 @@ export function PartyDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         
         'id': json['id'],
         'leader': UserDTOFromJSON(json['leader']),
-        'players': ((json['players'] as Array<any>).map(UserDTOFromJSON)),
+        'players': ((json['players'] as Array<any>).map(PartyMemberDTOFromJSON)),
     };
 }
 
@@ -73,7 +77,7 @@ export function PartyDtoToJSON(value?: PartyDto | null): any {
         
         'id': value.id,
         'leader': UserDTOToJSON(value.leader),
-        'players': ((value.players as Array<any>).map(UserDTOToJSON)),
+        'players': ((value.players as Array<any>).map(PartyMemberDTOToJSON)),
     };
 }
 

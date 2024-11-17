@@ -33,6 +33,7 @@ const TeamListTable = ({ players }: { players: PlayerInfo[] }) => {
               style={{ opacity: it.respawnTime > 0 ? 1 : 0 }}
               className={c.skull}
             />
+            <span className={c.level}>{it.level}</span>
             {it.bot ? (
               <span>{"Бот"}</span>
             ) : (

@@ -17,6 +17,7 @@ export const PageLink: React.FC<PropsWithChildren<IPageLinkProps>> = (
       as={props.link.as}
       passHref={props.link.passHref}
       shallow={props.link.shallow}
+      scroll={true}
     >
       {props.children}
     </Link>
