@@ -92,7 +92,7 @@ export const SearchGameButton = observer((p: Props) => {
           content && c.longText,
         )}
       >
-        {isQueuePage ? (content || "Искать игру") : "Играть"}
+        {isQueuePage ? content || "Искать игру" : "Играть"}
       </button>
     );
   }
