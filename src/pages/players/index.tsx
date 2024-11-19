@@ -3,7 +3,7 @@ import { getApi } from "@/api/hooks";
 import { LeaderboardEntryPageDto } from "@/api/back";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
-import cx from "classnames";
+import cx from "clsx";
 import { numberOrDefault } from "@/util/urls";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";

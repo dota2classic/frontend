@@ -2,7 +2,7 @@ import React from "react";
 
 import c from "./AchievementStatus.module.scss";
 import { AchievementDto, AchievementKey } from "@/api/back";
-import cx from "classnames";
+import cx from "clsx";
 import { FaCheck } from "react-icons/fa6";
 import { RiCloseFill } from "react-icons/ri";
 import { PageLink } from "@/components";

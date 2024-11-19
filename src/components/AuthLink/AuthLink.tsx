@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 import { appApi } from "@/api/hooks";
 import { FaSteam } from "react-icons/fa";
 import c from "./AuthLink.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 export const AuthLink = ({ children }: PropsWithChildren) => {
   return (
     <a

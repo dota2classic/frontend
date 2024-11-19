@@ -5,7 +5,7 @@ import { AppRouter } from "@/route";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import c from "./ForumUserEmbed.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 
 interface IForumUserEmbedProps {
   steamId: string;

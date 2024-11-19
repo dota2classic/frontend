@@ -10,7 +10,7 @@ import React, { createContext } from "react";
 import { getRootStore, HydrateRootData, RootStore } from "@/store";
 import Head from "next/head";
 import "../ext";
-import cx from "classnames";
+import cx from "clsx";
 // Font files can be colocated inside of `pages`
 const myFont = localFont({
   src: [

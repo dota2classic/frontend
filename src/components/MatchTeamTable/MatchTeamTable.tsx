@@ -6,7 +6,7 @@ import { AppRouter } from "@/route";
 import c from "./MatchTeamTable.module.scss";
 import { FaCoins } from "react-icons/fa";
 import { signedNumber } from "@/util/time";
-import cx from "classnames";
+import cx from "clsx";
 
 export type Columns =
   | "GPM"

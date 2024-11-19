@@ -4,7 +4,7 @@ import { PageLink, Panel } from "..";
 
 import c from "./Pagination.module.scss";
 import { NextLinkProp } from "@/route";
-import cx from "classnames";
+import cx from "clsx";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 

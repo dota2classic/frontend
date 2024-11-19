@@ -8,7 +8,7 @@ import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { PartyMemberDTO } from "@/api/back";
 import { InvitePlayerModal, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
-import cx from "classnames";
+import cx from "clsx";
 
 const GameCoordinatorConnection = ({
   readyState,

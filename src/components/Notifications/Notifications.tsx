@@ -4,7 +4,7 @@ import c from "./Notifications.module.scss";
 import { observer } from "mobx-react-lite";
 import { NotificationDto } from "@/store/NotificationStore";
 import { useStore } from "@/store";
-import cx from "classnames";
+import cx from "clsx";
 
 export const Notifications = observer(() => {
   const { notify, queue } = useStore();

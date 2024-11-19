@@ -15,7 +15,7 @@ import {
 import { AppRouter, NextLinkProp } from "@/route";
 import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
 import heroName, { itemName } from "@/util/heroName";
-import cx from "classnames";
+import cx from "clsx";
 import { maxBy } from "@/util/iter";
 import { FaSort } from "react-icons/fa6";
 import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";

@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./Table.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 import { JetBrains_Mono } from "next/font/google";
 
 const tableFont = JetBrains_Mono({

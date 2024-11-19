@@ -30,7 +30,7 @@ export abstract class GameCoordinatorListener {
 
   onMatchState(url?: string) {}
 
-  onQueueState({ mode, version }: QueueStateMessage) {}
+  onQueueState(qsm: QueueStateMessage) {}
 
   onRoomNotReady() {}
 

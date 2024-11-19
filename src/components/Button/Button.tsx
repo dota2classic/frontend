@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 
 import c from "./Button.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 
 export const Button: React.FC<
   PropsWithChildren<{

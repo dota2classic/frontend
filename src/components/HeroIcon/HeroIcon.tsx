@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./HeroIcon.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 
 interface IHeroIconProps {
   hero: string;

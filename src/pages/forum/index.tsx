@@ -21,7 +21,7 @@ import { SiDota2 } from "react-icons/si";
 import { FaMessage } from "react-icons/fa6";
 import React, { useCallback } from "react";
 import TableClasses from "@/components/GenericTable/GenericTable.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 import { NextPageContext } from "next";
 import Image from "next/image";
 import { useStore } from "@/store";

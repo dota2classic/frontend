@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 import c from "./CoolList.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 
 interface ListItem {
   content: ReactNode;

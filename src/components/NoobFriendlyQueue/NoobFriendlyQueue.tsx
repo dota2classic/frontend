@@ -10,7 +10,7 @@ import { Button, PageLink } from "..";
 import c from "./NoobFriendlyQueue.module.scss";
 import { AppRouter } from "@/route";
 import { FaCheck } from "react-icons/fa6";
-import cx from "classnames";
+import cx from "clsx";
 import { useStore } from "@/store";
 import { appApi } from "@/api/hooks";
 import { FaSteam } from "react-icons/fa";

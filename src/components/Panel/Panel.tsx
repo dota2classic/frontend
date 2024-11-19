@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./Panel.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 
 export const Panel = (
   props: React.DetailedHTMLProps<

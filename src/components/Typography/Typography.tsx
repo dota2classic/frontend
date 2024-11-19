@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import cx from "classnames";
+import cx from "clsx";
 import c from "./Typography.module.scss";
 interface TypographyProps {
   radiant?: boolean;

@@ -3,7 +3,7 @@ import React, { PropsWithChildren, useState } from "react";
 import { ItemTooltip, Navbar, Notifications, SearchGameFloater } from "..";
 
 import c from "./Layout.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 import { TooltipContext, TooltipContextData } from "@/util/hooks";
 import { useRouter } from "next/router";
 

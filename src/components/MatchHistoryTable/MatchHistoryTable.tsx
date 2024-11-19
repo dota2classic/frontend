@@ -12,7 +12,7 @@ import { MatchDto } from "@/api/back";
 import c from "./MatchHistoryTable.module.scss";
 import { AppRouter } from "@/route";
 import { formatGameMode } from "@/util/gamemode";
-import cx from "classnames";
+import cx from "clsx";
 import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
 import { colors } from "@/colors";
 import { maxBy } from "@/util/iter";

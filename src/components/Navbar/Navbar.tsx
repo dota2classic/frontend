@@ -10,7 +10,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import Image from "next/image";
 import { IoMenu } from "react-icons/io5";
-import cx from "classnames";
+import cx from "clsx";
 import { SiDota2 } from "react-icons/si";
 import { useRouterChanging } from "@/util/hooks";
 

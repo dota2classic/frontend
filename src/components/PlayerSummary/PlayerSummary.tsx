@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./PlayerSummary.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 import { formatWinrate } from "@/util/math";
 import { PageLink, Panel, PlayerAvatar, TimeAgo } from "@/components";
 import { steamPage } from "@/util/resources";

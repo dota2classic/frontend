@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, ReactNode } from "react";
 
 import c from "./TooltipIcon.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 
 interface ITooltipIconProps {
   className?: string;

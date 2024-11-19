@@ -5,7 +5,7 @@ import { ItemIconRaw } from "..";
 import c from "./ItemTooltip.module.scss";
 
 import { FaCoins } from "react-icons/fa";
-import cx from "classnames";
+import cx from "clsx";
 import { ItemKey } from "@/const/itemdata";
 import { ItemMap } from "@/const/items";
 

@@ -5,7 +5,7 @@ import "aos/dist/aos.css";
 import c from "./Landing.module.scss";
 import { CoolList, Duration, EmbedProps, PageLink } from "@/components";
 import { AppRouter } from "@/route";
-import cx from "classnames";
+import cx from "clsx";
 import Image from "next/image";
 
 export const Landing = () => {

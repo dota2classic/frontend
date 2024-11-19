@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./Input.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 
 type IInputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,

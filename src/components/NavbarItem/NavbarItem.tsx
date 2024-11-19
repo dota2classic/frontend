@@ -3,7 +3,7 @@ import React, { PropsWithChildren, ReactNode } from "react";
 import c from "./NavbarItem.module.scss";
 import { NextLinkProp } from "@/route";
 import { PageLink } from "@/components";
-import cx from "classnames";
+import cx from "clsx";
 import { useRouter } from "next/router";
 
 type Action = NextLinkProp | (() => void) | string;

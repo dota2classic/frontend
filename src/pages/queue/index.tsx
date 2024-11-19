@@ -30,7 +30,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface Props {
   modes: MatchmakingInfo[];
-  "@party": PartyDto;
+  "@party"?: PartyDto;
 }
 
 const NotificationSetting = observer(() => {
@@ -177,7 +177,7 @@ QueuePage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   if (!jwt) {
     // not logged in
     await redirectToDownload(ctx);
-    return;
+    return { modes: [] };
   }
 
   const [modes, party] = await Promise.combine([

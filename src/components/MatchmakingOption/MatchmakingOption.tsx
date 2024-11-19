@@ -5,7 +5,7 @@ import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
 import { formatGameMode } from "@/util/gamemode";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import cx from "classnames";
+import cx from "clsx";
 import { FaLock } from "react-icons/fa";
 
 interface MatchmakingOptionProps {

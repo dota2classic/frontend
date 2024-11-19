@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 
 import c from "./MarkdownTextarea.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 // import { FaBold, FaItalic, FaQuoteLeft } from "react-icons/fa";
 
 export const MarkdownTextarea: React.FC<

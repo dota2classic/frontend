@@ -16,7 +16,7 @@ import { ThreadMessageDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextLinkProp } from "@/route";
 import { observer } from "mobx-react-lite";
 import { Rubik } from "next/font/google";
-import cx from "classnames";
+import cx from "clsx";
 import { getApi } from "@/api/hooks";
 import { useThread } from "@/util/threads";
 import { ThreadType } from "@/api/mapped-models/ThreadType";

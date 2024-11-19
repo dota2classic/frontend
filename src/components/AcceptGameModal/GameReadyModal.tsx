@@ -1,4 +1,4 @@
-import cx from "classnames";
+import cx from "clsx";
 import c from "@/components/AcceptGameModal/AcceptGameModal.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";

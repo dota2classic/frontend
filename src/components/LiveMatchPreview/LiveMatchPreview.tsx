@@ -11,7 +11,7 @@ import {
 import { AppRouter } from "@/route";
 import { KDATableData } from "@/components/GenericTable/GenericTable";
 import { items } from "@/util/iter";
-import cx from "classnames";
+import cx from "clsx";
 import { shortName } from "@/util/heroName";
 import { formatGameMode } from "@/util/gamemode";
 import { watchUrl } from "@/util/urls";

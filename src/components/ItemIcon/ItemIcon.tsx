@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 
 import c from "./ItemIcon.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 import { ItemMap } from "@/const/items";
 import { TooltipContext } from "@/util/hooks";
 import { PageLink } from "@/components";

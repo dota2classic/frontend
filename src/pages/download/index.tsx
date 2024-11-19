@@ -12,7 +12,7 @@ import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
 
 import c from "./Download.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 import { appApi } from "@/api/hooks";
 import { formatGameMode } from "@/util/gamemode";
 import { MatchmakingMode } from "@/api/mapped-models";

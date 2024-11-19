@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./Tabs.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 
 interface ITabsProps {
   options: string[];

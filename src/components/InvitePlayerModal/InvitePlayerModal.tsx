@@ -6,7 +6,7 @@ import c from "./InvitePlayerModal.module.scss";
 import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { NotificationDto } from "@/store/NotificationStore";
-import cx from "classnames";
+import cx from "clsx";
 import useOutsideClick from "@/util/useOutsideClick";
 import { UserDTO } from "@/api/back";
 import Image from "next/image";

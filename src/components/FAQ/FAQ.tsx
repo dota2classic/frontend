@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 
 import c from "./FAQ.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 import { FaChevronDown } from "react-icons/fa";
 
 interface FAQProp {

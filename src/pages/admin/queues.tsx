@@ -13,7 +13,7 @@ import { formatGameMode } from "@/util/gamemode";
 import c from "./AdminStyles.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import cx from "classnames";
+import cx from "clsx";
 import { useTransition } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";

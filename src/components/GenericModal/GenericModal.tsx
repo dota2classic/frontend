@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./GenericModal.module.scss";
-import cx from "classnames";
+import cx from "clsx";
 
 export const GenericModal = ({
   className,

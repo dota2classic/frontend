@@ -16,7 +16,7 @@ import {
   MdLocalPolice,
   MdVolumeMute,
 } from "react-icons/md";
-import cx from "classnames";
+import cx from "clsx";
 import { ThreadStyle } from "@/components/Thread/types";
 import { AppRouter } from "@/route";
 import { ThreadMessageDTO } from "@/api/back";
