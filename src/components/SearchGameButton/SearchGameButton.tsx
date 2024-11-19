@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import c from "./SearchGameButton.module.scss";
 import { observer } from "mobx-react-lite";
@@ -7,10 +7,12 @@ import { useRouter } from "next/router";
 import { FaSteam } from "react-icons/fa";
 import { appApi } from "@/api/hooks";
 import cx from "classnames";
-import { TimeAgo } from "@/components/TimeAgo/TimeAgo";
+import { formatBanReason } from "@/util/bans";
+import { MatchmakingMode } from "@/api/mapped-models";
 
 interface Props {
   visible: boolean;
+  customContent?: ReactNode;
 }
 export const SearchGameButton = observer((p: Props) => {
   const { queue } = useStore();
@@ -20,7 +22,28 @@ export const SearchGameButton = observer((p: Props) => {
 
   const isSearchModeDefined = queue.searchingMode !== undefined;
 
-  const ban = queue.partyBanStatus;
+  let content: ReactNode;
+
+  if (queue.selectedModeBanned && queue.partyBanStatus?.isBanned) {
+    content = (
+      <>
+        Поиск запрещен:
+        <div>{formatBanReason(queue.partyBanStatus!.status)}</div>
+      </>
+    );
+  } else if (
+    queue.selectedMode.mode === MatchmakingMode.UNRANKED &&
+    queue.isNewbieParty
+  ) {
+    content = (
+      <>
+        Поиск запрещен:
+        <div>
+          Пройди <span className="gold">обучение</span>
+        </div>
+      </>
+    );
+  }
 
   if (!p.visible) return null;
 
@@ -52,7 +75,7 @@ export const SearchGameButton = observer((p: Props) => {
   if (!isSearchModeDefined) {
     return (
       <button
-        disabled={queue.selectedModeBanned}
+        disabled={!!content}
         onClick={() => {
           if (!isQueuePage) {
             router.push("/queue", "/queue").finally();
@@ -64,18 +87,12 @@ export const SearchGameButton = observer((p: Props) => {
         className={cx(
           c.playButton,
           c.search,
-          queue.selectedModeBanned && ban?.isBanned && c.banned,
+          content && c.banned,
           queue.gameInfo?.serverURL && c.ingame,
-          queue.selectedModeBanned && ban?.isBanned && c.longText,
+          content && c.longText,
         )}
       >
-        {queue.selectedModeBanned && ban?.isBanned ? (
-          <>
-            Поиск запрещен до <TimeAgo date={ban.bannedUntil} />
-          </>
-        ) : (
-          "Искать игру"
-        )}
+        {content || "Искать игру"}
       </button>
     );
   }

@@ -5,20 +5,13 @@ import { BanReason, CrimeLogPageDto } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
 import { GenericTable, Pagination, TimeAgo } from "@/components";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
-import React, { ReactNode } from "react";
+import React from "react";
 import { AppRouter } from "@/route";
+import { formatBanReason } from "@/util/bans";
 
 interface Props {
   crime: CrimeLogPageDto;
 }
-
-const s: Record<BanReason, ReactNode> = {
-  [BanReason.GAME_DECLINE]: "Отклонил игру",
-  [BanReason.INFINITE_BAN]: "Пермабан",
-  [BanReason.REPORTS]: "Репорт",
-  [BanReason.LOAD_FAILURE]: "Не загрузился",
-  [BanReason.ABANDONED]: "Покинул игру",
-};
 
 export default function CrimesPage({ crime }: Props) {
   return (
@@ -39,7 +32,7 @@ export default function CrimesPage({ crime }: Props) {
             type: ColumnType.Raw,
             name: "Нарушение",
             format: (t: BanReason) => (
-              <span style={{ whiteSpace: "nowrap" }}>{s[t]}</span>
+              <span style={{ whiteSpace: "nowrap" }}>{formatBanReason(t)}</span>
             ),
           },
           {

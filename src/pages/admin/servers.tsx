@@ -182,7 +182,9 @@ export default function AdminServersPage({
                           version: t.version,
                           enabled: e.target.checked,
                         })
-                        .then(() => mutate());
+                        .then((data) =>
+                          mutate(data as unknown as MatchmakingInfo[]),
+                        );
                     }}
                     type="checkbox"
                     checked={t.enabled}

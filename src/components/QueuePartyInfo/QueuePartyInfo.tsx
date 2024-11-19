@@ -50,20 +50,20 @@ export const QueuePartyInfo = observer(() => {
       <div className={c.party}>
         {(party?.players || []).map((t: PartyMemberDTO) => (
           <PageLink
-            key={t.user.steamId}
-            link={AppRouter.players.player.index(t.user.steamId).link}
+            key={t.summary.user.steamId}
+            link={AppRouter.players.player.index(t.summary.user.steamId).link}
           >
             <div
               className={cx(
                 c.partyItem,
-                t.user.steamId === data?.leader.steamId && c.leader,
+                t.summary.user.steamId === data?.leader.steamId && c.leader,
                 t.banStatus?.isBanned && c.banned,
               )}
             >
               <img
                 width={50}
                 height={50}
-                src={t.user.avatar || "/avatar.png"}
+                src={t.summary.user.avatar || "/avatar.png"}
                 alt=""
               />
             </div>

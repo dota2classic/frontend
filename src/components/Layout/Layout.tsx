@@ -25,24 +25,26 @@ export const Layout = ({
         setCtx,
       }}
     >
-      <Navbar className={className} />
-      <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
-        {ctx && <ItemTooltip hoveredElement={ctx.hovered} item={ctx.item} />}
-        <Notifications />
-        <SearchGameFloater />
-        <main
-          className={cx(
-            c.layoutInner,
-            r.pathname === "/" && c.landing,
-            r.pathname === "/queue" && c.queue,
-          )}
-        >
-          {children}
-        </main>
-        <footer className={c.footer}>
-          <div> © 2020 - 2024 dotaclassic.ru</div>
-          <div>Dota 2 is a registered trademark of Valve Corporation.</div>
-        </footer>
+      <div className={cx(c.wrapper, isQueuePage && c.wrapper__queue)}>
+        <Navbar className={className} />
+        <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
+          {ctx && <ItemTooltip hoveredElement={ctx.hovered} item={ctx.item} />}
+          <Notifications />
+          <SearchGameFloater />
+          <main
+            className={cx(
+              c.layoutInner,
+              r.pathname === "/" && c.landing,
+              r.pathname === "/queue" && c.queue,
+            )}
+          >
+            {children}
+          </main>
+          <footer className={c.footer}>
+            <div> © 2020 - 2024 dotaclassic.ru</div>
+            <div>Dota 2 is a registered trademark of Valve Corporation.</div>
+          </footer>
+        </div>
       </div>
     </TooltipContext.Provider>
   );

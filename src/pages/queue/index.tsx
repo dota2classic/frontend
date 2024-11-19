@@ -4,7 +4,7 @@ import { getApi } from "@/api/hooks";
 import {
   MatchmakingInfo,
   MatchmakingMode,
-  PlayerSummaryDto,
+  PartyDto,
   ThreadType,
 } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
@@ -30,7 +30,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface Props {
   modes: MatchmakingInfo[];
-  playerSummary: PlayerSummaryDto;
+  "@party": PartyDto;
 }
 
 const NotificationSetting = observer(() => {
@@ -69,10 +69,8 @@ const NotificationSetting = observer(() => {
   );
 });
 
-const ModeList = observer(({ modes, playerSummary }: Props) => {
+const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
   const { queue } = useStore();
-
-  const playedAnyGame = playerSummary.playedAnyGame;
 
   const d84 = modes!
     .filter((it) => it.version === "Dota_684" && it.enabled)
@@ -86,11 +84,10 @@ const ModeList = observer(({ modes, playerSummary }: Props) => {
         </>
       );
     }
-    if (mode === MatchmakingMode.UNRANKED && !playedAnyGame) {
+    if (mode === MatchmakingMode.UNRANKED && queue.isNewbieParty) {
       return (
         <>
-          Нужно сыграть хотя бы 1 игру в <span className="gold">обучение</span>{" "}
-          {/*или <span className="gold">1х1</span>*/}
+          Нужно пройти <span className="gold">обучение</span>{" "}
         </>
       );
     }
@@ -104,14 +101,8 @@ const ModeList = observer(({ modes, playerSummary }: Props) => {
       <Panel className={c.modes__list}>
         {d84.map((info) => (
           <MatchmakingOption
-            selected={
-              queue.searchingMode?.mode === info.mode &&
-              queue.searchingMode?.version === info.version
-            }
-            localSelected={
-              queue.selectedMode?.mode === info.mode &&
-              queue.selectedMode?.version === info.version
-            }
+            selected={queue.searchingMode?.mode === info.mode}
+            localSelected={queue.selectedMode.mode === info.mode}
             disabled={modEnableCondition(info.mode)}
             key={`${info.mode}${info.version}`}
             onSelect={queue.setSelectedMode}
@@ -146,10 +137,7 @@ export default function QueuePage(props: Props) {
       <Head>
         <title>Dota2Classic - поиск игры</title>
       </Head>
-      <ModeList
-        modes={modes || props.modes}
-        playerSummary={props.playerSummary}
-      />
+      <ModeList modes={modes || props.modes} />
       <Section className={c.main}>
         <header>Группа и поиск</header>
         <QueuePartyInfo />
@@ -183,7 +171,7 @@ const redirectToDownload = async (ctx: NextPageContext) => {
   }
 };
 
-QueuePage.getInitialProps = async (ctx: NextPageContext) => {
+QueuePage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   // We need to check if we are logged in
   const jwt = withTemporaryToken(ctx, (store) => store.auth.parsedToken);
   if (!jwt) {
@@ -192,17 +180,15 @@ QueuePage.getInitialProps = async (ctx: NextPageContext) => {
     return;
   }
 
-  const [modes, playerSummary] = await Promise.combine([
+  const [modes, party] = await Promise.combine([
     getApi().statsApi.statsControllerGetMatchmakingInfo(),
-    withTemporaryToken(ctx, (stores) => {
-      return getApi().playerApi.playerControllerPlayerSummary(
-        stores.auth.parsedToken!.sub,
-      );
+    withTemporaryToken(ctx, () => {
+      return getApi().playerApi.playerControllerMyParty();
     }),
   ]);
 
   return {
     modes,
-    playerSummary,
+    "@party": party,
   };
 };

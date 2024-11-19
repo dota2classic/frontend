@@ -4,6 +4,7 @@ import {
   GameFound,
   LauncherServerStarted,
   PartyInviteReceivedMessage,
+  QueueStateMessage,
   ReadyCheckUpdate,
   RoomState,
 } from "@/util/messages";
@@ -29,13 +30,7 @@ export abstract class GameCoordinatorListener {
 
   onMatchState(url?: string) {}
 
-  onQueueState({
-    mode,
-    version,
-  }: {
-    mode?: MatchmakingMode;
-    version?: Dota2Version;
-  }) {}
+  onQueueState({ mode, version }: QueueStateMessage) {}
 
   onRoomNotReady() {}
 

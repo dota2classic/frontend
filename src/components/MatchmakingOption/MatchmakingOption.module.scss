@@ -45,15 +45,20 @@
   }
 
   &__current {
-    background: $transparentTint;
+    background-color: $transparentTint !important;
   }
+
+  //&__disabled_selected {
+  //  background-color: $transparentTint !important;
+  //  //box-shadow: 0 0 4px 4px rgba(211, 38, 38, 0.25) inset;
+  //}
 
   &__active {
     animation: pendingAnimation 2s linear infinite;
   }
 
   &__disabled {
-    cursor: not-allowed;
+    //cursor: not-allowed;
 
     background-color: rgba(0, 0,0,0.3);
     color: $primaryTextDark;

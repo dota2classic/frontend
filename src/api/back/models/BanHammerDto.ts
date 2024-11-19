@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    BanReason,
+    BanReasonFromJSON,
+    BanReasonFromJSONTyped,
+    BanReasonToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -21,10 +28,16 @@ import { exists, mapValues } from '../runtime';
 export interface BanHammerDto {
     /**
      * 
-     * @type {number}
+     * @type {BanReason}
      * @memberof BanHammerDto
      */
-    endTime: number;
+    reason: BanReason;
+    /**
+     * 
+     * @type {string}
+     * @memberof BanHammerDto
+     */
+    endTime: string;
 }
 
 export function BanHammerDtoFromJSON(json: any): BanHammerDto {
@@ -37,6 +50,7 @@ export function BanHammerDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
+        'reason': BanReasonFromJSON(json['reason']),
         'endTime': json['endTime'],
     };
 }
@@ -50,6 +64,7 @@ export function BanHammerDtoToJSON(value?: BanHammerDto | null): any {
     }
     return {
         
+        'reason': BanReasonToJSON(value.reason),
         'endTime': value.endTime,
     };
 }

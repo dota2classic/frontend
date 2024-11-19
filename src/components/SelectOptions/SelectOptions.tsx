@@ -38,6 +38,7 @@ export const HeroOptions = [
 interface ISelectOptionsProps {
   options: SingleValue<any>[];
   selected: any;
+  defaultValue?: any;
   onSelect: (v: SingleValue<any>) => void;
   defaultText: ReactNode;
 }
@@ -47,6 +48,7 @@ export function SelectOptions({
   onSelect,
   selected,
   defaultText,
+  defaultValue,
 }: ISelectOptionsProps) {
   return (
     <Select
@@ -57,6 +59,7 @@ export function SelectOptions({
         menu: () => c.menu,
         singleValue: () => c.preview,
       }}
+      defaultValue={defaultValue}
       placeholder={defaultText}
       value={options.find((t) => t.value === selected)}
       onChange={onSelect}

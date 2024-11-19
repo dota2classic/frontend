@@ -1,9 +1,11 @@
 import { HydratableStore } from "@/store/HydratableStore";
 import {
   GameFound,
+  isInQueue,
   LauncherServerStarted,
   Messages,
   PartyInviteReceivedMessage,
+  QueueStateMessage,
   ReadyCheckUpdate,
   RoomState,
 } from "@/util/messages";
@@ -46,8 +48,12 @@ export interface GameInfo {
   serverURL?: string;
 }
 
+interface QueueStoreHydrateProps {
+  party?: PartyDto;
+}
+
 export class QueueStore
-  implements HydratableStore<unknown>, GameCoordinatorListener
+  implements HydratableStore<QueueStoreHydrateProps>, GameCoordinatorListener
 {
   @observable
   public pendingPartyInvite?: PartyInviteReceivedMessage = undefined;
@@ -124,6 +130,13 @@ export class QueueStore
       ban = activeBan?.banStatus;
     }
     return ban;
+  }
+
+  @computed
+  public get isNewbieParty(): boolean {
+    return this.party
+      ? this.party.players.findIndex((t) => !t.summary.playedAnyGame) !== -1
+      : true;
   }
 
   @computed
@@ -280,7 +293,12 @@ export class QueueStore
     this.socket.on(Messages.ONLINE_UPDATE, this.onOnlineUpdate);
   }
 
-  hydrate(): void {}
+  hydrate(p: QueueStoreHydrateProps): void {
+    runInAction(() => {
+      this.party = p.party;
+      console.log(`Hydrated party`, this.party);
+    });
+  }
 
   @action
   onAuthResponse = ({ success }: { success: boolean }) => {
@@ -290,17 +308,21 @@ export class QueueStore
   };
 
   @action onAuthorized = (): void => {
+    console.log("Set state -> Authorized");
     this.readyState = GameCoordinatorState.AUTHORIZED;
   };
 
   @action
   public onConnected = () => {
-    if (this.readyState === GameCoordinatorState.DISCONNECTED)
+    if (this.readyState === GameCoordinatorState.DISCONNECTED) {
+      console.log("Set state -> Connected");
       this.readyState = GameCoordinatorState.CONNECTED;
+    }
   };
 
   @action
   public onDisconnected = () => {
+    console.log("Set state -> Disconnected");
     this.readyState = GameCoordinatorState.DISCONNECTED;
     this.cleanUp();
   };
@@ -366,16 +388,10 @@ export class QueueStore
     this.fetchParty().finally();
   };
 
-  @action onQueueState = (
-    e: {
-      mode?: MatchmakingMode;
-      version?: Dota2Version;
-    } | null,
-  ): void => {
-    if (!e) return;
-    const { mode, version } = e;
-    if (mode != null && version != null) {
-      const qs: QueueState = { mode, version };
+  @action onQueueState = (e: QueueStateMessage): void => {
+    if (isInQueue(e)) {
+      const { mode, version } = e;
+      const qs = { mode, version } satisfies QueueState;
       this.searchingMode = qs;
       this.selectedMode = qs;
     } else {

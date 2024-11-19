@@ -37,7 +37,6 @@ export const MatchmakingOption = observer(
           disabled ? c.mode__disabled : undefined,
         )}
         onClick={() => {
-          if (disabled) return;
           if (!(queue.searchingMode !== undefined && !selected)) {
             onSelect(mode, version);
           }

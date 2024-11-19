@@ -83,3 +83,21 @@ export interface LauncherServerStarted {
 export interface PartyInvite {
   id: string;
 }
+
+export interface QueueStateMessage {
+  inQueue: boolean;
+}
+
+export interface InQueueStateMessage extends QueueStateMessage {
+  inQueue: true;
+  mode: MatchmakingMode;
+  version: Dota2Version;
+}
+
+export interface InactiveQueueStateMessage extends QueueStateMessage {
+  inQueue: false;
+}
+
+export const isInQueue = (q: QueueStateMessage): q is InQueueStateMessage => {
+  return q.inQueue;
+};

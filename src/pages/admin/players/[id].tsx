@@ -1,11 +1,19 @@
 import { getApi } from "@/api/hooks";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Input, PlayerSummary, Section, Table } from "@/components";
+import {
+  Button,
+  Input,
+  PlayerSummary,
+  Section,
+  SelectOptions,
+  Table,
+} from "@/components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { NextPageContext } from "next";
 import {
+  BanReason,
   PlayerSummaryDto,
   Role,
   RoleSubscriptionEntryDto,
@@ -15,6 +23,33 @@ import c from "./AdminPlayerPage.module.scss";
 import c2 from "../AdminStyles.module.scss";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { RoleNames } from "@/const/roles";
+
+const BanReasonOptions = [
+  {
+    value: BanReason.GAME_DECLINE,
+    label: "Отклонение игр",
+  },
+  {
+    value: BanReason.LOAD_FAILURE,
+    label: "Не загружается в игры",
+  },
+  {
+    value: BanReason.INFINITE_BAN,
+    label: "Пермабан",
+  },
+  {
+    value: BanReason.REPORTS,
+    label: "Репорты",
+  },
+  {
+    value: BanReason.ABANDON,
+    label: "Покидание игр",
+  },
+  {
+    value: BanReason.LEARN2PLAY,
+    label: "Учись играть",
+  },
+];
 
 const RoleRow = (props: RoleSubscriptionEntryDto) => {
   const [endTime, setEndTime] = useState(new Date(props.endTime));
@@ -101,6 +136,29 @@ export default function AdminPlayerPage({
   const { id } = useRouter().query;
   const steamId = id as string;
 
+  console.log(preloadedBans);
+  console.log(
+    BanReasonOptions.find(
+      (t) =>
+        t.value ===
+        (preloadedBans.banStatus.isBanned
+          ? preloadedBans.banStatus.status
+          : undefined),
+    ),
+  );
+  const [selectedBanReason, setSelectedBanReason] = useState<
+    { value: BanReason; label: string } | undefined
+  >(
+    BanReasonOptions.find(
+      (t) =>
+        t.value ===
+        (preloadedBans.banStatus.isBanned
+          ? preloadedBans.banStatus.status
+          : undefined),
+    ),
+  );
+
+  console.log(selectedBanReason);
   const { data, mutate } = getApi().adminApi.useAdminUserControllerBanOf(
     steamId,
     {
@@ -150,9 +208,13 @@ export default function AdminPlayerPage({
   const api = getApi().adminApi;
 
   const commitChanges = (d: Date) => {
+    console.log(selectedBanReason);
     return api
       .adminUserControllerBanId(steamId, {
-        endTime: d.getTime(),
+        endTime: d.toISOString(),
+        reason: selectedBanReason
+          ? selectedBanReason.value
+          : BanReason.INFINITE_BAN,
       })
       .then(() => mutate());
   };
@@ -269,6 +331,17 @@ export default function AdminPlayerPage({
                 >
                   Перма бан
                 </Button>
+              </td>
+              <td>
+                <SelectOptions
+                  defaultValue={BanReasonOptions.find(
+                    (t) => t.value === preloadedBans?.banStatus.status,
+                  )}
+                  options={BanReasonOptions}
+                  selected={selectedBanReason}
+                  onSelect={setSelectedBanReason}
+                  defaultText={"Причина бана"}
+                />
               </td>
             </tr>
             {combinedRoles

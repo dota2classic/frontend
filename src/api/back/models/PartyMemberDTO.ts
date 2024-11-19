@@ -18,10 +18,10 @@ import {
     BanStatusDtoFromJSON,
     BanStatusDtoFromJSONTyped,
     BanStatusDtoToJSON,
-    UserDTO,
-    UserDTOFromJSON,
-    UserDTOFromJSONTyped,
-    UserDTOToJSON,
+    PlayerSummaryDto,
+    PlayerSummaryDtoFromJSON,
+    PlayerSummaryDtoFromJSONTyped,
+    PlayerSummaryDtoToJSON,
 } from './';
 
 /**
@@ -32,16 +32,16 @@ import {
 export interface PartyMemberDTO {
     /**
      * 
-     * @type {UserDTO}
-     * @memberof PartyMemberDTO
-     */
-    user: UserDTO;
-    /**
-     * 
      * @type {BanStatusDto}
      * @memberof PartyMemberDTO
      */
     banStatus: BanStatusDto;
+    /**
+     * 
+     * @type {PlayerSummaryDto}
+     * @memberof PartyMemberDTO
+     */
+    summary: PlayerSummaryDto;
 }
 
 export function PartyMemberDTOFromJSON(json: any): PartyMemberDTO {
@@ -54,8 +54,8 @@ export function PartyMemberDTOFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'user': UserDTOFromJSON(json['user']),
         'banStatus': BanStatusDtoFromJSON(json['banStatus']),
+        'summary': PlayerSummaryDtoFromJSON(json['summary']),
     };
 }
 
@@ -68,8 +68,8 @@ export function PartyMemberDTOToJSON(value?: PartyMemberDTO | null): any {
     }
     return {
         
-        'user': UserDTOToJSON(value.user),
         'banStatus': BanStatusDtoToJSON(value.banStatus),
+        'summary': PlayerSummaryDtoToJSON(value.summary),
     };
 }
 

@@ -4,7 +4,8 @@ export enum BanReason {
   LOAD_FAILURE,
   INFINITE_BAN,
   REPORTS,
-  ABANDONED,
+  ABANDON,
+  LEARN2PLAY
 }
 
 export function BanReasonFromJSON(json: any): BanReason {
