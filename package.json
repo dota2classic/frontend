@@ -17,7 +17,7 @@
     "tst": "cd scripts && nodemon -e js ./create-wiki-data.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "docker": "docker build . --build-arg API_URL=https://dotaclassic.ru/api --build-arg VAPID_PUBLIC_KEY=BLeadyll3oCNn_oM62pZBJzSVu2ktZwE6lciUq57Xa8aS3eAyGZ67mFgNVsDg0stn5otBlVW4HIr8E5zkFUp1u8 -t dota2classic/matchmaking:dotabuff && docker push dota2classic/matchmaking:dotabuff",
+    "docker": "docker build . --build-arg API_URL=https://dotaclassic.ru/api -t dota2classic/matchmaking:dotabuff && docker push dota2classic/matchmaking:dotabuff",
     "knip": "knip"
   },
   "dependencies": {
@@ -31,14 +31,14 @@
     "howler": "^2.2.4",
     "mobx": "^6.13.2",
     "mobx-react-lite": "^4.0.7",
-    "next": "^15.0.3",
-    "qs": "^6.13.1",
-    "react": "^19.0.0-rc-66855b96-20241106",
+    "next": "15.0.3",
+    "react": "19.0.0-rc-66855b96-20241106",
     "react-copy-to-clipboard": "^5.1.0",
     "react-datepicker": "^7.4.0",
-    "react-dom": "^19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-icons": "^5.3.0",
     "react-select": "^5.8.1",
+    "sass": "^1.78.0",
     "socket.io-client": "^4.7.5",
     "swr": "^2.2.5",
     "web-push": "^3.6.7"
@@ -48,7 +48,9 @@
     "@types/cookies": "^0.9.0",
     "@types/howler": "^2.2.11",
     "@types/node": "^22.9.0",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-copy-to-clipboard": "^5.0.7",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "@types/web-push": "^3.6.4",
     "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "^9.1.0",
@@ -56,7 +58,10 @@
     "knip": "^5.37.1",
     "nodemon": "^3.1.5",
     "prettier": "3.3.3",
-    "sass": "1.78.0",
     "typescript": "^5.6.3"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }
