@@ -58,6 +58,10 @@
 .hero {
   width: 220px;
 
+  @media (max-width: 600px) {
+    width: 140px;
+  }
+
   & img {
     // margin-top: 4px;
     vertical-align: middle;

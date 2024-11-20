@@ -17,4 +17,9 @@
   & > div + div {
     margin-left: 10px;
   }
+
+  @media (max-width: 600px) {
+    flex-direction: row;
+    margin-bottom: 12px;
+  }
 }

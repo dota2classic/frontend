@@ -38,7 +38,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     const isAdmin = useIsAdmin();
 
     return (
-      <Panel className={cx(className)}>
+      <Panel className={cx(className, c.summary)}>
         <div className={c.left}>
           <PageLink
             className={c.player}

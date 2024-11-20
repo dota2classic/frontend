@@ -23,14 +23,29 @@
 
 .heroPerformance {
   grid-column: span 4;
+  @media (max-width: 600px) {
+    grid-column: span 12;
+  }
 }
 
 
 .matchHistory {
   grid-column: span 8;
+  @media (max-width: 600px) {
+    grid-column: span 12;
+  }
 }
 
 .thread {
   margin-top: 20px;
   grid-column: span 12;
+}
+
+
+
+.achievements {
+  @media (max-width: 600px) {
+    flex-direction: row;
+    overflow-x: auto;
+  }
 }

@@ -3,10 +3,10 @@ import {
   useQueryBackedParameter,
   useRouterChanging,
 } from "@/util/hooks";
-import Head from "next/head";
 import { getApi } from "@/api/hooks";
 import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import {
+  EmbedProps,
   HeroWithItemsHistoryTable,
   Pagination,
   Panel,
@@ -56,9 +56,10 @@ export default function PlayerMatches({
 
   return (
     <>
-      <Head>
-        <title>{`${preloadedSummary.user.name}`}</title>
-      </Head>
+      <EmbedProps
+        title={`${preloadedSummary.user.name} история матчей`}
+        description={`История матчей игрока ${preloadedSummary.user.name}. Список игр сыгранных в старую доту`}
+      />
 
       <PlayerSummary
         wins={preloadedSummary.wins}

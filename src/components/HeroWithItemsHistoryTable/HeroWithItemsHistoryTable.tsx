@@ -72,6 +72,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           type: ColumnType.Raw,
           name: "Режим",
           format: formatGameMode,
+          mobileOmit: true,
         },
 
         {
@@ -79,6 +80,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           name: "Длительность",
           format: (dur) => <Duration duration={dur} />,
           color: colors.grey,
+          mobileOmit: true,
         },
         {
           type: ColumnType.Raw,
@@ -101,6 +103,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
               {
                 type: ColumnType.Items,
                 name: "Предметы",
+                mobileOmit: true,
               },
             ]
           : []),

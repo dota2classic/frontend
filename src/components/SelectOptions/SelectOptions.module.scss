@@ -4,6 +4,9 @@
 .select {
   background: $bg2 !important;
   min-width: 200px;
+  @media (max-width: 600px) {
+    min-width: 160px;
+  }
 }
 
 .option {

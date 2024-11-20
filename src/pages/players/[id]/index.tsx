@@ -83,7 +83,10 @@ export default function PlayerPage({
       />
       <Section style={{ gridColumn: "span 12" }}>
         <header>Достижения</header>
-        <Panel style={{ display: "flex", gap: "10px" }}>
+        <Panel
+          className={c.achievements}
+          style={{ display: "flex", gap: "10px" }}
+        >
           {preloadedAchievements
             .sort((a, b) => b.key - a.key)
             .map((t) => (

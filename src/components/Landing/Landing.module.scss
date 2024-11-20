@@ -14,10 +14,12 @@
     right: 0;
     height: auto;
     background: #000;
+    pointer-events: none;
 
     @media (max-width: 600px) {
       height: 50vh;
       width: auto;
+      transform: translate(-50%);
     }
   }
 }
