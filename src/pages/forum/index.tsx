@@ -71,6 +71,8 @@ const RowRenderer = observer(
         .then(() => mutate());
     }, [thread.id, thread.pinned, mutate]);
 
+    const op = thread.originalPoster;
+
     return (
       <tr key={thread.externalId}>
         <td style={{ textAlign: "center" }}>
@@ -103,25 +105,23 @@ const RowRenderer = observer(
         </td>
         <td className="omit">{thread.views}</td>
         <td className="omit">
-          <PageLink
-            link={
-              AppRouter.players.player.index(thread.originalPoster.steamId).link
-            }
-            className={TableClasses.player}
-          >
-            <Image
-              width={30}
-              height={30}
-              className={TableClasses.avatar__small}
-              src={thread.originalPoster.avatar || "/avatar.png"}
-              alt=""
-            />
-            <div style={{ marginLeft: 6 }}>
-              {Number(thread.originalPoster.steamId) > 10
-                ? thread.originalPoster.name
-                : "Бот"}
-            </div>
-          </PageLink>
+          {op && (
+            <PageLink
+              link={AppRouter.players.player.index(op.steamId).link}
+              className={TableClasses.player}
+            >
+              <Image
+                width={30}
+                height={30}
+                className={TableClasses.avatar__small}
+                src={op.avatar || "/avatar.png"}
+                alt=""
+              />
+              <div style={{ marginLeft: 6 }}>
+                {Number(op.steamId) > 10 ? op.name : "Бот"}
+              </div>
+            </PageLink>
+          )}
         </td>
         <td>{thread.lastMessage && <Msg message={thread.lastMessage} />}</td>
         <td className="omit">

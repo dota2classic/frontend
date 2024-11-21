@@ -93,7 +93,7 @@ export interface ThreadDTO {
      * @type {UserDTO}
      * @memberof ThreadDTO
      */
-    originalPoster: UserDTO;
+    originalPoster?: UserDTO;
     /**
      * 
      * @type {ThreadMessageDTO}
@@ -121,7 +121,7 @@ export function ThreadDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'views': json['views'],
         'pinned': json['pinned'],
         'adminOnly': json['adminOnly'],
-        'originalPoster': UserDTOFromJSON(json['originalPoster']),
+        'originalPoster': !exists(json, 'originalPoster') ? undefined : UserDTOFromJSON(json['originalPoster']),
         'lastMessage': !exists(json, 'lastMessage') ? undefined : ThreadMessageDTOFromJSON(json['lastMessage']),
     };
 }

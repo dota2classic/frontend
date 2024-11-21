@@ -254,7 +254,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
       getApi().forumApi.forumControllerUpdateUser(steamId, {
         muteUntil: new Date(
           new Date().getTime() + 1000 * 60 * 60 * 6,
-        ).toUTCString(),
+        ).toISOString(),
       });
     },
     [consumeMessages],
@@ -314,7 +314,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
                 : 2
           }
           canMessage={hasRightToMessage}
-          threadId={thread.id}
+          threadId={`${thread.type}_${thread.id}`}
           onMessage={(msg) => consumeMessages([msg])}
         />
       )}

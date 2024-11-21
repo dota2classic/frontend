@@ -50,6 +50,8 @@
     align-self: stretch;
     padding: 12px 8px;
     margin-left: 10px;
+    overflow-x: hidden;
+
 
     & .heading {
       display: flex;
@@ -89,6 +91,8 @@
       white-space: pre-line;
       flex: 1;
       padding-top: 12px;
+      line-break: anywhere;
+      padding-right: 1rem;
     }
   }
 }

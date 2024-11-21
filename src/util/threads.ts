@@ -14,6 +14,7 @@ import { action, computed, makeObservable, observable } from "mobx";
 
 export interface Thread {
   id: string;
+  type: ThreadType;
   messages: ThreadMessageDTO[];
 }
 
@@ -83,6 +84,7 @@ class ThreadLocalState {
       : Array.from(this.messageMap.values());
     return {
       id: this.id,
+      type: this.threadType,
       messages: messagePool
         .filter((t) => !t.deleted)
         .sort(
