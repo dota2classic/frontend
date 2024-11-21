@@ -1,5 +1,5 @@
 import { getApi } from "@/api/hooks";
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   querystring,
   SortOrder,
@@ -22,7 +22,7 @@ const useThreadEventSource = (
   id: string,
   threadType: ThreadType,
   consumeMessages: (messages: ThreadMessageDTO[]) => void,
-  trigger: number = 0
+  trigger: number = 0,
 ) => {
   const bp = getApi().apiParams.basePath;
   const endpoint = getApi().forumApi.forumControllerThreadContext({
@@ -185,15 +185,22 @@ export const useThread = (
 
   const loadMore = useCallback(() => {
     state.loadMore(loadLatest, batchSize);
-  }, [loadLatest, state]);
+  }, [loadLatest,    state
 
-  useThreadEventSource(id.toString(), threadType, state.consumeMessages, trigger);
+  ]);
+
+  useThreadEventSource(
+    id.toString(),
+    threadType,
+    state.consumeMessages,
+    trigger,
+  );
 
   const handleVisibilityChange = useCallback(() => {
     if (!document.hidden) {
       // We need to load more and re-create event source so that we don't die on thread
       loadMore();
-      setTrigger(x => x + 1)
+      setTrigger((x) => x + 1);
     }
   }, [setTrigger, trigger]);
 
