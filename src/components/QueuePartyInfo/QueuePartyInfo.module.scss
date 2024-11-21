@@ -11,7 +11,7 @@
 }
 
 .searchGameBar {
-  margin-left: 100px;
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
   border: none;
@@ -23,6 +23,9 @@
     animation: pendingAnimation 2s linear infinite;
   }
 
+  & span {
+    white-space: nowrap;
+  }
 
   & span.info {
     font-size: 10px;
@@ -35,7 +38,7 @@
   position: relative;
   flex-direction: row;
 
-  width: 400px;
+  flex: 1;
 }
 
 .partyItem {
