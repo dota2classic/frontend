@@ -43,7 +43,6 @@ interface IThreadProps {
   };
 }
 
-
 export const MessageInput = observer(
   (p: {
     threadId: string;

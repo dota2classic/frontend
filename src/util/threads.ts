@@ -185,9 +185,7 @@ export const useThread = (
 
   const loadMore = useCallback(() => {
     state.loadMore(loadLatest, batchSize);
-  }, [loadLatest,    state
-
-  ]);
+  }, [loadLatest, state]);
 
   useThreadEventSource(
     id.toString(),
