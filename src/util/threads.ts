@@ -1,5 +1,5 @@
 import { getApi } from "@/api/hooks";
-import { useCallback, useEffect } from "react";
+import {useCallback, useEffect, useState} from "react";
 import {
   querystring,
   SortOrder,
@@ -22,6 +22,7 @@ const useThreadEventSource = (
   id: string,
   threadType: ThreadType,
   consumeMessages: (messages: ThreadMessageDTO[]) => void,
+  trigger: number = 0
 ) => {
   const bp = getApi().apiParams.basePath;
   const endpoint = getApi().forumApi.forumControllerThreadContext({
@@ -30,6 +31,7 @@ const useThreadEventSource = (
   });
 
   const context = JSON.stringify(endpoint);
+
   useEffect(() => {
     const es = new EventSource(
       `${bp}${endpoint.path}${endpoint.query && querystring(endpoint.query, "?")}`,
@@ -41,7 +43,7 @@ const useThreadEventSource = (
     };
 
     return () => es.close();
-  }, [consumeMessages, context]);
+  }, [consumeMessages, context, trigger]);
 };
 
 // interface ThreadLocalState {
@@ -155,6 +157,7 @@ export const useThread = (
   pg: ThreadMessagePageDTO | undefined,
   (page: number) => void,
 ] => {
+  const [trigger, setTrigger] = useState(0);
   const state = useLocalObservable<ThreadLocalState>(
     () =>
       new ThreadLocalState(id.toString(), threadType, initialMessages, page),
@@ -184,7 +187,26 @@ export const useThread = (
     state.loadMore(loadLatest, batchSize);
   }, [loadLatest, state]);
 
-  useThreadEventSource(id.toString(), threadType, state.consumeMessages);
+  useThreadEventSource(id.toString(), threadType, state.consumeMessages, trigger);
+
+  const handleVisibilityChange = useCallback(() => {
+    if (!document.hidden) {
+      // We need to load more and re-create event source so that we don't die on thread
+      loadMore();
+      setTrigger(x => x + 1)
+    }
+  }, [setTrigger, trigger]);
+
+  useEffect(() => {
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange,
+      false,
+    );
+
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
 
   if (typeof window === "undefined")
     return [

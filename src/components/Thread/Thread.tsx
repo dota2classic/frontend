@@ -43,68 +43,6 @@ interface IThreadProps {
   };
 }
 
-//
-
-// const Message: React.FC<IMessageProps> = React.memo(function Message({
-//   message,
-//   threadStyle,
-//   onDelete,
-// }: IMessageProps) {
-//   const enrichedMessage = enrichMessage(message.content);
-//
-//   const isDeletable = !!onDelete;
-//   const onDeleteWrap = useCallback(
-//     () => onDelete && onDelete(message.messageId),
-//     [message.messageId, onDelete],
-//   );
-//
-//   const roles = (
-//     <>{message.author.roles.includes(Role.ADMIN) && <MdAdminPanelSettings />}</>
-//   );
-//
-//   return (
-//     <Panel
-//       id={message.messageId}
-//       className={cx(c.message, {
-//         [c.messageTiny]: threadStyle === ThreadStyle.TINY,
-//         [c.messageSmall]: threadStyle === ThreadStyle.SMALL,
-//       })}
-//     >
-//       <div className={cx(c.user)}>
-//         <img src={message.author.avatar} alt="" />
-//         <span className={c.roles}>{roles}</span>
-//         <PageLink
-//           link={AppRouter.players.player.index(message.author.steamId).link}
-//           className={c.username}
-//         >
-//           {message.author.name}
-//         </PageLink>
-//       </div>
-//       <div className={c.right}>
-//         <div className={c.timeCreated}>
-//           <span className={c.usernameWrapper}>
-//             <PageLink
-//               link={AppRouter.players.player.index(message.author.steamId).link}
-//               className={c.username}
-//             >
-//               {message.author.name}{" "}
-//             </PageLink>
-//             <span className={c.roles}>{roles}</span>
-//           </span>
-//
-//           <div>
-//             #{message.index + 1} Добавлено{" "}
-//             {<PeriodicTimerClient time={message.createdAt} />}
-//             {isDeletable && (
-//               <MdDelete className={c.delete} onClick={onDeleteWrap} />
-//             )}
-//           </div>
-//         </div>
-//         <div className={c.content}>{enrichedMessage}</div>
-//       </div>
-//     </Panel>
-//   );
-// });
 
 export const MessageInput = observer(
   (p: {
