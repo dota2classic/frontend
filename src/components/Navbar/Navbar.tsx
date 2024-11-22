@@ -102,6 +102,7 @@ export const Navbar = observer((p: { className?: string }) => {
             <NavbarItem action={AppRouter.forum.index().link}>Форум</NavbarItem>
             {hasLiveMatches && (
               <NavbarItem
+                className={c.liveMatch}
                 action={AppRouter.matches.live.link}
                 tip={liveMatches?.length}
               >

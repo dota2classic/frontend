@@ -3,6 +3,7 @@
 
 .markdown {
   position: relative;
+  display: flex;
 
 }
 
@@ -14,7 +15,6 @@
   border-radius: 4px;
   transition: 0.3s ease;
   color: $primaryText;
-  width: 100%;
   flex: 1;
 
   //margin-bottom: 24px;

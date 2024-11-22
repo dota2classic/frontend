@@ -40,30 +40,30 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     return (
       <Panel className={cx(className, c.summary)}>
         <div className={c.left}>
-          <PageLink
-            className={c.player}
-            link={AppRouter.players.player.index(steamId).link}
-          >
+          <div className={c.player}>
             <PlayerAvatar
               width={65}
               height={65}
               src={image}
               alt={`Avatar of player ${name}`}
             />
-            <div className={c.playerName}>
+            <PageLink
+              className={cx(c.playerName, "link")}
+              link={AppRouter.players.player.index(steamId).link}
+            >
               {steamId.length > 2 ? name : `Бот #${steamId}`}
-            </div>
-          </PageLink>
+            </PageLink>
+          </div>
           <a
             target="__blank"
-            className={c.externalLink}
+            className={cx(c.externalLink, "link")}
             href={`https://dotabuff.com/players/${steamId}`}
           >
             Dotabuff
           </a>
           <a
             target="__blank"
-            className={c.externalLink}
+            className={cx(c.externalLink, "link")}
             href={steamPage(steamId)}
           >
             Steam
@@ -74,7 +74,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
               className={c.externalLink}
               link={AppRouter.admin.player(steamId).link}
             >
-              | В админке
+              В админке
             </PageLink>
           )}
         </div>

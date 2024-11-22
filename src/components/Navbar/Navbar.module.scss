@@ -119,3 +119,38 @@
     background-color: $bg2;
   }
 }
+
+
+
+@keyframes attention {
+  0% {
+    left: 0;
+  }
+
+  10%,
+  100% {
+    left: 100%;
+  }
+}
+
+.liveMatch {
+  color: $gold;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    left: 0;
+
+    height: 4px;
+    bottom: 8px;
+
+    width: 20px;
+
+    background: $gold;
+
+    animation: attention 10s ease infinite;
+  }
+}

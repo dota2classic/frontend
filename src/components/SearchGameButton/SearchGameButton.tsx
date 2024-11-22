@@ -32,7 +32,7 @@ export const SearchGameButton = observer((p: Props) => {
       </>
     );
   } else if (
-    queue.selectedMode.mode === MatchmakingMode.UNRANKED &&
+    queue.selectedMode?.mode === MatchmakingMode.UNRANKED &&
     queue.isNewbieParty
   ) {
     content = (

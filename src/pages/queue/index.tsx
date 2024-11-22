@@ -102,7 +102,7 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
         {d84.map((info) => (
           <MatchmakingOption
             selected={queue.searchingMode?.mode === info.mode}
-            localSelected={queue.selectedMode.mode === info.mode}
+            localSelected={queue.selectedMode?.mode === info.mode}
             disabled={modEnableCondition(info.mode)}
             key={`${info.mode}${info.version}`}
             onSelect={queue.setSelectedMode}

@@ -30,7 +30,7 @@ const threadFont = Rubik({
 });
 
 interface IThreadProps {
-  id: string | number;
+  id: string;
   threadType: ThreadType;
   className?: string;
   populateMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO;

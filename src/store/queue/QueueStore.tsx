@@ -29,6 +29,7 @@ import { Sounds } from "@/const/sounds";
 import { blinkTab } from "@/util/blinkTab";
 import { NotificationDto, NotificationStore } from "@/store/NotificationStore";
 import { PartyInviteNotification } from "@/components";
+import { isNewbieParty } from "@/util/party";
 
 export interface QueueState {
   mode: MatchmakingMode;
@@ -60,10 +61,7 @@ export class QueueStore
   @observable
   public searchingMode: QueueState | undefined = undefined;
   @observable
-  public selectedMode: QueueState = {
-    mode: MatchmakingMode.BOTS,
-    version: Dota2Version.Dota_684,
-  };
+  public selectedMode: QueueState | undefined = undefined;
   @observable
   public readyState: GameCoordinatorState = GameCoordinatorState.DISCONNECTED;
   @observable
@@ -134,14 +132,12 @@ export class QueueStore
 
   @computed
   public get isNewbieParty(): boolean {
-    return this.party
-      ? this.party.players.findIndex((t) => !t.summary.playedAnyGame) !== -1
-      : true;
+    return this.party ? isNewbieParty(this.party) : true;
   }
 
   @computed
   public get selectedModeBanned(): boolean {
-    if (this.selectedMode.mode === MatchmakingMode.BOTS) return false;
+    if (this.selectedMode?.mode === MatchmakingMode.BOTS) return false;
     return this.partyBanStatus?.isBanned || false;
   }
 
@@ -194,6 +190,7 @@ export class QueueStore
 
   // @action
   public enterQueue(): boolean {
+    if (!this.selectedMode) return;
     try {
       if (this.canQueue()) {
         this.startSearch(this.selectedMode);
@@ -296,6 +293,7 @@ export class QueueStore
   hydrate(p: QueueStoreHydrateProps): void {
     runInAction(() => {
       this.party = p.party;
+      this.selectedMode = QueueStore.inferDefaultMode(p.party);
       console.log(`Hydrated party`, this.party);
     });
   }
@@ -447,6 +445,7 @@ export class QueueStore
       };
     }
     this.gameInfo.serverURL = data.url;
+    this.searchingMode = undefined
     this.roomReadySound.play();
   };
 
@@ -509,7 +508,7 @@ export class QueueStore
   private canQueue() {
     if (!this.ready) throw new Error("Not ready");
     if (
-      this.selectedMode.mode === MatchmakingMode.CAPTAINS_MODE &&
+      this.selectedMode?.mode === MatchmakingMode.CAPTAINS_MODE &&
       this.party!.players.length !== 5
     ) {
       return false;
@@ -535,5 +534,24 @@ export class QueueStore
       .playerApi.playerControllerMyParty()
       .then((data) => runInAction(() => (this.party = data)))
       .catch(() => (this.party = undefined));
+  }
+
+  private static inferDefaultMode(party: PartyDto | undefined): QueueState {
+    if (party) {
+      return isNewbieParty(party)
+        ? {
+            mode: MatchmakingMode.BOTS,
+            version: Dota2Version.Dota_684,
+          }
+        : {
+            mode: MatchmakingMode.UNRANKED,
+            version: Dota2Version.Dota_684,
+          };
+    } else {
+      return {
+        mode: MatchmakingMode.BOTS,
+        version: Dota2Version.Dota_684,
+      };
+    }
   }
 }

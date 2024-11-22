@@ -139,11 +139,19 @@ class ThreadLocalState {
       )
       .then(this.consumeMessages);
   };
+
+  @action updateThread = (threadType: ThreadType, id: string) => {
+    this.threadType = threadType;
+    this.id = id;
+    this.pg = undefined;
+    this.page = 0;
+    this.messageMap.clear()
+  };
 }
 
 // TODO: this is unoptimized mess
 export const useThread = (
-  id: string | number,
+  id: string,
   threadType: ThreadType,
   initialMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO,
   loadLatest: boolean = false,
@@ -176,6 +184,13 @@ export const useThread = (
     },
     [id, threadType],
   );
+
+  // If threadId changes, we need to revalidate local state
+  useEffect(() => {
+    state.updateThread(threadType, id);
+    state.loadMore(loadLatest, batchSize)
+    console.log(`Effect ${threadType}_${id}`)
+  }, [threadType, id]);
 
   useEffect(() => {
     if (page !== undefined && typeof window !== "undefined") {

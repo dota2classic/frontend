@@ -10,16 +10,17 @@ export const Button: React.FC<
     href?: string;
     className?: string;
     onClick?: () => void;
+    mega?: boolean;
   }>
-> = ({ className, link, ...props }) => {
+> = ({ className, link, mega, ...props }) => {
   if (link)
     return (
-      <a className={cx(c.button, className)} {...props}>
+      <a className={cx(c.button, mega && c.megaButton, className)} {...props}>
         {props.children}
       </a>
     );
   return (
-    <button className={cx(c.button, className)} {...props}>
+    <button className={cx(c.button, mega && c.megaButton, className)} {...props}>
       {props.children}
     </button>
   );
