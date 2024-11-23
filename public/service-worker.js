@@ -28,7 +28,36 @@ function formatGameMode(mode) {
 }
 
 
-console.log("service worker: root")
+console.log("Service worker root!")
+
+function createHereNotification(inQueue, mode){
+  /** @type {NotificationOptions} */
+  const options = {
+    body: `В поиске уже ${inQueue} человек. Сейчас самое время поиграть в старую доту!`,
+    badge: "/minimap.webp",
+    vibrate: [100, 50, 100],
+    data: {
+      type: "@here"
+    },
+    actions: [
+      {
+        action: "yes",
+        title: "Уже иду"
+      },
+      {
+        action: "no",
+        title: "В другой раз"
+      }
+    ]
+
+  };
+  event.waitUntil(
+      self.registration.showNotification(
+          `Ставь в поиск в режим ${formatGameMode(mode)}`,
+          options,
+      ),
+  );
+}
 
 
 self.addEventListener("push", function (_event) {
@@ -42,32 +71,7 @@ self.addEventListener("push", function (_event) {
     // { type: TIME_TO_QUEUE, inQueue: number, mode: MatchmakingMode }
 
     if (data.type === "TIME_TO_QUEUE") {
-      /** @type {NotificationOptions} */
-      const options = {
-        body: `В поиске уже ${data.inQueue} человек. Сейчас самое время поиграть в старую доту!`,
-        badge: "/minimap.webp",
-        vibrate: [100, 50, 100],
-        data: {
-          type: "@here"
-        },
-        actions: [
-          {
-            action: "yes",
-            title: "Уже иду"
-          },
-          {
-            action: "no",
-            title: "В другой раз"
-          }
-        ]
-
-      };
-      event.waitUntil(
-        self.registration.showNotification(
-          `Ставь в поиск в режим ${formatGameMode(data.mode)}`,
-          options,
-        ),
-      );
+      createHereNotification(data.inQueue, data.mode)
     } else if (data.type === "GAME_READY") {
       /** @type {NotificationOptions} */
 
