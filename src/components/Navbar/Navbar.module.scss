@@ -151,8 +151,6 @@
     background: $gold;
 
     animation: attention 10s ease infinite;
-    @media (max-width: 600px) {
-      left: calc(50% + 30px);
-    }
+
   }
 }

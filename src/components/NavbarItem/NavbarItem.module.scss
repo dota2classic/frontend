@@ -77,4 +77,8 @@
   right: 0px;
   color: $primaryText;
   font-size: 14px;
+
+  @media (max-width: 600px) {
+    left: calc(50% + 30px);
+  }
 }
