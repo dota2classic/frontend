@@ -41,7 +41,7 @@ interface Column {
   color?: string;
   noname?: boolean;
 
-  maxWidth?: number
+  maxWidth?: number;
 
   mobileOmit?: boolean;
 
@@ -117,7 +117,10 @@ const ColRenderer: React.FC<{
   if (type === ColumnType.Player) {
     return (
       <td className={col.mobileOmit ? "omit" : undefined}>
-        <div className={c.player} style={col.maxWidth ? { maxWidth: col.maxWidth } : undefined}>
+        <div
+          className={c.player}
+          style={col.maxWidth ? { maxWidth: col.maxWidth } : undefined}
+        >
           <PlayerAvatar
             width={40}
             height={40}
