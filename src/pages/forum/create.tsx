@@ -1,4 +1,10 @@
-import {Button, EmbedProps, Input, MarkdownTextarea, Panel} from "@/components";
+import {
+  Button,
+  EmbedProps,
+  Input,
+  MarkdownTextarea,
+  Panel,
+} from "@/components";
 import React, { useCallback, useState } from "react";
 import c from "./Forum.module.scss";
 import { getApi } from "@/api/hooks";
@@ -18,10 +24,12 @@ export default function CreateThreadPage() {
       .then((res) => router.push(`/forum/[id]`, `/forum/${res.externalId}`));
   }, [content, title, router]);
 
-
   return (
     <Panel className={c.createThread}>
-      <EmbedProps title="Создать тему на форуме" description="Создать новую тему на форуме. Обсудить насущные вопросы" />
+      <EmbedProps
+        title="Создать тему на форуме"
+        description="Создать новую тему на форуме. Обсудить насущные вопросы"
+      />
       <h3>Название топика</h3>
       <Input
         value={title}
@@ -41,7 +49,9 @@ export default function CreateThreadPage() {
       <br />
       <br />
       {/*<div className={c.createMessage}>*/}
-        <Button mega onClick={createThread}>Создать тему</Button>
+      <Button mega onClick={createThread}>
+        Создать тему
+      </Button>
       {/*</div>*/}
     </Panel>
   );

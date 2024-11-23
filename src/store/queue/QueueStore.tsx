@@ -190,7 +190,7 @@ export class QueueStore
 
   // @action
   public enterQueue(): boolean {
-    if (!this.selectedMode) return;
+    if (!this.selectedMode) return false;
     try {
       if (this.canQueue()) {
         this.startSearch(this.selectedMode);
@@ -445,7 +445,7 @@ export class QueueStore
       };
     }
     this.gameInfo.serverURL = data.url;
-    this.searchingMode = undefined
+    this.searchingMode = undefined;
     this.roomReadySound.play();
   };
 

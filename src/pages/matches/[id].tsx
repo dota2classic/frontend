@@ -116,7 +116,7 @@ export default function MatchPage({
         <br />
         <Thread
           threadStyle={ThreadStyle.SMALL}
-          id={match.id}
+          id={match.id.toString()}
           threadType={ThreadType.MATCH}
         />
       </>

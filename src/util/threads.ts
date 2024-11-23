@@ -145,7 +145,7 @@ class ThreadLocalState {
     this.id = id;
     this.pg = undefined;
     this.page = 0;
-    this.messageMap.clear()
+    this.messageMap.clear();
   };
 }
 
@@ -188,8 +188,8 @@ export const useThread = (
   // If threadId changes, we need to revalidate local state
   useEffect(() => {
     state.updateThread(threadType, id);
-    state.loadMore(loadLatest, batchSize)
-    console.log(`Effect ${threadType}_${id}`)
+    state.loadMore(loadLatest, batchSize);
+    console.log(`Effect ${threadType}_${id}`);
   }, [threadType, id]);
 
   useEffect(() => {

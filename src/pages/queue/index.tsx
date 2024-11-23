@@ -9,7 +9,7 @@ import {
 } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
 import {
-  Button,
+  Button, EmbedProps,
   GameReadyModal,
   MatchmakingOption,
   Panel,
@@ -137,6 +137,7 @@ export default function QueuePage(props: Props) {
       <Head>
         <title>Dota2Classic - поиск игры</title>
       </Head>
+      <EmbedProps title='Поиск игры' description='Страница поиска игры в старую доту. Играй в группе со своими друзьями с ботами и другими людьми' />
       <ModeList modes={modes || props.modes} />
       <Section className={c.main}>
         <header>Группа и поиск</header>
