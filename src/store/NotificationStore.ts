@@ -66,7 +66,7 @@ export class NotificationStore implements HydratableStore<unknown> {
 
     await runInAction(async () => {
       this.registration = registration;
-    })
+    });
 
     this.setSubscription(
       (await registration.pushManager.getSubscription()) || undefined,
