@@ -136,16 +136,6 @@ export default function AdminPlayerPage({
   const { id } = useRouter().query;
   const steamId = id as string;
 
-  console.log(preloadedBans);
-  console.log(
-    BanReasonOptions.find(
-      (t) =>
-        t.value ===
-        (preloadedBans.banStatus.isBanned
-          ? preloadedBans.banStatus.status
-          : undefined),
-    ),
-  );
   const [selectedBanReason, setSelectedBanReason] = useState<
     { value: BanReason; label: string } | undefined
   >(

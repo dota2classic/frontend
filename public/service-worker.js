@@ -47,13 +47,17 @@ self.addEventListener("push", function (_event) {
         body: `В поиске уже ${data.inQueue} человек. Сейчас самое время поиграть в старую доту!`,
         badge: "/minimap.webp",
         vibrate: [100, 50, 100],
-        requireInteraction: true,
+        data: {
+          type: "@here"
+        },
         actions: [
           {
-            action: "reply",
-            title: "Reply",
-            type: "text",
-            placeholder: "Reply Comment",
+            action: "yes",
+            title: "Уже иду"
+          },
+          {
+            action: "no",
+            title: "В другой раз"
           }
         ]
 
@@ -73,10 +77,10 @@ self.addEventListener("push", function (_event) {
         vibrate: [100, 50, 100],
         requireInteraction: true,
         data: {
-          dateOfArrival: Date.now(),
-          primaryKey: "2",
+          type: "accept"
         },
       };
+
       event.waitUntil(
         self.registration.showNotification(
           `Игра в режиме ${data.mode} найдена!`,
@@ -87,8 +91,20 @@ self.addEventListener("push", function (_event) {
   }
 });
 
-self.addEventListener("notificationclick",  (e) => {
-  console.log("Notification click received.");
+self.addEventListener('notificationclick', function(e) {
   e.notification.close();
+  if(e.data && e.data.type === "@here") {
+    if (e.action === 'yes') {
+      e.waitUntil(clients.openWindow("https://dotaclassic.ru/queue"));
+    } else if (e.action === 'no') {
+      // do nothing
+    }
+  }else if(e.data && e.data.type === "accept") {
+    e.waitUntil(clients.openWindow("https://dotaclassic.ru/queue"));
+  }
+
+}, false);
+
+self.addEventListener("notificationclick",  (e) => {
   e.waitUntil(clients.openWindow("https://dotaclassic.ru"));
 });

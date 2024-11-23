@@ -41,8 +41,7 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
   if (fItem.includes("empty"))
     return (
       <span
-        style={small ? smallImageStyles : bigImageStyles}
-        className={c.img2}
+        className={cx(c.img2, { [c.small]: small })}
       />
     );
 

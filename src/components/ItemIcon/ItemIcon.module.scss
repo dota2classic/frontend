@@ -6,7 +6,7 @@
   object-fit: contain;
   width: unset;
 
-  @media (max-width: 1200px) {
+  @media (max-width: 600px) {
     height: 30px;
   }
 
@@ -23,4 +23,9 @@
   background: rgb(46, 46, 46);
   background: linear-gradient(138deg, rgba(46, 46, 46, 1) 0%, rgba(14, 14, 14, 1) 95%);
   outline: 1px solid #403d3d73;
+
+  @media (max-width: 600px) {
+    height: 30px;
+    width: 40px;
+  }
 }

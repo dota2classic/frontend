@@ -140,8 +140,6 @@ MatchPage.getInitialProps = async (
     getApi().liveApi.liveMatchControllerListMatches(),
   ]);
 
-  console.log(match, liveList);
-
   return {
     matchId,
     preloadedMatch: match,

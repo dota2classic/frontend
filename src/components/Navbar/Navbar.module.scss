@@ -138,19 +138,21 @@
   overflow: hidden;
   position: relative;
 
+
+
   &::before {
     z-index: -1;
     content: '';
     position: absolute;
     left: 0;
-
     height: 4px;
     bottom: 8px;
-
     width: 20px;
-
     background: $gold;
 
     animation: attention 10s ease infinite;
+    @media (max-width: 600px) {
+      left: calc(50% + 30px);
+    }
   }
 }

@@ -19,15 +19,27 @@
 }
 
 .liveMatch {
-  display: flex;
-  flex-direction: row;
   grid-column: span 12;
+
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(4, 1fr);
+
+  }
 }
 
 .teamTable {
   display: flex;
   flex-direction: column;
-  width: 320px;
+  grid-column: span 4;
+
+  @media (max-width: 600px) {
+    order: 1;
+  }
+
 }
 
 .playerRow {
@@ -39,6 +51,12 @@
   & + & {
     margin-top: 20px;
   }
+
+  @media (max-width: 600px) {
+    margin-top: 0 !important;
+    padding: 8px;
+  }
+
 }
 
 .playerHeroRow {
@@ -90,6 +108,16 @@
   position: relative;
   background-size: contain;
   background-image: url("/minimap.webp");
+  background-repeat: no-repeat;
+  grid-column: span 4;
+
+  @media (max-width: 600px) {
+    width: unset;
+    height: 100dvw;
+    margin: 0;
+
+    order: 0;
+  }
 
   &__small {
     width: 250px;

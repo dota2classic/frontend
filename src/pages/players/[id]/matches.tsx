@@ -135,7 +135,6 @@ PlayerMatches.getInitialProps = async (
 
   const page = numberOrDefault(ctx.query.page, 0);
   const mode = numberOrDefault(ctx.query.mode, undefined);
-  console.log(hero, playerId, page, mode);
 
   const [preloadedSummary, initialMatches] = await Promise.combine<
     PlayerSummaryDto,
