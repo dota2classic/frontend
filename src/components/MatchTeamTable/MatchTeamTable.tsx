@@ -238,12 +238,14 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
                 hc.includes("Items") ? c.mobileHidden : undefined,
               )}
             >
-              <div className={c.itemsWrapper}><ItemIcon item={player.item0} />
+              <div className={c.itemsWrapper}>
+                <ItemIcon item={player.item0} />
                 <ItemIcon item={player.item1} />
                 <ItemIcon item={player.item2} />
                 <ItemIcon item={player.item3} />
                 <ItemIcon item={player.item4} />
-                <ItemIcon item={player.item5} /></div>
+                <ItemIcon item={player.item5} />
+              </div>
             </td>
             <td className={hc.includes("MMR") ? c.mobileHidden : undefined}>
               {(player.mmr?.change && (

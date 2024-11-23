@@ -39,11 +39,7 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
       : item.replace("item_", "");
 
   if (fItem.includes("empty"))
-    return (
-      <span
-        className={cx(c.img2, { [c.small]: small })}
-      />
-    );
+    return <span className={cx(c.img2, { [c.small]: small })} />;
 
   const url = fItem.includes("empty")
     ? `/items/emptyitembg.webp`

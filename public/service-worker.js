@@ -104,7 +104,3 @@ self.addEventListener('notificationclick', function(e) {
   }
 
 }, false);
-
-self.addEventListener("notificationclick",  (e) => {
-  e.waitUntil(clients.openWindow("https://dotaclassic.ru"));
-});
