@@ -52,7 +52,10 @@ const Msg = ({ message }: { message: ThreadMessageDTO }) => {
         >
           {author.name}
         </PageLink>
-        <div style={{ marginLeft: 6 }} className={cx(c.block)}>
+        <div
+          style={{ marginLeft: 6, whiteSpace: "nowrap" }}
+          className={cx(c.block)}
+        >
           <TimeAgo date={message.createdAt} />
         </div>
       </div>
@@ -84,7 +87,7 @@ const RowRenderer = observer(
             <FaMessage />
           )}
         </td>
-        <td>
+        <td className={c.forumTitle}>
           <PageLink
             link={
               AppRouter.forum.thread(thread.externalId, thread.threadType).link
@@ -186,7 +189,7 @@ export default function ForumIndexPage({ threads, page }: Props) {
           <tr>
             <th style={{ width: 20 }}></th>
             {/*<th style={{ width: 10 }}>M</th>*/}
-            <th>Топик</th>
+            <th className={c.forumTitle}>Топик</th>
             <th className="omit" style={{ width: 40 }}>
               Сообщений
             </th>

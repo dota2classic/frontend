@@ -47,5 +47,6 @@
   @media (max-width: 600px) {
     flex-direction: row;
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
   }
 }

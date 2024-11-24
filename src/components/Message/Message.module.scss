@@ -89,6 +89,7 @@
 
     & .content {
       white-space: pre-line;
+      overflow-wrap: break-word;
       flex: 1;
       padding-top: 12px;
       line-break: anywhere;

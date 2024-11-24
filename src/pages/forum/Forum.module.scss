@@ -59,3 +59,20 @@
   grid-column: span 23;
   grid-row: auto;
 }
+
+
+
+.forumTitle {
+  white-space: nowrap;
+  max-width: 500px;
+  @media (max-width: 600px) {
+    max-width: 130px;
+  }
+
+  & a {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow-x: hidden;
+  }
+}

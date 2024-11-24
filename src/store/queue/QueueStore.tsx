@@ -487,6 +487,9 @@ export class QueueStore
       mode,
       version,
     };
+    if (typeof window !== "undefined") {
+      localStorage.setItem("selectedMode", JSON.stringify(this.selectedMode));
+    }
   };
 
   // Actions
@@ -563,6 +566,11 @@ export class QueueStore
             version: Dota2Version.Dota_684,
           };
     } else {
+      // Try get from localstroage
+      if (typeof window !== "undefined") {
+        const fromLS = localStorage.getItem("selectedMode");
+        if (fromLS) return JSON.parse(fromLS);
+      }
       return {
         mode: MatchmakingMode.BOTS,
         version: Dota2Version.Dota_684,
