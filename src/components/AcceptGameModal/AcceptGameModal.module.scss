@@ -12,7 +12,6 @@
 .header {
   display: flex;
   flex-direction: column;
-  background-color: $bg1;
   padding: 16px 12px;
   text-align: center;
 
@@ -29,6 +28,29 @@
     margin-block-start: 0;
     margin-block-end: 0;
   }
+}
+
+
+.nonPrimaryModal {
+
+  width: fit-content;
+  height: fit-content;
+  background: $bg2;
+
+  //padding: 40px;
+  border-radius: 0px;
+
+  box-shadow: 0 0 10px 10px rgba(150, 150, 150, 0.25);
+
+  animation: flaming 1s ease alternate infinite;
+
+  & h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: normal;
+    color: #dcddde;
+  }
+
 }
 
 .modal {
@@ -95,7 +117,6 @@
 .accept {
   box-shadow: 0 0 8px rgba(10, 10, 10, 0.4);
   background: radial-gradient(circle, rgb(11 97 12) 0%, rgb(21 61 25) 114%);
-
 
   &:hover {
     box-shadow: 0 0 8px rgba(100, 187, 120, 0.32);
@@ -166,33 +187,60 @@
 .dots {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  padding: 40px;
-
-  & div {
-    width: 14px;
-    height: 14px;
-    background: $bg1;
-    transition: 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-  }
+  justify-content: space-around;
 }
 
 .acceptedDot {
   background: $gold !important;
 }
 
-
-
 .connectInfo {
-
   & a {
     width: unset;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
 
+
+.dots__modal {
+  & .dots {
+    padding: 16px;
+    gap: 4px;
   }
 
+  & .avatarPreview {
+    border-width: 2px;
+    border-radius: 2px;
+    border-style: solid;
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+.avatarPreview {
+  border-radius: 2px;
+  border-style: solid;
+
+
+  width: 34px !important;
+  height: 34px !important;
+  border-width: 1px;
+}
+
+.accepted {
+  border-color: $green;
+}
+
+.pending {
+  border-color: $primaryTextDark2;
+}
+
+.decline {
+  border-color: $red;
+}
+
+.timeout {
+  border-color: $red;
 }

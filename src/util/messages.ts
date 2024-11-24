@@ -9,6 +9,7 @@ export class RoomState {
     public readonly accepted: number,
     public readonly total: number,
     public readonly iAccepted: boolean,
+    public readonly entries: ReadyCheckEntry[],
   ) {}
 }
 
@@ -46,11 +47,23 @@ export enum Messages {
   ONLINE_UPDATE = "ONLINE_UPDATE",
 }
 
+export enum ReadyState {
+  READY,
+  DECLINE,
+  TIMEOUT,
+  PENDING,
+}
+
+export interface ReadyCheckEntry {
+  steam_id: string;
+  state: ReadyState;
+}
 export interface ReadyCheckUpdate {
   roomID: string;
   mode: MatchmakingMode;
   total: number;
   accepted: number;
+  entries: ReadyCheckEntry[];
 }
 
 export interface UpdateQueue {
@@ -68,6 +81,7 @@ export interface GameFound {
   total: number;
   roomID: string;
   accepted: number;
+  entries: ReadyCheckEntry[];
 }
 
 export interface ReadyCheck {

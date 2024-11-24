@@ -85,6 +85,17 @@
   align-items: center;
 }
 
+
+@keyframes something {
+  0% {
+    border-color: $blueHighlight3;
+  }
+
+  100% {
+    border-color: $blueHighlight2;
+  }
+}
+
 .gameReady {
   background: $bg2;
   margin: 0;
@@ -93,6 +104,8 @@
   border: 2px solid $primaryTextDark;
   border-radius: 6px;
   padding: 8px 12px;
+
+  animation: something 2s infinite ease-out alternate;
 
 
   // Move to base

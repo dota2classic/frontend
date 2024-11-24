@@ -27,6 +27,10 @@ export class UserCacheStore implements HydratableStore<unknown> {
   }
 
   public tryGetUser(id: string): UserHolder {
+    // Validate
+    if (!id || Number.isNaN(Number(id)))
+      return { resolver: undefined, entry: undefined };
+
     let v = this.userMap[id];
     if (!v) {
       this.userMap[id] = { entry: undefined, resolver: undefined };

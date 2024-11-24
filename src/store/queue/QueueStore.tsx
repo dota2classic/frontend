@@ -6,7 +6,9 @@ import {
   Messages,
   PartyInviteReceivedMessage,
   QueueStateMessage,
+  ReadyCheckEntry,
   ReadyCheckUpdate,
+  ReadyState,
   RoomState,
 } from "@/util/messages";
 import { io, Socket } from "socket.io-client";
@@ -46,6 +48,7 @@ export interface GameInfo {
   total: number;
   roomID: string;
   iAccepted: boolean;
+  entries: ReadyCheckEntry[];
   serverURL?: string;
 }
 
@@ -332,6 +335,7 @@ export class QueueStore
       total: gf.total,
       roomID: gf.roomID,
       iAccepted: false,
+      entries: gf.entries,
     };
     this.playGameFoundSound();
     blinkTab("Поиск игры - dota2classic.ru", "Игра найдена!");
@@ -358,6 +362,7 @@ export class QueueStore
         total: 0,
         roomID: "",
         iAccepted: true,
+        entries: [],
       };
     }
     this.gameInfo.serverURL = url;
@@ -399,9 +404,16 @@ export class QueueStore
 
   @action onReadyCheckUpdate = (data: ReadyCheckUpdate): void => {
     if (!this.gameInfo) return;
+    const iAcceptedEntry = data.entries.find(
+      (entry) => entry.steam_id === this.authStore.parsedToken?.sub,
+    );
     this.gameInfo.accepted = data.accepted;
     this.gameInfo.total = data.total;
     this.gameInfo.mode = data.mode;
+    this.gameInfo.entries = data.entries;
+    this.gameInfo.iAccepted =
+      this.gameInfo.iAccepted ||
+      (iAcceptedEntry ? iAcceptedEntry.state === ReadyState.READY : false);
   };
 
   @action onRoomNotReady = (): void => {
@@ -421,6 +433,7 @@ export class QueueStore
           total: state.total,
           roomID: state.roomId,
           iAccepted: state.iAccepted,
+          entries: state.entries,
         };
       else
         this.gameInfo = {
@@ -430,6 +443,7 @@ export class QueueStore
           total: state.total,
           roomID: state.roomId,
           iAccepted: state.iAccepted,
+          entries: state.entries,
         };
     }
   };
@@ -442,6 +456,7 @@ export class QueueStore
         total: 0,
         roomID: data.info.roomId,
         iAccepted: true,
+        entries: [],
       };
     }
     this.gameInfo.serverURL = data.url;

@@ -28,6 +28,9 @@ import { ThreadStyle } from "@/components/Thread/types";
 import { FaBell } from "react-icons/fa";
 import { observer } from "mobx-react-lite";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { QueueGameState, useQueueState } from "@/util/useQueueState";
+import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
+import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -94,7 +97,7 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
     }
   };
 
-  const isAbleToQueue = !queue.gameInfo;
+  const queueGameState = useQueueState();
 
   return (
     <Section className={c.modes}>
@@ -113,9 +116,17 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
         ))}
         <NotificationSetting />
         <div style={{ flex: 1 }} />
-        {isAbleToQueue && <SearchGameButton visible={true} />}
-        {queue.gameInfo?.serverURL && (
+        {queueGameState === QueueGameState.NO_GAME && (
+          <SearchGameButton visible={true} />
+        )}
+        {queueGameState === QueueGameState.SERVER_READY && (
           <GameReadyModal className={c.gameReady} />
+        )}
+        {queueGameState === QueueGameState.READY_CHECK_WAITING_OTHER && (
+          <WaitingAccept className={c.gameReady} />
+        )}
+        {queueGameState === QueueGameState.SEARCHING_SERVER && (
+          <ServerSearching className={c.gameReady} />
         )}
       </Panel>
     </Section>

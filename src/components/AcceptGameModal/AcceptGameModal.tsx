@@ -6,49 +6,38 @@ import { GameReadyModal } from "@/components";
 import { useStore } from "@/store";
 import { formatGameMode } from "@/util/gamemode";
 import { useRouter } from "next/router";
+import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
+import { QueueGameState, useQueueState } from "@/util/useQueueState";
+import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
 
 export const AcceptGameModal = observer(() => {
-  const qStore = useStore().queue;
-  const q = qStore;
+  const { queue } = useStore();
 
   const router = useRouter();
   const isQueuePage = router.pathname === "/queue";
 
-  if (q.isSearchingServer)
-    return (
-      <div className={c.modalWrapper}>
-        <div className={c.modal}>
-          <h2>Идет поиск сервера...</h2>
-        </div>
-      </div>
-    );
+  const queueGameState = useQueueState();
 
-  if (q.gameInfo?.serverURL) {
-    if (!isQueuePage)
-      return <GameReadyModal className={cx(c.modal, c.inline)} />;
-    return null;
-  }
+  // First, display things we should always display
 
-  if (!q.gameInfo) return null;
-
-  if (!q.gameInfo.iAccepted)
+  if (queueGameState === QueueGameState.READY_CHECK_WAITING_USER) {
     return (
       <div className={c.modalWrapper}>
         <div className={c.modal}>
           <div className={c.header}>
             <h4>Ваша игра готова</h4>
-            <h3>{formatGameMode(q.gameInfo.mode)}</h3>
+            <h3>{formatGameMode(queue.gameInfo!.mode)}</h3>
           </div>
           <div className={c.buttons}>
             <button
               className={cx(c.button2, c.accept)}
-              onClick={qStore.acceptGame}
+              onClick={queue.acceptGame}
             >
               Принять
             </button>
             <button
               className={cx(c.button2, c.decline)}
-              onClick={qStore.declineGame}
+              onClick={queue.declineGame}
             >
               Отклонить
             </button>
@@ -56,26 +45,17 @@ export const AcceptGameModal = observer(() => {
         </div>
       </div>
     );
+  }
 
-  return (
-    <div className={c.modalWrapper}>
-      <div className={c.modal}>
-        <div className={c.header}>
-          <h4>Ожидаем остальных игроков</h4>
-          <h3>
-            {q.gameInfo?.accepted === undefined ? 0 : q.gameInfo!.accepted} из{" "}
-            {q.gameInfo.total}...
-          </h3>
-        </div>
-        <div className={c.dots}>
-          {new Array(q.gameInfo.total).fill(null).map((_, t) => (
-            <div
-              key={t}
-              className={t < q.gameInfo!.accepted ? c.acceptedDot : undefined}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+  // Show nothing on queue page, only accept big modal
+  if (isQueuePage) return null;
+
+  // TODO: move to right bottom corner
+  if (queueGameState === QueueGameState.SEARCHING_SERVER)
+    return <ServerSearching className={cx(c.nonPrimaryModal)} />;
+  else if (queueGameState === QueueGameState.READY_CHECK_WAITING_OTHER) {
+    return <WaitingAccept className={cx(c.nonPrimaryModal, c.dots__modal)} />;
+  } else if (queueGameState === QueueGameState.SERVER_READY) {
+    return <GameReadyModal className={cx(c.modal, c.inline)} />;
+  }
 });
