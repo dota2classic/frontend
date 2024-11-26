@@ -42,6 +42,12 @@ export interface PartyMemberDTO {
      * @memberof PartyMemberDTO
      */
     summary: PlayerSummaryDto;
+    /**
+     * 
+     * @type {string}
+     * @memberof PartyMemberDTO
+     */
+    session?: string;
 }
 
 export function PartyMemberDTOFromJSON(json: any): PartyMemberDTO {
@@ -56,6 +62,7 @@ export function PartyMemberDTOFromJSONTyped(json: any, ignoreDiscriminator: bool
         
         'banStatus': BanStatusDtoFromJSON(json['banStatus']),
         'summary': PlayerSummaryDtoFromJSON(json['summary']),
+        'session': !exists(json, 'session') ? undefined : json['session'],
     };
 }
 
@@ -70,6 +77,7 @@ export function PartyMemberDTOToJSON(value?: PartyMemberDTO | null): any {
         
         'banStatus': BanStatusDtoToJSON(value.banStatus),
         'summary': PlayerSummaryDtoToJSON(value.summary),
+        'session': value.session,
     };
 }
 

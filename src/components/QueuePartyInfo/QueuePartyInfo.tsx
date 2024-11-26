@@ -58,6 +58,7 @@ export const QueuePartyInfo = observer(() => {
                 c.partyItem,
                 t.summary.user.steamId === data?.leader.steamId && c.leader,
                 t.banStatus?.isBanned && c.banned,
+                t.session && c.playing,
               )}
             >
               <img

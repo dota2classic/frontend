@@ -1,16 +1,4 @@
 import { HydratableStore } from "@/store/HydratableStore";
-import {
-  GameFound,
-  isInQueue,
-  LauncherServerStarted,
-  Messages,
-  PartyInviteReceivedMessage,
-  QueueStateMessage,
-  ReadyCheckEntry,
-  ReadyCheckUpdate,
-  ReadyState,
-  RoomState,
-} from "@/util/messages";
 import { io, Socket } from "socket.io-client";
 import {
   action,
@@ -20,7 +8,6 @@ import {
   runInAction,
 } from "mobx";
 import { AppApi, getApi } from "@/api/hooks";
-import { GameCoordinatorListener } from "@/store/queue/game-coordinator.listener";
 import { AuthStore } from "@/store/AuthStore";
 import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
 import { BanStatusDto, PartyDto, PartyMemberDTO } from "@/api/back";
@@ -28,10 +15,29 @@ import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { DefaultQueueHolder } from "@/store/queue/mock";
 import { Howl } from "howler";
 import { Sounds } from "@/const/sounds";
-import { blinkTab } from "@/util/blinkTab";
 import { NotificationDto, NotificationStore } from "@/store/NotificationStore";
-import { PartyInviteNotification } from "@/components";
-import { isNewbieParty } from "@/util/party";
+import { isNewbieParty, isPartyInGame } from "@/util/party";
+import { PlayerQueueStateMessageS2C } from "@/store/queue/messages/s2c/player-queue-state-message.s2c";
+import { GameCoordinatorNewListener } from "@/store/queue/game-coordinator-new.listener";
+import { OnlineUpdateMessageS2C } from "@/store/queue/messages/s2c/online-update-message.s2c";
+import { PartyInviteExpiredMessageS2C } from "@/store/queue/messages/s2c/party-invite-expired-message.s2c";
+import { PartyInviteReceivedMessageS2C } from "@/store/queue/messages/s2c/party-invite-received-message.s2c";
+import { PlayerGameStateMessageS2C } from "@/store/queue/messages/s2c/player-game-state-message.s2c";
+import { PlayerPartyInvitationsMessageS2C } from "@/store/queue/messages/s2c/player-party-invitations-message.s2c";
+import {
+  PlayerRoomStateMessageS2C,
+  ReadyState,
+} from "@/store/queue/messages/s2c/player-room-state-message.s2c";
+import { QueueStateMessageS2C } from "@/store/queue/messages/s2c/queue-state-message.s2c";
+import { MessageTypeS2C } from "@/store/queue/messages/s2c/message-type.s2c";
+import { MessageTypeC2S } from "@/store/queue/messages/c2s/message-type.c2s";
+import { SetReadyCheckMessageC2S } from "@/store/queue/messages/c2s/set-ready-check-message.c2s";
+import { InviteToPartyMessageC2S } from "@/store/queue/messages/c2s/invite-to-party-message.c2s";
+import { AcceptPartyInviteMessageC2S } from "@/store/queue/messages/c2s/accept-party-invite-message.c2s";
+import { PlayerServerSearchingMessageS2C } from "@/store/queue/messages/s2c/player-server-searching-message.s2c";
+import { PartyInviteNotification, PleaseQueueNotification } from "@/components";
+import { EnterQueueMessageC2S } from "@/store/queue/messages/c2s/enter-queue-message.c2s";
+import { PleaseEnterQueueMessageS2C } from "@/store/queue/messages/s2c/please-enter-queue-message.s2c";
 
 export interface QueueState {
   mode: MatchmakingMode;
@@ -42,41 +48,24 @@ export type QueueHolder = {
   [key: string]: number;
 };
 
-export interface GameInfo {
-  mode: MatchmakingMode;
-  accepted: number;
-  total: number;
-  roomID: string;
-  iAccepted: boolean;
-  entries: ReadyCheckEntry[];
-  serverURL?: string;
-}
-
 interface QueueStoreHydrateProps {
   party?: PartyDto;
 }
 
 export class QueueStore
-  implements HydratableStore<QueueStoreHydrateProps>, GameCoordinatorListener
+  implements
+    HydratableStore<QueueStoreHydrateProps>,
+    GameCoordinatorNewListener
 {
-  @observable
-  public pendingPartyInvite?: PartyInviteReceivedMessage = undefined;
-  @observable
-  public searchingMode: QueueState | undefined = undefined;
   @observable
   public selectedMode: QueueState | undefined = undefined;
   @observable
   public readyState: GameCoordinatorState = GameCoordinatorState.DISCONNECTED;
   @observable
   public inQueue: QueueHolder = DefaultQueueHolder;
-  @observable
-  public gameInfo: GameInfo | undefined = undefined;
-  @observable
-  public party: PartyDto | undefined = undefined;
+
   @observable
   public connected: boolean = false;
-  @observable
-  public authorized: boolean = false;
 
   @observable
   public online: string[] = [];
@@ -86,6 +75,21 @@ export class QueueStore
   private partyInviteReceivedSound!: Howl;
 
   private socket!: Socket;
+
+  @observable
+  public party: PartyDto | undefined = undefined;
+
+  @observable
+  public queueState: PlayerQueueStateMessageS2C | undefined = undefined;
+
+  @observable
+  public gameState: PlayerGameStateMessageS2C | undefined = undefined;
+
+  @observable
+  public roomState: PlayerRoomStateMessageS2C | undefined = undefined;
+
+  @observable
+  public serverSearching: boolean = false;
 
   constructor(
     private readonly authStore: AuthStore,
@@ -109,14 +113,7 @@ export class QueueStore
     });
     this.connect();
 
-    this.periodicallyFetchParty();
-  }
-
-  private periodicallyFetchParty() {
     this.fetchParty().finally();
-    setInterval(() => {
-      this.fetchParty().finally();
-    }, 5000);
   }
 
   @computed
@@ -139,9 +136,25 @@ export class QueueStore
   }
 
   @computed
+  public get isPartyInGame(): boolean {
+    return this.party ? isPartyInGame(this.party) : true;
+  }
+
+  @computed
   public get selectedModeBanned(): boolean {
     if (this.selectedMode?.mode === MatchmakingMode.BOTS) return false;
     return this.partyBanStatus?.isBanned || false;
+  }
+
+  @computed
+  public get iAccepted(): boolean {
+    return this.roomState
+      ? this.roomState.entries.findIndex(
+          (t) =>
+            t.steamId === this.authStore.parsedToken?.sub &&
+            t.state === ReadyState.READY,
+        ) !== -1
+      : false;
   }
 
   @computed
@@ -152,43 +165,35 @@ export class QueueStore
   @computed
   public get ready(): boolean {
     return (
-      this.readyState === GameCoordinatorState.AUTHORIZED &&
+      this.readyState === GameCoordinatorState.CONNECTION_COMPLETE &&
       this.party !== undefined &&
       !this.needAuth
     );
   }
 
-  @computed
-  public get isSearchingServer(): boolean {
-    if (!this.gameInfo) return false;
-    return (
-      this.gameInfo.accepted === this.gameInfo.total && !this.gameInfo.serverURL
-    );
-  }
-
   @action
   public cancelSearch() {
-    this.searchingMode = undefined;
-    this.socket.emit(Messages.LEAVE_ALL_QUEUES);
+    this.socket.emit(MessageTypeC2S.LEAVE_ALL_QUEUES);
   }
 
   @action
-  public startSearch = (qs: QueueState) => {
-    this.searchingMode = qs;
-    this.socket.emit(Messages.ENTER_QUEUE, qs);
+  public startSearch = (mode: MatchmakingMode, version: Dota2Version) => {
+    this.socket.emit(
+      MessageTypeC2S.ENTER_QUEUE,
+      new EnterQueueMessageC2S(mode, version),
+    );
   };
 
   @action
   public acceptGame = () => {
-    this.acceptPendingGame(this.gameInfo?.roomID);
-    if (this.gameInfo) this.gameInfo.iAccepted = true;
+    if (!this.roomState) return;
+    this.acceptPendingGame(this.roomState.roomId);
   };
 
   @action
   public declineGame = () => {
-    this.declinePendingGame(this.gameInfo?.roomID);
-    this.gameInfo = undefined;
-    this.cancelSearch();
+    if (!this.roomState) return;
+    this.declinePendingGame(this.roomState.roomId);
   };
 
   // @action
@@ -196,7 +201,7 @@ export class QueueStore
     if (!this.selectedMode) return false;
     try {
       if (this.canQueue()) {
-        this.startSearch(this.selectedMode);
+        this.startSearch(this.selectedMode.mode, this.selectedMode.version);
         return true;
       } else {
         return false;
@@ -207,36 +212,37 @@ export class QueueStore
     }
   }
 
-  public acceptPendingGame = (roomId?: string) => {
-    this.socket.emit(Messages.SET_READY_CHECK, {
-      roomID: roomId,
-      accept: true,
-    });
+  public acceptPendingGame = (roomId: string) => {
+    this.socket.emit(
+      MessageTypeC2S.SET_READY_CHECK,
+      new SetReadyCheckMessageC2S(roomId, true),
+    );
   };
 
-  public declinePendingGame = (roomId?: string) => {
-    this.socket.emit(Messages.SET_READY_CHECK, {
-      roomID: roomId,
-      accept: false,
-    });
+  public declinePendingGame = (roomId: string) => {
+    this.socket.emit(
+      MessageTypeC2S.SET_READY_CHECK,
+      new SetReadyCheckMessageC2S(roomId, false),
+    );
   };
 
   @action
   public inviteToParty = (id: string) => {
-    this.socket.emit(Messages.INVITE_TO_PARTY, {
-      id,
-    });
+    this.socket.emit(
+      MessageTypeC2S.INVITE_TO_PARTY,
+      new InviteToPartyMessageC2S(id),
+    );
   };
 
   public submitPartyInvite = (id: string, accept: boolean) => {
-    this.socket.emit(Messages.ACCEPT_PARTY_INVITE, {
-      accept,
-      id,
-    });
+    this.socket.emit(
+      MessageTypeC2S.ACCEPT_PARTY_INVITE,
+      new AcceptPartyInviteMessageC2S(id, accept),
+    );
   };
 
   public leaveParty = () => {
-    this.socket.emit(Messages.LEAVE_PARTY);
+    this.socket.emit(MessageTypeC2S.LEAVE_PARTY);
   };
 
   disconnect() {
@@ -255,7 +261,7 @@ export class QueueStore
     }
 
     this.socket = io("wss://dotaclassic.ru", {
-      // this.socket = io("ws://localhost:5010", {
+      path: "/newsocket",
       transports: ["websocket"],
       autoConnect: false,
       auth: {
@@ -272,25 +278,38 @@ export class QueueStore
     this.socket.on("disconnect", () => {
       this.onDisconnected();
       this.connected = false;
-      this.authorized = false;
     });
 
-    this.socket.on(Messages.QUEUE_UPDATE, this.onQueueUpdate);
-    this.socket.on(Messages.AUTH, this.onAuthResponse);
-    this.socket.on(Messages.GAME_FOUND, this.onGameFound);
-    this.socket.on(Messages.READY_CHECK_UPDATE, this.onReadyCheckUpdate);
-    this.socket.on(Messages.SERVER_STARTED, this.onServerReady);
-    this.socket.on(Messages.ROOM_STATE, this.onRoomState);
-    this.socket.on(Messages.ROOM_NOT_READY, this.onRoomNotReady);
-    this.socket.on(Messages.QUEUE_STATE, this.onQueueState);
-    this.socket.on(Messages.MATCH_FINISHED, this.onMatchFinished);
-    this.socket.on(Messages.MATCH_STATE, this.onMatchState);
-    this.socket.on(Messages.MATCH_RESULTS_READY, this.onMatchFinished);
-    this.socket.on(Messages.PARTY_INVITE_RECEIVED, this.onPartyInviteReceived);
-    this.socket.on(Messages.PARTY_INVITE_EXPIRED, this.onPartyInviteExpired);
-    this.socket.on(Messages.PARTY_UPDATED, this.onPartyUpdated);
-    this.socket.on(Messages.BAD_AUTH, this.badAuth);
-    this.socket.on(Messages.ONLINE_UPDATE, this.onOnlineUpdate);
+    this.socket.on(
+      MessageTypeS2C.CONNECTION_COMPLETE,
+      this.onConnectionComplete,
+    );
+    this.socket.on(MessageTypeS2C.GO_QUEUE, this.onPleaseEnterQueue);
+    this.socket.on(MessageTypeS2C.QUEUE_STATE, this.onQueueState);
+    this.socket.on(MessageTypeS2C.PLAYER_QUEUE_STATE, this.onPlayerQueueState);
+    this.socket.on(MessageTypeS2C.PLAYER_ROOM_STATE, this.onPlayerRoomState);
+    this.socket.on(MessageTypeS2C.PLAYER_ROOM_FOUND, this.onPlayerRoomFound);
+    this.socket.on(MessageTypeS2C.PLAYER_PARTY_STATE, this.onPlayerPartyState);
+    this.socket.on(MessageTypeS2C.PLAYER_GAME_STATE, this.onPlayerGameState);
+    this.socket.on(MessageTypeS2C.PLAYER_GAME_READY, this.onPlayerGameReady);
+    this.socket.on(
+      MessageTypeS2C.PLAYER_SERVER_SEARCHING,
+      this.onPlayerServerSearching,
+    );
+    this.socket.on(MessageTypeS2C.ONLINE_UPDATE, this.onOnlineUpdate);
+
+    this.socket.on(
+      MessageTypeS2C.PLAYER_PARTY_INVITES_STATE,
+      this.onPlayerPartyInvitations,
+    );
+    this.socket.on(
+      MessageTypeS2C.PARTY_INVITE_RECEIVED,
+      this.onPartyInviteReceived,
+    );
+    this.socket.on(
+      MessageTypeS2C.PARTY_INVITE_EXPIRED,
+      this.onPartyInviteExpired,
+    );
   }
 
   hydrate(p: QueueStoreHydrateProps): void {
@@ -300,18 +319,6 @@ export class QueueStore
       console.log(`Hydrated party`, this.party);
     });
   }
-
-  @action
-  onAuthResponse = ({ success }: { success: boolean }) => {
-    if (success) {
-      this.onAuthorized();
-    }
-  };
-
-  @action onAuthorized = (): void => {
-    console.log("Set state -> Authorized");
-    this.readyState = GameCoordinatorState.AUTHORIZED;
-  };
 
   @action
   public onConnected = () => {
@@ -326,155 +333,6 @@ export class QueueStore
     console.log("Set state -> Disconnected");
     this.readyState = GameCoordinatorState.DISCONNECTED;
     this.cleanUp();
-  };
-
-  @action onGameFound = (gf: GameFound): void => {
-    this.gameInfo = {
-      mode: gf.mode,
-      accepted: gf.accepted,
-      total: gf.total,
-      roomID: gf.roomID,
-      iAccepted: false,
-      entries: gf.entries,
-    };
-    this.playGameFoundSound();
-    blinkTab("Поиск игры - dota2classic.ru", "Игра найдена!");
-  };
-
-  @action onMatchFinished = (): void => {
-    this.gameInfo = undefined;
-  };
-
-  @action onOnlineUpdate = ({ online }: { online: string[] }): void => {
-    this.online = online;
-  };
-
-  @action onMatchState = (url?: string): void => {
-    if (!url && this.gameInfo) {
-      this.gameInfo.serverURL = undefined;
-      return;
-    } else if (!url && !this.gameInfo) return;
-
-    if (!this.gameInfo) {
-      this.gameInfo = {
-        mode: MatchmakingMode.BOTS,
-        accepted: 0,
-        total: 0,
-        roomID: "",
-        iAccepted: true,
-        entries: [],
-      };
-    }
-    this.gameInfo.serverURL = url;
-  };
-
-  @action onPartyInviteExpired = (id: string): void => {
-    this.notify.dequeue(id);
-  };
-
-  @action onPartyInviteReceived = (t: PartyInviteReceivedMessage): void => {
-    const dto = new NotificationDto(
-      (
-        <PartyInviteNotification
-          inviter={t.leader}
-          onDecline={() => this.declineParty(t.inviteId)}
-          onAccept={() => this.acceptParty(t.inviteId)}
-        />
-      ),
-      t.inviteId,
-    );
-    this.notify.enqueueNotification(dto);
-    this.partyInviteReceivedSound.play();
-  };
-
-  @action onPartyUpdated = (): void => {
-    this.fetchParty().finally();
-  };
-
-  @action onQueueState = (e: QueueStateMessage): void => {
-    if (isInQueue(e)) {
-      const { mode, version } = e;
-      const qs = { mode, version } satisfies QueueState;
-      this.searchingMode = qs;
-      this.selectedMode = qs;
-    } else {
-      this.searchingMode = undefined;
-    }
-  };
-
-  @action onReadyCheckUpdate = (data: ReadyCheckUpdate): void => {
-    if (!this.gameInfo) return;
-    const iAcceptedEntry = data.entries.find(
-      (entry) => entry.steam_id === this.authStore.parsedToken?.sub,
-    );
-    this.gameInfo.accepted = data.accepted;
-    this.gameInfo.total = data.total;
-    this.gameInfo.mode = data.mode;
-    this.gameInfo.entries = data.entries;
-    this.gameInfo.iAccepted =
-      this.gameInfo.iAccepted ||
-      (iAcceptedEntry ? iAcceptedEntry.state === ReadyState.READY : false);
-  };
-
-  @action onRoomNotReady = (): void => {
-    this.gameInfo = undefined;
-  };
-
-  @action onRoomState = (state?: RoomState): void => {
-    if (!state) {
-      this.gameInfo = undefined;
-    } else {
-      this.searchingMode = undefined;
-
-      if (!this.gameInfo)
-        this.gameInfo = {
-          mode: state.mode,
-          accepted: state.accepted,
-          total: state.total,
-          roomID: state.roomId,
-          iAccepted: state.iAccepted,
-          entries: state.entries,
-        };
-      else
-        this.gameInfo = {
-          ...this.gameInfo,
-          mode: state.mode,
-          accepted: state.accepted,
-          total: state.total,
-          roomID: state.roomId,
-          iAccepted: state.iAccepted,
-          entries: state.entries,
-        };
-    }
-  };
-
-  @action onServerReady = (data: LauncherServerStarted) => {
-    if (!this.gameInfo) {
-      this.gameInfo = {
-        mode: data.info.mode,
-        accepted: 0,
-        total: 0,
-        roomID: data.info.roomId,
-        iAccepted: true,
-        entries: [],
-      };
-    }
-    this.gameInfo.serverURL = data.url;
-    this.searchingMode = undefined;
-    this.roomReadySound.play();
-  };
-
-  @action
-  onQueueUpdate = ({
-    mode,
-    version,
-    inQueue,
-  }: {
-    mode: MatchmakingMode;
-    version: Dota2Version;
-    inQueue: number;
-  }) => {
-    this.inQueue[JSON.stringify({ mode, version })] = inQueue;
   };
 
   public inQueueCount(mode: MatchmakingMode, version: Dota2Version): number {
@@ -494,13 +352,6 @@ export class QueueStore
 
   // Actions
 
-  private authorize() {
-    this.socket.emit(Messages.BROWSER_AUTH, {
-      token: this.authStore.token,
-      recaptchaToken: "",
-    });
-  }
-
   private badAuth = () => {
     console.log("Prevent logging out");
     // this.authStore.logout();
@@ -508,6 +359,10 @@ export class QueueStore
 
   private playGameFoundSound() {
     this.matchSound.play();
+  }
+
+  private playMatchStartedSound() {
+    this.roomReadySound.play();
   }
 
   private acceptParty(id: string) {
@@ -525,24 +380,15 @@ export class QueueStore
    */
   private canQueue() {
     if (!this.ready) throw new Error("Not ready");
-    if (
+    return !(
       this.selectedMode?.mode === MatchmakingMode.CAPTAINS_MODE &&
       this.party!.players.length !== 5
-    ) {
-      return false;
-    }
-
-    // if (this.selectedMode.mode === MatchmakingMode.RANKED && this.party!!.players.length > 1) {
-    //   // dont allow parties in ranked
-    //   return false;
-    // }
-
-    return true;
+    );
   }
 
   @action
   private cleanUp() {
-    this.searchingMode = undefined;
+    this.queueState = undefined;
     this.inQueue = DefaultQueueHolder;
   }
 
@@ -550,7 +396,10 @@ export class QueueStore
   private async fetchParty() {
     getApi()
       .playerApi.playerControllerMyParty()
-      .then((data) => runInAction(() => (this.party = data)))
+      .then((data) => {
+        console.log("FetchParty -> ", data);
+        runInAction(() => (this.party = data));
+      })
       .catch(() => (this.party = undefined));
   }
 
@@ -577,4 +426,94 @@ export class QueueStore
       };
     }
   }
+
+  @action onOnlineUpdate = (msg: OnlineUpdateMessageS2C) => {
+    this.online = msg.online;
+  };
+
+  @action onPartyInviteExpired = (msg: PartyInviteExpiredMessageS2C) => {
+    this.notify.dequeue(msg.inviteId);
+  };
+
+  @action onPartyInviteReceived = (msg: PartyInviteReceivedMessageS2C) => {
+    const dto = new NotificationDto(
+      (
+        <PartyInviteNotification
+          inviter={msg.inviter.name}
+          onDecline={() => this.declineParty(msg.inviteId)}
+          onAccept={() => this.acceptParty(msg.inviteId)}
+        />
+      ),
+      msg.inviteId,
+    );
+    this.notify.enqueueNotification(dto);
+    this.partyInviteReceivedSound.play();
+  };
+
+  @action onPlayerGameState = (msg: PlayerGameStateMessageS2C | undefined) => {
+    this.gameState = msg;
+    this.serverSearching = false;
+    if (msg) {
+      this.roomState = undefined;
+      this.queueState = undefined;
+    }
+  };
+
+  @action onPlayerGameReady = (msg: PlayerGameStateMessageS2C) => {
+    this.onPlayerGameState(msg);
+    this.playMatchStartedSound();
+  };
+
+  @action onPlayerPartyInvitations = (
+    msg: PlayerPartyInvitationsMessageS2C,
+  ) => {
+    msg.invitations.forEach((invitation) =>
+      this.onPartyInviteReceived(invitation),
+    );
+  };
+
+  @action onPlayerQueueState = (
+    msg: PlayerQueueStateMessageS2C | undefined,
+  ) => {
+    this.queueState = msg;
+    this.serverSearching = false;
+  };
+
+  @action onPlayerRoomState = (msg: PlayerRoomStateMessageS2C | undefined) => {
+    this.roomState = msg;
+    this.serverSearching = false;
+  };
+
+  @action onPlayerRoomFound = (msg: PlayerRoomStateMessageS2C) => {
+    this.onPlayerRoomState(msg);
+    this.playGameFoundSound();
+  };
+
+  @action onQueueState = (msg: QueueStateMessageS2C) => {
+    this.inQueue[JSON.stringify({ mode: msg.mode, version: msg.version })] =
+      msg.inQueue;
+  };
+
+  @action onPlayerPartyState = (msg: PartyDto) => {
+    console.log("Update party via socket", msg);
+    this.party = msg;
+  };
+
+  @action onPlayerServerSearching = (msg: PlayerServerSearchingMessageS2C) => {
+    this.serverSearching = msg.searching;
+  };
+
+  @action onConnectionComplete = () => {
+    this.readyState = GameCoordinatorState.CONNECTION_COMPLETE;
+  };
+
+  onPleaseEnterQueue = (msg: PleaseEnterQueueMessageS2C) => {
+    this.notify.enqueueNotification(
+      new NotificationDto(
+        <PleaseQueueNotification inQueue={msg.inQueue} mode={msg.mode} />,
+        undefined,
+      ),
+    );
+    this.partyInviteReceivedSound.play();
+  };
 }

@@ -38,7 +38,7 @@ export const GameReadyModal = observer(
   ({ className }: { className?: string }) => {
     const q = useStore().queue;
 
-    if (!q.gameInfo?.serverURL) return null;
+    if (!q.gameState) return null;
 
     return (
       <div className={className}>
@@ -47,12 +47,12 @@ export const GameReadyModal = observer(
           <a
             className={cx(c.button2, c.accept)}
             target={"__blank"}
-            href={`steam://connect/${q.gameInfo?.serverURL}`}
+            href={`steam://connect/${q.gameState?.serverUrl}`}
           >
             Подключиться к игре
           </a>
         </div>
-        <CopySomething something={`connect ${q.gameInfo?.serverURL}`} />
+        <CopySomething something={`connect ${q.gameState?.serverUrl}`} />
       </div>
     );
   },

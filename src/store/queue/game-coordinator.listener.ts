@@ -8,6 +8,7 @@ import {
   ReadyCheckUpdate,
   RoomState,
 } from "@/util/messages";
+import { PlayerQueueStateMessageS2C } from "@/store/queue/messages/s2c/player-queue-state-message.s2c";
 
 export abstract class GameCoordinatorListener {
   onConnected() {}
@@ -16,11 +17,7 @@ export abstract class GameCoordinatorListener {
 
   onDisconnected() {}
 
-  onQueueUpdate(evt: {
-    mode: MatchmakingMode;
-    version: Dota2Version;
-    inQueue: number;
-  }) {}
+  onPlayerQueueState(evt: PlayerQueueStateMessageS2C | undefined) {}
 
   onPartyUpdated() {}
 
@@ -29,8 +26,6 @@ export abstract class GameCoordinatorListener {
   onMatchFinished() {}
 
   onMatchState(url?: string) {}
-
-  onQueueState(qsm: QueueStateMessage) {}
 
   onRoomNotReady() {}
 

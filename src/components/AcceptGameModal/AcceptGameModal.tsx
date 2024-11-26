@@ -20,13 +20,14 @@ export const AcceptGameModal = observer(() => {
 
   // First, display things we should always display
 
+  console.log(queueGameState);
   if (queueGameState === QueueGameState.READY_CHECK_WAITING_USER) {
     return (
       <div className={c.modalWrapper}>
         <div className={c.modal}>
           <div className={c.header}>
             <h4>Ваша игра готова</h4>
-            <h3>{formatGameMode(queue.gameInfo!.mode)}</h3>
+            <h3>{formatGameMode(queue.roomState!.mode)}</h3>
           </div>
           <div className={c.buttons}>
             <button
@@ -50,7 +51,6 @@ export const AcceptGameModal = observer(() => {
   // Show nothing on queue page, only accept big modal
   if (isQueuePage) return null;
 
-  // TODO: move to right bottom corner
   if (queueGameState === QueueGameState.SEARCHING_SERVER)
     return <ServerSearching className={cx(c.nonPrimaryModal)} />;
   else if (queueGameState === QueueGameState.READY_CHECK_WAITING_OTHER) {

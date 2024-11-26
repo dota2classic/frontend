@@ -20,9 +20,11 @@ export const SearchGameButton = observer((p: Props) => {
 
   const isQueuePage = router.pathname === "/queue";
 
-  const isSearchModeDefined = queue.searchingMode !== undefined;
+  const isSearchModeDefined = !!queue.queueState;
 
   let content: ReactNode;
+
+  if (queue.needAuth) return null;
 
   if (queue.selectedModeBanned && queue.partyBanStatus?.isBanned) {
     content = (
@@ -41,6 +43,13 @@ export const SearchGameButton = observer((p: Props) => {
         <div>
           Пройди <span className="gold">обучение</span>
         </div>
+      </>
+    );
+  } else if (queue.isPartyInGame) {
+    content = (
+      <>
+        Поиск запрещен:
+        <div>Кто-то в группе играет</div>
       </>
     );
   }
@@ -66,7 +75,7 @@ export const SearchGameButton = observer((p: Props) => {
         onClick={() => {
           queue.cancelSearch();
         }}
-        className={cx(c.playButton, queue.gameInfo?.serverURL && c.ingame)}
+        className={cx(c.playButton, queue.gameState?.serverUrl && c.ingame)}
       >
         Отменить поиск
       </button>
@@ -88,7 +97,7 @@ export const SearchGameButton = observer((p: Props) => {
           c.playButton,
           c.search,
           content && c.banned,
-          queue.gameInfo?.serverURL && c.ingame,
+          queue.gameState?.serverUrl && c.ingame,
           content && c.longText,
         )}
       >

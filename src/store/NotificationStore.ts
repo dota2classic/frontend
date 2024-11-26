@@ -13,12 +13,12 @@ export class NotificationDto {
 }
 
 export class NotificationStore implements HydratableStore<unknown> {
-  public static readonly NOTIFICATION_LIFETIME = 3000;
+  public static readonly NOTIFICATION_LIFETIME = 10_000;
 
   @observable
   public permanentQueue: NotificationDto[] = [];
   @observable
-  public currentPendingNotification?: NotificationDto;
+  public currentPendingNotification: NotificationDto | undefined = undefined;
   @observable
   private notificationQueue: NotificationDto[] = [];
 
@@ -33,10 +33,12 @@ export class NotificationStore implements HydratableStore<unknown> {
 
   constructor() {
     makeObservable(this);
-    setInterval(
-      () => this.processQueue(),
-      NotificationStore.NOTIFICATION_LIFETIME,
-    );
+    if (typeof window !== "undefined") {
+      setInterval(
+        () => this.processQueue(),
+        NotificationStore.NOTIFICATION_LIFETIME,
+      );
+    }
     if (
       typeof window !== "undefined" &&
       "serviceWorker" in navigator &&
@@ -117,8 +119,7 @@ export class NotificationStore implements HydratableStore<unknown> {
       this.permanentQueue.push(notif);
     } else {
       this.notificationQueue.push(notif);
-      if (this.currentPendingNotification === undefined)
-        this.currentPendingNotification = notif;
+      if (this.currentPendingNotification === undefined) this.processQueue();
     }
   }
 
@@ -126,6 +127,10 @@ export class NotificationStore implements HydratableStore<unknown> {
   private processQueue() {
     this.currentPendingNotification = this.notificationQueue.shift();
   }
+
+  @action closeCurrent = () => {
+    this.currentPendingNotification = undefined;
+  };
 
   hydrate(): void {}
 }

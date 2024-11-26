@@ -79,6 +79,10 @@
     border: 1px solid $red;
   }
 
+  &.playing {
+    border: 1px dotted $red;
+  }
+
   & img {
     width: 50px;
     height: 50px;

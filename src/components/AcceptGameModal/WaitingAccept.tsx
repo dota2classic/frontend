@@ -3,9 +3,9 @@ import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import cx from "clsx";
 import { PageLink } from "@/components";
-import { ReadyState } from "@/util/messages";
 import { AppRouter } from "@/route";
 import { formatGameMode } from "@/util/gamemode";
+import { ReadyState } from "@/store/queue/messages/s2c/player-room-state-message.s2c";
 
 interface Props {
   className?: string;
@@ -13,34 +13,34 @@ interface Props {
 export const WaitingAccept = observer((p: Props) => {
   const { queue, user } = useStore();
 
-  if (!queue.gameInfo) return null;
-  const sortedEntries = [...queue.gameInfo.entries].sort((a, b) => {
+  if (!queue.roomState) return null;
+  const sortedEntries = [...queue.roomState.entries].sort((a, b) => {
     const isInPartyA =
       queue.party?.players?.findIndex(
-        (partyPlayer) => partyPlayer.summary?.id === a.steam_id,
+        (partyPlayer) => partyPlayer.summary?.id === a.steamId,
       ) !== -1;
     const isInPartyB =
       queue.party?.players?.findIndex(
-        (partyPlayer) => partyPlayer.summary?.id === b.steam_id,
+        (partyPlayer) => partyPlayer.summary?.id === b.steamId,
       ) !== -1;
 
     if (isInPartyB === isInPartyA)
-      return parseInt(b.steam_id) - parseInt(a.steam_id);
+      return parseInt(b.steamId) - parseInt(a.steamId);
 
     return isInPartyB ? 1 : -1;
   });
   return (
     <div className={cx(p.className)}>
       <div className={c.header}>
-        <h3>{formatGameMode(queue.gameInfo.mode)}</h3>
+        <h3>{formatGameMode(queue.roomState.mode)}</h3>
         <h4 style={{ marginTop: 12 }}>Ожидаем других игроков</h4>
       </div>
       <div className={c.dots}>
         {sortedEntries.map((entry) => {
           return (
             <PageLink
-              key={entry.steam_id}
-              link={AppRouter.players.player.index(entry.steam_id).link}
+              key={entry.steamId}
+              link={AppRouter.players.player.index(entry.steamId).link}
             >
               <img
                 className={cx(c.avatarPreview, {
@@ -50,10 +50,10 @@ export const WaitingAccept = observer((p: Props) => {
                   [c.decline]: entry.state === ReadyState.DECLINE,
                 })}
                 src={
-                  user.tryGetUser(entry.steam_id)?.entry?.user?.avatar ||
+                  user.tryGetUser(entry.steamId)?.entry?.user?.avatar ||
                   "/avatar.png"
                 }
-                alt={`Avatar of player ${entry.steam_id}`}
+                alt={`Avatar of player ${entry.steamId}`}
               />
             </PageLink>
           );

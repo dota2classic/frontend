@@ -1,5 +1,5 @@
 export enum GameCoordinatorState {
   DISCONNECTED,
   CONNECTED,
-  AUTHORIZED,
+  CONNECTION_COMPLETE,
 }

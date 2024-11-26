@@ -133,6 +133,43 @@ export default function DownloadPage({ initialOS }: Props) {
                     </span>
                   </>
                 )}
+                <Section>
+                  <div className={cx(c.options)}>
+                    {[
+                      OperatingSystem.WINDOWS,
+                      OperatingSystem.MAC_OS,
+                      OperatingSystem.LINUX,
+                    ].map((os) => (
+                      <div
+                        className={cx(c.option, os === OS && c.active)}
+                        key={os}
+                        onClick={() => setOS(os)}
+                      >
+                        {os}
+                      </div>
+                    ))}
+                  </div>
+                  <GenericTable
+                    isLoading={false}
+                    keyProvider={(it) => it[0].link}
+                    placeholderRows={9}
+                    columns={[
+                      {
+                        type: ColumnType.ExternalLink,
+                        name: "Google диск",
+                      },
+                      {
+                        type: ColumnType.ExternalLink,
+                        name: "Яндекс Диск",
+                      },
+                      // {
+                      //   type: ColumnType.ExternalLink,
+                      //   name: "Torrent",
+                      // },
+                    ]}
+                    data={filteredData}
+                  />
+                </Section>
               </>
             ),
           },
@@ -277,44 +314,7 @@ export default function DownloadPage({ initialOS }: Props) {
           },
         ]}
       />
-      <h2 style={{ textAlign: "center" }}>Ссылки на скачивание игры</h2>
-      <Section>
-        <div className={cx(c.options)}>
-          {[
-            OperatingSystem.WINDOWS,
-            OperatingSystem.MAC_OS,
-            OperatingSystem.LINUX,
-          ].map((os) => (
-            <div
-              className={cx(c.option, os === OS && c.active)}
-              key={os}
-              onClick={() => setOS(os)}
-            >
-              {os}
-            </div>
-          ))}
-        </div>
-        <GenericTable
-          isLoading={false}
-          keyProvider={(it) => it[0].link}
-          placeholderRows={9}
-          columns={[
-            {
-              type: ColumnType.ExternalLink,
-              name: "Google диск",
-            },
-            {
-              type: ColumnType.ExternalLink,
-              name: "Яндекс Диск",
-            },
-            // {
-            //   type: ColumnType.ExternalLink,
-            //   name: "Torrent",
-            // },
-          ]}
-          data={filteredData}
-        />
-      </Section>
+      {/*<h2 style={{ textAlign: "center" }}>Ссылки на скачивание игры</h2>*/}
 
       <h2 style={{ textAlign: "center", marginTop: 40 }}>
         FAQ - часто задаваемые вопросы

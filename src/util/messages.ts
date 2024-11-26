@@ -47,12 +47,12 @@ export enum Messages {
   ONLINE_UPDATE = "ONLINE_UPDATE",
 }
 
-export enum ReadyState {
-  READY,
-  DECLINE,
-  TIMEOUT,
-  PENDING,
-}
+// export enum ReadyState {
+//   READY,
+//   DECLINE,
+//   TIMEOUT,
+//   PENDING,
+// }
 
 export interface ReadyCheckEntry {
   steam_id: string;

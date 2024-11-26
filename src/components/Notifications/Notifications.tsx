@@ -17,11 +17,8 @@ export const Notifications = observer(() => {
       {notify.permanentQueue.map((t: NotificationDto) => (
         <div key={t.id}>{t.text}</div>
       ))}
-      {notify.currentPendingNotification && (
-        <div className={c.notification}>
-          {notify.currentPendingNotification.text}
-        </div>
-      )}
+      {notify.currentPendingNotification &&
+        notify.currentPendingNotification.text}
     </div>
   );
 });

@@ -10,10 +10,12 @@ export enum QueueGameState {
 
 export const useQueueState = (): QueueGameState => {
   const { queue } = useStore();
-  if (queue.isSearchingServer) return QueueGameState.SEARCHING_SERVER;
-  else if (queue.gameInfo?.serverURL) return QueueGameState.SERVER_READY;
-  else if (!queue.gameInfo) return QueueGameState.NO_GAME;
-  else if (!queue.gameInfo.iAccepted)
-    return QueueGameState.READY_CHECK_WAITING_USER;
-  else return QueueGameState.READY_CHECK_WAITING_OTHER;
+
+  if (queue.gameState) return QueueGameState.SERVER_READY;
+  else if (queue.roomState) {
+    if (!queue.iAccepted) return QueueGameState.READY_CHECK_WAITING_USER;
+    else return QueueGameState.READY_CHECK_WAITING_OTHER;
+  } else if (queue.serverSearching) return QueueGameState.SEARCHING_SERVER;
+
+  return QueueGameState.NO_GAME;
 };
