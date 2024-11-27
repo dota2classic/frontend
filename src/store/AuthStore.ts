@@ -1,5 +1,6 @@
 import {
   action,
+  autorun,
   computed,
   makeObservable,
   observable,
@@ -10,6 +11,7 @@ import { parseJwt } from "@/util/math";
 import BrowserCookies from "browser-cookies";
 import { appApi } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
+import { metrika } from "@/ym";
 
 interface JwtAuthToken {
   sub: string;
@@ -47,6 +49,10 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       }
       this.periodicallyFetchMe();
     }
+    autorun(() => {
+      metrika("setUserID", this.parsedToken?.sub);
+      console.log(`Set user id to ${this.parsedToken?.sub}`);
+    });
   }
 
   private periodicallyFetchMe() {

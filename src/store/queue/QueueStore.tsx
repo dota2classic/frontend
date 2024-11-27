@@ -38,6 +38,7 @@ import { PlayerServerSearchingMessageS2C } from "@/store/queue/messages/s2c/play
 import { PartyInviteNotification, PleaseQueueNotification } from "@/components";
 import { EnterQueueMessageC2S } from "@/store/queue/messages/c2s/enter-queue-message.c2s";
 import { PleaseEnterQueueMessageS2C } from "@/store/queue/messages/s2c/please-enter-queue-message.s2c";
+import { metrika } from "@/ym";
 
 export interface QueueState {
   mode: MatchmakingMode;
@@ -182,12 +183,18 @@ export class QueueStore
       MessageTypeC2S.ENTER_QUEUE,
       new EnterQueueMessageC2S(mode, version),
     );
+    if (mode === MatchmakingMode.BOTS) {
+      metrika("reachGoal", "ENTER_QUEUE_BOTS");
+    } else {
+      metrika("reachGoal", "ENTER_QUEUE_PEOPLE");
+    }
   };
 
   @action
   public acceptGame = () => {
     if (!this.roomState) return;
     this.acceptPendingGame(this.roomState.roomId);
+    metrika("reachGoal", "ACCEPT_GAME");
   };
 
   @action
@@ -245,20 +252,11 @@ export class QueueStore
     this.socket.emit(MessageTypeC2S.LEAVE_PARTY);
   };
 
-  disconnect() {
-    this.socket.disconnect();
-  }
-
   public async connect() {
     if (this.socket && this.socket.connected) return;
 
     // Make sure token is not stale
     await this.authStore.fetchMe();
-
-    if (!this.authStore.parsedToken) {
-      console.warn("Trying to connect while unauthorized");
-      return;
-    }
 
     this.socket = io("wss://dotaclassic.ru", {
       path: "/newsocket",
@@ -351,11 +349,6 @@ export class QueueStore
   };
 
   // Actions
-
-  private badAuth = () => {
-    console.log("Prevent logging out");
-    // this.authStore.logout();
-  };
 
   private playGameFoundSound() {
     this.matchSound.play();

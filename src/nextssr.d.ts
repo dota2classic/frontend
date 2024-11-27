@@ -12,6 +12,7 @@ declare global {
     store: RootStore;
     registration?: ServiceWorkerRegistration;
     api: AppApi;
+    ym: (key: number, fun: string, value: unknown) => void;
   }
 
   interface PromiseConstructor {

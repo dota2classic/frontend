@@ -17,6 +17,8 @@ import { appApi } from "@/api/hooks";
 import { formatGameMode } from "@/util/gamemode";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
+import { colors } from "@/colors";
+import { metrika } from "@/ym";
 
 const _data = [
   [
@@ -155,12 +157,36 @@ export default function DownloadPage({ initialOS }: Props) {
                     placeholderRows={9}
                     columns={[
                       {
-                        type: ColumnType.ExternalLink,
+                        type: ColumnType.Raw,
                         name: "Google диск",
+                        format: (r) => (
+                          <a
+                            style={{ color: colors.green }}
+                            target="__blank"
+                            href={r.link}
+                            onClick={() =>
+                              metrika("reachGoal", "DOWNLOAD_GOOGLE")
+                            }
+                          >
+                            {r.label}
+                          </a>
+                        ),
                       },
                       {
-                        type: ColumnType.ExternalLink,
+                        type: ColumnType.Raw,
                         name: "Яндекс Диск",
+                        format: (r) => (
+                          <a
+                            style={{ color: colors.green }}
+                            target="__blank"
+                            href={r.link}
+                            onClick={() =>
+                              metrika("reachGoal", "DOWNLOAD_YANDEX")
+                            }
+                          >
+                            {r.label}
+                          </a>
+                        ),
                       },
                       // {
                       //   type: ColumnType.ExternalLink,
