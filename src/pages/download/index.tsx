@@ -46,7 +46,7 @@ const _data = [
       label: "Linux библиотеки",
     },
     {
-      link: "Dota 2 6.84 Source 1 Linux.tar.gz.torrent",
+      link: "/torrent/Dota 2 6.84 Source 1 Linux.tar.gz.torrent",
       label: "Linux библиотеки",
     },
   ],
@@ -61,7 +61,7 @@ const _data = [
       label: "MacOS библиотеки",
     },
     {
-      link: "Dota 2 6.84 Source 1 Mac.tar.gz.torrent",
+      link: "/torrent/Dota 2 6.84 Source 1 Mac.tar.gz.torrent",
       label: "MacOS библиотеки",
     },
   ],
