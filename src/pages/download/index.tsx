@@ -30,17 +30,9 @@ const _data = [
       link: "https://disk.yandex.ru/d/Vl8rITrAzB04MA",
       label: "Игровой клиент",
     },
-    // {
-    //   link: "https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw",
-    //   label: "Игровой клиент",
-    // },
-    // {
-    //   link: "https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw",
-    //   label: "Игровой клиент todo",
-    // },
     {
-      link: "https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw",
-      label: "Игровой клиент TODO",
+      link: "/torrent/Dota 6.84.zip.torrent",
+      label: "Игровой клиент",
     },
   ],
 
@@ -53,17 +45,9 @@ const _data = [
       link: "https://disk.yandex.ru/d/blQdLqXZwOrqjQ",
       label: "Linux библиотеки",
     },
-    // {
-    //   link: "https://mega.nz/file/YHZnjDKa#1Ra6lgjxseBYMlXAelZABazEx_ZIbvbPPJOYcM6gNO4",
-    //   label: "Linux библиотеки",
-    // },
-    // {
-    //   link: "https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw",
-    //   label: "Linux библиотеки todo",
-    // },
     {
-      link: "https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw",
-      label: "Linux библиотеки TODO",
+      link: "Dota 2 6.84 Source 1 Linux.tar.gz.torrent",
+      label: "Linux библиотеки",
     },
   ],
 
@@ -72,21 +56,13 @@ const _data = [
       link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
       label: "MacOS библиотеки",
     },
-    // {
-    //   link: "https://www.mediafire.com/file/v1rdgopyjo5s8b1/Dota_2_6.84_Source_1_Mac.tar.gz/file",
-    //   label: "MacOS библиотеки",
-    // },
-    // {
-    //   link: "https://mega.nz/file/YHZnjDKa#1Ra6lgjxseBYMlXAelZABazEx_ZIbvbPPJOYcM6gNO4",
-    //   label: "MacOS библиотеки",
-    // },
     {
       link: "https://disk.yandex.ru/d/xOqxdW7BeIxKDg",
       label: "MacOS библиотеки",
     },
     {
-      link: "https://mega.nz/file/Ea5HURST#GeBiVze4vrv5VPyeM55pYJs8C_ItkmEB2z0xE7uiDHY",
-      label: "MacOS библиотеки TODO",
+      link: "Dota 2 6.84 Source 1 Mac.tar.gz.torrent",
+      label: "MacOS библиотеки",
     },
   ],
 ];
@@ -188,10 +164,22 @@ export default function DownloadPage({ initialOS }: Props) {
                           </a>
                         ),
                       },
-                      // {
-                      //   type: ColumnType.ExternalLink,
-                      //   name: "Torrent",
-                      // },
+                      {
+                        type: ColumnType.Raw,
+                        name: "Torrent",
+                        format: (r) => (
+                          <a
+                            style={{ color: colors.green }}
+                            target="__blank"
+                            href={r.link}
+                            onClick={() =>
+                              metrika("reachGoal", "DOWNLOAD_TORRENT")
+                            }
+                          >
+                            {r.label}
+                          </a>
+                        ),
+                      },
                     ]}
                     data={filteredData}
                   />

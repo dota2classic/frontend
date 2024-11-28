@@ -42,19 +42,22 @@ export const WaitingAccept = observer((p: Props) => {
               key={entry.steamId}
               link={AppRouter.players.player.index(entry.steamId).link}
             >
-              <img
+              <picture
                 className={cx(c.avatarPreview, {
                   [c.accepted]: entry.state === ReadyState.READY,
                   [c.pending]: entry.state === ReadyState.PENDING,
                   [c.timeout]: entry.state === ReadyState.TIMEOUT,
                   [c.decline]: entry.state === ReadyState.DECLINE,
                 })}
-                src={
-                  user.tryGetUser(entry.steamId)?.entry?.user?.avatar ||
-                  "/avatar.png"
-                }
-                alt={`Avatar of player ${entry.steamId}`}
-              />
+              >
+                <img
+                  src={
+                    user.tryGetUser(entry.steamId)?.entry?.user?.avatar ||
+                    "/avatar.png"
+                  }
+                  alt={`Avatar of player ${entry.steamId}`}
+                />
+              </picture>
             </PageLink>
           );
         })}

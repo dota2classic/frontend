@@ -211,26 +211,50 @@
   }
 
   & .avatarPreview {
-    border-width: 2px;
-    border-radius: 2px;
-    border-style: solid;
+    //border-width: 2px;
+    //border-radius: 2px;
+    //border-style: solid;
     width: 50px !important;
     height: 50px !important;
+
+    & img {
+
+      width: 50px !important;
+      height: 50px !important;
+    }
   }
 }
 
 .avatarPreview {
-  border-radius: 2px;
-  border-style: solid;
-
+  display: block;
+  //border-radius: 2px;
+  //border-style: solid;
+  //border-width: 1px;
 
   width: 34px !important;
   height: 34px !important;
-  border-width: 1px;
+
+  & img {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
 }
 
 .accepted {
   border-color: $green;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(90,180,79,0.6993391106442577) 54%, rgba(22,185,4,0.7805716036414566) 100%);
+  }
 }
 
 .pending {

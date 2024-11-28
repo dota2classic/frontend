@@ -474,6 +474,12 @@ export class QueueStore
 
   @action onPlayerRoomState = (msg: PlayerRoomStateMessageS2C | undefined) => {
     this.roomState = msg;
+    // this.roomState = new PlayerRoomStateMessageS2C("sdfsf",
+    //   MatchmakingMode.BOTS,
+    //   new Array(10)
+    //     .fill(null)
+    //     .map((t, index) => new PlayerRoomEntry(index === 0 ? '116514945' : "1350458795", index % 2 === 1 ? ReadyState.PENDING : ReadyState.READY))
+    // );
     this.serverSearching = false;
   };
 
