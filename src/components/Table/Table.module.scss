@@ -90,9 +90,6 @@
   }
 
   &:global(.compact) {
-    & tr {
-      //max-height: 40px;
-    }
     & td {
       padding: 4px 6px;
       font-size: 0.8rem;
@@ -104,6 +101,20 @@
       font-size: 14px;
     }
   }
+
+  &:global(.medium) {
+    & td {
+      padding: 8px 12px;
+      font-size: 1rem;
+      text-align: left;
+    }
+
+    & th {
+      padding-left: 12px;
+      font-size: 1rem;
+    }
+  }
+
 
 
   & tr {
