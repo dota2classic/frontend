@@ -25,7 +25,7 @@ let clientStore: RootStore;
 function createStore(): RootStore {
   const auth = new AuthStore();
   const notify = new NotificationStore();
-  const queue = new QueueStore(auth, notify, getApi());
+  const queue = new QueueStore(auth, notify);
   const ucache = new UserCacheStore();
   return {
     auth,

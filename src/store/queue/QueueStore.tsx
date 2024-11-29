@@ -7,7 +7,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
-import { AppApi, getApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { AuthStore } from "@/store/AuthStore";
 import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
 import { BanStatusDto, PartyDto, PartyMemberDTO } from "@/api/back";
@@ -39,6 +39,7 @@ import { PartyInviteNotification, PleaseQueueNotification } from "@/components";
 import { EnterQueueMessageC2S } from "@/store/queue/messages/c2s/enter-queue-message.c2s";
 import { PleaseEnterQueueMessageS2C } from "@/store/queue/messages/s2c/please-enter-queue-message.s2c";
 import { metrika } from "@/ym";
+import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 
 export interface QueueState {
   mode: MatchmakingMode;
@@ -92,10 +93,11 @@ export class QueueStore
   @observable
   public serverSearching: boolean = false;
 
+  private scheduler!: ToadScheduler;
+
   constructor(
     private readonly authStore: AuthStore,
     private readonly notify: NotificationStore,
-    private readonly api: AppApi,
   ) {
     makeAutoObservable(this);
 
@@ -115,7 +117,36 @@ export class QueueStore
     this.connect();
 
     this.fetchParty().finally();
+
+    this.scheduler = new ToadScheduler();
+    this.scheduler.addIntervalJob(
+      new SimpleIntervalJob(
+        { seconds: 5 },
+        new AsyncTask(
+          "invalidate party on ban expire",
+          this.refetchPartyOnBanEnd,
+          (err) => {
+            console.error("There was an error checking party", err);
+          },
+        ),
+      ),
+    );
   }
+
+  private refetchPartyOnBanEnd = async () => {
+    if (!this.party) return;
+    const shouldExpire =
+      this.partyBanStatus?.isBanned &&
+      this.party.players.findIndex((player) => {
+        if (!player.banStatus.isBanned) return false;
+        // If end time is in past
+        return new Date(player.banStatus.bannedUntil) < new Date();
+      }) !== -1;
+
+    if (shouldExpire) {
+      this.fetchParty().finally();
+    }
+  };
 
   @computed
   public get partyBanStatus(): BanStatusDto | undefined {

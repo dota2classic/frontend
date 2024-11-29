@@ -40,10 +40,10 @@ export interface BanStatusDto {
     isBanned: boolean;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof BanStatusDto
      */
-    bannedUntil: number;
+    bannedUntil: string;
 }
 
 export function BanStatusDtoFromJSON(json: any): BanStatusDto {

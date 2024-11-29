@@ -23,6 +23,8 @@ import c from "./AdminPlayerPage.module.scss";
 import c2 from "../AdminStyles.module.scss";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { RoleNames } from "@/const/roles";
+import cx from "clsx";
+import { usePeriodicRefresh } from "@/util/usePeriodicRefresh";
 
 const BanReasonOptions = [
   {
@@ -88,7 +90,7 @@ const RoleRow = (props: RoleSubscriptionEntryDto) => {
         {isExpired ? (
           <DatePicker
             customInputRef={""}
-            dateFormat={"dd MMMM yyyy"}
+            dateFormat={"dd MMMM yyyy hh:ss"}
             customInput={<Button className={"small"}>Назначить</Button>}
             selected={endTime}
             onChange={(date: Date | null) => {
@@ -100,8 +102,8 @@ const RoleRow = (props: RoleSubscriptionEntryDto) => {
         ) : (
           <DatePicker
             customInputRef={""}
-            dateFormat={"dd MMMM yyyy"}
-            customInput={<Input className={"iso"} />}
+            dateFormat={"dd MMMM yyyy hh:ss"}
+            customInput={<Input className={cx("iso", c.banEndTime)} />}
             selected={endTime}
             onChange={(date: Date | null) => {
               if (!date) return;
@@ -191,9 +193,7 @@ export default function AdminPlayerPage({
     setCombinedRoles(tmp);
   }, [roleData, steamId]);
 
-  const [endTime, setEndTime] = useState(
-    new Date(new Date().setDate(new Date().getDate() - 1)),
-  );
+  const [endTime, setEndTime] = useState<Date | null>(null);
 
   const api = getApi().adminApi;
 
@@ -214,7 +214,15 @@ export default function AdminPlayerPage({
     }
   }, [data]);
 
-  const isBanActive = endTime.getTime() < new Date().getTime();
+  const isBanActive = usePeriodicRefresh<boolean>(
+    () => {
+      return endTime ? endTime.getTime() > new Date().getTime() : false;
+    },
+    1000,
+    [endTime],
+  );
+
+  console.log("Ban active?", isBanActive);
 
   return (
     <div className={c2.gridPanel}>
@@ -244,35 +252,28 @@ export default function AdminPlayerPage({
             <tr>
               <td>Бан</td>
               <td>
-                {isBanActive ? (
-                  <DatePicker
-                    customInputRef={""}
-                    showTimeSelect
-                    locale={"ru-RU"}
-                    dateFormat={"dd MMMM yyyy"}
-                    customInput={<Button className={"small"}>Назначить</Button>}
-                    selected={endTime}
-                    onChange={(date: Date | null) => {
-                      if (!date) return;
-                      setEndTime(date);
-                      return commitChanges(date);
-                    }}
-                  />
-                ) : (
-                  <DatePicker
-                    customInputRef={""}
-                    showTimeSelect
-                    locale={"ru-RU"}
-                    dateFormat={"dd MMMM yyyy"}
-                    customInput={<Input className={"iso"} />}
-                    selected={endTime}
-                    onChange={(date: Date | null) => {
-                      if (!date) return;
-                      setEndTime(date);
-                      return commitChanges(date);
-                    }}
-                  />
-                )}
+                <DatePicker
+                  customInputRef={""}
+                  showTimeSelect
+                  timeIntervals={1}
+                  dateFormat={"dd MMMM yyyy hh:mm"}
+                  customInput={
+                    <Input
+                      placeholder={"Назначить"}
+                      className={cx(
+                        "iso",
+                        c.banEndTime,
+                        isBanActive ? c.active : c.inactive,
+                      )}
+                    />
+                  }
+                  selected={endTime}
+                  onChange={(date: Date | null) => {
+                    if (!date) return;
+                    setEndTime(date);
+                    return commitChanges(date);
+                  }}
+                />
               </td>
 
               <td className={c.actions}>
@@ -290,7 +291,9 @@ export default function AdminPlayerPage({
 
                 <Button
                   className="small"
+                  disabled={!endTime}
                   onClick={() => {
+                    if (!endTime) return;
                     const d = new Date(endTime.getTime());
                     d.setDate(d.getDate() + 1);
                     setEndTime(d);
@@ -301,7 +304,9 @@ export default function AdminPlayerPage({
                 </Button>
                 <Button
                   className="small"
+                  disabled={!endTime}
                   onClick={() => {
+                    if (!endTime) return;
                     const d = new Date(endTime.getTime());
                     d.setDate(d.getDate() + 7);
                     setEndTime(d);

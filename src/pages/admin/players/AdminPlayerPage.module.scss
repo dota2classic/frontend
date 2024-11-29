@@ -1,7 +1,6 @@
-@import '../../../common.scss';
+@import "../../../common.scss";
 
 .actions {
-
   & button {
     width: fit-content;
   }
@@ -9,4 +8,16 @@
   & button + button {
     margin-left: 20px;
   }
+}
+
+.banEndTime {
+  width: 300px;
+}
+
+.active {
+  color: $red;
+}
+
+.inactive {
+  color: $primaryTextDark2;
 }

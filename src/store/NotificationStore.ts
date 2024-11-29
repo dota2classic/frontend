@@ -4,6 +4,7 @@ import { HydratableStore } from "@/store/HydratableStore";
 import { urlBase64ToUint8Array } from "@/util/math";
 import { getApi } from "@/api/hooks";
 import { SubscriptionDto } from "@/api/back";
+import Queue from "queue";
 
 export class NotificationDto {
   constructor(
@@ -19,8 +20,6 @@ export class NotificationStore implements HydratableStore<unknown> {
   public permanentQueue: NotificationDto[] = [];
   @observable
   public currentPendingNotification: NotificationDto | undefined = undefined;
-  @observable
-  private notificationQueue: NotificationDto[] = [];
 
   @observable
   public isPushSupported: boolean = false;
@@ -31,19 +30,18 @@ export class NotificationStore implements HydratableStore<unknown> {
   @observable
   public registration: ServiceWorkerRegistration | undefined = undefined;
 
+  private queue!: Queue;
+
   constructor() {
     makeObservable(this);
-    if (typeof window !== "undefined") {
-      setInterval(
-        () => this.processQueue(),
-        NotificationStore.NOTIFICATION_LIFETIME,
-      );
-    }
-    if (
-      typeof window !== "undefined" &&
-      "serviceWorker" in navigator &&
-      "PushManager" in window
-    ) {
+    if (typeof window === "undefined") return;
+
+    this.queue = new Queue({
+      autostart: true,
+      concurrency: 1,
+    });
+
+    if ("serviceWorker" in navigator && "PushManager" in window) {
       runInAction(() => {
         this.isPushSupported = true;
       });
@@ -52,6 +50,8 @@ export class NotificationStore implements HydratableStore<unknown> {
         this.registerServiceWorker();
       }, 1000);
     }
+
+    // Here we should implement tasking?
   }
 
   @action
@@ -118,14 +118,21 @@ export class NotificationStore implements HydratableStore<unknown> {
     if (notif.id !== undefined) {
       this.permanentQueue.push(notif);
     } else {
-      this.notificationQueue.push(notif);
-      if (this.currentPendingNotification === undefined) this.processQueue();
-    }
-  }
+      this.queue.push((callback) => {
+        console.log("Start notification", callback);
+        runInAction(() => {
+          this.currentPendingNotification = notif;
+        });
 
-  @action
-  private processQueue() {
-    this.currentPendingNotification = this.notificationQueue.shift();
+        setTimeout(() => {
+          console.log("Finishing notification");
+          runInAction(() => (this.currentPendingNotification = undefined));
+          if (callback) {
+            callback(undefined);
+          }
+        }, NotificationStore.NOTIFICATION_LIFETIME);
+      });
+    }
   }
 
   @action closeCurrent = () => {
