@@ -50,7 +50,9 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       this.periodicallyFetchMe();
     }
     autorun(() => {
-      metrika("setUserID", this.parsedToken?.sub);
+      metrika("userParams", {
+        UserID: this.parsedToken?.sub
+      });
       console.log(`Set user id to ${this.parsedToken?.sub}`);
     });
   }
