@@ -51,7 +51,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     }
     autorun(() => {
       metrika("userParams", {
-        UserID: this.parsedToken?.sub
+        UserID: this.parsedToken?.sub,
       });
       console.log(`Set user id to ${this.parsedToken?.sub}`);
     });
