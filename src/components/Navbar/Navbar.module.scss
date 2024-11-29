@@ -12,9 +12,9 @@
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
 
   &__admin {
-    @media (max-width: 600px) {
-      display: none;
-    }
+    //@media (max-width: 600px) {
+    //  display: none;
+    //}
   }
 }
 
@@ -151,6 +151,14 @@
     background: $gold;
 
     animation: attention 10s ease infinite;
+
+  }
+}
+
+
+.omitInTablet {
+  @media (max-width: 1000px) {
+    display: none;
 
   }
 }

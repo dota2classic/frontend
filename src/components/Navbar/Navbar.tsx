@@ -48,7 +48,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
         },
       ]}
     >
-      <span>{parsedToken.name}</span>
+      <span className={c.omitInTablet}>{parsedToken.name}</span>
       <Image
         width={30}
         height={30}
