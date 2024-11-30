@@ -3,7 +3,7 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { BanReason, CrimeLogPageDto } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
-import { Button, GenericTable, Pagination, TimeAgo } from "@/components";
+import { Button, GenericTable, Pagination, Panel, TimeAgo } from "@/components";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
@@ -20,11 +20,10 @@ export default function CrimesPage({ crime, steamId }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const close = useCallback(() => {
-    if (modalOpen) setModalOpen(false);
+    setModalOpen(false);
   }, [setModalOpen]);
   const open = useCallback(() => {
     setModalOpen(true);
-    console.log("Set to open");
   }, [setModalOpen]);
   return (
     <>
@@ -36,13 +35,15 @@ export default function CrimesPage({ crime, steamId }: Props) {
           close();
         }}
       />
-      <Button onClick={open}>Фильтровать по игроку</Button>
-      <Button
-        disabled={!steamId}
-        onClick={() => AppRouter.admin.crimes(0).open()}
-      >
-        Сбросить фильтр по игроку
-      </Button>
+      <Panel>
+        <Button onClick={open}>Фильтровать по игроку</Button>
+        <Button
+          disabled={!steamId}
+          onClick={() => AppRouter.admin.crimes(0).open()}
+        >
+          Сбросить фильтр по игроку
+        </Button>
+      </Panel>
       <Pagination
         page={crime.page}
         maxPage={crime.pages}

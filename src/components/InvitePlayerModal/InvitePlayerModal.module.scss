@@ -33,3 +33,19 @@
     height: 40px;
   }
 }
+
+
+.close {
+  position: absolute;
+  font-size: 2rem;
+  top: 5px;
+  right: 5px;
+  color: $primaryText;
+  transition: 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: $red;
+  }
+
+}

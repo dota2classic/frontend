@@ -79,6 +79,52 @@ export class StatsApi extends runtime.BaseAPI {
 
     /**
      */
+    private async statsControllerGetServersRaw(): Promise<runtime.ApiResponse<Array<string>>> {
+        this.statsControllerGetServersValidation();
+        const context = this.statsControllerGetServersContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+
+
+    /**
+     */
+    private statsControllerGetServersValidation() {
+    }
+
+    /**
+     */
+    statsControllerGetServersContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/stats/servers`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    statsControllerGetServers = async (): Promise<Array<string>> => {
+        const response = await this.statsControllerGetServersRaw();
+        return await response.value();
+    }
+
+    useStatsControllerGetServers(config?: SWRConfiguration<Array<string>, Error>) {
+        let valid = true
+
+        const context = this.statsControllerGetServersContext();
+        return useSWR(context, valid ? () => this.statsControllerGetServers() : null, config)
+    }
+
+    /**
+     */
     private async statsControllerOnlineRaw(): Promise<runtime.ApiResponse<CurrentOnlineDto>> {
         this.statsControllerOnlineValidation();
         const context = this.statsControllerOnlineContext();

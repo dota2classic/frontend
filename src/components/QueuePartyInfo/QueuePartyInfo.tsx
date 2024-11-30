@@ -9,6 +9,7 @@ import { PartyMemberDTO } from "@/api/back";
 import { InvitePlayerModal, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
+import { usePing } from "@/util/check-ping";
 
 const GameCoordinatorConnection = ({
   readyState,
@@ -30,6 +31,8 @@ export const QueuePartyInfo = observer(() => {
   const { queue } = useStore();
   const { data } = getApi().playerApi.usePlayerControllerMyParty();
   const { data: onlineData } = getApi().statsApi.useStatsControllerOnline();
+
+  const ping = usePing(1000);
 
   const party = queue.party;
 
@@ -94,9 +97,10 @@ export const QueuePartyInfo = observer(() => {
           <span>
             {onlineData.inGame} в игре, {queue.online.length} онлайн
           </span>
-          <span>
-            Свободных серверов: {onlineData.servers - onlineData.sessions}
-          </span>
+          <span>Пинг: {ping || "Неизвестно"}</span>
+          {/*<span>*/}
+          {/*  Свободных серверов: {onlineData.servers - onlineData.sessions}*/}
+          {/*</span>*/}
           <span>Игр идет: {onlineData.sessions}</span>
         </div>
       ) : null}
