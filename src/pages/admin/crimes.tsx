@@ -16,7 +16,7 @@ interface Props {
   steamId?: string;
 }
 
-export default function CrimesPage({ crime,  steamId }: Props) {
+export default function CrimesPage({ crime, steamId }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const close = useCallback(() => {
