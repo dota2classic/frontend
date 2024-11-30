@@ -103,8 +103,8 @@ export const AppRouter = {
   admin: {
     servers: spage("/admin/servers"),
     queues: spage("/admin/queues"),
-    crimes: (pg?: number) => {
-      const q = queryParameters({ page: pg });
+    crimes: (pg?: number, steamId?: string) => {
+      const q = queryParameters({ page: pg, steam_id: steamId });
 
       return page(`/admin/crimes${q}`, `/admin/crimes${q}`);
     },

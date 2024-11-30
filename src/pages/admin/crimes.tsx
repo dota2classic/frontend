@@ -3,19 +3,46 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { BanReason, CrimeLogPageDto } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
-import { GenericTable, Pagination, TimeAgo } from "@/components";
+import { Button, GenericTable, Pagination, TimeAgo } from "@/components";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
 import { formatBanReason } from "@/util/bans";
+import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal/InvitePlayerModalRaw";
 
 interface Props {
   crime: CrimeLogPageDto;
+  page: number;
+  steamId?: string;
 }
 
-export default function CrimesPage({ crime }: Props) {
+export default function CrimesPage({ crime,  steamId }: Props) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = useCallback(() => {
+    if (modalOpen) setModalOpen(false);
+  }, [setModalOpen]);
+  const open = useCallback(() => {
+    setModalOpen(true);
+    console.log("Set to open");
+  }, [setModalOpen]);
   return (
     <>
+      <InvitePlayerModalRaw
+        isOpen={modalOpen}
+        close={close}
+        onSelect={(user) => {
+          AppRouter.admin.crimes(0, user.steamId).open();
+          close();
+        }}
+      />
+      <Button onClick={open}>Фильтровать по игроку</Button>
+      <Button
+        disabled={!steamId}
+        onClick={() => AppRouter.admin.crimes(0).open()}
+      >
+        Сбросить фильтр по игроку
+      </Button>
       <Pagination
         page={crime.page}
         maxPage={crime.pages}
@@ -70,10 +97,13 @@ export default function CrimesPage({ crime }: Props) {
 
 CrimesPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const page = numberOrDefault(ctx.query.page as string, 0);
+  const steamId = ctx.query.steam_id as string | undefined;
 
   return {
     crime: await withTemporaryToken(ctx, () =>
-      getApi().adminApi.adminUserControllerCrimes(page),
+      getApi().adminApi.adminUserControllerCrimes(page, undefined, steamId),
     ),
+    page,
+    steamId,
   };
 };

@@ -39,7 +39,15 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
       : item.replace("item_", "");
 
   if (fItem.includes("empty"))
-    return <span className={cx(c.img2, { [c.small]: small })} />;
+    return (
+      <span
+        className={cx(c.img2, { [c.small]: small })}
+        style={{
+          width: small ? smallImageStyles.width : bigImageStyles.width,
+          height: small ? smallImageStyles.height : bigImageStyles.height,
+        }}
+      />
+    );
 
   const url = fItem.includes("empty")
     ? `/items/emptyitembg.webp`
@@ -55,7 +63,7 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
       }
       onMouseLeave={() => ctx.setCtx(undefined)}
       width={small ? smallImageStyles.width : bigImageStyles.width}
-      height={small ? smallImageStyles.width : bigImageStyles.width}
+      height={small ? smallImageStyles.height : bigImageStyles.height}
       alt={`Item ${fItem}`}
       className={cx(c.item, { [c.small]: small })}
       src={url}
