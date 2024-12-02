@@ -52,6 +52,11 @@ export const SearchGameButton = observer((p: Props) => {
         <div>Кто-то в группе играет</div>
       </>
     );
+  } else if (
+    queue.selectedMode?.mode === MatchmakingMode.UNRANKED &&
+    !queue.isUnrankedQueueOpen
+  ) {
+    content = <>Поиск еще не открыт</>;
   }
 
   if (!p.visible) return null;

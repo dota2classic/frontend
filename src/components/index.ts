@@ -68,3 +68,4 @@ export { NewLanding } from "./NewLanding/NewLanding";
 export { CoolList } from "./CoolList/CoolList";
 export { FAQ } from "./FAQ/FAQ";
 export { PleaseQueueNotification } from "./PleaseQueueNotification/PleaseQueueNotification";
+export { PeriodicSpan } from "./PeriodicSpan/PeriodicSpan";

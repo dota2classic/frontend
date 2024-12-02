@@ -14,6 +14,7 @@ import {
   GameReadyModal,
   MatchmakingOption,
   Panel,
+  PeriodicSpan,
   QueuePartyInfo,
   SearchGameButton,
   Section,
@@ -31,6 +32,8 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { QueueGameState, useQueueState } from "@/util/useQueueState";
 import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
+import { QueueStore } from "@/store/queue/QueueStore";
+import formatDuration from "format-duration";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -92,6 +95,57 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
       return (
         <>
           Нужно пройти <span className="gold">обучение</span>{" "}
+        </>
+      );
+    }
+    if (mode === MatchmakingMode.UNRANKED && !queue.isUnrankedQueueOpen) {
+      return (
+        <>
+          <PeriodicSpan
+            interval={1000}
+            producer={() => {
+              const d = new Date();
+
+              const myd = new Date(
+                d.getFullYear(),
+                d.getMonth(),
+                d.getDate(),
+                18,
+                0,
+                0,
+              );
+
+              const myd2 = new Date(
+                myd.getTime() +
+                  (QueueStore.UTC_OFFSET - myd.getTimezoneOffset()) * 60 * 1000,
+              );
+
+              let timeDiff = myd2.getTime() - d.getTime();
+              if (timeDiff < 0) {
+                timeDiff += 1000 * 60 * 60 * 24; // Next day
+              } else if (timeDiff > 1000 * 60 * 60 * 24) {
+                timeDiff -= 1000 * 60 * 60 * 24; // Prev day
+              }
+
+              return formatDuration(timeDiff);
+            }}
+          />{" "}
+          до поиска
+        </>
+      );
+      // return <><Duration interval={1000} duration={timeDiff / 1000} /> до поиска</>;
+      return (
+        <>
+          Поиск открыт с{" "}
+          <span className="gold">{QueueStore.UNRANKED_QUEUE_HOURS[0]}</span> до{" "}
+          <span className="gold">
+            {
+              QueueStore.UNRANKED_QUEUE_HOURS[
+                QueueStore.UNRANKED_QUEUE_HOURS.length - 1
+              ]
+            }
+          </span>{" "}
+          часов по МСК
         </>
       );
     }

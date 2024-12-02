@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import formatDuration from "format-duration";
 
 // function formatTime(ms: number) {
@@ -29,12 +29,28 @@ const formatDuration2 = (ms: number) => {
 interface IDurationProps {
   duration: number;
   big?: boolean;
+  interval?: number;
 }
 
-export const Duration: React.FC<IDurationProps> = ({ duration, big }) => {
+export const Duration: React.FC<IDurationProps> = ({
+  duration,
+  big,
+  interval,
+}) => {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  useEffect(() => {
+    if (!interval || typeof window === "undefined") return;
+    const interval2 = setInterval(() => {
+      if (!ref.current) return;
+      ref.current!.textContent = formatDuration(duration * 1000);
+    }, interval);
+
+    return () => clearInterval(interval2);
+  }, [interval]);
+
   return (
-    <>
+    <span ref={ref} suppressHydrationWarning>
       {big ? formatDuration2(duration * 1000) : formatDuration(duration * 1000)}
-    </>
+    </span>
   );
 };

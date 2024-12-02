@@ -39,7 +39,13 @@ import { PartyInviteNotification, PleaseQueueNotification } from "@/components";
 import { EnterQueueMessageC2S } from "@/store/queue/messages/c2s/enter-queue-message.c2s";
 import { PleaseEnterQueueMessageS2C } from "@/store/queue/messages/s2c/please-enter-queue-message.s2c";
 import { metrika } from "@/ym";
-import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
+import {
+  AsyncTask,
+  SimpleIntervalJob,
+  Task,
+  ToadScheduler,
+} from "toad-scheduler";
+import { toMoscowTime } from "@/util/dates";
 
 export interface QueueState {
   mode: MatchmakingMode;
@@ -59,6 +65,9 @@ export class QueueStore
     HydratableStore<QueueStoreHydrateProps>,
     GameCoordinatorNewListener
 {
+  public static UNRANKED_QUEUE_HOURS = [17, 18, 19, 20, 21, 22, 23, 24, 0, 1, 2, 3];
+  public static UTC_OFFSET = -3 * 60; // MOSCOW, aka UTC + 3
+
   @observable
   public selectedMode: QueueState | undefined = undefined;
   @observable
@@ -92,6 +101,12 @@ export class QueueStore
 
   @observable
   public serverSearching: boolean = false;
+
+  @observable
+  public isUnrankedQueueOpen: boolean =
+    QueueStore.UNRANKED_QUEUE_HOURS.includes(
+      toMoscowTime(new Date().toISOString()).getHours(),
+    );
 
   private scheduler!: ToadScheduler;
 
@@ -129,6 +144,18 @@ export class QueueStore
             console.error("There was an error checking party", err);
           },
         ),
+      ),
+    );
+    this.scheduler.addIntervalJob(
+      new SimpleIntervalJob(
+        { seconds: 1 },
+        new Task("Update unranked time queue", () => {
+          runInAction(() => {
+            this.isUnrankedQueueOpen = QueueStore.UNRANKED_QUEUE_HOURS.includes(
+              toMoscowTime(new Date().toISOString()).getHours(),
+            );
+          });
+        }),
       ),
     );
   }
