@@ -65,7 +65,9 @@ export class QueueStore
     HydratableStore<QueueStoreHydrateProps>,
     GameCoordinatorNewListener
 {
-  public static UNRANKED_QUEUE_HOURS = [17, 18, 19, 20, 21, 22, 23, 24, 0, 1, 2, 3];
+  public static UNRANKED_QUEUE_HOURS = [
+    17, 18, 19, 20, 21, 22, 23, 24, 0, 1, 2, 3,
+  ];
   public static UTC_OFFSET = -3 * 60; // MOSCOW, aka UTC + 3
 
   @observable
