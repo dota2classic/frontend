@@ -27,7 +27,7 @@ export const MatchmakingOption = observer(
     disabled,
     selected,
     localSelected,
-    suffix
+    suffix,
   }: MatchmakingOptionProps) => {
     const { queue } = useStore();
 

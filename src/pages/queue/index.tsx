@@ -80,11 +80,11 @@ const NotificationSetting = observer(() => {
 const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
   const { queue, auth } = useStore();
 
-  const me: PartyMemberDTO = (queue.party?.players || []).find(
+  const me: PartyMemberDTO | undefined = (queue.party?.players || []).find(
     (plr: PartyMemberDTO) => plr.summary.id === auth.parsedToken?.sub,
   );
 
-  const isCalibration = me?.summary?.calibrationGamesLeft > 0;
+  const isCalibration = !!me?.summary?.calibrationGamesLeft;
 
   const d84 = modes!
     .filter((it) => it.version === "Dota_684" && it.enabled)
