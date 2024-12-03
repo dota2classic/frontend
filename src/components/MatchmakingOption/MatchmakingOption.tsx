@@ -15,6 +15,8 @@ interface MatchmakingOptionProps {
   selected: boolean;
   localSelected: boolean;
   disabled: ReactNode;
+
+  suffix?: ReactNode;
 }
 
 export const MatchmakingOption = observer(
@@ -25,6 +27,7 @@ export const MatchmakingOption = observer(
     disabled,
     selected,
     localSelected,
+    suffix
   }: MatchmakingOptionProps) => {
     const { queue } = useStore();
 
@@ -52,6 +55,7 @@ export const MatchmakingOption = observer(
             <>{queue.inQueueCount(mode, version)} в поиске</>
           )}
         </span>
+        {suffix && <span className={c.mode__suffix}>{suffix}</span>}
       </div>
     );
   },

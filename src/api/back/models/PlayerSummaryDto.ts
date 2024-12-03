@@ -67,6 +67,12 @@ export interface PlayerSummaryDto {
      * @type {number}
      * @memberof PlayerSummaryDto
      */
+    calibrationGamesLeft: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PlayerSummaryDto
+     */
     gamesPlayed: number;
     /**
      * 
@@ -98,6 +104,7 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'rank': !exists(json, 'rank') ? undefined : json['rank'],
         'unrankedGamesLeft': json['unrankedGamesLeft'],
         'playedAnyGame': json['playedAnyGame'],
+        'calibrationGamesLeft': json['calibrationGamesLeft'],
         'gamesPlayed': json['games_played'],
         'wins': json['wins'],
         'loss': json['loss'],
@@ -119,6 +126,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         'rank': value.rank,
         'unrankedGamesLeft': value.unrankedGamesLeft,
         'playedAnyGame': value.playedAnyGame,
+        'calibrationGamesLeft': value.calibrationGamesLeft,
         'games_played': value.gamesPlayed,
         'wins': value.wins,
         'loss': value.loss,

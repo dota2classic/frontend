@@ -5,6 +5,7 @@ import {
   MatchmakingInfo,
   MatchmakingMode,
   PartyDto,
+  PartyMemberDTO,
   ThreadType,
 } from "@/api/back";
 import { useDidMount } from "@/util/hooks";
@@ -77,7 +78,13 @@ const NotificationSetting = observer(() => {
 });
 
 const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
-  const { queue } = useStore();
+  const { queue, auth } = useStore();
+
+  const me: PartyMemberDTO = (queue.party?.players || []).find(
+    (plr: PartyMemberDTO) => plr.summary.id === auth.parsedToken?.sub,
+  );
+
+  const isCalibration = me?.summary?.calibrationGamesLeft > 0;
 
   const d84 = modes!
     .filter((it) => it.version === "Dota_684" && it.enabled)
@@ -133,21 +140,6 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
           до поиска
         </>
       );
-      // return <><Duration interval={1000} duration={timeDiff / 1000} /> до поиска</>;
-      return (
-        <>
-          Поиск открыт с{" "}
-          <span className="gold">{QueueStore.UNRANKED_QUEUE_HOURS[0]}</span> до{" "}
-          <span className="gold">
-            {
-              QueueStore.UNRANKED_QUEUE_HOURS[
-                QueueStore.UNRANKED_QUEUE_HOURS.length - 1
-              ]
-            }
-          </span>{" "}
-          часов по МСК
-        </>
-      );
     }
   };
 
@@ -166,6 +158,17 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
             onSelect={queue.setSelectedMode}
             version={info.version}
             mode={info.mode}
+            suffix={
+              isCalibration && info.mode === MatchmakingMode.UNRANKED ? (
+                <>
+                  еще{" "}
+                  <span className="gold">
+                    {me?.summary?.calibrationGamesLeft}
+                  </span>{" "}
+                  калибровочных игр
+                </>
+              ) : undefined
+            }
           />
         ))}
         <NotificationSetting />

@@ -1,6 +1,13 @@
 import React from "react";
 
-import { HeroIcon, ItemIcon, NumberFormat, PageLink, Table } from "..";
+import {
+  HeroIcon,
+  ItemIcon,
+  NumberFormat,
+  PageLink,
+  Table,
+  Tooltipable,
+} from "..";
 import { PlayerInMatchDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import c from "./MatchTeamTable.module.scss";
@@ -249,16 +256,23 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             </td>
             <td className={hc.includes("MMR") ? c.mobileHidden : undefined}>
               {(player.mmr?.change && (
-                <>
+                <Tooltipable
+                  tooltip={
+                    Math.abs(player.mmr.change) >= 50
+                      ? "Калибровочная игра"
+                      : "Обычная игра "
+                  }
+                >
                   {player.mmr?.mmrBefore}{" "}
                   <span
-                    className={
-                      Math.sign(player.mmr?.change || 0) > 0 ? "green" : "red"
-                    }
+                    className={cx(
+                      Math.sign(player.mmr?.change || 0) > 0 ? "green" : "red",
+                      Math.abs(player.mmr.change) >= 50 && "gold",
+                    )}
                   >
                     {signedNumber(player.mmr?.change || 0)}
                   </span>
-                </>
+                </Tooltipable>
               )) ||
                 "-"}
             </td>

@@ -1,0 +1,40 @@
+@import "../../common.scss";
+
+
+.tooltipable {
+  position: relative;
+
+  &:hover {
+    & .tooltip {
+      visibility: visible;
+    }
+  }
+}
+
+.tooltip {
+  visibility: hidden;
+
+  position: absolute;
+  z-index: 1;
+  top: -50%;
+  right: 105%;
+  min-width: 100px;
+
+  background-color: $bg1;
+  color: $primaryText;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+
+  &::after {
+
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 100%; /* To the right of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent black;
+  }
+}

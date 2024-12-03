@@ -69,3 +69,4 @@ export { CoolList } from "./CoolList/CoolList";
 export { FAQ } from "./FAQ/FAQ";
 export { PleaseQueueNotification } from "./PleaseQueueNotification/PleaseQueueNotification";
 export { PeriodicSpan } from "./PeriodicSpan/PeriodicSpan";
+export { Tooltipable } from "./Tooltipable/Tooltipable";
