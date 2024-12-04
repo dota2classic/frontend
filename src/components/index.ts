@@ -60,7 +60,7 @@ export { UserPreview } from "./UserPreview/UserPreview";
 export { AchievementStatus } from "./AchievementStatus/AchievementStatus";
 export { YandexMetrika } from "./YandexMetrika/YandexMetrika";
 export { AuthLink } from "./AuthLink/AuthLink";
-export { Message } from "./Message/Message";
+export { MessageGroup } from "./Message/Message";
 export { TooltipIcon } from "./TooltipIcon/TooltipIcon";
 export { PlayerAvatar } from "./PlayerAvatar/PlayerAvatar";
 export { Tabs } from "./Tabs/Tabs";

@@ -217,7 +217,7 @@ export default function QueuePage(props: Props) {
         <Thread
           scrollToLast
           className={c.queueDiscussion}
-          showLastMessages={30}
+          showLastMessages={100}
           threadStyle={ThreadStyle.TINY}
           id={"17aa3530-d152-462e-a032-909ae69019ed"}
           threadType={ThreadType.FORUM}

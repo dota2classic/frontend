@@ -7,6 +7,8 @@ interface ITooltipableProps {
   tooltip: ReactNode;
   className?: string;
   tooltipClassName?: string;
+
+  tooltipPosition?: "left" | "top" | "right" | "bottom";
 }
 
 export const Tooltipable: React.FC<PropsWithChildren<ITooltipableProps>> = ({
@@ -14,10 +16,20 @@ export const Tooltipable: React.FC<PropsWithChildren<ITooltipableProps>> = ({
   children,
   className,
   tooltipClassName,
+  tooltipPosition,
 }) => {
   return (
     <span className={cx(c.tooltipable, className)}>
-      <div className={cx(c.tooltip, tooltipClassName)}>{tooltip}</div>
+      <div
+        className={cx(c.tooltip, tooltipClassName, {
+          [c.left]: tooltipPosition === "left",
+          [c.right]: tooltipPosition === "right",
+          [c.top]: tooltipPosition === "top",
+          [c.bottom]: tooltipPosition === "bottom",
+        })}
+      >
+        {tooltip}
+      </div>
       {children}
     </span>
   );

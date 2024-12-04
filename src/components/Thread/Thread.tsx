@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Button,
   MarkdownTextarea,
-  Message,
+  MessageGroup,
   Pagination,
   Panel,
   ScrollDetector,
@@ -162,10 +162,10 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
 
   const messages =
     showLastMessages !== undefined
-      ? thread.messages.slice(
-          Math.max(0, thread.messages.length - showLastMessages),
+      ? thread.groupedMessages.slice(
+          Math.max(0, thread.groupedMessages.length - showLastMessages),
         )
-      : thread.messages;
+      : thread.groupedMessages;
 
   useEffect(() => {
     if (messages.length > 0 && scrollToLast) {
@@ -221,12 +221,13 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
         )}
       >
         {messages.map((msg) => (
-          <Message
+          <MessageGroup
             threadStyle={threadStyle || ThreadStyle.NORMAL}
-            message={msg}
-            key={msg.messageId}
+            messages={msg.messages}
+            key={msg.messages[0].messageId}
             onDelete={auth.isAdmin ? deleteMessage : undefined}
             onMute={auth.isAdmin ? muteUser : undefined}
+            author={msg.author}
           />
         ))}
       </div>

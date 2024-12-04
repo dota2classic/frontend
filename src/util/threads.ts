@@ -6,6 +6,7 @@ import {
   ThreadDTO,
   ThreadMessageDTO,
   ThreadMessagePageDTO,
+  UserDTO,
 } from "@/api/back";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { maxBy } from "@/util/iter";
@@ -46,18 +47,67 @@ const useThreadEventSource = (
   }, [consumeMessages, context, trigger]);
 };
 
-// interface ThreadLocalState {
-//   thread: Thread;
-//   messageMap: Map<string, ThreadMessageDTO>;
-// }
+interface MessageGroup {
+  author: UserDTO;
+  displayDate: string;
+  messages: ThreadMessageDTO[];
+}
+export interface ThreadView {
+  id: string;
+  type: ThreadType;
+  groupedMessages: MessageGroup[];
+}
 
 class ThreadLocalState {
   @observable
   messageMap: Map<string, ThreadMessageDTO> = new Map();
+
   @observable
   pg: ThreadMessagePageDTO | undefined = undefined;
+
   @observable
   page: number | undefined = undefined;
+
+  @computed
+  public get thread(): Thread {
+    const messagePool = this.pg
+      ? this.pg.data
+      : Array.from(this.messageMap.values());
+    return {
+      id: this.id,
+      type: this.threadType,
+      messages: messagePool
+        .filter((t) => !t.deleted)
+        .sort((a, b) => a.index - b.index),
+    };
+  }
+
+  @computed
+  public get threadView(): ThreadView {
+    const groupedMessages: MessageGroup[] = [];
+    const thread = this.thread;
+
+    let group: MessageGroup | undefined = undefined;
+    for (let i = 0; i < thread.messages.length; i++) {
+      const msg = thread.messages[i];
+      if (!group || group.author.steamId !== msg.author.steamId) {
+        group = {
+          author: msg.author,
+          displayDate: msg.createdAt,
+          messages: [msg],
+        };
+        groupedMessages.push(group);
+      } else if (group.author.steamId === msg.author.steamId) {
+        group.messages.push(msg);
+      }
+    }
+
+    return {
+      id: this.id,
+      type: this.threadType,
+      groupedMessages: groupedMessages,
+    } satisfies ThreadView;
+  }
 
   constructor(
     public id: string,
@@ -77,23 +127,6 @@ class ThreadLocalState {
         this.messageMap = new Map(init.map((it) => [it.messageId, it]));
       }
     }
-  }
-
-  @computed
-  public get thread(): Thread {
-    const messagePool = this.pg
-      ? this.pg.data
-      : Array.from(this.messageMap.values());
-    return {
-      id: this.id,
-      type: this.threadType,
-      messages: messagePool
-        .filter((t) => !t.deleted)
-        .sort(
-          (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-        ),
-    };
   }
 
   @action consumeMessages = (msgs: ThreadMessageDTO[]) => {
@@ -158,7 +191,7 @@ export const useThread = (
   page?: number,
   batchSize?: number,
 ): [
-  Thread,
+  ThreadView,
   ThreadDTO | undefined,
   () => void,
   (messages: ThreadMessageDTO[]) => void,
@@ -230,7 +263,7 @@ export const useThread = (
 
   if (typeof window === "undefined")
     return [
-      state.thread,
+      state.threadView,
       undefined,
       () => undefined,
       () => undefined,
@@ -242,7 +275,7 @@ export const useThread = (
   // otherwise all sorted
 
   return [
-    state.thread,
+    state.threadView,
     rawThread,
     loadMore,
     state.consumeMessages,

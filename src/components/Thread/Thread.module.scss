@@ -2,6 +2,7 @@
 
 .thread {
   margin-top: 20px;
+  background-color: $bg2;
 }
 
 .messageContainer {
@@ -9,8 +10,9 @@
   flex-direction: column;
   overflow-y: auto;
   gap: 16px;
+
   &__tiny {
-    gap: 6px;
+    gap: 10px;
   }
 }
 

@@ -257,6 +257,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <td className={hc.includes("MMR") ? c.mobileHidden : undefined}>
               {(player.mmr?.change && (
                 <Tooltipable
+                  tooltipPosition="left"
                   tooltip={
                     Math.abs(player.mmr.change) >= 50
                       ? "Калибровочная игра"

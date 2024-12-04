@@ -1,129 +1,38 @@
 @import "../../common.scss";
 
 
-.mobileAvatar {
-  display: none;
-  width: 40px !important;
-  height: 40px !important;;
-  @media (max-width: 600px) {
-    display: block;
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: unset;
+
+  &_tiny {
+
   }
 }
-.message {
+
+.author {
   display: flex;
   flex-direction: row;
 
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
+  color: $primaryTextDark;
+  gap: 4px;
+  align-items: center;
 
-  & .user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-self: stretch;
-    padding: 8px 12px;
-
-    @media (max-width: 600px) {
-      display: none;
-    }
-
-    & img {
-      width: 100px;
-      height: 100px;
-    }
-
-    &__roles {
-      font-size: 2rem;
-      min-height: 2rem;
-    }
-
-    &__username {
-      display: none;
-    }
-  }
-
-  & .right {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    align-self: stretch;
-    padding: 12px 8px;
-    margin-left: 10px;
-    overflow-x: hidden;
-
-
-    & .heading {
-      display: flex;
-      flex-direction: row;
-
-      @media (max-width: 600px) {
-        flex-direction: column;
-        gap: 4px;
-      }
-
-      &__left {
-        display: flex;
-        flex: 1;
-        font-size: 1.2rem;
-        align-items: center;
-
-        & svg {
-          margin-left: 2px;
-          //vertical-align: middle;
-        }
-      }
-
-      &__roles {
-        vertical-align: middle;
-      }
-    }
-
-    &__timeCreated {
-      display: flex;
-      flex-direction: row;
-      color: $primaryTextDark;
-      gap: 4px;
-      align-items: center;
-    }
-
-    & .content {
-      white-space: pre-line;
-      overflow-wrap: break-word;
-      flex: 1;
-      padding-top: 12px;
-      //line-break: anywhere;
-      padding-right: 1rem;
-    }
+  & svg {
+    vertical-align: middle;
   }
 }
 
-.tiny {
-  padding: 2px;
+.content {
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  flex: 1;
+  padding-right: 1rem;
+  padding-top: 4px;
+  padding-bottom: 4px;
 
-  & .user {
-    padding: 2px;
-
-    & img {
-      width: 45px;
-      height: 45px;
-    }
-  }
-
-  & .right {
-    padding: 2px 8px;
-
-    margin-left: 0;
-
-    & .heading {
-      font-size: 1rem;
-    }
-
-    & .content {
-      padding-top: 4px;
-      padding-bottom: 6px;
-    }
-  }
 }
 
 .delete {
@@ -135,4 +44,85 @@
   &:hover {
     color: $red;
   }
+}
+
+
+.header {
+  padding-top: 4px;
+
+  & .controls {
+
+    align-items: flex-start;
+    padding-top: 2px;
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+
+  padding-left: 12px;
+
+
+
+
+
+  &__left {
+    width: 60px;
+
+    &_user {
+      & img {
+        width: 45px;
+        height: 45px;
+        border-radius: 14%;
+      }
+    }
+  }
+
+
+  &__middle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  &:hover {
+    background-color: $transparentTint3;
+
+    & .time {
+      visibility: visible;
+    }
+    & .controls {
+      visibility: visible;
+    }
+  }
+}
+
+
+.controls {
+  visibility: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 20px;
+}
+
+
+.username {
+  font-weight: bolder;
+}
+
+.time {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  //align-items: center;
+  justify-content: space-around;
+  font-size: 0.8rem;
+  color: $primaryTextDark;
+}
+
+.messageIndex {
+  margin-left: auto;
 }
