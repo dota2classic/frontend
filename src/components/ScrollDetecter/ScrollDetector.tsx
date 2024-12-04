@@ -1,26 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { useIsVisible } from "@/util/useIsVisible";
 
 interface IScrollDetectorProps {
   onScrolledTo: () => void;
-}
-
-export function useIsVisible(ref: React.RefObject<HTMLDivElement | null>) {
-  const [isIntersecting, setIntersecting] = useState(false);
-
-  useEffect(() => {
-    if (!ref.current) return;
-
-    const observer = new IntersectionObserver(([entry]) =>
-      setIntersecting(entry.isIntersecting),
-    );
-
-    observer.observe(ref.current!);
-    return () => {
-      observer.disconnect();
-    };
-  }, [ref]);
-
-  return isIntersecting;
 }
 
 export const ScrollDetector: React.FC<IScrollDetectorProps> = ({

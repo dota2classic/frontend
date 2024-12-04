@@ -1,15 +1,6 @@
-"use client";
+import React, { useCallback, useEffect, useRef } from "react";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-
-import {
-  Button,
-  MarkdownTextarea,
-  MessageGroup,
-  Pagination,
-  Panel,
-  ScrollDetector,
-} from "..";
+import { MessageGroup, Pagination, ScrollDetector } from "..";
 
 import c from "./Thread.module.scss";
 import { ThreadMessageDTO, ThreadMessagePageDTO } from "@/api/back";
@@ -22,8 +13,7 @@ import { useThread } from "@/util/threads";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useStore } from "@/store";
 import { ThreadStyle } from "@/components/Thread/types";
-import { IoSend } from "react-icons/io5";
-import { useThrottle } from "@/util/throttle";
+import { MessageInput } from "@/components/Thread/MessageInput";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -43,96 +33,7 @@ interface IThreadProps {
   };
 }
 
-export const MessageInput = observer(
-  (p: {
-    threadId: string;
-    canMessage: boolean;
-    onMessage: (mgs: ThreadMessageDTO) => void;
-    rows: number;
-    className?: string;
-  }) => {
-    const [value, setValue] = useState("");
-    const [error, setError] = useState<string | null>(null);
-
-    const isValid = value.trim().length >= 2;
-
-    const throttledSubmit = useThrottle(() => {
-      if (!isValid) {
-        setError("Слишком короткое сообщение!");
-        return;
-      }
-      // Do it optimistically, first
-      const msg = value;
-      setValue("");
-
-      getApi()
-        .forumApi.forumControllerPostMessage({
-          threadId: p.threadId,
-          content: msg,
-        })
-        .then((msg) => {
-          setValue("");
-          p.onMessage(msg);
-        })
-        .catch((err) => {
-          if (err.status === 403) {
-            setError("Вам запрещено отправлять сообщения!");
-          } else {
-            setError("Слишком часто отправляете сообщения!");
-          }
-          setValue(msg);
-        });
-    }, 250);
-
-    const onEnterKeyPressed = useCallback(
-      (e: React.KeyboardEvent) => {
-        if (e.keyCode === 13 && !e.shiftKey) {
-          e.preventDefault();
-          // enter
-          throttledSubmit();
-        }
-      },
-      [throttledSubmit],
-    );
-    return (
-      <Panel className={cx(c.createMessage, p.className)}>
-        <MarkdownTextarea
-          rows={p.rows}
-          readOnly={!p.canMessage}
-          onKeyDown={onEnterKeyPressed}
-          className={c.text}
-          placeholder={
-            p.canMessage
-              ? "Введите сообщение"
-              : "У вас нет прав на отправку сообщений"
-          }
-          value={value}
-          onChange={(e) => {
-            setError(null);
-            setValue(e.target.value!);
-          }}
-        />
-
-        {/*<div className={c.markdown}>Поддерживается разметка markdown</div>*/}
-        <Button
-          disabled={!isValid || !p.canMessage}
-          className={(error && "red") || undefined}
-          onClick={throttledSubmit}
-        >
-          {/*{error || "Отправить"}*/}
-          {
-            <IoSend
-              className={error ? "red" : undefined}
-              onClick={throttledSubmit}
-            />
-          }
-        </Button>
-        <div className={cx(c.test, error && c.visible)}>{error || ""}</div>
-      </Panel>
-    );
-  },
-);
-export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
+export const Thread: React.FC<IThreadProps> = observer(function Thread({
   threadType,
   id,
   className,
@@ -144,6 +45,7 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
 }) {
   const { auth } = useStore();
   const scrollableRef = useRef<HTMLDivElement | null>(null);
+
   const [thread, rawThread, loadMore, consumeMessages, pg] = useThread(
     id,
     threadType,
@@ -168,6 +70,24 @@ export const Thread: React.FC<IThreadProps> = observer(function ThreadInner({
       element.scroll({ top: element.scrollHeight + 100, behavior: "instant" });
     }
   }, [messages, scrollToLast, scrollableRef]);
+
+  useEffect(() => {
+    const t = scrollableRef.current;
+    if (!t) return;
+
+    const listener = (e: Event) => {
+      console.log(
+        e,
+        "Scroll end?",
+        t.scrollTop,
+        t.scrollHeight,
+        t.offsetHeight,
+        t.clientHeight,
+      );
+    };
+    t.addEventListener("scrollend", listener);
+    return () => t.removeEventListener("scrollend", listener);
+  }, [scrollableRef]);
 
   const deleteMessage = useCallback(
     (id: string) => {

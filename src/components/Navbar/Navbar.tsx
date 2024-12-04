@@ -60,7 +60,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   );
 });
 
-export const Navbar = observer((p: { className?: string }) => {
+export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth } = useStore();
   const { isAdmin, isModerator } = auth;
   const isAuthorized = auth.isAuthorized;

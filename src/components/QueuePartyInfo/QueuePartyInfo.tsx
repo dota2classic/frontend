@@ -26,7 +26,7 @@ const GameCoordinatorConnection = ({
   );
 };
 
-export const QueuePartyInfo = observer(() => {
+export const QueuePartyInfo = observer(function QueuePartyInfo() {
   const { queue } = useStore();
   const { data } = getApi().playerApi.usePlayerControllerMyParty();
   const { data: onlineData } = getApi().statsApi.useStatsControllerOnline();

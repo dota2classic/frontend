@@ -12,6 +12,7 @@ import {
   GameServerDto,
   GameSessionDto,
   MatchmakingInfo,
+  MatchmakingMode,
 } from "@/api/back";
 import React, { useCallback } from "react";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
@@ -171,6 +172,18 @@ export default function AdminServersPage({
     await appApi.adminApi.serverControllerStopServer({ url: it.url });
   }, []);
 
+  const updateGameMode = useCallback(
+    (lobbyType: MatchmakingMode, gamemode: DotaGameMode, enabled: boolean) => {
+      appApi.adminApi
+        .adminUserControllerUpdateGameMode({
+          mode: lobbyType,
+          dotaGameMode: gamemode,
+          enabled: enabled,
+        })
+        .then(mutate);
+    },
+    [mutate],
+  );
   return (
     <div className={c.gridPanel}>
       <Section className={c.grid6}>
@@ -193,28 +206,16 @@ export default function AdminServersPage({
                     defaultText={"Режим игры"}
                     options={DotaGameModeOptions}
                     selected={t.gameMode}
-                    onSelect={(value) => {
-                      appApi.adminApi
-                        .adminUserControllerUpdateGameMode({
-                          mode: t.lobbyType,
-                          dotaGameMode: value.value,
-                          enabled: t.enabled,
-                        })
-                        .then(mutate);
-                    }}
+                    onSelect={(value) =>
+                      updateGameMode(t.lobbyType, value.value, t.enabled)
+                    }
                   />
                 </td>
                 <td>
                   <input
-                    onChange={(e) => {
-                      appApi.adminApi
-                        .adminUserControllerUpdateGameMode({
-                          mode: t.lobbyType,
-                          dotaGameMode: t.gameMode,
-                          enabled: e.target.checked,
-                        })
-                        .then(mutate);
-                    }}
+                    onChange={(e) =>
+                      updateGameMode(t.lobbyType, t.gameMode, e.target.checked)
+                    }
                     type="checkbox"
                     checked={t.enabled}
                   />
