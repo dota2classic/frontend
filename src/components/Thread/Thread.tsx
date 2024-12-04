@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { MessageGroup, Pagination, ScrollDetector } from "..";
 
@@ -45,6 +51,10 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
 }) {
   const { auth } = useStore();
   const scrollableRef = useRef<HTMLDivElement | null>(null);
+  const [sticky, setSticky] = useState(!!scrollToLast);
+  const [lastSeenMessageIndex, setLastSeenMessageIndex] = useState<
+    number | undefined
+  >(undefined);
 
   const [thread, rawThread, loadMore, consumeMessages, pg] = useThread(
     id,
@@ -62,28 +72,45 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
         )
       : thread.groupedMessages;
 
-  useEffect(() => {
-    if (messages.length > 0 && scrollToLast) {
+  const unseenMessageCount = useMemo(() => {
+    return sticky || lastSeenMessageIndex === undefined
+      ? 0
+      : messages
+          .flatMap((group) => group.messages)
+          .filter((message) => message.index > lastSeenMessageIndex).length;
+  }, [lastSeenMessageIndex, messages, sticky]);
+
+  const scrollToBottom = useCallback(
+    (smooth?: boolean) => {
       const element = scrollableRef.current;
       if (!element) return;
+      element.scroll({
+        top: element.scrollHeight,
+        behavior: smooth ? "smooth" : "instant",
+      });
+    },
+    [scrollableRef],
+  );
 
-      element.scroll({ top: element.scrollHeight + 100, behavior: "instant" });
+  useEffect(() => {
+    if (!sticky) return;
+
+    if (messages.length > 0 && scrollToLast) {
+      scrollToBottom();
+
+      const m = messages[messages.length - 1].messages;
+      setLastSeenMessageIndex(m[m.length - 1].index);
     }
-  }, [messages, scrollToLast, scrollableRef]);
+  }, [messages, sticky]);
 
   useEffect(() => {
     const t = scrollableRef.current;
     if (!t) return;
 
-    const listener = (e: Event) => {
-      console.log(
-        e,
-        "Scroll end?",
-        t.scrollTop,
-        t.scrollHeight,
-        t.offsetHeight,
-        t.clientHeight,
-      );
+    const listener = () => {
+      const sticked =
+        Math.abs(t.scrollHeight - t.scrollTop - t.offsetHeight) < 10;
+      setSticky(sticked);
     };
     t.addEventListener("scrollend", listener);
     return () => t.removeEventListener("scrollend", listener);
@@ -143,6 +170,15 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
             author={msg.author}
           />
         ))}
+      </div>
+      <div
+        className={cx(
+          c.unseenMessages,
+          unseenMessageCount && c.unseenMessages__visible,
+        )}
+        onClick={() => scrollToBottom(true)}
+      >
+        {unseenMessageCount} новых сообщений
       </div>
       {!pagination && <ScrollDetector onScrolledTo={loadMore} />}
       {pagination && (

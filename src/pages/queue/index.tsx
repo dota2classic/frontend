@@ -15,7 +15,6 @@ import {
   EmbedProps,
   GameReadyModal,
   MatchmakingOption,
-  Panel,
   QueuePartyInfo,
   SearchGameButton,
   Section,
@@ -33,6 +32,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { QueueGameState, useQueueState } from "@/util/useQueueState";
 import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
+import cx from "clsx";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -146,7 +146,7 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
   return (
     <Section className={c.modes}>
       <header>Режим игры</header>
-      <Panel className={c.modes__list}>
+      <div className={cx(c.modes__list, c.box)}>
         {d84.map((info) => (
           <MatchmakingOption
             selected={queue.queueState?.mode === info.lobbyType}
@@ -184,7 +184,7 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
         {queueGameState === QueueGameState.SEARCHING_SERVER && (
           <ServerSearching className={c.gameReady} />
         )}
-      </Panel>
+      </div>
     </Section>
   );
 });

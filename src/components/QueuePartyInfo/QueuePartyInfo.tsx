@@ -6,7 +6,7 @@ import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { PartyMemberDTO } from "@/api/back";
-import { InvitePlayerModal, PageLink, Panel } from "@/components";
+import { InvitePlayerModal, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
 
@@ -46,7 +46,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
   const isSoloParty = party?.players?.length === 1;
 
   return (
-    <Panel className={c.info}>
+    <div className={c.info}>
       <InvitePlayerModal isOpen={inviteOpen} close={close} />
 
       <div className={c.party}>
@@ -102,6 +102,6 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
           <span>Игр идет: {onlineData.sessions}</span>
         </div>
       ) : null}
-    </Panel>
+    </div>
   );
 });

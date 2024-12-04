@@ -59,7 +59,6 @@
     "@types/howler": "^2.2.11",
     "@types/node": "^22.9.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "@types/web-push": "^3.6.4",
     "eslint-config-next": "15.0.3",

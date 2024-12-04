@@ -13,13 +13,18 @@ import { AppRouter } from "@/route";
 import { MessageControls } from "@/components/Message/MessageControls";
 import { IMessageProps } from "@/components/Message/MessageProps";
 import { enrichMessage } from "@/components/Thread/richMessage";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/store";
 
-export const MessageHeader = ({
+export const MessageHeader = observer(function MessageHeader({
   message,
   threadStyle,
   onDelete,
   onMute,
-}: IMessageProps) => {
+}: IMessageProps) {
+  const { queue } = useStore();
+  const isOnline =
+    queue.online.findIndex((x) => x === message.author.steamId) !== -1;
   const roles = (
     <>
       {message.author.roles.includes(Role.ADMIN) && (
@@ -57,7 +62,7 @@ export const MessageHeader = ({
         <div className={cx(c.author)}>
           <PageLink
             link={AppRouter.players.player.index(message.author.steamId).link}
-            className={cx(c.username, "link")}
+            className={cx(c.username, "link", isOnline && c.online)}
           >
             {message.author.name}
           </PageLink>
@@ -70,4 +75,4 @@ export const MessageHeader = ({
       <MessageControls onMute={onMute} onDelete={onDelete} />
     </div>
   );
-};
+});

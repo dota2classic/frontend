@@ -3,6 +3,11 @@
 .thread {
   margin-top: 20px;
   background-color: $bg2;
+  position: relative;
+}
+
+.messageContainerContainer {
+  position: relative;
 }
 
 .messageContainer {
@@ -155,7 +160,7 @@
 .createMessage {
   margin-top: 20px;
   position: relative;
-  padding: 8px 12px ;
+  padding: 8px 12px;
 
   display: grid;
   grid-column-gap: 12px;
@@ -223,4 +228,31 @@
 .tc {
   display: flex;
   flex-direction: row;
+}
+
+.unseenMessages {
+  position: absolute;
+  padding: 8px;
+  background: $bg1;
+  box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+  border: 1px solid $primaryTextDark2;
+  color: $red;
+  border-radius: 8px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 65px;
+  text-align: center;
+  width: 165px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  visibility: hidden;
+
+  &__visible {
+    visibility: visible;
+  }
+
+  &:hover {
+    border: 1px solid $primaryText;
+  }
 }
