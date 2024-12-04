@@ -14,10 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    Dota2Version,
-    Dota2VersionFromJSON,
-    Dota2VersionFromJSONTyped,
-    Dota2VersionToJSON,
+    DotaGameMode,
+    DotaGameModeFromJSON,
+    DotaGameModeFromJSONTyped,
+    DotaGameModeToJSON,
     MatchmakingMode,
     MatchmakingModeFromJSON,
     MatchmakingModeFromJSONTyped,
@@ -38,10 +38,10 @@ export interface UpdateModeDTO {
     mode: MatchmakingMode;
     /**
      * 
-     * @type {Dota2Version}
+     * @type {DotaGameMode}
      * @memberof UpdateModeDTO
      */
-    version: Dota2Version;
+    dotaGameMode: DotaGameMode;
     /**
      * 
      * @type {boolean}
@@ -61,7 +61,7 @@ export function UpdateModeDTOFromJSONTyped(json: any, ignoreDiscriminator: boole
     return {
         
         'mode': MatchmakingModeFromJSON(json['mode']),
-        'version': Dota2VersionFromJSON(json['version']),
+        'dotaGameMode': DotaGameModeFromJSON(json['dotaGameMode']),
         'enabled': json['enabled'],
     };
 }
@@ -76,7 +76,7 @@ export function UpdateModeDTOToJSON(value?: UpdateModeDTO | null): any {
     return {
         
         'mode': MatchmakingModeToJSON(value.mode),
-        'version': Dota2VersionToJSON(value.version),
+        'dotaGameMode': DotaGameModeToJSON(value.dotaGameMode),
         'enabled': value.enabled,
     };
 }

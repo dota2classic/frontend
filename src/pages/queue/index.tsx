@@ -2,6 +2,7 @@ import c from "./Queue.module.scss";
 import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
 import {
+  Dota2Version,
   MatchmakingInfo,
   MatchmakingMode,
   PartyDto,
@@ -84,8 +85,8 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
   const isCalibration = !!me?.summary?.calibrationGamesLeft;
 
   const d84 = modes!
-    .filter((it) => it.version === "Dota_684" && it.enabled)
-    .sort((a, b) => Number(a.mode) - Number(b.mode));
+    .filter((it) => it.enabled)
+    .sort((a, b) => Number(a.lobbyType) - Number(b.lobbyType));
 
   const modEnableCondition = (mode: MatchmakingMode): ReactNode | undefined => {
     if (mode !== MatchmakingMode.BOTS && queue.partyBanStatus?.isBanned) {
@@ -148,15 +149,16 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
       <Panel className={c.modes__list}>
         {d84.map((info) => (
           <MatchmakingOption
-            selected={queue.queueState?.mode === info.mode}
-            localSelected={queue.selectedMode?.mode === info.mode}
-            disabled={modEnableCondition(info.mode)}
-            key={`${info.mode}${info.version}`}
+            selected={queue.queueState?.mode === info.lobbyType}
+            localSelected={queue.selectedMode?.mode === info.lobbyType}
+            disabled={modEnableCondition(info.lobbyType)}
+            key={`${info.lobbyType}`}
             onSelect={queue.setSelectedMode}
-            version={info.version}
-            mode={info.mode}
+            version={Dota2Version.Dota_684}
+            mode={info.lobbyType}
+            dotaMode={info.gameMode}
             suffix={
-              isCalibration && info.mode === MatchmakingMode.UNRANKED ? (
+              isCalibration && info.lobbyType === MatchmakingMode.UNRANKED ? (
                 <>
                   еще{" "}
                   <span className="gold">

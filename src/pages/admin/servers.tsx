@@ -1,8 +1,14 @@
 import { appApi, getApi } from "@/api/hooks";
-import { Button, GenericTable, Section, Table } from "@/components";
+import {
+  Button,
+  GenericTable,
+  Section,
+  SelectOptions,
+  Table,
+} from "@/components";
 import { formatGameMode } from "@/util/gamemode";
 import {
-  Dota2Version,
+  DotaGameMode,
   GameServerDto,
   GameSessionDto,
   MatchmakingInfo,
@@ -15,6 +21,8 @@ import c from "./AdminStyles.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { NextPageContext } from "next";
+import { MatchmakingModes } from "@/store/queue/mock";
+import { DotaGameModeOptions } from "@/components/SelectOptions/SelectOptions";
 
 interface PageProps {
   initialServerPool: GameServerDto[];
@@ -145,9 +153,17 @@ export default function AdminServersPage({
       },
     });
 
-  const modes = (allowedModes || ([] as MatchmakingInfo[]))
-    .sort((a, b) => a.mode - b.mode)
-    .filter((it) => it.version === Dota2Version.Dota_684);
+  const modes = MatchmakingModes.map((lobbyType) => {
+    const existing = (allowedModes || initialAllowedModes).find(
+      (t) => t.lobbyType === lobbyType,
+    );
+
+    return {
+      lobbyType,
+      gameMode: existing?.gameMode || DotaGameMode.ALLPICK,
+      enabled: existing?.enabled || false,
+    };
+  });
 
   const sessions: GameSessionDto[] = liveSessions || [];
 
@@ -157,34 +173,47 @@ export default function AdminServersPage({
 
   return (
     <div className={c.gridPanel}>
-      <Section className={c.grid12}>
+      <Section className={c.grid6}>
         <header>Режимы игры</header>
 
         <Table>
           <thead>
             <tr>
-              <th>Версия</th>
               <th>Режим</th>
+              <th style={{ width: 200 }}>Игровой режим</th>
               <th>Действия</th>
             </tr>
           </thead>
           <tbody>
             {modes.map((t) => (
-              <tr key={t.version.toString() + t.mode.toString()}>
-                <td>{t.version}</td>
-                <td>{formatGameMode(t.mode)}</td>
+              <tr key={t.lobbyType.toString()}>
+                <td>{formatGameMode(t.lobbyType)}</td>
+                <td>
+                  <SelectOptions
+                    defaultText={"Режим игры"}
+                    options={DotaGameModeOptions}
+                    selected={t.gameMode}
+                    onSelect={(value) => {
+                      appApi.adminApi
+                        .adminUserControllerUpdateGameMode({
+                          mode: t.lobbyType,
+                          dotaGameMode: value.value,
+                          enabled: t.enabled,
+                        })
+                        .then(mutate);
+                    }}
+                  />
+                </td>
                 <td>
                   <input
                     onChange={(e) => {
                       appApi.adminApi
                         .adminUserControllerUpdateGameMode({
-                          mode: t.mode,
-                          version: t.version,
+                          mode: t.lobbyType,
+                          dotaGameMode: t.gameMode,
                           enabled: e.target.checked,
                         })
-                        .then((data) =>
-                          mutate(data as unknown as MatchmakingInfo[]),
-                        );
+                        .then(mutate);
                     }}
                     type="checkbox"
                     checked={t.enabled}
@@ -196,7 +225,7 @@ export default function AdminServersPage({
         </Table>
       </Section>
 
-      <div className={c.grid8}>
+      <div className={c.grid6}>
         <h3>Пул серверов</h3>
 
         <ServerPool
@@ -210,7 +239,7 @@ export default function AdminServersPage({
         />
       </div>
 
-      <div className={c.grid4}>
+      <div className={c.grid12}>
         <h3>Текущие сессии</h3>
         <SessionList sessions={sessions} stopGameSession={stopGameSession} />
       </div>

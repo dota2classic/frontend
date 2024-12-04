@@ -14,10 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    Dota2Version,
-    Dota2VersionFromJSON,
-    Dota2VersionFromJSONTyped,
-    Dota2VersionToJSON,
+    DotaGameMode,
+    DotaGameModeFromJSON,
+    DotaGameModeFromJSONTyped,
+    DotaGameModeToJSON,
     MatchmakingMode,
     MatchmakingModeFromJSON,
     MatchmakingModeFromJSONTyped,
@@ -35,13 +35,13 @@ export interface MatchmakingInfo {
      * @type {MatchmakingMode}
      * @memberof MatchmakingInfo
      */
-    mode: MatchmakingMode;
+    lobbyType: MatchmakingMode;
     /**
      * 
-     * @type {Dota2Version}
+     * @type {DotaGameMode}
      * @memberof MatchmakingInfo
      */
-    version: Dota2Version;
+    gameMode: DotaGameMode;
     /**
      * 
      * @type {boolean}
@@ -60,8 +60,8 @@ export function MatchmakingInfoFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'mode': MatchmakingModeFromJSON(json['mode']),
-        'version': Dota2VersionFromJSON(json['version']),
+        'lobbyType': MatchmakingModeFromJSON(json['lobby_type']),
+        'gameMode': DotaGameModeFromJSON(json['game_mode']),
         'enabled': json['enabled'],
     };
 }
@@ -75,8 +75,8 @@ export function MatchmakingInfoToJSON(value?: MatchmakingInfo | null): any {
     }
     return {
         
-        'mode': MatchmakingModeToJSON(value.mode),
-        'version': Dota2VersionToJSON(value.version),
+        'lobby_type': MatchmakingModeToJSON(value.lobbyType),
+        'game_mode': DotaGameModeToJSON(value.gameMode),
         'enabled': value.enabled,
     };
 }

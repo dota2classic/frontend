@@ -50,8 +50,9 @@ export default function QueuesPage({ queues: initialQueues, modeInfo }: Props) {
 
   const queues: QueueStateDTO[] = data!.filter(
     (t) =>
-      modeInfo.findIndex((minfo) => minfo.enabled && minfo.mode === t.mode) !==
-      -1,
+      modeInfo.findIndex(
+        (minfo) => minfo.enabled && minfo.lobbyType === t.mode,
+      ) !== -1,
   );
 
   return (

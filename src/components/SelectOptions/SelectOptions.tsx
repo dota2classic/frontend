@@ -2,8 +2,8 @@
 import React, { ReactNode } from "react";
 
 import c from "./SelectOptions.module.scss";
-import { MatchmakingMode } from "@/api/mapped-models";
-import { formatGameMode } from "@/util/gamemode";
+import { DotaGameMode, MatchmakingMode } from "@/api/mapped-models";
+import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import heroes from "@/util/texts/heroes";
 import Select, { SingleValue } from "react-select";
 import { JetBrains_Mono } from "next/font/google";
@@ -12,6 +12,21 @@ const tableFont = JetBrains_Mono({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });
 
+export const DotaGameModeOptions = [
+  DotaGameMode.ALLPICK,
+  DotaGameMode.RANKED_AP,
+  DotaGameMode.ALL_RANDOM,
+  DotaGameMode.SINGLE_DRAFT,
+  DotaGameMode.RANDOM_DRAFT,
+  DotaGameMode.CAPTAINS_MODE,
+  DotaGameMode.ABILITY_DRAFT,
+  DotaGameMode.SOLOMID,
+  DotaGameMode.GREEVILING,
+  DotaGameMode.DIRETIDE,
+].map((gm) => ({
+  label: formatDotaMode(gm),
+  value: gm,
+}));
 export const GameModeOptions = [
   { value: "undefined", label: "Все режимы" },
   ...[

@@ -24,7 +24,6 @@ export * from "./MatchDto";
 export * from "./MatchInfoDto";
 export * from "./MatchPageDto";
 export * from "./MatchmakingInfo";
-export * from "./MatchmakingModeStatusEntity";
 export * from "./MeDto";
 export * from "./MmrChangeDto";
 export * from "./MyProfileDto";

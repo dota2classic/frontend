@@ -33,9 +33,9 @@ import {
   GameSessionDto,
   GameSessionDtoFromJSON,
   GameSessionDtoToJSON,
-  MatchmakingModeStatusEntity,
-  MatchmakingModeStatusEntityFromJSON,
-  MatchmakingModeStatusEntityToJSON,
+  MatchmakingInfo,
+  MatchmakingInfoFromJSON,
+  MatchmakingInfoToJSON,
   QueueStateDTO,
   QueueStateDTOFromJSON,
   QueueStateDTOToJSON,
@@ -407,12 +407,12 @@ export class AdminApi extends runtime.BaseAPI {
 
     /**
      */
-    private async adminUserControllerUpdateGameModeRaw(requestParameters: AdminUserControllerUpdateGameModeRequest): Promise<runtime.ApiResponse<Array<MatchmakingModeStatusEntity>>> {
+    private async adminUserControllerUpdateGameModeRaw(requestParameters: AdminUserControllerUpdateGameModeRequest): Promise<runtime.ApiResponse<Array<MatchmakingInfo>>> {
         this.adminUserControllerUpdateGameModeValidation(requestParameters);
         const context = this.adminUserControllerUpdateGameModeContext(requestParameters);
         const response = await this.request(context);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MatchmakingModeStatusEntityFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MatchmakingInfoFromJSON));
     }
 
 
@@ -453,7 +453,7 @@ export class AdminApi extends runtime.BaseAPI {
 
     /**
      */
-    adminUserControllerUpdateGameMode = async (updateModeDTO: UpdateModeDTO): Promise<Array<MatchmakingModeStatusEntity>> => {
+    adminUserControllerUpdateGameMode = async (updateModeDTO: UpdateModeDTO): Promise<Array<MatchmakingInfo>> => {
         const response = await this.adminUserControllerUpdateGameModeRaw({ updateModeDTO: updateModeDTO });
         return await response.value();
     }

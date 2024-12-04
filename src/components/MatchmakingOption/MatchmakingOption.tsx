@@ -1,8 +1,12 @@
 import React, { ReactNode } from "react";
 
 import c from "./MatchmakingOption.module.scss";
-import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
-import { formatGameMode } from "@/util/gamemode";
+import {
+  Dota2Version,
+  DotaGameMode,
+  MatchmakingMode,
+} from "@/api/mapped-models";
+import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import cx from "clsx";
@@ -10,6 +14,7 @@ import { FaLock } from "react-icons/fa";
 
 interface MatchmakingOptionProps {
   mode: MatchmakingMode;
+  dotaMode: DotaGameMode;
   version: Dota2Version;
   onSelect: (mode: MatchmakingMode, version: Dota2Version) => void;
   selected: boolean;
@@ -22,6 +27,7 @@ interface MatchmakingOptionProps {
 export const MatchmakingOption = observer(
   ({
     mode,
+    dotaMode,
     version,
     onSelect,
     disabled,
@@ -45,9 +51,13 @@ export const MatchmakingOption = observer(
           }
         }}
       >
-        <span className={c.mode__name}>
-          {disabled ? <FaLock /> : null} {formatGameMode(mode)}
-        </span>
+        <div className={c.modeTitle}>
+          <span className={c.mode__name}>
+            {disabled ? <FaLock /> : null} {formatGameMode(mode)}
+          </span>
+          <span className={"green"}>{formatDotaMode(dotaMode)}</span>
+        </div>
+
         <span>
           {disabled ? (
             <>{disabled}</>
