@@ -13,7 +13,7 @@ export const EmbedProps: React.FC<PropsWithChildren<IEmbedPropsProps>> = (
   p,
 ) => {
   const url = useRouter().asPath;
-  const title = `DOTA2CLASSIC - ${p.title}`;
+  const title = `${p.title} • DOTA2CLASSIC`;
   return (
     <Head>
       <meta property="og:title" content={title} />

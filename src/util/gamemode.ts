@@ -53,6 +53,5 @@ const dotaMessages = {
 };
 
 export function formatDotaMode(mode: DotaGameMode) {
-  console.log(mode);
   return dotaMessages[mode];
 }

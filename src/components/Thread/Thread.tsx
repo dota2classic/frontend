@@ -56,10 +56,6 @@ export const MessageInput = observer(
 
     const isValid = value.trim().length >= 2;
 
-    // const throttledSubmit = useCallback(
-    //   [value, p.id, p.threadType],
-    // );
-
     const throttledSubmit = useThrottle(() => {
       if (!isValid) {
         setError("Слишком короткое сообщение!");
@@ -90,9 +86,6 @@ export const MessageInput = observer(
 
     const onEnterKeyPressed = useCallback(
       (e: React.KeyboardEvent) => {
-        // if (!isValid || !p.canMessage) {
-        //   return;
-        // }
         if (e.keyCode === 13 && !e.shiftKey) {
           e.preventDefault();
           // enter
