@@ -22,7 +22,7 @@ import { metrika } from "@/ym";
 const _data = [
   [
     {
-      link: "https://drive.google.com/file/d/13wnnUYpUeYP7PJQ1dSZpS8W-CTCjati6/view?usp=sharing",
+      link: "https://drive.google.com/file/d/1o0jzefVwg2WZw2dZs3bCIZIxlxWyiVDt/view?usp=sharing",
       label: "Игровой клиент",
     },
     {
