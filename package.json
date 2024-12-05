@@ -9,6 +9,7 @@
     "build": "next build",
     "build:errors": "__NEXT_TEST_MODE=true next build",
     "start": "next start",
+    "start:standalone": "node .next/standalone/server.js",
     "lint": "next lint --fix",
     "apigen": "openapi-generator  generate  --import-mappings AchievementKey --import-mappings Role --import-mappings ThreadType --import-mappings Dota_GameMode --import-mappings MatchmakingMode=1 --import-mappings BanReason=1 --import-mappings Dota2Version --skip-validate-spec -i https://dotaclassic.ru/api/api-json -g typescript-fetch -t ./.openapi-generator/typescript-fetch-swr -o ./generated --additional-properties useSingleRequestParameter=false && rm -rf src/api/back && cp -r ./generated src/api/back && rm -rf ./generated && node scripts/after-codegen.js && next lint --fix",
     "apigen:local": "openapi-generator  generate --import-mappings AchievementKey --import-mappings Role --import-mappings ThreadType --import-mappings Dota_GameMode --import-mappings MatchmakingMode=1 --import-mappings BanReason=1 --import-mappings Dota2Version --skip-validate-spec -i http://localhost:6001/api-json -g typescript-fetch -t ./.openapi-generator/typescript-fetch-swr -o ./generated --additional-properties useSingleRequestParameter=false && rm -rf src/api/back && cp -r ./generated src/api/back && rm -rf ./generated && node scripts/after-codegen.js && next lint --fix",

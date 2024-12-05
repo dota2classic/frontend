@@ -6,6 +6,7 @@ interface IPageLinkProps {
   link: NextLinkProp;
   className?: string;
   onClick?: () => void;
+  testId?: string;
 }
 
 export const PageLink: React.FC<PropsWithChildren<IPageLinkProps>> = (
@@ -20,6 +21,7 @@ export const PageLink: React.FC<PropsWithChildren<IPageLinkProps>> = (
       shallow={props.link.shallow}
       scroll={true}
       onClick={props.onClick}
+      data-testid={props.testId}
     >
       {props.children}
     </Link>

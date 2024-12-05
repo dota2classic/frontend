@@ -32,7 +32,7 @@ export const Landing = () => {
           <p>
             Начни играть в настоящую <span className="gold">Dota 2</span> онлайн
           </p>
-          <PageLink link={AppRouter.download.link} className={c.playButton}>
+          <PageLink link={AppRouter.download.link} className={c.playButton} testId='play-button-main'>
             Играть бесплатно
           </PageLink>
         </div>
