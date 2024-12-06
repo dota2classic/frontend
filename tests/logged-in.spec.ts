@@ -11,6 +11,7 @@ import {
   ReadyState,
 } from "@/store/queue/messages/s2c/player-room-state-message.s2c";
 import { PlayerGameStateMessageS2C } from "@/store/queue/messages/s2c/player-game-state-message.s2c";
+import {parseJwt} from "@/util/math";
 
 dotenv.config();
 
@@ -33,13 +34,15 @@ test.afterEach(async ({ page, context }) => {
 
 test("should render profile page for complete newbie", async ({ page }) => {
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
+  const { sub: steamId, name: username } = parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER);
+  console.log(parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER))
   await page.goto("/");
   // We have our profile in navbar
   await expect(page.getByTestId("navbar-user")).toBeVisible({ timeout: 5000 });
 
-  console.log(`Navigating to ${`/players/${process.env.PLAYWRIGHT_NEWBIE_USER_ID}`}`);
+  console.log(`Navigating to ${`/players/${steamId}`}`);
 
-  await page.goto(`/players/${process.env.PLAYWRIGHT_NEWBIE_USER_ID}`);
+  await page.goto(`/players/${steamId}`);
   await expect(page.getByTestId("player-matches-header")).toBeVisible();
   await expect(
     page.getByTestId("player-hero-performance-header"),
@@ -48,7 +51,7 @@ test("should render profile page for complete newbie", async ({ page }) => {
   await expect(page.getByTestId("player-teammates-header")).toBeVisible();
   await expect(page.getByTestId("player-summary-panel")).toBeVisible();
   await expect(page.getByTestId("player-summary-player-name")).toHaveText(
-    process.env.PLAYWRIGHT_NEWBIE_USER_NAME,
+    username
   );
   await expect(page.getByTestId("player-summary-last-game")).not.toBeAttached();
 
@@ -70,11 +73,15 @@ test("should render profile page for complete newbie", async ({ page }) => {
     page.getByTestId("player-summary-rank").locator("dd"),
   ).toHaveText("Нет");
 
-  await page.goto(`/players/${process.env.PLAYWRIGHT_NEWBIE_USER_ID}/matches?page=0`);
+  await page.goto(`/players/${steamId}/matches?page=0`);
 });
 
 test("should be able to enter queue w/ mobile", async ({ page }) => {
   console.log("Route websocket");
+
+  const { sub: steamId, name: username } = parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER);
+  console.log(parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER))
+
   const encodeSocketIO = (name: string, payload: unknown) => {
     return `42${JSON.stringify([name, payload])}`;
   };
@@ -122,7 +129,7 @@ test("should be able to enter queue w/ mobile", async ({ page }) => {
             encodeSocketIO(
               MessageTypeS2C.PLAYER_ROOM_STATE,
               new PlayerRoomStateMessageS2C("room-1", mode, [
-                new PlayerRoomEntry(process.env.PLAYWRIGHT_NEWBIE_USER_ID, ReadyState.READY),
+                new PlayerRoomEntry(steamId, ReadyState.READY),
               ]),
             ),
           );
@@ -169,7 +176,7 @@ test("should be able to enter queue w/ mobile", async ({ page }) => {
     encodeSocketIO(
       MessageTypeS2C.PLAYER_ROOM_FOUND,
       new PlayerRoomStateMessageS2C("room-1", mode, [
-        new PlayerRoomEntry(process.env.PLAYWRIGHT_NEWBIE_USER_ID, ReadyState.PENDING),
+        new PlayerRoomEntry(steamId, ReadyState.PENDING),
       ]),
     ),
   );
