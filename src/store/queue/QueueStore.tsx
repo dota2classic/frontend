@@ -321,9 +321,7 @@ export class QueueStore
       },
     });
 
-    this.socket.on("connect", () => {
-      this.onConnected();
-    });
+    this.socket.on("connect", this.onConnected);
 
     this.socket.connect();
 
@@ -374,6 +372,7 @@ export class QueueStore
 
   @action
   public onConnected = () => {
+    console.log("connected to ws");
     if (this.readyState === GameCoordinatorState.DISCONNECTED) {
       console.log("Set state -> Connected");
       this.readyState = GameCoordinatorState.CONNECTED;

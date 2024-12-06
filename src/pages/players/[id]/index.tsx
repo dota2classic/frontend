@@ -80,6 +80,7 @@ export default function PlayerPage({
         image={preloadedSummary.user.avatar || "/avatar.png"}
         name={preloadedSummary.user.name}
         steamId={preloadedSummary.user.steamId}
+        lastGameTimestamp={formattedMatches[0]?.timestamp}
       />
       <Section style={{ gridColumn: "span 12" }}>
         <header>Достижения</header>
@@ -95,7 +96,7 @@ export default function PlayerPage({
         </Panel>
       </Section>
       <Section className={c.matchHistory}>
-        <header>
+        <header data-testid="player-matches-header">
           Матчи
           <PageLink link={AppRouter.players.playerMatches(playerId).link}>
             Показать еще
@@ -104,7 +105,7 @@ export default function PlayerPage({
         <HeroWithItemsHistoryTable loading={false} data={formattedMatches} />
       </Section>
       <Section className={c.heroPerformance}>
-        <header>
+        <header data-testid="player-hero-performance-header">
           <span>Лучшие герои</span>
           <PageLink link={AppRouter.players.player.heroes(playerId).link}>
             Показать всех
@@ -115,7 +116,7 @@ export default function PlayerPage({
           loading={false}
           data={formattedHeroStats}
         />
-        <header>
+        <header data-testid="player-teammates-header">
           Лучшие тиммейты{" "}
           <PageLink link={AppRouter.players.player.teammates(playerId).link}>
             Показать всех

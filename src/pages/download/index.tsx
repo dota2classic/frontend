@@ -401,7 +401,7 @@ export default function DownloadPage({ initialOS }: Props) {
           "Подробная инструкция для скачивания, установки и поиска игры Dota 2. Скачать старую версию dota 2 здесь"
         }
       />
-      <h2 style={{ textAlign: "center" }}>Как начать играть?</h2>
+      <h1 style={{ textAlign: "center" }}>Как начать играть?</h1>
       <CoolList items={coolListContent} />
       {/*<h2 style={{ textAlign: "center" }}>Ссылки на скачивание игры</h2>*/}
 

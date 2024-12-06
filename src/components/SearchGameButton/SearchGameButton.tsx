@@ -67,17 +67,24 @@ export const SearchGameButton = observer((p: Props) => {
       <a
         className={c.button}
         href={`${appApi.apiParams.basePath}/v1/auth/steam`}
+        data-testid="floater-play-button-steam-login"
       >
         <FaSteam />
         Войти
       </a>
     );
 
-  if (!queue.ready) return <a className={c.playButton}>Подключаемся...</a>;
+  if (!queue.ready)
+    return (
+      <a data-testid="floater-play-button-loading" className={c.playButton}>
+        Подключаемся...
+      </a>
+    );
 
   if (isSearchModeDefined)
     return (
       <button
+        data-testid="floater-play-button-leave-queue"
         onClick={() => {
           queue.cancelSearch();
         }}
@@ -90,6 +97,7 @@ export const SearchGameButton = observer((p: Props) => {
   if (!isSearchModeDefined) {
     return (
       <button
+        data-testid="floater-play-button-enter-queue"
         disabled={!!content}
         onClick={() => {
           if (!isQueuePage) {

@@ -27,7 +27,13 @@ const CopySomething = ({ something }: { something: string }) => {
   return (
     <CopyToClipboard text={something} onCopy={onCopy}>
       <div className={c.copyHolder}>
-        <Input id="copy" readOnly className="iso" value={something} />
+        <Input
+          id="copy"
+          readOnly
+          className="iso"
+          value={something}
+          data-testid="copy-something"
+        />
         {copied ? <FaCheck className={c.successCopy} /> : <FaCopy />}
       </div>
     </CopyToClipboard>
@@ -41,7 +47,7 @@ export const GameReadyModal = observer(
     if (!q.gameState) return null;
 
     return (
-      <div className={className}>
+      <div className={className} data-testid="game-ready-modal">
         <h2>Игра готова!</h2>
         <div className={c.connectInfo}>
           <a
