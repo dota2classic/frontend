@@ -372,7 +372,7 @@ export class QueueStore
 
   @action
   public onConnected = () => {
-    console.log("connected to ws")
+    console.log("connected to ws");
     if (this.readyState === GameCoordinatorState.DISCONNECTED) {
       console.log("Set state -> Connected");
       this.readyState = GameCoordinatorState.CONNECTED;

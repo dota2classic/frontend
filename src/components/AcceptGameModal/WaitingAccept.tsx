@@ -30,7 +30,7 @@ export const WaitingAccept = observer((p: Props) => {
     return isInPartyB ? 1 : -1;
   });
   return (
-    <div className={cx(p.className)}  data-testid='accept-modal-waiting-others'>
+    <div className={cx(p.className)} data-testid="accept-modal-waiting-others">
       <div className={c.header}>
         <h3>{formatGameMode(queue.roomState.mode)}</h3>
         <h4 style={{ marginTop: 12 }}>Ожидаем других игроков</h4>

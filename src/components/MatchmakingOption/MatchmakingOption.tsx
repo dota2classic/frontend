@@ -22,7 +22,7 @@ interface MatchmakingOptionProps {
   disabled: ReactNode;
 
   suffix?: ReactNode;
-  testId?: string
+  testId?: string;
 }
 
 export const MatchmakingOption = observer(
@@ -35,7 +35,7 @@ export const MatchmakingOption = observer(
     selected,
     localSelected,
     suffix,
-    testId
+    testId,
   }: MatchmakingOptionProps) => {
     const { queue } = useStore();
 
