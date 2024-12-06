@@ -6,6 +6,7 @@ on:
     branches: [ master ]
 jobs:
   test:
+    environment: Configure End2End testing
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
