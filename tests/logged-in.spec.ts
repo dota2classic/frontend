@@ -16,7 +16,6 @@ import {parseJwt} from "@/util/math";
 dotenv.config();
 
 test.beforeEach(async ({ page, context }) => {
-  console.log("Fake secret:", process.env.FAKE_SECRET)
   await context.addCookies([
     {
       name: "dota2classic_auth_token",
@@ -35,12 +34,9 @@ test.afterEach(async ({ page, context }) => {
 test("should render profile page for complete newbie", async ({ page }) => {
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
   const { sub: steamId, name: username } = parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER);
-  console.log(parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER))
   await page.goto("/");
   // We have our profile in navbar
   await expect(page.getByTestId("navbar-user")).toBeVisible({ timeout: 5000 });
-
-  console.log(`Navigating to ${`/players/${steamId}`}`);
 
   await page.goto(`/players/${steamId}`);
   await expect(page.getByTestId("player-matches-header")).toBeVisible();
@@ -77,10 +73,8 @@ test("should render profile page for complete newbie", async ({ page }) => {
 });
 
 test("should be able to enter queue w/ mobile", async ({ page }) => {
-  console.log("Route websocket");
 
-  const { sub: steamId, name: username } = parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER);
-  console.log(parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER))
+  const { sub: steamId } = parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER);
 
   const encodeSocketIO = (name: string, payload: unknown) => {
     return `42${JSON.stringify([name, payload])}`;
