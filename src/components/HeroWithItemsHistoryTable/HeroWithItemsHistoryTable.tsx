@@ -14,7 +14,7 @@ export interface PlayerMatchItem {
   deaths: number;
   assists: number;
   duration: number;
-  timestamp: number | string;
+  timestamp: string;
   level: number;
   won: boolean;
   mode: MatchmakingMode;

@@ -17,3 +17,11 @@ test("should contain play button and it is visible right away", async ({ page })
   await expect(page.getByTestId("play-button-main")).toBeVisible();
   await expect(page.getByTestId("play-button-main")).toBeInViewport();
 });
+
+
+test("should contain play button and it is visible right away", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.getByTestId("play-button-main")).toBeVisible();
+  await expect(page.getByTestId("play-button-main")).toBeInViewport();
+});

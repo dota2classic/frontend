@@ -22,6 +22,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
       <NavbarItem
         ignoreActive
         action={`${appApi.apiParams.basePath}/v1/auth/steam`}
+        testId="navbar-login"
       >
         <FaSteam style={{ marginRight: 4, marginTop: "-3px" }} />
         Войти
@@ -30,6 +31,7 @@ const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
 
   return (
     <NavbarItem
+      testId="navbar-user"
       className={c.user}
       ignoreActive
       action={AppRouter.players.player.index(parsedToken.sub).link}
