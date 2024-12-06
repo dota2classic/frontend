@@ -23,7 +23,7 @@ export const AcceptGameModal = observer(() => {
   console.log(queueGameState);
   if (queueGameState === QueueGameState.READY_CHECK_WAITING_USER) {
     return (
-      <div className={c.modalWrapper}>
+      <div className={c.modalWrapper} data-testid='accept-modal-waiting-user'>
         <div className={c.modal}>
           <div className={c.header}>
             <h4>Ваша игра готова</h4>

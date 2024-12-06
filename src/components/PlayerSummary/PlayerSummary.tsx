@@ -87,9 +87,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
         <div className={c.right}>
           {lastGameTimestamp && (
             <dl data-testid="player-summary-last-game">
-              <dd>
-                {formatShortTime(new Date(lastGameTimestamp))}
-              </dd>
+              <dd>{formatShortTime(new Date(lastGameTimestamp))}</dd>
               <dt>последняя игра</dt>
             </dl>
           )}

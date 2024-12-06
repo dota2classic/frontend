@@ -22,6 +22,7 @@ interface MatchmakingOptionProps {
   disabled: ReactNode;
 
   suffix?: ReactNode;
+  testId?: string
 }
 
 export const MatchmakingOption = observer(
@@ -34,11 +35,13 @@ export const MatchmakingOption = observer(
     selected,
     localSelected,
     suffix,
+    testId
   }: MatchmakingOptionProps) => {
     const { queue } = useStore();
 
     return (
       <div
+        data-testid={testId}
         className={cx(
           c.mode,
           localSelected ? c.mode__current : undefined,

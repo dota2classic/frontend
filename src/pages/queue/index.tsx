@@ -149,6 +149,7 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
       <div className={cx(c.modes__list, c.box)}>
         {d84.map((info) => (
           <MatchmakingOption
+            testId={`mode-list-option-${info.lobbyType}`}
             selected={queue.queueState?.mode === info.lobbyType}
             localSelected={queue.selectedMode?.mode === info.lobbyType}
             disabled={modEnableCondition(info.lobbyType)}
