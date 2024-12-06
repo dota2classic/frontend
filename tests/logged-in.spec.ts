@@ -39,6 +39,8 @@ test("should render profile page for complete newbie", async ({ page }) => {
   // We have our profile in navbar
   await expect(page.getByTestId("navbar-user")).toBeVisible({ timeout: 5000 });
 
+  console.log(`Navigating to ${`/players/${STEAM_ID}`}`);
+
   await page.goto(`/players/${STEAM_ID}`);
   await expect(page.getByTestId("player-matches-header")).toBeVisible();
   await expect(
