@@ -13,8 +13,6 @@ import {
 import { PlayerGameStateMessageS2C } from "@/store/queue/messages/s2c/player-game-state-message.s2c";
 
 dotenv.config();
-const STEAM_ID = process.env.PLAYWRIGHT_NEWBIE_USER_ID;
-const USERNAME = process.env.PLAYWRIGHT_NEWBIE_USER_NAME;
 
 test.beforeEach(async ({ page, context }) => {
   console.log("Fake secret:", process.env.FAKE_SECRET)
@@ -39,9 +37,9 @@ test("should render profile page for complete newbie", async ({ page }) => {
   // We have our profile in navbar
   await expect(page.getByTestId("navbar-user")).toBeVisible({ timeout: 5000 });
 
-  console.log(`Navigating to ${`/players/${STEAM_ID}`}`);
+  console.log(`Navigating to ${`/players/${process.env.PLAYWRIGHT_NEWBIE_USER_ID}`}`);
 
-  await page.goto(`/players/${STEAM_ID}`);
+  await page.goto(`/players/${process.env.PLAYWRIGHT_NEWBIE_USER_ID}`);
   await expect(page.getByTestId("player-matches-header")).toBeVisible();
   await expect(
     page.getByTestId("player-hero-performance-header"),
@@ -50,7 +48,7 @@ test("should render profile page for complete newbie", async ({ page }) => {
   await expect(page.getByTestId("player-teammates-header")).toBeVisible();
   await expect(page.getByTestId("player-summary-panel")).toBeVisible();
   await expect(page.getByTestId("player-summary-player-name")).toHaveText(
-    USERNAME,
+    process.env.PLAYWRIGHT_NEWBIE_USER_NAME,
   );
   await expect(page.getByTestId("player-summary-last-game")).not.toBeAttached();
 
@@ -72,7 +70,7 @@ test("should render profile page for complete newbie", async ({ page }) => {
     page.getByTestId("player-summary-rank").locator("dd"),
   ).toHaveText("Нет");
 
-  await page.goto(`/players/${STEAM_ID}/matches?page=0`);
+  await page.goto(`/players/${process.env.PLAYWRIGHT_NEWBIE_USER_ID}/matches?page=0`);
 });
 
 test("should be able to enter queue w/ mobile", async ({ page }) => {
@@ -124,7 +122,7 @@ test("should be able to enter queue w/ mobile", async ({ page }) => {
             encodeSocketIO(
               MessageTypeS2C.PLAYER_ROOM_STATE,
               new PlayerRoomStateMessageS2C("room-1", mode, [
-                new PlayerRoomEntry(STEAM_ID, ReadyState.READY),
+                new PlayerRoomEntry(process.env.PLAYWRIGHT_NEWBIE_USER_ID, ReadyState.READY),
               ]),
             ),
           );
@@ -171,7 +169,7 @@ test("should be able to enter queue w/ mobile", async ({ page }) => {
     encodeSocketIO(
       MessageTypeS2C.PLAYER_ROOM_FOUND,
       new PlayerRoomStateMessageS2C("room-1", mode, [
-        new PlayerRoomEntry(STEAM_ID, ReadyState.PENDING),
+        new PlayerRoomEntry(process.env.PLAYWRIGHT_NEWBIE_USER_ID, ReadyState.PENDING),
       ]),
     ),
   );
