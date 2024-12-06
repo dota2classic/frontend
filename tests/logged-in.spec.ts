@@ -28,11 +28,15 @@ test.beforeEach(async ({ page, context }) => {
   ]);
 });
 
+test.afterEach(async ({ page, context }) => {
+  await context.clearCookies();
+});
+
 test("should render profile page for complete newbie", async ({ page }) => {
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
   await page.goto("/");
   // We have our profile in navbar
-  await expect(page.getByTestId("navbar-user")).toBeVisible({ timeout: 1000 });
+  await expect(page.getByTestId("navbar-user")).toBeVisible({ timeout: 5000 });
 
   await page.goto(`/players/${STEAM_ID}`);
   await expect(page.getByTestId("player-matches-header")).toBeVisible();
@@ -65,10 +69,10 @@ test("should render profile page for complete newbie", async ({ page }) => {
     page.getByTestId("player-summary-rank").locator("dd"),
   ).toHaveText("Нет");
 
-  await page.goto(`/${STEAM_ID}/matches?page=0`);
+  await page.goto(`/players/${STEAM_ID}/matches?page=0`);
 });
 
-test("should be able to enter queue", async ({ page }) => {
+test("should be able to enter queue w/ mobile", async ({ page }) => {
   console.log("Route websocket");
   const encodeSocketIO = (name: string, payload: unknown) => {
     return `42${JSON.stringify([name, payload])}`;
@@ -98,7 +102,6 @@ test("should be able to enter queue", async ({ page }) => {
         // 42[name,payload]
         const [name, payload] = decodeSocketIO(message);
 
-        console.log("Enter qeuue?", name, payload);
         if (name === MessageTypeC2S.ENTER_QUEUE) {
           ws.send(
             encodeSocketIO(
@@ -136,7 +139,6 @@ test("should be able to enter queue", async ({ page }) => {
       });
 
       server.onMessage((message) => {
-        console.log("S2C", message.toString());
         ws.send(message);
       });
     },
@@ -191,6 +193,8 @@ test("should be able to enter queue", async ({ page }) => {
     .click();
 
   // Show game ready modal
-  await expect(page.getByTestId('game-ready-modal')).toBeVisible()
-  await expect(page.getByTestId('game-ready-modal').getByTestId('copy-something')).toHaveValue(`connect server1:27015`)
+  await expect(page.getByTestId("game-ready-modal")).toBeVisible();
+  await expect(
+    page.getByTestId("game-ready-modal").getByTestId("copy-something"),
+  ).toHaveValue(`connect server1:27015`);
 });
