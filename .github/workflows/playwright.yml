@@ -28,6 +28,7 @@ jobs:
         PLAYWRIGHT_NEWBIE_USER: ${{ secrets.PLAYWRIGHT_NEWBIE_USER }}
         PLAYWRIGHT_NEWBIE_USER_ID: ${{ env.PLAYWRIGHT_NEWBIE_USER_ID }}
         PLAYWRIGHT_NEWBIE_USER_NAME: ${{ env.PLAYWRIGHT_NEWBIE_USER_NAME }}
+        FAKE_SECRET: ${{ secrets.FAKE_SECRET }}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

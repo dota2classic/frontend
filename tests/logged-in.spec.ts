@@ -17,6 +17,7 @@ const STEAM_ID = process.env.PLAYWRIGHT_NEWBIE_USER_ID;
 const USERNAME = process.env.PLAYWRIGHT_NEWBIE_USER_NAME;
 
 test.beforeEach(async ({ page, context }) => {
+  console.log("Fake secret:", process.env.FAKE_SECRET)
   await context.addCookies([
     {
       name: "dota2classic_auth_token",
