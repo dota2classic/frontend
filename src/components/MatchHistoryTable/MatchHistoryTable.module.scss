@@ -26,3 +26,18 @@
     vertical-align: middle;
   }
 }
+
+
+.mode {
+  display: flex;
+  flex-direction: column;
+  & span + span {
+    margin-top: 4px;
+  }
+}
+
+
+.secondary {
+  font-size: 0.8rem;
+  color: $primaryTextDark;
+}

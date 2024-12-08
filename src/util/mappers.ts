@@ -17,6 +17,7 @@ export const matchToPlayerMatchItem = (
     level: thisPlayer.level,
     won: thisPlayer.team === it.winner,
     mode: it.mode,
+    gameMode: it.gameMode,
     item0: thisPlayer.item0,
     item1: thisPlayer.item1,
     item2: thisPlayer.item2,

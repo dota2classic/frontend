@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    DotaGameMode,
+    DotaGameModeFromJSON,
+    DotaGameModeFromJSONTyped,
+    DotaGameModeToJSON,
     MatchmakingMode,
     MatchmakingModeFromJSON,
     MatchmakingModeFromJSONTyped,
@@ -36,6 +40,12 @@ export interface MatchDto {
      * @memberof MatchDto
      */
     mode: MatchmakingMode;
+    /**
+     * 
+     * @type {DotaGameMode}
+     * @memberof MatchDto
+     */
+    gameMode: DotaGameMode;
     /**
      * 
      * @type {number}
@@ -91,6 +101,7 @@ export function MatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     return {
         
         'mode': MatchmakingModeFromJSON(json['mode']),
+        'gameMode': DotaGameModeFromJSON(json['game_mode']),
         'id': json['id'],
         'radiant': ((json['radiant'] as Array<any>).map(PlayerInMatchDtoFromJSON)),
         'dire': ((json['dire'] as Array<any>).map(PlayerInMatchDtoFromJSON)),
@@ -111,6 +122,7 @@ export function MatchDtoToJSON(value?: MatchDto | null): any {
     return {
         
         'mode': MatchmakingModeToJSON(value.mode),
+        'game_mode': DotaGameModeToJSON(value.gameMode),
         'id': value.id,
         'radiant': ((value.radiant as Array<any>).map(PlayerInMatchDtoToJSON)),
         'dire': ((value.dire as Array<any>).map(PlayerInMatchDtoToJSON)),

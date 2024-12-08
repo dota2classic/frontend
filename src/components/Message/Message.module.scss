@@ -99,22 +99,6 @@
 .username {
   font-weight: bolder;
   position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    border: 1px solid #92a525;
-    background-color: #92a525;
-    top: -1px;
-    bottom: 0;
-    margin: auto;
-    left: -10px;
-    opacity: 0;
-    transition: 0.3s ease;
-  }
 }
 
 .time {
@@ -132,8 +116,19 @@
 }
 
 .online {
-
-  &::after {
-    opacity: 0.7;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    border-radius: 6px;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(90,180,79,0.6993391106442577) 90%, rgba(22,185,4,0.7805716036414566) 100%);
   }
+}
+.offline {
+  //border: 1px solid $transparentTint;
 }

@@ -123,7 +123,14 @@ export default function MatchPage({
     );
 
   // if no match, maybe it live?
-  if (isMatchLive && liveMatch) return <LiveMatchPreview match={liveMatch} />;
+  if (isMatchLive && liveMatch) return <>
+    <LiveMatchPreview match={liveMatch} />
+    {/*<Thread*/}
+    {/*  threadStyle={ThreadStyle.SMALL}*/}
+    {/*  id={liveMatch.matchId.toString()}*/}
+    {/*  threadType={ThreadType.MATCH}*/}
+    {/*/>*/}
+  </>;
 
   return null;
 }

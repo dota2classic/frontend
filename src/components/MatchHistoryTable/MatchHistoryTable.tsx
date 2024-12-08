@@ -11,7 +11,7 @@ import {
 import { MatchDto } from "@/api/back";
 import c from "./MatchHistoryTable.module.scss";
 import { AppRouter } from "@/route";
-import { formatGameMode } from "@/util/gamemode";
+import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import cx from "clsx";
 import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
 import { colors } from "@/colors";
@@ -62,7 +62,12 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
                   </span>
                 </div>
               </td>
-              <td>{formatGameMode(it.mode)}</td>
+              <td>
+                <div className={c.mode}>
+                  <span>{formatGameMode(it.mode)}</span>
+                  <span className={c.secondary}>{formatDotaMode(it.gameMode)}</span>
+                </div>
+              </td>
               <td className={it.winner === 2 ? "green" : "red"}>
                 <PageLink
                   className={it.winner === 2 ? "green" : "red"}

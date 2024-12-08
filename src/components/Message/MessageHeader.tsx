@@ -51,23 +51,25 @@ export const MessageHeader = observer(function MessageHeader({
   return (
     <div className={cx(c.contentWrapper, c.header)}>
       <div className={cx(c.contentWrapper__left, c.contentWrapper__left_user)}>
-        <PlayerAvatar
-          width={threadStyle === ThreadStyle.TINY ? 45 : 100}
-          height={threadStyle === ThreadStyle.TINY ? 45 : 100}
-          src={message.author.avatar}
-          alt={`Avatar of player ${message.author.name}`}
-        />
+        <picture className={isOnline ? c.online : c.offline}>
+          <PlayerAvatar
+            width={threadStyle === ThreadStyle.TINY ? 45 : 100}
+            height={threadStyle === ThreadStyle.TINY ? 45 : 100}
+            src={message.author.avatar}
+            alt={`Avatar of player ${message.author.name}`}
+          />
+        </picture>
       </div>
       <div className={c.contentWrapper__middle}>
         <div className={cx(c.author)}>
           <PageLink
             link={AppRouter.players.player.index(message.author.steamId).link}
-            className={cx(c.username, "link", isOnline && c.online)}
+            className={cx(c.username, "link")}
           >
             {message.author.name}
           </PageLink>
           {roles}
-          <span className={c.messageIndex}>#{message.index + 1} </span>
+          <span className={c.messageIndex} />
           {<PeriodicTimerClient time={message.createdAt} />}
         </div>
         <div className={cx(c.content)}>{enrichMessage(message.content)}</div>

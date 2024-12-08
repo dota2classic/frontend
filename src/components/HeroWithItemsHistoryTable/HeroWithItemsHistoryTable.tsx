@@ -1,10 +1,10 @@
 import React from "react";
 import { Duration, GenericTable, PageLink, TimeAgo } from "@/components";
 import c from "./HeroWithItemsHistoryTable.module.scss";
-import { MatchmakingMode } from "@/api/mapped-models";
+import {DotaGameMode, MatchmakingMode} from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 import { KDABarChart } from "@/components/BarChart/BarChart";
-import { formatGameMode } from "@/util/gamemode";
+import {formatDotaMode, formatGameMode} from "@/util/gamemode";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 
@@ -18,6 +18,7 @@ export interface PlayerMatchItem {
   level: number;
   won: boolean;
   mode: MatchmakingMode;
+  gameMode: DotaGameMode;
   matchId: number;
 
   item0: number;
@@ -71,7 +72,12 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
         {
           type: ColumnType.Raw,
           name: "Режим",
-          format: formatGameMode,
+          format: ([lobby, mode]) => (
+            <div className={c.result}>
+              <span>{formatGameMode(lobby)}</span>
+              <span className={c.secondary}>{formatDotaMode(mode)}</span>
+            </div>
+          ),
           mobileOmit: true,
         },
 
@@ -111,7 +117,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
       data={data.map((it) => [
         it.hero,
         { won: it.won, timestamp: it.timestamp, matchId: it.matchId },
-        it.mode,
+        [it.mode, it.gameMode],
         it.duration,
         it,
         [it.item0, it.item1, it.item2, it.item3, it.item4, it.item5],
