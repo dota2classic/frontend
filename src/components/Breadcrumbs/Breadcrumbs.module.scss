@@ -3,6 +3,7 @@
 .breadcrumbs {
   display: flex;
   flex-direction: row;
+  padding-inline-start: 0;
   & li {
     list-style: none;
   }

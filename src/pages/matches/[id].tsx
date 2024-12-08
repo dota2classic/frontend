@@ -1,6 +1,7 @@
 import { NextPageContext } from "next";
 import React, { useState } from "react";
 import {
+  EmbedProps,
   LiveMatchPreview,
   MatchSummary,
   MatchTeamTable,
@@ -10,7 +11,6 @@ import {
 import { FaTrophy } from "react-icons/fa";
 import { getApi } from "@/api/hooks";
 import { LiveMatchDto, LiveMatchDtoFromJSON, MatchDto } from "@/api/back";
-import Head from "next/head";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { ThreadStyle } from "@/components/Thread/types";
 import { useEventSource } from "@/util/hooks";
@@ -68,9 +68,10 @@ export default function MatchPage({
   if (match)
     return (
       <>
-        <Head>
-          <title>{`Матч ${matchId}`}</title>
-        </Head>
+        <EmbedProps
+          title={`Матч ${matchId}`}
+          description={`Страница матча с ID ${matchId}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru`}
+        />
         <MatchSummary
           radiantKills={match.radiant.reduce((a, b) => a + b.kills, 0)}
           direKills={match.dire.reduce((a, b) => a + b.kills, 0)}
@@ -79,6 +80,7 @@ export default function MatchPage({
           duration={match.duration}
           timestamp={match.timestamp}
           mode={match.mode}
+          gameMode={match.gameMode}
         />
 
         <Typography.Header radiant>
@@ -127,11 +129,11 @@ export default function MatchPage({
     return (
       <>
         <LiveMatchPreview match={liveMatch} />
-        {/*<Thread*/}
-        {/*  threadStyle={ThreadStyle.SMALL}*/}
-        {/*  id={liveMatch.matchId.toString()}*/}
-        {/*  threadType={ThreadType.MATCH}*/}
-        {/*/>*/}
+        <Thread
+          threadStyle={ThreadStyle.SMALL}
+          id={liveMatch.matchId.toString()}
+          threadType={ThreadType.MATCH}
+        />
       </>
     );
 

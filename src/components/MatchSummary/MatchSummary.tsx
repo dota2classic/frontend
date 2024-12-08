@@ -4,8 +4,8 @@ import { Breadcrumbs, Duration, PageLink, Panel, TimeAgo } from "..";
 
 import c from "./MatchSummary.module.scss";
 import cx from "clsx";
-import { formatGameMode } from "@/util/gamemode";
-import { MatchmakingMode } from "@/api/mapped-models";
+import { formatDotaMode, formatGameMode } from "@/util/gamemode";
+import { DotaGameMode, MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 
 interface IMatchSummaryProps {
@@ -13,6 +13,7 @@ interface IMatchSummaryProps {
   timestamp: number | string;
   duration: number;
   mode: MatchmakingMode;
+  gameMode: DotaGameMode;
   winner: number;
   radiantKills: number;
   direKills: number;
@@ -46,6 +47,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
   winner,
   radiantKills,
   direKills,
+  gameMode,
 }) => {
   return (
     <>
@@ -58,8 +60,12 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
         </div>
         <div className="right">
           <dl>
-            <dd>{formatGameMode(mode)}</dd>
+            <dd>{formatDotaMode(gameMode)}</dd>
             <dt>Режим</dt>
+          </dl>
+          <dl>
+            <dd>{formatGameMode(mode)}</dd>
+            <dt>Лобби</dt>
           </dl>
           <dl>
             <dd>

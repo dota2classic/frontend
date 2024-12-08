@@ -4,11 +4,13 @@ import c from "./PlayerSummary.module.scss";
 import cx from "clsx";
 import { formatWinrate } from "@/util/math";
 import { PageLink, Panel, PlayerAvatar } from "@/components";
-import { steamPage } from "@/util/resources";
 import { AppRouter } from "@/route";
 import { useIsAdmin } from "@/util/hooks";
 import { observer } from "mobx-react-lite";
 import { formatShortTime } from "@/util/dates";
+import { steamPage } from "@/util/resources";
+import { FaSteam } from "react-icons/fa";
+import { MdLocalPolice } from "react-icons/md";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -39,11 +41,8 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     const isAdmin = useIsAdmin();
 
     return (
-      <Panel
-        className={cx(className, c.summary)}
-        data-testid="player-summary-panel"
-      >
-        <div className={c.left}>
+      <Panel className={cx(className)} data-testid="player-summary-panel">
+        <div className={"left"}>
           <div className={c.player}>
             <PlayerAvatar
               width={65}
@@ -59,32 +58,33 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
               {steamId.length > 2 ? name : `Бот #${steamId}`}
             </PageLink>
           </div>
-          <a
-            target="__blank"
-            className={cx(c.externalLink, "link")}
-            href={`https://dotabuff.com/players/${steamId}`}
-          >
-            Dotabuff
-          </a>
-          <a
-            target="__blank"
-            className={cx(c.externalLink, "link")}
-            href={steamPage(steamId)}
-          >
-            Steam
-          </a>
-
-          {isAdmin && (
-            <PageLink
-              className={c.externalLink}
-              link={AppRouter.admin.player(steamId).link}
+          <div className={c.player}>
+            <a
+              target="__blank"
+              className={cx(c.externalLink, "link")}
+              href={`https://dotabuff.com/players/${steamId}`}
             >
-              В админке
-            </PageLink>
-          )}
+              <img className={c.icon} src="/dotabuff.png" alt="" />
+            </a>
+            <a
+              target="__blank"
+              className={cx(c.externalLink, "link")}
+              href={steamPage(steamId)}
+            >
+              <FaSteam className={c.icon_svg} />
+            </a>
+            {isAdmin && (
+              <PageLink
+                className={c.externalLink}
+                link={AppRouter.admin.player(steamId).link}
+              >
+                <MdLocalPolice className={c.icon_svg} />
+              </PageLink>
+            )}
+          </div>
         </div>
 
-        <div className={c.right}>
+        <div className={"right"}>
           {lastGameTimestamp && (
             <dl data-testid="player-summary-last-game">
               <dd>{formatShortTime(new Date(lastGameTimestamp))}</dd>

@@ -29,47 +29,64 @@
   align-items: center;
   justify-content: flex-start;
 
-  & .playerName {
-    font-size: 1.2rem;
-    margin-left: 8px;
-  }
-
   & .externalLink {
     color: $green;
     margin-left: 8px;
     font-size: 1rem;
   }
 
-  & .player {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-  }
 }
 
-.right {
+.player {
   display: flex;
-  flex: 1;
+  flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 
-  & dl {
-    display: inline-block;
-    margin: 5px 12px 14px 0;
-    vertical-align: top;
-    font-size: 1rem;
-    white-space: nowrap;
-
-    & dd {
-      color: $primaryTextHighlight;
-      margin-inline-start: 0px;
-      white-space: nowrap;
-    }
-    & dt {
-      white-space: nowrap;
-      font-size: 0.8em;
-      color: $primaryText;
-    }
+  & img {
+    width: 65px;
+    height: 65px;
   }
+
+}
+.playerName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.2rem !important;
+  margin-left: 8px;
+}
+
+//.right {
+//  display: flex;
+//  flex: 1;
+//  align-items: center;
+//  justify-content: flex-end;
+//
+//  & dl {
+//    display: inline-block;
+//    margin: 5px 12px 14px 0;
+//    vertical-align: top;
+//    white-space: nowrap;
+//
+//    & dd {
+//      color: $primaryTextHighlight;
+//      margin-inline-start: 0px;
+//      white-space: nowrap;
+//    }
+//    & dt {
+//      white-space: nowrap;
+//    }
+//  }
+//}
+
+
+.icon {
+  width: 1.1rem !important;;
+  height: 1.1rem !important;
+  border-radius: 2px;
+}
+.icon_svg {
+  color: $blueHighlight;
+  font-size: 1.1rem;
 }

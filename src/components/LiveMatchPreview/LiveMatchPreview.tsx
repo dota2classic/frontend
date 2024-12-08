@@ -2,6 +2,7 @@ import React from "react";
 import { LiveMatchDto, PlayerInfo } from "@/api/back";
 import c from "./LiveMatchPreview.module.scss";
 import {
+  EmbedProps,
   HeroIcon,
   ItemIcon,
   MatchSummaryScore,
@@ -97,6 +98,10 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
   const dire = match.heroes.filter((it) => it.team === 3);
   return (
     <>
+      <EmbedProps
+        title={`LIVE матч ${match.matchId}`}
+        description={`Превью активного матча ${match.matchId}, игровая карта с героями, которые двигаются по карте.`}
+      />
       <Panel className={c.panelContainer}>
         <div className={c.panel}>
           <div>Режим: {formatGameMode(match.matchmakingMode)}</div>

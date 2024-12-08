@@ -100,7 +100,11 @@ iframe {
     display: none !important;
   }
 }
-
+.mobile-omit {
+  @media (max-width: 600px) {
+    display: none !important;
+  }
+}
 
 @keyframes spinning {
   0% {

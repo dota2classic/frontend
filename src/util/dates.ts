@@ -12,6 +12,11 @@ export const toMoscowTime = (timestamp: string) => {
 
 const format = new Intl.DateTimeFormat("ru-RU", {});
 
+export function fullDate(d: Date): string {
+  const timeString = d.toTimeString().split(":").slice(0, 2).join(":");
+  return format.format(d) + ", " + timeString;
+}
+
 export function formatShortTime(d: Date): string {
   const now = new Date();
   const diffDays = now.getDate() - d.getDate();
@@ -24,6 +29,6 @@ export function formatShortTime(d: Date): string {
   } else if (diffYears === 0 && diffDays === 1) {
     return `Вчера в ${timeString}`;
   } else {
-    return format.format(d) + ", " + timeString;
+    return fullDate(d);
   }
 }

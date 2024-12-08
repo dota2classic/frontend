@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { fullDate } from "@/util/dates";
 
 export const formatDateStr = (
   value: string | number | Date,
@@ -20,5 +21,5 @@ interface ITimeAgoProps {
 }
 
 export const TimeAgo: React.FC<ITimeAgoProps> = ({ date }) => {
-  return <>{formatDateStr(date)}</>;
+  return <>{fullDate(new Date(date))}</>;
 };
