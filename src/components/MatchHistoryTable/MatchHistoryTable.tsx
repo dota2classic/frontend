@@ -65,7 +65,9 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
               <td>
                 <div className={c.mode}>
                   <span>{formatGameMode(it.mode)}</span>
-                  <span className={c.secondary}>{formatDotaMode(it.gameMode)}</span>
+                  <span className={c.secondary}>
+                    {formatDotaMode(it.gameMode)}
+                  </span>
                 </div>
               </td>
               <td className={it.winner === 2 ? "green" : "red"}>
