@@ -7,6 +7,7 @@ import { KDABarChart } from "@/components/BarChart/BarChart";
 import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
+import cx from "clsx";
 
 export interface PlayerMatchItem {
   hero: string;
@@ -56,7 +57,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           type: ColumnType.Raw,
           name: "Результат",
           format: ({ won, matchId, timestamp }) => (
-            <div className={c.result}>
+            <div className={cx(c.twoRows)}>
               <PageLink
                 link={AppRouter.matches.match(matchId).link}
                 className={won ? c.result__win : c.result__lose}
@@ -73,7 +74,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           type: ColumnType.Raw,
           name: "Режим",
           format: ([lobby, mode]) => (
-            <div className={c.result}>
+            <div className={c.twoRows}>
               <span>{formatGameMode(lobby)}</span>
               <span className={c.secondary}>{formatDotaMode(mode)}</span>
             </div>

@@ -63,7 +63,7 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
                 </div>
               </td>
               <td>
-                <div className={c.mode}>
+                <div className={cx(c.twoRows)}>
                   <span>{formatGameMode(it.mode)}</span>
                   <span className={c.secondary}>
                     {formatDotaMode(it.gameMode)}

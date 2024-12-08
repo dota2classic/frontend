@@ -29,6 +29,22 @@ export const ItemIcon: React.FC<IItemIconProps> = ({ item, small }) => {
 const smallImageStyles = { width: 40, height: 30 };
 const bigImageStyles = { width: 53, height: 40 };
 
+export const PlaceholderImage = ({
+  width,
+  height,
+}: {
+  width: number;
+  height: number;
+}) => (
+  <span
+    className={cx(c.img2)}
+    style={{
+      width: width,
+      height: height,
+    }}
+  />
+);
+
 export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
   const ref = useRef<HTMLImageElement | null>(null);
   const ctx = useContext(TooltipContext);
@@ -40,12 +56,9 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({ item, small }) => {
 
   if (fItem.includes("empty"))
     return (
-      <span
-        className={cx(c.img2, { [c.small]: small })}
-        style={{
-          width: small ? smallImageStyles.width : bigImageStyles.width,
-          height: small ? smallImageStyles.height : bigImageStyles.height,
-        }}
+      <PlaceholderImage
+        width={small ? smallImageStyles.width : bigImageStyles.width}
+        height={small ? smallImageStyles.height : bigImageStyles.height}
       />
     );
 

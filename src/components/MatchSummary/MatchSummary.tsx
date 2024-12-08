@@ -4,17 +4,26 @@ import { Breadcrumbs, Duration, PageLink, Panel, TimeAgo } from "..";
 
 import c from "./MatchSummary.module.scss";
 import cx from "clsx";
-import { formatDotaMode, formatGameMode } from "@/util/gamemode";
-import { DotaGameMode, MatchmakingMode } from "@/api/mapped-models";
+import {
+  formatDotaMode,
+  formatGameMode,
+  formatGameState,
+} from "@/util/gamemode";
+import {
+  DotaGameMode,
+  DotaGameRulesState,
+  MatchmakingMode,
+} from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 
 interface IMatchSummaryProps {
   matchId: number;
-  timestamp: number | string;
+  timestamp?: number | string;
   duration: number;
   mode: MatchmakingMode;
   gameMode: DotaGameMode;
-  winner: number;
+  winner?: number;
+  gameState?: DotaGameRulesState;
   radiantKills: number;
   direKills: number;
 }
@@ -48,6 +57,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
   radiantKills,
   direKills,
   gameMode,
+  gameState,
 }) => {
   return (
     <>
@@ -67,26 +77,39 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
             <dd>{formatGameMode(mode)}</dd>
             <dt>Лобби</dt>
           </dl>
+          {gameState !== undefined && (
+            <dl>
+              <dd className="gold">{formatGameState(gameState)}</dd>
+              <dt>Этап игры</dt>
+            </dl>
+          )}
           <dl>
             <dd>
               <Duration duration={duration} />
             </dd>
             <dt>Длительность</dt>
           </dl>
-          <dl>
-            <dd>
-              <TimeAgo date={timestamp} />
-            </dd>
-            <dt>Матч завершен</dt>
-          </dl>
+          {timestamp && (
+            <dl>
+              <dd>
+                <TimeAgo date={timestamp} />
+              </dd>
+              <dt>Матч завершен</dt>
+            </dl>
+          )}
         </div>
       </Panel>
       <div className={c.matchWinner}>
-        <div
-          className={cx(c.matchWinner__winner, winner === 2 ? "green" : "red")}
-        >
-          {winner === 2 ? "Победа Сил Света" : "Победа Сил Тьмы"}
-        </div>
+        {winner && (
+          <div
+            className={cx(
+              c.matchWinner__winner,
+              winner === 2 ? "green" : "red",
+            )}
+          >
+            {winner === 2 ? "Победа Сил Света" : "Победа Сил Тьмы"}
+          </div>
+        )}
         <MatchSummaryScore
           direKills={direKills}
           radiantKills={radiantKills}

@@ -59,6 +59,15 @@
 
 }
 
+
+.heroIconWrapper {
+  position: relative;
+}
+
+.mr {
+  margin-right: 4px;
+}
+
 .playerHeroRow {
   display: flex;
   flex-direction: row;
@@ -77,20 +86,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
-    color: #c2c2c2;
     transition: 0.3s ease;
-
-    &:hover {
-      color: white;
-    }
   }
-
-  & img {
-    width: auto;
-    height: 30px;
-    margin-right: 4px;
-  }
-
 }
 
 .itemRow {
@@ -124,6 +121,8 @@
     height: 250px;
   }
 }
+
+
 
 .hero {
   width: 30px;
@@ -257,4 +256,27 @@
   font-size: 1.4rem;
   text-align: center;
   margin-top: 20px;
+
+  & > div {
+    width: 450px;
+    margin: auto;
+    & input {
+      color: $primaryTextHighlight;
+    }
+  }
+}
+
+
+.abandon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  width: 100%;
+
+
+  &__visible {
+    display: block;
+  }
 }

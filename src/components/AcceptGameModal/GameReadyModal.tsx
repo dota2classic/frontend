@@ -7,7 +7,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Input } from "@/components";
 import { FaCheck, FaCopy } from "react-icons/fa6";
 
-const CopySomething = ({ something }: { something: string }) => {
+export const CopySomething = ({ something }: { something: string }) => {
   const [copied, setCopied] = useState(false);
   const [cancelTimeout] = useState<number | undefined>(undefined);
 

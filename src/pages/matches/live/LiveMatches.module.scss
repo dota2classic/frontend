@@ -41,7 +41,14 @@
 
 
 .info {
+   & span {
+     min-width: 10px;
+     display: inline-block;
+   }
 
+  & div {
+    width: 450px;
+  }
 }
 
 

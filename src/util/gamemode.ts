@@ -1,4 +1,9 @@
-import { DotaGameMode, MatchmakingMode } from "@/api/mapped-models";
+import {
+  DotaGameMode,
+  DotaGameRulesState,
+  MatchmakingMode,
+} from "@/api/mapped-models";
+import { ReactNode } from "react";
 
 const messages = {
   // MatchmakingMode.TOURNAMENT
@@ -54,4 +59,18 @@ const dotaMessages = {
 
 export function formatDotaMode(mode: DotaGameMode) {
   return dotaMessages[mode];
+}
+
+const gameState: Partial<Record<DotaGameRulesState, ReactNode>> = {
+  // MatchmakingMode.TOURNAMENT
+  [DotaGameRulesState.WAIT_FOR_PLAYERS_TO_LOAD]: "Загрузка игроков",
+  [DotaGameRulesState.HERO_SELECTION]: "Выбор героев",
+  [DotaGameRulesState.STRATEGY_TIME]: "Выбор героев",
+  [DotaGameRulesState.PRE_GAME]: "Начало игры",
+  [DotaGameRulesState.GAME_IN_PROGRESS]: "Игра идет",
+  [DotaGameRulesState.POST_GAME]: "Игра завершена",
+  [DotaGameRulesState.DISCONNECT]: "Ошибка загрузки",
+};
+export function formatGameState(state: DotaGameRulesState) {
+  return gameState[state] || "Неизвестное состояние";
 }

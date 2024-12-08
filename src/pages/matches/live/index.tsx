@@ -4,11 +4,15 @@ import c from "./LiveMatches.module.scss";
 import { Duration, PageLink, SmallLiveMatch } from "@/components";
 import { AppRouter } from "@/route";
 import { LiveMatchDto } from "@/api/back";
-import { formatGameMode } from "@/util/gamemode";
+import {
+  formatDotaMode,
+  formatGameMode,
+  formatGameState,
+} from "@/util/gamemode";
 import React from "react";
 import { useDidMount } from "@/util/hooks";
 import { watchUrl } from "@/util/urls";
-import cx from "clsx";
+import { CopySomething } from "@/components/AcceptGameModal/GameReadyModal";
 
 interface InitialProps {
   data: LiveMatchDto[];
@@ -42,10 +46,10 @@ export default function LiveMatches({ data: initialData }: InitialProps) {
       {data!.map((t) => {
         const rScore = t.heroes
           .filter((t) => t.team === 2)
-          .reduce((a, b) => a + b.kills, 0);
+          .reduce((a, b) => a + (b.heroData?.kills || 0), 0);
         const dScore = t.heroes
           .filter((t) => t.team === 3)
-          .reduce((a, b) => a + b.kills, 0);
+          .reduce((a, b) => a + (b.heroData?.kills || 0), 0);
         return (
           <div key={t.matchId} className={c.preview}>
             <PageLink link={AppRouter.matches.match(t.matchId).link}>
@@ -57,25 +61,23 @@ export default function LiveMatches({ data: initialData }: InitialProps) {
                   link={AppRouter.matches.match(t.matchId).link}
                   className="link"
                 >
-                  Матч {t.matchId}
+                  Матч {t.matchId} - {formatGameState(t.gameState)}
                 </PageLink>
               </h3>
               <div className={c.info}>
-                Режим: {formatGameMode(t.matchmakingMode)}
+                Режим: {formatGameMode(t.matchmakingMode)},{" "}
+                {formatDotaMode(t.gameMode)}
               </div>
               <div className={c.info}>
-                Счет: {rScore}:{dScore}
+                Счет: <span className="green">{rScore}</span> :{" "}
+                <span className="red">{dScore}</span>
               </div>
               <div className={c.info}>
                 Время: <Duration duration={t.duration} />
               </div>
-              <a
-                target={"__blank"}
-                href={watchUrl(t.server)}
-                className={cx(c.info, "link")}
-              >
-                Смотреть в игре
-              </a>
+              <div className={c.info}>
+                <CopySomething something={`connect ${watchUrl(t.server)}`} />
+              </div>
             </div>
           </div>
         );

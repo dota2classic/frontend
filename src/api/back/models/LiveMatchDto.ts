@@ -18,14 +18,18 @@ import {
     DotaGameModeFromJSON,
     DotaGameModeFromJSONTyped,
     DotaGameModeToJSON,
+    DotaGameRulesState,
+    DotaGameRulesStateFromJSON,
+    DotaGameRulesStateFromJSONTyped,
+    DotaGameRulesStateToJSON,
+    MatchSlotInfo,
+    MatchSlotInfoFromJSON,
+    MatchSlotInfoFromJSONTyped,
+    MatchSlotInfoToJSON,
     MatchmakingMode,
     MatchmakingModeFromJSON,
     MatchmakingModeFromJSONTyped,
     MatchmakingModeToJSON,
-    PlayerInfo,
-    PlayerInfoFromJSON,
-    PlayerInfoFromJSONTyped,
-    PlayerInfoToJSON,
 } from './';
 
 /**
@@ -46,6 +50,12 @@ export interface LiveMatchDto {
      * @memberof LiveMatchDto
      */
     gameMode: DotaGameMode;
+    /**
+     * 
+     * @type {DotaGameRulesState}
+     * @memberof LiveMatchDto
+     */
+    gameState: DotaGameRulesState;
     /**
      * 
      * @type {number}
@@ -72,10 +82,10 @@ export interface LiveMatchDto {
     timestamp: number;
     /**
      * 
-     * @type {Array<PlayerInfo>}
+     * @type {Array<MatchSlotInfo>}
      * @memberof LiveMatchDto
      */
-    heroes: Array<PlayerInfo>;
+    heroes: Array<MatchSlotInfo>;
 }
 
 export function LiveMatchDtoFromJSON(json: any): LiveMatchDto {
@@ -90,11 +100,12 @@ export function LiveMatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
         
         'matchmakingMode': MatchmakingModeFromJSON(json['matchmakingMode']),
         'gameMode': DotaGameModeFromJSON(json['gameMode']),
+        'gameState': DotaGameRulesStateFromJSON(json['gameState']),
         'matchId': json['matchId'],
         'duration': json['duration'],
         'server': json['server'],
         'timestamp': json['timestamp'],
-        'heroes': ((json['heroes'] as Array<any>).map(PlayerInfoFromJSON)),
+        'heroes': ((json['heroes'] as Array<any>).map(MatchSlotInfoFromJSON)),
     };
 }
 
@@ -109,11 +120,12 @@ export function LiveMatchDtoToJSON(value?: LiveMatchDto | null): any {
         
         'matchmakingMode': MatchmakingModeToJSON(value.matchmakingMode),
         'gameMode': DotaGameModeToJSON(value.gameMode),
+        'gameState': DotaGameRulesStateToJSON(value.gameState),
         'matchId': value.matchId,
         'duration': value.duration,
         'server': value.server,
         'timestamp': value.timestamp,
-        'heroes': ((value.heroes as Array<any>).map(PlayerInfoToJSON)),
+        'heroes': ((value.heroes as Array<any>).map(MatchSlotInfoToJSON)),
     };
 }
 

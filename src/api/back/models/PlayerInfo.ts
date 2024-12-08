@@ -24,25 +24,7 @@ export interface PlayerInfo {
      * @type {string}
      * @memberof PlayerInfo
      */
-    steamId: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PlayerInfo
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PlayerInfo
-     */
     hero: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerInfo
-     */
-    team: number;
     /**
      * 
      * @type {number}
@@ -169,10 +151,7 @@ export function PlayerInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
-        'steamId': json['steam_id'],
-        'name': json['name'],
         'hero': json['hero'],
-        'team': json['team'],
         'level': json['level'],
         'bot': json['bot'],
         'posX': json['pos_x'],
@@ -204,10 +183,7 @@ export function PlayerInfoToJSON(value?: PlayerInfo | null): any {
     }
     return {
         
-        'steam_id': value.steamId,
-        'name': value.name,
         'hero': value.hero,
-        'team': value.team,
         'level': value.level,
         'bot': value.bot,
         'pos_x': value.posX,

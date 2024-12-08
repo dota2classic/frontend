@@ -128,6 +128,20 @@ export default function MatchPage({
   if (isMatchLive && liveMatch)
     return (
       <>
+        <MatchSummary
+          radiantKills={liveMatch.heroes
+            .filter((t) => t.team === 2)
+            .reduce((a, b) => a + (b.heroData?.kills || 0), 0)}
+          direKills={liveMatch.heroes
+            .filter((t) => t.team === 3)
+            .reduce((a, b) => a + (b.heroData?.kills || 0), 0)}
+          matchId={liveMatch.matchId}
+          duration={liveMatch.duration}
+          mode={liveMatch.matchmakingMode}
+          gameMode={liveMatch.gameMode}
+          gameState={liveMatch.gameState}
+        />
+        <br />
         <LiveMatchPreview match={liveMatch} />
         <Thread
           threadStyle={ThreadStyle.SMALL}

@@ -42,6 +42,20 @@
 }
 
 
+
+.twoRows {
+  display: flex;
+  flex-direction: column;
+
+  & span {
+    white-space: nowrap;
+  }
+
+  & span:nth-child(2) {
+    font-size: 0.7rem;
+  }
+}
+
 .secondary {
   font-size: 0.7rem;
   color: $primaryTextDark;

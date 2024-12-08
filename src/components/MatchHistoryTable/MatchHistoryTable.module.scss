@@ -1,5 +1,18 @@
 @import "../../common.scss";
 
+.twoRows {
+  display: flex;
+  flex-direction: column;
+
+  & span {
+    white-space: nowrap;
+  }
+
+  & span:nth-child(2) {
+    font-size: 0.7rem;
+  }
+}
+
 .matchId {
   display: flex;
   flex-direction: column;
@@ -20,13 +33,11 @@
   color: $red !important;
 }
 
-
 .heroes {
   & img {
     vertical-align: middle;
   }
 }
-
 
 .mode {
   display: flex;
@@ -35,7 +46,6 @@
     margin-top: 4px;
   }
 }
-
 
 .secondary {
   font-size: 0.7rem;

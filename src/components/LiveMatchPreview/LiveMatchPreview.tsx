@@ -1,60 +1,132 @@
 import React from "react";
-import { LiveMatchDto, PlayerInfo } from "@/api/back";
-import c from "./LiveMatchPreview.module.scss";
 import {
-  EmbedProps,
-  HeroIcon,
-  ItemIcon,
-  MatchSummaryScore,
-  PageLink,
-  Panel,
-} from "@/components";
+  DotaConnectionState,
+  DotaGameRulesState,
+  LiveMatchDto,
+  MatchSlotInfo,
+  PlayerInfo,
+} from "@/api/back";
+import c from "./LiveMatchPreview.module.scss";
+import { EmbedProps, HeroIcon, ItemIcon, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import { KDATableData } from "@/components/GenericTable/GenericTable";
 import { items } from "@/util/iter";
 import cx from "clsx";
 import { shortName } from "@/util/heroName";
-import { formatGameMode } from "@/util/gamemode";
 import { watchUrl } from "@/util/urls";
 import { TbGrave2 } from "react-icons/tb";
 import { remap } from "@/util/math";
+import { CopySomething } from "@/components/AcceptGameModal/GameReadyModal";
+import { PlaceholderImage } from "@/components/ItemIcon/ItemIcon";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
 }
 
-const TeamListTable = ({ players }: { players: PlayerInfo[] }) => {
+const allEmptyItems = {
+  item0: 0,
+  item1: 0,
+  item2: 0,
+  item3: 0,
+  item4: 0,
+  item5: 0,
+};
+
+const TeamListTableEntry = (slot: MatchSlotInfo) => {
+  const hero = slot.heroData;
+
+  if (!hero) {
+    return (
+      <div key={slot.user.steamId} className={c.playerRow}>
+        <div className={cx(c.playerHeroRow)}>
+          <div className={cx(c.heroIconWrapper, c.mr)}>
+            <PlaceholderImage width={53} height={30} />
+            <img
+              className={cx(
+                c.abandon,
+                slot.connection ===
+                  DotaConnectionState.DOTA_CONNECTION_STATE_NOT_YET_CONNECTED &&
+                  c.abandon__visible,
+              )}
+              alt={`Player ${slot.user.name} abandoned`}
+              src="/abandon.png"
+            />
+          </div>
+          {slot.user.steamId.length <= 2 ? (
+            <span>{"Бот"}</span>
+          ) : (
+            <PageLink
+              className={"link"}
+              link={AppRouter.players.player.index(slot.user.steamId).link}
+            >
+              <span>{slot.user.name}</span>
+            </PageLink>
+          )}
+          <KDATableData kills={0} deaths={0} assists={0} forceInteger />
+        </div>
+        <div className={c.itemRow}>
+          {items(allEmptyItems).map((it, index) => (
+            <ItemIcon key={index} item={it} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div key={slot.user.steamId} className={c.playerRow}>
+      <div className={cx(c.playerHeroRow, hero.respawnTime > 0 && c.dead)}>
+        <div className={c.heroIconWrapper}>
+          <HeroIcon small hero={hero.hero} />
+          <TbGrave2
+            style={{ opacity: hero.respawnTime > 0 ? 1 : 0 }}
+            className={c.skull}
+          />
+          <img
+            className={cx(
+              c.abandon,
+              (slot.connection ===
+                DotaConnectionState.DOTA_CONNECTION_STATE_DISCONNECTED ||
+                slot.connection ===
+                  DotaConnectionState.DOTA_CONNECTION_STATE_ABANDONED) &&
+                c.abandon__visible,
+            )}
+            alt={`Player ${slot.user.name} abandoned`}
+            src="/abandon.png"
+          />
+        </div>
+        <span className={c.level}>{hero.level}</span>
+        {hero.bot ? (
+          <span>{"Бот"}</span>
+        ) : (
+          <PageLink
+            className={"link"}
+            link={AppRouter.players.player.index(slot.user.steamId).link}
+          >
+            <span>{slot.user.name}</span>
+          </PageLink>
+        )}
+        <KDATableData
+          kills={hero.kills}
+          deaths={hero.deaths}
+          assists={hero.assists}
+          forceInteger
+        />
+      </div>
+      <div className={c.itemRow}>
+        {items(hero).map((it, index) => (
+          <ItemIcon key={index} item={it} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const TeamListTable = ({ players }: { players: MatchSlotInfo[] }) => {
   return (
     <div className={c.teamTable}>
       {players.map((it) => (
-        <div key={it.steamId} className={c.playerRow}>
-          <div className={cx(c.playerHeroRow, it.respawnTime > 0 && c.dead)}>
-            <HeroIcon small hero={it.hero} />
-            <TbGrave2
-              style={{ opacity: it.respawnTime > 0 ? 1 : 0 }}
-              className={c.skull}
-            />
-            <span className={c.level}>{it.level}</span>
-            {it.bot ? (
-              <span>{"Бот"}</span>
-            ) : (
-              <PageLink link={AppRouter.players.player.index(it.steamId).link}>
-                <span>{it.name}</span>
-              </PageLink>
-            )}
-            <KDATableData
-              kills={it.kills}
-              deaths={it.deaths}
-              assists={it.assists}
-              forceInteger
-            />
-          </div>
-          <div className={c.itemRow}>
-            {items(it).map((it, index) => (
-              <ItemIcon key={index} item={it} />
-            ))}
-          </div>
-        </div>
+        <TeamListTableEntry key={it.user.steamId} {...it} />
       ))}
     </div>
   );
@@ -62,10 +134,11 @@ const TeamListTable = ({ players }: { players: PlayerInfo[] }) => {
 
 interface MinimapHeroProps {
   hero: PlayerInfo;
+  team: number;
 }
 
-const MinimapHero = ({ hero }: MinimapHeroProps) => {
-  const { posX, posY, team, respawnTime } = hero;
+const MinimapHero = ({ hero, team }: MinimapHeroProps) => {
+  const { posX, posY, respawnTime } = hero;
   const dead = respawnTime > 0;
 
   // const remappedX = 5 + posX * 90;
@@ -94,6 +167,9 @@ const MinimapHero = ({ hero }: MinimapHeroProps) => {
 export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
   match,
 }) => {
+  const renderHeroPool =
+    match.gameState >= DotaGameRulesState.PRE_GAME ? match.heroes : [];
+
   const radiant = match.heroes.filter((it) => it.team === 2);
   const dire = match.heroes.filter((it) => it.team === 3);
   return (
@@ -102,41 +178,42 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         title={`LIVE матч ${match.matchId}`}
         description={`Превью активного матча ${match.matchId}, игровая карта с героями, которые двигаются по карте.`}
       />
-      <Panel className={c.panelContainer}>
-        <div className={c.panel}>
-          <div>Режим: {formatGameMode(match.matchmakingMode)}</div>
-          <MatchSummaryScore
-            duration={match.duration}
-            direKills={dire.reduce((a, b) => a + b.kills, 0)}
-            radiantKills={radiant.reduce((a, b) => a + b.kills, 0)}
-          />
-        </div>
-      </Panel>
-
       <div className={c.liveMatch}>
         <TeamListTable players={radiant} />
         <div className={c.map}>
-          {match.heroes.map((hero) => (
-            <MinimapHero key={hero.steamId} hero={hero} />
-          ))}
+          {renderHeroPool
+            .filter((t) => t.heroData)
+            .map((slot) => (
+              <MinimapHero
+                key={slot.user.steamId}
+                hero={slot.heroData!}
+                team={slot.team}
+              />
+            ))}
         </div>
         <TeamListTable players={dire} />
       </div>
       <div className={c.watchLive}>
-        <a target={"__blank"} className="link" href={watchUrl(match.server)}>
-          Смотреть в игре
-        </a>
+        <CopySomething something={`connect ${watchUrl(match.server)}`} />
       </div>
     </>
   );
 };
 
 export const SmallLiveMatch: React.FC<ILiveMatchPreviewProps> = ({ match }) => {
+  const heroPool =
+    match.gameState >= DotaGameRulesState.PRE_GAME ? match.heroes : [];
   return (
     <div className={cx(c.map, c.map__small)}>
-      {match.heroes.map((hero) => (
-        <MinimapHero key={hero.steamId} hero={hero} />
-      ))}
+      {heroPool
+        .filter((t) => t.heroData)
+        .map((slot) => (
+          <MinimapHero
+            key={slot.user.steamId}
+            hero={slot.heroData!}
+            team={slot.team}
+          />
+        ))}
     </div>
   );
 };
