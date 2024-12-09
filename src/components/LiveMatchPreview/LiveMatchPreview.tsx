@@ -13,7 +13,7 @@ import { KDATableData } from "@/components/GenericTable/GenericTable";
 import { items } from "@/util/iter";
 import cx from "clsx";
 import { shortName } from "@/util/heroName";
-import { watchUrl } from "@/util/urls";
+import { watchCmd } from "@/util/urls";
 import { TbGrave2 } from "react-icons/tb";
 import { remap } from "@/util/math";
 import { CopySomething } from "@/components/AcceptGameModal/GameReadyModal";
@@ -194,7 +194,7 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         <TeamListTable players={dire} />
       </div>
       <div className={c.watchLive}>
-        <CopySomething something={`connect ${watchUrl(match.server)}`} />
+        <CopySomething something={watchCmd(match.server)} />
       </div>
     </>
   );

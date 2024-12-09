@@ -1,0 +1,13 @@
+@import '../../common.scss';
+
+
+.queueDiscussion {
+  max-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+
+  & :global(.messageList) {
+    flex: 1;
+  }
+}

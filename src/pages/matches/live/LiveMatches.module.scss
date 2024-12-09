@@ -32,7 +32,6 @@
 .preview {
   display: flex;
   flex-direction: row;
-  box-shadow: 0 0 3px rgba(77, 71, 71, 0.4);
 
   & + & {
     margin-top: 20px;
@@ -56,4 +55,9 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  align-self: stretch;
+
+  & h3 {
+    //margin-block-start: 0;
+  }
 }

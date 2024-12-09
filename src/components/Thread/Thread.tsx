@@ -9,35 +9,18 @@ import React, {
 import { MessageGroup, Pagination, ScrollDetector } from "..";
 
 import c from "./Thread.module.scss";
-import { ThreadMessageDTO, ThreadMessagePageDTO } from "@/api/back";
-import { NextLinkProp } from "@/route";
 import { observer } from "mobx-react-lite";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { getApi } from "@/api/hooks";
 import { useThread } from "@/util/threads";
-import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useStore } from "@/store";
-import { ThreadStyle } from "@/components/Thread/types";
+import { IThreadProps, ThreadStyle } from "@/components/Thread/types";
 import { MessageInput } from "@/components/Thread/MessageInput";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });
-
-interface IThreadProps {
-  id: string;
-  threadType: ThreadType;
-  className?: string;
-  populateMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO;
-  threadStyle?: ThreadStyle;
-  showLastMessages?: number;
-  scrollToLast?: boolean;
-  pagination?: {
-    pageProvider: (page: number) => NextLinkProp;
-    page: number;
-  };
-}
 
 export const Thread: React.FC<IThreadProps> = observer(function Thread({
   threadType,

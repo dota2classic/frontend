@@ -22,3 +22,9 @@ export function watchUrl(serverUrl: string): string {
   const port = parseInt(serverUrl.split(":")[1]);
   return `steam://connect/${host}:${port + 5}`;
 }
+
+export function watchCmd(serverUrl: string): string {
+  const host = serverUrl.split(":")[0];
+  const port = parseInt(serverUrl.split(":")[1]);
+  return `connect ${host}:${port + 5}`;
+}

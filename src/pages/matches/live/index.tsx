@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { getApi } from "@/api/hooks";
 import c from "./LiveMatches.module.scss";
-import { Duration, PageLink, SmallLiveMatch } from "@/components";
+import { Duration, PageLink, Panel, SmallLiveMatch } from "@/components";
 import { AppRouter } from "@/route";
 import { LiveMatchDto } from "@/api/back";
 import {
@@ -11,7 +11,7 @@ import {
 } from "@/util/gamemode";
 import React from "react";
 import { useDidMount } from "@/util/hooks";
-import { watchUrl } from "@/util/urls";
+import { watchCmd } from "@/util/urls";
 import { CopySomething } from "@/components/AcceptGameModal/GameReadyModal";
 
 interface InitialProps {
@@ -51,7 +51,7 @@ export default function LiveMatches({ data: initialData }: InitialProps) {
           .filter((t) => t.team === 3)
           .reduce((a, b) => a + (b.heroData?.kills || 0), 0);
         return (
-          <div key={t.matchId} className={c.preview}>
+          <Panel key={t.matchId} className={c.preview}>
             <PageLink link={AppRouter.matches.match(t.matchId).link}>
               <SmallLiveMatch match={t} />
             </PageLink>
@@ -76,10 +76,10 @@ export default function LiveMatches({ data: initialData }: InitialProps) {
                 Время: <Duration duration={t.duration} />
               </div>
               <div className={c.info}>
-                <CopySomething something={`connect ${watchUrl(t.server)}`} />
+                <CopySomething something={watchCmd(t.server)} />
               </div>
             </div>
-          </div>
+          </Panel>
         );
       })}
     </>

@@ -16,6 +16,7 @@ import { ThreadStyle } from "@/components/Thread/types";
 import { useEventSource } from "@/util/hooks";
 import { Columns } from "@/components/MatchTeamTable/MatchTeamTable";
 import { Tabs } from "@/components/Tabs/Tabs";
+import c from "./Match.module.scss";
 
 interface InitialProps {
   matchId: number;
@@ -42,6 +43,19 @@ const options: Filter[] = [
     columns: ["Items"],
   },
 ];
+
+const MatchThread = ({ id }: { id: string }) => {
+  return (
+    <Thread
+      threadStyle={ThreadStyle.TINY}
+      id={id}
+      threadType={ThreadType.MATCH}
+      showLastMessages={100}
+      scrollToLast
+      className={c.queueDiscussion}
+    />
+  );
+};
 
 export default function MatchPage({
   matchId,
@@ -116,11 +130,7 @@ export default function MatchPage({
 
         <br />
         <br />
-        <Thread
-          threadStyle={ThreadStyle.SMALL}
-          id={match.id.toString()}
-          threadType={ThreadType.MATCH}
-        />
+        <MatchThread id={match.id.toString()} />
       </>
     );
 
@@ -143,11 +153,7 @@ export default function MatchPage({
         />
         <br />
         <LiveMatchPreview match={liveMatch} />
-        <Thread
-          threadStyle={ThreadStyle.SMALL}
-          id={liveMatch.matchId.toString()}
-          threadType={ThreadType.MATCH}
-        />
+        <MatchThread id={liveMatch.matchId.toString()} />
       </>
     );
 
