@@ -1,14 +1,22 @@
 import { NextPageContext } from "next";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
-import { BanReason, CrimeLogPageDto } from "@/api/back";
+import { BanReason, CrimeLogPageDto, MatchmakingMode } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
-import { Button, GenericTable, Pagination, Panel, TimeAgo } from "@/components";
+import {
+  Button,
+  Duration,
+  GenericTable,
+  Pagination,
+  Panel,
+  TimeAgo,
+} from "@/components";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
 import { formatBanReason } from "@/util/bans";
 import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal/InvitePlayerModalRaw";
+import { formatGameMode } from "@/util/gamemode";
 
 interface Props {
   crime: CrimeLogPageDto;
@@ -58,9 +66,25 @@ export default function CrimesPage({ crime, steamId }: Props) {
           },
           {
             type: ColumnType.Raw,
+            name: "Комментарий",
+          },
+          {
+            type: ColumnType.Raw,
+            name: "Длительность бана",
+            format: (t: number) => <Duration duration={t} />,
+          },
+          {
+            type: ColumnType.Raw,
             name: "Нарушение",
             format: (t: BanReason) => (
               <span style={{ whiteSpace: "nowrap" }}>{formatBanReason(t)}</span>
+            ),
+          },
+          {
+            type: ColumnType.Raw,
+            name: "Режим игры",
+            format: (t: MatchmakingMode) => (
+              <span style={{ whiteSpace: "nowrap" }}>{formatGameMode(t)}</span>
             ),
           },
           {
@@ -80,7 +104,12 @@ export default function CrimesPage({ crime, steamId }: Props) {
         ]}
         data={crime.data.map((t) => [
           t.user,
+          t.lobbyType === MatchmakingMode.BOTS
+            ? "Игра с ботами"
+            : "Засчитываем.",
+          t.banDuration / 1000,
           t.crime,
+          t.lobbyType,
           t.createdAt,
           t.handled,
           t.id,

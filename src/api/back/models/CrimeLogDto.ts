@@ -18,6 +18,10 @@ import {
     BanReasonFromJSON,
     BanReasonFromJSONTyped,
     BanReasonToJSON,
+    MatchmakingMode,
+    MatchmakingModeFromJSON,
+    MatchmakingModeFromJSONTyped,
+    MatchmakingModeToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -36,6 +40,12 @@ export interface CrimeLogDto {
      * @memberof CrimeLogDto
      */
     crime: BanReason;
+    /**
+     * 
+     * @type {MatchmakingMode}
+     * @memberof CrimeLogDto
+     */
+    lobbyType: MatchmakingMode;
     /**
      * 
      * @type {number}
@@ -60,6 +70,12 @@ export interface CrimeLogDto {
      * @memberof CrimeLogDto
      */
     createdAt: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CrimeLogDto
+     */
+    banDuration: number;
 }
 
 export function CrimeLogDtoFromJSON(json: any): CrimeLogDto {
@@ -73,10 +89,12 @@ export function CrimeLogDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean
     return {
         
         'crime': BanReasonFromJSON(json['crime']),
+        'lobbyType': MatchmakingModeFromJSON(json['lobby_type']),
         'id': json['id'],
         'handled': json['handled'],
         'user': UserDTOFromJSON(json['user']),
         'createdAt': json['created_at'],
+        'banDuration': json['ban_duration'],
     };
 }
 
@@ -90,10 +108,12 @@ export function CrimeLogDtoToJSON(value?: CrimeLogDto | null): any {
     return {
         
         'crime': BanReasonToJSON(value.crime),
+        'lobby_type': MatchmakingModeToJSON(value.lobbyType),
         'id': value.id,
         'handled': value.handled,
         'user': UserDTOToJSON(value.user),
         'created_at': value.createdAt,
+        'ban_duration': value.banDuration,
     };
 }
 
