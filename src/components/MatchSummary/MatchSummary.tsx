@@ -26,6 +26,8 @@ interface IMatchSummaryProps {
   gameState?: DotaGameRulesState;
   radiantKills: number;
   direKills: number;
+
+  replay?: string;
 }
 
 export const MatchSummaryScore = ({
@@ -58,6 +60,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
   direKills,
   gameMode,
   gameState,
+  replay,
 }) => {
   return (
     <>
@@ -69,6 +72,16 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
           </Breadcrumbs>
         </div>
         <div className="right">
+          {replay && (
+            <dl>
+              <dd>
+                <a href={replay} target="__blank">
+                  Скачать
+                </a>
+              </dd>
+              <dt>Реплей игры</dt>
+            </dl>
+          )}
           <dl>
             <dd>{formatDotaMode(gameMode)}</dd>
             <dt>Режим</dt>

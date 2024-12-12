@@ -147,30 +147,35 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
     <Section className={c.modes}>
       <header>Режим игры</header>
       <div className={cx(c.modes__list, c.box)}>
-        {d84.map((info) => (
-          <MatchmakingOption
-            testId={`mode-list-option-${info.lobbyType}`}
-            selected={queue.queueState?.mode === info.lobbyType}
-            localSelected={queue.selectedMode?.mode === info.lobbyType}
-            disabled={modEnableCondition(info.lobbyType)}
-            key={`${info.lobbyType}`}
-            onSelect={queue.setSelectedMode}
-            version={Dota2Version.Dota_684}
-            mode={info.lobbyType}
-            dotaMode={info.gameMode}
-            suffix={
-              isCalibration && info.lobbyType === MatchmakingMode.UNRANKED ? (
-                <>
-                  еще{" "}
-                  <span className="gold">
-                    {me?.summary?.calibrationGamesLeft}
-                  </span>{" "}
-                  калибровочных игр
-                </>
-              ) : undefined
-            }
-          />
-        ))}
+        {d84.map((info) => {
+          const modeDisabledBy = modEnableCondition(info.lobbyType);
+          return (
+            <MatchmakingOption
+              testId={`mode-list-option-${info.lobbyType}`}
+              selected={queue.queueState?.mode === info.lobbyType}
+              localSelected={queue.selectedMode?.mode === info.lobbyType}
+              disabled={modeDisabledBy}
+              key={`${info.lobbyType}`}
+              onSelect={queue.setSelectedMode}
+              version={Dota2Version.Dota_684}
+              mode={info.lobbyType}
+              dotaMode={info.gameMode}
+              suffix={
+                isCalibration &&
+                info.lobbyType === MatchmakingMode.UNRANKED &&
+                !modeDisabledBy ? (
+                  <>
+                    еще{" "}
+                    <span className="gold">
+                      {me?.summary?.calibrationGamesLeft}
+                    </span>{" "}
+                    калибровочных игр
+                  </>
+                ) : undefined
+              }
+            />
+          );
+        })}
         <NotificationSetting />
         <div style={{ flex: 1 }} />
         {queueGameState === QueueGameState.NO_GAME && (

@@ -88,6 +88,12 @@ export interface MatchDto {
      * @memberof MatchDto
      */
     timestamp: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MatchDto
+     */
+    replayUrl: string;
 }
 
 export function MatchDtoFromJSON(json: any): MatchDto {
@@ -109,6 +115,7 @@ export function MatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'duration': json['duration'],
         'reportable': json['reportable'],
         'timestamp': json['timestamp'],
+        'replayUrl': json['replayUrl'],
     };
 }
 
@@ -130,6 +137,7 @@ export function MatchDtoToJSON(value?: MatchDto | null): any {
         'duration': value.duration,
         'reportable': value.reportable,
         'timestamp': value.timestamp,
+        'replayUrl': value.replayUrl,
     };
 }
 

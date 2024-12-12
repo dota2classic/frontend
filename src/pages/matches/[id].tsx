@@ -95,6 +95,7 @@ export default function MatchPage({
           timestamp={match.timestamp}
           mode={match.mode}
           gameMode={match.gameMode}
+          replay={match.replayUrl}
         />
 
         <Typography.Header radiant>
