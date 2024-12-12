@@ -15,6 +15,7 @@ import {
   MatchmakingMode,
 } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
+import { metrika } from "@/ym";
 
 interface IMatchSummaryProps {
   matchId: number;
@@ -75,7 +76,11 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = ({
           {replay && (
             <dl>
               <dd>
-                <a href={replay} target="__blank">
+                <a
+                  href={replay}
+                  target="__blank"
+                  onClick={() => metrika("reachGoal", "DOWNLOAD_REPLAY")}
+                >
                   Скачать
                 </a>
               </dd>
