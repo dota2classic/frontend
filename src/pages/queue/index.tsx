@@ -96,7 +96,7 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
         </>
       );
     }
-    if (mode === MatchmakingMode.UNRANKED && queue.isNewbieParty) {
+    if (mode !== MatchmakingMode.BOTS && queue.isNewbieParty) {
       return (
         <>
           Нужно пройти <span className="gold">обучение</span>{" "}

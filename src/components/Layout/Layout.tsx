@@ -1,6 +1,12 @@
 import React, { PropsWithChildren, useState } from "react";
 
-import { ItemTooltip, Navbar, Notifications, SearchGameFloater } from "..";
+import {
+  ItemTooltip,
+  Navbar,
+  Notifications,
+  SearchGameFloater,
+  TelegramInvite,
+} from "..";
 
 import c from "./Layout.module.scss";
 import cx from "clsx";
@@ -43,6 +49,7 @@ export const Layout = ({
           <footer className={c.footer}>
             <div> © 2020 - 2024 dotaclassic.ru</div>
             <div>Dota 2 is a registered trademark of Valve Corporation.</div>
+            <TelegramInvite />
           </footer>
         </div>
       </div>

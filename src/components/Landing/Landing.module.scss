@@ -90,9 +90,6 @@
         font-size: 1.5rem;
       }
     }
-
-
-
   }
 }
 
@@ -117,7 +114,7 @@
   @media (max-width: 600px) {
     font-size: 1.2rem;
     padding: 16px 10px;
-    margin:auto;
+    margin: auto;
     display: block;
   }
 
@@ -129,7 +126,6 @@
     border-color: $primaryTextHighlight;
     transform: translateY(-2px);
   }
-
 }
 
 .backimage {
@@ -149,7 +145,6 @@
   flex-direction: row;
   justify-content: space-between;
 
-
   @media (max-width: 600px) {
     flex-direction: column;
     width: 100vw;
@@ -163,10 +158,9 @@
   & a + a,
   & .stat + .stat {
     margin-left: 30px;
-    @media (max-width: 600px){
+    @media (max-width: 600px) {
       margin-left: 0;
     }
-
   }
 
   & .stat {
@@ -269,7 +263,6 @@
   }
 }
 
-
 .panel {
   margin-top: 20px;
   padding: 8px 12px;
@@ -279,4 +272,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.tintBackground {
+  display: inline-block;
+  background-color: $transparentTint;
+  padding-top: 16px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+
+  &:hover {
+    background-color: rgba(65, 168, 252, 0.25);
+  }
+}
+
+
+.telegram {
+  margin-top: 40px;
 }

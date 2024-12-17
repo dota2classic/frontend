@@ -1,0 +1,15 @@
+@import "../../common.scss";
+
+
+.telegram {
+  display: inline-flex;
+  flex-direction: row;
+  align-self: stretch;
+  align-items: center;
+  color: $blueHighlight;
+  vertical-align: bottom;
+
+  & svg {
+    margin-right: 4px;
+  }
+}

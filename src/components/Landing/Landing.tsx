@@ -1,7 +1,13 @@
 import React from "react";
 
 import c from "./Landing.module.scss";
-import { CoolList, Duration, EmbedProps, PageLink } from "@/components";
+import {
+  CoolList,
+  Duration,
+  EmbedProps,
+  PageLink,
+  TelegramInvite,
+} from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
 import Image from "next/image";
@@ -57,6 +63,7 @@ export const Landing = () => {
             Тысячи игроков предпочитают играть в{" "}
             <span className="red">Dota 2</span> на сайте dotaclassic.ru
           </div>
+          <TelegramInvite className={cx(c.playButton, c.telegram)} />
         </div>
       </div>
 

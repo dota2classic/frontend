@@ -64,6 +64,12 @@ export interface PlayerSummaryDto {
     playedAnyGame: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof PlayerSummaryDto
+     */
+    hasHumanGamesAccess: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof PlayerSummaryDto
      */
@@ -104,6 +110,7 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'rank': !exists(json, 'rank') ? undefined : json['rank'],
         'unrankedGamesLeft': json['unrankedGamesLeft'],
         'playedAnyGame': json['playedAnyGame'],
+        'hasHumanGamesAccess': json['hasHumanGamesAccess'],
         'calibrationGamesLeft': json['calibrationGamesLeft'],
         'gamesPlayed': json['games_played'],
         'wins': json['wins'],
@@ -126,6 +133,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         'rank': value.rank,
         'unrankedGamesLeft': value.unrankedGamesLeft,
         'playedAnyGame': value.playedAnyGame,
+        'hasHumanGamesAccess': value.hasHumanGamesAccess,
         'calibrationGamesLeft': value.calibrationGamesLeft,
         'games_played': value.gamesPlayed,
         'wins': value.wins,

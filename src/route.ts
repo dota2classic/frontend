@@ -185,5 +185,7 @@ export const AppRouter = {
       });
       return spage(`/matches${q}`, false);
     },
+    download: (id: number) =>
+      page(`/matches/download/[id]`, `/matches/download/${id}`),
   },
 };
