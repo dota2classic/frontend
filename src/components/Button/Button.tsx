@@ -11,6 +11,7 @@ export const Button: React.FC<
     className?: string;
     onClick?: () => void;
     mega?: boolean;
+    target?: string;
   }>
 > = ({ className, link, mega, ...props }) => {
   if (link)
