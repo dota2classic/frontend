@@ -46,6 +46,7 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
             content: (
               <>
                 <Button
+                  link
                   href={match.replayUrl}
                   target="__blank"
                   onClick={() => metrika("reachGoal", "DOWNLOAD_REPLAY")}
