@@ -1,20 +1,14 @@
-@import '../../../common.scss';
-
-
-
-
+@import "../../../common.scss";
 
 .stats {
   display: flex;
   flex-direction: row;
 }
 
-
 .playerPage {
   display: grid;
   grid-column-gap: 12px;
   grid-template-columns: repeat(12, 1fr);
-
 }
 
 .playerInfo {
@@ -28,7 +22,6 @@
   }
 }
 
-
 .matchHistory {
   grid-column: span 8;
   @media (max-width: 600px) {
@@ -41,12 +34,14 @@
   grid-column: span 12;
 }
 
-
-
 .achievements {
+  display: flex;
+  gap: 10px;
+
   @media (max-width: 600px) {
     flex-direction: row;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    overflow-y: hidden;
   }
 }

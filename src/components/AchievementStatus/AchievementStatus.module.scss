@@ -3,7 +3,7 @@
 .achievement {
   position: relative;
 
-  z-index: 100;
+  z-index: auto;
 
   width: 100px;
   min-width: 100px;
@@ -61,15 +61,29 @@
   text-align: center;
 }
 
+.achievementItem {
+  &:last-child {
+    & .achievementDescription {
+      left: unset;
+      right: 0;
+    }
+  }
+}
+
 .achievementDescription {
   position: absolute;
   left: 0;
-  top: calc(100% + 14px);
   padding: 6px 12px;
+  color: $primaryText;
   background-color: $bg2;
   box-shadow: 0 0 6px rgba(10, 10, 10, 0.4);
   z-index: 10000;
-  width: 300%;
+  //width: 300%;
+  min-width: 200px;
+  //max-width: 200%;
   display: none;
-  transform: translateX(-25%);
+  //transform: translateX(-25%);
+
+  top: unset;
+  bottom: 0px;
 }

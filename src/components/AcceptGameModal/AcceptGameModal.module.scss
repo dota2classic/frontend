@@ -30,11 +30,9 @@
   }
 }
 
-
 .nonPrimaryModal {
-
-  width: fit-content;
-  height: fit-content;
+  //width: fit-content;
+  //height: fit-content;
   background: $bg2;
 
   //padding: 40px;
@@ -50,7 +48,6 @@
     font-weight: normal;
     color: #dcddde;
   }
-
 }
 
 .modal {
@@ -62,10 +59,9 @@
   bottom: 0;
   margin: auto;
 
+  width: 400px;
   min-width: 400px;
 
-  width: fit-content;
-  height: fit-content;
   background: $bg2;
 
   //padding: 40px;
@@ -203,7 +199,6 @@
   }
 }
 
-
 .dots__modal {
   & .dots {
     padding: 16px;
@@ -218,7 +213,6 @@
     height: 50px !important;
 
     & img {
-
       width: 50px !important;
       height: 50px !important;
     }
@@ -238,7 +232,6 @@
     width: 34px !important;
     height: 34px !important;
   }
-
 }
 
 .accepted {
@@ -246,14 +239,19 @@
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgb(255,255,255);
-    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(90,180,79,0.6993391106442577) 54%, rgba(22,185,4,0.7805716036414566) 100%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(90, 180, 79, 0.6993391106442577) 54%,
+      rgba(22, 185, 4, 0.7805716036414566) 100%
+    );
   }
 }
 
@@ -267,4 +265,37 @@
 
 .timeout {
   border-color: $red;
+}
+
+.fullInstruction {
+  padding-top: 8px;
+  & ol {
+    padding-inline-start: 1rem;
+  }
+  & li {
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+  }
+
+  & .guide {
+    display: none;
+
+    &__visible {
+      display: block;
+    }
+  }
+}
+
+.toggleInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: unset !important;
+  padding: 8px 6px 4px !important;
+
+  & svg {
+    margin-left: 4px;
+    margin-bottom: 2px;
+  }
 }

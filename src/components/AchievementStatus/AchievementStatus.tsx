@@ -76,6 +76,7 @@ export const AchievementStatus: React.FC<IAchievementStatusProps> = ({
       className={cx(
         c.achievement,
         !achievement.isComplete && c.achievement__incomplete,
+        !achievement.isComplete && c.achievementItem,
       )}
     >
       <Image
@@ -103,7 +104,10 @@ export const AchievementStatus: React.FC<IAchievementStatusProps> = ({
   );
 
   return achievement.isComplete ? (
-    <PageLink link={AppRouter.matches.match(achievement.match!.id).link}>
+    <PageLink
+      link={AppRouter.matches.match(achievement.match!.id).link}
+      className={c.achievementItem}
+    >
       {main}
     </PageLink>
   ) : (
