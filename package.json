@@ -23,6 +23,7 @@
     "knip": "knip"
   },
   "dependencies": {
+    "@lexical/react": "^0.21.0",
     "@next/bundle-analyzer": "15.0.3",
     "browser-cookies": "^1.2.0",
     "classnames": "^2.5.1",
@@ -30,6 +31,7 @@
     "cookies": "^0.9.1",
     "format-duration": "^3.0.2",
     "howler": "^2.2.4",
+    "lexical": "^0.21.0",
     "mobx": "^6.13.2",
     "mobx-react-lite": "^4.0.7",
     "next": "^15.0.4-canary.41",
@@ -64,6 +66,7 @@
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "@types/web-push": "^3.6.4",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
     "dotenv": "^16.4.7",
     "eslint": "^9.14.0",
     "eslint-config-next": "15.0.3",
@@ -74,8 +77,7 @@
     "nodemon": "^3.1.5",
     "prettier": "3.3.3",
     "qs": "^6.13.1",
-    "typescript": "^5.6.3",
-    "@typescript-eslint/eslint-plugin": "^8.17.0"
+    "typescript": "^5.6.3"
   },
   "overrides": {
     "@types/react": "npm:types-react@19.0.0-rc.1",

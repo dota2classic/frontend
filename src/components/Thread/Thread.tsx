@@ -17,6 +17,7 @@ import { useThread } from "@/util/threads";
 import { useStore } from "@/store";
 import { IThreadProps, ThreadStyle } from "@/components/Thread/types";
 import { MessageInput } from "@/components/Thread/MessageInput";
+import { NewMessageInput } from "@/components/Thread/NewMessageInput";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -172,7 +173,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
         />
       )}
       {displayInput && (
-        <MessageInput
+        <NewMessageInput
           className={
             threadStyle === ThreadStyle.TINY ? c.createMessage_tiny : undefined
           }

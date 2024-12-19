@@ -3,6 +3,8 @@
 
 .userEmbed {
   border-radius: 4px;
+  background-color: $blueHighlight3;
+  padding: 2px 4px;
 
   & img {
     display: none;
@@ -15,7 +17,7 @@
 }
 
 .myTag {
-  background-color: $blueHighlight3;
+  background-color: $blueHighlight2;
   //border: 1px solid $red;
-  padding: 0px 2px;
+
 }

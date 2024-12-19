@@ -215,6 +215,7 @@ export default function QueuePage(props: Props) {
         title="Поиск игры"
         description="Страница поиска игры в старую доту. Играй в группе со своими друзьями с ботами и другими людьми"
       />
+      <style dangerouslySetInnerHTML={{ __html: "body{overflow:hidden;}" }} />
       <ModeList modes={modes || props.modes} />
       <Section className={c.main}>
         <header>Группа и поиск</header>

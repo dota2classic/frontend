@@ -1,0 +1,23 @@
+@import "../../common.scss";
+
+.textInput {
+  outline: none;
+  font-size: 1rem;
+  padding: 4px;
+  border-radius: 16px;
+  border-color: $primaryTextHighlight;
+  transition: 0.3s ease;
+  color: $primaryText;
+  flex: 1;
+
+  //margin-bottom: 24px;
+  background-color: $bg3;
+
+  resize: none;
+
+  cursor: pointer;
+}
+
+.textInputContainer {
+  padding: 16px 12px;
+}

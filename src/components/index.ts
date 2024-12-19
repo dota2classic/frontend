@@ -70,3 +70,5 @@ export { PleaseQueueNotification } from "./PleaseQueueNotification/PleaseQueueNo
 export { PeriodicSpan } from "./PeriodicSpan/PeriodicSpan";
 export { Tooltipable } from "./Tooltipable/Tooltipable";
 export { TelegramInvite } from "./TelegramInvite/TelegramInvite";
+export { MentionPlugin } from "./MentionPlugin/MentionPlugin";
+export { PlayerPreviewRow } from "./PlayerPreviewRow/PlayerPreviewRow";
