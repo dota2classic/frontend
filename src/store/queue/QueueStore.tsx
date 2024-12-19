@@ -13,7 +13,6 @@ import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
 import { BanStatusDto, PartyDto, PartyMemberDTO } from "@/api/back";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { DefaultQueueHolder } from "@/store/queue/mock";
-import { Howl } from "howler";
 import { Sounds } from "@/const/sounds";
 import { NotificationDto, NotificationStore } from "@/store/NotificationStore";
 import { isNewbieParty, isPartyInGame } from "@/util/party";
@@ -40,6 +39,7 @@ import { EnterQueueMessageC2S } from "@/store/queue/messages/c2s/enter-queue-mes
 import { PleaseEnterQueueMessageS2C } from "@/store/queue/messages/s2c/please-enter-queue-message.s2c";
 import { metrika } from "@/ym";
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
+import { blinkTab } from "@/util/blinkTab";
 
 export interface QueueState {
   mode: MatchmakingMode;
@@ -77,9 +77,9 @@ export class QueueStore
   @observable
   public online: string[] = [];
 
-  private matchSound!: Howl;
-  private roomReadySound!: Howl;
-  private partyInviteReceivedSound!: Howl;
+  private matchSound!: HTMLAudioElement;
+  private roomReadySound!: HTMLAudioElement;
+  private partyInviteReceivedSound!: HTMLAudioElement;
 
   private socket!: Socket;
 
@@ -114,17 +114,12 @@ export class QueueStore
 
     if (typeof window === "undefined") return;
 
-    this.matchSound = new Howl({
-      src: Sounds.MATCH_GAME,
-    });
-    this.roomReadySound = new Howl({
-      src: Sounds.NOTIFY_GAME,
-    });
+    this.matchSound = new Audio(Sounds.MATCH_GAME);
+    this.roomReadySound = new Audio(Sounds.NOTIFY_GAME);
 
-    this.partyInviteReceivedSound = new Howl({
-      src: Sounds.PARTY_INVITE,
-      volume: 0.4,
-    });
+    this.partyInviteReceivedSound = new Audio(Sounds.PARTY_INVITE);
+    this.partyInviteReceivedSound.volume = 0.4;
+
     this.connect();
 
     this.fetchParty().finally();
@@ -405,6 +400,7 @@ export class QueueStore
 
   private playGameFoundSound() {
     this.matchSound.play();
+    blinkTab(document.title, "Игра найдена!");
   }
 
   private playMatchStartedSound() {
