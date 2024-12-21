@@ -18,6 +18,10 @@ import {
     DotaGameModeFromJSON,
     DotaGameModeFromJSONTyped,
     DotaGameModeToJSON,
+    DotaMap,
+    DotaMapFromJSON,
+    DotaMapFromJSONTyped,
+    DotaMapToJSON,
     MatchmakingMode,
     MatchmakingModeFromJSON,
     MatchmakingModeFromJSONTyped,
@@ -44,6 +48,12 @@ export interface MatchmakingInfo {
     gameMode: DotaGameMode;
     /**
      * 
+     * @type {DotaMap}
+     * @memberof MatchmakingInfo
+     */
+    dotaMap: DotaMap;
+    /**
+     * 
      * @type {boolean}
      * @memberof MatchmakingInfo
      */
@@ -62,6 +72,7 @@ export function MatchmakingInfoFromJSONTyped(json: any, ignoreDiscriminator: boo
         
         'lobbyType': MatchmakingModeFromJSON(json['lobby_type']),
         'gameMode': DotaGameModeFromJSON(json['game_mode']),
+        'dotaMap': DotaMapFromJSON(json['dota_map']),
         'enabled': json['enabled'],
     };
 }
@@ -77,6 +88,7 @@ export function MatchmakingInfoToJSON(value?: MatchmakingInfo | null): any {
         
         'lobby_type': MatchmakingModeToJSON(value.lobbyType),
         'game_mode': DotaGameModeToJSON(value.gameMode),
+        'dota_map': DotaMapToJSON(value.dotaMap),
         'enabled': value.enabled,
     };
 }

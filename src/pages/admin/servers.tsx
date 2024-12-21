@@ -9,6 +9,7 @@ import {
 import { formatGameMode } from "@/util/gamemode";
 import {
   DotaGameMode,
+  DotaMap,
   GameServerDto,
   GameSessionDto,
   MatchmakingInfo,
@@ -23,7 +24,10 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { NextPageContext } from "next";
 import { MatchmakingModes } from "@/store/queue/mock";
-import { DotaGameModeOptions } from "@/components/SelectOptions/SelectOptions";
+import {
+  DotaGameModeOptions,
+  DotaMapOptions,
+} from "@/components/SelectOptions/SelectOptions";
 
 interface PageProps {
   initialServerPool: GameServerDto[];
@@ -162,6 +166,7 @@ export default function AdminServersPage({
     return {
       lobbyType,
       gameMode: existing?.gameMode || DotaGameMode.ALLPICK,
+      dotaMap: existing?.dotaMap || DotaMap.DOTA,
       enabled: existing?.enabled || false,
     };
   });
@@ -173,11 +178,17 @@ export default function AdminServersPage({
   }, []);
 
   const updateGameMode = useCallback(
-    (lobbyType: MatchmakingMode, gamemode: DotaGameMode, enabled: boolean) => {
+    (
+      lobbyType: MatchmakingMode,
+      gamemode: DotaGameMode,
+      dotaMap: DotaMap,
+      enabled: boolean,
+    ) => {
       appApi.adminApi
         .adminUserControllerUpdateGameMode({
           mode: lobbyType,
           dotaGameMode: gamemode,
+          dotaMap: dotaMap,
           enabled: enabled,
         })
         .then(mutate);
@@ -186,7 +197,7 @@ export default function AdminServersPage({
   );
   return (
     <div className={c.gridPanel}>
-      <Section className={c.grid6}>
+      <Section className={c.grid12}>
         <header>Режимы игры</header>
 
         <Table>
@@ -194,7 +205,8 @@ export default function AdminServersPage({
             <tr>
               <th>Режим</th>
               <th style={{ width: 200 }}>Игровой режим</th>
-              <th>Действия</th>
+              <th>Карта</th>
+              <th>Активен</th>
             </tr>
           </thead>
           <tbody>
@@ -207,14 +219,39 @@ export default function AdminServersPage({
                     options={DotaGameModeOptions}
                     selected={t.gameMode}
                     onSelect={(value) =>
-                      updateGameMode(t.lobbyType, value.value, t.enabled)
+                      updateGameMode(
+                        t.lobbyType,
+                        value.value,
+                        t.dotaMap,
+                        t.enabled,
+                      )
+                    }
+                  />
+                </td>
+                <td>
+                  <SelectOptions
+                    defaultText={"Карта"}
+                    options={DotaMapOptions}
+                    selected={t.dotaMap}
+                    onSelect={(value) =>
+                      updateGameMode(
+                        t.lobbyType,
+                        t.gameMode,
+                        value.value,
+                        t.enabled,
+                      )
                     }
                   />
                 </td>
                 <td>
                   <input
                     onChange={(e) =>
-                      updateGameMode(t.lobbyType, t.gameMode, e.target.checked)
+                      updateGameMode(
+                        t.lobbyType,
+                        t.gameMode,
+                        t.dotaMap,
+                        e.target.checked,
+                      )
                     }
                     type="checkbox"
                     checked={t.enabled}
@@ -226,7 +263,7 @@ export default function AdminServersPage({
         </Table>
       </Section>
 
-      <div className={c.grid6}>
+      <div className={c.grid12}>
         <h3>Пул серверов</h3>
 
         <ServerPool

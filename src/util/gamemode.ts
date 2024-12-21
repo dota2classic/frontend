@@ -1,6 +1,7 @@
 import {
   DotaGameMode,
   DotaGameRulesState,
+  DotaMap,
   MatchmakingMode,
 } from "@/api/mapped-models";
 import { ReactNode } from "react";
@@ -73,4 +74,15 @@ const gameState: Partial<Record<DotaGameRulesState, ReactNode>> = {
 };
 export function formatGameState(state: DotaGameRulesState) {
   return gameState[state] || "Неизвестное состояние";
+}
+
+const mapName: Partial<Record<DotaMap, ReactNode>> = {
+  [DotaMap.DOTA]: "Обычная 6.84",
+  [DotaMap.DOTA_WINTER]: "Зимняя",
+  [DotaMap.DOTA_AUTUMN]: "Осенняя",
+  [DotaMap.DOTA681]: "6.81(старый рошан)",
+  [DotaMap.DIRETIDE]: "Diretide",
+};
+export function formatDotaMap(state: DotaMap) {
+  return mapName[state] || "Неизвестная карта";
 }
