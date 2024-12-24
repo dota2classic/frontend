@@ -62,12 +62,6 @@ export interface ThreadMessageDTO {
      * @memberof ThreadMessageDTO
      */
     deleted: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof ThreadMessageDTO
-     */
-    index: number;
 }
 
 export function ThreadMessageDTOFromJSON(json: any): ThreadMessageDTO {
@@ -86,7 +80,6 @@ export function ThreadMessageDTOFromJSONTyped(json: any, ignoreDiscriminator: bo
         'content': json['content'],
         'createdAt': json['createdAt'],
         'deleted': json['deleted'],
-        'index': json['index'],
     };
 }
 
@@ -105,7 +98,6 @@ export function ThreadMessageDTOToJSON(value?: ThreadMessageDTO | null): any {
         'content': value.content,
         'createdAt': value.createdAt,
         'deleted': value.deleted,
-        'index': value.index,
     };
 }
 

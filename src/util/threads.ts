@@ -78,7 +78,10 @@ class ThreadLocalState {
       type: this.threadType,
       messages: messagePool
         .filter((t) => !t.deleted)
-        .sort((a, b) => a.index - b.index),
+        .sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+        ),
     };
   }
 
@@ -88,7 +91,6 @@ class ThreadLocalState {
     const thread = this.thread;
 
     const messages = [...thread.messages];
-    messages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
     let group: MessageGroup | undefined = undefined;
     for (let i = 0; i < messages.length; i++) {
@@ -139,7 +141,10 @@ class ThreadLocalState {
       const msg = msgs[0];
       // if we only consume a single message, aka "send message" or receive update via socket
       // if we know its later than our known last and fits into perPage size
-      if (msg.index > this.pg.data[this.pg.data.length - 1].index) {
+      if (
+        new Date(msg.createdAt).getTime() >
+        new Date(this.pg.data[this.pg.data.length - 1].createdAt).getTime()
+      ) {
         // we can append it
         if (this.pg.data.length < this.pg.perPage) {
           this.pg.data.push(msg);

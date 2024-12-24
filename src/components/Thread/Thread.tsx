@@ -35,7 +35,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
   const { auth } = useStore();
   const scrollableRef = useRef<HTMLDivElement | null>(null);
   const [sticky, setSticky] = useState(!!scrollToLast);
-  const [lastSeenMessageIndex, setLastSeenMessageIndex] = useState<
+  const [lastSeenMessageTime, setLastSeenMessageTime] = useState<
     number | undefined
   >(undefined);
 
@@ -56,12 +56,15 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
       : thread.groupedMessages;
 
   const unseenMessageCount = useMemo(() => {
-    return sticky || lastSeenMessageIndex === undefined
+    return sticky || lastSeenMessageTime === undefined
       ? 0
       : messages
           .flatMap((group) => group.messages)
-          .filter((message) => message.index > lastSeenMessageIndex).length;
-  }, [lastSeenMessageIndex, messages, sticky]);
+          .filter(
+            (message) =>
+              new Date(message.createdAt).getTime() > lastSeenMessageTime,
+          ).length;
+  }, [lastSeenMessageTime, messages, sticky]);
 
   const scrollToBottom = useCallback(
     (smooth?: boolean) => {
@@ -82,7 +85,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
       scrollToBottom();
 
       const m = messages[messages.length - 1].messages;
-      setLastSeenMessageIndex(m[m.length - 1].index);
+      setLastSeenMessageTime(new Date(m[m.length - 1].createdAt).getTime);
     }
   }, [messages, sticky]);
 
