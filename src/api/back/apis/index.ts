@@ -2,6 +2,7 @@ export * from "./AdminApi";
 export * from "./AuthApi";
 export * from "./ForumApi";
 export * from "./LiveApi";
+export * from "./LobbyApi";
 export * from "./MatchApi";
 export * from "./MetaApi";
 export * from "./NotificationApi";

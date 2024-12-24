@@ -7,6 +7,7 @@ import { formatDotaMap, formatDotaMode, formatGameMode } from "@/util/gamemode";
 import heroes from "@/util/texts/heroes";
 import Select, { SingleValue } from "react-select";
 import { JetBrains_Mono } from "next/font/google";
+import { ActionMeta } from "react-select";
 
 const tableFont = JetBrains_Mono({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -65,7 +66,7 @@ interface ISelectOptionsProps {
   options: SingleValue<any>[];
   selected: any;
   defaultValue?: any;
-  onSelect: (v: SingleValue<any>) => void;
+  onSelect: (v: SingleValue<any>, meta: ActionMeta<any>) => void;
   defaultText: ReactNode;
 }
 

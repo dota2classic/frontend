@@ -29,6 +29,7 @@ export enum MatchmakingMode {
   HIGHROOM = 8,
   TOURNAMENT_SOLOMID = 9,
   CAPTAINS_MODE = 10,
+  LOBBY = 11
 }
 
 

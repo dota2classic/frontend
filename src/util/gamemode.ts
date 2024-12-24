@@ -29,6 +29,7 @@ const messages = {
   [MatchmakingMode.GREEVILING]: "Гряволы",
   // MatchmakingMode.CAPTAINS_MODE
   [MatchmakingMode.CAPTAINS_MODE]: "Captains Mode",
+  [MatchmakingMode.LOBBY]: "Лобби",
 };
 
 export function formatGameMode(mode: MatchmakingMode) {

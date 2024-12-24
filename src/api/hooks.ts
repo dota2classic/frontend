@@ -3,6 +3,7 @@ import {
   AuthApi,
   ForumApi,
   LiveApi,
+  LobbyApi,
   MatchApi,
   MetaApi,
   NotificationApi,
@@ -148,6 +149,7 @@ export class AppApi {
   readonly adminApi = new AdminApi(this.apiConfig);
   readonly statsApi = new StatsApi(this.apiConfig);
   readonly metaApi = new MetaApi(this.apiConfig);
+  readonly lobby = new LobbyApi(this.apiConfig);
   readonly notificationApi = new NotificationApi(this.apiConfig);
 }
 
