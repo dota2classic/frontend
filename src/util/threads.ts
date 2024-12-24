@@ -87,9 +87,12 @@ class ThreadLocalState {
     const groupedMessages: MessageGroup[] = [];
     const thread = this.thread;
 
+    const messages = [...thread.messages];
+    messages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
     let group: MessageGroup | undefined = undefined;
-    for (let i = 0; i < thread.messages.length; i++) {
-      const msg = thread.messages[i];
+    for (let i = 0; i < messages.length; i++) {
+      const msg = messages[i];
       if (!group || group.author.steamId !== msg.author.steamId) {
         group = {
           author: msg.author,
