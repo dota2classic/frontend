@@ -85,7 +85,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
       scrollToBottom();
 
       const m = messages[messages.length - 1].messages;
-      setLastSeenMessageTime(new Date(m[m.length - 1].createdAt).getTime);
+      setLastSeenMessageTime(new Date(m[m.length - 1].createdAt).getTime());
     }
   }, [messages, sticky]);
 
