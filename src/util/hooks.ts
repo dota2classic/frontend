@@ -99,12 +99,13 @@ export const useDidMount = () => {
 export const useEventSource = <T extends object>(
   endpoint: RequestOpts,
   transformer: (raw: object) => T,
-) => {
-  if (typeof window === "undefined") return null;
+  initial: T | null = null,
+): T | null => {
+  if (typeof window === "undefined") return initial;
 
   const bp = getApi().apiParams.basePath;
 
-  const [data, setData] = useState<T | null>(null);
+  const [data, setData] = useState<T | null>(initial);
 
   const context = JSON.stringify(endpoint);
 

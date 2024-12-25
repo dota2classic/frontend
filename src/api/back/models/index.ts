@@ -23,6 +23,8 @@ export * from "./LiveMatchDto";
 export * from "./LiveMatchSseDto";
 export * from "./LobbyDto";
 export * from "./LobbySlotDto";
+export * from "./LobbyUpdateDto";
+export * from "./LobbyUpdateType";
 export * from "./MatchDto";
 export * from "./MatchInfoDto";
 export * from "./MatchPageDto";

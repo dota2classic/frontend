@@ -24,6 +24,9 @@ import {
   LobbyDto,
   LobbyDtoFromJSON,
   LobbyDtoToJSON,
+  LobbyUpdateDto,
+  LobbyUpdateDtoFromJSON,
+  LobbyUpdateDtoToJSON,
   UpdateLobbyDto,
   UpdateLobbyDtoFromJSON,
   UpdateLobbyDtoToJSON,
@@ -47,6 +50,10 @@ export interface LobbyControllerJoinLobbyRequest {
 }
 
 export interface LobbyControllerLeaveLobbyRequest {
+  id: string;
+}
+
+export interface LobbyControllerLobbyUpdatesRequest {
   id: string;
 }
 
@@ -443,6 +450,59 @@ export class LobbyApi extends runtime.BaseAPI {
 
         const context = this.lobbyControllerListLobbiesContext();
         return useSWR(context, valid ? () => this.lobbyControllerListLobbies() : null, config)
+    }
+
+    /**
+     */
+    private async lobbyControllerLobbyUpdatesRaw(requestParameters: LobbyControllerLobbyUpdatesRequest): Promise<runtime.ApiResponse<LobbyUpdateDto>> {
+        this.lobbyControllerLobbyUpdatesValidation(requestParameters);
+        const context = this.lobbyControllerLobbyUpdatesContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LobbyUpdateDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private lobbyControllerLobbyUpdatesValidation(requestParameters: LobbyControllerLobbyUpdatesRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling lobbyControllerLobbyUpdates.");
+        }
+    }
+
+    /**
+     */
+    lobbyControllerLobbyUpdatesContext(requestParameters: LobbyControllerLobbyUpdatesRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/lobby/sse/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    lobbyControllerLobbyUpdates = async (id: string): Promise<LobbyUpdateDto> => {
+        const response = await this.lobbyControllerLobbyUpdatesRaw({ id: id });
+        return await response.value();
+    }
+
+    useLobbyControllerLobbyUpdates(id: string, config?: SWRConfiguration<LobbyUpdateDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.lobbyControllerLobbyUpdatesContext({ id: id! });
+        return useSWR(context, valid ? () => this.lobbyControllerLobbyUpdates(id!) : null, config)
     }
 
     /**

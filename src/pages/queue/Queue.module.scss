@@ -82,6 +82,7 @@
 
 .queueDiscussion {
   grid-row: span 22;
+  overflow-x: hidden;
 
   display: flex;
   flex-direction: column;

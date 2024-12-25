@@ -117,6 +117,7 @@ export const AppRouter = {
   },
   lobby: {
     index: spage("/lobby"),
+    create: spage("/create"),
     lobby: (id: string) => page(`/lobby/[id]`, `/lobby/${id}`),
   },
   tournament: {

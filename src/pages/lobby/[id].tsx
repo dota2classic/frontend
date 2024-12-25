@@ -4,12 +4,21 @@ import {
   DotaMap,
   LobbyDto,
   LobbySlotDto,
+  LobbyUpdateType,
+  LobbyUpdateTypeFromJSON,
+  ThreadType,
   UserDTO,
 } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import c from "./Lobby.module.scss";
-import { Button, Panel, PlayerAvatar, SelectOptions } from "@/components";
-import { ReactNode, useCallback, useState } from "react";
+import {
+  Button,
+  Panel,
+  PlayerAvatar,
+  SelectOptions,
+  Thread,
+} from "@/components";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import cx from "clsx";
 import {
   DotaGameModeOptions,
@@ -21,6 +30,9 @@ import { useStore } from "@/store";
 import { IoMdClose } from "react-icons/io";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { FaCheck, FaCopy } from "react-icons/fa6";
+import { useEventSource } from "@/util/hooks";
+import { withTemporaryToken } from "@/util/withTemporaryToken";
+import { ThreadStyle } from "@/components/Thread/types";
 
 interface Props {
   id: string;
@@ -43,7 +55,7 @@ const Team = observer(
     const canRemove = (u: UserDTO) =>
       isOwner || auth.parsedToken?.sub === u.steamId;
     return (
-      <div className={c.grid6}>
+      <div className={c.grid4}>
         <h2 className={cx(c.team, team === 2 && "green", team == 3 && "red")}>
           {team === 2
             ? "Силы света"
@@ -129,12 +141,13 @@ export const CopySomething = ({
 };
 
 export default function LobbyPage({ id, lobby, host }: Props) {
-  const { data: actualData, mutate } =
-    getApi().lobby.useLobbyControllerGetLobby(id, {
-      fallbackData: lobby,
-    });
+  const evt = useEventSource<LobbyUpdateType>(
+    getApi().lobby.lobbyControllerLobbyUpdatesContext({ id }),
+    LobbyUpdateTypeFromJSON.bind(null),
+    { data: lobby, lobbyId: id },
+  );
 
-  const data = actualData || lobby;
+  const { data, lobbyId } = evt || { data: lobby, lobbyId: id };
 
   const mySteamId = useStore().auth.parsedToken?.sub;
 
@@ -145,13 +158,10 @@ export default function LobbyPage({ id, lobby, host }: Props) {
     gameMode: DotaGameMode | undefined,
   ) => {
     if (!data) return;
-    const res = await getApi().lobby.lobbyControllerUpdateLobby(data.id, {
+    await getApi().lobby.lobbyControllerUpdateLobby(data.id, {
       map,
       gameMode,
     });
-
-    console.log(res.map);
-    console.log(await mutate(res));
   };
 
   const launchGame = () => {
@@ -161,20 +171,30 @@ export default function LobbyPage({ id, lobby, host }: Props) {
       .then(() => router.push("/queue"));
   };
 
+  const leaveLobby = () => {
+    getApi()
+      .lobby.lobbyControllerLeaveLobby(lobbyId)
+      .then(() => router.push("/lobby"));
+  };
+
   const takeSlot = useCallback(
     (team: number | undefined, index: number, steamId: string | undefined) => {
       if (!data) return;
 
-      getApi()
-        .lobby.lobbyControllerChangeTeam(data.id, {
-          team: team,
-          index: index,
-          steamId,
-        })
-        .then(mutate);
+      getApi().lobby.lobbyControllerChangeTeam(data.id, {
+        team: team,
+        index: index,
+        steamId,
+      });
     },
     [data],
   );
+
+  useEffect(() => {
+    if (!data) {
+      router.push("/lobby");
+    }
+  }, [data]);
 
   if (!data)
     return (
@@ -224,6 +244,36 @@ export default function LobbyPage({ id, lobby, host }: Props) {
           onRemoveSlot={(idx, steamId) => takeSlot(undefined, 0, steamId)}
           slots={dire}
         />
+        <div className={cx(c.grid4, c.settings)}>
+          <h4>Карта</h4>
+          <SelectOptions
+            options={DotaMapOptions}
+            selected={data.map}
+            onSelect={(value, meta) => {
+              if (meta.action === "select-option") {
+                updateLobby(value.value, undefined);
+              }
+            }}
+            defaultText={"Карта"}
+          />
+          <h4>Режим игры</h4>
+          <SelectOptions
+            options={DotaGameModeOptions}
+            selected={data.gameMode}
+            onSelect={(value, meta) => {
+              if (meta.action === "select-option") {
+                updateLobby(undefined, value.value);
+              }
+            }}
+            defaultText={"Режим игры"}
+          />
+          <Button className={c.startGame} onClick={launchGame}>
+            Запустить игру
+          </Button>
+          <Button className={c.leaveLobby} onClick={leaveLobby}>
+            Покинуть лобби
+          </Button>
+        </div>
       </Panel>
 
       <Panel className={cx(c.grid12, c.unassignedList)}>
@@ -246,35 +296,20 @@ export default function LobbyPage({ id, lobby, host }: Props) {
           <div className={c.unassignedHint}>Неопределившиеся</div>
         )}
       </Panel>
-
-      <div className={c.grid4}>
-        <h3>Карта</h3>
-        <SelectOptions
-          options={DotaMapOptions}
-          selected={data.map}
-          onSelect={(value, meta) => {
-            if (meta.action === "select-option") {
-              updateLobby(value.value, undefined);
-            }
-          }}
-          defaultText={"Карта"}
-        />
-        <h3>Режим игры</h3>
-        <SelectOptions
-          options={DotaGameModeOptions}
-          selected={data.gameMode}
-          onSelect={(value, meta) => {
-            if (meta.action === "select-option") {
-              updateLobby(undefined, value.value);
-            }
-          }}
-          defaultText={"Режим игры"}
-        />
-
-        <Button className={c.launchGame} mega onClick={launchGame}>
-          Запустить игру
-        </Button>
-      </div>
+      <Thread
+        threadType={ThreadType.LOBBY}
+        id={lobbyId}
+        className={cx(c.grid12, c.threadContainer)}
+        threadStyle={ThreadStyle.TINY}
+        showLastMessages={100}
+        scrollToLast={true}
+      />
+      {/*<div className={cx(c.grid4, c.buttons)}>*/}
+      {/*  <Button mega onClick={launchGame}>*/}
+      {/*    Запустить игру*/}
+      {/*  </Button>*/}
+      {/*  <Button onClick={leaveLobby}>Покинуть лобби</Button>*/}
+      {/*</div>*/}
     </div>
   );
 }
@@ -282,14 +317,18 @@ export default function LobbyPage({ id, lobby, host }: Props) {
 LobbyPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const lobbyId = ctx.query.id as string;
 
-  const lobby = await getApi()
-    .lobby.lobbyControllerGetLobby(lobbyId)
-    .catch(() => getApi().lobby.lobbyControllerJoinLobby(lobbyId))
-    .catch(() => undefined);
+  const lobby = await withTemporaryToken(ctx, () =>
+    getApi()
+      .lobby.lobbyControllerGetLobby(lobbyId)
+      .catch(() => getApi().lobby.lobbyControllerJoinLobby(lobbyId))
+      .catch(() => undefined),
+  );
 
   let host: string;
   if (typeof window === "undefined") host = ctx.req!.headers.origin!;
   else host = window.location.origin;
+
+  console.log();
 
   return {
     id: lobbyId,
