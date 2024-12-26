@@ -24,6 +24,9 @@ import {
   CreateThreadDTO,
   CreateThreadDTOFromJSON,
   CreateThreadDTOToJSON,
+  ForumUserDto,
+  ForumUserDtoFromJSON,
+  ForumUserDtoToJSON,
   SortOrder,
   SortOrderFromJSON,
   SortOrderToJSON,
@@ -72,6 +75,10 @@ export interface ForumControllerGetMessagesRequest {
 export interface ForumControllerGetThreadRequest {
   id: string;
   threadType: ThreadType;
+}
+
+export interface ForumControllerGetUserRequest {
+  id: string;
 }
 
 export interface ForumControllerMessagesPageRequest {
@@ -356,6 +363,59 @@ export class ForumApi extends runtime.BaseAPI {
 
         const context = this.forumControllerGetThreadContext({ id: id!, threadType: threadType! });
         return useSWR(context, valid ? () => this.forumControllerGetThread(id!, threadType!) : null, config)
+    }
+
+    /**
+     */
+    private async forumControllerGetUserRaw(requestParameters: ForumControllerGetUserRequest): Promise<runtime.ApiResponse<ForumUserDto>> {
+        this.forumControllerGetUserValidation(requestParameters);
+        const context = this.forumControllerGetUserContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ForumUserDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private forumControllerGetUserValidation(requestParameters: ForumControllerGetUserRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling forumControllerGetUser.");
+        }
+    }
+
+    /**
+     */
+    forumControllerGetUserContext(requestParameters: ForumControllerGetUserRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/forum/user/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    forumControllerGetUser = async (id: string): Promise<ForumUserDto> => {
+        const response = await this.forumControllerGetUserRaw({ id: id });
+        return await response.value();
+    }
+
+    useForumControllerGetUser(id: string, config?: SWRConfiguration<ForumUserDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.forumControllerGetUserContext({ id: id! });
+        return useSWR(context, valid ? () => this.forumControllerGetUser(id!) : null, config)
     }
 
     /**

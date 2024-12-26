@@ -9,6 +9,7 @@ export * from "./CrimeLogDto";
 export * from "./CrimeLogPageDto";
 export * from "./CurrentOnlineDto";
 export * from "./EventAdminDto";
+export * from "./ForumUserDto";
 export * from "./GameServerDto";
 export * from "./GameSessionDto";
 export * from "./HeroItemDto";
