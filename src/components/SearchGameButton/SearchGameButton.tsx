@@ -9,6 +9,7 @@ import { appApi } from "@/api/hooks";
 import cx from "clsx";
 import { formatBanReason } from "@/util/bans";
 import { MatchmakingMode } from "@/api/mapped-models";
+import { Button } from "@/components";
 
 interface Props {
   visible: boolean;
@@ -53,50 +54,46 @@ export const SearchGameButton = observer((p: Props) => {
       </>
     );
   }
-  // else if (
-  //   queue.selectedMode?.mode === MatchmakingMode.UNRANKED &&
-  //   !queue.isUnrankedQueueOpen
-  // ) {
-  //   content = <>Поиск еще не открыт</>;
-  // }
 
   if (!p.visible) return null;
 
   if (queue.needAuth)
     return (
-      <a
-        className={c.button}
+      <Button
+        mega
         href={`${appApi.apiParams.basePath}/v1/auth/steam`}
         data-testid="floater-play-button-steam-login"
       >
         <FaSteam />
         Войти
-      </a>
+      </Button>
     );
 
   if (!queue.ready)
     return (
-      <a data-testid="floater-play-button-loading" className={c.playButton}>
+      <Button mega data-testid="floater-play-button-loading">
         Подключаемся...
-      </a>
+      </Button>
     );
 
   if (isSearchModeDefined)
     return (
-      <button
+      <Button
+        mega
         data-testid="floater-play-button-leave-queue"
         onClick={() => {
           queue.cancelSearch();
         }}
-        className={cx(c.playButton, queue.gameState?.serverUrl && c.ingame)}
+        className={cx(queue.gameState?.serverUrl && c.ingame)}
       >
         Отменить поиск
-      </button>
+      </Button>
     );
 
   if (!isSearchModeDefined) {
     return (
-      <button
+      <Button
+        mega
         data-testid="floater-play-button-enter-queue"
         disabled={!!content}
         onClick={() => {
@@ -108,15 +105,13 @@ export const SearchGameButton = observer((p: Props) => {
           queue.enterQueue();
         }}
         className={cx(
-          c.playButton,
-          c.search,
           content && c.banned,
           queue.gameState?.serverUrl && c.ingame,
           content && c.longText,
         )}
       >
         {isQueuePage ? content || "Искать игру" : "Играть"}
-      </button>
+      </Button>
     );
   }
 

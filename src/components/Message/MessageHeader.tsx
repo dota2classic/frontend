@@ -15,6 +15,8 @@ import { IMessageProps } from "@/components/Message/MessageProps";
 import { enrichMessage } from "@/components/Thread/richMessage";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
+import { useContext } from "react";
+import { ThemeContext } from "@/util/theme";
 
 export const MessageHeader = observer(function MessageHeader({
   message,
@@ -23,6 +25,7 @@ export const MessageHeader = observer(function MessageHeader({
   onMute,
 }: IMessageProps) {
   const { queue } = useStore();
+  const { newYear } = useContext(ThemeContext);
   const isOnline =
     queue.online.findIndex((x) => x === message.author.steamId) !== -1;
   const roles = (
@@ -51,7 +54,9 @@ export const MessageHeader = observer(function MessageHeader({
   return (
     <div className={cx(c.contentWrapper, c.header)}>
       <div className={cx(c.contentWrapper__left, c.contentWrapper__left_user)}>
-        <picture className={isOnline ? c.online : c.offline}>
+        <picture
+          className={cx(isOnline ? c.online : c.offline, newYear && c.newYear)}
+        >
           <PlayerAvatar
             width={threadStyle === ThreadStyle.TINY ? 45 : 100}
             height={threadStyle === ThreadStyle.TINY ? 45 : 100}

@@ -28,6 +28,7 @@ export const Landing = () => {
           <video
             muted
             loop
+            playsInline
             autoPlay
             controls={false}
             src={`/landing/d2video-new.webm`}
