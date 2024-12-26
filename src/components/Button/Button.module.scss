@@ -1,7 +1,6 @@
 @import "../../common.scss";
 
 .button {
-  width: 100%;
   border: 1px solid $transparentTint;
   outline: none;
   font-size: 1rem;
@@ -30,7 +29,6 @@
 }
 
 .megaButton {
-  width: fit-content;
   outline: none;
   text-transform: uppercase;
   z-index: 10;
@@ -38,14 +36,14 @@
   color: #ed3b1c;
   border: 2px solid $primaryText;
   border-radius: 6px;
-  font-size: 28px;
+  font-size: 1.5rem;
   letter-spacing: 2.5px;
   font-weight: bold;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: $bg15;
   padding: 20px 20px 20px 20px;
   transition: 0.2s ease;
   cursor: pointer;
-  text-align: left;
+  text-align: center;
 
   @media (max-width: 600px) {
     font-size: 1.2rem;
@@ -61,5 +59,51 @@
     color: #ee2c0a;
     border-color: $primaryTextHighlight;
     transform: translateY(-2px);
+  }
+
+
+  &.snow::before, &.snow::after {
+    scale: 0.6;
+    top: -6px;
+    content: '';
+  }
+
+  &.snow::before {
+    right: 8px;
+  }
+
+  &.snow::after {
+    left: 8px;
+  }
+
+}
+
+
+
+.snow {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    //content: '';
+    background-image: url("/newyear/baubles.png");
+    background-position: 0px 0px;
+    background-size: 96px 96px;
+    right: 0;
+    top: 10%;
+    width: 32px;
+    height: 32px;
+  }
+
+  &::after {
+    position: absolute;
+    //content: '';
+    background-image: url("/newyear/baubles.png");
+    background-position: 64px 0px;
+    background-size: 96px 96px;
+    left: 0;
+    top: 10%;
+    width: 32px;
+    height: 32px;
   }
 }

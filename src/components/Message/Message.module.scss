@@ -120,7 +120,7 @@
 .online {
   position: relative;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 4px;
     right: -4px;
@@ -134,4 +134,21 @@
 }
 .offline {
   //border: 1px solid $transparentTint;
+}
+
+.newYear {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    right: 0px;
+    top: -58px;
+    height: 50px;
+    width: 50px;
+    background-image: url("/newyear/santahat.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    filter: drop-shadow(2px 4px 4px $almostBlack);
+  }
 }

@@ -22,7 +22,7 @@ export const Button: React.FC<
     );
   return (
     <button
-      className={cx(c.button, mega && c.megaButton, className)}
+      className={cx(c.button, mega && c.megaButton, c.snow, className)}
       {...props}
     >
       {props.children}
