@@ -5,11 +5,11 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import { FaSteam } from "react-icons/fa";
-import { appApi } from "@/api/hooks";
 import cx from "clsx";
 import { formatBanReason } from "@/util/bans";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { Button } from "@/components";
+import { getAuthUrl } from "@/util/getAuthUrl";
 
 interface Props {
   visible: boolean;
@@ -61,7 +61,7 @@ export const SearchGameButton = observer((p: Props) => {
     return (
       <Button
         mega
-        href={`${appApi.apiParams.basePath}/v1/auth/steam`}
+        href={getAuthUrl()}
         data-testid="floater-play-button-steam-login"
       >
         <FaSteam />

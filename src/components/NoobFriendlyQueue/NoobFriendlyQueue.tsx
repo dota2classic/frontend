@@ -12,8 +12,8 @@ import { AppRouter } from "@/route";
 import { FaCheck } from "react-icons/fa6";
 import cx from "clsx";
 import { useStore } from "@/store";
-import { appApi } from "@/api/hooks";
 import { FaSteam } from "react-icons/fa";
+import { getAuthUrl } from "@/util/getAuthUrl";
 
 interface RequiredStepProps {
   onComplete: () => void;
@@ -57,7 +57,7 @@ export const NoobFriendlyQueue = () => {
         currentStep={completeStep}
         action={
           <a
-            href={`${appApi.apiParams.basePath}/v1/auth/steam`}
+            href={getAuthUrl()}
             style={{ display: "flex", alignItems: "center" }}
           >
             <FaSteam style={{ marginRight: 4 }} />

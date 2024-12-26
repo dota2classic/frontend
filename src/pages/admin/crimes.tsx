@@ -58,7 +58,7 @@ export default function CrimesPage({ crime, steamId }: Props) {
         linkProducer={(pg) => AppRouter.admin.crimes(pg).link}
       />
       <GenericTable
-        keyProvider={(it) => it[4]}
+        keyProvider={(it) => it[7]}
         columns={[
           {
             type: ColumnType.Player,

@@ -24,7 +24,7 @@ export interface UpdateUserDTO {
      * @type {string}
      * @memberof UpdateUserDTO
      */
-    muteUntil?: string;
+    muteUntil: string;
 }
 
 export function UpdateUserDTOFromJSON(json: any): UpdateUserDTO {
@@ -37,7 +37,7 @@ export function UpdateUserDTOFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'muteUntil': !exists(json, 'muteUntil') ? undefined : json['muteUntil'],
+        'muteUntil': json['muteUntil'],
     };
 }
 

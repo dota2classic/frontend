@@ -319,16 +319,13 @@ LobbyPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
 
   const lobby = await withTemporaryToken(ctx, () =>
     getApi()
-      .lobby.lobbyControllerGetLobby(lobbyId)
-      .catch(() => getApi().lobby.lobbyControllerJoinLobby(lobbyId))
+      .lobby.lobbyControllerJoinLobby(lobbyId)
       .catch(() => undefined),
   );
 
   let host: string;
   if (typeof window === "undefined") host = ctx.req!.headers.origin!;
   else host = window.location.origin;
-
-  console.log();
 
   return {
     id: lobbyId,

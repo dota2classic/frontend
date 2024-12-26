@@ -14,11 +14,11 @@ import { NextPageContext } from "next";
 
 import c from "./Download.module.scss";
 import cx from "clsx";
-import { appApi } from "@/api/hooks";
 import { formatGameMode } from "@/util/gamemode";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 import { metrika } from "@/ym";
+import { getAuthUrl } from "@/util/getAuthUrl";
 
 const _data = [
   [
@@ -92,7 +92,7 @@ const GuideCompact = () => [
         в самом клиенте, это начнет поиск в актуальной версии игры.
         <br />
         Поэтому у нас свой матчмейкинг, для которого нужно{" "}
-        <a className="link" href={`${appApi.apiParams.basePath}/v1/auth/steam`}>
+        <a className="link" href={getAuthUrl()}>
           авторизоваться через Steam.
         </a>{" "}
         Это безопасно и нужно для поиска онлайн игры.

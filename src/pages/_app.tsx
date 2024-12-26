@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import App, { AppContext, AppInitialProps } from "next/app";
-import { Layout } from "@/components";
+import { Layout, ReferralSniffer } from "@/components";
 import Cookies from "cookies";
 import "../util/promise";
 // import * as Fonts from 'next/font/google'
@@ -77,6 +77,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
 
     return (
       <MobxContext.Provider value={store}>
+        <ReferralSniffer />
         <Head>
           <title>Dota2Classic</title>
         </Head>

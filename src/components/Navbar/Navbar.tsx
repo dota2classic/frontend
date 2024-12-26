@@ -5,7 +5,7 @@ import { NavbarItem } from "..";
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";
 import { FaSteam } from "react-icons/fa";
-import { appApi, getApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import Image from "next/image";
@@ -13,17 +13,14 @@ import { IoMenu } from "react-icons/io5";
 import cx from "clsx";
 import { SiDota2 } from "react-icons/si";
 import { useRouterChanging } from "@/util/hooks";
+import { getAuthUrl } from "@/util/getAuthUrl";
 
 const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   const { parsedToken, smallAvatar, logout } = useStore().auth;
 
   if (!parsedToken)
     return (
-      <NavbarItem
-        ignoreActive
-        action={`${appApi.apiParams.basePath}/v1/auth/steam`}
-        testId="navbar-login"
-      >
+      <NavbarItem ignoreActive action={getAuthUrl()} testId="navbar-login">
         <FaSteam style={{ marginRight: 4, marginTop: "-3px" }} />
         Войти
       </NavbarItem>
