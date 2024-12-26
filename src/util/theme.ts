@@ -1,10 +1,9 @@
 import React from "react";
 
-
 export interface ThemeContextData {
-  newYear: boolean
+  newYear: boolean;
 }
 
-export const ThemeContext = React.createContext<ThemeContextData>(
-  { newYear: true }
-);
+export const ThemeContext = React.createContext<ThemeContextData>({
+  newYear: true,
+});

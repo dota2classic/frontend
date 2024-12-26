@@ -71,10 +71,7 @@ export const SearchGameButton = observer((p: Props) => {
 
   if (!queue.ready)
     return (
-      <Button
-        mega
-        data-testid="floater-play-button-loading"
-      >
+      <Button mega data-testid="floater-play-button-loading">
         Подключаемся...
       </Button>
     );

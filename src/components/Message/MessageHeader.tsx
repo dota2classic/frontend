@@ -54,7 +54,9 @@ export const MessageHeader = observer(function MessageHeader({
   return (
     <div className={cx(c.contentWrapper, c.header)}>
       <div className={cx(c.contentWrapper__left, c.contentWrapper__left_user)}>
-        <picture className={cx(isOnline ? c.online : c.offline, newYear && c.newYear)}>
+        <picture
+          className={cx(isOnline ? c.online : c.offline, newYear && c.newYear)}
+        >
           <PlayerAvatar
             width={threadStyle === ThreadStyle.TINY ? 45 : 100}
             height={threadStyle === ThreadStyle.TINY ? 45 : 100}
