@@ -41,6 +41,16 @@ const keyMap: Partial<
     description: "Победить на каждом герое",
     title: "Универсал",
   },
+  [AchievementKey.WIN_BOT_GAME]: {
+    img: "/achievement/bots.webp",
+    description: "Пройти обучение",
+    title: "Классиковец",
+  },
+  [AchievementKey.WIN_SOLOMID_GAME]: {
+    img: "/achievement/solomid.png",
+    description: "Победить в 1х1",
+    title: "sololineabuse",
+  },
   [AchievementKey.GPM_XPM_1000]: {
     img: "/achievement/midas.webp",
     description: "Закончить игру с 1000 золота в минуту и 1000 опыта в минуту",

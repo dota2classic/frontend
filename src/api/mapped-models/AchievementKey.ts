@@ -10,6 +10,8 @@ export enum AchievementKey {
   WIN_1HR_GAME,
   WIN_1HR_GAME_AGAINST_TECHIES,
   ALL_HERO_CHALLENGE,
+  WIN_BOT_GAME,
+  WIN_SOLOMID_GAME
 }
 
 export function AchievementKeyFromJSON(json: any): AchievementKey {
