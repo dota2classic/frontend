@@ -129,15 +129,22 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
     //   };
     // }, [containerRef.current, anchor.current]);
 
-    const position = calculateModalPosition(anchor.current, getContainer());
-
     return (
       <div
         className={cx(c.emoticons, c.emoticons__visible)}
-        style={position}
+        // style={position}
         id={id}
         ref={(e) => {
           console.log("SET REF CALLED!", e);
+          if (!e) return;
+          const position = calculateModalPosition(
+            anchor.current,
+            getContainer(),
+          );
+          e.style.left = position.left + "px";
+          e.style.top = position.top + "px";
+
+          console.log("Set modal position to", position);
         }}
       >
         <Input
