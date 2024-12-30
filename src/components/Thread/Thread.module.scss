@@ -19,6 +19,10 @@
   &__tiny {
     gap: 10px;
   }
+
+  &__forum {
+    overflow-y: hidden !important;
+  }
 }
 
 .messageSmall {
@@ -157,23 +161,41 @@
   }
 }
 
+.createMessageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .createMessage {
   position: relative;
-  padding: 8px 12px;
-
-  display: grid;
-  grid-column-gap: 12px;
-  grid-template-columns: repeat(24, 1fr);
-
-  &_tiny {
-    margin-top: 8px;
-  }
+  background-color: $bg3;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  padding: 2px;
 
   & .text {
     width: 100%;
     flex: 1;
-    grid-column: span 23;
-    grid-row: auto;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    color: $primaryText;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    resize: none;
+
+    cursor: pointer;
+
+    //&:focus,
+    //&:hover {
+    //  background: $transparentTint3;
+    //}
   }
   & .markdown {
     display: inline-block;
@@ -253,5 +275,36 @@
 
   &:hover {
     border: 1px solid $primaryText;
+  }
+}
+
+.buttons {
+  right: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px 12px;
+  gap: 12px;
+
+  & .buttonWrapper {
+    padding: 4px;
+    transition: 0.3s ease;
+    background-color: transparent;
+    cursor: pointer;
+
+
+    & svg {
+      font-size: 1.4rem;
+      color: $primaryTextTint;
+      transition: 0.3s ease;
+    }
+
+    &:hover {
+      & svg {
+        color: $gold;
+        transform: rotateZ(-5deg);
+
+      }
+    }
   }
 }

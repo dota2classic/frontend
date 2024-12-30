@@ -7,6 +7,7 @@ import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import { numberOrDefault } from "@/util/urls";
 import React from "react";
+import { ThreadStyle } from "@/components/Thread/types";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -33,6 +34,7 @@ export default function ThreadPage({ messages, thread, page }: Props) {
         populateMessages={messages}
         threadType={ThreadType.FORUM}
         id={r.query.id as string}
+        threadStyle={ThreadStyle.FORUM}
         pagination={{
           page: numberOrDefault(page, 0),
           pageProvider: (p) =>

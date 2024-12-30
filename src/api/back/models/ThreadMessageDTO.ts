@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    ReactionEntry,
+    ReactionEntryFromJSON,
+    ReactionEntryFromJSONTyped,
+    ReactionEntryToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -62,6 +66,12 @@ export interface ThreadMessageDTO {
      * @memberof ThreadMessageDTO
      */
     deleted: boolean;
+    /**
+     * 
+     * @type {Array<ReactionEntry>}
+     * @memberof ThreadMessageDTO
+     */
+    reactions: Array<ReactionEntry>;
 }
 
 export function ThreadMessageDTOFromJSON(json: any): ThreadMessageDTO {
@@ -80,6 +90,7 @@ export function ThreadMessageDTOFromJSONTyped(json: any, ignoreDiscriminator: bo
         'content': json['content'],
         'createdAt': json['createdAt'],
         'deleted': json['deleted'],
+        'reactions': ((json['reactions'] as Array<any>).map(ReactionEntryFromJSON)),
     };
 }
 
@@ -98,6 +109,7 @@ export function ThreadMessageDTOToJSON(value?: ThreadMessageDTO | null): any {
         'content': value.content,
         'createdAt': value.createdAt,
         'deleted': value.deleted,
+        'reactions': ((value.reactions as Array<any>).map(ReactionEntryToJSON)),
     };
 }
 

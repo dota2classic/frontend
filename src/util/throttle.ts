@@ -4,7 +4,6 @@ export function throttle<T>(fn: () => T, wait: number) {
   let shouldWait = false;
 
   return function () {
-    console.log(`Calling. should wait? ${shouldWait}`);
     if (!shouldWait) {
       fn();
       shouldWait = true;

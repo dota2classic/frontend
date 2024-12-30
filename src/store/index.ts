@@ -8,6 +8,7 @@ import { QueueStore } from "@/store/queue/QueueStore";
 import { getApi } from "@/api/hooks";
 import { NotificationStore } from "@/store/NotificationStore";
 import { UserCacheStore } from "@/store/UserCacheStore";
+import { ThreadsStore } from "@/store/ThreadsStore";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -27,11 +28,13 @@ function createStore(): RootStore {
   const notify = new NotificationStore();
   const queue = new QueueStore(auth, notify);
   const ucache = new UserCacheStore();
+  const threads = new ThreadsStore(auth);
   return {
     auth,
     queue,
     notify,
     user: ucache,
+    threads,
   };
 }
 export const __unsafeGetClientStore = () => clientStore;
@@ -69,6 +72,7 @@ export interface RootStore {
   queue: QueueStore;
   user: UserCacheStore;
   notify: NotificationStore;
+  threads: ThreadsStore;
 }
 
 export function useStore(): RootStore {

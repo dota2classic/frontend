@@ -1,9 +1,9 @@
 import { getApi } from "@/api/hooks";
-import { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
+  EmoticonDto,
   querystring,
   SortOrder,
-  ThreadDTO,
   ThreadMessageDTO,
   ThreadMessagePageDTO,
   UserDTO,
@@ -47,7 +47,7 @@ const useThreadEventSource = (
   }, [consumeMessages, context, trigger]);
 };
 
-interface MessageGroup {
+export interface GroupedMessages {
   author: UserDTO;
   displayDate: string;
   messages: ThreadMessageDTO[];
@@ -55,10 +55,10 @@ interface MessageGroup {
 export interface ThreadView {
   id: string;
   type: ThreadType;
-  groupedMessages: MessageGroup[];
+  groupedMessages: GroupedMessages[];
 }
 
-class ThreadLocalState {
+export class ThreadLocalState {
   @observable
   messageMap: Map<string, ThreadMessageDTO> = new Map();
 
@@ -87,12 +87,12 @@ class ThreadLocalState {
 
   @computed
   public get threadView(): ThreadView {
-    const groupedMessages: MessageGroup[] = [];
+    const groupedMessages: GroupedMessages[] = [];
     const thread = this.thread;
 
     const messages = [...thread.messages];
 
-    let group: MessageGroup | undefined = undefined;
+    let group: GroupedMessages | undefined = undefined;
     for (let i = 0; i < messages.length; i++) {
       const msg = messages[i];
       if (!group || group.author.steamId !== msg.author.steamId) {
@@ -134,6 +134,8 @@ class ThreadLocalState {
     }
   }
 
+  consumeMessage = (msg: ThreadMessageDTO) => this.consumeMessages([msg]);
+
   @action consumeMessages = (msgs: ThreadMessageDTO[]) => {
     msgs.forEach((message) => this.messageMap.set(message.messageId, message));
     // Here we have a tricky part and don't like it
@@ -152,7 +154,8 @@ class ThreadLocalState {
           // otherwise we know its next page
           this.pg.pages += 1;
         }
-      } else if (msg.deleted) {
+      } else {
+        // Message updated or deleted
         const idx = this.pg.data.findIndex(
           (t) => t.messageId === msg.messageId,
         );
@@ -167,18 +170,35 @@ class ThreadLocalState {
   };
 
   loadMore = async (loadLatest: boolean, loadCount: number = 10) => {
-    const latest = maxBy(this.thread.messages, (it) =>
-      new Date(it.createdAt).getTime(),
-    )?.createdAt;
+    const cursor = loadLatest
+      ? maxBy(this.thread.messages, (it) => new Date(it.createdAt).getTime())
+          ?.createdAt
+      : maxBy(this.thread.messages, (it) => -new Date(it.createdAt).getTime())
+          ?.createdAt;
+
     getApi()
       .forumApi.forumControllerGetMessages(
         this.id.toString(),
         this.threadType,
-        latest ? new Date(latest).getTime() : undefined,
+        cursor,
         loadCount,
-        loadLatest ? SortOrder.DESC : SortOrder.ASC,
+        loadLatest
+          ? cursor === undefined
+            ? SortOrder.DESC
+            : SortOrder.ASC
+          : SortOrder.DESC,
       )
       .then(this.consumeMessages);
+  };
+
+  @action loadPage = (page: number) => {
+    getApi()
+      .forumApi.forumControllerMessagesPage(
+        this.id.toString(),
+        this.threadType,
+        page,
+      )
+      .then(this.setPageData);
   };
 
   @action updateThread = (threadType: ThreadType, id: string) => {
@@ -188,106 +208,62 @@ class ThreadLocalState {
     this.page = 0;
     this.messageMap.clear();
   };
+
+  loadOlder = () => this.loadMore(false, 100);
+  loadNewer = () => this.loadMore(true, 100);
+
+  public react = async (messageId: string, id: number) => {
+    getApi()
+      .forumApi.forumControllerReact(messageId, {
+        emoticonId: id,
+      })
+      .then((msg) => this.consumeMessages([msg]));
+  };
+
+  public deleteMessage = async (messageId: string) => {
+    getApi()
+      .forumApi.forumControllerDeleteMessage(messageId)
+      .then(this.consumeMessage);
+  };
 }
 
-// TODO: this is unoptimized mess
-export const useThread = (
+export interface ThreadContextData {
+  thread: ThreadLocalState;
+  emoticons: EmoticonDto[];
+}
+
+export const ThreadContext = React.createContext<ThreadContextData>(
+  {} as unknown as never,
+);
+
+export const useNewThread = (
   id: string,
   threadType: ThreadType,
   initialMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO,
   loadLatest: boolean = false,
   page?: number,
-  batchSize?: number,
-): [
-  ThreadView,
-  ThreadDTO | undefined,
-  () => void,
-  (messages: ThreadMessageDTO[]) => void,
-  pg: ThreadMessagePageDTO | undefined,
-  (page: number) => void,
-] => {
-  const [trigger, setTrigger] = useState(0);
-  const state = useLocalObservable<ThreadLocalState>(
+  batchSize: number = 100,
+): ThreadLocalState => {
+  const thread = useLocalObservable<ThreadLocalState>(
     () =>
       new ThreadLocalState(id.toString(), threadType, initialMessages, page),
   );
 
-  const { data: rawThread } = getApi().forumApi.useForumControllerGetThread(
-    id.toString(),
-    threadType,
-  );
-
-  const loadPage = useCallback(
-    (page: number) => {
-      getApi()
-        .forumApi.forumControllerMessagesPage(id.toString(), threadType, page)
-        .then((pg) => state.setPageData(pg));
-    },
-    [id, threadType],
-  );
-
-  // If threadId changes, we need to revalidate local state
-  useEffect(() => {
-    state.updateThread(threadType, id);
-    state.loadMore(loadLatest, batchSize);
-    console.log(`Effect ${threadType}_${id}`);
-  }, [threadType, id]);
+  useThreadEventSource(id.toString(), threadType, thread.consumeMessages, 0);
 
   useEffect(() => {
-    if (page !== undefined && typeof window !== "undefined") {
-      loadPage(page);
+    if (page !== undefined) {
+      thread.loadPage(0);
+    } else {
+      thread.loadMore(loadLatest, batchSize);
     }
-  }, [loadPage, page]);
-
-  const loadMore = useCallback(() => {
-    state.loadMore(loadLatest, batchSize);
-  }, [loadLatest, state]);
-
-  useThreadEventSource(
-    id.toString(),
-    threadType,
-    state.consumeMessages,
-    trigger,
-  );
-
-  const handleVisibilityChange = useCallback(() => {
-    if (!document.hidden) {
-      // We need to load more and re-create event source so that we don't die on thread
-      loadMore();
-      setTrigger((x) => x + 1);
-    }
-  }, [setTrigger, trigger]);
+  }, [id]);
 
   useEffect(() => {
-    document.addEventListener(
-      "visibilitychange",
-      handleVisibilityChange,
-      false,
-    );
+    if (page !== undefined) {
+      thread.loadPage(page);
+    }
+  }, [page]);
 
-    return () =>
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, []);
-
-  if (typeof window === "undefined")
-    return [
-      state.threadView,
-      undefined,
-      () => undefined,
-      () => undefined,
-      state.pg,
-      () => undefined,
-    ];
-
-  // If we are paginated, we return a page
-  // otherwise all sorted
-
-  return [
-    state.threadView,
-    rawThread,
-    loadMore,
-    state.consumeMessages,
-    state.pg,
-    loadPage,
-  ];
+  return thread;
 };

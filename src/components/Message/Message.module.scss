@@ -5,9 +5,7 @@
   flex-direction: column;
   align-items: stretch;
   box-shadow: unset;
-
-  &_tiny {
-  }
+  padding-top: 10px;
 }
 
 .author {
@@ -17,6 +15,7 @@
   color: $primaryTextDark;
   gap: 4px;
   align-items: center;
+  padding-right: 8px;
 
   & svg {
     vertical-align: middle;
@@ -30,6 +29,32 @@
   padding-right: 1rem;
   padding-top: 4px;
   padding-bottom: 4px;
+  position: relative;
+}
+
+.tools {
+  visibility: hidden;
+  position: absolute;
+  right: 10px;
+  background: $bg2;
+  padding: 4px 8px;
+  border-radius: 4px;
+  top: 0;
+
+
+  display: flex;
+  gap: 8px;
+
+  & svg {
+    font-size: 1.2rem;
+    color: $primaryTextDark;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $primaryText;
+    }
+  }
 }
 
 .delete {
@@ -75,7 +100,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
+    //overflow-x: hidden;
   }
 
   &:hover {
@@ -84,18 +109,10 @@
     & .time {
       visibility: visible;
     }
-    & .controls {
+    & .tools {
       visibility: visible;
     }
   }
-}
-
-.controls {
-  visibility: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-right: 20px;
 }
 
 .username {
@@ -150,5 +167,51 @@
     background-repeat: no-repeat;
     background-size: contain;
     filter: drop-shadow(2px 4px 4px $almostBlack);
+  }
+}
+
+.reactions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  &__nonempty {
+    padding-bottom: 4px;
+  }
+}
+
+.reaction {
+  display: flex;
+  flex-direction: row;
+  padding: 2px 4px;
+  background-color: $bg3;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  outline: 1px solid transparent;
+
+  &:hover {
+    outline: 1px solid $blueHighlight3;
+  }
+
+  &__active {
+    outline: 1px solid $blueHighlight2;
+    //box-shadow: 0px 0 2px 2px $blueHighlight2 inset;
+  }
+
+  & img,
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  & svg {
+    color: $primaryTextTint;
+  }
+
+  & span {
+    margin-left: 4px;
   }
 }

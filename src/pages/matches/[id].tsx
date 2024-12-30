@@ -47,7 +47,7 @@ const options: Filter[] = [
 const MatchThread = ({ id }: { id: string }) => {
   return (
     <Thread
-      threadStyle={ThreadStyle.TINY}
+      threadStyle={ThreadStyle.CHAT}
       id={id}
       threadType={ThreadType.MATCH}
       showLastMessages={100}

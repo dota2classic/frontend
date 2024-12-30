@@ -24,6 +24,9 @@ import {
   CreateThreadDTO,
   CreateThreadDTOFromJSON,
   CreateThreadDTOToJSON,
+  EmoticonDto,
+  EmoticonDtoFromJSON,
+  EmoticonDtoToJSON,
   ForumUserDto,
   ForumUserDtoFromJSON,
   ForumUserDtoToJSON,
@@ -48,6 +51,9 @@ import {
   ThreadType,
   ThreadTypeFromJSON,
   ThreadTypeToJSON,
+  UpdateMessageReactionDto,
+  UpdateMessageReactionDtoFromJSON,
+  UpdateMessageReactionDtoToJSON,
   UpdateThreadDTO,
   UpdateThreadDTOFromJSON,
   UpdateThreadDTOToJSON,
@@ -64,10 +70,14 @@ export interface ForumControllerDeleteMessageRequest {
   id: string;
 }
 
+export interface ForumControllerEmoticonsRequest {
+  steamId?: string;
+}
+
 export interface ForumControllerGetMessagesRequest {
   id: string;
   threadType: ThreadType;
-  after?: number;
+  cursor?: string;
   limit?: number;
   order?: SortOrder;
 }
@@ -90,6 +100,11 @@ export interface ForumControllerMessagesPageRequest {
 
 export interface ForumControllerPostMessageRequest {
   createMessageDTO: CreateMessageDTO;
+}
+
+export interface ForumControllerReactRequest {
+  id: string;
+  updateMessageReactionDto: UpdateMessageReactionDto;
 }
 
 export interface ForumControllerThreadRequest {
@@ -235,6 +250,56 @@ export class ForumApi extends runtime.BaseAPI {
 
     /**
      */
+    private async forumControllerEmoticonsRaw(requestParameters: ForumControllerEmoticonsRequest): Promise<runtime.ApiResponse<Array<EmoticonDto>>> {
+        this.forumControllerEmoticonsValidation(requestParameters);
+        const context = this.forumControllerEmoticonsContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EmoticonDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private forumControllerEmoticonsValidation(requestParameters: ForumControllerEmoticonsRequest) {
+    }
+
+    /**
+     */
+    forumControllerEmoticonsContext(requestParameters: ForumControllerEmoticonsRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.steamId !== undefined) {
+            queryParameters["steam_id"] = requestParameters.steamId;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/forum/emoticons`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    forumControllerEmoticons = async (steamId?: string): Promise<Array<EmoticonDto>> => {
+        const response = await this.forumControllerEmoticonsRaw({ steamId: steamId });
+        return await response.value();
+    }
+
+    useForumControllerEmoticons(steamId?: string, config?: SWRConfiguration<Array<EmoticonDto>, Error>) {
+        let valid = true
+
+        const context = this.forumControllerEmoticonsContext({ steamId: steamId! });
+        return useSWR(context, valid ? () => this.forumControllerEmoticons(steamId!) : null, config)
+    }
+
+    /**
+     */
     private async forumControllerGetMessagesRaw(requestParameters: ForumControllerGetMessagesRequest): Promise<runtime.ApiResponse<Array<ThreadMessageDTO>>> {
         this.forumControllerGetMessagesValidation(requestParameters);
         const context = this.forumControllerGetMessagesContext(requestParameters);
@@ -261,8 +326,8 @@ export class ForumApi extends runtime.BaseAPI {
     forumControllerGetMessagesContext(requestParameters: ForumControllerGetMessagesRequest): runtime.RequestOpts {
         const queryParameters: any = {};
 
-        if (requestParameters.after !== undefined) {
-            queryParameters["after"] = requestParameters.after;
+        if (requestParameters.cursor !== undefined) {
+            queryParameters["cursor"] = requestParameters.cursor;
         }
 
         if (requestParameters.limit !== undefined) {
@@ -285,12 +350,12 @@ export class ForumApi extends runtime.BaseAPI {
 
     /**
      */
-    forumControllerGetMessages = async (id: string, threadType: ThreadType, after?: number, limit?: number, order?: SortOrder): Promise<Array<ThreadMessageDTO>> => {
-        const response = await this.forumControllerGetMessagesRaw({ id: id, threadType: threadType, after: after, limit: limit, order: order });
+    forumControllerGetMessages = async (id: string, threadType: ThreadType, cursor?: string, limit?: number, order?: SortOrder): Promise<Array<ThreadMessageDTO>> => {
+        const response = await this.forumControllerGetMessagesRaw({ id: id, threadType: threadType, cursor: cursor, limit: limit, order: order });
         return await response.value();
     }
 
-    useForumControllerGetMessages(id: string, threadType: ThreadType, after?: number, limit?: number, order?: SortOrder, config?: SWRConfiguration<Array<ThreadMessageDTO>, Error>) {
+    useForumControllerGetMessages(id: string, threadType: ThreadType, cursor?: string, limit?: number, order?: SortOrder, config?: SWRConfiguration<Array<ThreadMessageDTO>, Error>) {
         let valid = true
 
         if (id === null || id === undefined || Number.isNaN(id)) {
@@ -301,8 +366,8 @@ export class ForumApi extends runtime.BaseAPI {
             valid = false
         }
 
-        const context = this.forumControllerGetMessagesContext({ id: id!, threadType: threadType!, after: after!, limit: limit!, order: order! });
-        return useSWR(context, valid ? () => this.forumControllerGetMessages(id!, threadType!, after!, limit!, order!) : null, config)
+        const context = this.forumControllerGetMessagesContext({ id: id!, threadType: threadType!, cursor: cursor!, limit: limit!, order: order! });
+        return useSWR(context, valid ? () => this.forumControllerGetMessages(id!, threadType!, cursor!, limit!, order!) : null, config)
     }
 
     /**
@@ -551,6 +616,63 @@ export class ForumApi extends runtime.BaseAPI {
      */
     forumControllerPostMessage = async (createMessageDTO: CreateMessageDTO): Promise<ThreadMessageDTO> => {
         const response = await this.forumControllerPostMessageRaw({ createMessageDTO: createMessageDTO });
+        return await response.value();
+    }
+
+
+    /**
+     */
+    private async forumControllerReactRaw(requestParameters: ForumControllerReactRequest): Promise<runtime.ApiResponse<ThreadMessageDTO>> {
+        this.forumControllerReactValidation(requestParameters);
+        const context = this.forumControllerReactContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ThreadMessageDTOFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private forumControllerReactValidation(requestParameters: ForumControllerReactRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling forumControllerReact.");
+        }
+        if (requestParameters.updateMessageReactionDto === null || requestParameters.updateMessageReactionDto === undefined) {
+            throw new runtime.RequiredError("updateMessageReactionDto","Required parameter requestParameters.updateMessageReactionDto was null or undefined when calling forumControllerReact.");
+        }
+    }
+
+    /**
+     */
+    forumControllerReactContext(requestParameters: ForumControllerReactRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/forum/thread/message/{id}/react`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateMessageReactionDtoToJSON(requestParameters.updateMessageReactionDto),
+        };
+    }
+
+    /**
+     */
+    forumControllerReact = async (id: string, updateMessageReactionDto: UpdateMessageReactionDto): Promise<ThreadMessageDTO> => {
+        const response = await this.forumControllerReactRaw({ id: id, updateMessageReactionDto: updateMessageReactionDto });
         return await response.value();
     }
 

@@ -71,3 +71,5 @@ export { PeriodicSpan } from "./PeriodicSpan/PeriodicSpan";
 export { Tooltipable } from "./Tooltipable/Tooltipable";
 export { TelegramInvite } from "./TelegramInvite/TelegramInvite";
 export { ReferralSniffer } from "./ReferralSniffer/ReferralSniffer";
+export { EmoticonSelectWindow } from "./EmoticonSelectWindow/EmoticonSelectWindow";
+export { Emoticon } from "./Emoticon/Emoticon";

@@ -1,0 +1,66 @@
+@import "../../common.scss";
+.emoticons {
+  display: flex;
+  visibility: hidden;
+  background: $bg15;
+  position: fixed;
+  height: 400px;
+  z-index: 10000000;
+  overflow-y: hidden;
+  box-shadow: 0 0 6px rgba(10, 10, 10, 0.6);
+
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  border-radius: 4px;
+
+  flex-direction: column;
+
+  &__visible {
+    visibility: visible;
+  }
+
+  & img {
+    width: 40px;
+    height: 40px;
+    grid-column: span 1;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+      filter: drop-shadow(2px 4px 4px $green);
+    }
+  }
+}
+
+.listEmoticons {
+  display: grid;
+  grid-column: span 8;
+  grid-template-columns: repeat(8, 1fr);
+  padding: 12px;
+  gap: 12px;
+  overflow-y: auto;
+  //grid-row: span 6;
+
+  flex: 1;
+}
+
+.search {
+  grid-column: span 8;
+  grid-row: span 1;
+  margin: 12px;
+}
+
+.reactionPreview {
+  grid-column: span 8;
+  grid-row: span 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: $bg2;
+  padding: 4px 12px;
+
+  & span {
+    margin-left: 8px;
+    font-weight: bold;
+  }
+}

@@ -6,65 +6,59 @@ import React, {
   useState,
 } from "react";
 
-import { MessageGroup, Pagination, ScrollDetector } from "..";
-
+import { MessageGroup, Pagination } from "..";
 import c from "./Thread.module.scss";
 import { observer } from "mobx-react-lite";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
-import { getApi } from "@/api/hooks";
-import { useThread } from "@/util/threads";
+import {
+  GroupedMessages,
+  ThreadContext,
+  ThreadLocalState,
+  ThreadView,
+  useNewThread,
+} from "@/util/threads";
 import { useStore } from "@/store";
 import { IThreadProps, ThreadStyle } from "@/components/Thread/types";
 import { MessageInput } from "@/components/Thread/MessageInput";
+import { Virtuoso } from "react-virtuoso";
+import {
+  EmoticonTooltipContext,
+  EmoticonTooltipContextData,
+} from "@/util/hooks";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });
 
-export const Thread: React.FC<IThreadProps> = observer(function Thread({
-  threadType,
-  id,
-  className,
-  populateMessages,
-  threadStyle,
-  showLastMessages,
-  scrollToLast,
-  pagination,
-}) {
-  const { auth } = useStore();
-  const scrollableRef = useRef<HTMLDivElement | null>(null);
-  const [sticky, setSticky] = useState(!!scrollToLast);
+function fractionalItemSize(element: HTMLElement) {
+  return element.getBoundingClientRect().height;
+}
+
+const RowRenderer = (index: number, msg: GroupedMessages) => {
+  return <MessageGroup messages={msg.messages} />;
+};
+
+const useScrollToBottom = (
+  scrollToLast: boolean,
+  scrollableRef: React.RefObject<HTMLElement | null>,
+  threadView: ThreadView,
+): [(smooth: boolean) => void, number] => {
+  const [sticky, setSticky] = useState(scrollToLast);
   const [lastSeenMessageTime, setLastSeenMessageTime] = useState<
     number | undefined
   >(undefined);
 
-  const [thread, rawThread, loadMore, consumeMessages, pg] = useThread(
-    id,
-    threadType,
-    populateMessages,
-    (showLastMessages && showLastMessages > 0) || false,
-    pagination?.page,
-    showLastMessages,
-  );
-
-  const messages =
-    showLastMessages !== undefined
-      ? thread.groupedMessages.slice(
-          Math.max(0, thread.groupedMessages.length - showLastMessages),
-        )
-      : thread.groupedMessages;
-
   const unseenMessageCount = useMemo(() => {
     return sticky || lastSeenMessageTime === undefined
       ? 0
-      : messages
+      : threadView.groupedMessages
           .flatMap((group) => group.messages)
           .filter(
             (message) =>
               new Date(message.createdAt).getTime() > lastSeenMessageTime,
           ).length;
-  }, [lastSeenMessageTime, messages, sticky]);
+  }, [lastSeenMessageTime, threadView.groupedMessages, sticky]);
 
   const scrollToBottom = useCallback(
     (smooth?: boolean) => {
@@ -81,13 +75,15 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
   useEffect(() => {
     if (!sticky) return;
 
-    if (messages.length > 0 && scrollToLast) {
+    if (threadView.groupedMessages.length > 0 && scrollToLast) {
       scrollToBottom();
 
-      const m = messages[messages.length - 1].messages;
+      const m =
+        threadView.groupedMessages[threadView.groupedMessages.length - 1]
+          .messages;
       setLastSeenMessageTime(new Date(m[m.length - 1].createdAt).getTime());
     }
-  }, [messages, sticky]);
+  }, [threadView, sticky]);
 
   useEffect(() => {
     const t = scrollableRef.current;
@@ -102,95 +98,172 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
     return () => t.removeEventListener("scrollend", listener);
   }, [scrollableRef]);
 
-  const deleteMessage = useCallback(
-    (id: string) => {
-      getApi()
-        .forumApi.forumControllerDeleteMessage(id)
-        .then((data) => consumeMessages([data]));
-    },
-    [consumeMessages],
-  );
+  return [scrollToBottom, unseenMessageCount];
+};
 
-  const muteUser = useCallback(
-    (steamId: string) => {
-      // I don't like it but 6 hrs for now
-      getApi().forumApi.forumControllerUpdateUser(steamId, {
-        muteUntil: new Date(
-          new Date().getTime() + 1000 * 60 * 60 * 6,
-        ).toISOString(),
-      });
-    },
-    [consumeMessages],
+interface ChatRenderProps {
+  messages: GroupedMessages[];
+  thread: ThreadLocalState;
+}
+
+const RenderForumThread = React.memo(function RenderForumThread({
+  messages,
+}: ChatRenderProps) {
+  return (
+    <>
+      {messages.map((message) => (
+        <MessageGroup
+          key={message.messages[0].messageId}
+          messages={message.messages}
+        />
+      ))}
+    </>
+  );
+});
+
+const RenderChatThread = React.memo(function RenderChatThread({
+  thread,
+  messages,
+}: ChatRenderProps) {
+  const atBottomStateChange = (atBottom: boolean) => {
+    if (atBottom) {
+      thread.loadNewer();
+    }
+  };
+
+  const atTopStateChange = (atTop: boolean) => {
+    if (atTop) {
+      thread.loadOlder();
+    }
+  };
+
+  return (
+    <Virtuoso
+      atBottomStateChange={atBottomStateChange}
+      atBottomThreshold={100}
+      atTopStateChange={atTopStateChange}
+      atTopThreshold={100}
+      startReached={(idx) => {
+        console.log("STart reachd", idx);
+      }}
+      initialTopMostItemIndex={messages.length - 1}
+      data={messages}
+      style={{ width: "100%", height: "100%" }}
+      itemContent={RowRenderer}
+      itemSize={fractionalItemSize}
+      increaseViewportBy={2000}
+    />
+  );
+});
+
+export const Thread: React.FC<IThreadProps> = observer(function Thread({
+  threadType,
+  id,
+  className,
+  populateMessages,
+  threadStyle,
+  showLastMessages,
+  scrollToLast,
+  pagination,
+}) {
+  const { threads } = useStore();
+  const [owner, setOwner] =
+    useState<EmoticonTooltipContextData["owner"]>(undefined);
+
+  useEffect(() => {
+    threads.loadEmoticons();
+  }, []);
+
+  const scrollableRef = useRef<HTMLDivElement | null>(null);
+
+  const thread = useNewThread(
+    id,
+    threadType,
+    populateMessages,
+    (showLastMessages && showLastMessages > 0) || false,
+    pagination?.page,
   );
 
   const displayInput =
-    !pagination || !pg || pg.pages === 1 || pg.page == pg.pages - 1;
+    !pagination ||
+    !thread.pg ||
+    thread.pg.pages === 1 ||
+    thread.pg.page == thread.pg.pages - 1;
 
-  const hasRightToMessage =
-    auth.isAuthorized && (!rawThread?.adminOnly || auth.isAdmin);
+  const [scrollToBottom, unseenMessageCount] = useScrollToBottom(
+    !!scrollToLast,
+    scrollableRef,
+    thread.threadView,
+  );
+
+  const messages = thread.threadView.groupedMessages;
+
+  useEffect(() => {
+    thread.loadOlder();
+  }, []);
 
   return (
-    <div className={cx(c.thread, threadFont.className, className)}>
-      {pagination && (
-        <Pagination
-          page={pagination.page}
-          maxPage={pg?.pages || 0}
-          linkProducer={(page) => pagination!.pageProvider(page)}
-        />
-      )}
-      <div
-        ref={scrollableRef}
-        className={cx(
-          c.messageContainer,
-          "messageList",
-          threadStyle === ThreadStyle.TINY && c.messageContainer__tiny,
-        )}
+    <ThreadContext.Provider
+      value={{
+        thread,
+        emoticons: threads.emoticons,
+      }}
+    >
+      <EmoticonTooltipContext.Provider
+        value={{
+          owner,
+          setOwner,
+        }}
       >
-        {messages.map((msg) => (
-          <MessageGroup
-            threadStyle={threadStyle || ThreadStyle.NORMAL}
-            messages={msg.messages}
-            key={msg.messages[0].messageId}
-            onDelete={auth.isAdmin ? deleteMessage : undefined}
-            onMute={auth.isAdmin ? muteUser : undefined}
-            author={msg.author}
-          />
-        ))}
-      </div>
-      <div
-        className={cx(
-          c.unseenMessages,
-          unseenMessageCount && c.unseenMessages__visible,
-        )}
-        onClick={() => scrollToBottom(true)}
-      >
-        {unseenMessageCount} новых сообщений
-      </div>
-      {!pagination && <ScrollDetector onScrolledTo={loadMore} />}
-      {pagination && (
-        <Pagination
-          page={pagination.page}
-          maxPage={pg?.pages || 0}
-          linkProducer={(page) => pagination!.pageProvider(page)}
-        />
-      )}
-      {displayInput && (
-        <MessageInput
-          className={
-            threadStyle === ThreadStyle.TINY ? c.createMessage_tiny : undefined
-          }
-          rows={
-            (threadStyle || ThreadStyle.NORMAL) === ThreadStyle.NORMAL
-              ? 4
-              : threadStyle === ThreadStyle.SMALL
-                ? 3
-                : 2
-          }
-          canMessage={hasRightToMessage}
-          threadId={`${thread.type}_${thread.id}`}
-          onMessage={(msg) => consumeMessages([msg])}
-        />
-      )}
-    </div>
+        <div className={cx(c.thread, threadFont.className, className)}>
+          {pagination && (
+            <Pagination
+              page={pagination.page}
+              maxPage={thread.pg?.pages || 0}
+              linkProducer={(page) => pagination!.pageProvider(page)}
+            />
+          )}
+          <div
+            ref={scrollableRef}
+            className={cx(
+              c.messageContainer,
+              "messageList",
+              threadStyle === ThreadStyle.FORUM && c.messageContainer__forum,
+              c.messageContainer__tiny,
+            )}
+          >
+            {threadStyle === ThreadStyle.CHAT ? (
+              <RenderChatThread thread={thread} messages={messages} />
+            ) : (
+              <RenderForumThread messages={messages} thread={thread} />
+            )}
+          </div>
+          <div
+            className={cx(
+              c.unseenMessages,
+              unseenMessageCount && c.unseenMessages__visible,
+            )}
+            onClick={() => scrollToBottom(true)}
+          >
+            {unseenMessageCount} новых сообщений
+          </div>
+          {pagination && (
+            <Pagination
+              page={pagination.page}
+              maxPage={thread.pg?.pages || 0}
+              linkProducer={(page) => pagination!.pageProvider(page)}
+            />
+          )}
+          {displayInput && (
+            <MessageInput
+              rows={1}
+              canMessage={true}
+              threadId={`${thread.thread.type}_${thread.id}`}
+              onMessage={(msg) => thread.consumeMessages([msg])}
+            />
+          )}
+        </div>
+      </EmoticonTooltipContext.Provider>
+    </ThreadContext.Provider>
   );
 });

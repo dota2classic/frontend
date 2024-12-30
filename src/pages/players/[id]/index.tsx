@@ -27,6 +27,7 @@ import Head from "next/head";
 import React from "react";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
+import { ThreadStyle } from "@/components/Thread/types";
 
 //
 interface PlayerPageProps {
@@ -122,6 +123,7 @@ export default function PlayerPage({
         <TeammatesTable data={preloadedTeammates!.data} />
       </Section>
       <Thread
+        threadStyle={ThreadStyle.CHAT}
         className={c.thread}
         id={playerId}
         threadType={ThreadType.PLAYER}

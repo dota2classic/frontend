@@ -55,6 +55,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
       queue: {},
       notify: {},
       user: {},
+      threads: { emoticons: [] },
       ...inferredState,
     };
 

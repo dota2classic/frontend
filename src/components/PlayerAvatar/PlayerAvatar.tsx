@@ -34,17 +34,18 @@ type Props = Omit<
   lazyBoundary?: string | undefined;
   lazyRoot?: string | undefined;
 } & React.RefAttributes<HTMLImageElement | null>;
-export const PlayerAvatar: React.FC<Props> = React.memo(
-  function PlayerAvatar(props) {
-    const [error, setError] = useState<unknown>(null);
 
-    return (
-      <Image
-        {...props}
-        alt={props.alt || "Image"}
-        src={error ? "/avatar.png" : props.src}
-        onError={setError}
-      />
-    );
-  },
-);
+export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar(
+  props: Props,
+) {
+  const [error, setError] = useState<unknown>(null);
+
+  return (
+    <Image
+      {...props}
+      alt={props.alt || "Image"}
+      src={error ? "/avatar.png" : props.src}
+      onError={setError}
+    />
+  );
+});

@@ -11,8 +11,8 @@
 .textInput {
   outline: none;
   font-size: 1rem;
-  padding: 4px;
-  border-radius: 4px;
+  padding: 12px;
+  border-radius: 8px;
   transition: 0.3s ease;
   color: $primaryText;
   flex: 1;
@@ -27,34 +27,5 @@
 
   &:focus, &:hover {
     background: $transparentTint3;
-  }
-}
-
-
-.messageTools {
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  width: 100%;
-  padding: 4px;
-  display: flex;
-  flex-direction: row;
-
-  display: none;
-
-
-  & span {
-    margin-bottom: 2px;
-    padding: 2px 4px;
-    background-color: $green;
-    border-radius: 2px;
-    cursor: pointer;
-
-    &:not(:first-child) {
-      margin-left: 4px;
-    }
   }
 }

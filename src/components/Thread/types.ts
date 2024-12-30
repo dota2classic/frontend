@@ -3,9 +3,8 @@ import { ThreadMessageDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextLinkProp } from "@/route";
 
 export enum ThreadStyle {
-  NORMAL,
-  SMALL,
-  TINY,
+  FORUM,
+  CHAT,
 }
 
 export interface IThreadProps {
@@ -13,7 +12,7 @@ export interface IThreadProps {
   threadType: ThreadType;
   className?: string;
   populateMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO;
-  threadStyle?: ThreadStyle;
+  threadStyle: ThreadStyle;
   showLastMessages?: number;
   scrollToLast?: boolean;
   pagination?: {

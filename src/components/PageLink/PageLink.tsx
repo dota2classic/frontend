@@ -9,21 +9,21 @@ interface IPageLinkProps {
   testId?: string;
 }
 
-export const PageLink: React.FC<PropsWithChildren<IPageLinkProps>> = (
-  props,
-) => {
-  return (
-    <Link
-      className={props.className}
-      href={props.link.href}
-      as={props.link.as}
-      passHref={props.link.passHref}
-      shallow={props.link.shallow}
-      scroll={true}
-      onClick={props.onClick}
-      data-testid={props.testId}
-    >
-      {props.children}
-    </Link>
-  );
-};
+export const PageLink: React.FC<PropsWithChildren<IPageLinkProps>> = React.memo(
+  function PageLink(props) {
+    return (
+      <Link
+        className={props.className}
+        href={props.link.href}
+        as={props.link.as}
+        passHref={props.link.passHref}
+        shallow={props.link.shallow}
+        scroll={true}
+        onClick={props.onClick}
+        data-testid={props.testId}
+      >
+        {props.children}
+      </Link>
+    );
+  },
+);

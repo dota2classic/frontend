@@ -3,7 +3,7 @@ import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { parse, stringify } from "qs";
 import { getApi } from "@/api/hooks";
-import { querystring, RequestOpts, Role } from "@/api/back";
+import { EmoticonDto, querystring, RequestOpts, Role } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
 import { useStore } from "@/store";
 
@@ -152,3 +152,17 @@ export interface TooltipContextData {
 export const TooltipContext = React.createContext<TooltipContextData>(
   {} as TooltipContextData,
 );
+
+interface EmoOwner {
+  anchor: HTMLElement;
+  onSelect: (emo: EmoticonDto) => void;
+}
+export interface EmoticonTooltipContextData {
+  owner?: EmoOwner;
+  setOwner: (o: EmoOwner | undefined) => void;
+}
+
+export const EmoticonTooltipContext =
+  React.createContext<EmoticonTooltipContextData>({
+    setOwner: () => undefined,
+  });

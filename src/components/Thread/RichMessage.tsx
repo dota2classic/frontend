@@ -1,18 +1,23 @@
 import React, { ReactNode } from "react";
-import { ForumUserEmbed, PageLink } from "@/components";
+import { Emoticon, ForumUserEmbed, PageLink } from "@/components";
 import { youtubeVideo } from "@/util/regex";
 import c from "@/components/Thread/Thread.module.scss";
 import { AppRouter } from "@/route";
 
-export function enrichMessage(msg2: string) {
-  const msg = msg2.replace(/\n\s*\n/g, "\n");
+interface Props {
+  rawMsg: string;
+}
+export const RichMessage = React.memo(function RichMessage({ rawMsg }: Props) {
+  const msg = rawMsg.replace(/\n\s*\n/g, "\n");
 
   const parts: ReactNode[] = [];
   const r = new RegExp(
-    `(https:\\/\\/dotaclassic.ru\\/matches\\/(\\d+))|(https:\\/\\/dotaclassic.ru\\/players\\/(\\d+))|(https?:\\/\\/([\\S]+)\\.[\\S]+)`,
+    `(https:\\/\\/dotaclassic.ru\\/matches\\/(\\d+))|(https:\\/\\/dotaclassic.ru\\/players\\/(\\d+))|(https?:\\/\\/([\\S]+)\\.[\\S]+)|(:[a-zA-Z_]+:)`,
     "g",
   );
   const matches = Array.from(msg.matchAll(r));
+
+  console.log(matches);
 
   let prevIdx = 0;
   matches.forEach((match) => {
@@ -20,6 +25,8 @@ export function enrichMessage(msg2: string) {
     parts.push(prev);
 
     const atIndex = match.index;
+
+    console.log(match);
 
     if (match[4]) {
       // player
@@ -48,6 +55,10 @@ export function enrichMessage(msg2: string) {
           </a>,
         );
       }
+    } else if (match[7]) {
+      const emoticonCode = match[7].replaceAll(":", "");
+
+      parts.push(<Emoticon code={emoticonCode} />);
     } else {
       // match
       const matchId = match[2];
@@ -66,5 +77,5 @@ export function enrichMessage(msg2: string) {
 
   parts.push(msg.slice(prevIdx));
 
-  return <>{...parts}</>;
-}
+  return <>{parts}</>;
+});

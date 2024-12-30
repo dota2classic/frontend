@@ -300,7 +300,7 @@ export default function LobbyPage({ id, lobby, host }: Props) {
         threadType={ThreadType.LOBBY}
         id={lobbyId}
         className={cx(c.grid12, c.threadContainer)}
-        threadStyle={ThreadStyle.TINY}
+        threadStyle={ThreadStyle.CHAT}
         showLastMessages={100}
         scrollToLast={true}
       />
