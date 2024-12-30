@@ -1,14 +1,19 @@
-import React, { RefObject, useCallback, useMemo, useState } from "react";
+import React, {
+  RefObject,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import c from "./EmoticonSelectWindow.module.scss";
 import { observer } from "mobx-react-lite";
 import { EmoticonDto } from "@/api/back";
 import cx from "clsx";
-import { useOutsideClick2 } from "@/util/useOutsideClick";
+import useOutsideClick from "@/util/useOutsideClick";
 import { Input } from "@/components";
 import { useStore } from "@/store";
 import { useKeyDown } from "@/util/keyboard";
-import { usePortalRef } from "@/util/usePortalRef";
 
 interface IEmoticonSelectWindowProps {
   onClose: () => void;
@@ -27,7 +32,6 @@ const calculateModalPosition = (
   anchor: HTMLElement | null,
   modal: HTMLElement | null,
 ): Position => {
-  console.log(anchor, modal);
   if (!anchor || !modal || typeof window === "undefined") return {};
 
   const rect = anchor.getBoundingClientRect();
@@ -40,8 +44,6 @@ const calculateModalPosition = (
   const wb = window.innerHeight;
 
   const top = Math.min(scrollY + (wb - windowHeight - 12), rect.top - 3);
-
-  console.log(modal.clientWidth, modal.clientHeight, rect);
 
   let left = rect.left - windowWidth;
   if (left < 0) {
@@ -60,8 +62,6 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
     const [searchValue, setSearchValue] = useState("");
     const { emoticons } = useStore().threads;
 
-    const [id, getContainer] = usePortalRef();
-
     const isShiftDown = useKeyDown("Shift");
 
     const [hoveredEmoticon, setHoveredEmoticon] = useState<EmoticonDto>({
@@ -70,8 +70,8 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
       src: "https://s3.dotaclassic.ru/emoticons/cocky.gif",
     });
 
-    // const containerRef = useRef<HTMLDivElement | null>(null);
-    useOutsideClick2(onClose, getContainer(), [anchor.current]);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    useOutsideClick(onClose, containerRef, [anchor]);
 
     const emos = useMemo(() => {
       return emoticons.filter((emo) =>
@@ -86,65 +86,15 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
       }
     }, []);
 
-    // const position = useMemo<Position>(() => {
-    //   console.log(
-    //     "Calculating position: anchor=",
-    //     anchor.current,
-    //     "container=",
-    //     containerRef.current,
-    //   );
-    //   if (
-    //     !anchor.current ||
-    //     !containerRef.current ||
-    //     typeof window === "undefined"
-    //   )
-    //     return {};
-    //
-    //   const rect = anchor.current!.getBoundingClientRect();
-    //
-    //   const windowHeight = containerRef.current!.clientHeight;
-    //   const windowWidth = containerRef.current!.clientWidth;
-    //
-    //   const scrollY = window.scrollY;
-    //
-    //   const wb = window.innerHeight;
-    //
-    //   const top = Math.min(scrollY + (wb - windowHeight - 12), rect.top - 3);
-    //
-    //   console.log(
-    //     containerRef.current?.clientWidth,
-    //     containerRef.current?.clientHeight,
-    //     rect,
-    //   );
-    //
-    //   let left = rect.left - windowWidth;
-    //   if (left < 0) {
-    //     // no-no
-    //     left = 12;
-    //   }
-    //
-    //   return {
-    //     left,
-    //     top,
-    //   };
-    // }, [containerRef.current, anchor.current]);
-
     return (
       <div
         className={cx(c.emoticons, c.emoticons__visible)}
-        // style={position}
-        id={id}
         ref={(e) => {
-          console.log("SET REF CALLED!", e);
+          containerRef.current = e;
           if (!e) return;
-          const position = calculateModalPosition(
-            anchor.current,
-            getContainer(),
-          );
+          const position = calculateModalPosition(anchor.current, e);
           e.style.left = position.left + "px";
           e.style.top = position.top + "px";
-
-          console.log("Set modal position to", position);
         }}
       >
         <Input
