@@ -76,9 +76,15 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
 
       const top = Math.min(scrollY + (wb - windowHeight - 12), rect.top - 3);
 
+      let left = rect.left - windowWidth;
+      if (left < 0) {
+        // no-no
+        left = 12;
+      }
+
       return {
-        left: rect.left - windowWidth,
-        top: top,
+        left,
+        top,
       };
     }, [containerRef.current, anchor]);
 

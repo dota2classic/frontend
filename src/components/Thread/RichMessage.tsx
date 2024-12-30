@@ -17,16 +17,12 @@ export const RichMessage = React.memo(function RichMessage({ rawMsg }: Props) {
   );
   const matches = Array.from(msg.matchAll(r));
 
-  console.log(matches);
-
   let prevIdx = 0;
   matches.forEach((match) => {
     const prev = msg.slice(prevIdx, match.index);
     parts.push(prev);
 
     const atIndex = match.index;
-
-    console.log(match);
 
     if (match[4]) {
       // player
