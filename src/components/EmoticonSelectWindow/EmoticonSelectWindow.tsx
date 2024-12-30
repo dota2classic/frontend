@@ -58,6 +58,12 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
     }, []);
 
     const position = useMemo<Position>(() => {
+      console.log(
+        "Calculating position: anchor=",
+        anchor.current,
+        "container=",
+        containerRef.current,
+      );
       if (
         !anchor.current ||
         !containerRef.current ||
@@ -76,6 +82,12 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
 
       const top = Math.min(scrollY + (wb - windowHeight - 12), rect.top - 3);
 
+      console.log(
+        containerRef.current?.clientWidth,
+        containerRef.current?.clientHeight,
+        rect,
+      );
+
       let left = rect.left - windowWidth;
       if (left < 0) {
         // no-no
@@ -86,7 +98,7 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
         left,
         top,
       };
-    }, [containerRef.current, anchor]);
+    }, [containerRef.current, anchor.current]);
 
     return (
       <div

@@ -184,6 +184,7 @@
 .reaction {
   display: flex;
   flex-direction: row;
+  align-items: center;
   padding: 2px 4px;
   background-color: $bg3;
   border-radius: 8px;

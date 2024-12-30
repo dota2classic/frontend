@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { MessageGroup, Pagination } from "..";
 import c from "./Thread.module.scss";
@@ -15,13 +9,12 @@ import {
   GroupedMessages,
   ThreadContext,
   ThreadLocalState,
-  ThreadView,
   useNewThread,
 } from "@/util/threads";
 import { useStore } from "@/store";
 import { IThreadProps, ThreadStyle } from "@/components/Thread/types";
 import { MessageInput } from "@/components/Thread/MessageInput";
-import { Virtuoso } from "react-virtuoso";
+import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import {
   EmoticonTooltipContext,
   EmoticonTooltipContextData,
@@ -39,67 +32,67 @@ const RowRenderer = (index: number, msg: GroupedMessages) => {
   return <MessageGroup messages={msg.messages} />;
 };
 
-const useScrollToBottom = (
-  scrollToLast: boolean,
-  scrollableRef: React.RefObject<HTMLElement | null>,
-  threadView: ThreadView,
-): [(smooth: boolean) => void, number] => {
-  const [sticky, setSticky] = useState(scrollToLast);
-  const [lastSeenMessageTime, setLastSeenMessageTime] = useState<
-    number | undefined
-  >(undefined);
-
-  const unseenMessageCount = useMemo(() => {
-    return sticky || lastSeenMessageTime === undefined
-      ? 0
-      : threadView.groupedMessages
-          .flatMap((group) => group.messages)
-          .filter(
-            (message) =>
-              new Date(message.createdAt).getTime() > lastSeenMessageTime,
-          ).length;
-  }, [lastSeenMessageTime, threadView.groupedMessages, sticky]);
-
-  const scrollToBottom = useCallback(
-    (smooth?: boolean) => {
-      const element = scrollableRef.current;
-      if (!element) return;
-      element.scroll({
-        top: element.scrollHeight,
-        behavior: smooth ? "smooth" : "instant",
-      });
-    },
-    [scrollableRef],
-  );
-
-  useEffect(() => {
-    if (!sticky) return;
-
-    if (threadView.groupedMessages.length > 0 && scrollToLast) {
-      scrollToBottom();
-
-      const m =
-        threadView.groupedMessages[threadView.groupedMessages.length - 1]
-          .messages;
-      setLastSeenMessageTime(new Date(m[m.length - 1].createdAt).getTime());
-    }
-  }, [threadView, sticky]);
-
-  useEffect(() => {
-    const t = scrollableRef.current;
-    if (!t) return;
-
-    const listener = () => {
-      const sticked =
-        Math.abs(t.scrollHeight - t.scrollTop - t.offsetHeight) < 10;
-      setSticky(sticked);
-    };
-    t.addEventListener("scrollend", listener);
-    return () => t.removeEventListener("scrollend", listener);
-  }, [scrollableRef]);
-
-  return [scrollToBottom, unseenMessageCount];
-};
+// const useScrollToBottom = (
+//   scrollToLast: boolean,
+//   scrollableRef: React.RefObject<HTMLElement | null>,
+//   threadView: ThreadView,
+// ): [(smooth: boolean) => void, number] => {
+//   const [sticky, setSticky] = useState(scrollToLast);
+//   const [lastSeenMessageTime, setLastSeenMessageTime] = useState<
+//     number | undefined
+//   >(undefined);
+//
+//   const unseenMessageCount = useMemo(() => {
+//     return sticky || lastSeenMessageTime === undefined
+//       ? 0
+//       : threadView.groupedMessages
+//           .flatMap((group) => group.messages)
+//           .filter(
+//             (message) =>
+//               new Date(message.createdAt).getTime() > lastSeenMessageTime,
+//           ).length;
+//   }, [lastSeenMessageTime, threadView.groupedMessages, sticky]);
+//
+//   const scrollToBottom = useCallback(
+//     (smooth?: boolean) => {
+//       const element = scrollableRef.current;
+//       if (!element) return;
+//       element.scroll({
+//         top: element.scrollHeight,
+//         behavior: smooth ? "smooth" : "instant",
+//       });
+//     },
+//     [scrollableRef],
+//   );
+//
+//   useEffect(() => {
+//     if (!sticky) return;
+//
+//     if (threadView.groupedMessages.length > 0 && scrollToLast) {
+//       scrollToBottom();
+//
+//       const m =
+//         threadView.groupedMessages[threadView.groupedMessages.length - 1]
+//           .messages;
+//       setLastSeenMessageTime(new Date(m[m.length - 1].createdAt).getTime());
+//     }
+//   }, [threadView, sticky]);
+//
+//   useEffect(() => {
+//     const t = scrollableRef.current;
+//     if (!t) return;
+//
+//     const listener = () => {
+//       const sticked =
+//         Math.abs(t.scrollHeight - t.scrollTop - t.offsetHeight) < 10;
+//       setSticky(sticked);
+//     };
+//     t.addEventListener("scrollend", listener);
+//     return () => t.removeEventListener("scrollend", listener);
+//   }, [scrollableRef]);
+//
+//   return [scrollToBottom, unseenMessageCount];
+// };
 
 interface ChatRenderProps {
   messages: GroupedMessages[];
@@ -125,6 +118,14 @@ const RenderChatThread = React.memo(function RenderChatThread({
   thread,
   messages,
 }: ChatRenderProps) {
+  const scrollableRef = useRef<VirtuosoHandle | null>(null);
+
+  useEffect(() => {
+    if (!scrollableRef.current) return;
+    scrollableRef.current!.scrollToIndex(messages.length - 1);
+    console.log("Scroll bottom.", messages.length - 1);
+  }, [scrollableRef.current, messages]);
+
   const atBottomStateChange = (atBottom: boolean) => {
     if (atBottom) {
       thread.loadNewer();
@@ -139,6 +140,8 @@ const RenderChatThread = React.memo(function RenderChatThread({
 
   return (
     <Virtuoso
+      followOutput={"smooth"}
+      ref={scrollableRef}
       atBottomStateChange={atBottomStateChange}
       atBottomThreshold={100}
       atTopStateChange={atTopStateChange}
@@ -163,7 +166,6 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
   populateMessages,
   threadStyle,
   showLastMessages,
-  scrollToLast,
   pagination,
 }) {
   const { threads } = useStore();
@@ -173,8 +175,6 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
   useEffect(() => {
     threads.loadEmoticons();
   }, []);
-
-  const scrollableRef = useRef<HTMLDivElement | null>(null);
 
   const thread = useNewThread(
     id,
@@ -189,12 +189,6 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
     !thread.pg ||
     thread.pg.pages === 1 ||
     thread.pg.page == thread.pg.pages - 1;
-
-  const [scrollToBottom, unseenMessageCount] = useScrollToBottom(
-    !!scrollToLast,
-    scrollableRef,
-    thread.threadView,
-  );
 
   const messages = thread.threadView.groupedMessages;
 
@@ -224,7 +218,6 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
             />
           )}
           <div
-            ref={scrollableRef}
             className={cx(
               c.messageContainer,
               "messageList",
@@ -238,15 +231,15 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
               <RenderForumThread messages={messages} thread={thread} />
             )}
           </div>
-          <div
-            className={cx(
-              c.unseenMessages,
-              unseenMessageCount && c.unseenMessages__visible,
-            )}
-            onClick={() => scrollToBottom(true)}
-          >
-            {unseenMessageCount} новых сообщений
-          </div>
+          {/*<div*/}
+          {/*  className={cx(*/}
+          {/*    c.unseenMessages,*/}
+          {/*    unseenMessageCount && c.unseenMessages__visible,*/}
+          {/*  )}*/}
+          {/*  onClick={() => scrollToBottom(true)}*/}
+          {/*>*/}
+          {/*  {unseenMessageCount} новых сообщений*/}
+          {/*</div>*/}
           {pagination && (
             <Pagination
               page={pagination.page}
