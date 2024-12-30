@@ -28,6 +28,38 @@ interface Position {
   bottom?: number;
 }
 
+const calculateModalPosition = (
+  anchor: HTMLElement | null,
+  modal: HTMLElement | null,
+): Position => {
+  console.log(anchor, modal);
+  if (!anchor || !modal || typeof window === "undefined") return {};
+
+  const rect = anchor.getBoundingClientRect();
+
+  const windowHeight = modal.clientHeight;
+  const windowWidth = modal.clientWidth;
+
+  const scrollY = window.scrollY;
+
+  const wb = window.innerHeight;
+
+  const top = Math.min(scrollY + (wb - windowHeight - 12), rect.top - 3);
+
+  console.log(modal.clientWidth, modal.clientHeight, rect);
+
+  let left = rect.left - windowWidth;
+  if (left < 0) {
+    // no-no
+    left = 12;
+  }
+
+  return {
+    left,
+    top,
+  };
+};
+
 export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
   observer(({ onClose, anchor, onSelect }) => {
     const [searchValue, setSearchValue] = useState("");
@@ -57,48 +89,53 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
       }
     }, []);
 
-    const position = useMemo<Position>(() => {
-      console.log(
-        "Calculating position: anchor=",
-        anchor.current,
-        "container=",
-        containerRef.current,
-      );
-      if (
-        !anchor.current ||
-        !containerRef.current ||
-        typeof window === "undefined"
-      )
-        return {};
+    // const position = useMemo<Position>(() => {
+    //   console.log(
+    //     "Calculating position: anchor=",
+    //     anchor.current,
+    //     "container=",
+    //     containerRef.current,
+    //   );
+    //   if (
+    //     !anchor.current ||
+    //     !containerRef.current ||
+    //     typeof window === "undefined"
+    //   )
+    //     return {};
+    //
+    //   const rect = anchor.current!.getBoundingClientRect();
+    //
+    //   const windowHeight = containerRef.current!.clientHeight;
+    //   const windowWidth = containerRef.current!.clientWidth;
+    //
+    //   const scrollY = window.scrollY;
+    //
+    //   const wb = window.innerHeight;
+    //
+    //   const top = Math.min(scrollY + (wb - windowHeight - 12), rect.top - 3);
+    //
+    //   console.log(
+    //     containerRef.current?.clientWidth,
+    //     containerRef.current?.clientHeight,
+    //     rect,
+    //   );
+    //
+    //   let left = rect.left - windowWidth;
+    //   if (left < 0) {
+    //     // no-no
+    //     left = 12;
+    //   }
+    //
+    //   return {
+    //     left,
+    //     top,
+    //   };
+    // }, [containerRef.current, anchor.current]);
 
-      const rect = anchor.current!.getBoundingClientRect();
-
-      const windowHeight = containerRef.current!.clientHeight;
-      const windowWidth = containerRef.current!.clientWidth;
-
-      const scrollY = window.scrollY;
-
-      const wb = window.innerHeight;
-
-      const top = Math.min(scrollY + (wb - windowHeight - 12), rect.top - 3);
-
-      console.log(
-        containerRef.current?.clientWidth,
-        containerRef.current?.clientHeight,
-        rect,
-      );
-
-      let left = rect.left - windowWidth;
-      if (left < 0) {
-        // no-no
-        left = 12;
-      }
-
-      return {
-        left,
-        top,
-      };
-    }, [containerRef.current, anchor.current]);
+    const position = calculateModalPosition(
+      anchor.current,
+      containerRef.current,
+    );
 
     return (
       <div

@@ -119,14 +119,21 @@ const RenderChatThread = React.memo(function RenderChatThread({
   messages,
 }: ChatRenderProps) {
   const scrollableRef = useRef<VirtuosoHandle | null>(null);
+  const [atBottom, setAtBottom] = useState(false);
 
   useEffect(() => {
     if (!scrollableRef.current) return;
-    scrollableRef.current!.scrollToIndex(messages.length - 1);
-    console.log("Scroll bottom.", messages.length - 1);
+    console.log(`Wanna scroll: ${atBottom}`, messages.length)
+    if (atBottom) {
+      scrollableRef.current!.scrollToIndex(messages.length - 1);
+      // console.log("Scroll bottom.", messages.length - 1);
+    }
   }, [scrollableRef.current, messages]);
 
   const atBottomStateChange = (atBottom: boolean) => {
+    setAtBottom(atBottom);
+    console.log("At bottom? ", atBottom)
+
     if (atBottom) {
       thread.loadNewer();
     }
@@ -143,7 +150,7 @@ const RenderChatThread = React.memo(function RenderChatThread({
       followOutput={"smooth"}
       ref={scrollableRef}
       atBottomStateChange={atBottomStateChange}
-      atBottomThreshold={100}
+      atBottomThreshold={10}
       atTopStateChange={atTopStateChange}
       atTopThreshold={100}
       startReached={(idx) => {
