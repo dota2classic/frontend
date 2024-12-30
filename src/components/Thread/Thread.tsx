@@ -123,7 +123,7 @@ const RenderChatThread = React.memo(function RenderChatThread({
 
   useEffect(() => {
     if (!scrollableRef.current) return;
-    console.log(`Wanna scroll: ${atBottom}`, messages.length)
+    console.log(`Wanna scroll: ${atBottom}`, messages.length);
     if (atBottom) {
       scrollableRef.current!.scrollToIndex(messages.length - 1);
       // console.log("Scroll bottom.", messages.length - 1);
@@ -132,7 +132,7 @@ const RenderChatThread = React.memo(function RenderChatThread({
 
   const atBottomStateChange = (atBottom: boolean) => {
     setAtBottom(atBottom);
-    console.log("At bottom? ", atBottom)
+    console.log("At bottom? ", atBottom);
 
     if (atBottom) {
       thread.loadNewer();

@@ -1,19 +1,14 @@
-import React, {
-  RefObject,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { RefObject, useCallback, useMemo, useState } from "react";
 
 import c from "./EmoticonSelectWindow.module.scss";
 import { observer } from "mobx-react-lite";
 import { EmoticonDto } from "@/api/back";
 import cx from "clsx";
-import useOutsideClick from "@/util/useOutsideClick";
+import { useOutsideClick2 } from "@/util/useOutsideClick";
 import { Input } from "@/components";
 import { useStore } from "@/store";
 import { useKeyDown } from "@/util/keyboard";
+import { usePortalRef } from "@/util/usePortalRef";
 
 interface IEmoticonSelectWindowProps {
   onClose: () => void;
@@ -65,6 +60,8 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
     const [searchValue, setSearchValue] = useState("");
     const { emoticons } = useStore().threads;
 
+    const [id, getContainer] = usePortalRef();
+
     const isShiftDown = useKeyDown("Shift");
 
     const [hoveredEmoticon, setHoveredEmoticon] = useState<EmoticonDto>({
@@ -73,8 +70,8 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
       src: "https://s3.dotaclassic.ru/emoticons/cocky.gif",
     });
 
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    useOutsideClick(onClose, containerRef, [anchor]);
+    // const containerRef = useRef<HTMLDivElement | null>(null);
+    useOutsideClick2(onClose, getContainer(), [anchor.current]);
 
     const emos = useMemo(() => {
       return emoticons.filter((emo) =>
@@ -132,16 +129,16 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
     //   };
     // }, [containerRef.current, anchor.current]);
 
-    const position = calculateModalPosition(
-      anchor.current,
-      containerRef.current,
-    );
+    const position = calculateModalPosition(anchor.current, getContainer());
 
     return (
       <div
         className={cx(c.emoticons, c.emoticons__visible)}
         style={position}
-        ref={containerRef}
+        id={id}
+        ref={(e) => {
+          console.log("SET REF CALLED!", e);
+        }}
       >
         <Input
           placeholder={`:${hoveredEmoticon.code}:`}
