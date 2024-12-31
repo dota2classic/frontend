@@ -20,7 +20,6 @@ export const AcceptGameModal = observer(() => {
 
   // First, display things we should always display
 
-  console.log(queueGameState);
   if (queueGameState === QueueGameState.READY_CHECK_WAITING_USER) {
     return (
       <div className={c.modalWrapper} data-testid="accept-modal-waiting-user">
