@@ -11,8 +11,15 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'steamcdn-a.akamaihd.net'
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.dotaclassic.ru'
       }
     ]
+  },
+  sassOptions: {
+    silenceDeprecations: ['legacy-js-api'],
   },
   reactStrictMode: true,
   output: "standalone",

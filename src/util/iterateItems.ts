@@ -1,8 +1,4 @@
-export function maxBy<T>(arr: T[], val: (t: T) => number): T {
-  return arr.toSorted((a, b) => val(b) - val(a))[0];
-}
-
-export function items(t: {
+export function iterateItems(t: {
   item0: number;
   item1: number;
   item2: number;

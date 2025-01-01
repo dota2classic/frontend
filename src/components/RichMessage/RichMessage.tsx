@@ -1,13 +1,18 @@
 import React, { ReactNode } from "react";
-import { Emoticon, ForumUserEmbed, PageLink } from "@/components";
+
+import { Emoticon, ForumUserEmbed, PageLink } from "..";
+
+import c from "./RichMessage.module.scss";
 import { youtubeVideo } from "@/util/regex";
-import c from "@/components/Thread/Thread.module.scss";
 import { AppRouter } from "@/route";
 
-interface Props {
+interface IRichMessageProps {
   rawMsg: string;
 }
-export const RichMessage = React.memo(function RichMessage({ rawMsg }: Props) {
+
+export const RichMessage = React.memo(function RichMessage({
+  rawMsg,
+}: IRichMessageProps) {
   const msg = rawMsg.replace(/\n\s*\n/g, "\n");
 
   const parts: ReactNode[] = [];

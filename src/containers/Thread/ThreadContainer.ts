@@ -1,64 +1,15 @@
-import { getApi } from "@/api/hooks";
-import React, { useEffect } from "react";
+import { action, computed, makeObservable, observable } from "mobx";
 import {
-  EmoticonDto,
-  querystring,
   SortOrder,
   ThreadMessageDTO,
   ThreadMessagePageDTO,
-  UserDTO,
+  ThreadType,
 } from "@/api/back";
-import { ThreadType } from "@/api/mapped-models/ThreadType";
-import { maxBy } from "@/util/iter";
-import { useLocalObservable } from "mobx-react-lite";
-import { action, computed, makeObservable, observable } from "mobx";
+import { maxBy } from "@/util";
+import { getApi } from "@/api/hooks";
+import { GroupedMessages, ThreadView } from "@/containers/Thread/threads";
 
-export interface Thread {
-  id: string;
-  type: ThreadType;
-  messages: ThreadMessageDTO[];
-}
-
-const useThreadEventSource = (
-  id: string,
-  threadType: ThreadType,
-  consumeMessages: (messages: ThreadMessageDTO[]) => void,
-  trigger: number = 0,
-) => {
-  const bp = getApi().apiParams.basePath;
-  const endpoint = getApi().forumApi.forumControllerThreadContext({
-    id: id.toString(),
-    threadType: threadType,
-  });
-
-  const context = JSON.stringify(endpoint);
-
-  useEffect(() => {
-    const es = new EventSource(
-      `${bp}${endpoint.path}${endpoint.query && querystring(endpoint.query, "?")}`,
-    );
-
-    es.onmessage = ({ data: msg }) => {
-      const raw: ThreadMessageDTO = JSON.parse(msg);
-      consumeMessages([raw]);
-    };
-
-    return () => es.close();
-  }, [consumeMessages, context, trigger]);
-};
-
-export interface GroupedMessages {
-  author: UserDTO;
-  displayDate: string;
-  messages: ThreadMessageDTO[];
-}
-export interface ThreadView {
-  id: string;
-  type: ThreadType;
-  groupedMessages: GroupedMessages[];
-}
-
-export class ThreadLocalState {
+export class ThreadContainer {
   @observable
   messageMap: Map<string, ThreadMessageDTO> = new Map();
 
@@ -69,28 +20,22 @@ export class ThreadLocalState {
   page: number | undefined = undefined;
 
   @computed
-  public get thread(): Thread {
-    const messagePool = this.pg
-      ? this.pg.data
-      : Array.from(this.messageMap.values());
-    return {
-      id: this.id,
-      type: this.threadType,
-      messages: messagePool
-        .filter((t) => !t.deleted)
-        .sort(
-          (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-        ),
-    };
+  public get relevantMessages(): ThreadMessageDTO[] {
+    return (
+      this.pg ? this.pg.data : Array.from(this.messageMap.values())
+    ).filter((t) => !t.deleted);
   }
 
   @computed
   public get threadView(): ThreadView {
-    const groupedMessages: GroupedMessages[] = [];
-    const thread = this.thread;
+    const messagePool = this.relevantMessages.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
 
-    const messages = [...thread.messages];
+    const groupedMessages: GroupedMessages[] = [];
+
+    const messages = [...messagePool];
 
     let group: GroupedMessages | undefined = undefined;
     for (let i = 0; i < messages.length; i++) {
@@ -171,9 +116,9 @@ export class ThreadLocalState {
 
   loadMore = async (loadLatest: boolean, loadCount: number = 10) => {
     const cursor = loadLatest
-      ? maxBy(this.thread.messages, (it) => new Date(it.createdAt).getTime())
+      ? maxBy(this.relevantMessages, (it) => new Date(it.createdAt).getTime())
           ?.createdAt
-      : maxBy(this.thread.messages, (it) => -new Date(it.createdAt).getTime())
+      : maxBy(this.relevantMessages, (it) => -new Date(it.createdAt).getTime())
           ?.createdAt;
 
     getApi()
@@ -226,44 +171,3 @@ export class ThreadLocalState {
       .then(this.consumeMessage);
   };
 }
-
-export interface ThreadContextData {
-  thread: ThreadLocalState;
-  emoticons: EmoticonDto[];
-}
-
-export const ThreadContext = React.createContext<ThreadContextData>(
-  {} as unknown as never,
-);
-
-export const useNewThread = (
-  id: string,
-  threadType: ThreadType,
-  initialMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO,
-  loadLatest: boolean = false,
-  page?: number,
-  batchSize: number = 100,
-): ThreadLocalState => {
-  const thread = useLocalObservable<ThreadLocalState>(
-    () =>
-      new ThreadLocalState(id.toString(), threadType, initialMessages, page),
-  );
-
-  useThreadEventSource(id.toString(), threadType, thread.consumeMessages, 0);
-
-  useEffect(() => {
-    if (page !== undefined) {
-      thread.loadPage(0);
-    } else {
-      thread.loadMore(loadLatest, batchSize);
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (page !== undefined) {
-      thread.loadPage(page);
-    }
-  }, [page]);
-
-  return thread;
-};

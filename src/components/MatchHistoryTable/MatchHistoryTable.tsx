@@ -15,7 +15,7 @@ import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import cx from "clsx";
 import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
 import { colors } from "@/colors";
-import { maxBy } from "@/util/iter";
+import { maxBy } from "@/util";
 
 interface IMatchHistoryTableProps {
   data: MatchDto[];

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { ThreadContext } from "@/util/threads";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { ThreadContext } from "@/containers/Thread/threadContext";
 
 interface Props {
   messageId: string;

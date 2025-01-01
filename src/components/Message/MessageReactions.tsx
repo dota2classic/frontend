@@ -4,8 +4,8 @@ import cx from "clsx";
 import { ReactionEntry } from "@/api/back";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import { ThreadContext } from "@/util/threads";
 import { AddReactionTool } from "@/components/Message/tools/AddReactionTool";
+import { ThreadContext } from "@/containers/Thread/threadContext";
 
 interface Props {
   messageId: string;

@@ -1,0 +1,9 @@
+
+.thread {
+  height: 400px;
+
+
+  & :global(.messageList) {
+    height: 400px;
+  }
+}
