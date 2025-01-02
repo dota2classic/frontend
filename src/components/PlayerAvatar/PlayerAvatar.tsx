@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-import {} from "..";
-
 import Image from "next/image";
+
 import type {
   OnLoadingComplete,
   PlaceholderValue,

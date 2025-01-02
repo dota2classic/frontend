@@ -361,13 +361,11 @@ export class QueueStore
     runInAction(() => {
       this.party = p.party;
       this.selectedMode = QueueStore.inferDefaultMode(p.party);
-      console.log(`Hydrated party`, this.party);
     });
   }
 
   @action
   public onConnected = () => {
-    console.log("connected to ws");
     if (this.readyState === GameCoordinatorState.DISCONNECTED) {
       console.log("Set state -> Connected");
       this.readyState = GameCoordinatorState.CONNECTED;
