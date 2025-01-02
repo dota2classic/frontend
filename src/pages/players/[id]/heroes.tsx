@@ -3,10 +3,10 @@ import { GenericTable, PlayerSummary, Section } from "@/components";
 import React from "react";
 import { HeroStatsDto, PlayerSummaryDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { AppRouter } from "@/route";
 import { colors } from "@/colors";
 import { winrate } from "@/util/math";
+import { ColumnType } from "@/const/tables";
 
 interface Props {
   summary: PlayerSummaryDto;

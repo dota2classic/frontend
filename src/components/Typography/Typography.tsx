@@ -6,7 +6,7 @@ interface TypographyProps {
   dire?: boolean;
 }
 
-const Header = ({
+export const Header = ({
   children,
   radiant,
   dire,
@@ -20,7 +20,3 @@ const Header = ({
     {children}
   </header>
 );
-
-export const Typography = {
-  Header,
-};

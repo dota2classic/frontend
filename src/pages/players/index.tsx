@@ -1,13 +1,13 @@
 import { Duration, EmbedProps, GenericTable, Pagination } from "@/components";
 import { getApi } from "@/api/hooks";
 import { LeaderboardEntryPageDto } from "@/api/back";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 import cx from "clsx";
 import { numberOrDefault } from "@/util/urls";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import React from "react";
+import { ColumnType } from "@/const/tables";
 
 interface LeaderboardPageProps {
   initialLeaderboard: LeaderboardEntryPageDto;

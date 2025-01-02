@@ -16,7 +16,6 @@ import {
   MatchmakingMode,
 } from "@/api/back";
 import React, { useCallback } from "react";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { useDidMount } from "@/util";
 import c from "./AdminStyles.module.scss";
@@ -24,10 +23,8 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { NextPageContext } from "next";
 import { MatchmakingModes } from "@/store/queue/mock";
-import {
-  DotaGameModeOptions,
-  DotaMapOptions,
-} from "@/components/SelectOptions/SelectOptions";
+import { ColumnType } from "@/const/tables";
+import { DotaGameModeOptions, DotaMapOptions } from "@/const/options";
 
 interface PageProps {
   initialServerPool: GameServerDto[];

@@ -14,10 +14,6 @@ import c from "./Lobby.module.scss";
 import { Button, Panel, PlayerAvatar, SelectOptions } from "@/components";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import cx from "clsx";
-import {
-  DotaGameModeOptions,
-  DotaMapOptions,
-} from "@/components/SelectOptions/SelectOptions";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
@@ -27,6 +23,7 @@ import { useEventSource } from "@/util";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { ThreadStyle } from "@/containers/Thread/types";
 import { Thread } from "@/containers";
+import { DotaGameModeOptions, DotaMapOptions } from "@/const/options";
 
 interface Props {
   id: string;

@@ -2,10 +2,10 @@ import { NextPageContext } from "next";
 import { getApi } from "@/api/hooks";
 import { ItemHeroDto } from "@/api/back";
 import { GenericTable, Section } from "@/components";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 import c from "./Items.module.scss";
 import { ItemTooltipRaw } from "@/components/ItemTooltip/ItemTooltip";
+import { ColumnType } from "@/const/tables";
 
 interface Props {
   data: ItemHeroDto[];

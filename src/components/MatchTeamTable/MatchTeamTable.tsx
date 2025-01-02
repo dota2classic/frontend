@@ -14,31 +14,7 @@ import c from "./MatchTeamTable.module.scss";
 import { FaCoins } from "react-icons/fa";
 import { signedNumber } from "@/util/time";
 import cx from "clsx";
-
-export type Columns =
-  | "GPM"
-  | "LH"
-  | "K"
-  | "D"
-  | "A"
-  | "HD"
-  | "TD"
-  | "NW"
-  | "Items"
-  | "MMR";
-
-export const AllColumns: Columns[] = [
-  "GPM",
-  "LH",
-  "K",
-  "D",
-  "A",
-  "HD",
-  "TD",
-  "NW",
-  "Items",
-  "MMR",
-];
+import { AllColumns, Columns } from "./columns";
 
 interface IMatchTeamTableProps {
   players: PlayerInMatchDto[];

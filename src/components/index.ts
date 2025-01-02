@@ -9,7 +9,7 @@ export { Duration } from "./Duration/Duration";
 export { HeroName } from "./HeroName/HeroName";
 export { PageLink } from "./PageLink/PageLink";
 export { MatchTeamTable } from "./MatchTeamTable/MatchTeamTable";
-export { Typography } from "./Typography/Typography";
+export * as Typography from "./Typography/Typography";
 export { MatchSummary } from "./MatchSummary/MatchSummary";
 export { NumberFormat } from "./NumberFormat/NumberFormat";
 export { MatchHistoryTable } from "./MatchHistoryTable/MatchHistoryTable";

@@ -2,8 +2,8 @@ import React from "react";
 
 import { GenericTable } from "..";
 import { HeroSummaryDto } from "@/api/back";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
+import { ColumnType } from "@/const/tables";
 
 interface IHeroesMetaTableProps {
   loading: boolean;

@@ -7,7 +7,6 @@ import {
   Section,
   TelegramInvite,
 } from "@/components";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import React, { useState } from "react";
 import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
@@ -19,6 +18,7 @@ import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 import { metrika } from "@/ym";
 import { getAuthUrl } from "@/util/getAuthUrl";
+import { ColumnType } from "@/const/tables";
 
 const _data = [
   [

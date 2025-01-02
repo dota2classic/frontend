@@ -13,10 +13,10 @@ import { LiveMatchDto, LiveMatchDtoFromJSON, MatchDto } from "@/api/back";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { ThreadStyle } from "@/containers/Thread/types";
 import { useEventSource } from "@/util";
-import { Columns } from "@/components/MatchTeamTable/MatchTeamTable";
 import { Tabs } from "@/components/Tabs/Tabs";
 import c from "./Match.module.scss";
 import { Thread } from "@/containers";
+import { Columns } from "@/components/MatchTeamTable/columns";
 
 interface InitialProps {
   matchId: number;

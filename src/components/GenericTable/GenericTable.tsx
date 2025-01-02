@@ -20,20 +20,7 @@ import { FaSort } from "react-icons/fa6";
 import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 import { colors } from "@/colors";
 import { SingleWeightedBarChart } from "@/components/BarChart/SingleWeightedBarChart";
-
-export enum ColumnType {
-  Raw,
-  Item,
-  Hero,
-  Player,
-  IntWithBar,
-  FloatWithBar,
-  PercentWithBar,
-  KDA,
-  Items,
-  PM_PAIR,
-  ExternalLink,
-}
+import { ColumnType } from "@/const/tables";
 
 interface Column {
   name: ReactNode;
