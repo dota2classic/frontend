@@ -1,7 +1,13 @@
 import Head from "next/head";
 import { getApi } from "@/api/hooks";
 import c from "./LiveMatches.module.scss";
-import { Duration, PageLink, Panel, SmallLiveMatch } from "@/components";
+import {
+  CopySomething,
+  Duration,
+  PageLink,
+  Panel,
+  SmallLiveMatch,
+} from "@/components";
 import { AppRouter } from "@/route";
 import { LiveMatchDto } from "@/api/back";
 import {
@@ -10,9 +16,8 @@ import {
   formatGameState,
 } from "@/util/gamemode";
 import React from "react";
-import { useDidMount } from "@/util/hooks";
+import { useDidMount } from "@/util";
 import { watchCmd } from "@/util/urls";
-import { CopySomething } from "@/components/AcceptGameModal/GameReadyModal";
 
 interface InitialProps {
   data: LiveMatchDto[];

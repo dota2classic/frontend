@@ -18,7 +18,7 @@ import {
 import React, { useCallback } from "react";
 import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { useDidMount } from "@/util/hooks";
+import { useDidMount } from "@/util";
 import c from "./AdminStyles.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";

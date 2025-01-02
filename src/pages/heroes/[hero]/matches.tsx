@@ -9,7 +9,7 @@ import React, { useMemo } from "react";
 import { numberOrDefault } from "@/util/urls";
 import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
-import { useQueryBackedParameter, useRouterChanging } from "@/util/hooks";
+import { useQueryBackedParameter, useRouterChanging } from "@/util";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";

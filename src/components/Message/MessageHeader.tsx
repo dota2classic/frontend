@@ -1,5 +1,10 @@
 import { Role } from "@/api/mapped-models";
-import {PageLink, PeriodicTimerClient, RichMessage, Tooltipable} from "@/components";
+import {
+  PageLink,
+  PeriodicTimerClient,
+  RichMessage,
+  Tooltipable,
+} from "@/components";
 import { MdAdminPanelSettings, MdLocalPolice } from "react-icons/md";
 import cx from "clsx";
 import c from "@/components/Message/Message.module.scss";

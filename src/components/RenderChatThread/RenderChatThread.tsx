@@ -1,37 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
-import { MessageGroup } from "@/components";
-
-function fractionalItemSize(element: HTMLElement) {
-  return element.getBoundingClientRect().height;
-}
+import { GroupedMessages } from "@/containers/Thread/threads";
+import { ThreadContext } from "@/containers/Thread/threadContext";
+import { RowRenderer } from "./RowRenderer";
 
 interface ChatRenderProps {
   messages: GroupedMessages[];
-  thread: ThreadLocalState;
 }
 
-const RowRenderer = (index: number, msg: GroupedMessages) => {
-  return <MessageGroup messages={msg.messages} />;
-};
-
-
-{/*<div*/}
-{/*  className={cx(*/}
-{/*    c.unseenMessages,*/}
-{/*    unseenMessageCount && c.unseenMessages__visible,*/}
-{/*  )}*/}
-{/*  onClick={() => scrollToBottom(true)}*/}
-{/*>*/}
-{/*  {unseenMessageCount} новых сообщений*/}
-{/*</div>*/}
-
 export const RenderChatThread = React.memo(function RenderChatThread({
-  thread,
   messages,
 }: ChatRenderProps) {
   const scrollableRef = useRef<VirtuosoHandle | null>(null);
   const [atBottom, setAtBottom] = useState(false);
+  const { thread } = useContext(ThreadContext);
 
   useEffect(() => {
     if (!scrollableRef.current) return;
@@ -63,13 +45,15 @@ export const RenderChatThread = React.memo(function RenderChatThread({
       atTopStateChange={atTopStateChange}
       atTopThreshold={100}
       startReached={(idx) => {
-        console.log("STart reachd", idx);
+        console.log("STart reafchd", idx);
       }}
       initialTopMostItemIndex={messages.length - 1}
       data={messages}
       style={{ width: "100%", height: "100%" }}
       itemContent={RowRenderer}
-      itemSize={fractionalItemSize}
+      itemSize={(element: HTMLElement) =>
+        element.getBoundingClientRect().height
+      }
       increaseViewportBy={2000}
     />
   );

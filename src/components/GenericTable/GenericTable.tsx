@@ -13,13 +13,13 @@ import {
   TableRowLoading,
 } from "..";
 import { AppRouter, NextLinkProp } from "@/route";
-import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
 import heroName, { itemName } from "@/util/heroName";
 import cx from "clsx";
 import { maxBy } from "@/util";
 import { FaSort } from "react-icons/fa6";
 import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 import { colors } from "@/colors";
+import { SingleWeightedBarChart } from "@/components/BarChart/SingleWeightedBarChart";
 
 export enum ColumnType {
   Raw,

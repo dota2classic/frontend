@@ -2,7 +2,7 @@ import {
   useClampedPage,
   useQueryBackedParameter,
   useRouterChanging,
-} from "@/util/hooks";
+} from "@/util";
 import { getApi } from "@/api/hooks";
 import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import {

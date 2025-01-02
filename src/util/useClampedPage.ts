@@ -1,5 +1,5 @@
-import {useEffect} from "react";
-import {numberOrDefault} from "@/util/urls";
+import { useEffect } from "react";
+import { numberOrDefault } from "@/util/urls";
 
 export const useClampedPage = (
   page: number | string | undefined,

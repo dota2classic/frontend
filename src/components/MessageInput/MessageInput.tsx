@@ -1,51 +1,13 @@
 import { observer } from "mobx-react-lite";
-import { EmoticonDto, ThreadMessageDTO } from "@/api/back";
+import { ThreadMessageDTO } from "@/api/back";
 import { useThrottle } from "@/util/throttle";
 import { getApi } from "@/api/hooks";
-import { EmoticonSelectWindow, Panel } from "@/components";
+import { Panel } from "@/components";
 import cx from "clsx";
-import c from "@/components/Thread/Thread.module.scss";
+import c from "./MessageInput.module.scss";
 import { IoSend } from "react-icons/io5";
 import React, { useCallback, useRef, useState } from "react";
-import { FaRegFaceGrinTongueSquint } from "react-icons/fa6";
-import { createPortal } from "react-dom";
-
-interface Props {
-  onAddReaction: (e: EmoticonDto) => void;
-}
-
-const AddEmoticonButton = React.memo(function AddReactionTool({
-  onAddReaction,
-}: Props) {
-  const emoticonAnchorRef = useRef<HTMLElement | null>(null);
-
-  const [visible, setVisible] = useState(false);
-
-  const react = useCallback(onAddReaction, [onAddReaction]);
-
-  const showEmoticonWindow = useCallback(() => {
-    if (!emoticonAnchorRef.current) return;
-
-    setVisible(true);
-  }, []);
-
-  return (
-    <>
-      <span ref={emoticonAnchorRef}>
-        <FaRegFaceGrinTongueSquint onClick={showEmoticonWindow} />
-      </span>
-      {visible &&
-        createPortal(
-          <EmoticonSelectWindow
-            onSelect={react}
-            anchor={emoticonAnchorRef}
-            onClose={() => setVisible(false)}
-          />,
-          document.body,
-        )}
-    </>
-  );
-});
+import { AddEmoticonButton } from "./AddEmoticonButton";
 
 export const MessageInput = observer(function MessageInput(p: {
   threadId: string;

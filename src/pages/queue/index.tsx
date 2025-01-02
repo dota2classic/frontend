@@ -9,7 +9,7 @@ import {
   PartyMemberDTO,
   ThreadType,
 } from "@/api/back";
-import { useDidMount } from "@/util/hooks";
+import { useDidMount } from "@/util";
 import {
   Button,
   EmbedProps,
@@ -18,14 +18,13 @@ import {
   QueuePartyInfo,
   SearchGameButton,
   Section,
-  Thread,
   TimeAgo,
 } from "@/components";
 import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import React, { ReactNode, useTransition } from "react";
 import { NextPageContext } from "next";
-import { ThreadStyle } from "@/components/Thread/types";
+import { ThreadStyle } from "@/containers/Thread/types";
 import { FaBell } from "react-icons/fa";
 import { observer } from "mobx-react-lite";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -33,6 +32,7 @@ import { QueueGameState, useQueueState } from "@/util/useQueueState";
 import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
 import cx from "clsx";
+import { Thread } from "@/containers";
 
 interface Props {
   modes: MatchmakingInfo[];

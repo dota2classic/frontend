@@ -7,7 +7,14 @@ import {
   PlayerInfo,
 } from "@/api/back";
 import c from "./LiveMatchPreview.module.scss";
-import { EmbedProps, HeroIcon, ItemIcon, PageLink } from "@/components";
+import {
+  CopySomething,
+  EmbedProps,
+  HeroIcon,
+  ItemIcon,
+  PageLink,
+  PlaceholderImage,
+} from "@/components";
 import { AppRouter } from "@/route";
 import { KDATableData } from "@/components/GenericTable/GenericTable";
 import cx from "clsx";
@@ -15,9 +22,7 @@ import { shortName } from "@/util/heroName";
 import { watchCmd } from "@/util/urls";
 import { TbGrave2 } from "react-icons/tb";
 import { remapNumber } from "@/util/math";
-import { CopySomething } from "@/components/AcceptGameModal/GameReadyModal";
-import { PlaceholderImage } from "@/components/ItemIcon/ItemIcon";
-import {iterateItems} from "@/util";
+import { iterateItems } from "@/util";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;

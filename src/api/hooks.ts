@@ -20,8 +20,8 @@ import {
 import { getCache } from "@/api/api-cache";
 import BrowserCookies from "browser-cookies";
 import { AuthStore } from "@/store/AuthStore";
-import { parseJwt } from "@/util/math";
 import { __unsafeGetClientStore } from "@/store";
+import { parseJwt } from "@/util";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
@@ -113,11 +113,6 @@ export class AppApi {
 
     const isTokenStale = new Date().getTime() - jwt.iat * 1000 >= 1000 * 60 * 5; // 5 minutes is stale enough
 
-    // console.log(
-    //   new Date().getTime() - jwt.iat * 1000,
-    //   new Date().getTime(),
-    //   jwt.iat * 1000,
-    // );
     const shouldRevalidateToken = isExpiringSoon || isTokenStale;
 
     if (jwt.version === undefined || shouldRevalidateToken) {

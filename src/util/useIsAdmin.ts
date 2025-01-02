@@ -1,5 +1,5 @@
-import {useStore} from "@/store";
-import {Role} from "@/api/mapped-models";
+import { useStore } from "@/store";
+import { Role } from "@/api/mapped-models";
 
 export const useIsAdmin = () => {
   const t = useStore().auth.parsedToken;

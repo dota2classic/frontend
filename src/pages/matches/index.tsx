@@ -9,7 +9,7 @@ import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import { MatchPageDto } from "@/api/back";
 import { AppRouter } from "@/route";
-import { useQueryBackedParameter, useRouterChanging } from "@/util/hooks";
+import { useQueryBackedParameter, useRouterChanging } from "@/util";
 import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
 import { GameModeOptions } from "@/components/SelectOptions/SelectOptions";

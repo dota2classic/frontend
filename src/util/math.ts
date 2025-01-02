@@ -10,8 +10,6 @@ export function winrate(wins: number, loss: number) {
   return wins / Math.max(1, total);
 }
 
-
-
 export function remapNumber(
   value: number,
   low1: number,

@@ -13,9 +13,9 @@ import c from "./MatchHistoryTable.module.scss";
 import { AppRouter } from "@/route";
 import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import cx from "clsx";
-import { SingleWeightedBarChart } from "@/components/BarChart/BarChart";
 import { colors } from "@/colors";
 import { maxBy } from "@/util";
+import { SingleWeightedBarChart } from "@/components/BarChart/SingleWeightedBarChart";
 
 interface IMatchHistoryTableProps {
   data: MatchDto[];

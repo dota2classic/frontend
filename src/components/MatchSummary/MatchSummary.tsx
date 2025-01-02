@@ -15,6 +15,7 @@ import {
   MatchmakingMode,
 } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
+import { MatchSummaryScore } from "@/components/MatchSummary/MatchSummaryScore";
 
 interface IMatchSummaryProps {
   matchId: number;
@@ -29,26 +30,6 @@ interface IMatchSummaryProps {
 
   replay?: string;
 }
-
-export const MatchSummaryScore = ({
-  radiantKills,
-  direKills,
-  duration,
-}: {
-  radiantKills: number;
-  direKills: number;
-  duration: number;
-}) => {
-  return (
-    <div className={c.matchWinner__score}>
-      <div className={c.radiant}>{radiantKills}</div>
-      <div className={c.matchWinner__duration}>
-        <Duration duration={duration} />
-      </div>
-      <div className={c.dire}>{direKills}</div>
-    </div>
-  );
-};
 
 export const MatchSummary: React.FC<IMatchSummaryProps> = ({
   matchId,

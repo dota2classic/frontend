@@ -2,45 +2,10 @@ import cx from "clsx";
 import c from "@/components/AcceptGameModal/AcceptGameModal.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import React, { useCallback, useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Button, Input } from "@/components";
-import { FaCheck, FaCopy } from "react-icons/fa6";
+import React, { useCallback } from "react";
+import { Button, CopySomething } from "@/components";
 import { useLocalStorageBackedParam } from "@/util/useLocalStorageBackedParam";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
-export const CopySomething = ({ something }: { something: string }) => {
-  const [copied, setCopied] = useState(false);
-  const [cancelTimeout] = useState<number | undefined>(undefined);
-
-  const onCopy = useCallback(
-    (text: string, success: boolean) => {
-      if (success) {
-        if (cancelTimeout) {
-          clearTimeout(cancelTimeout);
-        }
-
-        setCopied(true);
-      }
-    },
-    [cancelTimeout],
-  );
-
-  return (
-    <CopyToClipboard text={something} onCopy={onCopy}>
-      <div className={c.copyHolder}>
-        <Input
-          id="copy"
-          readOnly
-          className="iso"
-          value={something}
-          data-testid="copy-something"
-        />
-        {copied ? <FaCheck className={c.successCopy} /> : <FaCopy />}
-      </div>
-    </CopyToClipboard>
-  );
-};
 
 export const GameReadyModal = observer(
   ({ className }: { className?: string }) => {

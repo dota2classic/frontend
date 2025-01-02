@@ -26,7 +26,7 @@ import { NextPageContext } from "next";
 import Image from "next/image";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import { useDidMount } from "@/util/hooks";
+import { useDidMount } from "@/util";
 import { MdAdminPanelSettings } from "react-icons/md";
 
 interface Props {

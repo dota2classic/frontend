@@ -5,15 +5,31 @@ import { observer } from "mobx-react-lite";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { useStore } from "@/store";
-import { IThreadProps, ThreadStyle } from "@/components/Thread/types";
-import { MessageInput } from "@/components/Thread/MessageInput";
-import { Pagination, RenderChatThread, RenderForumThread } from "@/components";
+import { ForumThread, MessageInput, Pagination } from "@/components";
 import { useThread } from "@/containers/Thread/useThread";
 import { ThreadContext } from "./threadContext";
+import { ThreadType } from "@/api/mapped-models";
+import { ThreadMessageDTO, ThreadMessagePageDTO } from "@/api/back";
+import { NextLinkProp } from "@/route";
+import { ThreadStyle } from "@/containers/Thread/types";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });
+
+interface IThreadProps {
+  id: string;
+  threadType: ThreadType;
+  className?: string;
+  populateMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO;
+  threadStyle: ThreadStyle;
+  showLastMessages?: number;
+  scrollToLast?: boolean;
+  pagination?: {
+    pageProvider: (page: number) => NextLinkProp;
+    page: number;
+  };
+}
 
 export const Thread: React.FC<IThreadProps> = observer(function Thread({
   threadType,
@@ -44,8 +60,6 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
     thread.pg.pages === 1 ||
     thread.pg.page == thread.pg.pages - 1;
 
-  const messages = thread.threadView.groupedMessages;
-
   useEffect(() => {
     thread.loadOlder();
   }, []);
@@ -72,11 +86,12 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
             c.messageContainer__tiny,
           )}
         >
-          {threadStyle === ThreadStyle.CHAT ? (
-            <RenderChatThread thread={thread} messages={messages} />
-          ) : (
-            <RenderForumThread messages={messages} thread={thread} />
-          )}
+          <ForumThread />
+          {/*{threadStyle !== ThreadStyle.CHAT ? (*/}
+          {/*  <RenderChatThread thread={thread} messages={messages} />*/}
+          {/*) : (*/}
+          {/*  <RenderForumThread messages={messages} thread={thread} />*/}
+          {/*)}*/}
         </div>
         {pagination && (
           <Pagination

@@ -2,10 +2,9 @@ import { MatchDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { useEffect } from "react";
 import { notFound } from "next/navigation";
-import { Button, CoolList, MatchSummary } from "@/components";
+import { Button, CoolList, CopySomething, MatchSummary } from "@/components";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
-import { CopySomething } from "@/components/AcceptGameModal/GameReadyModal";
 import { metrika } from "@/ym";
 import { NextPageContext } from "next";
 

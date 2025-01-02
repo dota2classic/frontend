@@ -161,79 +161,9 @@
   }
 }
 
-.createMessageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
 
-.createMessage {
-  position: relative;
-  background-color: $bg3;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  padding: 2px;
 
-  & .text {
-    width: 100%;
-    flex: 1;
-    font-size: 1rem;
-    padding: 12px;
-    border-radius: 8px;
-    transition: 0.3s ease;
-    color: $primaryText;
-    border: none;
-    outline: none;
-    background-color: transparent;
 
-    resize: none;
-
-    cursor: pointer;
-
-    //&:focus,
-    //&:hover {
-    //  background: $transparentTint3;
-    //}
-  }
-  & .markdown {
-    display: inline-block;
-    align-self: flex-start;
-    color: $primaryTextDark;
-    width: unset;
-  }
-
-  & button {
-    //position: absolute;
-    //bottom: 30px;
-    //left: 35px;
-    //margin-top: 10px;
-
-    grid-column: span 1;
-    grid-row: span 1;
-    display: flex;
-    align-items: center;
-    border: none;
-
-    //display: inline-block;
-    //align-self: flex-end;
-    //width: unset;
-  }
-}
-
-.test {
-  grid-column: span 23;
-  grid-row: span 1;
-  color: $red;
-  transition: 0.3s ease;
-
-  height: 0;
-
-  &.visible {
-    height: 100%;
-  }
-}
 
 .createThread {
   display: flex;
@@ -275,33 +205,4 @@
   }
 }
 
-.buttons {
-  right: 4px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 4px 12px;
-  gap: 12px;
 
-  & .buttonWrapper {
-    padding: 4px;
-    transition: 0.3s ease;
-    background-color: transparent;
-    cursor: pointer;
-
-
-    & svg {
-      font-size: 1.4rem;
-      color: $primaryTextTint;
-      transition: 0.3s ease;
-    }
-
-    &:hover {
-      & svg {
-        color: $gold;
-        transform: rotateZ(-5deg);
-
-      }
-    }
-  }
-}

@@ -1,14 +1,12 @@
-import {querystring, RequestOpts} from "@/api/back";
-import {getApi} from "@/api/hooks";
-import {useEffect, useState} from "react";
+import { querystring, RequestOpts } from "@/api/back";
+import { getApi } from "@/api/hooks";
+import { useEffect, useState } from "react";
 
 export const useEventSource = <T extends object>(
   endpoint: RequestOpts,
   transformer: (raw: object) => T,
   initial: T | null = null,
 ): T | null => {
-  if (typeof window === "undefined") return initial;
-
   const bp = getApi().apiParams.basePath;
 
   const [data, setData] = useState<T | null>(initial);
@@ -16,6 +14,8 @@ export const useEventSource = <T extends object>(
   const context = JSON.stringify(endpoint);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     console.log("Creating event source, why?", JSON.stringify(endpoint));
     const es = new EventSource(
       `${bp}${endpoint.path}${endpoint.query && querystring(endpoint.query, "?")}`,
@@ -28,6 +28,8 @@ export const useEventSource = <T extends object>(
 
     return () => es.close();
   }, [context]);
+
+  if (typeof window === "undefined") return initial;
 
   return data;
 };

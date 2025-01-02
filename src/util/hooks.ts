@@ -1,9 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
-import {Role} from "@/api/back";
-import {useStore} from "@/store";
-
-
 
 interface TooltipContext2 {
   hovered: HTMLElement;
