@@ -27,7 +27,6 @@ import React from "react";
 // });
 
 export const ForumThread = () => {
-  // eslint-plugin-react-refresh
   return (
     <>
       <h3>??22f22?</h3>
