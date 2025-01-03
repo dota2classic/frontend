@@ -39,6 +39,8 @@
     "react-icons": "^5.4.0",
     "react-select": "^5.9.0",
     "react-virtuoso": "^4.12.3",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
     "sass": "^1.83.0",
     "socket.io-client": "^4.8.1",
     "swr": "^2.3.0",

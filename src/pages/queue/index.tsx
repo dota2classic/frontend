@@ -103,42 +103,6 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
         </>
       );
     }
-    // if (mode === MatchmakingMode.UNRANKED && !queue.isUnrankedQueueOpen) {
-    //   return (
-    //     <>
-    //       <PeriodicSpan
-    //         interval={1000}
-    //         producer={() => {
-    //           const d = new Date();
-    //
-    //           const myd = new Date(
-    //             d.getFullYear(),
-    //             d.getMonth(),
-    //             d.getDate(),
-    //             18,
-    //             0,
-    //             0,
-    //           );
-    //
-    //           const myd2 = new Date(
-    //             myd.getTime() +
-    //               (QueueStore.UTC_OFFSET - myd.getTimezoneOffset()) * 60 * 1000,
-    //           );
-    //
-    //           let timeDiff = myd2.getTime() - d.getTime();
-    //           if (timeDiff < 0) {
-    //             timeDiff += 1000 * 60 * 60 * 24; // Next day
-    //           } else if (timeDiff > 1000 * 60 * 60 * 24) {
-    //             timeDiff -= 1000 * 60 * 60 * 24; // Prev day
-    //           }
-    //
-    //           return formatDuration(timeDiff);
-    //         }}
-    //       />{" "}
-    //       до поиска
-    //     </>
-    //   );
-    // }
   };
 
   const queueGameState = useQueueState();

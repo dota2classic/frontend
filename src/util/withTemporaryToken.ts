@@ -1,6 +1,6 @@
 import { RootStore, getRootStore } from "@/store";
 import Cookies from "cookies";
-import * as BrowserCookies from "browser-cookies";
+import BrowserCookies from "browser-cookies";
 import { AuthStore } from "@/store/AuthStore";
 import { NextPageContext } from "next";
 

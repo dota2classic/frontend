@@ -37,6 +37,10 @@ export const useThread = (
     }
   }, [page]);
 
+  useEffect(() => {
+    thread.updateThread(threadType, id);
+  }, [id, threadType]);
+
   return thread;
 };
 

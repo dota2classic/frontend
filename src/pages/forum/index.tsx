@@ -26,7 +26,6 @@ import { NextPageContext } from "next";
 import Image from "next/image";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import { useDidMount } from "@/util";
 import { MdAdminPanelSettings } from "react-icons/md";
 
 interface Props {
@@ -149,21 +148,6 @@ const RowRenderer = observer(
 );
 
 export default function ForumIndexPage({ threads, page }: Props) {
-  const mounted = useDidMount();
-  const { data, mutate } = getApi().forumApi.useForumControllerThreads(
-    page,
-    undefined,
-    ThreadType.FORUM,
-    {
-      fallbackData: threads,
-      isPaused() {
-        return !mounted;
-      },
-    },
-  );
-
-  const threadsData = data || threads;
-
   return (
     <>
       <EmbedProps
@@ -177,10 +161,10 @@ export default function ForumIndexPage({ threads, page }: Props) {
       >
         <Button>Новая тема</Button>
       </PageLink>
-      {threadsData.pages > 1 && (
+      {threads.pages > 1 && (
         <Pagination
           page={page}
-          maxPage={threadsData.pages}
+          maxPage={threads.pages}
           linkProducer={(page) => AppRouter.forum.index(page).link}
         />
       )}
@@ -204,8 +188,12 @@ export default function ForumIndexPage({ threads, page }: Props) {
           </tr>
         </thead>
         <tbody>
-          {threadsData.data.map((thread) => (
-            <RowRenderer mutate={mutate} thread={thread} key={thread.id} />
+          {threads.data.map((thread) => (
+            <RowRenderer
+              mutate={() => undefined}
+              thread={thread}
+              key={thread.id}
+            />
           ))}
         </tbody>
       </Table>
@@ -220,7 +208,7 @@ ForumIndexPage.getInitialProps = async (
 
   const threads = await getApi().forumApi.forumControllerThreads(
     page,
-    undefined,
+    15,
     ThreadType.FORUM,
   );
 

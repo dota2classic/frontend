@@ -5,7 +5,12 @@ import { observer } from "mobx-react-lite";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { useStore } from "@/store";
-import { ForumThread, MessageInput, Pagination } from "@/components";
+import {
+  ForumThread,
+  MessageInput,
+  Pagination,
+  RenderChatThread,
+} from "@/components";
 import { useThread } from "@/containers/Thread/useThread";
 import { ThreadContext } from "./threadContext";
 import { ThreadType } from "@/api/mapped-models";
@@ -86,12 +91,11 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
             c.messageContainer__tiny,
           )}
         >
-          <ForumThread />
-          {/*{threadStyle !== ThreadStyle.CHAT ? (*/}
-          {/*  <RenderChatThread thread={thread} messages={messages} />*/}
-          {/*) : (*/}
-          {/*  <RenderForumThread messages={messages} thread={thread} />*/}
-          {/*)}*/}
+          {threadStyle === ThreadStyle.CHAT ? (
+            <RenderChatThread messages={thread.threadView.groupedMessages} />
+          ) : (
+            <ForumThread messages={thread.threadView.groupedMessages} />
+          )}
         </div>
         {pagination && (
           <Pagination
