@@ -11,14 +11,19 @@ import {
 } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import c from "./Lobby.module.scss";
-import { Button, Panel, PlayerAvatar, SelectOptions } from "@/components";
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import {
+  Button,
+  CopySomething,
+  Panel,
+  PlayerAvatar,
+  SelectOptions,
+} from "@/components";
+import { useCallback, useEffect } from "react";
 import cx from "clsx";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { IoMdClose } from "react-icons/io";
-import { FaCheck, FaCopy } from "react-icons/fa6";
 import { useEventSource } from "@/util";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { ThreadStyle } from "@/containers/Thread/types";
