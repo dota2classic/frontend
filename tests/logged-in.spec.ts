@@ -11,7 +11,7 @@ import {
   ReadyState,
 } from "@/store/queue/messages/s2c/player-room-state-message.s2c";
 import { PlayerGameStateMessageS2C } from "@/store/queue/messages/s2c/player-game-state-message.s2c";
-import {parseJwt} from "@/util/math";
+import { parseJwt } from "@/util";
 
 dotenv.config();
 
@@ -33,7 +33,9 @@ test.afterEach(async ({ page, context }) => {
 
 test("should render profile page for complete newbie", async ({ page }) => {
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
-  const { sub: steamId, name: username } = parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER);
+  const { sub: steamId, name: username } = parseJwt(
+    process.env.PLAYWRIGHT_NEWBIE_USER,
+  );
   await page.goto("/");
   // We have our profile in navbar
   await expect(page.getByTestId("navbar-user")).toBeVisible({ timeout: 5000 });
@@ -47,7 +49,7 @@ test("should render profile page for complete newbie", async ({ page }) => {
   await expect(page.getByTestId("player-teammates-header")).toBeVisible();
   await expect(page.getByTestId("player-summary-panel")).toBeVisible();
   await expect(page.getByTestId("player-summary-player-name")).toHaveText(
-    username
+    username,
   );
   await expect(page.getByTestId("player-summary-last-game")).not.toBeAttached();
 
@@ -73,7 +75,6 @@ test("should render profile page for complete newbie", async ({ page }) => {
 });
 
 test("should be able to enter queue w/ mobile", async ({ page }) => {
-
   const { sub: steamId } = parseJwt(process.env.PLAYWRIGHT_NEWBIE_USER);
 
   const encodeSocketIO = (name: string, payload: unknown) => {
