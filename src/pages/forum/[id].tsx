@@ -1,13 +1,14 @@
 import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
-import { Breadcrumbs, EmbedProps, PageLink, Panel, Thread } from "@/components";
+import { Breadcrumbs, EmbedProps, PageLink, Panel } from "@/components";
 import { getApi } from "@/api/hooks";
 import { ThreadDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import { numberOrDefault } from "@/util/urls";
 import React from "react";
-import { ThreadStyle } from "@/components/Thread/types";
+import { Thread } from "@/containers";
+import { ThreadStyle } from "@/containers/Thread/types";
 
 interface Props {
   messages: ThreadMessagePageDTO;

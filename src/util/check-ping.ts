@@ -1,23 +1,6 @@
 import { useEffect, useState } from "react";
 import { getApi } from "@/api/hooks";
 
-// export const checkPing = (url, timeout = 6000) => {
-//   return new Promise((resolve, reject) => {
-//     const urlRule = new RegExp('(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]');
-//     if (!urlRule.test(url)) reject('invalid url');
-//     try {
-//       fetch(url)
-//         .then(() => resolve(true))
-//         .catch(() => resolve(false));
-//       setTimeout(() => {
-//         resolve(false);
-//       }, timeout);
-//     } catch (e) {
-//       reject(e);
-//     }
-//   });
-// };
-
 const checkPing = (url: string, timeout: number): Promise<number> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {

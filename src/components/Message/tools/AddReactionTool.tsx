@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useRef, useState } from "react";
-import { ThreadContext } from "@/util/threads";
 import { EmoticonDto } from "@/api/back";
 import { FaRegFaceGrinTongueSquint } from "react-icons/fa6";
 import { EmoticonSelectWindow } from "@/components";
 import { createPortal } from "react-dom";
+import { ThreadContext } from "@/containers/Thread/threadContext";
 
 interface Props {
   messageId: string;

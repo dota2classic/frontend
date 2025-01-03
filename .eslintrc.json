@@ -6,6 +6,8 @@
   ],
   "rules": {
     "@next/next/no-img-element": "off",
-    "react/no-unescaped-entities": "off"
-  }
+    "react/no-unescaped-entities": "off",
+    "react-refresh/only-export-components": "error"
+  },
+  "plugins": ["react-refresh"]
 }

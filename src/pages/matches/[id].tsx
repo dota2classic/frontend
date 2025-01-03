@@ -5,18 +5,18 @@ import {
   LiveMatchPreview,
   MatchSummary,
   MatchTeamTable,
-  Thread,
   Typography,
 } from "@/components";
 import { FaTrophy } from "react-icons/fa";
 import { getApi } from "@/api/hooks";
 import { LiveMatchDto, LiveMatchDtoFromJSON, MatchDto } from "@/api/back";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
-import { ThreadStyle } from "@/components/Thread/types";
-import { useEventSource } from "@/util/hooks";
-import { Columns } from "@/components/MatchTeamTable/MatchTeamTable";
+import { ThreadStyle } from "@/containers/Thread/types";
+import { useEventSource } from "@/util";
 import { Tabs } from "@/components/Tabs/Tabs";
 import c from "./Match.module.scss";
+import { Thread } from "@/containers";
+import { Columns } from "@/components/MatchTeamTable/columns";
 
 interface InitialProps {
   matchId: number;

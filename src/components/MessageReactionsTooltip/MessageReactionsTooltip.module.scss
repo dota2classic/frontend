@@ -1,0 +1,23 @@
+@import "../../common.scss";
+
+.tooltip {
+  @include box;
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  border-radius: 4px;
+  gap: 2px;
+  background-color: $bg2;
+}
+
+.reacted {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+
+  & img {
+    border-radius: 10%;
+    margin-right: 4px;
+  }
+}

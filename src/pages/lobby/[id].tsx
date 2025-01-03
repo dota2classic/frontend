@@ -13,26 +13,22 @@ import { getApi } from "@/api/hooks";
 import c from "./Lobby.module.scss";
 import {
   Button,
+  CopySomething,
   Panel,
   PlayerAvatar,
   SelectOptions,
-  Thread,
 } from "@/components";
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import cx from "clsx";
-import {
-  DotaGameModeOptions,
-  DotaMapOptions,
-} from "@/components/SelectOptions/SelectOptions";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { IoMdClose } from "react-icons/io";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { FaCheck, FaCopy } from "react-icons/fa6";
-import { useEventSource } from "@/util/hooks";
+import { useEventSource } from "@/util";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { ThreadStyle } from "@/components/Thread/types";
+import { ThreadStyle } from "@/containers/Thread/types";
+import { Thread } from "@/containers";
+import { DotaGameModeOptions, DotaMapOptions } from "@/const/options";
 
 interface Props {
   id: string;
@@ -101,44 +97,6 @@ const Team = observer(
     );
   },
 );
-
-export const CopySomething = ({
-  something,
-  placeholder,
-}: {
-  something: string;
-  placeholder: ReactNode;
-}) => {
-  const [copied, setCopied] = useState(false);
-  const [cancelTimeout, setCancelTimeout] = useState<number | undefined>(
-    undefined,
-  );
-
-  const onCopy = useCallback(
-    (text: string, success: boolean) => {
-      if (success) {
-        if (cancelTimeout) {
-          clearTimeout(cancelTimeout);
-        }
-
-        setCopied(true);
-        setCancelTimeout(
-          setTimeout(() => setCopied(false), 1000) as unknown as number,
-        );
-      }
-    },
-    [cancelTimeout],
-  );
-
-  return (
-    <CopyToClipboard text={something} onCopy={onCopy}>
-      <div className={c.copyHolder}>
-        <span>{placeholder}</span>
-        {copied ? <FaCheck className={c.successCopy} /> : <FaCopy />}
-      </div>
-    </CopyToClipboard>
-  );
-};
 
 export default function LobbyPage({ id, lobby, host }: Props) {
   const evt = useEventSource<LobbyUpdateType>(

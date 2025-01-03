@@ -1,9 +1,9 @@
 import React from "react";
 
 import { GenericTable } from "..";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 import { AppRouter } from "@/route";
+import { ColumnType } from "@/const/tables";
 
 interface DataPoint {
   hero: string;

@@ -3,11 +3,11 @@ import { Duration, GenericTable, PageLink, TimeAgo } from "@/components";
 import c from "./HeroWithItemsHistoryTable.module.scss";
 import { DotaGameMode, MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
-import { KDABarChart } from "@/components/BarChart/BarChart";
 import { formatDotaMode, formatGameMode } from "@/util/gamemode";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 import cx from "clsx";
+import { KDABarChart } from "@/components/BarChart/KDABarChart";
+import { ColumnType } from "@/const/tables";
 
 export interface PlayerMatchItem {
   hero: string;

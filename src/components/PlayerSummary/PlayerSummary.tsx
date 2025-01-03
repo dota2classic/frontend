@@ -5,10 +5,9 @@ import cx from "clsx";
 import { formatWinrate } from "@/util/math";
 import { PageLink, Panel, PlayerAvatar } from "@/components";
 import { AppRouter } from "@/route";
-import { useIsAdmin } from "@/util/hooks";
+import { steamPage, useIsAdmin } from "@/util";
 import { observer } from "mobx-react-lite";
 import { formatShortTime } from "@/util/dates";
-import { steamPage } from "@/util/resources";
 import { FaSteam } from "react-icons/fa";
 import { MdLocalPolice } from "react-icons/md";
 

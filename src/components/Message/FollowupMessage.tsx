@@ -1,14 +1,18 @@
 import c from "@/components/Message/Message.module.scss";
 import cx from "clsx";
-import { IMessageProps } from "@/components/Message/MessageProps";
-import { RichMessage } from "@/components/Thread/RichMessage";
 import React from "react";
 import { MessageTools } from "@/components/Message/MessageTools";
 import { MessageReactions } from "@/components/Message/MessageReactions";
 import { observer } from "mobx-react-lite";
+import { ThreadMessageDTO } from "@/api/back";
+import { RichMessage } from "@/components";
+
+interface IMessageProps {
+  message: ThreadMessageDTO;
+}
 
 export const FollowupMessage = React.memo(
-  observer(({ message }: IMessageProps) => {
+  observer(function FollowupMessage({ message }: IMessageProps) {
     return (
       <div className={c.contentWrapper}>
         <div className={cx(c.contentWrapper__left, c.time)}>

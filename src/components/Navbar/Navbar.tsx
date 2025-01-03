@@ -12,7 +12,7 @@ import Image from "next/image";
 import { IoMenu } from "react-icons/io5";
 import cx from "clsx";
 import { SiDota2 } from "react-icons/si";
-import { useRouterChanging } from "@/util/hooks";
+import { useRouterChanging } from "@/util";
 import { getAuthUrl } from "@/util/getAuthUrl";
 
 const LoginProfileNavbarItem = observer(function LoginNavbarItem() {

@@ -2,7 +2,7 @@ import {
   useClampedPage,
   useQueryBackedParameter,
   useRouterChanging,
-} from "@/util/hooks";
+} from "@/util";
 import { getApi } from "@/api/hooks";
 import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import {
@@ -17,15 +17,12 @@ import {
 import { AppRouter } from "@/route";
 import React from "react";
 import c from "@/pages/matches/History.module.scss";
-import {
-  GameModeOptions,
-  HeroOptions,
-} from "@/components/SelectOptions/SelectOptions";
 import { numberOrDefault } from "@/util/urls";
 import { fullName, shortName } from "@/util/heroName";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import { NextPageContext } from "next";
 import { MatchComparator } from "@/util/sorts";
+import { GameModeOptions, HeroOptions } from "@/const/options";
 
 interface Props {
   playerId: string;

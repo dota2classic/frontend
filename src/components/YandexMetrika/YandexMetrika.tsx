@@ -3,7 +3,6 @@ import React from "react";
 export const YandexMetrika = () => {
   return (
     <>
-      <link rel="icon" href="/favicon.ico" sizes="any" />
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

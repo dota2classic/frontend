@@ -7,7 +7,7 @@ import {
   runInAction,
 } from "mobx";
 import { HydratableStore } from "@/store/HydratableStore";
-import { parseJwt } from "@/util/math";
+import { parseJwt } from "@/util";
 import BrowserCookies from "browser-cookies";
 import { appApi } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";

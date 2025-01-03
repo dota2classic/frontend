@@ -8,7 +8,6 @@ import {
   PlayerSummary,
   Section,
   TeammatesTable,
-  Thread,
 } from "@/components";
 import c from "./PlayerPage.module.scss";
 import { getApi } from "@/api/hooks";
@@ -27,7 +26,8 @@ import Head from "next/head";
 import React from "react";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
-import { ThreadStyle } from "@/components/Thread/types";
+import { ThreadStyle } from "@/containers/Thread/types";
+import { Thread } from "@/containers";
 
 //
 interface PlayerPageProps {

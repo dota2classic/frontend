@@ -11,12 +11,12 @@ import {
   Panel,
   TimeAgo,
 } from "@/components";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
-import { formatBanReason } from "@/util/bans";
+import { formatBanReason } from "@/util/texts/bans";
 import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal/InvitePlayerModalRaw";
 import { formatGameMode } from "@/util/gamemode";
+import { ColumnType } from "@/const/tables";
 
 interface Props {
   crime: CrimeLogPageDto;

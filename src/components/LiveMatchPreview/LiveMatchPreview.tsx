@@ -7,17 +7,22 @@ import {
   PlayerInfo,
 } from "@/api/back";
 import c from "./LiveMatchPreview.module.scss";
-import { EmbedProps, HeroIcon, ItemIcon, PageLink } from "@/components";
+import {
+  CopySomething,
+  EmbedProps,
+  HeroIcon,
+  ItemIcon,
+  PageLink,
+  PlaceholderImage,
+} from "@/components";
 import { AppRouter } from "@/route";
 import { KDATableData } from "@/components/GenericTable/GenericTable";
-import { items } from "@/util/iter";
 import cx from "clsx";
 import { shortName } from "@/util/heroName";
 import { watchCmd } from "@/util/urls";
 import { TbGrave2 } from "react-icons/tb";
-import { remap } from "@/util/math";
-import { CopySomething } from "@/components/AcceptGameModal/GameReadyModal";
-import { PlaceholderImage } from "@/components/ItemIcon/ItemIcon";
+import { remapNumber } from "@/util/math";
+import { iterateItems } from "@/util";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -65,7 +70,7 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
           <KDATableData kills={0} deaths={0} assists={0} forceInteger />
         </div>
         <div className={c.itemRow}>
-          {items(allEmptyItems).map((it, index) => (
+          {iterateItems(allEmptyItems).map((it, index) => (
             <ItemIcon key={index} item={it} />
           ))}
         </div>
@@ -114,7 +119,7 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
         />
       </div>
       <div className={c.itemRow}>
-        {items(hero).map((it, index) => (
+        {iterateItems(hero).map((it, index) => (
           <ItemIcon key={index} item={it} />
         ))}
       </div>
@@ -142,8 +147,8 @@ const MinimapHero = ({ hero, team }: MinimapHeroProps) => {
   const dead = respawnTime > 0;
 
   // const remappedX = 5 + posX * 90;
-  const remappedX = remap(posX, 0, 1, 0.02, 0.96) * 100;
-  const remappedY = remap(posY, 0, 1, 0.02, 0.96) * 100;
+  const remappedX = remapNumber(posX, 0, 1, 0.02, 0.96) * 100;
+  const remappedY = remapNumber(posY, 0, 1, 0.02, 0.96) * 100;
 
   return (
     <div

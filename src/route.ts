@@ -160,7 +160,7 @@ export const AppRouter = {
   forum: {
     index: (_page?: number) => {
       const q = queryParameters({ page: _page });
-      return spage(`/forum${q}`);
+      return spage(`/forum${q}`, false);
     },
     createThread: spage("/forum/create"),
     thread(id: string, threadType: ThreadType, _page?: number) {

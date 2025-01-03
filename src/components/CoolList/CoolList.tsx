@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 
 import c from "./CoolList.module.scss";
 import cx from "clsx";
+import { Rubik } from "next/font/google";
 
 interface ListItem {
   content: ReactNode;
@@ -11,9 +12,13 @@ interface ICoolListProps {
   items: ListItem[];
 }
 
+const threadFont = Rubik({
+  subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
+});
+
 export const CoolList: React.FC<ICoolListProps> = ({ items }) => {
   return (
-    <div className={c.list}>
+    <div className={cx(c.list, threadFont.className)}>
       {items.map((item, index) => (
         <div
           key={index}

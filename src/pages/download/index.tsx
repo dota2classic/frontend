@@ -7,7 +7,6 @@ import {
   Section,
   TelegramInvite,
 } from "@/components";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import React, { useState } from "react";
 import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
@@ -19,6 +18,7 @@ import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 import { metrika } from "@/ym";
 import { getAuthUrl } from "@/util/getAuthUrl";
+import { ColumnType } from "@/const/tables";
 
 const _data = [
   [
@@ -88,17 +88,21 @@ const GuideCompact = () => [
     title: "Авторизоваться на сайте",
     content: (
       <>
-        Для игры с людьми был создан этот сайт: ты не можешь просто нажать поиск
-        в самом клиенте, это начнет поиск в актуальной версии игры.
-        <br />
-        Поэтому у нас свой матчмейкинг, для которого нужно{" "}
-        <a className="link" href={getAuthUrl()}>
-          авторизоваться через Steam.
-        </a>{" "}
-        Это безопасно и нужно для поиска онлайн игры.
-        <br />
-        <span className="gold">ВАЖНО</span>: Steam аккаунт для игры и на сайте
-        должны совпадать.
+        <p>
+          Для игры с людьми был создан этот сайт: ты не можешь просто нажать
+          поиск в самом клиенте, это начнет поиск в актуальной версии игры.
+        </p>
+        <p>
+          Поэтому у нас свой матчмейкинг, для которого нужно{" "}
+          <a className="link" href={getAuthUrl()}>
+            авторизоваться через Steam.
+          </a>{" "}
+          Это безопасно и нужно для поиска онлайн игры.
+        </p>
+        <p>
+          <span className="gold">ВАЖНО</span>: Steam аккаунт для игры и на сайте
+          должны совпадать.
+        </p>
       </>
     ),
   },
@@ -106,10 +110,11 @@ const GuideCompact = () => [
     title: "Обучение: игра с ботами",
     content: (
       <>
-        Тебе нужно пройти обучение на сайте: это обычная игра с ботами. Так ты
-        привыкнешь к старой доте, познакомишься с оригинальными героями и их
-        способностями, настроишь игру и бинды под свои предпочтения.
-        <br />
+        <p>
+          Тебе нужно пройти обучение на сайте: это обычная игра с ботами. Так ты
+          привыкнешь к старой доте, познакомишься с оригинальными героями и их
+          способностями, настроишь игру и бинды под свои предпочтения.
+        </p>
         Тебе предстоит:
         <ol>
           <li>
@@ -121,12 +126,12 @@ const GuideCompact = () => [
           </li>
           <li>Принять найденную игру</li>
           <li>
-            Запустить <span className="gold">Steam</span>, запустить клиент игры
+            Запустить <span className="blue">Steam</span>, запустить клиент игры
           </li>
           <li>
             Загрузиться по кнопке "подключиться" или вставив команду в консоль
           </li>
-          <li>Завершить игру с ботами</li>
+          <li>Победить ботов</li>
         </ol>
       </>
     ),
@@ -135,15 +140,15 @@ const GuideCompact = () => [
     title: "Пришло время для настоящих игр!",
     content: (
       <>
-        Поздравляю, ты завершил свой первый онлайн матч!
-        <br />
-        Мы ждем тебя в{" "}
-        <PageLink link={AppRouter.queue.link} className="link">
-          поиске
-        </PageLink>{" "}
-        в режиме {formatGameMode(MatchmakingMode.UNRANKED)}. Играем мы обычно
-        вечером, примерно с 18:00 по МСК.
-        <br />А пока можешь изучить{" "}
+        <p>
+          Поздравляю, ты завершил свой первый онлайн матч! Мы ждем тебя в{" "}
+          <PageLink link={AppRouter.queue.link} className="link">
+            поиске
+          </PageLink>{" "}
+          в режиме {formatGameMode(MatchmakingMode.UNRANKED)}. Играем мы обычно
+          вечером, примерно с 18:00 по МСК.
+        </p>
+        А пока можешь изучить{" "}
         <PageLink className="link" link={AppRouter.matches.index().link}>
           историю матчей
         </PageLink>
@@ -159,138 +164,6 @@ const GuideCompact = () => [
     ),
   },
 ];
-
-// const GuideFull = () => [
-//   {
-//     title: "Запустить игру",
-//     content: (
-//       <>
-//         Запускать игру из архива не нужно: для этого сначала нужно распаковать
-//         архив. Распакуй в удобную тебе папку и запусти dota.bat. Если при
-//         запуске игры возникли неполадки, попробуй установить DirectX и
-//         MicrosoftVisualC++. Это необходимые библиотеки для запуска игры, которые
-//         должен скачивать Steam
-//         <ul>
-//           <li>
-//             <a
-//               className="link"
-//               href="https://www.microsoft.com/ru-ru/download/details.aspx?id=35"
-//               target="__blank"
-//             >
-//               DirectX
-//             </a>
-//           </li>
-//           <li>
-//             <a
-//               className="link"
-//               href="https://aka.ms/vs/16/release/vc_redist.x86.exe"
-//               target="__blank"
-//             >
-//               скачать Microsoft Visual C++ для 32 бит
-//             </a>
-//           </li>
-//           <li>
-//             <a
-//               className="link"
-//               href="https://aka.ms/vs/16/release/vc_redist.x64.exe"
-//               target="__blank"
-//             >
-//               скачать Microsoft Visual C++ для 64 бит
-//             </a>
-//           </li>
-//           <li>
-//             <a
-//               className="link"
-//               href="http://forum.ru-board.com/topic.cgi?forum=5&amp;topic=10616&amp;start=820"
-//               target="__blank"
-//             >
-//               скачать NET Framework
-//             </a>
-//           </li>
-//         </ul>
-//       </>
-//     ),
-//   },
-//   {
-//     title: "Первый матч с ботами",
-//     content: (
-//       <>
-//         Старая дота очень сильно отличается от современной версии: даже если ты
-//         опытный игрок, тебе будет очень непривычно. Мы рекомендуем сначала
-//         поиграть с ботами, чтобы настроить бинды, привыкнуть к старым героям,
-//         карте и способностям.
-//       </>
-//     ),
-//   },
-//   {
-//     title: "Авторизоваться на сайте",
-//     content: (
-//       <>
-//         Для игры с людьми был создан этот сайт: ты не можешь просто нажать поиск
-//         в самом клиенте, это начнет поиск в актуальной версии игры.
-//         <br />
-//         Поэтому у нас свой матчмейкинг, для которого нужно{" "}
-//         <a className="link" href={`${appApi.apiParams.basePath}/v1/auth/steam`}>
-//           авторизоваться через Steam.
-//         </a>{" "}
-//         Это безопасно и нужно для поиска онлайн игры.
-//         <br />
-//         <span className="gold">ВАЖНО</span>: Steam аккаунт для игры и на сайте
-//         должны совпадать.
-//       </>
-//     ),
-//   },
-//   {
-//     title: "Первая онлайн игра",
-//     content: (
-//       <>
-//         Ты близок к онлайн игре как никогда! Но для игры через сайт нужно В
-//         поиске через сайт нет ничего сложного, но перед игрой с другими игроками
-//         тебе нужно сыграть обучение. Это обычный матч с ботами, но на наших
-//         серверах. Тебе предстоит:
-//         <ol>
-//           <li>
-//             <PageLink link={AppRouter.queue.link} className="link">
-//               Поставить поиск
-//             </PageLink>{" "}
-//             на нашем сайте в {formatGameMode(MatchmakingMode.BOTS)}
-//           </li>
-//           <li>Принять найденную игру</li>
-//           <li>Открыть игровой клиент</li>
-//           <li>Загрузиться на сервер по инструкции из найденной игры</li>
-//           <li>Завершить игру с ботами</li>
-//         </ol>
-//       </>
-//     ),
-//   },
-//   {
-//     title: "Пришло время для настоящих игр!",
-//     content: (
-//       <>
-//         Поздравляю, ты завершил свой первый онлайн матч!
-//         <br />
-//         Мы ждем тебя в{" "}
-//         <PageLink link={AppRouter.queue.link} className="link">
-//           поиске
-//         </PageLink>{" "}
-//         в режиме {formatGameMode(MatchmakingMode.UNRANKED)}. Играем мы обычно
-//         вечером, примерно с 18:00 по МСК.
-//         <br />А пока можешь изучить{" "}
-//         <PageLink className="link" link={AppRouter.matches.index().link}>
-//           историю матчей
-//         </PageLink>
-//         ,{" "}
-//         <PageLink className="link" link={AppRouter.heroes.index.link}>
-//           сильнейших героев
-//         </PageLink>{" "}
-//         или{" "}
-//         <PageLink className="link" link={AppRouter.players.leaderboard().link}>
-//           таблицу лидеров.
-//         </PageLink>
-//       </>
-//     ),
-//   },
-// ];
 
 export default function DownloadPage({ initialOS }: Props) {
   const [OS, setOS] = useState(initialOS);
@@ -312,16 +185,20 @@ export default function DownloadPage({ initialOS }: Props) {
       title: "Скачать игровой клиент",
       content: (
         <>
-          Для игры в старую доту нужен старый клиент игры. Мы скачали и собрали
-          его по кусочкам, чтобы тебе осталось только скачать архив с готовой
-          игрой из таблицы ниже.
+          <p>
+            Для игры в старую доту нужен старый клиент игры. Это не кастомка:
+            это реальная дота из 2015 года.
+          </p>
+          <p>
+            <span className="gold">ВАЖНО:</span> не нажимай поиск матча в самой
+            игре
+          </p>
           {(OS === OperatingSystem.MAC_OS || OS === OperatingSystem.LINUX) && (
             <>
-              <br />
-              <span className="gold">
-                Так же тебе нужно скачать библиотеки для своей системы и извлечь
+              <p className="gold">
+                Также тебе нужно скачать библиотеки для своей системы и извлечь
                 их в папку с игрой
-              </span>
+              </p>
             </>
           )}
           <Section>
@@ -395,7 +272,6 @@ export default function DownloadPage({ initialOS }: Props) {
         </>
       ),
     },
-    // ...GuideFull()
     ...GuideCompact(),
   ];
   return (

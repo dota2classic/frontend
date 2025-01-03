@@ -79,12 +79,15 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
       );
     }, [emoticons, searchValue]);
 
-    const onReact = useCallback((emo: EmoticonDto) => {
-      onSelect(emo);
-      if (!isShiftDown) {
-        onClose();
-      }
-    }, []);
+    const onReact = useCallback(
+      (emo: EmoticonDto) => {
+        onSelect(emo);
+        if (!isShiftDown) {
+          onClose();
+        }
+      },
+      [isShiftDown, onClose, onSelect],
+    );
 
     return (
       <div

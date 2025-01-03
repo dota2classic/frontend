@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import { PlayerSummaryDto, PlayerTeammatePageDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
-import { maxBy } from "@/util/iter";
+import { maxBy } from "@/util";
 
 interface Props {
   summary: PlayerSummaryDto;

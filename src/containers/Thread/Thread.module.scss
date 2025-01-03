@@ -1,0 +1,36 @@
+@import "../../common.scss";
+
+.thread {
+  background-color: $bg2;
+  position: relative;
+}
+
+.messageContainerContainer {
+  position: relative;
+}
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  gap: 16px;
+
+  &__tiny {
+    gap: 10px;
+  }
+
+  &__forum {
+    overflow-y: hidden !important;
+  }
+}
+
+.createThread {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.tc {
+  display: flex;
+  flex-direction: row;
+}

@@ -26,12 +26,15 @@
   }
 
   & h3 {
-    margin-block-start: 0;
+    margin-block-start: -10px;
     color: $primaryTextHighlight;
+    font-size: 2rem;
   }
 
   & .content {
-    line-height: 1.4rem;
+    line-height: 1.8rem;
+    font-size: 1.4rem;
+
   }
 }
 

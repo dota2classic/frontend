@@ -9,7 +9,7 @@ import {
   PartyMemberDTO,
   ThreadType,
 } from "@/api/back";
-import { useDidMount } from "@/util/hooks";
+import { useDidMount } from "@/util";
 import {
   Button,
   EmbedProps,
@@ -18,14 +18,13 @@ import {
   QueuePartyInfo,
   SearchGameButton,
   Section,
-  Thread,
   TimeAgo,
 } from "@/components";
 import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import React, { ReactNode, useTransition } from "react";
 import { NextPageContext } from "next";
-import { ThreadStyle } from "@/components/Thread/types";
+import { ThreadStyle } from "@/containers/Thread/types";
 import { FaBell } from "react-icons/fa";
 import { observer } from "mobx-react-lite";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -33,6 +32,7 @@ import { QueueGameState, useQueueState } from "@/util/useQueueState";
 import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
 import cx from "clsx";
+import { Thread } from "@/containers";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -103,42 +103,6 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
         </>
       );
     }
-    // if (mode === MatchmakingMode.UNRANKED && !queue.isUnrankedQueueOpen) {
-    //   return (
-    //     <>
-    //       <PeriodicSpan
-    //         interval={1000}
-    //         producer={() => {
-    //           const d = new Date();
-    //
-    //           const myd = new Date(
-    //             d.getFullYear(),
-    //             d.getMonth(),
-    //             d.getDate(),
-    //             18,
-    //             0,
-    //             0,
-    //           );
-    //
-    //           const myd2 = new Date(
-    //             myd.getTime() +
-    //               (QueueStore.UTC_OFFSET - myd.getTimezoneOffset()) * 60 * 1000,
-    //           );
-    //
-    //           let timeDiff = myd2.getTime() - d.getTime();
-    //           if (timeDiff < 0) {
-    //             timeDiff += 1000 * 60 * 60 * 24; // Next day
-    //           } else if (timeDiff > 1000 * 60 * 60 * 24) {
-    //             timeDiff -= 1000 * 60 * 60 * 24; // Prev day
-    //           }
-    //
-    //           return formatDuration(timeDiff);
-    //         }}
-    //       />{" "}
-    //       до поиска
-    //     </>
-    //   );
-    // }
   };
 
   const queueGameState = useQueueState();

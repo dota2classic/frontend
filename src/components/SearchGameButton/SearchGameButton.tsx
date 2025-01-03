@@ -6,7 +6,7 @@ import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import { FaSteam } from "react-icons/fa";
 import cx from "clsx";
-import { formatBanReason } from "@/util/bans";
+import { formatBanReason } from "@/util/texts/bans";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { Button } from "@/components";
 import { getAuthUrl } from "@/util/getAuthUrl";

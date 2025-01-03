@@ -1,16 +1,24 @@
 import { Role } from "@/api/mapped-models";
-import { PageLink, PeriodicTimerClient, Tooltipable } from "@/components";
+import {
+  PageLink,
+  PeriodicTimerClient,
+  RichMessage,
+  Tooltipable,
+} from "@/components";
 import { MdAdminPanelSettings, MdLocalPolice } from "react-icons/md";
 import cx from "clsx";
 import c from "@/components/Message/Message.module.scss";
 import { AppRouter } from "@/route";
-import { IMessageProps } from "@/components/Message/MessageProps";
-import { RichMessage } from "@/components/Thread/RichMessage";
 import React from "react";
 import { MessageTools } from "@/components/Message/MessageTools";
 import { MessageReactions } from "@/components/Message/MessageReactions";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
+import { ThreadMessageDTO } from "@/api/back";
+
+interface IMessageProps {
+  message: ThreadMessageDTO;
+}
 
 export const MessageHeader = React.memo(
   observer(function MessageHeader({ message }: IMessageProps) {

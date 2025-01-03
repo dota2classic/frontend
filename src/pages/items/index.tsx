@@ -1,9 +1,9 @@
 import { getApi } from "@/api/hooks";
 import { ItemDto } from "@/api/back";
 import { GenericTable } from "@/components";
-import { ColumnType } from "@/components/GenericTable/GenericTable";
 import { colors } from "@/colors";
 import { itemName } from "@/util/heroName";
+import { ColumnType } from "@/const/tables";
 
 interface Props {
   items: ItemDto[];
