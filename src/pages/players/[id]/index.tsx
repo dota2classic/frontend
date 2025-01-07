@@ -123,7 +123,7 @@ export default function PlayerPage({
         <TeammatesTable data={preloadedTeammates!.data} />
       </Section>
       <Thread
-        threadStyle={ThreadStyle.CHAT}
+        threadStyle={ThreadStyle.FORUM}
         className={c.thread}
         id={playerId}
         threadType={ThreadType.PLAYER}

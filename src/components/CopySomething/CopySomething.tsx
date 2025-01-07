@@ -42,7 +42,9 @@ export const CopySomething = ({
           .then(() => onCopy(something, true))
       }
     >
-      <span style={{ display: "flex", flex: 1 }}>{placeholder || something}</span>
+      <span style={{ display: "flex", flex: 1 }}>
+        {placeholder || something}
+      </span>
       {copied ? <FaCheck className={c.successCopy} /> : <FaCopy />}
     </div>
   );

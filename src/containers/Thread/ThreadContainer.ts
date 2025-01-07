@@ -1,6 +1,13 @@
-import { action, computed, makeObservable, observable } from "mobx";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
 import {
   SortOrder,
+  ThreadDTO,
   ThreadMessageDTO,
   ThreadMessagePageDTO,
   ThreadType,
@@ -18,6 +25,9 @@ export class ThreadContainer {
 
   @observable
   page: number | undefined = undefined;
+
+  @observable
+  thread: ThreadDTO | undefined = undefined;
 
   @computed
   public get relevantMessages(): ThreadMessageDTO[] {
@@ -77,6 +87,7 @@ export class ThreadContainer {
         this.messageMap = new Map(init.map((it) => [it.messageId, it]));
       }
     }
+    this.fetchThread();
   }
 
   consumeMessage = (msg: ThreadMessageDTO) => this.consumeMessages([msg]);
@@ -147,11 +158,16 @@ export class ThreadContainer {
   };
 
   @action updateThread = (threadType: ThreadType, id: string) => {
+    const threadChanged = threadType !== this.threadType || id !== this.id;
+    if (!threadChanged) return;
+
     this.threadType = threadType;
     this.id = id;
     this.pg = undefined;
     this.page = 0;
     this.messageMap.clear();
+
+    this.fetchThread();
   };
 
   loadOlder = () => this.loadMore(false, 100);
@@ -169,5 +185,12 @@ export class ThreadContainer {
     getApi()
       .forumApi.forumControllerDeleteMessage(messageId)
       .then(this.consumeMessage);
+  };
+
+  private fetchThread = async () => {
+    getApi()
+      .forumApi.forumControllerGetThread(this.id, this.threadType)
+      .then((thread) => runInAction(() => (this.thread = thread)))
+      .catch();
   };
 }
