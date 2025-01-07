@@ -17,10 +17,10 @@ export const RenderChatThread = React.memo(function RenderChatThread({
 
   useEffect(() => {
     if (!scrollableRef.current) return;
-    if (atBottom) {
-      scrollableRef.current?.autoscrollToBottom();
+    if (atBottom && thread.isThreadReady) {
+      scrollableRef.current?.scrollToIndex(messages.length + 1);
     }
-  }, [scrollableRef.current, messages]);
+  }, [atBottom, thread.isThreadReady, messages]);
 
   const atBottomStateChange = (atBottom: boolean) => {
     setAtBottom(atBottom);

@@ -30,6 +30,12 @@ export class ThreadContainer {
   thread: ThreadDTO | undefined = undefined;
 
   @computed
+  public get isThreadReady() {
+    // We are ready if thread is not undefined and we did try load messages
+    return !!this.thread;
+  }
+
+  @computed
   public get relevantMessages(): ThreadMessageDTO[] {
     return (
       this.pg ? this.pg.data : Array.from(this.messageMap.values())

@@ -5,7 +5,7 @@ import {
   ThreadMessagePageDTO,
 } from "@/api/back";
 import { useLocalObservable } from "mobx-react-lite";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ThreadContainer } from "@/containers/Thread/ThreadContainer";
 import { getApi } from "@/api/hooks";
 
@@ -20,8 +20,33 @@ export const useThread = (
   const thread = useLocalObservable<ThreadContainer>(
     () => new ThreadContainer(id.toString(), threadType, initialMessages, page),
   );
+  const [trigger, setTrigger] = useState(0);
 
-  useThreadEventSource(id.toString(), threadType, thread.consumeMessages, 0);
+  useThreadEventSource(
+    id.toString(),
+    threadType,
+    thread.consumeMessages,
+    trigger,
+  );
+
+  const handleVisibilityChange = useCallback(() => {
+    if (!document.hidden) {
+      // We need to load more and re-create event source so that we don't die on thread
+      setTrigger((x) => x + 1);
+      thread.loadNewer();
+    }
+  }, [thread]);
+
+  useEffect(() => {
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange,
+      false,
+    );
+
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [handleVisibilityChange]);
 
   useEffect(() => {
     if (page !== undefined) {
@@ -29,7 +54,7 @@ export const useThread = (
     } else {
       thread.loadMore(loadLatest, batchSize);
     }
-  }, [id]);
+  }, [id, threadType]);
 
   useEffect(() => {
     if (page !== undefined) {
