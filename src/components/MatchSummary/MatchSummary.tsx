@@ -71,7 +71,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
                         .adminApi.adminUserControllerLogFile(matchId.toString())
                         .then((res) => {
                           const wnd = window.open("about:blank", "", "_blank");
-                          wnd.document.write(res);
+                          wnd?.document?.write(res);
                         });
                     }}
                   >
