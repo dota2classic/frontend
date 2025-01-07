@@ -3,7 +3,7 @@ import c from "@/components/AcceptGameModal/AcceptGameModal.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import React, { useCallback } from "react";
-import { Button, CopySomething } from "@/components";
+import { Button, CopySomething, Input } from "@/components";
 import { useLocalStorageBackedParam } from "@/util/useLocalStorageBackedParam";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -34,7 +34,15 @@ export const GameReadyModal = observer(
             Подключиться к игре
           </a>
         </div>
-        <CopySomething something={`connect ${q.gameState?.serverUrl}`} />
+        <CopySomething
+          something={`connect ${q.gameState?.serverUrl}`}
+          placeholder={
+            <Input
+              value={`connect ${q.gameState?.serverUrl}`}
+              readOnly={true}
+            />
+          }
+        />
         <div className={c.fullInstruction}>
           <div className={cx(c.guide, fullGuide && c.guide__visible)}>
             Порядок действий:

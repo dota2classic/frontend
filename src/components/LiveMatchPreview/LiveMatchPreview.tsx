@@ -11,6 +11,7 @@ import {
   CopySomething,
   EmbedProps,
   HeroIcon,
+  Input,
   ItemIcon,
   PageLink,
   PlaceholderImage,
@@ -199,7 +200,10 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         <TeamListTable players={dire} />
       </div>
       <div className={c.watchLive}>
-        <CopySomething something={watchCmd(match.server)} />
+        <CopySomething
+          something={watchCmd(match.server)}
+          placeholder={<Input value={watchCmd(match.server)} readOnly={true} />}
+        />
       </div>
     </>
   );

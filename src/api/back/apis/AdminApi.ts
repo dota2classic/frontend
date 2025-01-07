@@ -71,6 +71,10 @@ export interface AdminUserControllerCrimesRequest {
   steamId?: string;
 }
 
+export interface AdminUserControllerLogFileRequest {
+  id: string;
+}
+
 export interface AdminUserControllerRoleOfRequest {
   id: string;
 }
@@ -342,6 +346,71 @@ export class AdminApi extends runtime.BaseAPI {
 
         const context = this.adminUserControllerListRolesContext();
         return useSWR(context, valid ? () => this.adminUserControllerListRoles() : null, config)
+    }
+
+    /**
+     */
+    private async adminUserControllerLogFileRaw(requestParameters: AdminUserControllerLogFileRequest): Promise<runtime.ApiResponse<string>> {
+        this.adminUserControllerLogFileValidation(requestParameters);
+        const context = this.adminUserControllerLogFileContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.TextApiResponse(response) as any;
+    }
+
+
+
+    /**
+     */
+    private adminUserControllerLogFileValidation(requestParameters: AdminUserControllerLogFileRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling adminUserControllerLogFile.");
+        }
+    }
+
+    /**
+     */
+    adminUserControllerLogFileContext(requestParameters: AdminUserControllerLogFileRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters["id"] = requestParameters.id;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/logFile`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    adminUserControllerLogFile = async (id: string): Promise<string> => {
+        const response = await this.adminUserControllerLogFileRaw({ id: id });
+        return await response.value();
+    }
+
+    useAdminUserControllerLogFile(id: string, config?: SWRConfiguration<string, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.adminUserControllerLogFileContext({ id: id! });
+        return useSWR(context, valid ? () => this.adminUserControllerLogFile(id!) : null, config)
     }
 
     /**

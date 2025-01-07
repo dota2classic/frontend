@@ -76,6 +76,12 @@ export interface CrimeLogDto {
      * @memberof CrimeLogDto
      */
     banDuration: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CrimeLogDto
+     */
+    matchId?: number;
 }
 
 export function CrimeLogDtoFromJSON(json: any): CrimeLogDto {
@@ -95,6 +101,7 @@ export function CrimeLogDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'user': UserDTOFromJSON(json['user']),
         'createdAt': json['created_at'],
         'banDuration': json['ban_duration'],
+        'matchId': !exists(json, 'match_id') ? undefined : json['match_id'],
     };
 }
 
@@ -114,6 +121,7 @@ export function CrimeLogDtoToJSON(value?: CrimeLogDto | null): any {
         'user': UserDTOToJSON(value.user),
         'created_at': value.createdAt,
         'ban_duration': value.banDuration,
+        'match_id': value.matchId,
     };
 }
 

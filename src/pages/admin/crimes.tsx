@@ -7,6 +7,7 @@ import {
   Button,
   Duration,
   GenericTable,
+  PageLink,
   Pagination,
   Panel,
   TimeAgo,
@@ -17,6 +18,7 @@ import { formatBanReason } from "@/util/texts/bans";
 import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal/InvitePlayerModalRaw";
 import { formatGameMode } from "@/util/gamemode";
 import { ColumnType } from "@/const/tables";
+import c from "./AdminStyles.module.scss";
 
 interface Props {
   crime: CrimeLogPageDto;
@@ -66,6 +68,21 @@ export default function CrimesPage({ crime, steamId }: Props) {
           },
           {
             type: ColumnType.Raw,
+            name: "Матч",
+            format: (matchId?: number) =>
+              matchId ? (
+                <PageLink
+                  className={c.nowrap}
+                  link={AppRouter.matches.match(matchId).link}
+                >
+                  Матч {matchId}
+                </PageLink>
+              ) : (
+                <span className={c.nowrap}>Вне матча</span>
+              ),
+          },
+          {
+            type: ColumnType.Raw,
             name: "Комментарий",
           },
           {
@@ -77,21 +94,21 @@ export default function CrimesPage({ crime, steamId }: Props) {
             type: ColumnType.Raw,
             name: "Нарушение",
             format: (t: BanReason) => (
-              <span style={{ whiteSpace: "nowrap" }}>{formatBanReason(t)}</span>
+              <span className={c.nowrap}>{formatBanReason(t)}</span>
             ),
           },
           {
             type: ColumnType.Raw,
             name: "Режим игры",
             format: (t: MatchmakingMode) => (
-              <span style={{ whiteSpace: "nowrap" }}>{formatGameMode(t)}</span>
+              <span className={c.nowrap}>{formatGameMode(t)}</span>
             ),
           },
           {
             type: ColumnType.Raw,
             name: "Дата",
             format: (t) => (
-              <span style={{ whiteSpace: "nowrap" }}>
+              <span className={c.nowrap}>
                 <TimeAgo date={t} />
               </span>
             ),
@@ -104,6 +121,7 @@ export default function CrimesPage({ crime, steamId }: Props) {
         ]}
         data={crime.data.map((t) => [
           t.user,
+          t.matchId,
           t.lobbyType === MatchmakingMode.BOTS
             ? "Игра с ботами"
             : "Засчитываем.",

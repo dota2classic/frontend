@@ -4,6 +4,7 @@ import c from "./LiveMatches.module.scss";
 import {
   CopySomething,
   Duration,
+  Input,
   PageLink,
   Panel,
   SmallLiveMatch,
@@ -81,7 +82,12 @@ export default function LiveMatches({ data: initialData }: InitialProps) {
                 Время: <Duration duration={t.duration} />
               </div>
               <div className={c.info}>
-                <CopySomething something={watchCmd(t.server)} />
+                <CopySomething
+                  something={watchCmd(t.server)}
+                  placeholder={
+                    <Input value={watchCmd(t.server)} readOnly={true} />
+                  }
+                />
               </div>
             </div>
           </Panel>
