@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import {defineConfig, devices} from "@playwright/test";
 
 /**
  * Read environment variables from file.
@@ -12,11 +12,10 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-
   //
   // globalSetup: require.resolve('./tests/global.setup'),
   // globalTeardown: require.resolve('./tests/global.teardown'),
-  testDir: './tests',
+  testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -26,52 +25,51 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: "http://127.0.0.1:3000",
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
     //
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
     },
     //
     {
-      name: 'opera',
+      name: "opera",
       use: { ...devices["Desktop Chrome"] },
     },
 
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
     },
 
     /* Test against mobile viewports. */
     {
-      name: 'Mobile Chrome',
+      name: "Mobile Chrome",
       grep: /mobile/,
-      use: { ...devices['Pixel 5'] },
+      use: { ...devices["Pixel 5"] },
     },
     {
-      name: 'Mobile Safari',
+      name: "Mobile Safari",
       grep: /mobile/,
-      use: { ...devices['iPhone 12'] },
+      use: { ...devices["iPhone 12"] },
     },
   ],
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npm run start',
-    url: 'http://localhost:3000/',
+    command: "node .next/standalone/server.js",
+    url: "http://localhost:3000/",
     reuseExistingServer: !process.env.CI,
   },
-
 });

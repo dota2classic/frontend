@@ -31,6 +31,12 @@ export interface CreateMessageDTO {
      * @memberof CreateMessageDTO
      */
     threadId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMessageDTO
+     */
+    replyMessageId?: string;
 }
 
 export function CreateMessageDTOFromJSON(json: any): CreateMessageDTO {
@@ -45,6 +51,7 @@ export function CreateMessageDTOFromJSONTyped(json: any, ignoreDiscriminator: bo
         
         'content': json['content'],
         'threadId': json['threadId'],
+        'replyMessageId': !exists(json, 'replyMessageId') ? undefined : json['replyMessageId'],
     };
 }
 
@@ -59,6 +66,7 @@ export function CreateMessageDTOToJSON(value?: CreateMessageDTO | null): any {
         
         'content': value.content,
         'threadId': value.threadId,
+        'replyMessageId': value.replyMessageId,
     };
 }
 

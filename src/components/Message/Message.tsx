@@ -5,6 +5,7 @@ import cx from "clsx";
 import { ThreadMessageDTO } from "@/api/back";
 import { FollowupMessage } from "./FollowupMessage";
 import { MessageHeader } from "./MessageHeader";
+import { RepliedMessage } from "@/components/Message/RepliedMessage";
 
 interface MessageGroupProps {
   messages: ThreadMessageDTO[];
@@ -31,6 +32,7 @@ export const Message = ({ messages }: MessageGroupProps) => {
 
   return (
     <div id={firstMsg.messageId} className={cx(c.message)}>
+      <RepliedMessage message={firstMsg.reply} />
       <MessageHeader message={firstMsg} />
       {messages.slice(1).map((message) => (
         <FollowupMessage key={message.messageId} message={message} />

@@ -47,7 +47,6 @@
   }
 }
 
-
 .buttons {
   right: 4px;
   display: flex;
@@ -62,7 +61,6 @@
     background-color: transparent;
     cursor: pointer;
 
-
     & svg {
       font-size: 1.4rem;
       color: $primaryTextTint;
@@ -73,7 +71,6 @@
       & svg {
         color: $gold;
         transform: rotateZ(-5deg);
-
       }
     }
   }
@@ -89,5 +86,36 @@
 
   &.visible {
     height: 100%;
+  }
+}
+
+.replyMessage {
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+  align-items: center;
+
+  & img {
+    width: 20px !important;
+    height: 20px !important;
+    margin-left: 6px;
+    margin-right: 4px;
+    border-radius: 50%;
+  }
+
+  &__name {
+    flex: 1;
+  }
+
+  & svg {
+    align-self: flex-end;
+    transition: 0.3s ease;
+    cursor: pointer;
+    font-size: 1.2rem;
+
+    &:hover {
+      transform: scale(1.1);
+      color: $red;
+    }
   }
 }

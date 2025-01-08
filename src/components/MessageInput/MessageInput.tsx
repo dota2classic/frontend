@@ -1,13 +1,13 @@
 import { observer } from "mobx-react-lite";
 import { ThreadMessageDTO } from "@/api/back";
-import { useThrottle } from "@/util/throttle";
-import { getApi } from "@/api/hooks";
-import { Panel } from "@/components";
+import { Panel, PlayerAvatar } from "@/components";
 import cx from "clsx";
 import c from "./MessageInput.module.scss";
 import { IoSend } from "react-icons/io5";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import { AddEmoticonButton } from "./AddEmoticonButton";
+import { ThreadContext } from "@/containers/Thread/threadContext";
+import { MdClose } from "react-icons/md";
 
 export const MessageInput = observer(function MessageInput(p: {
   threadId: string;
@@ -19,10 +19,11 @@ export const MessageInput = observer(function MessageInput(p: {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [value, setValue] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const { thread } = useContext(ThreadContext);
 
   const isValid = value.trim().length >= 2;
 
-  const throttledSubmit = useThrottle(() => {
+  const submit = useCallback(() => {
     if (!isValid) {
       setError("Слишком короткое сообщение!");
       return;
@@ -31,15 +32,8 @@ export const MessageInput = observer(function MessageInput(p: {
     const msg = value;
     setValue("");
 
-    getApi()
-      .forumApi.forumControllerPostMessage({
-        threadId: p.threadId,
-        content: msg,
-      })
-      .then((msg) => {
-        setValue("");
-        p.onMessage(msg);
-      })
+    thread
+      .sendMessage(p.threadId, msg, thread.replyingMessageId)
       .catch((err) => {
         if (err.status === 403) {
           setError("Вам запрещено отправлять сообщения!");
@@ -48,18 +42,22 @@ export const MessageInput = observer(function MessageInput(p: {
         }
         setValue(msg);
       });
-  }, 250);
+  }, [isValid, p, value]);
 
   const onEnterKeyPressed = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.keyCode === 13 && !e.shiftKey) {
         e.preventDefault();
         // enter
-        throttledSubmit();
+        submit();
       }
     },
-    [throttledSubmit],
+    [submit],
   );
+
+  const clearReplyMessage = useCallback(() => {
+    thread.setReplyMessageId(undefined);
+  }, [thread]);
 
   const insertAtCursor = useCallback(
     (insert: string) => {
@@ -79,6 +77,21 @@ export const MessageInput = observer(function MessageInput(p: {
 
   return (
     <Panel className={cx(c.createMessageContainer, p.className)}>
+      {thread.replyingMessage && (
+        <div className={c.replyMessage}>
+          Ответ на сообщение{" "}
+          <PlayerAvatar
+            src={thread.replyingMessage.author.avatar}
+            width={20}
+            height={20}
+            alt={""}
+          />
+          <span className={c.replyMessage__name}>
+            {thread.replyingMessage.author.name}
+          </span>
+          <MdClose onClick={clearReplyMessage} />
+        </div>
+      )}
       <div className={cx(c.createMessage, p.className)}>
         <textarea
           ref={textareaRef}
@@ -107,10 +120,7 @@ export const MessageInput = observer(function MessageInput(p: {
             />
           </button>
           <button className={c.buttonWrapper}>
-            <IoSend
-              className={error ? "red" : undefined}
-              onClick={throttledSubmit}
-            />
+            <IoSend className={error ? "red" : undefined} onClick={submit} />
           </button>
         </div>
       </div>

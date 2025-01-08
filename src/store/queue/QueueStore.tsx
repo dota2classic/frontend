@@ -98,12 +98,6 @@ export class QueueStore
   @observable
   public serverSearching: boolean = false;
 
-  // @observable
-  // public isUnrankedQueueOpen: boolean =
-  //   QueueStore.UNRANKED_QUEUE_HOURS.includes(
-  //     toMoscowTime(new Date().toISOString()).getHours(),
-  //   );
-
   private scheduler!: ToadScheduler;
 
   constructor(

@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useRef, useState } from "react";
 import { EmoticonDto } from "@/api/back";
-import { FaRegFaceGrinTongueSquint } from "react-icons/fa6";
 import { EmoticonSelectWindow } from "@/components";
 import { createPortal } from "react-dom";
 import { ThreadContext } from "@/containers/Thread/threadContext";
+import { FaGrinTongueSquint } from "react-icons/fa";
 
 interface Props {
   messageId: string;
@@ -34,7 +34,7 @@ export const AddReactionTool = React.memo(function AddReactionTool({
   return (
     <>
       <span ref={emoticonAnchorRef}>
-        <FaRegFaceGrinTongueSquint onClick={showEmoticonWindow} />
+        <FaGrinTongueSquint onClick={showEmoticonWindow} />
       </span>
       {visible &&
         createPortal(

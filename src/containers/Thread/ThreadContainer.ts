@@ -4,6 +4,7 @@ import {
   makeObservable,
   observable,
   runInAction,
+  trace,
 } from "mobx";
 import {
   SortOrder,
@@ -17,8 +18,11 @@ import { getApi } from "@/api/hooks";
 import { GroupedMessages, ThreadView } from "@/containers/Thread/threads";
 
 export class ThreadContainer {
+  // @observable
+  // messageMap: Map<string, ThreadMessageDTO> = new Map();
+
   @observable
-  messageMap: Map<string, ThreadMessageDTO> = new Map();
+  messages: ThreadMessageDTO[] = [];
 
   @observable
   pg: ThreadMessagePageDTO | undefined = undefined;
@@ -29,6 +33,18 @@ export class ThreadContainer {
   @observable
   thread: ThreadDTO | undefined = undefined;
 
+  @observable
+  replyingMessageId: string | undefined = undefined;
+
+  @computed
+  public get replyingMessage(): ThreadMessageDTO | undefined {
+    return (
+      (this.replyingMessageId &&
+        this.messages.find((it) => it.messageId === this.replyingMessageId)) ||
+      undefined
+    );
+  }
+
   @computed
   public get isThreadReady() {
     // We are ready if thread is not undefined and we did try load messages
@@ -37,9 +53,7 @@ export class ThreadContainer {
 
   @computed
   public get relevantMessages(): ThreadMessageDTO[] {
-    return (
-      this.pg ? this.pg.data : Array.from(this.messageMap.values())
-    ).filter((t) => !t.deleted);
+    return this.pg ? this.pg.data : this.messages;
   }
 
   @computed
@@ -54,9 +68,23 @@ export class ThreadContainer {
     const messages = [...messagePool];
 
     let group: GroupedMessages | undefined = undefined;
+
+    console.log(`Group ${messages.length} messages`);
+
     for (let i = 0; i < messages.length; i++) {
       const msg = messages[i];
-      if (!group || group.author.steamId !== msg.author.steamId) {
+      if (msg.reply) {
+        console.log(
+          "Create message group cause reply",
+          msg.content,
+          msg.reply.content,
+        );
+      }
+      if (
+        !group ||
+        group.author.steamId !== msg.author.steamId ||
+        msg.reply !== undefined
+      ) {
         group = {
           author: msg.author,
           displayDate: msg.createdAt,
@@ -82,6 +110,8 @@ export class ThreadContainer {
     page: number | undefined,
   ) {
     makeObservable(this);
+    trace(this, "threadView");
+    trace(this, "relevantMessages");
     this.page = page;
     if (init) {
       if ("page" in init) {
@@ -199,4 +229,27 @@ export class ThreadContainer {
       .then((thread) => runInAction(() => (this.thread = thread)))
       .catch();
   };
+
+  @action setReplyMessageId = (messageId: string | undefined) => {
+    this.replyingMessageId = messageId;
+  };
+
+  public async sendMessage(
+    threadId: string,
+    msg: string,
+    replyingMessageId: string | undefined,
+  ) {
+    return getApi()
+      .forumApi.forumControllerPostMessage({
+        threadId,
+        content: msg,
+        replyMessageId: replyingMessageId,
+      })
+      .then((msg) => {
+        // runInAction(() => {
+        this.consumeMessage(msg);
+        // this.setReplyMessageId(undefined);
+        // }),
+      });
+  }
 }
