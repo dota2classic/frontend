@@ -15,7 +15,6 @@ import {
 } from "@/api/back";
 import { maxBy } from "@/util";
 import { getApi } from "@/api/hooks";
-import { GroupedMessages, ThreadView } from "@/containers/Thread/threads";
 
 export class ThreadContainer {
   @observable.ref
@@ -52,10 +51,12 @@ export class ThreadContainer {
 
   @computed
   public get pool(): [ThreadMessageDTO, boolean][] {
-    const pool = this.relevantMessages.toSorted(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    );
+    const pool = this.relevantMessages
+      .filter((t) => !t.deleted)
+      .toSorted(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      );
 
     const pool2: [ThreadMessageDTO, boolean][] = [];
     for (let i = 0; i < pool.length; i++) {
@@ -68,44 +69,6 @@ export class ThreadContainer {
       pool2.push([msg, header]);
     }
     return pool2;
-  }
-
-  @computed
-  public get threadView(): ThreadView {
-    const messagePool = this.relevantMessages.toSorted(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    );
-
-    const groupedMessages: GroupedMessages[] = [];
-
-    const messages = [...messagePool];
-
-    let group: GroupedMessages | undefined = undefined;
-
-    for (let i = 0; i < messages.length; i++) {
-      const msg = messages[i];
-      if (
-        !group ||
-        group.author.steamId !== msg.author.steamId ||
-        msg.reply !== undefined
-      ) {
-        group = {
-          author: msg.author,
-          displayDate: msg.createdAt,
-          messages: [msg],
-        };
-        groupedMessages.push(group);
-      } else if (group.author.steamId === msg.author.steamId) {
-        group.messages.push(msg);
-      }
-    }
-
-    return {
-      id: this.id,
-      type: this.threadType,
-      groupedMessages: groupedMessages,
-    } satisfies ThreadView;
   }
 
   constructor(
@@ -131,7 +94,6 @@ export class ThreadContainer {
       }
     }
 
-    trace(this, "threadView");
     trace(this, "relevantMessages");
     trace(this, "thread");
   }
@@ -152,7 +114,11 @@ export class ThreadContainer {
     // kinda upsert
     msgs.forEach((message) => {
       const existing = this.messageMap.get(message.messageId);
-      if (!existing || existing.updatedAt !== message.updatedAt) {
+      if (
+        !existing ||
+        existing.updatedAt !== message.updatedAt ||
+        message.deleted !== existing.deleted
+      ) {
         this.messageMap.set(message.messageId, message);
       }
     });

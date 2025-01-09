@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { ThreadContext } from "@/containers/Thread/threadContext";
-import { RenderMessageNew } from "@/components/Message/Message";
+import { Message } from "@/components/";
 
 export const ForumThread = observer(function RenderForumThread() {
   const { thread } = useContext(ThreadContext);
@@ -9,7 +9,7 @@ export const ForumThread = observer(function RenderForumThread() {
   return (
     <>
       {thread.pool.map(([message, header]) => (
-        <RenderMessageNew
+        <Message
           key={message.messageId}
           message={message}
           header={header}

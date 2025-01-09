@@ -10,12 +10,12 @@ import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { observer } from "mobx-react-lite";
 import { ThreadMessageDTO } from "@/api/back";
-import { RenderMessageNew } from "@/components/Message/Message";
+import { Message } from "@/components";
 
 export const RenderChatThread = observer(function RenderChatThread() {
   const scrollableRef = useRef<VirtuosoHandle | null>(null);
   const [atBottom, setAtBottom] = useState(true);
-  const { thread } = useContext(ThreadContext);
+  const { thread, input } = useContext(ThreadContext);
   const [isLoadingOlder, startTransition] = useTransition();
 
   const pool = thread.pool;
@@ -29,7 +29,8 @@ export const RenderChatThread = observer(function RenderChatThread() {
     if (!scrollableRef.current) return;
     if (atBottom && thread.isThreadReady) {
       console.log("OK, lets scroll!");
-      scrollableRef.current?.scrollToIndex(firstItemIndex + pool.length + 1);
+      // scrollableRef.current?.scrollToIndex(firstItemIndex + pool.length + 1);
+      scrollableRef.current?.scrollToIndex(pool.length);
     }
   }, [atBottom, thread.isThreadReady, pool]);
 
@@ -56,7 +57,10 @@ export const RenderChatThread = observer(function RenderChatThread() {
   return (
     <Virtuoso
       followOutput={"smooth"}
-      ref={scrollableRef}
+      ref={(e) => {
+        scrollableRef.current = e;
+        input.setScrollRef(e || undefined);
+      }}
       atBottomStateChange={atBottomStateChange}
       atBottomThreshold={10}
       startReached={startReached}
@@ -65,9 +69,7 @@ export const RenderChatThread = observer(function RenderChatThread() {
       initialTopMostItemIndex={pool.length}
       style={{ width: "100%", height: "100%" }}
       itemContent={(_, [msg, header]: [ThreadMessageDTO, boolean]) => {
-        return (
-          <RenderMessageNew message={msg} header={header} lightweight={false} />
-        );
+        return <Message message={msg} header={header} lightweight={false} />;
       }}
       increaseViewportBy={{
         top: 600,
