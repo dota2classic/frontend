@@ -30,7 +30,7 @@ const nextConfig = {
   },
   experimental: {
     scrollRestoration: true,
-    // fallbackNodePolyfills: false
+    fallbackNodePolyfills: false
   }
 };
 
