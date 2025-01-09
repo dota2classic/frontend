@@ -93,11 +93,14 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
       <div
         className={cx(c.emoticons, c.emoticons__visible)}
         ref={(e) => {
-          containerRef.current = e;
           if (!e) return;
-          const position = calculateModalPosition(anchor.current, e);
-          e.style.left = position.left + "px";
-          e.style.top = position.top + "px";
+          if (!containerRef.current) {
+            const position = calculateModalPosition(anchor.current, e);
+            e.style.left = position.left + "px";
+            e.style.top = position.top + "px";
+          }
+
+          containerRef.current = e;
         }}
       >
         <Input

@@ -20,6 +20,7 @@ export const MessageReactions = observer(function MessageReactions({
   const [tooltipReaction, setTooltipReaction] = useState<
     { reaction: ReactionEntry; anchor: HTMLElement } | undefined
   >(undefined);
+
   const mySteamId = useStore().auth.parsedToken?.sub;
   const ctx = useContext(ThreadContext);
 

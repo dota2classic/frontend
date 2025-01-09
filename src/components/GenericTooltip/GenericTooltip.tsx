@@ -11,8 +11,9 @@ interface Position {
 const calculateModalPosition = (
   anchor: HTMLElement | null,
   modal: HTMLElement | null,
-): Position => {
-  if (!anchor || !modal || typeof window === "undefined") return {};
+): Position | undefined => {
+  if (!anchor || !modal || typeof window === "undefined") return undefined;
+  if (!document.body.contains(anchor)) return undefined;
 
   const rect = anchor.getBoundingClientRect();
 
@@ -54,8 +55,13 @@ export const GenericTooltip: React.FC<
         containerRef.current = e;
         if (!e) return;
         const position = calculateModalPosition(anchor, e);
-        e.style.left = position.left + "px";
-        e.style.top = position.top + "px";
+        if (!position) {
+          e.style.display = "none";
+        } else {
+          e.style.display = "block";
+          e.style.left = position.left + "px";
+          e.style.top = position.top + "px";
+        }
       }}
     >
       {children}
