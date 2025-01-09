@@ -1,26 +1,39 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
-import { GroupedMessages } from "@/containers/Thread/threads";
 import { ThreadContext } from "@/containers/Thread/threadContext";
-import { RowRenderer } from "./RowRenderer";
+import { observer } from "mobx-react-lite";
+import { ThreadMessageDTO } from "@/api/back";
+import { RenderMessageNew } from "@/components/Message/Message";
 
-interface ChatRenderProps {
-  messages: GroupedMessages[];
-}
-
-export const RenderChatThread = React.memo(function RenderChatThread({
-  messages,
-}: ChatRenderProps) {
+export const RenderChatThread = observer(function RenderChatThread() {
   const scrollableRef = useRef<VirtuosoHandle | null>(null);
   const [atBottom, setAtBottom] = useState(true);
   const { thread } = useContext(ThreadContext);
+  const [isLoadingOlder, startTransition] = useTransition();
+
+  const pool = thread.pool;
+
+  const renderChat = useMemo(
+    () => pool.length > 0 && thread.isThreadReady,
+    [pool.length, thread.isThreadReady],
+  );
 
   useEffect(() => {
     if (!scrollableRef.current) return;
     if (atBottom && thread.isThreadReady) {
-      scrollableRef.current?.scrollToIndex(messages.length + 1);
+      console.log("OK, lets scroll!");
+      scrollableRef.current?.scrollToIndex(firstItemIndex + pool.length + 1);
     }
-  }, [atBottom, thread.isThreadReady, messages]);
+  }, [atBottom, thread.isThreadReady, pool]);
+
+  const firstItemIndex = useMemo(() => 100000 - pool.length, [pool.length]);
 
   const atBottomStateChange = (atBottom: boolean) => {
     setAtBottom(atBottom);
@@ -30,11 +43,15 @@ export const RenderChatThread = React.memo(function RenderChatThread({
     }
   };
 
-  const atTopStateChange = (atTop: boolean) => {
-    if (atTop) {
-      thread.loadOlder();
+  const startReached = () => {
+    if (thread.isThreadReady && !isLoadingOlder) {
+      startTransition(async () => {
+        thread.loadOlder().catch();
+      });
     }
   };
+
+  if (!renderChat) return null;
 
   return (
     <Virtuoso
@@ -42,16 +59,20 @@ export const RenderChatThread = React.memo(function RenderChatThread({
       ref={scrollableRef}
       atBottomStateChange={atBottomStateChange}
       atBottomThreshold={10}
-      atTopStateChange={atTopStateChange}
-      atTopThreshold={100}
-      initialTopMostItemIndex={messages.length}
-      data={messages}
+      startReached={startReached}
+      firstItemIndex={firstItemIndex}
+      data={pool}
+      initialTopMostItemIndex={pool.length}
       style={{ width: "100%", height: "100%" }}
-      itemContent={RowRenderer}
-      itemSize={(element: HTMLElement) =>
-        element.getBoundingClientRect().height
-      }
-      increaseViewportBy={2000}
+      itemContent={(_, [msg, header]: [ThreadMessageDTO, boolean]) => {
+        return (
+          <RenderMessageNew message={msg} header={header} lightweight={false} />
+        );
+      }}
+      increaseViewportBy={{
+        top: 600,
+        bottom: 200,
+      }}
     />
   );
 });

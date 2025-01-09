@@ -21,7 +21,7 @@ const nextConfig = {
   sassOptions: {
     silenceDeprecations: ['legacy-js-api'],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   output: "standalone",
   env: {
     API_URL: process.env.API_URL,
@@ -30,7 +30,7 @@ const nextConfig = {
   },
   experimental: {
     scrollRestoration: true,
-    fallbackNodePolyfills: false
+    // fallbackNodePolyfills: false
   }
 };
 

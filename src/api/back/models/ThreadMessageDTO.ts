@@ -62,10 +62,22 @@ export interface ThreadMessageDTO {
     createdAt: string;
     /**
      * 
+     * @type {string}
+     * @memberof ThreadMessageDTO
+     */
+    updatedAt: string;
+    /**
+     * 
      * @type {boolean}
      * @memberof ThreadMessageDTO
      */
     deleted: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ThreadMessageDTO
+     */
+    edited: boolean;
     /**
      * 
      * @type {Array<ReactionEntry>}
@@ -95,7 +107,9 @@ export function ThreadMessageDTOFromJSONTyped(json: any, ignoreDiscriminator: bo
         'messageId': json['messageId'],
         'content': json['content'],
         'createdAt': json['createdAt'],
+        'updatedAt': json['updatedAt'],
         'deleted': json['deleted'],
+        'edited': json['edited'],
         'reactions': ((json['reactions'] as Array<any>).map(ReactionEntryFromJSON)),
         'reply': !exists(json, 'reply') ? undefined : ThreadMessageDTOFromJSON(json['reply']),
     };
@@ -115,7 +129,9 @@ export function ThreadMessageDTOToJSON(value?: ThreadMessageDTO | null): any {
         'messageId': value.messageId,
         'content': value.content,
         'createdAt': value.createdAt,
+        'updatedAt': value.updatedAt,
         'deleted': value.deleted,
+        'edited': value.edited,
         'reactions': ((value.reactions as Array<any>).map(ReactionEntryToJSON)),
         'reply': ThreadMessageDTOToJSON(value.reply),
     };

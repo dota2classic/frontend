@@ -8,6 +8,7 @@ export * from "./CreateThreadDTO";
 export * from "./CrimeLogDto";
 export * from "./CrimeLogPageDto";
 export * from "./CurrentOnlineDto";
+export * from "./EditMessageDto";
 export * from "./EmoticonDto";
 export * from "./EventAdminDto";
 export * from "./ForumUserDto";

@@ -40,3 +40,28 @@ export const Message = ({ messages }: MessageGroupProps) => {
     </div>
   );
 };
+
+export const RenderMessageNew = React.memo(function RenderMessageNew({
+  message,
+  header,
+  lightweight,
+}: {
+  message: ThreadMessageDTO;
+  header: boolean;
+  lightweight?: boolean;
+}) {
+  if (header) {
+    return (
+      <div id={message.messageId} className={cx(c.message, c.message__header)}>
+        <RepliedMessage message={message.reply} />
+        <MessageHeader message={message} lightweight={lightweight} />
+      </div>
+    );
+  } else {
+    return (
+      <div id={message.messageId} className={cx(c.message)}>
+        <FollowupMessage message={message} />
+      </div>
+    );
+  }
+});

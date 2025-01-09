@@ -24,6 +24,9 @@ import {
   CreateThreadDTO,
   CreateThreadDTOFromJSON,
   CreateThreadDTOToJSON,
+  EditMessageDto,
+  EditMessageDtoFromJSON,
+  EditMessageDtoToJSON,
   EmoticonDto,
   EmoticonDtoFromJSON,
   EmoticonDtoToJSON,
@@ -70,8 +73,19 @@ export interface ForumControllerDeleteMessageRequest {
   id: string;
 }
 
+export interface ForumControllerEditMessageRequest {
+  id: string;
+  editMessageDto: EditMessageDto;
+}
+
 export interface ForumControllerEmoticonsRequest {
   steamId?: string;
+}
+
+export interface ForumControllerGetLatestPageRequest {
+  id: string;
+  threadType: ThreadType;
+  perPage?: number;
 }
 
 export interface ForumControllerGetMessagesRequest {
@@ -95,6 +109,7 @@ export interface ForumControllerMessagesPageRequest {
   id: string;
   threadType: ThreadType;
   page: number;
+  cursor?: string;
   perPage?: number;
 }
 
@@ -250,6 +265,63 @@ export class ForumApi extends runtime.BaseAPI {
 
     /**
      */
+    private async forumControllerEditMessageRaw(requestParameters: ForumControllerEditMessageRequest): Promise<runtime.ApiResponse<ThreadMessageDTO>> {
+        this.forumControllerEditMessageValidation(requestParameters);
+        const context = this.forumControllerEditMessageContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ThreadMessageDTOFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private forumControllerEditMessageValidation(requestParameters: ForumControllerEditMessageRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling forumControllerEditMessage.");
+        }
+        if (requestParameters.editMessageDto === null || requestParameters.editMessageDto === undefined) {
+            throw new runtime.RequiredError("editMessageDto","Required parameter requestParameters.editMessageDto was null or undefined when calling forumControllerEditMessage.");
+        }
+    }
+
+    /**
+     */
+    forumControllerEditMessageContext(requestParameters: ForumControllerEditMessageRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/forum/thread/message/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: EditMessageDtoToJSON(requestParameters.editMessageDto),
+        };
+    }
+
+    /**
+     */
+    forumControllerEditMessage = async (id: string, editMessageDto: EditMessageDto): Promise<ThreadMessageDTO> => {
+        const response = await this.forumControllerEditMessageRaw({ id: id, editMessageDto: editMessageDto });
+        return await response.value();
+    }
+
+
+    /**
+     */
     private async forumControllerEmoticonsRaw(requestParameters: ForumControllerEmoticonsRequest): Promise<runtime.ApiResponse<Array<EmoticonDto>>> {
         this.forumControllerEmoticonsValidation(requestParameters);
         const context = this.forumControllerEmoticonsContext(requestParameters);
@@ -296,6 +368,70 @@ export class ForumApi extends runtime.BaseAPI {
 
         const context = this.forumControllerEmoticonsContext({ steamId: steamId! });
         return useSWR(context, valid ? () => this.forumControllerEmoticons(steamId!) : null, config)
+    }
+
+    /**
+     */
+    private async forumControllerGetLatestPageRaw(requestParameters: ForumControllerGetLatestPageRequest): Promise<runtime.ApiResponse<ThreadMessagePageDTO>> {
+        this.forumControllerGetLatestPageValidation(requestParameters);
+        const context = this.forumControllerGetLatestPageContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ThreadMessagePageDTOFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private forumControllerGetLatestPageValidation(requestParameters: ForumControllerGetLatestPageRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling forumControllerGetLatestPage.");
+        }
+        if (requestParameters.threadType === null || requestParameters.threadType === undefined) {
+            throw new runtime.RequiredError("threadType","Required parameter requestParameters.threadType was null or undefined when calling forumControllerGetLatestPage.");
+        }
+    }
+
+    /**
+     */
+    forumControllerGetLatestPageContext(requestParameters: ForumControllerGetLatestPageRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.perPage !== undefined) {
+            queryParameters["perPage"] = requestParameters.perPage;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/forum/thread/{id}/{threadType}/latestPage`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))).replace(`{${"threadType"}}`, encodeURIComponent(String(requestParameters.threadType))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    forumControllerGetLatestPage = async (id: string, threadType: ThreadType, perPage?: number): Promise<ThreadMessagePageDTO> => {
+        const response = await this.forumControllerGetLatestPageRaw({ id: id, threadType: threadType, perPage: perPage });
+        return await response.value();
+    }
+
+    useForumControllerGetLatestPage(id: string, threadType: ThreadType, perPage?: number, config?: SWRConfiguration<ThreadMessagePageDTO, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        if (threadType === null || threadType === undefined || Number.isNaN(threadType)) {
+            valid = false
+        }
+
+        const context = this.forumControllerGetLatestPageContext({ id: id!, threadType: threadType!, perPage: perPage! });
+        return useSWR(context, valid ? () => this.forumControllerGetLatestPage(id!, threadType!, perPage!) : null, config)
     }
 
     /**
@@ -526,6 +662,10 @@ export class ForumApi extends runtime.BaseAPI {
             queryParameters["page"] = requestParameters.page;
         }
 
+        if (requestParameters.cursor !== undefined) {
+            queryParameters["cursor"] = requestParameters.cursor;
+        }
+
         if (requestParameters.perPage !== undefined) {
             queryParameters["per_page"] = requestParameters.perPage;
         }
@@ -542,12 +682,12 @@ export class ForumApi extends runtime.BaseAPI {
 
     /**
      */
-    forumControllerMessagesPage = async (id: string, threadType: ThreadType, page: number, perPage?: number): Promise<ThreadMessagePageDTO> => {
-        const response = await this.forumControllerMessagesPageRaw({ id: id, threadType: threadType, page: page, perPage: perPage });
+    forumControllerMessagesPage = async (id: string, threadType: ThreadType, page: number, cursor?: string, perPage?: number): Promise<ThreadMessagePageDTO> => {
+        const response = await this.forumControllerMessagesPageRaw({ id: id, threadType: threadType, page: page, cursor: cursor, perPage: perPage });
         return await response.value();
     }
 
-    useForumControllerMessagesPage(id: string, threadType: ThreadType, page: number, perPage?: number, config?: SWRConfiguration<ThreadMessagePageDTO, Error>) {
+    useForumControllerMessagesPage(id: string, threadType: ThreadType, page: number, cursor?: string, perPage?: number, config?: SWRConfiguration<ThreadMessagePageDTO, Error>) {
         let valid = true
 
         if (id === null || id === undefined || Number.isNaN(id)) {
@@ -562,8 +702,8 @@ export class ForumApi extends runtime.BaseAPI {
             valid = false
         }
 
-        const context = this.forumControllerMessagesPageContext({ id: id!, threadType: threadType!, page: page!, perPage: perPage! });
-        return useSWR(context, valid ? () => this.forumControllerMessagesPage(id!, threadType!, page!, perPage!) : null, config)
+        const context = this.forumControllerMessagesPageContext({ id: id!, threadType: threadType!, page: page!, cursor: cursor!, perPage: perPage! });
+        return useSWR(context, valid ? () => this.forumControllerMessagesPage(id!, threadType!, page!, cursor!, perPage!) : null, config)
     }
 
     /**

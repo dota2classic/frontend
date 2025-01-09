@@ -9,10 +9,10 @@ interface IReplyToMessageToolProps {
 export const ReplyToMessageTool = React.memo(function ReplyToMessageTool({
   messageId,
 }: IReplyToMessageToolProps) {
-  const { thread } = useContext(ThreadContext);
+  const { input } = useContext(ThreadContext);
   const setReplyMessage = useCallback(() => {
-    thread.setReplyMessageId(messageId);
-  }, [messageId, thread]);
+    input.setReplyMessageId(messageId);
+  }, [messageId, input]);
 
   return <FaReply onClick={setReplyMessage} />;
 });

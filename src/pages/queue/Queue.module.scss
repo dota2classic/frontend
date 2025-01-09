@@ -93,6 +93,14 @@
   }
 }
 
+
+.deleteMe {
+  & :global(.messageList) > div:first-child {
+    height: 787px !important;
+  }
+}
+
+
 .notify {
   display: flex;
   align-items: center;

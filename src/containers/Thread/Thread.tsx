@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 
 import c from "./Thread.module.scss";
 import { observer } from "mobx-react-lite";
@@ -45,13 +45,17 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
   showLastMessages,
   pagination,
 }) {
-  const { threads } = useStore();
+  const { threads, auth } = useStore();
 
   useEffect(() => {
     threads.loadEmoticons();
   }, []);
 
-  const thread = useThread(
+  const canMessage: boolean = useMemo(() => {
+    return !!auth.parsedToken;
+  }, [auth.parsedToken]);
+
+  const { thread, input } = useThread(
     id,
     threadType,
     populateMessages,
@@ -59,20 +63,30 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
     pagination?.page,
   );
 
+  const sendMessage = useCallback(
+    (msg: string) => {
+      return thread
+        .sendMessage(msg, input.replyingMessageId)
+        .then(() => input.setReplyMessageId(undefined));
+    },
+    [input, thread],
+  );
+
+  const clearReply = useCallback(() => {
+    input.setReplyMessageId(undefined);
+  }, [input]);
+
   const displayInput =
     !pagination ||
     !thread.pg ||
     thread.pg.pages === 1 ||
     thread.pg.page == thread.pg.pages - 1;
 
-  useEffect(() => {
-    thread.loadOlder();
-  }, []);
-
   return (
     <ThreadContext.Provider
       value={{
         thread,
+        input,
       }}
     >
       <div className={cx(c.thread, threadFont.className, className)}>
@@ -92,9 +106,9 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
           )}
         >
           {threadStyle === ThreadStyle.CHAT ? (
-            <RenderChatThread messages={thread.threadView.groupedMessages} />
+            <RenderChatThread />
           ) : (
-            <ForumThread messages={thread.threadView.groupedMessages} />
+            <ForumThread />
           )}
         </div>
         {pagination && (
@@ -106,10 +120,13 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
         )}
         {displayInput && (
           <MessageInput
-            rows={1}
-            canMessage={true}
-            threadId={`${thread.threadView.type}_${thread.id}`}
-            onMessage={(msg) => thread.consumeMessages([msg])}
+            greedyFocus
+            canMessage={canMessage}
+            onMessage={sendMessage}
+            onValue={input.setValue}
+            value={input.value}
+            replyMessage={input.replyingMessage}
+            cancelReply={clearReply}
           />
         )}
       </div>

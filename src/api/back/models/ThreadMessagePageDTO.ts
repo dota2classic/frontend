@@ -50,6 +50,12 @@ export interface ThreadMessagePageDTO {
      * @memberof ThreadMessagePageDTO
      */
     pages: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ThreadMessagePageDTO
+     */
+    cursor?: string;
 }
 
 export function ThreadMessagePageDTOFromJSON(json: any): ThreadMessagePageDTO {
@@ -66,6 +72,7 @@ export function ThreadMessagePageDTOFromJSONTyped(json: any, ignoreDiscriminator
         'page': json['page'],
         'perPage': json['perPage'],
         'pages': json['pages'],
+        'cursor': !exists(json, 'cursor') ? undefined : json['cursor'],
     };
 }
 
@@ -82,6 +89,7 @@ export function ThreadMessagePageDTOToJSON(value?: ThreadMessagePageDTO | null):
         'page': value.page,
         'perPage': value.perPage,
         'pages': value.pages,
+        'cursor': value.cursor,
     };
 }
 

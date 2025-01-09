@@ -1,25 +1,42 @@
 import { observer } from "mobx-react-lite";
-import { ThreadMessageDTO } from "@/api/back";
 import { Panel, PlayerAvatar } from "@/components";
 import cx from "clsx";
 import c from "./MessageInput.module.scss";
 import { IoSend } from "react-icons/io5";
-import React, { useCallback, useContext, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AddEmoticonButton } from "./AddEmoticonButton";
-import { ThreadContext } from "@/containers/Thread/threadContext";
 import { MdClose } from "react-icons/md";
+import { ThreadMessageDTO } from "@/api/back";
+import { useTypingEffect } from "@/util/useTypingEffect";
 
 export const MessageInput = observer(function MessageInput(p: {
-  threadId: string;
   canMessage: boolean;
-  onMessage: (mgs: ThreadMessageDTO) => void;
-  rows: number;
+  onMessage: (content: string) => Promise<void>;
   className?: string;
+  value: string;
+  onValue: (v: string) => void;
+
+  onEscape?: () => void;
+  replyMessage?: ThreadMessageDTO;
+  cancelReply?: () => void;
+  greedyFocus?: boolean;
 }) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const [value, setValue] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const { thread } = useContext(ThreadContext);
+
+  useTypingEffect(textareaRef, p.greedyFocus);
+
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        p.onEscape?.();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => document.removeEventListener("keydown", listener);
+  }, [p]);
+
+  const value = p.value;
 
   const isValid = value.trim().length >= 2;
 
@@ -30,18 +47,16 @@ export const MessageInput = observer(function MessageInput(p: {
     }
     // Do it optimistically, first
     const msg = value;
-    setValue("");
+    p.onValue("");
 
-    thread
-      .sendMessage(p.threadId, msg, thread.replyingMessageId)
-      .catch((err) => {
-        if (err.status === 403) {
-          setError("Вам запрещено отправлять сообщения!");
-        } else {
-          setError("Слишком часто отправляете сообщения!");
-        }
-        setValue(msg);
-      });
+    p.onMessage(msg).catch((err) => {
+      if (err.status === 403) {
+        setError("Вам запрещено отправлять сообщения!");
+      } else {
+        setError("Слишком часто отправляете сообщения!");
+      }
+      p.onValue(msg);
+    });
   }, [isValid, p, value]);
 
   const onEnterKeyPressed = useCallback(
@@ -55,10 +70,6 @@ export const MessageInput = observer(function MessageInput(p: {
     [submit],
   );
 
-  const clearReplyMessage = useCallback(() => {
-    thread.setReplyMessageId(undefined);
-  }, [thread]);
-
   const insertAtCursor = useCallback(
     (insert: string) => {
       const myField = textareaRef.current;
@@ -70,32 +81,38 @@ export const MessageInput = observer(function MessageInput(p: {
         insert +
         myField.value.substring(endPos, myField.value.length);
 
-      setValue(myField.value);
+      p.onValue(myField.value);
     },
-    [textareaRef],
+    [p],
   );
 
   return (
     <Panel className={cx(c.createMessageContainer, p.className)}>
-      {thread.replyingMessage && (
+      {p.replyMessage && (
         <div className={c.replyMessage}>
           Ответ на сообщение{" "}
           <PlayerAvatar
-            src={thread.replyingMessage.author.avatar}
+            src={p.replyMessage.author.avatar}
             width={20}
             height={20}
             alt={""}
           />
           <span className={c.replyMessage__name}>
-            {thread.replyingMessage.author.name}
+            {p.replyMessage.author.name}
           </span>
-          <MdClose onClick={clearReplyMessage} />
+          <MdClose onClick={p.cancelReply} />
         </div>
       )}
       <div className={cx(c.createMessage, p.className)}>
         <textarea
-          ref={textareaRef}
-          rows={p.rows}
+          rows={1}
+          autoFocus
+          ref={(e) => {
+            textareaRef.current = e;
+            if (e) {
+              e.focus();
+            }
+          }}
           readOnly={!p.canMessage}
           onKeyDown={onEnterKeyPressed}
           className={c.text}
@@ -107,7 +124,7 @@ export const MessageInput = observer(function MessageInput(p: {
           value={value}
           onChange={(e) => {
             setError(null);
-            setValue(e.target.value!);
+            p.onValue(e.target.value);
           }}
         />
 

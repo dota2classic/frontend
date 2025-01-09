@@ -18,11 +18,14 @@ import { getApi } from "@/api/hooks";
 import { GroupedMessages, ThreadView } from "@/containers/Thread/threads";
 
 export class ThreadContainer {
-  // @observable
-  // messageMap: Map<string, ThreadMessageDTO> = new Map();
+  @observable.ref
+  private id: string = "";
+
+  @observable.ref
+  private threadType: ThreadType = ThreadType.FORUM;
 
   @observable
-  messages: ThreadMessageDTO[] = [];
+  messageMap: Map<string, ThreadMessageDTO> = new Map();
 
   @observable
   pg: ThreadMessagePageDTO | undefined = undefined;
@@ -33,32 +36,43 @@ export class ThreadContainer {
   @observable
   thread: ThreadDTO | undefined = undefined;
 
-  @observable
-  replyingMessageId: string | undefined = undefined;
-
-  @computed
-  public get replyingMessage(): ThreadMessageDTO | undefined {
-    return (
-      (this.replyingMessageId &&
-        this.messages.find((it) => it.messageId === this.replyingMessageId)) ||
-      undefined
-    );
-  }
-
   @computed
   public get isThreadReady() {
     // We are ready if thread is not undefined and we did try load messages
-    return !!this.thread;
+    return !!this.thread && !!this.pg;
   }
 
   @computed
   public get relevantMessages(): ThreadMessageDTO[] {
-    return this.pg ? this.pg.data : this.messages;
+    // return this.pg ? this.pg.data : Array.from(this.messageMap.values());
+    return this.page !== undefined
+      ? this.pg?.data || []
+      : Array.from(this.messageMap.values());
+  }
+
+  @computed
+  public get pool(): [ThreadMessageDTO, boolean][] {
+    const pool = this.relevantMessages.toSorted(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
+
+    const pool2: [ThreadMessageDTO, boolean][] = [];
+    for (let i = 0; i < pool.length; i++) {
+      const msg = pool[i];
+      const previousMessage = pool[i - 1];
+      const header =
+        !previousMessage ||
+        previousMessage.author.steamId !== msg.author.steamId ||
+        !!msg.reply;
+      pool2.push([msg, header]);
+    }
+    return pool2;
   }
 
   @computed
   public get threadView(): ThreadView {
-    const messagePool = this.relevantMessages.sort(
+    const messagePool = this.relevantMessages.toSorted(
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
     );
@@ -69,17 +83,8 @@ export class ThreadContainer {
 
     let group: GroupedMessages | undefined = undefined;
 
-    console.log(`Group ${messages.length} messages`);
-
     for (let i = 0; i < messages.length; i++) {
       const msg = messages[i];
-      if (msg.reply) {
-        console.log(
-          "Create message group cause reply",
-          msg.content,
-          msg.reply.content,
-        );
-      }
       if (
         !group ||
         group.author.steamId !== msg.author.steamId ||
@@ -104,15 +109,17 @@ export class ThreadContainer {
   }
 
   constructor(
-    public id: string,
-    public threadType: ThreadType,
+    id: string,
+    threadType: ThreadType,
     init: ThreadMessageDTO[] | ThreadMessagePageDTO | undefined,
     page: number | undefined,
   ) {
     makeObservable(this);
-    trace(this, "threadView");
-    trace(this, "relevantMessages");
+    this.threadType = threadType;
+    this.id = id;
     this.page = page;
+    this.initialLoad().then(() => this.fetchThread(id, threadType));
+
     if (init) {
       if ("page" in init) {
         // start with page and messages for good measure
@@ -123,13 +130,32 @@ export class ThreadContainer {
         this.messageMap = new Map(init.map((it) => [it.messageId, it]));
       }
     }
-    this.fetchThread();
+
+    trace(this, "threadView");
+    trace(this, "relevantMessages");
+    trace(this, "thread");
   }
+
+  private initialLoad = async () => {
+    if (this.page !== undefined) {
+      this.loadPage(this.page);
+    } else {
+      getApi()
+        .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 200)
+        .then(this.setPageData);
+    }
+  };
 
   consumeMessage = (msg: ThreadMessageDTO) => this.consumeMessages([msg]);
 
   @action consumeMessages = (msgs: ThreadMessageDTO[]) => {
-    msgs.forEach((message) => this.messageMap.set(message.messageId, message));
+    // kinda upsert
+    msgs.forEach((message) => {
+      const existing = this.messageMap.get(message.messageId);
+      if (!existing || existing.updatedAt !== message.updatedAt) {
+        this.messageMap.set(message.messageId, message);
+      }
+    });
     // Here we have a tricky part and don't like it
     if (msgs.length === 1 && this.pg && this.pg.data.length > 0) {
       const msg = msgs[0];
@@ -203,7 +229,7 @@ export class ThreadContainer {
     this.page = 0;
     this.messageMap.clear();
 
-    this.fetchThread();
+    this.fetchThread(id, threadType).then();
   };
 
   loadOlder = () => this.loadMore(false, 100);
@@ -223,33 +249,26 @@ export class ThreadContainer {
       .then(this.consumeMessage);
   };
 
-  private fetchThread = async () => {
-    getApi()
-      .forumApi.forumControllerGetThread(this.id, this.threadType)
+  private fetchThread = async (id: string, threadType: ThreadType) => {
+    return getApi()
+      .forumApi.forumControllerGetThread(id, threadType)
       .then((thread) => runInAction(() => (this.thread = thread)))
       .catch();
   };
 
-  @action setReplyMessageId = (messageId: string | undefined) => {
-    this.replyingMessageId = messageId;
-  };
-
-  public async sendMessage(
-    threadId: string,
-    msg: string,
-    replyingMessageId: string | undefined,
-  ) {
+  public async sendMessage(msg: string, replyingMessageId: string | undefined) {
     return getApi()
       .forumApi.forumControllerPostMessage({
-        threadId,
+        threadId: this.id,
         content: msg,
         replyMessageId: replyingMessageId,
       })
-      .then((msg) => {
-        // runInAction(() => {
-        this.consumeMessage(msg);
-        // this.setReplyMessageId(undefined);
-        // }),
-      });
+      .then(this.consumeMessage);
+  }
+
+  public async editMessage(id: string, content: string) {
+    return getApi()
+      .forumApi.forumControllerEditMessage(id, { content })
+      .then(this.consumeMessage);
   }
 }

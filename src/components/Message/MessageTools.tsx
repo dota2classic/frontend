@@ -6,26 +6,31 @@ import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { AddSpecificReactionTool } from "@/components/Message/tools/AddSpecificReactionTool";
 import { ReplyToMessageTool } from "@/components/Message/tools/ReplyToMessageTool";
+import { EditMessageTool } from "@/components/Message/tools/EditMessageTool";
+import { ThreadMessageDTO } from "@/api/back";
 
 interface Props {
-  messageId: string;
+  message: ThreadMessageDTO;
 }
 
-export const MessageTools = observer(({ messageId }: Props) => {
-  const { emoticons } = useStore().threads;
+export const MessageTools = observer(({ message }: Props) => {
+  const {
+    threads: { emoticons },
+  } = useStore();
 
   return (
     <div className={c.tools}>
       {emoticons.slice(0, 3).map((emoticon) => (
         <AddSpecificReactionTool
-          messageId={messageId}
+          messageId={message.messageId}
           key={emoticon.code}
           emoticon={emoticon}
         />
       ))}
-      <AddReactionTool messageId={messageId} />
-      <ReplyToMessageTool messageId={messageId} />
-      <DeleteMessageTool messageId={messageId} />
+      <AddReactionTool messageId={message.messageId} />
+      <ReplyToMessageTool messageId={message.messageId} />
+      <EditMessageTool message={message} />
+      <DeleteMessageTool messageId={message.messageId} />
     </div>
   );
 });

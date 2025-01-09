@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ThreadType } from "@/api/mapped-models";
 import {
   querystring,
@@ -8,6 +9,8 @@ import { useLocalObservable } from "mobx-react-lite";
 import { useCallback, useEffect, useState } from "react";
 import { ThreadContainer } from "@/containers/Thread/ThreadContainer";
 import { getApi } from "@/api/hooks";
+import { ThreadInputData } from "@/containers/Thread/ThreadInputData";
+import { ThreadContextData } from "@/containers/Thread/threadContext";
 
 export const useThread = (
   id: string,
@@ -16,10 +19,24 @@ export const useThread = (
   loadLatest: boolean = false,
   page?: number,
   batchSize: number = 100,
-): ThreadContainer => {
-  const thread = useLocalObservable<ThreadContainer>(
-    () => new ThreadContainer(id.toString(), threadType, initialMessages, page),
-  );
+): ThreadContextData => {
+  const threadContext = useLocalObservable<ThreadContextData>(() => {
+    const thread = new ThreadContainer(
+      id.toString(),
+      threadType,
+      initialMessages,
+      page,
+    );
+    const input = new ThreadInputData(thread);
+
+    return {
+      thread,
+      input,
+    };
+  });
+
+  const { thread } = threadContext;
+
   const [trigger, setTrigger] = useState(0);
 
   useThreadEventSource(
@@ -52,7 +69,7 @@ export const useThread = (
     if (page !== undefined) {
       thread.loadPage(0);
     } else {
-      thread.loadMore(loadLatest, batchSize);
+      // thread.loadMore(loadLatest, batchSize);
     }
   }, [id, threadType]);
 
@@ -62,11 +79,11 @@ export const useThread = (
     }
   }, [page]);
 
-  useEffect(() => {
-    thread.updateThread(threadType, id);
-  }, [id, threadType]);
+  // useEffect(() => {
+  //   thread.updateThread(threadType, id);
+  // }, [id, threadType]);
 
-  return thread;
+  return threadContext;
 };
 
 const useThreadEventSource = (

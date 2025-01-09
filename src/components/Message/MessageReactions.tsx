@@ -13,54 +13,53 @@ interface Props {
   messageId: string;
   reactions: ReactionEntry[];
 }
-export const MessageReactions = React.memo(
-  observer(function MessageReactions({ messageId, reactions }: Props) {
-    const [tooltipReaction, setTooltipReaction] = useState<
-      { reaction: ReactionEntry; anchor: HTMLElement } | undefined
-    >(undefined);
-    const mySteamId = useStore().auth.parsedToken?.sub;
-    const ctx = useContext(ThreadContext);
+export const MessageReactions = observer(function MessageReactions({
+  messageId,
+  reactions,
+}: Props) {
+  const [tooltipReaction, setTooltipReaction] = useState<
+    { reaction: ReactionEntry; anchor: HTMLElement } | undefined
+  >(undefined);
+  const mySteamId = useStore().auth.parsedToken?.sub;
+  const ctx = useContext(ThreadContext);
 
-    return (
-      <div
-        className={cx(c.reactions, reactions.length && c.reactions__nonempty)}
-      >
-        {tooltipReaction &&
-          createPortal(
-            <GenericTooltip
-              anchor={tooltipReaction.anchor}
-              onClose={() => setTooltipReaction(undefined)}
-            >
-              <MessageReactionsTooltip reaction={tooltipReaction.reaction} />
-            </GenericTooltip>,
-            document.body,
-          )}
-        {reactions.map((reaction) => (
-          <div
-            onMouseEnter={(e) =>
-              setTooltipReaction({ reaction, anchor: e.target as HTMLElement })
-            }
-            onMouseLeave={() => setTooltipReaction(undefined)}
-            key={reaction.emoticon.id}
-            onClick={() => ctx.thread.react(messageId, reaction.emoticon.id)}
-            className={cx(
-              c.reaction,
-              reaction.reacted.findIndex(
-                (reactor) => reactor.steamId === mySteamId,
-              ) !== -1 && c.reaction__active,
-            )}
+  return (
+    <div className={cx(c.reactions, reactions.length && c.reactions__nonempty)}>
+      {tooltipReaction &&
+        createPortal(
+          <GenericTooltip
+            anchor={tooltipReaction.anchor}
+            onClose={() => setTooltipReaction(undefined)}
           >
-            <img src={reaction.emoticon.src} alt="" />
-            <span>{reaction.reacted.length}</span>
-          </div>
-        ))}
+            <MessageReactionsTooltip reaction={tooltipReaction.reaction} />
+          </GenericTooltip>,
+          document.body,
+        )}
+      {reactions.map((reaction) => (
+        <div
+          onMouseEnter={(e) =>
+            setTooltipReaction({ reaction, anchor: e.target as HTMLElement })
+          }
+          onMouseLeave={() => setTooltipReaction(undefined)}
+          key={reaction.emoticon.id}
+          onClick={() => ctx.thread.react(messageId, reaction.emoticon.id)}
+          className={cx(
+            c.reaction,
+            reaction.reacted.findIndex(
+              (reactor) => reactor.steamId === mySteamId,
+            ) !== -1 && c.reaction__active,
+          )}
+        >
+          <img src={reaction.emoticon.src} alt="" />
+          <span>{reaction.reacted.length}</span>
+        </div>
+      ))}
 
-        {reactions.length ? (
-          <div className={cx(c.reaction)}>
-            <AddReactionTool messageId={messageId} />
-          </div>
-        ) : null}
-      </div>
-    );
-  }),
-);
+      {reactions.length ? (
+        <div className={cx(c.reaction)}>
+          <AddReactionTool messageId={messageId} />
+        </div>
+      ) : null}
+    </div>
+  );
+});

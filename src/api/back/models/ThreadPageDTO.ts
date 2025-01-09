@@ -50,6 +50,12 @@ export interface ThreadPageDTO {
      * @memberof ThreadPageDTO
      */
     pages: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ThreadPageDTO
+     */
+    cursor?: string;
 }
 
 export function ThreadPageDTOFromJSON(json: any): ThreadPageDTO {
@@ -66,6 +72,7 @@ export function ThreadPageDTOFromJSONTyped(json: any, ignoreDiscriminator: boole
         'page': json['page'],
         'perPage': json['perPage'],
         'pages': json['pages'],
+        'cursor': !exists(json, 'cursor') ? undefined : json['cursor'],
     };
 }
 
@@ -82,6 +89,7 @@ export function ThreadPageDTOToJSON(value?: ThreadPageDTO | null): any {
         'page': value.page,
         'perPage': value.perPage,
         'pages': value.pages,
+        'cursor': value.cursor,
     };
 }
 
