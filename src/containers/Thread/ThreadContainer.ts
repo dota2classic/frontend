@@ -259,7 +259,7 @@ export class ThreadContainer {
   public async sendMessage(msg: string, replyingMessageId: string | undefined) {
     return getApi()
       .forumApi.forumControllerPostMessage({
-        threadId: this.id,
+        threadId: `${this.threadType}_${this.id}`,
         content: msg,
         replyMessageId: replyingMessageId,
       })
