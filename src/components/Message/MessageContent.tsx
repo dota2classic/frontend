@@ -15,7 +15,7 @@ export const MessageContent = observer(({ message }: Props) => {
 
   useEffect(() => {
     setValue(message.content);
-  }, [message.content]);
+  }, [message.content, input.editingMessageId]);
 
   const cancelEdit = useCallback(() => {
     input.setEditMessage(undefined);
@@ -33,6 +33,7 @@ export const MessageContent = observer(({ message }: Props) => {
   return input.editingMessageId === message.messageId ? (
     <>
       <MessageInput
+        greedyFocus={10}
         onEscape={cancelEdit}
         canMessage
         onMessage={editMessage}

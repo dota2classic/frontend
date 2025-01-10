@@ -47,7 +47,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
 
   return (
     <div className={c.info}>
-      <InvitePlayerModal isOpen={inviteOpen} close={close} />
+      {inviteOpen && <InvitePlayerModal isOpen={inviteOpen} close={close} />}
 
       <div className={c.party}>
         {(party?.players || []).map((t: PartyMemberDTO) => (

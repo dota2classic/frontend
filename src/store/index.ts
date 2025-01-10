@@ -9,6 +9,7 @@ import { getApi } from "@/api/hooks";
 import { NotificationStore } from "@/store/NotificationStore";
 import { UserCacheStore } from "@/store/UserCacheStore";
 import { ThreadsStore } from "@/store/ThreadsStore";
+import { GreedyFocusStore } from "@/store/GreedyFocusStore";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -35,6 +36,7 @@ function createStore(): RootStore {
     notify,
     user: ucache,
     threads,
+    greedyFocus: new GreedyFocusStore(),
   };
 }
 export const __unsafeGetClientStore = () => clientStore;
@@ -73,6 +75,7 @@ export interface RootStore {
   user: UserCacheStore;
   notify: NotificationStore;
   threads: ThreadsStore;
+  greedyFocus: GreedyFocusStore;
 }
 
 export function useStore(): RootStore {

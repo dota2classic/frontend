@@ -11,6 +11,7 @@ import { getRootStore, HydrateRootData, RootStore } from "@/store";
 import Head from "next/head";
 import "../ext";
 import cx from "clsx";
+import { GreedyFocusManager } from "@/containers";
 // Font files can be colocated inside of `pages`
 const myFont = localFont({
   src: [
@@ -56,6 +57,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
       notify: {},
       user: {},
       threads: { emoticons: [] },
+      greedyFocus: {},
       ...inferredState,
     };
 
@@ -79,6 +81,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
     return (
       <MobxContext.Provider value={store}>
         <ReferralSniffer />
+        <GreedyFocusManager />
         <Head>
           <title>Dota2Classic</title>
         </Head>

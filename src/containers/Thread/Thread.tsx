@@ -119,7 +119,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
         )}
         {displayInput && (
           <MessageInput
-            greedyFocus
+            greedyFocus={1}
             canMessage={canMessage}
             onMessage={sendMessage}
             onValue={input.setValue}

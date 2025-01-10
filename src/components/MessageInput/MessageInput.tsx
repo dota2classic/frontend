@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AddEmoticonButton } from "./AddEmoticonButton";
 import { MdClose } from "react-icons/md";
 import { ThreadMessageDTO } from "@/api/back";
-import { useTypingEffect } from "@/util/useTypingEffect";
+import { useGreedyFocus } from "@/util/useTypingCallback";
 
 export const MessageInput = observer(function MessageInput(p: {
   canMessage: boolean;
@@ -19,12 +19,12 @@ export const MessageInput = observer(function MessageInput(p: {
   onEscape?: () => void;
   replyMessage?: ThreadMessageDTO;
   cancelReply?: () => void;
-  greedyFocus?: boolean;
+  greedyFocus?: number;
 }) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useTypingEffect(textareaRef, p.greedyFocus);
+  useGreedyFocus(p.greedyFocus, textareaRef);
 
   useEffect(() => {
     const listener = (e: KeyboardEvent) => {
