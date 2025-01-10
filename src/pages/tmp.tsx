@@ -8,7 +8,6 @@ import c from "./queue/Queue.module.scss";
 export default function Tmp() {
   return (
     <Thread
-      scrollToLast
       className={cx(c.queueDiscussion, c.deleteMe)}
       showLastMessages={100}
       threadStyle={ThreadStyle.CHAT}

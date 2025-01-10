@@ -93,7 +93,9 @@ export const MessageHeader = observer(function MessageHeader({
             {message.author.name}
           </PageLink>
           {roles}
-          {<PeriodicTimerClient time={message.createdAt} />}
+          <span className={c.messageTime}>
+            {<PeriodicTimerClient time={message.createdAt} />}
+          </span>
         </div>
         <div className={cx(c.content)}>
           <MessageTools message={message} />

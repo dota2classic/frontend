@@ -9,7 +9,7 @@ import {
 import { HydratableStore } from "@/store/HydratableStore";
 import { parseJwt } from "@/util";
 import BrowserCookies from "browser-cookies";
-import { appApi } from "@/api/hooks";
+import { appApi, getApi } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
 import { metrika } from "@/ym";
 
@@ -66,6 +66,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @action
   public fetchMe = async () => {
+    if (!this.parsedToken) return;
     appApi.playerApi
       .playerControllerMe()
       .then((data) => runInAction(() => (this.me = data)))
@@ -94,18 +95,23 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   public setToken = (token: string | undefined) => {
     this.token = token;
     appApi.apiParams.accessToken = token;
+    this.fetchMe();
   };
 
   @action
   public logout = () => {
     this.token = undefined;
     appApi.apiParams.accessToken = undefined;
-    localStorage.removeItem("AuthStore.cookieTokenKey");
     BrowserCookies.erase(AuthStore.cookieTokenKey);
     if (typeof window !== "undefined") {
       window.location.reload();
     }
   };
+
+  public async debugRefreshToken() {
+    if (!this.token) return;
+    return getApi().refreshToken();
+  }
 
   hydrate = (data?: { token?: string }) => {
     if (!data) return;

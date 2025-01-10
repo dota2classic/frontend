@@ -51,7 +51,6 @@ const MatchThread = ({ id }: { id: string }) => {
       id={id}
       threadType={ThreadType.MATCH}
       showLastMessages={100}
-      scrollToLast
       className={c.queueDiscussion}
     />
   );

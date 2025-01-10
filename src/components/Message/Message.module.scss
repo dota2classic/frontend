@@ -25,6 +25,12 @@
   }
 }
 
+.messageTime {
+  flex: 1;
+  justify-content: flex-end;
+  display: flex;
+}
+
 .content {
   white-space: pre-line;
   overflow-wrap: break-word;

@@ -27,9 +27,8 @@ export const RenderChatThread = observer(function RenderChatThread() {
 
   useEffect(() => {
     if (!scrollableRef.current) return;
-    if (atBottom && thread.isThreadReady) {
+    if (atBottom && thread.isThreadReady && pool.length > 0) {
       console.log("OK, lets scroll!");
-      // scrollableRef.current?.scrollToIndex(firstItemIndex + pool.length + 1);
       scrollableRef.current?.scrollToIndex(pool.length);
     }
   }, [atBottom, thread.isThreadReady, pool]);
@@ -66,7 +65,7 @@ export const RenderChatThread = observer(function RenderChatThread() {
       startReached={startReached}
       firstItemIndex={firstItemIndex}
       data={pool}
-      initialTopMostItemIndex={pool.length}
+      // initialTopMostItemIndex={pool.length === 0 ? undefined : pool.length}
       style={{ width: "100%", height: "100%" }}
       itemContent={(_, [msg, header]: [ThreadMessageDTO, boolean]) => {
         return <Message message={msg} header={header} lightweight={false} />;

@@ -106,13 +106,8 @@ export const MessageInput = observer(function MessageInput(p: {
       <div className={cx(c.createMessage, p.className)}>
         <textarea
           rows={1}
-          autoFocus
-          ref={(e) => {
-            textareaRef.current = e;
-            if (e) {
-              e.focus();
-            }
-          }}
+          // autoFocus
+          ref={textareaRef}
           readOnly={!p.canMessage}
           onKeyDown={onEnterKeyPressed}
           className={c.text}

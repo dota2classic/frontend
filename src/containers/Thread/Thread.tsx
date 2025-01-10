@@ -29,7 +29,6 @@ interface IThreadProps {
   populateMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO;
   threadStyle: ThreadStyle;
   showLastMessages?: number;
-  scrollToLast?: boolean;
   pagination?: {
     pageProvider: (page: number) => NextLinkProp;
     page: number;

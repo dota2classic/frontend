@@ -62,7 +62,7 @@ export class AppApi {
           const auth = h["Authorization"];
           if (auth) {
             const token = auth.replace("Bearer ", "");
-            await this.refreshToken(token);
+            await this.requestRefreshToken(token);
           }
         },
       },
@@ -79,34 +79,10 @@ export class AppApi {
         }
         return t;
       });
-      // const key = JSON.stringify(input);
-      // const cached = this.cache.get(key);
-      // if (cached) {
-      //   // Need to create mock of response
-      //   const data = new Blob([JSON.stringify(cached)], {
-      //     type: "application/json",
-      //   });
-      //   const r = new Response(data, {
-      //     status: 200,
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      //
-      //   return r.clone() as Response;
-      // }
-
-      //
-      // result
-      //   .then((it) => it.clone().json())
-      //   .then((json) => {
-      //     this.cache.set(key, json);
-      //     return json;
-      //   });
     },
   };
 
-  refreshToken = async (token: string) => {
+  requestRefreshToken = (token: string) => {
     const jwt = parseJwt<JwtPayload>(token);
 
     const isExpiringSoon = jwt.exp * 1000 - new Date().getTime() <= 1000 * 60; // Less than a
@@ -121,17 +97,14 @@ export class AppApi {
         `Need refresh token because: ${jwt.version === undefined} or ${isExpiringSoon} | ${isTokenStale}`,
       );
 
-      const newToken = await this.authApi.steamControllerRefreshToken();
-
-      // console.log(parseJwt(newToken));
-      // getRootStore(undefined).auth.setToken(newToken);
-      BrowserCookies.set(AuthStore.cookieTokenKey, newToken);
-      // const tmp = BrowserCookies.get(AuthStore.cookieTokenKey);
-      // if (tmp) {
-      //   console.log(parseJwt(newToken));
-      // }
-      this.apiParams.accessToken = newToken;
+      return this.refreshToken();
     }
+  };
+
+  refreshToken = async () => {
+    const newToken = await this.authApi.steamControllerRefreshToken();
+    BrowserCookies.set(AuthStore.cookieTokenKey, newToken);
+    this.apiParams.accessToken = newToken;
   };
 
   private readonly apiConfig = new Configuration(this.apiParams);

@@ -260,7 +260,6 @@ export default function LobbyPage({ id, lobby, host }: Props) {
         className={cx(c.grid12, c.threadContainer)}
         threadStyle={ThreadStyle.CHAT}
         showLastMessages={100}
-        scrollToLast={true}
       />
       {/*<div className={cx(c.grid4, c.buttons)}>*/}
       {/*  <Button mega onClick={launchGame}>*/}
