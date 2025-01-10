@@ -36,9 +36,11 @@ export class GreedyFocusStore implements HydratableStore<unknown> {
     }
   }
 
-  public focusCurrent = () => {
+  public focusCurrent = (preventScroll = true) => {
     if (this.owner) {
-      this.owner.ref.focus();
+      this.owner.ref.focus({
+        preventScroll,
+      });
     }
   };
 
