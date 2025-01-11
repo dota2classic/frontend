@@ -14,7 +14,7 @@ export class NotificationDto {
 }
 
 export class NotificationStore implements HydratableStore<unknown> {
-  public static readonly NOTIFICATION_LIFETIME = 10_000;
+  public static readonly NOTIFICATION_LIFETIME = 60_000;
 
   @observable
   public permanentQueue: NotificationDto[] = [];
