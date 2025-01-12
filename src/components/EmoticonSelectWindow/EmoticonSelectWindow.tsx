@@ -14,7 +14,7 @@ import useOutsideClick from "@/util/useOutsideClick";
 import { Input } from "@/components";
 import { useStore } from "@/store";
 import { useKeyDown } from "@/util/keyboard";
-import {GreedyFocusPriority, useGreedyFocus} from "@/util/useTypingCallback";
+import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 
 interface IEmoticonSelectWindowProps {
   onClose: () => void;

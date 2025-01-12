@@ -5,7 +5,7 @@ import { GenericModal, Input, UserPreview } from "..";
 import c from "./InvitePlayerModal.module.scss";
 import { getApi } from "@/api/hooks";
 import { UserDTO } from "@/api/back";
-import {GreedyFocusPriority, useGreedyFocus} from "@/util/useTypingCallback";
+import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 
 interface IInvitePlayerModalProps {
   onSelect: (user: UserDTO) => void;

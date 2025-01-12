@@ -17,7 +17,7 @@ import { ThreadType } from "@/api/mapped-models";
 import { ThreadMessageDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextLinkProp } from "@/route";
 import { ThreadStyle } from "@/containers/Thread/types";
-import {GreedyFocusPriority} from "@/util/useTypingCallback";
+import { GreedyFocusPriority } from "@/util/useTypingCallback";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
