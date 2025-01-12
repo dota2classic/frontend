@@ -4,6 +4,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { ThreadMessageDTO } from "@/api/back";
 import { observer } from "mobx-react-lite";
+import {GreedyFocusPriority} from "@/util/useTypingCallback";
 
 interface Props {
   message: ThreadMessageDTO;
@@ -33,7 +34,7 @@ export const MessageContent = observer(({ message }: Props) => {
   return input.editingMessageId === message.messageId ? (
     <>
       <MessageInput
-        greedyFocus={10}
+        greedyFocus={GreedyFocusPriority.FORUM_EDIT_MESSAGE}
         onEscape={cancelEdit}
         canMessage
         onMessage={editMessage}

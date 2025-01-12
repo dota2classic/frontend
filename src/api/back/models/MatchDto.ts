@@ -93,7 +93,7 @@ export interface MatchDto {
      * @type {string}
      * @memberof MatchDto
      */
-    replayUrl: string;
+    replayUrl?: string;
 }
 
 export function MatchDtoFromJSON(json: any): MatchDto {
@@ -115,7 +115,7 @@ export function MatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'duration': json['duration'],
         'reportable': json['reportable'],
         'timestamp': json['timestamp'],
-        'replayUrl': json['replayUrl'],
+        'replayUrl': !exists(json, 'replayUrl') ? undefined : json['replayUrl'],
     };
 }
 

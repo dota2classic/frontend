@@ -14,6 +14,7 @@ import useOutsideClick from "@/util/useOutsideClick";
 import { Input } from "@/components";
 import { useStore } from "@/store";
 import { useKeyDown } from "@/util/keyboard";
+import {GreedyFocusPriority, useGreedyFocus} from "@/util/useTypingCallback";
 
 interface IEmoticonSelectWindowProps {
   onClose: () => void;
@@ -70,6 +71,9 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
       src: "https://s3.dotaclassic.ru/emoticons/cocky.gif",
     });
 
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    useGreedyFocus(GreedyFocusPriority.EMOTICON_WINDOW_SEARCH, inputRef);
+
     const containerRef = useRef<HTMLDivElement | null>(null);
     useOutsideClick(onClose, containerRef, [anchor]);
 
@@ -104,6 +108,7 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
         }}
       >
         <Input
+          ref={inputRef}
           placeholder={`:${hoveredEmoticon.code}:`}
           className={c.search}
           value={searchValue}

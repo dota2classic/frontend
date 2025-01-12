@@ -17,6 +17,7 @@ import { ThreadType } from "@/api/mapped-models";
 import { ThreadMessageDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextLinkProp } from "@/route";
 import { ThreadStyle } from "@/containers/Thread/types";
+import {GreedyFocusPriority} from "@/util/useTypingCallback";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -119,7 +120,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
         )}
         {displayInput && (
           <MessageInput
-            greedyFocus={1}
+            greedyFocus={GreedyFocusPriority.FORUM_SEND_MESSAGE}
             canMessage={canMessage}
             onMessage={sendMessage}
             onValue={input.setValue}

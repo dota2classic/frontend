@@ -1,4 +1,8 @@
 @import "../../common.scss";
+
+$reactionSize: 40px;
+$reactionColumns: 8;
+
 .emoticons {
   display: flex;
   visibility: hidden;
@@ -35,7 +39,7 @@
 .listEmoticons {
   display: grid;
   grid-column: span 8;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat($reactionColumns, $reactionSize);
   padding: 12px;
   gap: 12px;
   overflow-y: auto;
@@ -58,6 +62,11 @@
   align-items: center;
   background-color: $bg2;
   padding: 4px 12px;
+
+  & img {
+    width: $reactionSize;
+    height: $reactionSize;
+  }
 
   & span {
     margin-left: 8px;

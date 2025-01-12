@@ -5,7 +5,7 @@ import { GenericModal, Input, UserPreview } from "..";
 import c from "./InvitePlayerModal.module.scss";
 import { getApi } from "@/api/hooks";
 import { UserDTO } from "@/api/back";
-import { useGreedyFocus } from "@/util/useTypingCallback";
+import {GreedyFocusPriority, useGreedyFocus} from "@/util/useTypingCallback";
 
 interface IInvitePlayerModalProps {
   onSelect: (user: UserDTO) => void;
@@ -22,7 +22,7 @@ export const InvitePlayerModalRaw: React.FC<IInvitePlayerModalProps> = ({
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useGreedyFocus(100, inputRef);
+  useGreedyFocus(GreedyFocusPriority.INVITE_PLAYER_MODAL, inputRef);
   return (
     <GenericModal onClose={close} title="Выбрать игрока">
       {/*<h2>Искать</h2>*/}

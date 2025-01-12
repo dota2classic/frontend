@@ -2,6 +2,13 @@ import React, { useEffect } from "react";
 import { useStore } from "@/store";
 import { FocusOwner } from "@/store/GreedyFocusStore";
 
+export enum GreedyFocusPriority {
+  FORUM_SEND_MESSAGE,
+  FORUM_EDIT_MESSAGE,
+  EMOTICON_WINDOW_SEARCH,
+  INVITE_PLAYER_MODAL,
+}
+
 export const useGreedyFocus = (
   priority: number | undefined,
   ref: React.RefObject<HTMLTextAreaElement | HTMLInputElement | null>,
