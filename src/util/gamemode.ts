@@ -30,6 +30,7 @@ const messages = {
   // MatchmakingMode.CAPTAINS_MODE
   [MatchmakingMode.CAPTAINS_MODE]: "Captains Mode",
   [MatchmakingMode.LOBBY]: "Лобби",
+  [MatchmakingMode.BOTS2X2]: "2х2 с ботами",
 };
 
 export function formatGameMode(mode: MatchmakingMode) {

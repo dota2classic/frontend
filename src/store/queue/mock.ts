@@ -13,6 +13,7 @@ export const MatchmakingModes = [
   MatchmakingMode.BOTS,
   MatchmakingMode.HIGHROOM,
   MatchmakingMode.CAPTAINS_MODE,
+  MatchmakingMode.BOTS2X2,
 ];
 
 MatchmakingModes.forEach((mode) => {

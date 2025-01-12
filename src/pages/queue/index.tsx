@@ -75,6 +75,17 @@ const NotificationSetting = observer(() => {
   );
 });
 
+const getLobbyTypePriority = (type: MatchmakingMode): number => {
+  let score = Number(type);
+
+  if (type === MatchmakingMode.UNRANKED) {
+    score -= 1000;
+  } else if (type === MatchmakingMode.BOTS2X2) {
+    score -= 100;
+  }
+  return score;
+};
+
 const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
   const { queue, auth } = useStore();
 
@@ -86,7 +97,10 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
 
   const d84 = modes!
     .filter((it) => it.enabled)
-    .sort((a, b) => Number(a.lobbyType) - Number(b.lobbyType));
+    .sort(
+      (a, b) =>
+        getLobbyTypePriority(a.lobbyType) - getLobbyTypePriority(b.lobbyType),
+    );
 
   const modEnableCondition = (mode: MatchmakingMode): ReactNode | undefined => {
     if (mode !== MatchmakingMode.BOTS && queue.partyBanStatus?.isBanned) {
