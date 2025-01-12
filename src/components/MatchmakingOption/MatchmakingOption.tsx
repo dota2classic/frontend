@@ -38,6 +38,7 @@ export const MatchmakingOption = observer(
     testId,
   }: MatchmakingOptionProps) => {
     const { queue } = useStore();
+    const inGame = queue.inGameCount(mode);
 
     return (
       <div
@@ -66,8 +67,8 @@ export const MatchmakingOption = observer(
             <>{disabled}</>
           ) : (
             <>
-              {queue.inQueueCount(mode, version)} в поиске,{" "}
-              {queue.inGameCount(mode)} в игре
+              {queue.inQueueCount(mode, version)} в поиске
+              {inGame > 0 ? `, ${inGame} в игре` : undefined}
             </>
           )}
         </span>
