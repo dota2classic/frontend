@@ -5,10 +5,13 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
-import { PartyMemberDTO } from "@/api/back";
-import { InvitePlayerModal, PageLink } from "@/components";
+import { PartyMemberDTO, UserDTO } from "@/api/back";
+import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
+import { createPortal } from "react-dom";
+import { InvitePlayerModalRaw } from "@/components";
+import { NotificationDto } from "@/store/NotificationStore";
 
 const GameCoordinatorConnection = ({
   readyState,
@@ -27,17 +30,27 @@ const GameCoordinatorConnection = ({
 };
 
 export const QueuePartyInfo = observer(function QueuePartyInfo() {
-  const { queue } = useStore();
+  const { queue, notify } = useStore();
   const { data } = getApi().playerApi.usePlayerControllerMyParty();
-  const { data: onlineData } = getApi().statsApi.useStatsControllerOnline();
-
-  // const ping = usePing(1000);
 
   const party = queue.party;
+
+  const onlineData = queue.onlineData;
 
   const [inviteOpen, setInviteOpen] = useState(false);
 
   const close = useCallback(() => setInviteOpen(false), []);
+
+  const invite = useCallback(
+    async (it: UserDTO) => {
+      queue.inviteToParty(it.steamId);
+      notify.enqueueNotification(
+        new NotificationDto(`Приглашение отправлено ${it.name}`),
+      );
+      close();
+    },
+    [close, notify, queue],
+  );
 
   if (!queue.ready) {
     return <GameCoordinatorConnection readyState={queue.readyState} />;
@@ -47,7 +60,11 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
 
   return (
     <div className={c.info}>
-      {inviteOpen && <InvitePlayerModal isOpen={inviteOpen} close={close} />}
+      {inviteOpen &&
+        createPortal(
+          <InvitePlayerModalRaw close={close} onSelect={invite} />,
+          document.body,
+        )}
 
       <div className={c.party}>
         {(party?.players || []).map((t: PartyMemberDTO) => (

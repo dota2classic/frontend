@@ -38,6 +38,7 @@ export * from "./MmrChangeDto";
 export * from "./MyProfileDto";
 export * from "./PartyDto";
 export * from "./PartyMemberDTO";
+export * from "./PerModePlayersDto";
 export * from "./PlayerInMatchDto";
 export * from "./PlayerInfo";
 export * from "./PlayerSummaryDto";

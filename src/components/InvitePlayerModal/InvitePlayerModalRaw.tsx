@@ -1,64 +1,49 @@
 import React, { useRef, useState } from "react";
 
-import { GenericModal, Input } from "..";
+import { GenericModal, Input, UserPreview } from "..";
 
 import c from "./InvitePlayerModal.module.scss";
 import { getApi } from "@/api/hooks";
-import cx from "clsx";
 import { UserDTO } from "@/api/back";
-import Image from "next/image";
-import { IoMdClose } from "react-icons/io";
+import { useGreedyFocus } from "@/util/useTypingCallback";
 
 interface IInvitePlayerModalProps {
-  isOpen: boolean;
   onSelect: (user: UserDTO) => void;
   close(): void;
 }
 
 export const InvitePlayerModalRaw: React.FC<IInvitePlayerModalProps> = ({
-  isOpen,
   onSelect,
   close,
 }) => {
   const [search, setSearch] = useState("");
 
-  const { data } = getApi().playerApi.usePlayerControllerSearch(search);
+  const { data } = getApi().playerApi.usePlayerControllerSearch(search, 25);
 
-  const comp = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
+  useGreedyFocus(100, inputRef);
   return (
-    <GenericModal className={cx(!isOpen && "mobileHidden")}>
-      <div className="modal" ref={comp}>
-        <IoMdClose onClick={close} className={c.close} />
-        <h2>Искать</h2>
-        <Input
-          placeholder={"Никнейм игрока"}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <br />
-
-        <div className={c.playerList}>
-          {(data || [])
-            .filter((it) => it.steamId.length > 2)
-            .map((it: UserDTO) => (
-              <div
-                className={c.playerPreview}
-                key={it.steamId}
-                onClick={() => {
-                  onSelect(it);
-                }}
-              >
-                <Image
-                  width={40}
-                  height={40}
-                  src={it.avatar || "/avatar.png"}
-                  alt={`Avatar of ${it.name}`}
-                />
-                <span>{it.name}</span>
-              </div>
-            ))}
-        </div>
+    <GenericModal onClose={close} title="Выбрать игрока">
+      {/*<h2>Искать</h2>*/}
+      <Input
+        ref={inputRef}
+        placeholder={"Никнейм игрока"}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <div className={c.playerList}>
+        {(data || [])
+          .filter((it) => it.steamId.length > 2)
+          .map((it: UserDTO) => (
+            <UserPreview
+              onClick={() => onSelect(it)}
+              nolink
+              key={it.steamId}
+              user={it}
+              className={c.playerPreview}
+            />
+          ))}
       </div>
     </GenericModal>
   );

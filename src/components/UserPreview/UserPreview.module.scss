@@ -4,14 +4,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  font-size: 0.8rem;
-  padding: 6px 4px;
-
-  & img {
-    height: 30px;
-    width: 30px;
-  }
+  font-size: 1rem;
+  color: $primaryText;
 
   & a,
   span {
@@ -22,5 +16,27 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+
+  & img {
+    //border-radius: 10%;
+  }
+}
+
+
+.online {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    right: -4px;
+
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(34, 206, 34, 1);
+    outline: 2px solid $bg2;
   }
 }

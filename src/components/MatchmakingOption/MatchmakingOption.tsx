@@ -65,7 +65,10 @@ export const MatchmakingOption = observer(
           {disabled ? (
             <>{disabled}</>
           ) : (
-            <>{queue.inQueueCount(mode, version)} в поиске</>
+            <>
+              {queue.inQueueCount(mode, version)} в поиске,{" "}
+              {queue.inGameCount(mode)} в игре
+            </>
           )}
         </span>
         {suffix && <span className={c.mode__suffix}>{suffix}</span>}

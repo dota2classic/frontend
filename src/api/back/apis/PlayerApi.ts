@@ -73,6 +73,7 @@ export interface PlayerControllerReportPlayerRequest {
 
 export interface PlayerControllerSearchRequest {
   name: string;
+  count: number;
 }
 
 export interface PlayerControllerTeammatesRequest {
@@ -540,6 +541,9 @@ export class PlayerApi extends runtime.BaseAPI {
         if (requestParameters.name === null || requestParameters.name === undefined) {
             throw new runtime.RequiredError("name","Required parameter requestParameters.name was null or undefined when calling playerControllerSearch.");
         }
+        if (requestParameters.count === null || requestParameters.count === undefined) {
+            throw new runtime.RequiredError("count","Required parameter requestParameters.count was null or undefined when calling playerControllerSearch.");
+        }
     }
 
     /**
@@ -549,6 +553,10 @@ export class PlayerApi extends runtime.BaseAPI {
 
         if (requestParameters.name !== undefined) {
             queryParameters["name"] = requestParameters.name;
+        }
+
+        if (requestParameters.count !== undefined) {
+            queryParameters["count"] = requestParameters.count;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -563,20 +571,24 @@ export class PlayerApi extends runtime.BaseAPI {
 
     /**
      */
-    playerControllerSearch = async (name: string): Promise<Array<UserDTO>> => {
-        const response = await this.playerControllerSearchRaw({ name: name });
+    playerControllerSearch = async (name: string, count: number): Promise<Array<UserDTO>> => {
+        const response = await this.playerControllerSearchRaw({ name: name, count: count });
         return await response.value();
     }
 
-    usePlayerControllerSearch(name: string, config?: SWRConfiguration<Array<UserDTO>, Error>) {
+    usePlayerControllerSearch(name: string, count: number, config?: SWRConfiguration<Array<UserDTO>, Error>) {
         let valid = true
 
         if (name === null || name === undefined || Number.isNaN(name)) {
             valid = false
         }
 
-        const context = this.playerControllerSearchContext({ name: name! });
-        return useSWR(context, valid ? () => this.playerControllerSearch(name!) : null, config)
+        if (count === null || count === undefined || Number.isNaN(count)) {
+            valid = false
+        }
+
+        const context = this.playerControllerSearchContext({ name: name!, count: count! });
+        return useSWR(context, valid ? () => this.playerControllerSearch(name!, count!) : null, config)
     }
 
     /**

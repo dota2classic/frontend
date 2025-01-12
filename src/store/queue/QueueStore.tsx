@@ -10,7 +10,12 @@ import {
 import { getApi } from "@/api/hooks";
 import { AuthStore } from "@/store/AuthStore";
 import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
-import { BanStatusDto, PartyDto, PartyMemberDTO } from "@/api/back";
+import {
+  BanStatusDto,
+  CurrentOnlineDto,
+  PartyDto,
+  PartyMemberDTO,
+} from "@/api/back";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { DefaultQueueHolder } from "@/store/queue/mock";
 import { Sounds } from "@/const/sounds";
@@ -98,6 +103,9 @@ export class QueueStore
   @observable
   public serverSearching: boolean = false;
 
+  @observable
+  public onlineData: CurrentOnlineDto | undefined = undefined;
+
   private scheduler!: ToadScheduler;
 
   constructor(
@@ -131,6 +139,15 @@ export class QueueStore
         ),
       ),
     );
+
+    this.scheduler.addIntervalJob(
+      new SimpleIntervalJob(
+        { seconds: 5 },
+        new AsyncTask("refresh online stats", this.updateOnlineStats, (err) => {
+          console.error("There was an error updating stats", err);
+        }),
+      ),
+    );
     // this.scheduler.addIntervalJob(
     //   new SimpleIntervalJob(
     //     { seconds: 1 },
@@ -144,6 +161,13 @@ export class QueueStore
     //   ),
     // );
   }
+
+  private updateOnlineStats = async () => {
+    await getApi()
+      .statsApi.statsControllerOnline()
+      .then((data) => runInAction(() => (this.onlineData = data)))
+      .catch();
+  };
 
   private refetchPartyOnBanEnd = async () => {
     if (!this.party) return;
@@ -375,6 +399,12 @@ export class QueueStore
 
   public inQueueCount(mode: MatchmakingMode, version: Dota2Version): number {
     return this.inQueue[JSON.stringify({ mode: mode, version: version })];
+  }
+
+  public inGameCount(mode: MatchmakingMode): number {
+    const od = this.onlineData;
+    if (!od) return 0;
+    return od.perMode.find((t) => t.lobbyType === mode)?.playerCount || 0;
   }
 
   @action

@@ -42,7 +42,7 @@ export { AcceptGameModal } from "./AcceptGameModal/AcceptGameModal";
 export { GameReadyModal } from "./AcceptGameModal/GameReadyModal";
 export { Input } from "./Input/Input";
 export { QueuePartyInfo } from "./QueuePartyInfo/QueuePartyInfo";
-export { InvitePlayerModal } from "./InvitePlayerModal/InvitePlayerModal";
+export { InvitePlayerModalRaw } from "./InvitePlayerModal/InvitePlayerModalRaw";
 export { GenericModal } from "./GenericModal/GenericModal";
 export { HeroStatsHeader } from "./HeroStatsHeader/HeroStatsHeader";
 export { NoobFriendlyQueue } from "./NoobFriendlyQueue/NoobFriendlyQueue";

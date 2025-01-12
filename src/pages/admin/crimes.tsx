@@ -15,10 +15,11 @@ import {
 import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
 import { formatBanReason } from "@/util/texts/bans";
-import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal/InvitePlayerModalRaw";
+import { InvitePlayerModalRaw } from "@/components";
 import { formatGameMode } from "@/util/gamemode";
 import { ColumnType } from "@/const/tables";
 import c from "./AdminStyles.module.scss";
+import { createPortal } from "react-dom";
 
 interface Props {
   crime: CrimeLogPageDto;
@@ -37,14 +38,17 @@ export default function CrimesPage({ crime, steamId }: Props) {
   }, [setModalOpen]);
   return (
     <>
-      <InvitePlayerModalRaw
-        isOpen={modalOpen}
-        close={close}
-        onSelect={(user) => {
-          AppRouter.admin.crimes(0, user.steamId).open();
-          close();
-        }}
-      />
+      {modalOpen &&
+        createPortal(
+          <InvitePlayerModalRaw
+            close={close}
+            onSelect={(user) => {
+              AppRouter.admin.crimes(0, user.steamId).open();
+              close();
+            }}
+          />,
+          document.body,
+        )}
       <Panel>
         <Button onClick={open}>Фильтровать по игроку</Button>
         <Button
@@ -60,7 +64,7 @@ export default function CrimesPage({ crime, steamId }: Props) {
         linkProducer={(pg) => AppRouter.admin.crimes(pg).link}
       />
       <GenericTable
-        keyProvider={(it) => it[7]}
+        keyProvider={(it) => it[8]}
         columns={[
           {
             type: ColumnType.Player,

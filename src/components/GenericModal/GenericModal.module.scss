@@ -7,7 +7,7 @@
   top: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  z-index: 90;
+  z-index: 900000;
 
   &:global(.mobileHidden) {
     display: none;
@@ -29,18 +29,18 @@
     display: flex;
     flex-direction: column;
 
-    background: $evenDarkerBg;
+    background: $bg2;
 
-    padding: 40px;
     border-radius: 0px;
+    padding: 12px;
 
-    box-shadow: 0 0 15px 10px rgba(150, 150, 150, 0.25);
+    box-shadow: 0 0 12px 6px rgba(150, 150, 150, 0.25);
 
     & h2 {
       text-align: center;
       font-size: 24px;
       font-weight: normal;
-      color: #dcddde;
+      color: $primaryText;
     }
 
     &:global(.inline) {
@@ -50,5 +50,32 @@
       bottom: 50px !important;
       margin: unset;
     }
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 12px;
+
+  &__closeIcon {
+    font-size: 2rem;
+    top: 5px;
+    right: 5px;
+    color: $primaryText;
+    transition: 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      color: $red;
+    }
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 4px;
   }
 }

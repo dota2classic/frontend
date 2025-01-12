@@ -60,6 +60,7 @@ export const RenderChatThread = observer(function RenderChatThread() {
         scrollableRef.current = e;
         input.setScrollRef(e || undefined);
       }}
+      skipAnimationFrameInResizeObserver={true}
       atBottomStateChange={atBottomStateChange}
       atBottomThreshold={10}
       startReached={startReached}

@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    PerModePlayersDto,
+    PerModePlayersDtoFromJSON,
+    PerModePlayersDtoFromJSONTyped,
+    PerModePlayersDtoToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -37,6 +44,12 @@ export interface CurrentOnlineDto {
      * @memberof CurrentOnlineDto
      */
     servers: number;
+    /**
+     * 
+     * @type {Array<PerModePlayersDto>}
+     * @memberof CurrentOnlineDto
+     */
+    perMode: Array<PerModePlayersDto>;
 }
 
 export function CurrentOnlineDtoFromJSON(json: any): CurrentOnlineDto {
@@ -52,6 +65,7 @@ export function CurrentOnlineDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'inGame': json['inGame'],
         'sessions': json['sessions'],
         'servers': json['servers'],
+        'perMode': ((json['perMode'] as Array<any>).map(PerModePlayersDtoFromJSON)),
     };
 }
 
@@ -67,6 +81,7 @@ export function CurrentOnlineDtoToJSON(value?: CurrentOnlineDto | null): any {
         'inGame': value.inGame,
         'sessions': value.sessions,
         'servers': value.servers,
+        'perMode': ((value.perMode as Array<any>).map(PerModePlayersDtoToJSON)),
     };
 }
 
