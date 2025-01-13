@@ -32,3 +32,13 @@ export function formatShortTime(d: Date): string {
     return fullDate(d);
   }
 }
+
+export const diffMillis = (
+  date1: Date | string | number,
+  date2: Date | string | number,
+): number => {
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+
+  return d2.getTime() - d1.getTime();
+};

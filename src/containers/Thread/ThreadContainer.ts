@@ -15,6 +15,7 @@ import {
 } from "@/api/back";
 import { maxBy } from "@/util";
 import { getApi } from "@/api/hooks";
+import { diffMillis } from "@/util/dates";
 
 export class ThreadContainer {
   @observable.ref
@@ -65,9 +66,11 @@ export class ThreadContainer {
       const header =
         !previousMessage ||
         previousMessage.author.steamId !== msg.author.steamId ||
-        !!msg.reply;
+        !!msg.reply ||
+        Math.abs(diffMillis(msg.createdAt, previousMessage.createdAt)) > 1000 * 60;
       pool2.push([msg, header]);
     }
+
     return pool2;
   }
 
