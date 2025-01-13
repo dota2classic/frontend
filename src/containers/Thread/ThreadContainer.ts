@@ -67,7 +67,8 @@ export class ThreadContainer {
         !previousMessage ||
         previousMessage.author.steamId !== msg.author.steamId ||
         !!msg.reply ||
-        Math.abs(diffMillis(msg.createdAt, previousMessage.createdAt)) > 1000 * 60;
+        Math.abs(diffMillis(msg.createdAt, previousMessage.createdAt)) >
+          1000 * 60;
       pool2.push([msg, header]);
     }
 

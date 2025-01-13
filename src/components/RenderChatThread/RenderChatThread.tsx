@@ -20,16 +20,13 @@ export const RenderChatThread = observer(function RenderChatThread() {
 
   const pool = thread.pool;
 
-  const renderChat = useMemo(
-    () => pool.length > 0 && thread.isThreadReady,
-    [pool.length, thread.isThreadReady],
-  );
+  const renderChat = useMemo(() => pool.length > 0, [pool.length]);
 
   useEffect(() => {
     if (!scrollableRef.current) return;
     if (atBottom && thread.isThreadReady && pool.length > 0) {
       console.log("OK, lets scroll!");
-      scrollableRef.current?.scrollToIndex(pool.length);
+      // scrollableRef.current?.scrollToIndex(pool.length);
     }
   }, [atBottom, thread.isThreadReady, pool]);
 
@@ -37,10 +34,6 @@ export const RenderChatThread = observer(function RenderChatThread() {
 
   const atBottomStateChange = (atBottom: boolean) => {
     setAtBottom(atBottom);
-
-    if (atBottom) {
-      thread.loadNewer();
-    }
   };
 
   const startReached = () => {
@@ -55,7 +48,7 @@ export const RenderChatThread = observer(function RenderChatThread() {
 
   return (
     <Virtuoso
-      followOutput={"smooth"}
+      followOutput={"auto"}
       ref={(e) => {
         scrollableRef.current = e;
         input.setScrollRef(e || undefined);
@@ -66,11 +59,17 @@ export const RenderChatThread = observer(function RenderChatThread() {
       startReached={startReached}
       firstItemIndex={firstItemIndex}
       data={pool}
-      // initialTopMostItemIndex={pool.length === 0 ? undefined : pool.length}
+      initialTopMostItemIndex={pool.length === 0 ? undefined : pool.length - 1}
       style={{ width: "100%", height: "100%" }}
-      itemContent={(_, [msg, header]: [ThreadMessageDTO, boolean]) => {
-        return <Message message={msg} header={header} lightweight={false} />;
+      itemContent={(idx, [msg, header]: [ThreadMessageDTO, boolean]) => {
+        return (
+          <>
+            <Message message={msg} header={header} lightweight={false} />
+            {idx === 99999 ? <br /> : null}
+          </>
+        );
       }}
+      alignToBottom
       increaseViewportBy={{
         top: 600,
         bottom: 200,
