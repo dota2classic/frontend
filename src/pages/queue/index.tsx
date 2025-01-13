@@ -33,6 +33,10 @@ import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
 import cx from "clsx";
 import { Thread } from "@/containers";
+import {
+  GameModeAccessLevel,
+  getRequiredAccessLevel,
+} from "@/const/game-mode-access-level";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -110,12 +114,20 @@ const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
         </>
       );
     }
-    if (mode !== MatchmakingMode.BOTS && queue.isNewbieParty) {
-      return (
-        <>
-          Нужно пройти <span className="gold">обучение</span>{" "}
-        </>
-      );
+
+    const requiredAccessLevel = getRequiredAccessLevel(mode);
+    const partyAccessLevel = queue.partyAccessLevel;
+
+    if (partyAccessLevel < requiredAccessLevel) {
+      if (requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
+        return (
+          <>
+            Нужно пройти <span className="gold">обучение</span>{" "}
+          </>
+        );
+      } else if (requiredAccessLevel === GameModeAccessLevel.HUMAN_GAMES) {
+        return <>Нужно победить в любом режиме</>;
+      }
     }
   };
 

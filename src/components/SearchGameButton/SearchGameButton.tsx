@@ -7,9 +7,12 @@ import { useRouter } from "next/router";
 import { FaSteam } from "react-icons/fa";
 import cx from "clsx";
 import { formatBanReason } from "@/util/texts/bans";
-import { MatchmakingMode } from "@/api/mapped-models";
 import { Button } from "@/components";
 import { getAuthUrl } from "@/util/getAuthUrl";
+import {
+  GameModeAccessLevel,
+  getRequiredAccessLevel,
+} from "@/const/game-mode-access-level";
 
 interface Props {
   visible: boolean;
@@ -27,32 +30,46 @@ export const SearchGameButton = observer((p: Props) => {
 
   if (queue.needAuth) return null;
 
+  const requiredAccessLevel = queue.selectedMode
+    ? getRequiredAccessLevel(queue.selectedMode.mode)
+    : GameModeAccessLevel.EDUCATION;
+
+  const partyAccessLevel = queue.partyAccessLevel;
+
   if (queue.selectedModeBanned && queue.partyBanStatus?.isBanned) {
     content = (
       <>
         Поиск запрещен:
-        <div>{formatBanReason(queue.partyBanStatus!.status)}</div>
-      </>
-    );
-  } else if (
-    queue.selectedMode?.mode !== MatchmakingMode.BOTS &&
-    queue.isNewbieParty
-  ) {
-    content = (
-      <>
-        Поиск запрещен:
-        <div>
-          Пройди <span className="gold">обучение</span>
+        <div className={c.disableReason}>
+          {formatBanReason(queue.partyBanStatus!.status)}
         </div>
       </>
     );
-  } else if (queue.isPartyInGame) {
-    content = (
-      <>
-        Поиск запрещен:
-        <div>Кто-то в группе играет</div>
-      </>
-    );
+  } else if (partyAccessLevel < requiredAccessLevel) {
+    if (requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
+      content = (
+        <>
+          Поиск запрещен:
+          <div className={c.disableReason}>
+            Пройди <span className="gold">обучение</span>
+          </div>
+        </>
+      );
+    } else if (requiredAccessLevel === GameModeAccessLevel.HUMAN_GAMES) {
+      content = (
+        <>
+          Поиск запрещен:
+          <div className={c.disableReason}>Победи в любом режиме</div>
+        </>
+      );
+    } else if (queue.isPartyInGame) {
+      content = (
+        <>
+          Поиск запрещен:
+          <div className={c.disableReason}>Кто-то в группе играет</div>
+        </>
+      );
+    }
   }
 
   if (!p.visible) return null;

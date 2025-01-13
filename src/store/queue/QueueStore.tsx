@@ -20,7 +20,7 @@ import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { DefaultQueueHolder } from "@/store/queue/mock";
 import { Sounds } from "@/const/sounds";
 import { NotificationDto, NotificationStore } from "@/store/NotificationStore";
-import { isNewbieParty, isPartyInGame } from "@/util/party";
+import { getPartyAccessLevel, isPartyInGame } from "@/util/party";
 import { PlayerQueueStateMessageS2C } from "@/store/queue/messages/s2c/player-queue-state-message.s2c";
 import { GameCoordinatorNewListener } from "@/store/queue/game-coordinator-new.listener";
 import { OnlineUpdateMessageS2C } from "@/store/queue/messages/s2c/online-update-message.s2c";
@@ -45,6 +45,7 @@ import { PleaseEnterQueueMessageS2C } from "@/store/queue/messages/s2c/please-en
 import { metrika } from "@/ym";
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 import { blinkTab } from "@/util/blinkTab";
+import { GameModeAccessLevel } from "@/const/game-mode-access-level";
 
 export interface QueueState {
   mode: MatchmakingMode;
@@ -142,7 +143,7 @@ export class QueueStore
 
     this.scheduler.addIntervalJob(
       new SimpleIntervalJob(
-        { seconds: 5 },
+        { seconds: 5, runImmediately: true },
         new AsyncTask("refresh online stats", this.updateOnlineStats, (err) => {
           console.error("There was an error updating stats", err);
         }),
@@ -199,8 +200,10 @@ export class QueueStore
   }
 
   @computed
-  public get isNewbieParty(): boolean {
-    return this.party ? isNewbieParty(this.party) : true;
+  public get partyAccessLevel(): GameModeAccessLevel {
+    return this.party
+      ? getPartyAccessLevel(this.party)
+      : GameModeAccessLevel.NOTHING;
   }
 
   @computed
@@ -469,7 +472,7 @@ export class QueueStore
 
   private static inferDefaultMode(party: PartyDto | undefined): QueueState {
     if (party) {
-      return isNewbieParty(party)
+      return getPartyAccessLevel(party)
         ? {
             mode: MatchmakingMode.BOTS,
             version: Dota2Version.Dota_684,

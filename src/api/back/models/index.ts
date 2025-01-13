@@ -14,6 +14,7 @@ export * from "./EventAdminDto";
 export * from "./ForumUserDto";
 export * from "./GameServerDto";
 export * from "./GameSessionDto";
+export * from "./GamemodeAccessMap";
 export * from "./HeroItemDto";
 export * from "./HeroPlayerDto";
 export * from "./HeroStatsDto";

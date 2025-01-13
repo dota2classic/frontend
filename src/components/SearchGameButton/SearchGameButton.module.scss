@@ -1,5 +1,4 @@
-@import '../../common.scss';
-
+@import "../../common.scss";
 
 .banned {
   color: $primaryTextDark;
@@ -16,10 +15,12 @@
   // animation: ${pendingAnimation} 2s linear infinite;
 }
 
-
-
 .longText {
   font-size: 1rem;
   white-space: normal;
   max-width: 400px;
+}
+
+.disableReason {
+  font-size: 1rem;
 }

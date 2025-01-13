@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    GamemodeAccessMap,
+    GamemodeAccessMapFromJSON,
+    GamemodeAccessMapFromJSONTyped,
+    GamemodeAccessMapToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -92,6 +96,12 @@ export interface PlayerSummaryDto {
      * @memberof PlayerSummaryDto
      */
     loss: number;
+    /**
+     * 
+     * @type {GamemodeAccessMap}
+     * @memberof PlayerSummaryDto
+     */
+    accessMap: GamemodeAccessMap;
 }
 
 export function PlayerSummaryDtoFromJSON(json: any): PlayerSummaryDto {
@@ -115,6 +125,7 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'gamesPlayed': json['games_played'],
         'wins': json['wins'],
         'loss': json['loss'],
+        'accessMap': GamemodeAccessMapFromJSON(json['accessMap']),
     };
 }
 
@@ -138,6 +149,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         'games_played': value.gamesPlayed,
         'wins': value.wins,
         'loss': value.loss,
+        'accessMap': GamemodeAccessMapToJSON(value.accessMap),
     };
 }
 
