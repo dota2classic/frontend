@@ -5,7 +5,7 @@ import cx from "clsx";
 import { formatWinrate } from "@/util/math";
 import { PageLink, Panel, PlayerAvatar } from "@/components";
 import { AppRouter } from "@/route";
-import { steamPage, useIsAdmin } from "@/util";
+import { steamPage, useIsModerator } from "@/util";
 import { observer } from "mobx-react-lite";
 import { formatShortTime } from "@/util/dates";
 import { FaSteam } from "react-icons/fa";
@@ -37,7 +37,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     lastGameTimestamp,
     rank,
   }) => {
-    const isAdmin = useIsAdmin();
+    const isModerator = useIsModerator();
 
     return (
       <Panel className={cx(className)} data-testid="player-summary-panel">
@@ -72,7 +72,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
             >
               <FaSteam className={c.icon_svg} />
             </a>
-            {isAdmin && (
+            {isModerator && (
               <PageLink
                 className={c.externalLink}
                 link={AppRouter.admin.player(steamId).link}
