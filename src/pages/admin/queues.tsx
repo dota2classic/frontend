@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
-import { MatchmakingInfo, QueueStateDTO } from "@/api/back";
+import { MatchmakingInfo, QueueEntryDTO, UserDTO } from "@/api/back";
 import {
   Button,
   ForumUserEmbed,
@@ -19,7 +19,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";
 
 interface Props {
-  queues: QueueStateDTO[];
+  queueEntries: QueueEntryDTO[];
   modeInfo: MatchmakingInfo[];
 }
 
@@ -41,37 +41,43 @@ const OnlineList = observer(() => {
   );
 });
 
-export default function QueuesPage({ queues: initialQueues, modeInfo }: Props) {
+export default function QueuesPage({
+  queueEntries: initialQueues,
+  modeInfo,
+}: Props) {
   const { data } = getApi().adminApi.useServerControllerQueues({
     fallbackData: initialQueues,
     refreshInterval: 5000,
   });
   const [isPending, startTransition] = useTransition();
 
-  const queues: QueueStateDTO[] = data!.filter(
-    (t) =>
-      modeInfo.findIndex(
-        (minfo) => minfo.enabled && minfo.lobbyType === t.mode,
-      ) !== -1,
-  );
+  const groupedParties = modeInfo
+    .filter((t) => t.enabled)
+    .map((modeInfo) => {
+      const partiesInQueue: QueueEntryDTO[] = (data || initialQueues)!.filter(
+        (t) => t.modes.includes(modeInfo.lobbyType),
+      );
+
+      return {
+        mode: modeInfo.lobbyType,
+        entries: partiesInQueue,
+      };
+    });
 
   return (
     <div className={c.gridPanel}>
       <Section className={c.grid8}>
-        {queues.map((queue) => (
-          <div key={queue.mode}>
+        {groupedParties.map(({ mode, entries }) => (
+          <div key={mode.toString()}>
             <header>
-              {formatGameMode(queue.mode)} (
-              {queue.entries
-                .map((t) => t.players.length)
-                .reduce((a, b) => a + b, 0)}
-              )
+              {formatGameMode(mode)} (
+              {entries.map((t) => t.players.length).reduce((a, b) => a + b, 0)})
             </header>
             <Button
               onClick={() =>
                 startTransition(async () => {
                   await getApi().notificationApi.notificationControllerNotifyAboutQueue(
-                    { mode: queue.mode },
+                    { mode: mode },
                   );
                 })
               }
@@ -83,12 +89,12 @@ export default function QueuesPage({ queues: initialQueues, modeInfo }: Props) {
                 <FaBell style={{ float: "right" }} />
               )}
             </Button>
-            <Panel className={c.parties} key={queue.mode}>
-              {queue.entries.length > 0 ? (
-                queue.entries.map((entry) => (
+            <Panel className={c.parties} key={mode}>
+              {entries.length > 0 ? (
+                entries.map((entry: QueueEntryDTO) => (
                   <div key={entry.partyId} className={c.withBorder}>
                     <div>Party {entry.partyId}</div>
-                    {entry.players.map((plr) => (
+                    {entry.players.map((plr: UserDTO) => (
                       <UserPreview key={plr.steamId} user={plr} />
                     ))}
                   </div>
@@ -110,7 +116,7 @@ export default function QueuesPage({ queues: initialQueues, modeInfo }: Props) {
 
 QueuesPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   return {
-    queues: await withTemporaryToken(ctx, () =>
+    queueEntries: await withTemporaryToken(ctx, () =>
       getApi().adminApi.serverControllerQueues(),
     ),
     modeInfo: await getApi().statsApi.statsControllerGetMatchmakingInfo(),

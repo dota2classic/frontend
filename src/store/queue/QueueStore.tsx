@@ -46,11 +46,8 @@ import { metrika } from "@/ym";
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 import { blinkTab } from "@/util/blinkTab";
 import { GameModeAccessLevel } from "@/const/game-mode-access-level";
-
-export interface QueueState {
-  mode: MatchmakingMode;
-  version: Dota2Version;
-}
+import BrowserCookies from "browser-cookies";
+import { modEnableCondition } from "@/components/MatchmakingOption/utils";
 
 export type QueueHolder = {
   [key: string]: number;
@@ -58,6 +55,7 @@ export type QueueHolder = {
 
 interface QueueStoreHydrateProps {
   party?: PartyDto;
+  defaultModes: MatchmakingMode[];
 }
 
 export class QueueStore
@@ -71,7 +69,7 @@ export class QueueStore
   // public static UTC_OFFSET = -3 * 60; // MOSCOW, aka UTC + 3
 
   @observable
-  public selectedMode: QueueState | undefined = undefined;
+  public selectedModes: MatchmakingMode[] = [];
   @observable
   public readyState: GameCoordinatorState = GameCoordinatorState.DISCONNECTED;
   @observable
@@ -213,8 +211,12 @@ export class QueueStore
 
   @computed
   public get selectedModeBanned(): boolean {
-    if (this.selectedMode?.mode === MatchmakingMode.BOTS) return false;
     return this.partyBanStatus?.isBanned || false;
+  }
+
+  @computed
+  public get allowedSelectedModes(): MatchmakingMode[] {
+    return this.selectedModes.filter((mode) => !modEnableCondition(this, mode));
   }
 
   @computed
@@ -225,6 +227,14 @@ export class QueueStore
             t.steamId === this.authStore.parsedToken?.sub &&
             t.state === ReadyState.READY,
         ) !== -1
+      : false;
+  }
+
+  @computed
+  public get allAccepted(): boolean {
+    return this.roomState
+      ? this.roomState.entries.filter((t) => t.state === ReadyState.READY)
+          .length === this.roomState.entries.length
       : false;
   }
 
@@ -248,16 +258,11 @@ export class QueueStore
   }
 
   @action
-  public startSearch = (mode: MatchmakingMode, version: Dota2Version) => {
+  public startSearch = () => {
     this.socket.emit(
       MessageTypeC2S.ENTER_QUEUE,
-      new EnterQueueMessageC2S(mode, version),
+      new EnterQueueMessageC2S(this.allowedSelectedModes),
     );
-    if (mode === MatchmakingMode.BOTS) {
-      metrika("reachGoal", "ENTER_QUEUE_BOTS");
-    } else {
-      metrika("reachGoal", "ENTER_QUEUE_PEOPLE");
-    }
   };
 
   @action
@@ -275,10 +280,9 @@ export class QueueStore
 
   // @action
   public enterQueue(): boolean {
-    if (!this.selectedMode) return false;
     try {
       if (this.canQueue()) {
-        this.startSearch(this.selectedMode.mode, this.selectedMode.version);
+        this.startSearch();
         return true;
       } else {
         return false;
@@ -328,8 +332,10 @@ export class QueueStore
     // Make sure token is not stale
     await this.authStore.fetchMe();
 
-    this.socket = io("wss://dotaclassic.ru", {
-      path: "/newsocket",
+    // this.socket = io("wss://dotaclassic.ru", {
+    this.socket = io("ws://localhost:6001", {
+      // path: "/newsocket",
+      // path: "/sock",
       transports: ["websocket"],
       autoConnect: false,
       auth: {
@@ -381,7 +387,7 @@ export class QueueStore
   hydrate(p: QueueStoreHydrateProps): void {
     runInAction(() => {
       this.party = p.party;
-      this.selectedMode = QueueStore.inferDefaultMode(p.party);
+      this.selectedModes = p.defaultModes;
     });
   }
 
@@ -411,13 +417,34 @@ export class QueueStore
   }
 
   @action
-  public setSelectedMode = (mode: MatchmakingMode, version: Dota2Version) => {
-    this.selectedMode = {
-      mode,
-      version,
-    };
+  public toggleMode = (mode: MatchmakingMode) => {
+    const enabled = this.selectedModes.includes(mode);
+    if (enabled) {
+      this.selectedModes = this.selectedModes.filter((m) => m !== mode);
+    } else {
+      this.selectedModes = [...this.selectedModes, mode];
+    }
+  };
+
+  @action
+  public setSelectedMode = (mode: MatchmakingMode, enabled: boolean) => {
+    if (enabled) {
+      this.selectedModes = this.selectedModes.includes(mode)
+        ? this.selectedModes
+        : [...this.selectedModes, mode];
+    } else {
+      this.selectedModes = this.selectedModes.filter((m) => m !== mode);
+    }
+
     if (typeof window !== "undefined") {
-      localStorage.setItem("selectedMode", JSON.stringify(this.selectedMode));
+      BrowserCookies.set(
+        "d2c_selectedMode",
+        btoa(JSON.stringify(this.selectedModes)),
+        {
+          path: "/",
+          expires: new Date().getTime() + 1000 * 60 * 60 * 24 * 10000,
+        },
+      );
     }
   };
 
@@ -446,11 +473,7 @@ export class QueueStore
    * Private utility
    */
   private canQueue() {
-    if (!this.ready) throw new Error("Not ready");
-    return !(
-      this.selectedMode?.mode === MatchmakingMode.CAPTAINS_MODE &&
-      this.party!.players.length !== 5
-    );
+    return this.ready;
   }
 
   @action
@@ -470,27 +493,28 @@ export class QueueStore
       .catch(() => (this.party = undefined));
   }
 
-  private static inferDefaultMode(party: PartyDto | undefined): QueueState {
-    if (party) {
-      return getPartyAccessLevel(party)
-        ? {
-            mode: MatchmakingMode.BOTS,
-            version: Dota2Version.Dota_684,
-          }
-        : {
-            mode: MatchmakingMode.UNRANKED,
-            version: Dota2Version.Dota_684,
-          };
-    } else {
-      // Try get from localstroage
-      if (typeof window !== "undefined") {
-        const fromLS = localStorage.getItem("selectedMode");
-        if (fromLS) return JSON.parse(fromLS);
+  public static inferDefaultMode(
+    getCookie: (key: string) => string | null,
+    party: PartyDto | undefined,
+  ): MatchmakingMode[] {
+    const cookieValue = getCookie("d2c_selectedMode");
+    if (cookieValue) {
+      try {
+        return JSON.parse(atob(cookieValue));
+      } catch (e) {
+        console.warn(e);
       }
-      return {
-        mode: MatchmakingMode.BOTS,
-        version: Dota2Version.Dota_684,
-      };
+    }
+
+    if (party) {
+      const accessLevel = getPartyAccessLevel(party);
+      if (accessLevel == GameModeAccessLevel.EDUCATION)
+        return [MatchmakingMode.BOTS];
+      else if (accessLevel === GameModeAccessLevel.SIMPLE_MODES)
+        return [MatchmakingMode.BOTS2X2, MatchmakingMode.SOLOMID];
+      else return [MatchmakingMode.UNRANKED];
+    } else {
+      return [MatchmakingMode.BOTS];
     }
   }
 

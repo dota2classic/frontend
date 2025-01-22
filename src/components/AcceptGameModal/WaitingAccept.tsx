@@ -33,7 +33,11 @@ export const WaitingAccept = observer((p: Props) => {
     <div className={cx(p.className)} data-testid="accept-modal-waiting-others">
       <div className={c.header}>
         <h3>{formatGameMode(queue.roomState.mode)}</h3>
-        <h4 style={{ marginTop: 12 }}>Ожидаем других игроков</h4>
+        <h4 style={{ marginTop: 12 }}>
+          {queue.serverSearching
+            ? "Поиск сервера..."
+            : "Ожидаем других игроков"}
+        </h4>
       </div>
       <div className={c.dots}>
         {sortedEntries.map((entry) => {

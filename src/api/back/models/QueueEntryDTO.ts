@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    MatchmakingMode,
+    MatchmakingModeFromJSON,
+    MatchmakingModeFromJSONTyped,
+    MatchmakingModeToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -26,6 +30,12 @@ import {
  * @interface QueueEntryDTO
  */
 export interface QueueEntryDTO {
+    /**
+     * 
+     * @type {Array<MatchmakingMode>}
+     * @memberof QueueEntryDTO
+     */
+    modes: Array<MatchmakingMode>;
     /**
      * 
      * @type {string}
@@ -50,6 +60,7 @@ export function QueueEntryDTOFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
+        'modes': ((json['modes'] as Array<any>).map(MatchmakingModeFromJSON)),
         'partyId': json['partyId'],
         'players': ((json['players'] as Array<any>).map(UserDTOFromJSON)),
     };
@@ -64,6 +75,7 @@ export function QueueEntryDTOToJSON(value?: QueueEntryDTO | null): any {
     }
     return {
         
+        'modes': ((value.modes as Array<any>).map(MatchmakingModeToJSON)),
         'partyId': value.partyId,
         'players': ((value.players as Array<any>).map(UserDTOToJSON)),
     };

@@ -80,3 +80,4 @@ export { ItemIcon } from "./ItemIcon/ItemIcon";
 export { PlaceholderImage } from "./ItemIcon/PlaceholderImage";
 export { GenericTooltip } from "./GenericTooltip/GenericTooltip";
 export { MessageReactionsTooltip } from "./MessageReactionsTooltip/MessageReactionsTooltip";
+export { Checkbox } from "./Checkbox/Checkbox";

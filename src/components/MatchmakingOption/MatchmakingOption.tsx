@@ -6,11 +6,12 @@ import {
   DotaGameMode,
   MatchmakingMode,
 } from "@/api/mapped-models";
-import { formatDotaMode, formatGameMode } from "@/util/gamemode";
+import { formatGameMode } from "@/util/gamemode";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import cx from "clsx";
 import { FaLock } from "react-icons/fa";
+import { Checkbox } from "@/components";
 
 interface MatchmakingOptionProps {
   mode: MatchmakingMode;
@@ -28,7 +29,6 @@ interface MatchmakingOptionProps {
 export const MatchmakingOption = observer(
   ({
     mode,
-    dotaMode,
     version,
     onSelect,
     disabled,
@@ -38,41 +38,42 @@ export const MatchmakingOption = observer(
     testId,
   }: MatchmakingOptionProps) => {
     const { queue } = useStore();
-    const inGame = queue.inGameCount(mode);
 
     return (
       <div
-        data-testid={testId}
         className={cx(
-          c.mode,
-          localSelected ? c.mode__current : undefined,
+          c.modeOption,
+          (queue.queueState?.inQueue || disabled) && c.locked,
+          disabled && c.disabled,
           selected ? c.mode__active : undefined,
-          disabled ? c.mode__disabled : undefined,
         )}
         onClick={() => {
-          if (!queue.queueState && !selected) {
-            onSelect(mode, version);
-          }
+          onSelect(mode, version);
         }}
       >
-        <div className={c.modeTitle}>
-          <span className={c.mode__name}>
-            {disabled ? <FaLock /> : null} {formatGameMode(mode)}
-          </span>
-          <span className={"green"}>{formatDotaMode(dotaMode)}</span>
-        </div>
-
-        <span>
-          {disabled ? (
-            <>{disabled}</>
-          ) : (
-            <>
+        <Checkbox
+          disabled={!!disabled}
+          checked={(selected || localSelected) && !disabled}
+          onChange={() => onSelect(mode, version)}
+        />
+        <div
+          data-testid={testId}
+          className={cx(c.mode, localSelected ? c.mode__current : undefined)}
+        >
+          <div className={c.modeTitle}>
+            <span className={c.mode__name}>
+              {disabled ? <FaLock /> : null} {formatGameMode(mode)}
+            </span>
+            <span className={c.mode__inQueue}>
               {queue.inQueueCount(mode, version)} в поиске
-              {inGame > 0 ? `, ${inGame} в игре` : undefined}
-            </>
-          )}
-        </span>
-        {suffix && <span className={c.mode__suffix}>{suffix}</span>}
+            </span>
+          </div>
+
+          {disabled ? (
+            <span className={c.mode__disabledBy}>{disabled}</span>
+          ) : null}
+          {suffix && <span className={c.mode__suffix}>{suffix}</span>}
+        </div>
       </div>
     );
   },

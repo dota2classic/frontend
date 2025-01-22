@@ -9,10 +9,7 @@ import cx from "clsx";
 import { formatBanReason } from "@/util/texts/bans";
 import { Button } from "@/components";
 import { getAuthUrl } from "@/util/getAuthUrl";
-import {
-  GameModeAccessLevel,
-  getRequiredAccessLevel,
-} from "@/const/game-mode-access-level";
+import { formatGameMode } from "@/util/gamemode";
 
 interface Props {
   visible: boolean;
@@ -24,19 +21,19 @@ export const SearchGameButton = observer((p: Props) => {
 
   const isQueuePage = router.pathname === "/queue";
 
-  const isSearchModeDefined = !!queue.queueState;
+  const isInQueue = queue.queueState?.inQueue;
 
   let content: ReactNode;
 
   if (queue.needAuth) return null;
 
-  const requiredAccessLevel = queue.selectedMode
-    ? getRequiredAccessLevel(queue.selectedMode.mode)
-    : GameModeAccessLevel.EDUCATION;
+  // const requiredAccessLevel = queue.selectedMode
+  //   ? getRequiredAccessLevel(queue.selectedMode.mode)
+  //   : GameModeAccessLevel.EDUCATION;
 
-  const partyAccessLevel = queue.partyAccessLevel;
+  // const partyAccessLevel = queue.partyAccessLevel;
 
-  if (queue.selectedModeBanned && queue.partyBanStatus?.isBanned) {
+  if (queue.partyBanStatus?.isBanned) {
     content = (
       <>
         Поиск запрещен:
@@ -45,31 +42,13 @@ export const SearchGameButton = observer((p: Props) => {
         </div>
       </>
     );
-  } else if (partyAccessLevel < requiredAccessLevel) {
-    if (requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
-      content = (
-        <>
-          Поиск запрещен:
-          <div className={c.disableReason}>
-            Пройди <span className="gold">обучение</span>
-          </div>
-        </>
-      );
-    } else if (requiredAccessLevel === GameModeAccessLevel.HUMAN_GAMES) {
-      content = (
-        <>
-          Поиск запрещен:
-          <div className={c.disableReason}>Победи в любом режиме</div>
-        </>
-      );
-    } else if (queue.isPartyInGame) {
-      content = (
-        <>
-          Поиск запрещен:
-          <div className={c.disableReason}>Кто-то в группе играет</div>
-        </>
-      );
-    }
+  } else if (queue.isPartyInGame) {
+    content = (
+      <>
+        Поиск запрещен:
+        <div className={c.disableReason}>Кто-то в группе играет</div>
+      </>
+    );
   }
 
   if (!p.visible) return null;
@@ -93,7 +72,12 @@ export const SearchGameButton = observer((p: Props) => {
       </Button>
     );
 
-  if (isSearchModeDefined)
+  if (isInQueue) {
+    const searchedModes = queue.queueState?.modes || [];
+    const searchGameInfo =
+      searchedModes.length > 2
+        ? `${searchedModes.length} режимов`
+        : searchedModes.map(formatGameMode).join(", ");
     return (
       <Button
         mega
@@ -104,15 +88,18 @@ export const SearchGameButton = observer((p: Props) => {
         className={cx(queue.gameState?.serverUrl && c.ingame)}
       >
         Отменить поиск
+        <div className={c.disableReason}>{searchGameInfo}</div>
       </Button>
     );
-
-  if (!isSearchModeDefined) {
+  }
+  if (!isInQueue) {
+    const shouldDisable =
+      (isQueuePage && queue.selectedModes.length === 0) || !!content;
     return (
       <Button
         mega
         data-testid="floater-play-button-enter-queue"
-        disabled={!!content}
+        disabled={shouldDisable}
         onClick={() => {
           if (!isQueuePage) {
             router.push("/queue", "/queue").finally();

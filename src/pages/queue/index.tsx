@@ -18,11 +18,10 @@ import {
   QueuePartyInfo,
   SearchGameButton,
   Section,
-  TimeAgo,
 } from "@/components";
 import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import React, { ReactNode, useTransition } from "react";
+import React, { useTransition } from "react";
 import { NextPageContext } from "next";
 import { ThreadStyle } from "@/containers/Thread/types";
 import { FaBell } from "react-icons/fa";
@@ -33,14 +32,16 @@ import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
 import cx from "clsx";
 import { Thread } from "@/containers";
-import {
-  GameModeAccessLevel,
-  getRequiredAccessLevel,
-} from "@/const/game-mode-access-level";
+import Cookies from "cookies";
+import { QueueStore } from "@/store/queue/QueueStore";
+import BrowserCookies from "browser-cookies";
+import { modEnableCondition } from "@/components/MatchmakingOption/utils";
 
 interface Props {
   modes: MatchmakingInfo[];
+
   "@party"?: PartyDto;
+  "@defaultModes": MatchmakingMode[];
 }
 
 const NotificationSetting = observer(() => {
@@ -90,100 +91,88 @@ const getLobbyTypePriority = (type: MatchmakingMode): number => {
   return score;
 };
 
-const ModeList = observer(({ modes }: Omit<Props, "@party">) => {
-  const { queue, auth } = useStore();
+const ModeList = observer(
+  ({ modes }: Omit<Props, "@party" | "@defaultModes">) => {
+    const { queue, auth } = useStore();
 
-  const me: PartyMemberDTO | undefined = (queue.party?.players || []).find(
-    (plr: PartyMemberDTO) => plr.summary.id === auth.parsedToken?.sub,
-  );
-
-  const isCalibration = !!me?.summary?.calibrationGamesLeft;
-
-  const d84 = modes!
-    .filter((it) => it.enabled)
-    .sort(
-      (a, b) =>
-        getLobbyTypePriority(a.lobbyType) - getLobbyTypePriority(b.lobbyType),
+    const me: PartyMemberDTO | undefined = (queue.party?.players || []).find(
+      (plr: PartyMemberDTO) => plr.summary.id === auth.parsedToken?.sub,
     );
 
-  const modEnableCondition = (mode: MatchmakingMode): ReactNode | undefined => {
-    if (mode !== MatchmakingMode.BOTS && queue.partyBanStatus?.isBanned) {
-      return (
-        <>
-          Поиск запрещен до <TimeAgo date={queue.partyBanStatus!.bannedUntil} />
-        </>
+    const isCalibration = !!me?.summary?.calibrationGamesLeft;
+
+    const d84 = modes!
+      .filter((it) => it.enabled)
+      .sort(
+        (a, b) =>
+          getLobbyTypePriority(a.lobbyType) - getLobbyTypePriority(b.lobbyType),
       );
-    }
 
-    const requiredAccessLevel = getRequiredAccessLevel(mode);
-    const partyAccessLevel = queue.partyAccessLevel;
+    const queueGameState = useQueueState();
 
-    if (partyAccessLevel < requiredAccessLevel) {
-      if (requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
-        return (
-          <>
-            Нужно пройти <span className="gold">обучение</span>{" "}
-          </>
-        );
-      } else if (requiredAccessLevel === GameModeAccessLevel.HUMAN_GAMES) {
-        return <>Нужно победить в любом режиме</>;
-      }
-    }
-  };
+    return (
+      <Section className={c.modes}>
+        <header>Режим игры</header>
+        <div className={cx(c.modes__list, c.box)}>
+          {d84.map((info) => {
+            const modeDisabledBy = modEnableCondition(queue, info.lobbyType);
+            const isSearchedMode: boolean = queue.queueState?.inQueue
+              ? queue.queueState.modes.includes(info.lobbyType)
+              : false;
 
-  const queueGameState = useQueueState();
-
-  return (
-    <Section className={c.modes}>
-      <header>Режим игры</header>
-      <div className={cx(c.modes__list, c.box)}>
-        {d84.map((info) => {
-          const modeDisabledBy = modEnableCondition(info.lobbyType);
-          return (
-            <MatchmakingOption
-              testId={`mode-list-option-${info.lobbyType}`}
-              selected={queue.queueState?.mode === info.lobbyType}
-              localSelected={queue.selectedMode?.mode === info.lobbyType}
-              disabled={modeDisabledBy}
-              key={`${info.lobbyType}`}
-              onSelect={queue.setSelectedMode}
-              version={Dota2Version.Dota_684}
-              mode={info.lobbyType}
-              dotaMode={info.gameMode}
-              suffix={
-                isCalibration &&
-                info.lobbyType === MatchmakingMode.UNRANKED &&
-                !modeDisabledBy ? (
-                  <>
-                    еще{" "}
-                    <span className="gold">
-                      {me?.summary?.calibrationGamesLeft}
-                    </span>{" "}
-                    калибровочных игр
-                  </>
-                ) : undefined
-              }
-            />
-          );
-        })}
-        <NotificationSetting />
-        <div style={{ flex: 1 }} />
-        {queueGameState === QueueGameState.NO_GAME && (
-          <SearchGameButton visible={true} />
-        )}
-        {queueGameState === QueueGameState.SERVER_READY && (
-          <GameReadyModal className={c.gameReady} />
-        )}
-        {queueGameState === QueueGameState.READY_CHECK_WAITING_OTHER && (
-          <WaitingAccept className={c.gameReady} />
-        )}
-        {queueGameState === QueueGameState.SEARCHING_SERVER && (
-          <ServerSearching className={c.gameReady} />
-        )}
-      </div>
-    </Section>
-  );
-});
+            const isLocalSelected = queue.selectedModes.includes(
+              info.lobbyType,
+            );
+            return (
+              <MatchmakingOption
+                testId={`mode-list-option-${info.lobbyType}`}
+                selected={isSearchedMode}
+                localSelected={isLocalSelected}
+                disabled={modeDisabledBy}
+                key={`${info.lobbyType}`}
+                onSelect={() => {
+                  if (queue.queueState?.inQueue) return;
+                  if (modeDisabledBy) return;
+                  queue.toggleMode(info.lobbyType);
+                }}
+                version={Dota2Version.Dota_684}
+                mode={info.lobbyType}
+                dotaMode={info.gameMode}
+                suffix={
+                  isCalibration &&
+                  info.lobbyType === MatchmakingMode.UNRANKED &&
+                  !modeDisabledBy ? (
+                    <>
+                      еще{" "}
+                      <span className="gold">
+                        {me?.summary?.calibrationGamesLeft}
+                      </span>{" "}
+                      калибровочных игр
+                    </>
+                  ) : undefined
+                }
+              />
+            );
+          })}
+          <NotificationSetting />
+          <div style={{ flex: 1 }} />
+          {queueGameState === QueueGameState.NO_GAME && (
+            <SearchGameButton visible={true} />
+          )}
+          {queueGameState === QueueGameState.SERVER_READY && (
+            <GameReadyModal className={c.gameReady} />
+          )}
+          {queueGameState === QueueGameState.READY_CHECK_WAITING_OTHER && (
+            <WaitingAccept className={c.gameReady} />
+          )}
+          {queueGameState === QueueGameState.SEARCHING_SERVER && (
+            <ServerSearching className={c.gameReady} />
+          )}
+        </div>
+      </Section>
+    );
+  },
+);
 
 export default function QueuePage(props: Props) {
   const mounted = useDidMount();
@@ -244,7 +233,7 @@ QueuePage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   if (!jwt) {
     // not logged in
     await redirectToDownload(ctx);
-    return { modes: [] };
+    return { modes: [], "@defaultModes": [] };
   }
 
   const [modes, party] = await Promise.combine([
@@ -254,8 +243,23 @@ QueuePage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
     }),
   ]);
 
+  let defaultModes: MatchmakingMode[] = [];
+  if (typeof window === "undefined") {
+    const cookies = new Cookies(ctx.req!, ctx.res!);
+    defaultModes = QueueStore.inferDefaultMode(
+      (key) => cookies.get(key) || null,
+      party,
+    );
+  } else {
+    defaultModes = QueueStore.inferDefaultMode(
+      (key) => BrowserCookies.get(key) || null,
+      party,
+    );
+  }
+
   return {
     modes,
     "@party": party,
+    "@defaultModes": defaultModes,
   };
 };

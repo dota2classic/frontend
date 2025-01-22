@@ -36,9 +36,9 @@ import {
   MatchmakingInfo,
   MatchmakingInfoFromJSON,
   MatchmakingInfoToJSON,
-  QueueStateDTO,
-  QueueStateDTOFromJSON,
-  QueueStateDTOToJSON,
+  QueueEntryDTO,
+  QueueEntryDTOFromJSON,
+  QueueEntryDTOToJSON,
   StopServerDto,
   StopServerDtoFromJSON,
   StopServerDtoToJSON,
@@ -744,12 +744,12 @@ export class AdminApi extends runtime.BaseAPI {
 
     /**
      */
-    private async serverControllerQueuesRaw(): Promise<runtime.ApiResponse<Array<QueueStateDTO>>> {
+    private async serverControllerQueuesRaw(): Promise<runtime.ApiResponse<Array<QueueEntryDTO>>> {
         this.serverControllerQueuesValidation();
         const context = this.serverControllerQueuesContext();
         const response = await this.request(context);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(QueueStateDTOFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(QueueEntryDTOFromJSON));
     }
 
 
@@ -776,12 +776,12 @@ export class AdminApi extends runtime.BaseAPI {
 
     /**
      */
-    serverControllerQueues = async (): Promise<Array<QueueStateDTO>> => {
+    serverControllerQueues = async (): Promise<Array<QueueEntryDTO>> => {
         const response = await this.serverControllerQueuesRaw();
         return await response.value();
     }
 
-    useServerControllerQueues(config?: SWRConfiguration<Array<QueueStateDTO>, Error>) {
+    useServerControllerQueues(config?: SWRConfiguration<Array<QueueEntryDTO>, Error>) {
         let valid = true
 
         const context = this.serverControllerQueuesContext();

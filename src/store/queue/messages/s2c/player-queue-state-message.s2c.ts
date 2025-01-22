@@ -1,8 +1,9 @@
-import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
+import { MatchmakingMode } from "@/api/mapped-models";
 
 export class PlayerQueueStateMessageS2C {
   constructor(
-    public readonly mode: MatchmakingMode,
-    public readonly version: Dota2Version,
+    public readonly partyId: string,
+    public readonly modes: MatchmakingMode[],
+    public readonly inQueue: boolean,
   ) {}
 }

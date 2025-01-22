@@ -1,24 +1,76 @@
 @import "../../common.scss";
 
-
 .modeTitle {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
+.locked {
+  position: relative;
+  cursor: not-allowed !important;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 5;
+  }
+}
+
+
+.disabled {
+  cursor: not-allowed !important;
+}
+
+.modeOption {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 12px;
+  cursor: pointer;
+  align-items: center;
+  user-select: none;
+
+  & > div {
+    flex: 1;
+  }
+
+  //&:hover.mode__disabled {
+  //  box-shadow: 0 0 4px 4px rgba(211, 38, 38, 0.25) inset;
+  //}
+  //&:hover:not(.mode__disabled) {
+  //  box-shadow: 0 0 4px 4px rgba(183, 183, 183, 0.25) inset;
+  //}
+
+  & + & {
+    border-top: 1px solid #4e4d4d;
+  }
+}
+
 .mode {
   display: flex;
   flex-direction: column;
-  padding: 16px 12px;
-  cursor: pointer;
   transition: 0.3s ease;
-
+  padding: 4px;
 
   &__name {
     color: $gold;
     line-height: 1.4rem;
     font-size: 1.2rem;
-    padding-bottom: 4px;
+    //padding-bottom: 4px;
+  }
+
+  &__inQueue {
+    color: $primaryTextTint;
+  }
+
+  &__disabledBy {
+    color: $red;
   }
 
   &__suffix {
@@ -30,19 +82,9 @@
   & svg {
     margin-right: 2px;
   }
-  &:hover.mode__disabled {
-    box-shadow: 0 0 4px 4px rgba(211, 38, 38, 0.25) inset;
-  }
-  &:hover:not(.mode__disabled) {
-    box-shadow: 0 0 4px 4px rgba(183, 183, 183, 0.25) inset;
-  }
 
   & span.info {
     font-size: 12px;
-  }
-
-  & + & {
-    border-top: 1px solid #4e4d4d;
   }
 
   &.header {
@@ -57,7 +99,7 @@
   }
 
   &__current {
-    background-color: $transparentTint !important;
+    //background-color: $transparentTint !important;
   }
 
   //&__disabled_selected {
@@ -67,16 +109,5 @@
 
   &__active {
     animation: pendingAnimation 2s linear infinite;
-  }
-
-  &__disabled {
-    //cursor: not-allowed;
-
-    background-color: rgba(0, 0,0,0.3);
-    color: $primaryTextDark;
-
-    &:hover {
-      // background: unset;
-    }
   }
 }

@@ -53,10 +53,11 @@
     display: block;
   }
 
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: rgba(0, 0, 0, 0.6);
+
+  &:hover:enabled,
+  &:focus:enabled,
+  &:active:enabled {
+    background-color: $bg1;
     color: #ee2c0a;
     border-color: $primaryTextHighlight;
     transform: translateY(-2px);
