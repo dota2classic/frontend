@@ -1,17 +1,21 @@
 import { getApi } from "@/api/hooks";
 import { ItemDto } from "@/api/back";
+import { ItemBreadcrumbs } from "@/containers";
 import { GenericTable } from "@/components";
+import { ColumnType } from "@/const/tables";
 import { colors } from "@/colors";
 import { itemName } from "@/util/heroName";
-import { ColumnType } from "@/const/tables";
 
 interface Props {
   items: ItemDto[];
 }
 
 export default function ItemsPage({ items }: Props) {
+  // use
   return (
     <>
+      <ItemBreadcrumbs itemId={undefined} />
+      <br />
       <GenericTable
         columns={[
           {
