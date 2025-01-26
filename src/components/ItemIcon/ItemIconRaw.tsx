@@ -29,7 +29,7 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({
     const _listener = (ev: MessageEvent) => {
       if (ev.data.type && ev.data.type === "resize-iframe") {
         if (ev.data.payload.height === 0) return;
-        e.style.width = ev.data.payload.width + "px";
+        // e.style.width = ev.data.payload.width + "px";
         e.style.height = ev.data.payload.height + "px";
       }
     };
