@@ -132,7 +132,7 @@ export default function PlayerPage({
         pagination={{
           page: commentPage,
           pageProvider: (p) => AppRouter.players.player.index(playerId, p).link,
-          perPage: 20
+          perPage: 20,
         }}
       />
     </div>
