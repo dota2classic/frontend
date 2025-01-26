@@ -3,6 +3,7 @@ import { ItemMap } from "@/const/items";
 export interface IItemIconProps {
   item: string | number;
   small?: boolean;
+  noTooltip?: boolean;
 }
 
 export function asItemId(item: string | number) {

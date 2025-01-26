@@ -1,5 +1,4 @@
-@import '../../common.scss';
-
+@import "../../common.scss";
 
 .item {
   height: 40px;
@@ -10,22 +9,31 @@
     height: 30px;
   }
 
-  &.small{
+  &.small {
     height: 30px;
   }
 }
-
 
 .img2 {
   display: inline-block;
   width: 53px;
   height: 40px;
   background: rgb(46, 46, 46);
-  background: linear-gradient(138deg, rgba(46, 46, 46, 1) 0%, rgba(14, 14, 14, 1) 95%);
+  background: linear-gradient(
+    138deg,
+    rgba(46, 46, 46, 1) 0%,
+    rgba(14, 14, 14, 1) 95%
+  );
   outline: 1px solid #403d3d73;
 
   @media (max-width: 600px) {
     height: 30px !important;
     width: 40px !important;
   }
+}
+
+.itemPreview {
+  width: 416px;
+  height: 0;
+  background: $bg2;
 }
