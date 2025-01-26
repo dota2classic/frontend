@@ -66,7 +66,9 @@ export const useThread = (
   }, [handleVisibilityChange]);
 
   useEffect(() => {
+    thread.updateThread(threadType, id);
     if (page !== undefined) {
+      thread.updateThread(threadType, id);
       thread.loadPage(0);
     } else {
       // thread.loadMore(loadLatest, batchSize);
@@ -75,13 +77,9 @@ export const useThread = (
 
   useEffect(() => {
     if (page !== undefined) {
-      thread.loadPage(page);
+      thread.loadPage(page, batchSize);
     }
   }, [page]);
-
-  // useEffect(() => {
-  //   thread.updateThread(threadType, id);
-  // }, [id, threadType]);
 
   return threadContext;
 };

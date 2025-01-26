@@ -179,12 +179,14 @@ export class ThreadContainer {
       .then(this.consumeMessages);
   };
 
-  @action loadPage = (page: number) => {
+  @action loadPage = (page: number, perPage?: number) => {
     getApi()
       .forumApi.forumControllerMessagesPage(
         this.id.toString(),
         this.threadType,
         page,
+        undefined,
+        perPage,
       )
       .then(this.setPageData);
   };

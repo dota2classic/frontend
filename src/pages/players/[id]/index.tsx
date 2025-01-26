@@ -37,6 +37,7 @@ interface PlayerPageProps {
   preloadedHeroStats: HeroStatsDto[];
   preloadedTeammates: PlayerTeammatePageDto;
   preloadedAchievements: AchievementDto[];
+  commentPage: number;
 }
 
 export default function PlayerPage({
@@ -46,6 +47,7 @@ export default function PlayerPage({
   preloadedHeroStats,
   preloadedTeammates,
   preloadedAchievements,
+  commentPage,
 }: PlayerPageProps) {
   const formattedMatches: PlayerMatchItem[] = (preloadedMatches?.data || [])
     .sort(MatchComparator)
@@ -127,6 +129,11 @@ export default function PlayerPage({
         className={c.thread}
         id={playerId}
         threadType={ThreadType.PLAYER}
+        pagination={{
+          page: commentPage,
+          pageProvider: (p) => AppRouter.players.player.index(playerId, p).link,
+          perPage: 20
+        }}
       />
     </div>
   );
@@ -146,7 +153,7 @@ PlayerPage.getInitialProps = async (
     preloadedAchievements,
   ] = await Promise.combine([
     getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().matchApi.matchControllerPlayerMatches(playerId, page),
+    getApi().matchApi.matchControllerPlayerMatches(playerId, 0),
     getApi().playerApi.playerControllerHeroSummary(playerId),
     getApi().playerApi.playerControllerTeammates(playerId, 0, 10),
     getApi().playerApi.playerControllerAchievements(playerId),
@@ -159,5 +166,6 @@ PlayerPage.getInitialProps = async (
     preloadedHeroStats,
     preloadedTeammates,
     preloadedAchievements,
+    commentPage: page,
   };
 };

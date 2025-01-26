@@ -33,6 +33,7 @@ interface IThreadProps {
   pagination?: {
     pageProvider: (page: number) => NextLinkProp;
     page: number;
+    perPage?: number;
   };
 }
 
@@ -61,6 +62,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
     populateMessages,
     (showLastMessages && showLastMessages > 0) || false,
     pagination?.page,
+    pagination?.perPage,
   );
 
   const sendMessage = useCallback(
