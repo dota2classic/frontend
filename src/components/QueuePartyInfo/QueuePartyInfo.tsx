@@ -6,12 +6,10 @@ import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { PartyMemberDTO, UserDTO } from "@/api/back";
-import { PageLink } from "@/components";
+import { InvitePlayerModalRaw, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
 import { createPortal } from "react-dom";
-import { InvitePlayerModalRaw } from "@/components";
-import { PopupNotificationDto } from "@/store/NotificationStore";
 import { makeSimpleToast } from "@/components/Toast/toasts";
 
 const GameCoordinatorConnection = ({

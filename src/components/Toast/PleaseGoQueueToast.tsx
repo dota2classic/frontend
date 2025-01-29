@@ -9,6 +9,10 @@ import { AppRouter } from "@/route";
 export const PleaseGoQueueToast: React.FC<
   Partial<ToastContentProps> & { inQueue: number; mode: MatchmakingMode }
 > = (props) => {
+  const fixedProps = props as ToastContentProps & {
+    inQueue: number;
+    mode: MatchmakingMode;
+  };
   const router = useRouter();
   return (
     <GenericToast
@@ -26,7 +30,7 @@ export const PleaseGoQueueToast: React.FC<
       }
       declineText={"Потом"}
       onDecline={props.closeToast}
-      {...props}
+      {...fixedProps}
     />
   );
 };

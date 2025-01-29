@@ -1,13 +1,11 @@
-import { toast, ToastContentProps } from "react-toastify";
+import { toast, ToastContent, ToastContentProps } from "react-toastify";
 import c from "@/components/Toast/Toast.module.scss";
-import { PartyInviteToastFactory } from "@/components/Toast/PartyInviteToast";
 import React, { ReactNode } from "react";
 import {
   AchievementKey,
   MatchmakingMode,
   NotificationDto,
   NotificationDtoEntityTypeEnum,
-  UserDTO,
 } from "@/api/back";
 import { GenericToast } from "@/components";
 import { getApi } from "@/api/hooks";
@@ -15,18 +13,7 @@ import { __unsafeGetClientStore } from "@/store";
 import { PartyInviteReceivedMessageS2C } from "@/store/queue/messages/s2c/party-invite-received-message.s2c";
 import { AchievementMapping } from "@/components/AchievementStatus/achievement-mapping";
 import { PleaseGoQueueToast } from "@/components/Toast/PleaseGoQueueToast";
-
-export const createPartyInviteToast = (id: string, inviter: UserDTO) => {
-  const PartyToast: React.FC<ToastContentProps> = (props) => (
-    <PartyInviteToastFactory inviter={inviter} inviteId={id} {...props} />
-  );
-  toast(PartyToast, {
-    toastId: id,
-    autoClose: false,
-    closeButton: false,
-    className: c.partyToast,
-  });
-};
+import { SimpleToast } from "@/components/Toast/SimpleToast";
 
 export const createAcceptPartyToast = (
   invite: PartyInviteReceivedMessageS2C,
@@ -46,7 +33,7 @@ export const createAcceptPartyToast = (
       }
     />
   );
-  toast(PartyToast, {
+  toast(PartyToast as ToastContent, {
     toastId: invite.inviteId,
     autoClose: 60_000,
     closeButton: false,
@@ -64,8 +51,6 @@ export const createNotificationToast = (notification: NotificationDto) => {
     notification.entityType === NotificationDtoEntityTypeEnum.ACHIEVEMENT;
 
   const ttl = new Date(notification.expiresAt).getTime() - Date.now();
-
-  console.log("TTL:", ttl, new Date(notification.expiresAt));
 
   if (isAchievement) {
     const ak = notification.entityId as AchievementKey;
@@ -103,7 +88,9 @@ export const createNotificationToast = (notification: NotificationDto) => {
       .then();
   };
 
-  const Toast: React.FC<ToastContentProps> = (props) => (
+  const Toast: React.FunctionComponent<ToastContentProps<unknown>> = (
+    props,
+  ) => (
     <GenericToast
       {...props}
       title={title}
@@ -116,7 +103,8 @@ export const createNotificationToast = (notification: NotificationDto) => {
     />
   );
 
-  toast(Toast, {
+  // Forgive me
+  toast(Toast as ToastContent, {
     toastId: notification.id,
     autoClose: ttl > 1000 * 60 ? false : Math.max(ttl, 5_000),
     pauseOnHover: false,
@@ -133,11 +121,7 @@ export const makeSimpleToast = (
   content: string,
   time: number,
 ) => {
-  const Toast: React.FC<ToastContentProps> = (props) => (
-    <GenericToast {...props} title={title} content={content} {...props} />
-  );
-
-  toast(Toast, {
+  toast(<SimpleToast title={title} content={content} />, {
     autoClose: time,
     className: c.partyToast,
     closeButton: false,

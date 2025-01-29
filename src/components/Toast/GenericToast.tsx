@@ -13,7 +13,6 @@ export interface GenericToastProps {
 }
 export const GenericToast: React.FC<ToastContentProps & GenericToastProps> = ({
   closeToast,
-  toastProps,
   title,
   content,
   onAccept,

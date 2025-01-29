@@ -9,7 +9,6 @@ import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 
 interface IFeedbackModalProps {
   feedback: FeedbackDto;
-  notificationId: string;
 }
 
 export const FeedbackModal: React.FC<IFeedbackModalProps> = observer(

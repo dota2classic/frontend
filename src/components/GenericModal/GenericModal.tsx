@@ -5,7 +5,6 @@ import cx from "clsx";
 import { IoMdClose } from "react-icons/io";
 import useOutsideClick from "@/util/useOutsideClick";
 import { useDidMount } from "@/util";
-import { Button } from "@/components";
 
 interface Props {
   onClose: () => void;

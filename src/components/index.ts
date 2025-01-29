@@ -62,7 +62,6 @@ export { Tabs } from "./Tabs/Tabs";
 export { NewLanding } from "./NewLanding/NewLanding";
 export { CoolList } from "./CoolList/CoolList";
 export { FAQ } from "./FAQ/FAQ";
-export { PleaseQueueNotification } from "./PleaseQueueNotification/PleaseQueueNotification";
 export { Tooltipable } from "./Tooltipable/Tooltipable";
 export { TelegramInvite } from "./TelegramInvite/TelegramInvite";
 export { ReferralSniffer } from "./ReferralSniffer/ReferralSniffer";
