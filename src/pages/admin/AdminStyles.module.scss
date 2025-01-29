@@ -9,9 +9,6 @@
   }
 }
 
-
-
-
 .gridPanel {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -34,12 +31,10 @@
   grid-column: span 12;
 }
 
-
 .parties {
   align-items: stretch;
   flex-direction: column;
 }
-
 
 .onlineList {
   & li {
@@ -49,4 +44,29 @@
 
 .nowrap {
   white-space: nowrap;
+}
+
+.feedback {
+  display: flex;
+  flex-direction: row;
+  & div {
+    flex: 1;
+  }
+
+  & h2 {
+    color: $red;
+    font-weight: bold;
+  }
+}
+
+.playerFeedback {
+  @include box();
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1rem;
+
+  & ul {
+    padding-inline-start: 1rem;
+  }
 }

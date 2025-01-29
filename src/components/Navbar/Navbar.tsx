@@ -4,60 +4,14 @@ import { NavbarItem } from "..";
 
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";
-import { FaSteam } from "react-icons/fa";
 import { getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import Image from "next/image";
 import { IoMenu } from "react-icons/io5";
 import cx from "clsx";
 import { SiDota2 } from "react-icons/si";
 import { useRouterChanging } from "@/util";
-import { getAuthUrl } from "@/util/getAuthUrl";
-
-const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
-  const { parsedToken, smallAvatar, logout } = useStore().auth;
-
-  if (!parsedToken)
-    return (
-      <NavbarItem ignoreActive action={getAuthUrl()} testId="navbar-login">
-        <FaSteam style={{ marginRight: 4, marginTop: "-3px" }} />
-        Войти
-      </NavbarItem>
-    );
-
-  return (
-    <NavbarItem
-      testId="navbar-user"
-      className={c.user}
-      ignoreActive
-      action={AppRouter.players.player.index(parsedToken.sub).link}
-      options={[
-        {
-          label: "Матчи",
-          action: AppRouter.players.playerMatches(parsedToken.sub).link,
-        },
-        {
-          label: "Герои",
-          action: AppRouter.players.player.heroes(parsedToken.sub).link,
-        },
-        {
-          label: "Выйти",
-          action: logout,
-        },
-      ]}
-    >
-      <span className={c.omitInTablet}>{parsedToken.name}</span>
-      <Image
-        width={30}
-        height={30}
-        className={c.playerAvatar}
-        src={smallAvatar || "/avatar.png"}
-        alt="User avatar"
-      />
-    </NavbarItem>
-  );
-});
+import { LoginProfileNavbarItem } from "@/components/Navbar/LoginProfileNavbarItem";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth } = useStore();
@@ -130,6 +84,12 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             </NavbarItem>
             <NavbarItem action={AppRouter.admin.crimes().link}>
               Нарушения
+            </NavbarItem>
+            <NavbarItem action={AppRouter.admin.feedback.index.link}>
+              Фидбек: Настройки
+            </NavbarItem>
+            <NavbarItem action={AppRouter.admin.playerFeedback(0).link}>
+              Фидбек пользователей
             </NavbarItem>
           </ul>
         </div>

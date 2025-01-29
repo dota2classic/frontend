@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useStore } from "@/store";
 import { FocusOwner } from "@/store/GreedyFocusStore";
 
-export enum GreedyFocusPriority {
-  FORUM_SEND_MESSAGE,
-  FORUM_EDIT_MESSAGE,
-  EMOTICON_WINDOW_SEARCH,
-  INVITE_PLAYER_MODAL,
-}
+export const GreedyFocusPriority = {
+  FORUM_SEND_MESSAGE: 0,
+  FORUM_EDIT_MESSAGE: 1,
+  EMOTICON_WINDOW_SEARCH: 2,
+  INVITE_PLAYER_MODAL: 3,
+  FEEDBACK_MODAL: 3,
+};
 
 export const useGreedyFocus = (
   priority: number | undefined,

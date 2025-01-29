@@ -106,6 +106,13 @@ export const AppRouter = {
   admin: {
     servers: spage("/admin/servers"),
     queues: spage("/admin/queues"),
+    feedback: {
+      index: spage("/admin/feedback"),
+      edit: (id: number) =>
+        page(`/admin/feedback/edit/[id]`, `/admin/feedback/edit/${id}`),
+      create: spage("/admin/feedback/create"),
+    },
+
     crimes: (pg?: number, steamId?: string) => {
       const q = queryParameters({ page: pg, steam_id: steamId });
 
@@ -116,6 +123,11 @@ export const AppRouter = {
     tournamentMatch: {
       match: (id: number) =>
         page(`/admin/tournament_match/[id]`, `/admin/tournament_match/${id}`),
+    },
+    playerFeedback: (pg?: number) => {
+      const q = queryParameters({ page: pg });
+
+      return page(`/admin/player-feedback${q}`, `/admin/player-feedback${q}`);
     },
   },
   lobby: {

@@ -18,6 +18,9 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+  NotificationDto,
+  NotificationDtoFromJSON,
+  NotificationDtoToJSON,
   SubscriptionDto,
   SubscriptionDtoFromJSON,
   SubscriptionDtoToJSON,
@@ -25,6 +28,10 @@ import {
   TagPlayerForQueueFromJSON,
   TagPlayerForQueueToJSON,
 } from "../models";
+
+export interface NotificationControllerAcknowledgeRequest {
+  id: string;
+}
 
 export interface NotificationControllerNotifyAboutQueueRequest {
   tagPlayerForQueue: TagPlayerForQueue;
@@ -38,6 +45,111 @@ export interface NotificationControllerSubscribeRequest {
  * 
  */
 export class NotificationApi extends runtime.BaseAPI {
+
+    /**
+     */
+    private async notificationControllerAcknowledgeRaw(requestParameters: NotificationControllerAcknowledgeRequest): Promise<runtime.ApiResponse<NotificationDto>> {
+        this.notificationControllerAcknowledgeValidation(requestParameters);
+        const context = this.notificationControllerAcknowledgeContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => NotificationDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private notificationControllerAcknowledgeValidation(requestParameters: NotificationControllerAcknowledgeRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling notificationControllerAcknowledge.");
+        }
+    }
+
+    /**
+     */
+    notificationControllerAcknowledgeContext(requestParameters: NotificationControllerAcknowledgeRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/notification/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    notificationControllerAcknowledge = async (id: string): Promise<NotificationDto> => {
+        const response = await this.notificationControllerAcknowledgeRaw({ id: id });
+        return await response.value();
+    }
+
+
+    /**
+     */
+    private async notificationControllerGetNotificationsRaw(): Promise<runtime.ApiResponse<Array<NotificationDto>>> {
+        this.notificationControllerGetNotificationsValidation();
+        const context = this.notificationControllerGetNotificationsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(NotificationDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private notificationControllerGetNotificationsValidation() {
+    }
+
+    /**
+     */
+    notificationControllerGetNotificationsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/notification/all`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    notificationControllerGetNotifications = async (): Promise<Array<NotificationDto>> => {
+        const response = await this.notificationControllerGetNotificationsRaw();
+        return await response.value();
+    }
+
+    useNotificationControllerGetNotifications(config?: SWRConfiguration<Array<NotificationDto>, Error>) {
+        let valid = true
+
+        const context = this.notificationControllerGetNotificationsContext();
+        return useSWR(context, valid ? () => this.notificationControllerGetNotifications() : null, config)
+    }
 
     /**
      */

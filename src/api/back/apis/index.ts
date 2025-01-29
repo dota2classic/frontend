@@ -1,5 +1,7 @@
 export * from "./AdminApi";
+export * from "./AdminFeedbackApi";
 export * from "./AuthApi";
+export * from "./FeedbackApi";
 export * from "./ForumApi";
 export * from "./LiveApi";
 export * from "./LobbyApi";

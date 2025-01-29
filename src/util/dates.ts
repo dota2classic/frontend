@@ -42,3 +42,11 @@ export const diffMillis = (
 
   return d2.getTime() - d1.getTime();
 };
+
+export function createDateComparator<T>(
+  getDate: (e: T) => Date,
+  desc: boolean = false,
+) {
+  return (a: T, b: T) =>
+    (getDate(a).getTime() - getDate(b).getTime()) * (desc ? -1 : 1);
+}

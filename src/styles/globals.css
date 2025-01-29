@@ -128,3 +128,8 @@ iframe {
   animation: spinning 2s infinite ease;
 }
 
+
+
+:root {
+  --toastify-z-index: 9999999999;
+}

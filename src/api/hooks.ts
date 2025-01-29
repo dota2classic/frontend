@@ -1,6 +1,8 @@
 import {
   AdminApi,
+  AdminFeedbackApi,
   AuthApi,
+  FeedbackApi,
   ForumApi,
   LiveApi,
   LobbyApi,
@@ -118,6 +120,8 @@ export class AppApi {
   readonly statsApi = new StatsApi(this.apiConfig);
   readonly metaApi = new MetaApi(this.apiConfig);
   readonly lobby = new LobbyApi(this.apiConfig);
+  readonly feedback = new FeedbackApi(this.apiConfig);
+  readonly adminFeedback = new AdminFeedbackApi(this.apiConfig);
   readonly notificationApi = new NotificationApi(this.apiConfig);
 }
 

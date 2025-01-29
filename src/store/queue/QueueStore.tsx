@@ -19,7 +19,7 @@ import {
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { DefaultQueueHolder } from "@/store/queue/mock";
 import { Sounds } from "@/const/sounds";
-import { NotificationDto, NotificationStore } from "@/store/NotificationStore";
+import { NotificationStore } from "@/store/NotificationStore";
 import { getPartyAccessLevel, isPartyInGame } from "@/util/party";
 import { PlayerQueueStateMessageS2C } from "@/store/queue/messages/s2c/player-queue-state-message.s2c";
 import { GameCoordinatorNewListener } from "@/store/queue/game-coordinator-new.listener";
@@ -39,7 +39,6 @@ import { SetReadyCheckMessageC2S } from "@/store/queue/messages/c2s/set-ready-ch
 import { InviteToPartyMessageC2S } from "@/store/queue/messages/c2s/invite-to-party-message.c2s";
 import { AcceptPartyInviteMessageC2S } from "@/store/queue/messages/c2s/accept-party-invite-message.c2s";
 import { PlayerServerSearchingMessageS2C } from "@/store/queue/messages/s2c/player-server-searching-message.s2c";
-import { PartyInviteNotification, PleaseQueueNotification } from "@/components";
 import { EnterQueueMessageC2S } from "@/store/queue/messages/c2s/enter-queue-message.c2s";
 import { PleaseEnterQueueMessageS2C } from "@/store/queue/messages/s2c/please-enter-queue-message.s2c";
 import { metrika } from "@/ym";
@@ -48,6 +47,12 @@ import { blinkTab } from "@/util/blinkTab";
 import { GameModeAccessLevel } from "@/const/game-mode-access-level";
 import BrowserCookies from "browser-cookies";
 import { modEnableCondition } from "@/components/MatchmakingOption/utils";
+import { NotificationCreatedMessageS2C } from "@/store/queue/messages/s2c/notification-created-message.s2c";
+import {
+  createAcceptPartyToast,
+  makeEnterQueueToast,
+} from "@/components/Toast/toasts";
+import { toast } from "react-toastify";
 
 export type QueueHolder = {
   [key: string]: number;
@@ -334,6 +339,7 @@ export class QueueStore
 
     this.socket = io("wss://dotaclassic.ru", {
       path: "/newsocket",
+      // this.socket = io("ws://localhost:6001", {
       transports: ["websocket"],
       autoConnect: false,
       auth: {
@@ -354,6 +360,12 @@ export class QueueStore
       MessageTypeS2C.CONNECTION_COMPLETE,
       this.onConnectionComplete,
     );
+
+    this.socket.on(
+      MessageTypeS2C.NOTIFICATION_CREATED,
+      this.onNotificationCreated,
+    );
+
     this.socket.on(MessageTypeS2C.GO_QUEUE, this.onPleaseEnterQueue);
     this.socket.on(MessageTypeS2C.QUEUE_STATE, this.onQueueState);
     this.socket.on(MessageTypeS2C.PLAYER_QUEUE_STATE, this.onPlayerQueueState);
@@ -457,12 +469,12 @@ export class QueueStore
     this.roomReadySound.play();
   }
 
-  private acceptParty(id: string) {
+  public acceptParty(id: string) {
     this.submitPartyInvite(id, true);
     this.notify.dequeue(id);
   }
 
-  private declineParty(id: string) {
+  public declineParty(id: string) {
     this.submitPartyInvite(id, false);
     this.notify.dequeue(id);
   }
@@ -521,21 +533,12 @@ export class QueueStore
   };
 
   @action onPartyInviteExpired = (msg: PartyInviteExpiredMessageS2C) => {
-    this.notify.dequeue(msg.inviteId);
+    toast.dismiss(msg.inviteId);
   };
 
   @action onPartyInviteReceived = (msg: PartyInviteReceivedMessageS2C) => {
-    const dto = new NotificationDto(
-      (
-        <PartyInviteNotification
-          inviter={msg.inviter.name}
-          onDecline={() => this.declineParty(msg.inviteId)}
-          onAccept={() => this.acceptParty(msg.inviteId)}
-        />
-      ),
-      msg.inviteId,
-    );
-    this.notify.enqueueNotification(dto);
+    // createPartyInviteToast(msg.inviteId, msg.inviter);
+    createAcceptPartyToast(msg);
     this.partyInviteReceivedSound.play();
   };
 
@@ -603,12 +606,11 @@ export class QueueStore
   };
 
   onPleaseEnterQueue = (msg: PleaseEnterQueueMessageS2C) => {
-    this.notify.enqueueNotification(
-      new NotificationDto(
-        <PleaseQueueNotification inQueue={msg.inQueue} mode={msg.mode} />,
-        undefined,
-      ),
-    );
+    makeEnterQueueToast(msg.mode, msg.inQueue);
     this.partyInviteReceivedSound.play();
+  };
+
+  @action onNotificationCreated = (msg: NotificationCreatedMessageS2C) => {
+    this.notify.addNotification(msg.notificationDto);
   };
 }

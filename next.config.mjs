@@ -10,6 +10,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'avatars.fastly.steamstatic.com'
+      },
+      {
+        protocol: 'https',
         hostname: 'steamcdn-a.akamaihd.net'
       },
       {

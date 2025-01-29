@@ -3,10 +3,15 @@ import { ReactNode } from "react";
 import { HydratableStore } from "@/store/HydratableStore";
 import { urlBase64ToUint8Array } from "@/util";
 import { getApi } from "@/api/hooks";
-import { SubscriptionDto } from "@/api/back";
+import { FeedbackDto, NotificationDto, SubscriptionDto } from "@/api/back";
 import Queue from "queue";
+import { createDateComparator } from "@/util/dates";
+import {
+  createNotificationToast,
+  makeSimpleToast,
+} from "@/components/Toast/toasts";
 
-export class NotificationDto {
+export class PopupNotificationDto {
   constructor(
     public readonly text: ReactNode,
     public readonly id?: string,
@@ -17,9 +22,10 @@ export class NotificationStore implements HydratableStore<unknown> {
   public static readonly NOTIFICATION_LIFETIME = 60_000;
 
   @observable
-  public permanentQueue: NotificationDto[] = [];
+  public permanentQueue: PopupNotificationDto[] = [];
   @observable
-  public currentPendingNotification: NotificationDto | undefined = undefined;
+  public currentPendingNotification: PopupNotificationDto | undefined =
+    undefined;
 
   @observable
   public isPushSupported: boolean = false;
@@ -29,6 +35,9 @@ export class NotificationStore implements HydratableStore<unknown> {
 
   @observable
   public registration: ServiceWorkerRegistration | undefined = undefined;
+
+  @observable
+  public currentFeedback: FeedbackDto | undefined = undefined;
 
   private queue!: Queue;
 
@@ -51,7 +60,25 @@ export class NotificationStore implements HydratableStore<unknown> {
       }, 1000);
     }
 
+    this.fetchNotifications().then();
+
     // Here we should implement tasking?
+  }
+
+  private async fetchNotifications() {
+    getApi()
+      .notificationApi.notificationControllerGetNotifications()
+      .then((notifications) =>
+        runInAction(() => {
+          notifications
+            .sort(
+              createDateComparator<NotificationDto>(
+                (it) => new Date(it.createdAt),
+              ),
+            )
+            .forEach(this.addNotification);
+        }),
+      );
   }
 
   @action
@@ -116,7 +143,7 @@ export class NotificationStore implements HydratableStore<unknown> {
   }
 
   @action
-  public enqueueNotification(notif: NotificationDto) {
+  public enqueueNotification(notif: PopupNotificationDto) {
     if (notif.id !== undefined) {
       this.permanentQueue.push(notif);
     } else {
@@ -142,4 +169,28 @@ export class NotificationStore implements HydratableStore<unknown> {
   };
 
   hydrate(): void {}
+
+  @action startFeedback = (feedback: FeedbackDto) => {
+    this.currentFeedback = feedback;
+  };
+
+  @action finishFeedback = async (feedback?: FeedbackDto) => {
+    if (feedback) {
+      await getApi().feedback.feedbackControllerSubmitFeedbackResult(
+        feedback.id,
+        feedback,
+      );
+      makeSimpleToast(
+        "Обратная связь сохранена",
+        "Спасибо, что помогаешь стать нам лучше",
+        10000,
+      );
+    }
+    this.currentFeedback = undefined;
+  };
+
+  @action addNotification = (notificationDto: NotificationDto) => {
+    if (notificationDto.acknowledged) return;
+    createNotificationToast(notificationDto);
+  };
 }

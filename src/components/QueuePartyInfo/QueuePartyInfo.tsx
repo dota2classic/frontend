@@ -11,7 +11,8 @@ import { AppRouter } from "@/route";
 import cx from "clsx";
 import { createPortal } from "react-dom";
 import { InvitePlayerModalRaw } from "@/components";
-import { NotificationDto } from "@/store/NotificationStore";
+import { PopupNotificationDto } from "@/store/NotificationStore";
+import { makeSimpleToast } from "@/components/Toast/toasts";
 
 const GameCoordinatorConnection = ({
   readyState,
@@ -44,9 +45,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
   const invite = useCallback(
     async (it: UserDTO) => {
       queue.inviteToParty(it.steamId);
-      notify.enqueueNotification(
-        new NotificationDto(`Приглашение отправлено ${it.name}`),
-      );
+      makeSimpleToast(`Приглашение отправлено ${it.name}`, "", 5000);
       close();
     },
     [close, notify, queue],

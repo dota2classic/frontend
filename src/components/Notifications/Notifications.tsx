@@ -2,7 +2,7 @@ import React from "react";
 
 import c from "./Notifications.module.scss";
 import { observer } from "mobx-react-lite";
-import { NotificationDto } from "@/store/NotificationStore";
+import { PopupNotificationDto } from "@/store/NotificationStore";
 import { useStore } from "@/store";
 import cx from "clsx";
 import { QueueGameState, useQueueState } from "@/util/useQueueState";
@@ -14,7 +14,7 @@ export const Notifications = observer(() => {
   const shouldMove = state !== QueueGameState.NO_GAME;
   return (
     <div className={cx(c.container, shouldMove && c.plsMove)}>
-      {notify.permanentQueue.map((t: NotificationDto) => (
+      {notify.permanentQueue.map((t: PopupNotificationDto) => (
         <div key={t.id}>{t.text}</div>
       ))}
       {notify.currentPendingNotification &&

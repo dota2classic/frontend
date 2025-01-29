@@ -1,0 +1,80 @@
+@import "../../common.scss";
+
+.toast {
+  z-index: 1000000;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+
+  & header {
+    font-weight: 500;
+    color: $primaryText;
+  }
+
+  & p {
+    //font-size: 0.8rem;
+    color: $primaryTextDark;
+  }
+}
+
+.buttons {
+  gap: 4px;
+
+
+  display: flex;
+  flex-direction: row;
+
+  & button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    border: 0px solid transparent;
+    outline: none;
+    padding: 4px;
+    border-radius: 4px;
+    transition: 0.3s ease;
+    color: $primaryTextTint;
+    cursor: pointer;
+
+    &:disabled {
+      background: rgba(0, 0, 0, 0.3);
+      cursor: not-allowed;
+    }
+  }
+}
+
+.accept {
+  box-shadow: 0 0 8px rgba(10, 10, 10, 0.4);
+  background: radial-gradient(circle, rgb(11 97 12) 0%, rgb(21 61 25) 114%);
+
+  &:hover {
+    box-shadow: 0 0 8px rgba(100, 187, 120, 0.32);
+  }
+}
+
+.decline {
+  box-shadow: 0 0 8px rgba(10, 10, 10, 0.4);
+  background: radial-gradient(
+    circle,
+    rgb(126 18 18) 0%,
+    rgb(40 0 0) 115%
+  ) !important;
+  text-transform: uppercase;
+
+  &:hover {
+    box-shadow: 0 0 8px rgba(166, 13, 13, 0.62);
+  }
+}
+
+.partyToast {
+  padding: 1rem;
+  background-color: $bg15;
+  box-shadow: 0 0 16px 4px rgba(10, 10, 10, 0.4);
+}
