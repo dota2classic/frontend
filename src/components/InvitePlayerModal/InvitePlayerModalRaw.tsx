@@ -24,7 +24,11 @@ export const InvitePlayerModalRaw: React.FC<IInvitePlayerModalProps> = ({
 
   useGreedyFocus(GreedyFocusPriority.INVITE_PLAYER_MODAL, inputRef);
   return (
-    <GenericModal onClose={close} title="Выбрать игрока">
+    <GenericModal
+      className={c.invitePlayerModal}
+      onClose={close}
+      title="Выбрать игрока"
+    >
       {/*<h2>Искать</h2>*/}
       <Input
         ref={inputRef}
