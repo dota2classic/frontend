@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "@/styles/scrollbars.css";
 import App, { AppContext, AppInitialProps } from "next/app";
 import { Layout, ReferralSniffer } from "@/components";
 import Cookies from "cookies";
