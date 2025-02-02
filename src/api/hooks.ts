@@ -105,7 +105,10 @@ export class AppApi {
 
   refreshToken = async () => {
     const newToken = await this.authApi.steamControllerRefreshToken();
-    BrowserCookies.set(AuthStore.cookieTokenKey, newToken);
+    BrowserCookies.set(AuthStore.cookieTokenKey, newToken, {
+      expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30),
+      path: "/",
+    });
     this.apiParams.accessToken = newToken;
   };
 
