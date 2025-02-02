@@ -133,3 +133,9 @@ iframe {
 :root {
   --toastify-z-index: 9999999999;
 }
+
+
+iframe {
+  box-shadow: 0 0 4px rgba(10, 10, 10, 0.6);
+  overflow: hidden;
+}

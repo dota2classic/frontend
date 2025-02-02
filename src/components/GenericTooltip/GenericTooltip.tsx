@@ -24,7 +24,10 @@ const calculateModalPosition = (
 
   const wb = window.innerHeight;
 
-  const top = Math.min(scrollY + (wb - windowHeight - 12), rect.top - 3);
+  const top = Math.min(
+    scrollY + (wb - windowHeight - 12),
+    rect.top + rect.height,
+  );
 
   let left = rect.left - windowWidth;
   if (left < 0) {
