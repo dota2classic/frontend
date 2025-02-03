@@ -6,14 +6,16 @@ import {
   MatchmakingMode,
   NotificationDto,
   NotificationDtoEntityTypeEnum,
+  NotificationType,
 } from "@/api/back";
-import { GenericToast } from "@/components";
+import { GenericToast, PageLink } from "@/components";
 import { getApi } from "@/api/hooks";
 import { __unsafeGetClientStore } from "@/store";
 import { PartyInviteReceivedMessageS2C } from "@/store/queue/messages/s2c/party-invite-received-message.s2c";
 import { AchievementMapping } from "@/components/AchievementStatus/achievement-mapping";
 import { PleaseGoQueueToast } from "@/components/Toast/PleaseGoQueueToast";
 import { SimpleToast } from "@/components/Toast/SimpleToast";
+import { AppRouter } from "@/route";
 
 export const createAcceptPartyToast = (
   invite: PartyInviteReceivedMessageS2C,
@@ -49,23 +51,60 @@ export const createNotificationToast = (notification: NotificationDto) => {
     notification.entityType === NotificationDtoEntityTypeEnum.FEEDBACK;
   const isAchievement =
     notification.entityType === NotificationDtoEntityTypeEnum.ACHIEVEMENT;
+  const isFeedbackTicket =
+    notification.entityType === NotificationDtoEntityTypeEnum.FEEDBACKTICKET;
 
   const ttl = new Date(notification.expiresAt).getTime() - Date.now();
 
+  const acknowledge = () => {
+    getApi()
+      .notificationApi.notificationControllerAcknowledge(notification.id)
+      .then(() => toast.dismiss(notification.id));
+  };
+
   if (isAchievement) {
-    const ak = notification.entityId as AchievementKey;
+    const ak = Number(notification.entityId) as AchievementKey;
     title = `Достижение получено`;
     content = (
       <>
-        <span className="gold">{AchievementMapping[ak]?.title || title}</span>:
+        <span className="gold">{AchievementMapping[ak]?.title || title}</span>:{" "}
         {AchievementMapping[ak]?.description || content}
       </>
     );
+  } else if (isFeedbackTicket) {
+    if (notification.notificationType === NotificationType.TICKETCREATED) {
+      title = `Создан тикет с твоей обратной связью`;
+      content = (
+        <>
+          Отслеживать его можешь по{" "}
+          <PageLink
+            link={AppRouter.forum.ticket.ticket(notification.entityId).link}
+            onClick={acknowledge}
+          >
+            ссылке
+          </PageLink>
+        </>
+      );
+    } else if (
+      notification.notificationType === NotificationType.TICKETNEWMESSAGE
+    ) {
+      title = `Новое сообщение в твоем тикете!`;
+      content = (
+        <>
+          <PageLink
+            link={AppRouter.forum.ticket.ticket(notification.entityId).link}
+            onClick={acknowledge}
+          >
+            Посмотреть новое сообщение
+          </PageLink>
+        </>
+      );
+    }
   }
 
   const showFeedback = async () => {
     const feedback = await getApi().feedback.feedbackControllerGetFeedback(
-      notification.entityId,
+      Number(notification.entityId),
     );
     if (!feedback || feedback.finished) return;
 
@@ -74,9 +113,7 @@ export const createNotificationToast = (notification: NotificationDto) => {
 
   const onAccept = async () => {
     // Acknowledge notification
-    await getApi().notificationApi.notificationControllerAcknowledge(
-      notification.id,
-    );
+    await acknowledge();
 
     if (isFeedback) {
       await showFeedback();
@@ -102,6 +139,8 @@ export const createNotificationToast = (notification: NotificationDto) => {
       {...props}
     />
   );
+
+  console.log(ttl, "TTL?");
 
   // Forgive me
   toast(Toast as ToastContent, {

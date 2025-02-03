@@ -690,6 +690,52 @@ export class AdminApi extends runtime.BaseAPI {
 
     /**
      */
+    private async serverControllerFdfRaw(): Promise<runtime.ApiResponse<Array<string>>> {
+        this.serverControllerFdfValidation();
+        const context = this.serverControllerFdfContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+
+
+    /**
+     */
+    private serverControllerFdfValidation() {
+    }
+
+    /**
+     */
+    serverControllerFdfContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/servers/ohbabystasik`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    serverControllerFdf = async (): Promise<Array<string>> => {
+        const response = await this.serverControllerFdfRaw();
+        return await response.value();
+    }
+
+    useServerControllerFdf(config?: SWRConfiguration<Array<string>, Error>) {
+        let valid = true
+
+        const context = this.serverControllerFdfContext();
+        return useSWR(context, valid ? () => this.serverControllerFdf() : null, config)
+    }
+
+    /**
+     */
     private async serverControllerLiveSessionsRaw(): Promise<runtime.ApiResponse<Array<GameSessionDto>>> {
         this.serverControllerLiveSessionsValidation();
         const context = this.serverControllerLiveSessionsContext();

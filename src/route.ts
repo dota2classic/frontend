@@ -185,10 +185,20 @@ export const AppRouter = {
           return page(`/matches/[id]`, `/matches/${id}`);
         case ThreadType.PLAYER:
           return page(`/players/[id]`, `/players/${id}`);
+        case ThreadType.TICKET:
+          return page(`/forum/ticket/[id]`, `/forum/ticket/${id}`);
 
         default:
           return page(`/forum/[id]${q}`, `/forum/${id}${q}`);
       }
+    },
+    ticket: {
+      admin: spage("/admin/ticket"),
+      index: spage("/forum/ticket"),
+      ticket(id: string) {
+        const numericId = id.replace(/\D/g, "");
+        return page("/forum/ticket/[id]", `/forum/ticket/${numericId}`);
+      },
     },
   },
   items: {

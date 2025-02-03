@@ -129,6 +129,7 @@ export interface ForumControllerThreadRequest {
 
 export interface ForumControllerThreadsRequest {
   page: number;
+  onlyAuthored: boolean;
   perPage?: number;
   threadType?: ThreadType;
 }
@@ -895,6 +896,9 @@ export class ForumApi extends runtime.BaseAPI {
         if (requestParameters.page === null || requestParameters.page === undefined) {
             throw new runtime.RequiredError("page","Required parameter requestParameters.page was null or undefined when calling forumControllerThreads.");
         }
+        if (requestParameters.onlyAuthored === null || requestParameters.onlyAuthored === undefined) {
+            throw new runtime.RequiredError("onlyAuthored","Required parameter requestParameters.onlyAuthored was null or undefined when calling forumControllerThreads.");
+        }
     }
 
     /**
@@ -914,8 +918,20 @@ export class ForumApi extends runtime.BaseAPI {
             queryParameters["threadType"] = requestParameters.threadType;
         }
 
+        if (requestParameters.onlyAuthored !== undefined) {
+            queryParameters["only_authored"] = requestParameters.onlyAuthored;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/forum/threads`,
             method: "GET",
@@ -926,20 +942,24 @@ export class ForumApi extends runtime.BaseAPI {
 
     /**
      */
-    forumControllerThreads = async (page: number, perPage?: number, threadType?: ThreadType): Promise<ThreadPageDTO> => {
-        const response = await this.forumControllerThreadsRaw({ page: page, perPage: perPage, threadType: threadType });
+    forumControllerThreads = async (page: number, onlyAuthored: boolean, perPage?: number, threadType?: ThreadType): Promise<ThreadPageDTO> => {
+        const response = await this.forumControllerThreadsRaw({ page: page, onlyAuthored: onlyAuthored, perPage: perPage, threadType: threadType });
         return await response.value();
     }
 
-    useForumControllerThreads(page: number, perPage?: number, threadType?: ThreadType, config?: SWRConfiguration<ThreadPageDTO, Error>) {
+    useForumControllerThreads(page: number, onlyAuthored: boolean, perPage?: number, threadType?: ThreadType, config?: SWRConfiguration<ThreadPageDTO, Error>) {
         let valid = true
 
         if (page === null || page === undefined || Number.isNaN(page)) {
             valid = false
         }
 
-        const context = this.forumControllerThreadsContext({ page: page!, perPage: perPage!, threadType: threadType! });
-        return useSWR(context, valid ? () => this.forumControllerThreads(page!, perPage!, threadType!) : null, config)
+        if (onlyAuthored === null || onlyAuthored === undefined || Number.isNaN(onlyAuthored)) {
+            valid = false
+        }
+
+        const context = this.forumControllerThreadsContext({ page: page!, onlyAuthored: onlyAuthored!, perPage: perPage!, threadType: threadType! });
+        return useSWR(context, valid ? () => this.forumControllerThreads(page!, onlyAuthored!, perPage!, threadType!) : null, config)
     }
 
     /**

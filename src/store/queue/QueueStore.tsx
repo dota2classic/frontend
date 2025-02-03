@@ -337,9 +337,9 @@ export class QueueStore
     // Make sure token is not stale
     await this.authStore.fetchMe();
 
-    this.socket = io("wss://dotaclassic.ru", {
-      path: "/newsocket",
-      // this.socket = io("ws://localhost:6001", {
+    // this.socket = io("wss://dotaclassic.ru", {
+    //   path: "/newsocket",
+    this.socket = io("ws://localhost:6001", {
       transports: ["websocket"],
       autoConnect: false,
       auth: {

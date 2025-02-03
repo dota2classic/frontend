@@ -178,7 +178,11 @@ export class NotificationStore implements HydratableStore<unknown> {
     if (feedback) {
       await getApi().feedback.feedbackControllerSubmitFeedbackResult(
         feedback.id,
-        feedback,
+        {
+          comment: feedback.comment,
+          options: feedback.options,
+          createTicket: feedback.comment?.length > 0,
+        },
       );
       makeSimpleToast(
         "Обратная связь сохранена",

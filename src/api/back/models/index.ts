@@ -44,6 +44,7 @@ export * from "./MeDto";
 export * from "./MmrChangeDto";
 export * from "./MyProfileDto";
 export * from "./NotificationDto";
+export * from "./NotificationType";
 export * from "./PartyDto";
 export * from "./PartyMemberDTO";
 export * from "./PerModePlayersDto";

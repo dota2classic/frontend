@@ -1,0 +1,55 @@
+@import "../../common.scss";
+
+
+.block {
+  display: block;
+  max-width: unset !important;
+}
+
+.forumTable {
+  & th,
+  td {
+    padding: 8px !important;
+  }
+}
+
+.msg {
+  display: flex;
+  flex-direction: row;
+
+  & img {
+    vertical-align: middle;
+  }
+
+  & div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+
+.forumTitle {
+  white-space: nowrap;
+  max-width: 500px;
+  @media (max-width: 600px) {
+    max-width: 130px;
+  }
+
+  & a {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+  }
+}
+
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+}
+.newMessages {
+  color: $gold;
+}
+
+

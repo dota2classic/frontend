@@ -81,3 +81,4 @@ export { GenericTooltip } from "./GenericTooltip/GenericTooltip";
 export { MessageReactionsTooltip } from "./MessageReactionsTooltip/MessageReactionsTooltip";
 export { Checkbox } from "./Checkbox/Checkbox";
 export { GenericToast } from "./Toast/GenericToast";
+export { ThreadsTable } from "./ThreadsTable/ThreadsTable";

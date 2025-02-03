@@ -293,7 +293,7 @@
 
 .richContent {
   //white-space: nowrap;
-  overflow-x: hidden;
+  overflow: hidden;
 
   &__placeholder {
     background-color: $primaryTextDark2;

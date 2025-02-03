@@ -13,12 +13,25 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    NotificationType,
+    NotificationTypeFromJSON,
+    NotificationTypeFromJSONTyped,
+    NotificationTypeToJSON,
+} from './';
+
 /**
  * 
  * @export
  * @interface NotificationDto
  */
 export interface NotificationDto {
+    /**
+     * 
+     * @type {NotificationType}
+     * @memberof NotificationDto
+     */
+    notificationType: NotificationType;
     /**
      * 
      * @type {string}
@@ -57,10 +70,10 @@ export interface NotificationDto {
     entityType: NotificationDtoEntityTypeEnum;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof NotificationDto
      */
-    entityId: number;
+    entityId: string;
     /**
      * 
      * @type {string}
@@ -85,6 +98,7 @@ export function NotificationDtoFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
+        'notificationType': NotificationTypeFromJSON(json['notificationType']),
         'id': json['id'],
         'acknowledged': json['acknowledged'],
         'createdAt': json['createdAt'],
@@ -106,6 +120,7 @@ export function NotificationDtoToJSON(value?: NotificationDto | null): any {
     }
     return {
         
+        'notificationType': NotificationTypeToJSON(value.notificationType),
         'id': value.id,
         'acknowledged': value.acknowledged,
         'createdAt': value.createdAt,
@@ -124,7 +139,8 @@ export function NotificationDtoToJSON(value?: NotificationDto | null): any {
 */
 export enum NotificationDtoEntityTypeEnum {
     FEEDBACK = 'FEEDBACK',
-    ACHIEVEMENT = 'ACHIEVEMENT'
+    ACHIEVEMENT = 'ACHIEVEMENT',
+    FEEDBACKTICKET = 'FEEDBACK_TICKET'
 }
 
 

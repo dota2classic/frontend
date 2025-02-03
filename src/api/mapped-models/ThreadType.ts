@@ -4,6 +4,7 @@ export enum ThreadType {
   PLAYER = "player",
   FORUM = "forum",
   LOBBY = "lobby",
+  TICKET = "ticket",
 }
 
 export function ThreadTypeFromJSON(json: any): ThreadType {
