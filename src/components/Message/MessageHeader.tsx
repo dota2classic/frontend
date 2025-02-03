@@ -1,15 +1,15 @@
 import { Role } from "@/api/mapped-models";
 import {
+  GenericTooltip,
   PageLink,
   PeriodicTimerClient,
   PlayerAvatar,
-  Tooltipable,
 } from "@/components";
 import { MdAdminPanelSettings, MdLocalPolice } from "react-icons/md";
 import cx from "clsx";
 import c from "@/components/Message/Message.module.scss";
 import { AppRouter } from "@/route";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { MessageTools } from "@/components/Message/MessageTools";
 import { MessageReactions } from "@/components/Message/MessageReactions";
 import { useStore } from "@/store";
@@ -18,6 +18,7 @@ import { ThreadMessageDTO } from "@/api/back";
 import { MessageContent } from "@/components/Message/MessageContent";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { computed } from "mobx";
+import { createPortal } from "react-dom";
 
 interface IMessageProps {
   message: ThreadMessageDTO;
@@ -30,6 +31,9 @@ export const MessageHeader = observer(function MessageHeader({
 }: IMessageProps) {
   const { queue } = useStore();
   const { input } = useContext(ThreadContext);
+  const [hoveredRole, setHoveredRole] = useState<
+    { role: Role; ref: HTMLElement } | undefined
+  >(undefined);
 
   const isOnline = computed(
     () => queue.online.findIndex((x) => x === message.author.steamId) !== -1,
@@ -41,23 +45,36 @@ export const MessageHeader = observer(function MessageHeader({
 
   const roles = (
     <>
+      {hoveredRole &&
+        createPortal(
+          <GenericTooltip
+            anchor={hoveredRole.ref}
+            onClose={() => setHoveredRole(undefined)}
+          >
+            <span className={c.roleTooltip}>
+              {hoveredRole.role === Role.ADMIN ? "Администратор" : "Модератор"}
+            </span>
+          </GenericTooltip>,
+          document.body,
+        )}
       {message.author.roles.includes(Role.ADMIN) && (
-        <Tooltipable
-          tooltipPosition="top"
-          tooltip={"Администратор"}
-          className="gold"
-        >
-          <MdAdminPanelSettings />
-        </Tooltipable>
+        <MdAdminPanelSettings
+          onMouseEnter={(e) =>
+            setHoveredRole({ ref: e.target as HTMLElement, role: Role.ADMIN })
+          }
+          onMouseLeave={() => setHoveredRole(undefined)}
+        />
       )}
       {message.author.roles.includes(Role.MODERATOR) && (
-        <Tooltipable
-          tooltipPosition="top"
-          tooltip={"Модератор"}
-          className="bronze"
-        >
-          <MdLocalPolice />
-        </Tooltipable>
+        <MdLocalPolice
+          onMouseEnter={(e) =>
+            setHoveredRole({
+              ref: e.target as HTMLElement,
+              role: Role.MODERATOR,
+            })
+          }
+          onMouseLeave={() => setHoveredRole(undefined)}
+        />
       )}
     </>
   );

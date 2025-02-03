@@ -4,7 +4,6 @@ import { Table } from "..";
 
 import c from "./ThreadsTable.module.scss";
 import { ThreadPageDTO } from "@/api/back";
-import { ThreadMessagePreview } from "@/components/ThreadsTable/ThreadMessagePreview";
 import { ThreadTableRow } from "@/components/ThreadsTable/ThreadTableRow";
 
 interface IThreadsTableProps {

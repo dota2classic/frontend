@@ -318,3 +318,12 @@
   border-radius: 50%;
   background-color: $primaryTextDark2;
 }
+
+
+
+.roleTooltip {
+  @include box();
+  padding: 8px 12px;
+  background-color: $bg2;
+  color: $primaryText;
+}
