@@ -26,7 +26,7 @@ const AdminTicketPage = observer(() => {
 
   return (
     <PageLink
-      link={AppRouter.forum.ticket.admin.link}
+      link={AppRouter.forum.ticket.admin().link}
       className={c.createThread}
     >
       <Button>Обращения пользователей</Button>

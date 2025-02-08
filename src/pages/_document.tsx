@@ -1,5 +1,6 @@
 import { Head, Html, Main, NextScript } from "next/document";
 import { YandexMetrika } from "@/components";
+import { GoogleTagManager } from "@/components/YandexMetrika/GoogleTagManager";
 
 export default function Document() {
   return (
@@ -9,6 +10,7 @@ export default function Document() {
         <link rel="stylesheet" href={`/minimap.css`} />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <YandexMetrika />
+        <GoogleTagManager />
       </Head>
       <body>
         <Main />

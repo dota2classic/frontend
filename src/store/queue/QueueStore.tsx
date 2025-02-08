@@ -339,7 +339,7 @@ export class QueueStore
 
     this.socket = io("wss://dotaclassic.ru", {
       path: "/newsocket",
-      // this.socket = io("ws://localhost:6001", {
+      // this.socket = io("ws://156.253.220.202:6001", {
       transports: ["websocket"],
       autoConnect: false,
       auth: {

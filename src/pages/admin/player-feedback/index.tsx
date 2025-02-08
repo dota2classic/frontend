@@ -35,6 +35,11 @@ export default function PlayerFeedbackPage({ page }: Props) {
           </ul>
         </Panel>
       ))}
+      <Pagination
+        page={page.page}
+        maxPage={page.pages}
+        linkProducer={(pg) => AppRouter.admin.playerFeedback(pg).link}
+      />
     </div>
   );
 }
@@ -43,7 +48,7 @@ PlayerFeedbackPage.getInitialProps = async (ctx: NextPageContext) => {
   const page = numberOrDefault(ctx.query.page as string, 0);
   return {
     page: await withTemporaryToken(ctx, () =>
-      getApi().adminFeedback.adminFeedbackControllerGetPlayerFeedback(page),
+      getApi().adminFeedback.adminFeedbackControllerGetPlayerFeedback(page, 10),
     ),
   };
 };

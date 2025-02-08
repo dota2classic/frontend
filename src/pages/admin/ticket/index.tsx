@@ -1,7 +1,13 @@
 import { getApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { ThreadPageDTO, ThreadType } from "@/api/back";
-import {Button, EmbedProps, PageLink, Pagination, ThreadsTable} from "@/components";
+import {
+  Button,
+  EmbedProps,
+  PageLink,
+  Pagination,
+  ThreadsTable,
+} from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
@@ -31,7 +37,7 @@ export default function AdminTicketsPage({ threads, page }: Props) {
         <Pagination
           page={page}
           maxPage={threads.pages}
-          linkProducer={(page) => AppRouter.forum.index(page).link}
+          linkProducer={(page) => AppRouter.forum.ticket.admin(page).link}
         />
       )}
       <ThreadsTable threads={threads} />

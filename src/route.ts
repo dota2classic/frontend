@@ -193,7 +193,10 @@ export const AppRouter = {
       }
     },
     ticket: {
-      admin: spage("/admin/ticket"),
+      admin: (_page?: number) => {
+        const q = queryParameters({ page: _page });
+        return spage(`/admin/ticket${q}`, false);
+      },
       index: spage("/forum/ticket"),
       ticket(id: string) {
         const numericId = id.replace(/\D/g, "");
