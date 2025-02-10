@@ -35,6 +35,7 @@ jobs:
           build-args: |
             API_URL=https://dev.dotaclassic.ru/api
             SOCKET_URL=wss://dev.dotaclassic.ru/newsocket
+            IS_DEV_VERSION=true
             VAPID_PUBLIC_KEY=BLeadyll3oCNn_oM62pZBJzSVu2ktZwE6lciUq57Xa8aS3eAyGZ67mFgNVsDg0stn5otBlVW4HIr8E5zkFUp1u8
           push: true
           tags: dota2classic/dotabuff:dev

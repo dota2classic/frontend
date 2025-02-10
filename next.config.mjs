@@ -23,7 +23,7 @@ const nextConfig = {
     ]
   },
   sassOptions: {
-    silenceDeprecations: ['legacy-js-api'],
+    silednceDeprecations: ['legacy-js-api'],
   },
   reactStrictMode: false,
   output: "standalone",
@@ -32,6 +32,9 @@ const nextConfig = {
     NEXT_PUBLIC_API_URL: process.env.API_URL,
     SOCKET_URL: process.env.SOCKET_URL,
     NEXT_PUBLIC_SOCKET_URL: process.env.SOCKET_URL,
+
+    IS_DEV_VERSION: process.env.IS_DEV_VERSION,
+    NEXT_PUBLIC_IS_DEV_VERSION: process.env.IS_DEV_VERSION,
     NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.VAPID_PUBLIC_KEY,
   },
   experimental: {
