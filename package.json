@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "API_URL=https://dotaclassic.ru/api next dev",
+    "dev": "SOCKET_URL=wss://dotaclassic.ru/newsocket API_URL=https://dotaclassic.ru/api next dev",
     "dev:turbo": "API_URL=https://dotaclassic.ru/api next dev --turbopack",
     "dev:local": "API_URL=http://localhost:6001 next dev",
     "dev:localturbo": "API_URL=http://localhost:6001 next dev --turbopack",
