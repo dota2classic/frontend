@@ -30,6 +30,7 @@ const nextConfig = {
   env: {
     API_URL: process.env.API_URL,
     NEXT_PUBLIC_API_URL: process.env.API_URL,
+    SOCKET_URL: process.env.SOCKET_URL,
     NEXT_PUBLIC_SOCKET_URL: process.env.SOCKET_URL,
     NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.VAPID_PUBLIC_KEY,
   },
