@@ -1,11 +1,3 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 import {
   $applyNodeReplacement,
   DecoratorNode,
@@ -23,16 +15,16 @@ export type SerializedMentionNode = Spread<
   SerializedLexicalNode
 >;
 
-export class MentionNode extends DecoratorNode<ReactNode> {
+export class PlayerMentionNode extends DecoratorNode<ReactNode> {
   static getType(): string {
-    return "mention";
+    return "player-mention";
   }
 
-  static clone(node: MentionNode): MentionNode {
-    return new MentionNode(node.__steamId, node.__key);
+  static clone(node: PlayerMentionNode): PlayerMentionNode {
+    return new PlayerMentionNode(node.__steamId, node.__key);
   }
-  static importJSON(serializedNode: SerializedMentionNode): MentionNode {
-    return $createMentionNode(serializedNode.steamId).updateFromJSON(
+  static importJSON(serializedNode: SerializedMentionNode): PlayerMentionNode {
+    return $createPlayerMentionNode(serializedNode.steamId).updateFromJSON(
       serializedNode,
     );
   }
@@ -64,7 +56,7 @@ export class MentionNode extends DecoratorNode<ReactNode> {
   }
 }
 
-export function $createMentionNode(mentionSteamId: string): MentionNode {
-  const mentionNode = new MentionNode(mentionSteamId);
+export function $createPlayerMentionNode(steamId: string): PlayerMentionNode {
+  const mentionNode = new PlayerMentionNode(steamId);
   return $applyNodeReplacement(mentionNode);
 }

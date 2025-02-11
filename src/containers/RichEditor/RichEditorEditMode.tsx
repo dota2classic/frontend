@@ -3,9 +3,11 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
-import NewMentionsPlugin from "@/containers/RichEditor/plugins/MentionPlugin/MentionPlugin";
 import React from "react";
 import { LocalStorageSavingPlugin } from "@/containers/RichEditor/plugins/LocalStorageSavingPlugin/LocalStorageSavingPlugin";
+import HeroMentionPlugin from "@/containers/RichEditor/plugins/HeroMentionPlugin/HeroMentionPlugin";
+import ItemMentionPlugin from "@/containers/RichEditor/plugins/ItemMentionPlugin/ItemMentionPlugin";
+import PlayerMentionPlugin from "@/containers/RichEditor/plugins/PlayerMentionPlugin/PlayerMentionPlugin";
 
 const placeholder = "Enter some rich text...";
 
@@ -29,7 +31,9 @@ export const RichEditorEditMode = ({ saveKey }: RichEditorEditModeProps) => {
       />
       <HistoryPlugin />
       <AutoFocusPlugin />
-      <NewMentionsPlugin />
+      <PlayerMentionPlugin />
+      <HeroMentionPlugin />
+      <ItemMentionPlugin />
       <LocalStorageSavingPlugin saveKey={saveKey} />
     </>
   );

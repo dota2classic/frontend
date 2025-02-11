@@ -1,0 +1,14 @@
+@import "../../common.scss";
+.heroEmbed {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+
+  & a,
+  span {
+    margin-left: 6px;
+    text-transform: capitalize;
+    white-space: nowrap;
+    display: none;
+  }
+}

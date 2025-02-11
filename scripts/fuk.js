@@ -1,10 +1,4 @@
-export type ItemDataEntry = {
-  id: number;
-  item_name: string;
-  description: string;
-  name: string;
-};
-export const ItemData: ItemDataEntry[] = [
+const a = [
   {
     idx: 0,
     item_name: "item_blink",
@@ -19,7 +13,6 @@ export const ItemData: ItemDataEntry[] = [
       "Применение на себя переместит вас в сторону фонтана вашей команды.",
       "Если использовать Blink для скачка на дистанцию больше максимальной, его дальность сократится до 80% от максимальной.",
     ],
-    id: 1,
   },
   {
     idx: 1,
@@ -30,7 +23,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 420,
     recipe: false,
     notes: [],
-    id: 2,
   },
   {
     idx: 2,
@@ -41,7 +33,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1200,
     recipe: false,
     notes: [],
-    id: 3,
   },
   {
     idx: 3,
@@ -52,7 +43,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 550,
     recipe: false,
     notes: [],
-    id: 4,
   },
   {
     idx: 4,
@@ -63,7 +53,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1400,
     recipe: false,
     notes: [],
-    id: 5,
   },
   {
     idx: 5,
@@ -74,7 +63,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: false,
     notes: [],
-    id: 6,
   },
   {
     idx: 6,
@@ -86,7 +74,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1500,
     recipe: false,
     notes: [],
-    id: 7,
   },
   {
     idx: 7,
@@ -97,7 +84,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1600,
     recipe: false,
     notes: [],
-    id: 8,
   },
   {
     idx: 8,
@@ -108,7 +94,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1400,
     recipe: false,
     notes: [],
-    id: 9,
   },
   {
     idx: 9,
@@ -119,7 +104,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 875,
     recipe: false,
     notes: [],
-    id: 10,
   },
   {
     idx: 10,
@@ -137,7 +121,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 225,
     recipe: false,
     notes: ["Можно носить только один экземпляр."],
-    id: 11,
   },
   {
     idx: 11,
@@ -148,7 +131,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 200,
     recipe: false,
     notes: [],
-    id: 12,
   },
   {
     idx: 12,
@@ -164,7 +146,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 200,
     recipe: false,
     notes: ["Блокировка урона от нескольких источников не сочетается."],
-    id: 182,
   },
   {
     idx: 13,
@@ -175,7 +156,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 247,
   },
   {
     idx: 14,
@@ -191,7 +171,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 4000,
     recipe: false,
     notes: [],
-    id: 247,
   },
   {
     idx: 15,
@@ -202,7 +181,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 150,
     recipe: false,
     notes: [],
-    id: 13,
   },
   {
     idx: 16,
@@ -213,7 +191,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 150,
     recipe: false,
     notes: [],
-    id: 14,
   },
   {
     idx: 17,
@@ -224,7 +201,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 150,
     recipe: false,
     notes: [],
-    id: 15,
   },
   {
     idx: 18,
@@ -235,7 +211,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 50,
     recipe: false,
     notes: [],
-    id: 16,
   },
   {
     idx: 19,
@@ -246,7 +221,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 450,
     recipe: false,
     notes: [],
-    id: 17,
   },
   {
     idx: 20,
@@ -257,7 +231,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 450,
     recipe: false,
     notes: [],
-    id: 18,
   },
   {
     idx: 21,
@@ -268,7 +241,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 450,
     recipe: false,
     notes: [],
-    id: 19,
   },
   {
     idx: 22,
@@ -279,7 +251,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 165,
     recipe: false,
     notes: [],
-    id: 20,
   },
   {
     idx: 23,
@@ -290,7 +261,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1000,
     recipe: false,
     notes: [],
-    id: 21,
   },
   {
     idx: 24,
@@ -301,7 +271,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1000,
     recipe: false,
     notes: [],
-    id: 22,
   },
   {
     idx: 25,
@@ -312,7 +281,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1000,
     recipe: false,
     notes: [],
-    id: 23,
   },
   {
     idx: 26,
@@ -323,7 +291,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2100,
     recipe: false,
     notes: [],
-    id: 24,
   },
   {
     idx: 27,
@@ -334,7 +301,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 500,
     recipe: false,
     notes: [],
-    id: 25,
   },
   {
     idx: 28,
@@ -346,7 +312,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: false,
     notes: [],
-    id: 26,
   },
   {
     idx: 29,
@@ -357,7 +322,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 350,
     recipe: false,
     notes: ["Можно передавать союзникам."],
-    id: 27,
   },
   {
     idx: 30,
@@ -368,7 +332,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 325,
     recipe: false,
     notes: ["Можно передавать союзникам."],
-    id: 28,
   },
   {
     idx: 31,
@@ -380,7 +343,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 450,
     recipe: false,
     notes: [],
-    id: 29,
   },
   {
     idx: 32,
@@ -392,7 +354,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: false,
     notes: ["Не действует, пока находится у курьера."],
-    id: 30,
   },
   {
     idx: 33,
@@ -405,7 +366,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Сочетается по закону убывающей полезности с другими источниками сопротивления магии.",
     ],
-    id: 31,
   },
   {
     idx: 34,
@@ -417,7 +377,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1800,
     recipe: false,
     notes: [],
-    id: 32,
   },
   {
     idx: 35,
@@ -430,7 +389,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1000,
     recipe: false,
     notes: ["Можно передавать союзникам."],
-    id: 33,
   },
   {
     idx: 36,
@@ -446,7 +404,6 @@ export const ItemData: ItemDataEntry[] = [
       "Дает заряды за использование заклинаний видимыми врагами в радиусе 1200 единиц.",
       "Некоторые способности и предметы не добавляют зарядов.",
     ],
-    id: 34,
   },
   {
     idx: 37,
@@ -457,7 +414,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 35,
   },
   {
     idx: 38,
@@ -473,7 +429,6 @@ export const ItemData: ItemDataEntry[] = [
       "Дает заряды за использование заклинаний видимыми врагами в радиусе 1200 единиц.",
       "Некоторые способности и предметы не добавляют зарядов.",
     ],
-    id: 36,
   },
   {
     idx: 39,
@@ -489,7 +444,6 @@ export const ItemData: ItemDataEntry[] = [
       "Окончится, если вы станете невосприимчивы к заклинаниям, а также не подействует, если вы уже невосприимчивы к ним.",
       "Объединенное время перезарядки с Ethereal Blade.",
     ],
-    id: 37,
   },
   {
     idx: 40,
@@ -500,7 +454,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 50,
     recipe: false,
     notes: [],
-    id: 38,
   },
   {
     idx: 41,
@@ -511,7 +464,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 125,
     recipe: false,
     notes: [],
-    id: 216,
   },
   {
     idx: 42,
@@ -522,7 +474,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 110,
     recipe: false,
     notes: [],
-    id: 39,
   },
   {
     idx: 43,
@@ -537,7 +488,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Осыпает врагов пылью, которая предотвращает их уход в невидимость.",
     ],
-    id: 40,
   },
   {
     idx: 44,
@@ -555,7 +505,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 700,
     recipe: false,
     notes: ["Можно передавать союзникам."],
-    id: 41,
   },
   {
     idx: 45,
@@ -573,7 +522,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 75,
     recipe: false,
     notes: [],
-    id: 42,
   },
   {
     idx: 46,
@@ -591,7 +539,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 200,
     recipe: false,
     notes: [],
-    id: 43,
   },
   {
     idx: 47,
@@ -602,7 +549,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 218,
   },
   {
     idx: 48,
@@ -620,7 +566,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 275,
     recipe: false,
     notes: [],
-    id: 218,
   },
   {
     idx: 49,
@@ -637,7 +582,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 125,
     recipe: false,
     notes: [],
-    id: 44,
   },
   {
     idx: 50,
@@ -655,7 +599,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 30,
     recipe: false,
     notes: [],
-    id: 241,
   },
   {
     idx: 51,
@@ -667,7 +610,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 120,
     recipe: false,
     notes: [],
-    id: 45,
   },
   {
     idx: 52,
@@ -686,7 +628,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Если несколько героев будут телепортироваться в одно место, то длительность телепортации будет возрастать для каждого следующего героя.",
     ],
-    id: 46,
   },
   {
     idx: 53,
@@ -697,7 +638,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2000,
     recipe: true,
     notes: [],
-    id: 47,
   },
   {
     idx: 54,
@@ -708,7 +648,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 220,
   },
   {
     idx: 55,
@@ -721,7 +660,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2450,
     recipe: false,
     notes: ["Объединенное время перезарядки с Town Portal Scroll."],
-    id: 48,
   },
   {
     idx: 56,
@@ -734,7 +672,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 4450,
     recipe: false,
     notes: ["Объединенное время перезарядки с Town Portal Scroll."],
-    id: 220,
   },
   {
     idx: 57,
@@ -745,7 +682,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 49,
   },
   {
     idx: 58,
@@ -765,7 +701,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1290,
     recipe: false,
     notes: [],
-    id: 50,
   },
   {
     idx: 59,
@@ -776,7 +711,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2400,
     recipe: false,
     notes: [],
-    id: 51,
   },
   {
     idx: 60,
@@ -787,7 +721,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3200,
     recipe: false,
     notes: [],
-    id: 52,
   },
   {
     idx: 61,
@@ -798,7 +731,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3000,
     recipe: false,
     notes: [],
-    id: 53,
   },
   {
     idx: 62,
@@ -809,7 +741,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3800,
     recipe: false,
     notes: [],
-    id: 54,
   },
   {
     idx: 63,
@@ -820,7 +751,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2000,
     recipe: false,
     notes: [],
-    id: 55,
   },
   {
     idx: 64,
@@ -831,7 +761,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 850,
     recipe: false,
     notes: ["Можно передавать союзникам."],
-    id: 56,
   },
   {
     idx: 65,
@@ -842,7 +771,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 850,
     recipe: false,
     notes: ["Можно передавать союзникам."],
-    id: 57,
   },
   {
     idx: 66,
@@ -853,7 +781,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2700,
     recipe: false,
     notes: [],
-    id: 58,
   },
   {
     idx: 67,
@@ -864,7 +791,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: false,
     notes: [],
-    id: 59,
   },
   {
     idx: 68,
@@ -875,7 +801,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1200,
     recipe: false,
     notes: [],
-    id: 60,
   },
   {
     idx: 69,
@@ -886,7 +811,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1100,
     recipe: false,
     notes: [],
-    id: 61,
   },
   {
     idx: 70,
@@ -897,7 +821,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 62,
   },
   {
     idx: 71,
@@ -914,7 +837,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1400,
     recipe: false,
     notes: [],
-    id: 63,
   },
   {
     idx: 72,
@@ -925,7 +847,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1550,
     recipe: true,
     notes: [],
-    id: 64,
   },
   {
     idx: 73,
@@ -946,7 +867,6 @@ export const ItemData: ItemDataEntry[] = [
       "Получаемое золото идет в надежный запас (при этом за убийство крипа стандартная награда не дается).",
       "Опыт от превращения не делится с другими героями.",
     ],
-    id: 65,
   },
   {
     idx: 74,
@@ -957,7 +877,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 66,
   },
   {
     idx: 75,
@@ -973,7 +892,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1650,
     recipe: false,
     notes: [],
-    id: 67,
   },
   {
     idx: 76,
@@ -984,7 +902,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 68,
   },
   {
     idx: 77,
@@ -999,7 +916,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1700,
     recipe: false,
     notes: ["Можно передавать союзникам."],
-    id: 69,
   },
   {
     idx: 78,
@@ -1010,7 +926,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 70,
   },
   {
     idx: 79,
@@ -1028,7 +943,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 500,
     recipe: false,
     notes: ["Блокировка урона от нескольких источников не сочетается."],
-    id: 71,
   },
   {
     idx: 80,
@@ -1039,7 +953,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 210,
     recipe: true,
     notes: [],
-    id: 72,
   },
   {
     idx: 81,
@@ -1050,7 +963,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 525,
     recipe: false,
     notes: [],
-    id: 73,
   },
   {
     idx: 82,
@@ -1061,7 +973,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 170,
     recipe: true,
     notes: [],
-    id: 74,
   },
   {
     idx: 83,
@@ -1072,7 +983,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 485,
     recipe: false,
     notes: [],
-    id: 75,
   },
   {
     idx: 84,
@@ -1083,7 +993,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 155,
     recipe: true,
     notes: [],
-    id: 76,
   },
   {
     idx: 85,
@@ -1094,7 +1003,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 470,
     recipe: false,
     notes: [],
-    id: 77,
   },
   {
     idx: 86,
@@ -1105,7 +1013,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: true,
     notes: [],
-    id: 78,
   },
   {
     idx: 87,
@@ -1129,7 +1036,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Эффект не распространяется на союзников, которые уже получали его в течение последних 25 секунд.",
     ],
-    id: 79,
   },
   {
     idx: 88,
@@ -1140,7 +1046,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 300,
     recipe: true,
     notes: [],
-    id: 80,
   },
   {
     idx: 89,
@@ -1163,7 +1068,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Не сочетается с аурами Ring of Basilius, Ring of Aquila или Vladmir's Offering.",
     ],
-    id: 81,
   },
   {
     idx: 90,
@@ -1175,7 +1079,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 220,
     recipe: false,
     notes: [],
-    id: 84,
   },
   {
     idx: 91,
@@ -1186,7 +1089,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 200,
     recipe: true,
     notes: [],
-    id: 85,
   },
   {
     idx: 92,
@@ -1206,7 +1108,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 800,
     recipe: false,
     notes: [],
-    id: 86,
   },
   {
     idx: 93,
@@ -1217,7 +1118,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 87,
   },
   {
     idx: 94,
@@ -1237,7 +1137,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Не сочетается с аурами Ring of Basilius, Ring of Aquila или Vladmir's Offering.",
     ],
-    id: 88,
   },
   {
     idx: 95,
@@ -1248,7 +1147,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 800,
     recipe: true,
     notes: [],
-    id: 89,
   },
   {
     idx: 96,
@@ -1275,7 +1173,6 @@ export const ItemData: ItemDataEntry[] = [
       "Эффект не распространяется на союзников, которые уже получали его в течение последних 50 секунд.",
       "Сочетается по закону убывающей полезности с другими источниками сопротивления магии.",
     ],
-    id: 90,
   },
   {
     idx: 97,
@@ -1286,7 +1183,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 250,
     recipe: true,
     notes: [],
-    id: 91,
   },
   {
     idx: 98,
@@ -1313,7 +1209,6 @@ export const ItemData: ItemDataEntry[] = [
       "Пустая урна получает 2 заряда.",
       "Использование этой способности на противнике, который уже находится под ее действием, обновит длительность ее действия.",
     ],
-    id: 92,
   },
   {
     idx: 99,
@@ -1324,7 +1219,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 200,
     recipe: true,
     notes: [],
-    id: 93,
   },
   {
     idx: 100,
@@ -1340,7 +1234,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 600,
     recipe: false,
     notes: [],
-    id: 94,
   },
   {
     idx: 101,
@@ -1351,7 +1244,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 95,
   },
   {
     idx: 102,
@@ -1373,7 +1265,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Основная скорость перемещения цели упадет до 140, но увеличивающие ее бонусы не пропадут.",
     ],
-    id: 96,
   },
   {
     idx: 103,
@@ -1384,7 +1275,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 775,
     recipe: true,
     notes: [],
-    id: 97,
   },
   {
     idx: 104,
@@ -1406,7 +1296,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Усиленный урон будет нанесен в конце действия способности в виде магического урона.",
     ],
-    id: 98,
   },
   {
     idx: 105,
@@ -1417,7 +1306,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 650,
     recipe: true,
     notes: [],
-    id: 99,
   },
   {
     idx: 106,
@@ -1439,7 +1327,6 @@ export const ItemData: ItemDataEntry[] = [
       "Использование предмета на себя проходит сквозь невосприимчивость к заклинаниям.",
       "Cyclone может снимать некоторые положительные и отрицательные эффекты.",
     ],
-    id: 100,
   },
   {
     idx: 107,
@@ -1450,7 +1337,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: true,
     notes: [],
-    id: 101,
   },
   {
     idx: 108,
@@ -1471,7 +1357,6 @@ export const ItemData: ItemDataEntry[] = [
       "Force Staff не прерывает действия цели.",
       "Не действует на юнитов под воздействием способности Chronosphere, Duel или Black Hole.",
     ],
-    id: 102,
   },
   {
     idx: 109,
@@ -1482,7 +1367,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1250,
     recipe: true,
     notes: [],
-    id: 103,
   },
   {
     idx: 110,
@@ -1493,7 +1377,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 197,
   },
   {
     idx: 111,
@@ -1504,7 +1387,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 198,
   },
   {
     idx: 112,
@@ -1515,7 +1397,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 199,
   },
   {
     idx: 113,
@@ -1526,7 +1407,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 200,
   },
   {
     idx: 114,
@@ -1544,7 +1424,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2720,
     recipe: false,
     notes: [],
-    id: 104,
   },
   {
     idx: 115,
@@ -1562,7 +1441,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3970,
     recipe: false,
     notes: [],
-    id: 201,
   },
   {
     idx: 116,
@@ -1580,7 +1458,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5220,
     recipe: false,
     notes: [],
-    id: 202,
   },
   {
     idx: 117,
@@ -1598,7 +1475,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 6470,
     recipe: false,
     notes: [],
-    id: 203,
   },
   {
     idx: 118,
@@ -1616,7 +1492,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 7720,
     recipe: false,
     notes: [],
-    id: 204,
   },
   {
     idx: 119,
@@ -1627,7 +1502,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1250,
     recipe: true,
     notes: [],
-    id: 105,
   },
   {
     idx: 120,
@@ -1638,7 +1512,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 191,
   },
   {
     idx: 121,
@@ -1649,7 +1522,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 192,
   },
   {
     idx: 122,
@@ -1677,7 +1549,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2700,
     recipe: false,
     notes: [],
-    id: 106,
   },
   {
     idx: 123,
@@ -1705,7 +1576,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3950,
     recipe: false,
     notes: [],
-    id: 193,
   },
   {
     idx: 124,
@@ -1733,7 +1603,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5200,
     recipe: false,
     notes: [],
-    id: 194,
   },
   {
     idx: 125,
@@ -1744,7 +1613,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 107,
   },
   {
     idx: 126,
@@ -1756,7 +1624,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 4200,
     recipe: false,
     notes: [],
-    id: 108,
   },
   {
     idx: 127,
@@ -1767,7 +1634,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1800,
     recipe: true,
     notes: [],
-    id: 109,
   },
   {
     idx: 128,
@@ -1784,7 +1650,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5200,
     recipe: false,
     notes: [],
-    id: 110,
   },
   {
     idx: 129,
@@ -1795,7 +1660,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1300,
     recipe: true,
     notes: [],
-    id: 111,
   },
   {
     idx: 130,
@@ -1814,7 +1678,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5250,
     recipe: false,
     notes: [],
-    id: 112,
   },
   {
     idx: 131,
@@ -1825,7 +1688,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1400,
     recipe: true,
     notes: [],
-    id: 113,
   },
   {
     idx: 132,
@@ -1844,7 +1706,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5500,
     recipe: false,
     notes: [],
-    id: 114,
   },
   {
     idx: 133,
@@ -1855,7 +1716,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1375,
     recipe: true,
     notes: [],
-    id: 115,
   },
   {
     idx: 134,
@@ -1870,7 +1730,6 @@ export const ItemData: ItemDataEntry[] = [
       "Покупка другого Black King Bar не обновит время его действия.",
       "Использование артефакта Black King Bar снимает некоторые положительные эффекты.",
     ],
-    id: 116,
   },
   {
     idx: 135,
@@ -1882,7 +1741,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 117,
   },
   {
     idx: 136,
@@ -1893,7 +1751,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 600,
     recipe: true,
     notes: [],
-    id: 118,
   },
   {
     idx: 137,
@@ -1918,7 +1775,6 @@ export const ItemData: ItemDataEntry[] = [
       "Волна распространяется со скоростью в 350 единиц в секунду до максимального размера в 900 единиц.",
       "Замораживающая волна следует за владельцем артефакта.",
     ],
-    id: 119,
   },
   {
     idx: 138,
@@ -1929,7 +1785,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: true,
     notes: [],
-    id: 120,
   },
   {
     idx: 139,
@@ -1953,7 +1808,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 4900,
     recipe: false,
     notes: ["Только первый Bloodstone будет получать заряды."],
-    id: 121,
   },
   {
     idx: 140,
@@ -1964,7 +1818,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1325,
     recipe: true,
     notes: [],
-    id: 122,
   },
   {
     idx: 141,
@@ -1983,7 +1836,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5125,
     recipe: false,
     notes: [],
-    id: 123,
   },
   {
     idx: 142,
@@ -1994,7 +1846,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: true,
     notes: [],
-    id: 226,
   },
   {
     idx: 143,
@@ -2014,7 +1865,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 4000,
     recipe: false,
     notes: [],
-    id: 226,
   },
   {
     idx: 144,
@@ -2025,7 +1875,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 124,
   },
   {
     idx: 145,
@@ -2043,7 +1892,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2150,
     recipe: false,
     notes: ["Блокировка урона от нескольких источников не сочетается."],
-    id: 125,
   },
   {
     idx: 146,
@@ -2054,7 +1902,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 600,
     recipe: true,
     notes: [],
-    id: 242,
   },
   {
     idx: 147,
@@ -2083,7 +1930,6 @@ export const ItemData: ItemDataEntry[] = [
       "Блокировка урона от нескольких источников не сочетается.",
       "Эффект не распространяется на союзников, которые уже получали его в течение последних 70 секунд.",
     ],
-    id: 242,
   },
   {
     idx: 148,
@@ -2094,7 +1940,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 126,
   },
   {
     idx: 149,
@@ -2116,7 +1961,6 @@ export const ItemData: ItemDataEntry[] = [
       "Не отражает урон от других Blademail и схожих способностей.",
       "Урон возвращается в чистом виде, но не проходит сквозь защиту от заклинаний.",
     ],
-    id: 127,
   },
   {
     idx: 150,
@@ -2127,7 +1971,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 128,
   },
   {
     idx: 151,
@@ -2143,7 +1986,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3200,
     recipe: false,
     notes: [],
-    id: 129,
   },
   {
     idx: 152,
@@ -2154,7 +1996,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 130,
   },
   {
     idx: 153,
@@ -2167,7 +2008,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Сочетается по закону убывающей полезности с другими источниками сопротивления магии.",
     ],
-    id: 131,
   },
   {
     idx: 154,
@@ -2178,7 +2018,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 132,
   },
   {
     idx: 155,
@@ -2192,7 +2031,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Если Divine Rapier поднимет враг ее предыдущего владельца, то она выпадет только в случае смерти этого врага.",
     ],
-    id: 133,
   },
   {
     idx: 156,
@@ -2203,7 +2041,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 134,
   },
   {
     idx: 157,
@@ -2221,7 +2058,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5400,
     recipe: false,
     notes: [],
-    id: 135,
   },
   {
     idx: 158,
@@ -2232,7 +2068,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1350,
     recipe: true,
     notes: [],
-    id: 136,
   },
   {
     idx: 159,
@@ -2249,7 +2084,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5150,
     recipe: false,
     notes: [],
-    id: 137,
   },
   {
     idx: 160,
@@ -2260,7 +2094,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 138,
   },
   {
     idx: 161,
@@ -2280,7 +2113,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5875,
     recipe: false,
     notes: [],
-    id: 139,
   },
   {
     idx: 162,
@@ -2291,7 +2123,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1000,
     recipe: true,
     notes: [],
-    id: 140,
   },
   {
     idx: 163,
@@ -2303,7 +2134,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5520,
     recipe: false,
     notes: [],
-    id: 141,
   },
   {
     idx: 164,
@@ -2314,7 +2144,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1000,
     recipe: true,
     notes: [],
-    id: 142,
   },
   {
     idx: 165,
@@ -2338,7 +2167,6 @@ export const ItemData: ItemDataEntry[] = [
       "Не сочетается с другими источниками оглушения, кроме мини-оглушения (например, от Monkey King Bar).",
       "У Spirit Breaker, Faceless Void, Slardar и Troll Warlord не будет срабатывать Bash.",
     ],
-    id: 143,
   },
   {
     idx: 166,
@@ -2349,7 +2177,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 144,
   },
   {
     idx: 167,
@@ -2376,7 +2203,6 @@ export const ItemData: ItemDataEntry[] = [
       "Урон неосновным целям проходит через иммунитет к заклинаниям.",
       "Каждый предмет или способность, дарующий прорубающую атаку, наносит урон отдельно друг от друга.",
     ],
-    id: 145,
   },
   {
     idx: 168,
@@ -2387,7 +2213,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 800,
     recipe: true,
     notes: [],
-    id: 146,
   },
   {
     idx: 169,
@@ -2418,7 +2243,6 @@ export const ItemData: ItemDataEntry[] = [
       "Тратит 0,1 секунды на произношение заклинания, во время которого вы неуязвимы.",
       "Использование снимает многие эффекты.",
     ],
-    id: 147,
   },
   {
     idx: 170,
@@ -2429,7 +2253,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 500,
     recipe: true,
     notes: [],
-    id: 148,
   },
   {
     idx: 171,
@@ -2441,7 +2264,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2120,
     recipe: false,
     notes: [],
-    id: 149,
   },
   {
     idx: 172,
@@ -2452,7 +2274,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 500,
     recipe: true,
     notes: [],
-    id: 150,
   },
   {
     idx: 173,
@@ -2478,7 +2299,6 @@ export const ItemData: ItemDataEntry[] = [
       "Изменение силы происходит спустя 0,6 секунды.",
       "Включение и выключение Unholy Strength не прерывает чтение заклинаний.",
     ],
-    id: 151,
   },
   {
     idx: 174,
@@ -2489,7 +2309,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 183,
   },
   {
     idx: 175,
@@ -2511,7 +2330,6 @@ export const ItemData: ItemDataEntry[] = [
       "Уход в невидимость занимает 0,3 секунды.",
       "Если невидимость кончится без атаки, дополнительный урон будет потерян.",
     ],
-    id: 152,
   },
   {
     idx: 176,
@@ -2522,7 +2340,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 600,
     recipe: true,
     notes: [],
-    id: 249,
   },
   {
     idx: 177,
@@ -2549,7 +2366,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5450,
     recipe: false,
     notes: [],
-    id: 249,
   },
   {
     idx: 178,
@@ -2560,7 +2376,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 153,
   },
   {
     idx: 179,
@@ -2582,7 +2397,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 4100,
     recipe: false,
     notes: [],
-    id: 154,
   },
   {
     idx: 180,
@@ -2593,7 +2407,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1100,
     recipe: true,
     notes: [],
-    id: 155,
   },
   {
     idx: 181,
@@ -2614,7 +2427,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5900,
     recipe: false,
     notes: [],
-    id: 156,
   },
   {
     idx: 182,
@@ -2625,7 +2437,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: true,
     notes: [],
-    id: 157,
   },
   {
     idx: 183,
@@ -2656,7 +2467,6 @@ export const ItemData: ItemDataEntry[] = [
       "Молния от способности Static Charge наносит магический урон целям вокруг героя, на котором находится щит. Расстояние до целей не может превышать 900 единиц.",
       "Молнии Static Charge не будут срабатывать на невидимых или скрытых в тумане войны героев.",
     ],
-    id: 158,
   },
   {
     idx: 184,
@@ -2667,7 +2477,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 159,
   },
   {
     idx: 185,
@@ -2689,7 +2498,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Для героев ближнего боя длится 5 секунд, для героев дальнего боя — 3 секунды.",
     ],
-    id: 160,
   },
   {
     idx: 186,
@@ -2700,7 +2508,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 600,
     recipe: true,
     notes: [],
-    id: 161,
   },
   {
     idx: 187,
@@ -2719,7 +2526,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2050,
     recipe: false,
     notes: [],
-    id: 162,
   },
   {
     idx: 188,
@@ -2730,7 +2536,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 163,
   },
   {
     idx: 189,
@@ -2752,7 +2557,6 @@ export const ItemData: ItemDataEntry[] = [
       "Можно иметь только одно прирученное существо. Если будет приручено новое существо, старое умрет.",
       "Продажа или улучшение Helm of the Dominator убьет прирученных юнитов.",
     ],
-    id: 164,
   },
   {
     idx: 190,
@@ -2763,7 +2567,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 700,
     recipe: true,
     notes: [],
-    id: 165,
   },
   {
     idx: 191,
@@ -2782,7 +2585,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2800,
     recipe: false,
     notes: [],
-    id: 166,
   },
   {
     idx: 192,
@@ -2793,7 +2595,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 300,
     recipe: true,
     notes: [],
-    id: 167,
   },
   {
     idx: 193,
@@ -2805,7 +2606,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3500,
     recipe: false,
     notes: ["Снижение брони действует на здания."],
-    id: 168,
   },
   {
     idx: 194,
@@ -2816,7 +2616,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 600,
     recipe: true,
     notes: [],
-    id: 169,
   },
   {
     idx: 195,
@@ -2832,7 +2631,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2050,
     recipe: false,
     notes: [],
-    id: 170,
   },
   {
     idx: 196,
@@ -2843,7 +2641,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: true,
     notes: [],
-    id: 171,
   },
   {
     idx: 197,
@@ -2862,7 +2659,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1800,
     recipe: false,
     notes: [],
-    id: 172,
   },
   {
     idx: 198,
@@ -2873,7 +2669,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 700,
     recipe: true,
     notes: [],
-    id: 173,
   },
   {
     idx: 199,
@@ -2884,7 +2679,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 195,
   },
   {
     idx: 200,
@@ -2905,7 +2699,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3150,
     recipe: false,
     notes: [],
-    id: 174,
   },
   {
     idx: 201,
@@ -2926,7 +2719,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3850,
     recipe: false,
     notes: [],
-    id: 196,
   },
   {
     idx: 202,
@@ -2937,7 +2729,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 175,
   },
   {
     idx: 203,
@@ -2965,7 +2756,6 @@ export const ItemData: ItemDataEntry[] = [
       "Призрачные юниты получают на 40% больше магического урона.",
       "Длится на секунду больше на союзниках и на себе.",
     ],
-    id: 176,
   },
   {
     idx: 204,
@@ -2976,7 +2766,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 125,
     recipe: true,
     notes: [],
-    id: 177,
   },
   {
     idx: 205,
@@ -2997,7 +2786,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Если полученная мана превышает порог ее максимального количества, создается запас маны, не зависящий от основного. Если полученную ману не использовать за время действия артефакта, она исчезнет.",
     ],
-    id: 178,
   },
   {
     idx: 206,
@@ -3008,7 +2796,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 179,
   },
   {
     idx: 207,
@@ -3026,7 +2813,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1350,
     recipe: false,
     notes: ["Не работает на клонах Meepo."],
-    id: 180,
   },
   {
     idx: 208,
@@ -3037,7 +2823,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 235,
   },
   {
     idx: 209,
@@ -3058,7 +2843,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5900,
     recipe: false,
     notes: [],
-    id: 235,
   },
   {
     idx: 210,
@@ -3075,7 +2859,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 275,
     recipe: false,
     notes: [],
-    id: 181,
   },
   {
     idx: 211,
@@ -3086,7 +2869,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 875,
     recipe: true,
     notes: [],
-    id: 184,
   },
   {
     idx: 212,
@@ -3108,7 +2890,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1850,
     recipe: false,
     notes: ["Покупка рецепта Drum of Endurance восстановит его заряды."],
-    id: 185,
   },
   {
     idx: 213,
@@ -3119,7 +2900,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 325,
     recipe: true,
     notes: [],
-    id: 186,
   },
   {
     idx: 214,
@@ -3138,7 +2918,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1200,
     recipe: false,
     notes: [],
-    id: 187,
   },
   {
     idx: 215,
@@ -3149,7 +2928,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 229,
   },
   {
     idx: 216,
@@ -3172,7 +2950,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3000,
     recipe: false,
     notes: [],
-    id: 229,
   },
   {
     idx: 217,
@@ -3185,7 +2962,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 100,
     recipe: false,
     notes: [],
-    id: 188,
   },
   {
     idx: 218,
@@ -3196,7 +2972,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 900,
     recipe: true,
     notes: [],
-    id: 189,
   },
   {
     idx: 219,
@@ -3217,7 +2992,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 2270,
     recipe: false,
     notes: [],
-    id: 190,
   },
   {
     idx: 220,
@@ -3228,7 +3002,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1650,
     recipe: true,
     notes: [],
-    id: 231,
   },
   {
     idx: 221,
@@ -3255,7 +3028,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 5300,
     recipe: false,
     notes: ["Аура усиливается только на героях."],
-    id: 231,
   },
   {
     idx: 222,
@@ -3266,7 +3038,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 205,
   },
   {
     idx: 223,
@@ -3286,7 +3057,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3100,
     recipe: false,
     notes: [],
-    id: 206,
   },
   {
     idx: 224,
@@ -3297,7 +3067,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 207,
   },
   {
     idx: 225,
@@ -3323,7 +3092,6 @@ export const ItemData: ItemDataEntry[] = [
       "Не сочетается с другими оглушениями от ударов.",
       "У Spirit Breaker, Faceless Void, Slardar и Troll Warlord не будет срабатывать Bash.",
     ],
-    id: 208,
   },
   {
     idx: 226,
@@ -3334,7 +3102,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 209,
   },
   {
     idx: 227,
@@ -3358,7 +3125,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 3850,
     recipe: false,
     notes: ["Разоружение снимается только невосприимчивостью к заклинаниям."],
-    id: 210,
   },
   {
     idx: 228,
@@ -3369,7 +3135,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 211,
   },
   {
     idx: 229,
@@ -3392,7 +3157,6 @@ export const ItemData: ItemDataEntry[] = [
     notes: [
       "Не сочетается с аурами Ring of Basilius, Ring of Aquila или Vladmir's Offering.",
     ],
-    id: 212,
   },
   {
     idx: 230,
@@ -3403,7 +3167,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 213,
   },
   {
     idx: 231,
@@ -3423,7 +3186,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1000,
     recipe: false,
     notes: [],
-    id: 214,
   },
   {
     idx: 232,
@@ -3436,7 +3198,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1400,
     recipe: false,
     notes: [],
-    id: 215,
   },
   {
     idx: 233,
@@ -3447,7 +3208,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: true,
     notes: [],
-    id: 254,
   },
   {
     idx: 234,
@@ -3466,7 +3226,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 1950,
     recipe: false,
     notes: [],
-    id: 254,
   },
   {
     idx: 235,
@@ -3478,7 +3237,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1000,
   },
   {
     idx: 236,
@@ -3495,7 +3253,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1001,
   },
   {
     idx: 237,
@@ -3514,7 +3271,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1002,
   },
   {
     idx: 238,
@@ -3536,7 +3292,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1003,
   },
   {
     idx: 239,
@@ -3556,7 +3311,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1004,
   },
   {
     idx: 240,
@@ -3568,7 +3322,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1005,
   },
   {
     idx: 241,
@@ -3579,7 +3332,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 6200,
     recipe: false,
     notes: [],
-    id: 1006,
   },
   {
     idx: 242,
@@ -3592,7 +3344,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1007,
   },
   {
     idx: 243,
@@ -3605,7 +3356,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1008,
   },
   {
     idx: 244,
@@ -3616,7 +3366,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1009,
   },
   {
     idx: 245,
@@ -3627,7 +3376,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1010,
   },
   {
     idx: 246,
@@ -3639,7 +3387,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1011,
   },
   {
     idx: 247,
@@ -3651,7 +3398,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1012,
   },
   {
     idx: 248,
@@ -3663,7 +3409,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1013,
   },
   {
     idx: 249,
@@ -3675,7 +3420,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1014,
   },
   {
     idx: 250,
@@ -3687,7 +3431,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1015,
   },
   {
     idx: 251,
@@ -3699,7 +3442,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1016,
   },
   {
     idx: 252,
@@ -3710,7 +3452,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1017,
   },
   {
     idx: 253,
@@ -3722,7 +3463,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1018,
   },
   {
     idx: 254,
@@ -3734,7 +3474,6 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1019,
   },
   {
     idx: 255,
@@ -3746,263 +3485,1097 @@ export const ItemData: ItemDataEntry[] = [
     cost: 0,
     recipe: false,
     notes: [],
-    id: 1020,
   },
 ];
-export type ItemKey =
-  | "item_blink"
-  | "item_blades_of_attack"
-  | "item_broadsword"
-  | "item_chainmail"
-  | "item_claymore"
-  | "item_helm_of_iron_will"
-  | "item_javelin"
-  | "item_mithril_hammer"
-  | "item_platemail"
-  | "item_quarterstaff"
-  | "item_quelling_blade"
-  | "item_ring_of_protection"
-  | "item_stout_shield"
-  | "item_recipe_moon_shard"
-  | "item_moon_shard"
-  | "item_gauntlets"
-  | "item_slippers"
-  | "item_mantle"
-  | "item_branches"
-  | "item_belt_of_strength"
-  | "item_boots_of_elves"
-  | "item_robe"
-  | "item_circlet"
-  | "item_ogre_axe"
-  | "item_blade_of_alacrity"
-  | "item_staff_of_wizardry"
-  | "item_ultimate_orb"
-  | "item_gloves"
-  | "item_lifesteal"
-  | "item_ring_of_regen"
-  | "item_sobi_mask"
-  | "item_boots"
-  | "item_gem"
-  | "item_cloak"
-  | "item_talisman_of_evasion"
-  | "item_cheese"
-  | "item_magic_stick"
-  | "item_recipe_magic_wand"
-  | "item_magic_wand"
-  | "item_ghost"
-  | "item_clarity"
-  | "item_enchanted_mango"
-  | "item_flask"
-  | "item_dust"
-  | "item_bottle"
-  | "item_ward_observer"
-  | "item_ward_sentry"
-  | "item_recipe_ward_dispenser"
-  | "item_ward_dispenser"
-  | "item_tango"
-  | "item_tango_single"
-  | "item_courier"
-  | "item_tpscroll"
-  | "item_recipe_travel_boots"
-  | "item_recipe_travel_boots_2"
-  | "item_travel_boots"
-  | "item_travel_boots_2"
-  | "item_recipe_phase_boots"
-  | "item_phase_boots"
-  | "item_demon_edge"
-  | "item_eagle"
-  | "item_reaver"
-  | "item_relic"
-  | "item_hyperstone"
-  | "item_ring_of_health"
-  | "item_void_stone"
-  | "item_mystic_staff"
-  | "item_energy_booster"
-  | "item_point_booster"
-  | "item_vitality_booster"
-  | "item_recipe_power_treads"
-  | "item_power_treads"
-  | "item_recipe_hand_of_midas"
-  | "item_hand_of_midas"
-  | "item_recipe_oblivion_staff"
-  | "item_oblivion_staff"
-  | "item_recipe_pers"
-  | "item_pers"
-  | "item_recipe_poor_mans_shield"
-  | "item_poor_mans_shield"
-  | "item_recipe_bracer"
-  | "item_bracer"
-  | "item_recipe_wraith_band"
-  | "item_wraith_band"
-  | "item_recipe_null_talisman"
-  | "item_null_talisman"
-  | "item_recipe_mekansm"
-  | "item_mekansm"
-  | "item_recipe_vladmir"
-  | "item_vladmir"
-  | "item_flying_courier"
-  | "item_recipe_buckler"
-  | "item_buckler"
-  | "item_recipe_ring_of_basilius"
-  | "item_ring_of_basilius"
-  | "item_recipe_pipe"
-  | "item_pipe"
-  | "item_recipe_urn_of_shadows"
-  | "item_urn_of_shadows"
-  | "item_recipe_headdress"
-  | "item_headdress"
-  | "item_recipe_sheepstick"
-  | "item_sheepstick"
-  | "item_recipe_orchid"
-  | "item_orchid"
-  | "item_recipe_cyclone"
-  | "item_cyclone"
-  | "item_recipe_force_staff"
-  | "item_force_staff"
-  | "item_recipe_dagon"
-  | "item_recipe_dagon_2"
-  | "item_recipe_dagon_3"
-  | "item_recipe_dagon_4"
-  | "item_recipe_dagon_5"
-  | "item_dagon"
-  | "item_dagon_2"
-  | "item_dagon_3"
-  | "item_dagon_4"
-  | "item_dagon_5"
-  | "item_recipe_necronomicon"
-  | "item_recipe_necronomicon_2"
-  | "item_recipe_necronomicon_3"
-  | "item_necronomicon"
-  | "item_necronomicon_2"
-  | "item_necronomicon_3"
-  | "item_recipe_ultimate_scepter"
-  | "item_ultimate_scepter"
-  | "item_recipe_refresher"
-  | "item_refresher"
-  | "item_recipe_assault"
-  | "item_assault"
-  | "item_recipe_heart"
-  | "item_heart"
-  | "item_recipe_black_king_bar"
-  | "item_black_king_bar"
-  | "item_aegis"
-  | "item_recipe_shivas_guard"
-  | "item_shivas_guard"
-  | "item_recipe_bloodstone"
-  | "item_bloodstone"
-  | "item_recipe_sphere"
-  | "item_sphere"
-  | "item_recipe_lotus_orb"
-  | "item_lotus_orb"
-  | "item_recipe_vanguard"
-  | "item_vanguard"
-  | "item_recipe_crimson_guard"
-  | "item_crimson_guard"
-  | "item_recipe_blade_mail"
-  | "item_blade_mail"
-  | "item_recipe_soul_booster"
-  | "item_soul_booster"
-  | "item_recipe_hood_of_defiance"
-  | "item_hood_of_defiance"
-  | "item_recipe_rapier"
-  | "item_rapier"
-  | "item_recipe_monkey_king_bar"
-  | "item_monkey_king_bar"
-  | "item_recipe_radiance"
-  | "item_radiance"
-  | "item_recipe_butterfly"
-  | "item_butterfly"
-  | "item_recipe_greater_crit"
-  | "item_greater_crit"
-  | "item_recipe_basher"
-  | "item_basher"
-  | "item_recipe_bfury"
-  | "item_bfury"
-  | "item_recipe_manta"
-  | "item_manta"
-  | "item_recipe_lesser_crit"
-  | "item_lesser_crit"
-  | "item_recipe_armlet"
-  | "item_armlet"
-  | "item_recipe_invis_sword"
-  | "item_invis_sword"
-  | "item_recipe_silver_edge"
-  | "item_silver_edge"
-  | "item_recipe_sange_and_yasha"
-  | "item_sange_and_yasha"
-  | "item_recipe_satanic"
-  | "item_satanic"
-  | "item_recipe_mjollnir"
-  | "item_mjollnir"
-  | "item_recipe_skadi"
-  | "item_skadi"
-  | "item_recipe_sange"
-  | "item_sange"
-  | "item_recipe_helm_of_the_dominator"
-  | "item_helm_of_the_dominator"
-  | "item_recipe_maelstrom"
-  | "item_maelstrom"
-  | "item_recipe_desolator"
-  | "item_desolator"
-  | "item_recipe_yasha"
-  | "item_yasha"
-  | "item_recipe_mask_of_madness"
-  | "item_mask_of_madness"
-  | "item_recipe_diffusal_blade"
-  | "item_recipe_diffusal_blade_2"
-  | "item_diffusal_blade"
-  | "item_diffusal_blade_2"
-  | "item_recipe_ethereal_blade"
-  | "item_ethereal_blade"
-  | "item_recipe_soul_ring"
-  | "item_soul_ring"
-  | "item_recipe_arcane_boots"
-  | "item_arcane_boots"
-  | "item_recipe_octarine_core"
-  | "item_octarine_core"
-  | "item_orb_of_venom"
-  | "item_recipe_ancient_janggo"
-  | "item_ancient_janggo"
-  | "item_recipe_medallion_of_courage"
-  | "item_medallion_of_courage"
-  | "item_recipe_solar_crest"
-  | "item_solar_crest"
-  | "item_smoke_of_deceit"
-  | "item_recipe_veil_of_discord"
-  | "item_veil_of_discord"
-  | "item_recipe_guardian_greaves"
-  | "item_guardian_greaves"
-  | "item_recipe_rod_of_atos"
-  | "item_rod_of_atos"
-  | "item_recipe_abyssal_blade"
-  | "item_abyssal_blade"
-  | "item_recipe_heavens_halberd"
-  | "item_heavens_halberd"
-  | "item_recipe_ring_of_aquila"
-  | "item_ring_of_aquila"
-  | "item_recipe_tranquil_boots"
-  | "item_tranquil_boots"
-  | "item_shadow_amulet"
-  | "item_recipe_glimmer_cape"
-  | "item_glimmer_cape"
-  | "item_halloween_candy_corn"
-  | "item_mystery_hook"
-  | "item_mystery_arrow"
-  | "item_mystery_missile"
-  | "item_mystery_toss"
-  | "item_mystery_vacuum"
-  | "item_halloween_rapier"
-  | "item_greevil_whistle"
-  | "item_greevil_whistle_toggle"
-  | "item_present"
-  | "item_winter_stocking"
-  | "item_winter_skates"
-  | "item_winter_cake"
-  | "item_winter_cookie"
-  | "item_winter_coco"
-  | "item_winter_ham"
-  | "item_winter_kringle"
-  | "item_winter_mushroom"
-  | "item_winter_greevil_treat"
-  | "item_winter_greevil_garbage"
-  | "item_winter_greevil_chewy";
+
+const b = [
+  {
+    id: 0,
+    name: "empty",
+  },
+  {
+    id: 1,
+    name: "blink",
+  },
+  {
+    id: 2,
+    name: "blades_of_attack",
+  },
+  {
+    id: 3,
+    name: "broadsword",
+  },
+  {
+    id: 4,
+    name: "chainmail",
+  },
+  {
+    id: 5,
+    name: "claymore",
+  },
+  {
+    id: 6,
+    name: "helm_of_iron_will",
+  },
+  {
+    id: 7,
+    name: "javelin",
+  },
+  {
+    id: 8,
+    name: "mithril_hammer",
+  },
+  {
+    id: 9,
+    name: "platemail",
+  },
+  {
+    id: 10,
+    name: "quarterstaff",
+  },
+  {
+    id: 11,
+    name: "quelling_blade",
+  },
+  {
+    id: 12,
+    name: "ring_of_protection",
+  },
+  {
+    id: 182,
+    name: "stout_shield",
+  },
+  {
+    id: 13,
+    name: "gauntlets",
+  },
+  {
+    id: 14,
+    name: "slippers",
+  },
+  {
+    id: 15,
+    name: "mantle",
+  },
+  {
+    id: 16,
+    name: "branches",
+  },
+  {
+    id: 17,
+    name: "belt_of_strength",
+  },
+  {
+    id: 18,
+    name: "boots_of_elves",
+  },
+  {
+    id: 19,
+    name: "robe",
+  },
+  {
+    id: 20,
+    name: "circlet",
+  },
+  {
+    id: 21,
+    name: "ogre_axe",
+  },
+  {
+    id: 22,
+    name: "blade_of_alacrity",
+  },
+  {
+    id: 23,
+    name: "staff_of_wizardry",
+  },
+  {
+    id: 24,
+    name: "ultimate_orb",
+  },
+  {
+    id: 25,
+    name: "gloves",
+  },
+  {
+    id: 26,
+    name: "lifesteal",
+  },
+  {
+    id: 27,
+    name: "ring_of_regen",
+  },
+  {
+    id: 28,
+    name: "sobi_mask",
+  },
+  {
+    id: 29,
+    name: "boots",
+  },
+  {
+    id: 30,
+    name: "gem",
+  },
+  {
+    id: 31,
+    name: "cloak",
+  },
+  {
+    id: 32,
+    name: "talisman_of_evasion",
+  },
+  {
+    id: 33,
+    name: "cheese",
+  },
+  {
+    id: 34,
+    name: "magic_stick",
+  },
+  {
+    id: 35,
+    name: "recipe_magic_wand",
+  },
+  {
+    id: 36,
+    name: "magic_wand",
+  },
+  {
+    id: 37,
+    name: "ghost",
+  },
+  {
+    id: 38,
+    name: "clarity",
+  },
+  {
+    id: 39,
+    name: "flask",
+  },
+  {
+    id: 40,
+    name: "dust",
+  },
+  {
+    id: 41,
+    name: "bottle",
+  },
+  {
+    id: 42,
+    name: "ward_observer",
+  },
+  {
+    id: 43,
+    name: "ward_sentry",
+  },
+  {
+    id: 44,
+    name: "tango",
+  },
+  {
+    id: 45,
+    name: "courier",
+  },
+  {
+    id: 46,
+    name: "tpscroll",
+  },
+  {
+    id: 47,
+    name: "recipe_travel_boots",
+  },
+  {
+    id: 48,
+    name: "travel_boots",
+  },
+  {
+    id: 49,
+    name: "recipe_phase_boots",
+  },
+  {
+    id: 50,
+    name: "phase_boots",
+  },
+  {
+    id: 51,
+    name: "demon_edge",
+  },
+  {
+    id: 52,
+    name: "eagle",
+  },
+  {
+    id: 53,
+    name: "reaver",
+  },
+  {
+    id: 54,
+    name: "relic",
+  },
+  {
+    id: 55,
+    name: "hyperstone",
+  },
+  {
+    id: 56,
+    name: "ring_of_health",
+  },
+  {
+    id: 57,
+    name: "void_stone",
+  },
+  {
+    id: 58,
+    name: "mystic_staff",
+  },
+  {
+    id: 59,
+    name: "energy_booster",
+  },
+  {
+    id: 60,
+    name: "point_booster",
+  },
+  {
+    id: 61,
+    name: "vitality_booster",
+  },
+  {
+    id: 62,
+    name: "recipe_power_treads",
+  },
+  {
+    id: 63,
+    name: "power_treads",
+  },
+  {
+    id: 64,
+    name: "recipe_hand_of_midas",
+  },
+  {
+    id: 65,
+    name: "hand_of_midas",
+  },
+  {
+    id: 66,
+    name: "recipe_oblivion_staff",
+  },
+  {
+    id: 67,
+    name: "oblivion_staff",
+  },
+  {
+    id: 68,
+    name: "recipe_pers",
+  },
+  {
+    id: 69,
+    name: "pers",
+  },
+  {
+    id: 70,
+    name: "recipe_poor_mans_shield",
+  },
+  {
+    id: 71,
+    name: "poor_mans_shield",
+  },
+  {
+    id: 72,
+    name: "recipe_bracer",
+  },
+  {
+    id: 73,
+    name: "bracer",
+  },
+  {
+    id: 74,
+    name: "recipe_wraith_band",
+  },
+  {
+    id: 75,
+    name: "wraith_band",
+  },
+  {
+    id: 76,
+    name: "recipe_null_talisman",
+  },
+  {
+    id: 77,
+    name: "null_talisman",
+  },
+  {
+    id: 78,
+    name: "recipe_mekansm",
+  },
+  {
+    id: 79,
+    name: "mekansm",
+  },
+  {
+    id: 80,
+    name: "recipe_vladmir",
+  },
+  {
+    id: 81,
+    name: "vladmir",
+  },
+  {
+    id: 84,
+    name: "flying_courier",
+  },
+  {
+    id: 85,
+    name: "recipe_buckler",
+  },
+  {
+    id: 86,
+    name: "buckler",
+  },
+  {
+    id: 87,
+    name: "recipe_ring_of_basilius",
+  },
+  {
+    id: 88,
+    name: "ring_of_basilius",
+  },
+  {
+    id: 89,
+    name: "recipe_pipe",
+  },
+  {
+    id: 90,
+    name: "pipe",
+  },
+  {
+    id: 91,
+    name: "recipe_urn_of_shadows",
+  },
+  {
+    id: 92,
+    name: "urn_of_shadows",
+  },
+  {
+    id: 93,
+    name: "recipe_headdress",
+  },
+  {
+    id: 94,
+    name: "headdress",
+  },
+  {
+    id: 95,
+    name: "recipe_sheepstick",
+  },
+  {
+    id: 96,
+    name: "sheepstick",
+  },
+  {
+    id: 97,
+    name: "recipe_orchid",
+  },
+  {
+    id: 98,
+    name: "orchid",
+  },
+  {
+    id: 99,
+    name: "recipe_cyclone",
+  },
+  {
+    id: 100,
+    name: "cyclone",
+  },
+  {
+    id: 101,
+    name: "recipe_force_staff",
+  },
+  {
+    id: 102,
+    name: "force_staff",
+  },
+  {
+    id: 103,
+    name: "recipe_dagon",
+  },
+  {
+    id: 197,
+    name: "recipe_dagon_2",
+  },
+  {
+    id: 198,
+    name: "recipe_dagon_3",
+  },
+  {
+    id: 199,
+    name: "recipe_dagon_4",
+  },
+  {
+    id: 200,
+    name: "recipe_dagon_5",
+  },
+  {
+    id: 104,
+    name: "dagon",
+  },
+  {
+    id: 201,
+    name: "dagon_2",
+  },
+  {
+    id: 202,
+    name: "dagon_3",
+  },
+  {
+    id: 203,
+    name: "dagon_4",
+  },
+  {
+    id: 204,
+    name: "dagon_5",
+  },
+  {
+    id: 105,
+    name: "recipe_necronomicon",
+  },
+  {
+    id: 191,
+    name: "recipe_necronomicon_2",
+  },
+  {
+    id: 192,
+    name: "recipe_necronomicon_3",
+  },
+  {
+    id: 106,
+    name: "necronomicon",
+  },
+  {
+    id: 193,
+    name: "necronomicon_2",
+  },
+  {
+    id: 194,
+    name: "necronomicon_3",
+  },
+  {
+    id: 107,
+    name: "recipe_ultimate_scepter",
+  },
+  {
+    id: 108,
+    name: "ultimate_scepter",
+  },
+  {
+    id: 109,
+    name: "recipe_refresher",
+  },
+  {
+    id: 110,
+    name: "refresher",
+  },
+  {
+    id: 111,
+    name: "recipe_assault",
+  },
+  {
+    id: 112,
+    name: "assault",
+  },
+  {
+    id: 113,
+    name: "recipe_heart",
+  },
+  {
+    id: 114,
+    name: "heart",
+  },
+  {
+    id: 115,
+    name: "recipe_black_king_bar",
+  },
+  {
+    id: 116,
+    name: "black_king_bar",
+  },
+  {
+    id: 117,
+    name: "aegis",
+  },
+  {
+    id: 118,
+    name: "recipe_shivas_guard",
+  },
+  {
+    id: 119,
+    name: "shivas_guard",
+  },
+  {
+    id: 120,
+    name: "recipe_bloodstone",
+  },
+  {
+    id: 121,
+    name: "bloodstone",
+  },
+  {
+    id: 122,
+    name: "recipe_sphere",
+  },
+  {
+    id: 123,
+    name: "sphere",
+  },
+  {
+    id: 124,
+    name: "recipe_vanguard",
+  },
+  {
+    id: 125,
+    name: "vanguard",
+  },
+  {
+    id: 126,
+    name: "recipe_blade_mail",
+  },
+  {
+    id: 127,
+    name: "blade_mail",
+  },
+  {
+    id: 128,
+    name: "recipe_soul_booster",
+  },
+  {
+    id: 129,
+    name: "soul_booster",
+  },
+  {
+    id: 130,
+    name: "recipe_hood_of_defiance",
+  },
+  {
+    id: 131,
+    name: "hood_of_defiance",
+  },
+  {
+    id: 132,
+    name: "recipe_rapier",
+  },
+  {
+    id: 133,
+    name: "rapier",
+  },
+  {
+    id: 134,
+    name: "recipe_monkey_king_bar",
+  },
+  {
+    id: 135,
+    name: "monkey_king_bar",
+  },
+  {
+    id: 136,
+    name: "recipe_radiance",
+  },
+  {
+    id: 137,
+    name: "radiance",
+  },
+  {
+    id: 138,
+    name: "recipe_butterfly",
+  },
+  {
+    id: 139,
+    name: "butterfly",
+  },
+  {
+    id: 140,
+    name: "recipe_greater_crit",
+  },
+  {
+    id: 141,
+    name: "greater_crit",
+  },
+  {
+    id: 142,
+    name: "recipe_basher",
+  },
+  {
+    id: 143,
+    name: "basher",
+  },
+  {
+    id: 144,
+    name: "recipe_bfury",
+  },
+  {
+    id: 145,
+    name: "bfury",
+  },
+  {
+    id: 146,
+    name: "recipe_manta",
+  },
+  {
+    id: 147,
+    name: "manta",
+  },
+  {
+    id: 148,
+    name: "recipe_lesser_crit",
+  },
+  {
+    id: 149,
+    name: "lesser_crit",
+  },
+  {
+    id: 150,
+    name: "recipe_armlet",
+  },
+  {
+    id: 151,
+    name: "armlet",
+  },
+  {
+    id: 183,
+    name: "recipe_invis_sword",
+  },
+  {
+    id: 152,
+    name: "invis_sword",
+  },
+  {
+    id: 153,
+    name: "recipe_sange_and_yasha",
+  },
+  {
+    id: 154,
+    name: "sange_and_yasha",
+  },
+  {
+    id: 155,
+    name: "recipe_satanic",
+  },
+  {
+    id: 156,
+    name: "satanic",
+  },
+  {
+    id: 157,
+    name: "recipe_mjollnir",
+  },
+  {
+    id: 158,
+    name: "mjollnir",
+  },
+  {
+    id: 159,
+    name: "recipe_skadi",
+  },
+  {
+    id: 160,
+    name: "skadi",
+  },
+  {
+    id: 161,
+    name: "recipe_sange",
+  },
+  {
+    id: 162,
+    name: "sange",
+  },
+  {
+    id: 163,
+    name: "recipe_helm_of_the_dominator",
+  },
+  {
+    id: 164,
+    name: "helm_of_the_dominator",
+  },
+  {
+    id: 165,
+    name: "recipe_maelstrom",
+  },
+  {
+    id: 166,
+    name: "maelstrom",
+  },
+  {
+    id: 167,
+    name: "recipe_desolator",
+  },
+  {
+    id: 168,
+    name: "desolator",
+  },
+  {
+    id: 169,
+    name: "recipe_yasha",
+  },
+  {
+    id: 170,
+    name: "yasha",
+  },
+  {
+    id: 171,
+    name: "recipe_mask_of_madness",
+  },
+  {
+    id: 172,
+    name: "mask_of_madness",
+  },
+  {
+    id: 173,
+    name: "recipe_diffusal_blade",
+  },
+  {
+    id: 195,
+    name: "recipe_diffusal_blade_2",
+  },
+  {
+    id: 174,
+    name: "diffusal_blade",
+  },
+  {
+    id: 196,
+    name: "diffusal_blade_2",
+  },
+  {
+    id: 175,
+    name: "recipe_ethereal_blade",
+  },
+  {
+    id: 176,
+    name: "ethereal_blade",
+  },
+  {
+    id: 177,
+    name: "recipe_soul_ring",
+  },
+  {
+    id: 178,
+    name: "soul_ring",
+  },
+  {
+    id: 179,
+    name: "recipe_arcane_boots",
+  },
+  {
+    id: 180,
+    name: "arcane_boots",
+  },
+  {
+    id: 181,
+    name: "orb_of_venom",
+  },
+  {
+    id: 184,
+    name: "recipe_ancient_janggo",
+  },
+  {
+    id: 185,
+    name: "ancient_janggo",
+  },
+  {
+    id: 186,
+    name: "recipe_medallion_of_courage",
+  },
+  {
+    id: 187,
+    name: "medallion_of_courage",
+  },
+  {
+    id: 188,
+    name: "smoke_of_deceit",
+  },
+  {
+    id: 189,
+    name: "recipe_veil_of_discord",
+  },
+  {
+    id: 190,
+    name: "veil_of_discord",
+  },
+  {
+    id: 205,
+    name: "recipe_rod_of_atos",
+  },
+  {
+    id: 206,
+    name: "rod_of_atos",
+  },
+  {
+    id: 207,
+    name: "recipe_abyssal_blade",
+  },
+  {
+    id: 208,
+    name: "abyssal_blade",
+  },
+  {
+    id: 209,
+    name: "recipe_heavens_halberd",
+  },
+  {
+    id: 210,
+    name: "heavens_halberd",
+  },
+  {
+    id: 211,
+    name: "recipe_ring_of_aquila",
+  },
+  {
+    id: 212,
+    name: "ring_of_aquila",
+  },
+  {
+    id: 213,
+    name: "recipe_tranquil_boots",
+  },
+  {
+    id: 214,
+    name: "tranquil_boots",
+  },
+  {
+    id: 215,
+    name: "shadow_amulet",
+  },
+  {
+    id: 216,
+    name: "enchanted_mango",
+  },
+  {
+    id: 218,
+    name: "ward_dispenser",
+  },
+  {
+    id: 220,
+    name: "travel_boots_2",
+  },
+  {
+    id: 226,
+    name: "lotus_orb",
+  },
+  {
+    id: 221,
+    name: "recipe_lotus_orb",
+  },
+  {
+    id: 229,
+    name: "solar_crest",
+  },
+  {
+    id: 231,
+    name: "guardian_greaves",
+  },
+  {
+    id: 230,
+    name: "recipe_guardian_greaves",
+  },
+  {
+    id: 235,
+    name: "octarine_core",
+  },
+  {
+    id: 247,
+    name: "moon_shard",
+  },
+  {
+    id: 246,
+    name: "recipe_moon_shard",
+  },
+  {
+    id: 249,
+    name: "silver_edge",
+  },
+  {
+    id: 254,
+    name: "glimmer_cape",
+  },
+  {
+    id: 1000,
+    name: "halloween_candy_corn",
+  },
+  {
+    id: 1001,
+    name: "mystery_hook",
+  },
+  {
+    id: 1002,
+    name: "mystery_arrow",
+  },
+  {
+    id: 1003,
+    name: "mystery_missile",
+  },
+  {
+    id: 1004,
+    name: "mystery_toss",
+  },
+  {
+    id: 1005,
+    name: "mystery_vacuum",
+  },
+  {
+    id: 1006,
+    name: "halloween_rapier",
+  },
+  {
+    id: 1007,
+    name: "greevil_whistle",
+  },
+  {
+    id: 1008,
+    name: "greevil_whistle_toggle",
+  },
+  {
+    id: 1009,
+    name: "present",
+  },
+  {
+    id: 1010,
+    name: "winter_stocking",
+  },
+  {
+    id: 1011,
+    name: "winter_skates",
+  },
+  {
+    id: 1012,
+    name: "winter_cake",
+  },
+  {
+    id: 1013,
+    name: "winter_cookie",
+  },
+  {
+    id: 1014,
+    name: "winter_coco",
+  },
+  {
+    id: 1015,
+    name: "winter_ham",
+  },
+  {
+    id: 1016,
+    name: "winter_kringle",
+  },
+  {
+    id: 1017,
+    name: "winter_mushroom",
+  },
+  {
+    id: 1018,
+    name: "winter_greevil_treat",
+  },
+  {
+    id: 1019,
+    name: "winter_greevil_garbage",
+  },
+  {
+    id: 1020,
+    name: "winter_greevil_chewy",
+  },
+  {
+    id: 241,
+    name: "tango_single",
+  },
+  {
+    id: 242,
+    name: "crimson_guard",
+  },
+  {
+    id: 243,
+    name: "recipe_crimson_guard",
+  },
+  {
+    id: 238,
+    name: "recipe_iron_talon",
+  },
+  {
+    id: 239,
+    name: "iron_talon",
+  },
+  {
+    id: 233,
+    name: "recipe_aether_lens",
+  },
+  {
+    id: 232,
+    name: "aether_lens",
+  },
+  {
+    id: 234,
+    name: "recipe_dragon_lance",
+  },
+  {
+    id: 236,
+    name: "dragon_lance",
+  },
+  {
+    id: 237,
+    name: "faerie_fire",
+  },
+  {
+    id: 244,
+    name: "wind_lace",
+  },
+  {
+    id: 245,
+    name: "recipe_bloodthorn",
+  },
+  {
+    id: 248,
+    name: "recipe_silver_edge",
+  },
+  {
+    id: 250,
+    name: "bloodthorn",
+  },
+  {
+    id: 251,
+    name: "recipe_echo_sabre",
+  },
+  {
+    id: 252,
+    name: "echo_sabre",
+  },
+  {
+    id: 257,
+    name: "tome_of_knowledge",
+  },
+  {
+    id: 262,
+    name: "recipe_hurricane_pike",
+  },
+  {
+    id: 263,
+    name: "hurricane_pike",
+  },
+  {
+    id: 240,
+    name: "blight_stone",
+  },
+  {
+    id: 265,
+    name: "infused_raindrop",
+  },
+];
+
+Object.entries(a).forEach(([key, value]) => {
+  console.log(value.item_name, b[0].name);
+  const id =
+    b.find(
+      (t) =>
+        "item_recipe_" + t.name === `${value.item_name}` ||
+        "item_" + t.name === `${value.item_name}`,
+    )?.id || -1;
+  value.id = id;
+});
+const fs = require("fs");
+fs.writeFileSync("./itemdata.js", JSON.stringify(a));

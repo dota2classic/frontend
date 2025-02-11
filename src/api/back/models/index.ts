@@ -25,6 +25,7 @@ export * from "./HeroItemDto";
 export * from "./HeroPlayerDto";
 export * from "./HeroStatsDto";
 export * from "./HeroSummaryDto";
+export * from "./InlineObject";
 export * from "./ItemDto";
 export * from "./ItemHeroDto";
 export * from "./LeaderboardEntryDto";

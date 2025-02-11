@@ -1,0 +1,22 @@
+@import "../../../../common.scss";
+
+.heroEmbed {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-size: 0.8rem;
+
+  & a,
+  span {
+    margin-left: 6px;
+    text-transform: capitalize;
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @media (max-width: 600px) {
+      max-width: 120px;
+    }
+  }
+}

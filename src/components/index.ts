@@ -83,3 +83,5 @@ export { Checkbox } from "./Checkbox/Checkbox";
 export { GenericToast } from "./Toast/GenericToast";
 export { ThreadsTable } from "./ThreadsTable/ThreadsTable";
 export { MarkdownPost } from "./MarkdownPost/MarkdownPost";
+export { ForumHeroEmbed } from "./ForumHeroEmbed/ForumHeroEmbed";
+export { ForumItemEmbed } from "./ForumItemEmbed/ForumItemEmbed";

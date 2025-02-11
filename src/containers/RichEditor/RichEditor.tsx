@@ -5,21 +5,15 @@ import {
 } from "@lexical/react/LexicalComposer";
 import { Rubik } from "next/font/google";
 import ToolbarPlugin from "@/containers/RichEditor/plugins/ToolbarPlugin/ToolbarPlugin";
-import {
-  DOMExportOutput,
-  EditorState,
-  isHTMLElement,
-  LexicalEditor,
-  LexicalNode,
-  ParagraphNode,
-  TextNode,
-} from "lexical";
+import { EditorState, ParagraphNode, TextNode } from "lexical";
 import ExampleTheme from "@/containers/RichEditor/ExampleTheme";
 import { EmojiNode } from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiNode";
 import { HeadingNode } from "@lexical/rich-text";
-import { MentionNode } from "@/containers/RichEditor/plugins/MentionPlugin/MentionNode";
 import { RichEditorEditMode } from "@/containers/RichEditor/RichEditorEditMode";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import { ItemMentionNode } from "@/containers/RichEditor/plugins/ItemMentionPlugin/ItemMentionNode";
+import { PlayerMentionNode } from "@/containers/RichEditor/plugins/PlayerMentionPlugin/PlayerMentionNode";
+import { HeroMentionNode } from "@/containers/RichEditor/plugins/HeroMentionPlugin/HeroMentionNode";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -39,7 +33,15 @@ export const RichEditor: React.FC<IRichEditorProps> = ({
     onError(error: Error) {
       throw error;
     },
-    nodes: [ParagraphNode, TextNode, EmojiNode, HeadingNode, MentionNode],
+    nodes: [
+      ParagraphNode,
+      TextNode,
+      EmojiNode,
+      HeadingNode,
+      PlayerMentionNode,
+      HeroMentionNode,
+      ItemMentionNode,
+    ],
     theme: ExampleTheme,
   };
 
