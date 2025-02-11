@@ -37,15 +37,7 @@ export const RichPageRender = ({ state }: RichPageRenderProps) => {
     <div className={threadFont.className}>
       <LexicalComposer initialConfig={editorConfig}>
         <RichTextPlugin
-          contentEditable={
-            <ContentEditable
-              className="editor-input"
-              aria-placeholder={placeholder}
-              placeholder={
-                <div className="editor-placeholder">{placeholder}</div>
-              }
-            />
-          }
+          contentEditable={<ContentEditable className="editor-input" />}
           ErrorBoundary={LexicalErrorBoundary}
         />
       </LexicalComposer>
