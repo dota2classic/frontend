@@ -1,36 +1,30 @@
-import {
-  EditorConfig,
-  ElementNode,
-  NodeKey,
-  SerializedElementNode,
-  Spread,
-} from "lexical";
+import { NodeKey, SerializedTextNode, Spread, TextNode } from "lexical";
 import c from "./ImageUploadPlugin.module.scss";
 
 export type SerializedImageNode = Spread<
   {
     src: string;
   },
-  SerializedElementNode
+  SerializedTextNode
 >;
 
-export class ImageNode extends ElementNode {
+export class ImageNode extends TextNode {
   private __src: string;
 
   static getType(): string {
     return "image";
   }
 
-  isInline(): boolean {
-    return false;
-  }
+  // isInline(): boolean {
+  //   return false;
+  // }
 
   static clone(node: ImageNode): ImageNode {
     return new ImageNode(node.__src, node.__key);
   }
 
   constructor(src: string, key?: NodeKey) {
-    super(key);
+    super(src, key);
 
     this.__src = src;
   }
@@ -49,15 +43,6 @@ export class ImageNode extends ElementNode {
 
   static importJSON(serializedNode: SerializedImageNode): ImageNode {
     return $createImageNode(serializedNode.src).updateFromJSON(serializedNode);
-  }
-
-  updateDOM(
-    _prevNode: ImageNode,
-    _dom: HTMLElement,
-    _config: EditorConfig,
-  ): boolean {
-    _dom.setAttribute("src", this.__src);
-    return true;
   }
 
   exportJSON(): SerializedImageNode {

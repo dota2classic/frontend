@@ -14,7 +14,7 @@ function CreateBlog({}: Props) {
         saveKey={"edit"}
         onChange={(e) => setValue(JSON.stringify(e.toJSON()))}
       />
-      {value && <RichPageRender state={value} />}
+      {/*{value && <RichPageRender state={value} />}*/}
     </>
   );
 }

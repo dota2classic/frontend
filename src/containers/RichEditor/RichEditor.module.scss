@@ -1,1 +1,8 @@
 @import "../../common.scss";
+
+.render {
+  @include box();
+  background-color: $bg2;
+  padding: 4px;
+  margin-top: 40px;
+}

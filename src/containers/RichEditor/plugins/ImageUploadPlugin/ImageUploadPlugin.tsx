@@ -1,7 +1,13 @@
 import cx from "clsx";
 import c from "@/containers/RichEditor/plugins/ToolbarPlugin/ToolbarPlugin.module.scss";
 import { FaFileUpload, FaImage, FaSpinner } from "react-icons/fa";
-import React, { useCallback, useRef, useState, useTransition } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { getApi } from "@/api/hooks";
 import { createPortal } from "react-dom";
 import { observer, useLocalObservable } from "mobx-react-lite";
@@ -71,17 +77,43 @@ export default observer(function ImageUploadPlugin() {
     [editor],
   );
 
+  const uploadFile = useCallback(
+    (file: File) => {
+      startUploading(async () => {
+        await store.uploadImage(file).then(onSelectImage);
+      });
+    },
+    [onSelectImage, store],
+  );
+
   const handleFileChange = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files) {
         const file = e.target.files![0];
-        startUploading(async () => {
-          await store.uploadImage(file).then(onSelectImage);
-        });
+        uploadFile(file);
       }
     },
-    [onSelectImage, store],
+    [uploadFile],
   );
+
+  useEffect(() => {
+    const listener = function (evt: ClipboardEvent) {
+      const clipboardItems = evt.clipboardData.items;
+      const items = [].slice.call(clipboardItems).filter(function (item) {
+        // Filter the image items only
+        return /^image\//.test(item.type);
+      });
+      if (items.length === 0) {
+        return;
+      }
+
+      const item = items[0];
+      const blob = item.getAsFile();
+      uploadFile(blob);
+    };
+    document.addEventListener("paste", listener);
+    return () => document.removeEventListener("paste", listener);
+  }, [uploadFile]);
 
   return (
     <>

@@ -21,6 +21,7 @@ import * as ReactDOM from "react-dom";
 import cx from "clsx";
 import c from "../PlayerMentionPlugin/Mention.module.scss";
 import { MentionSelectionListItem } from "@/containers/RichEditor/plugins/GenericMentionPlugin/MentionSelectionListItem";
+import { GenericTooltip } from "@/components";
 
 function useMentionLookupService<T>(
   provide: (search: string) => Promise<T[]>,
@@ -137,27 +138,32 @@ export default function GenericMentionPlugin<T>({
       ) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
-              <div className={cx(c.typeaheadPopover, c.mentionsMenu)}>
-                <ul>
-                  {options.map((option, i: number) => (
-                    <MentionSelectionListItem
-                      index={i}
-                      isSelected={selectedIndex === i}
-                      onClick={() => {
-                        setHighlightedIndex(i);
-                        selectOptionAndCleanUp(option);
-                      }}
-                      onMouseEnter={() => {
-                        setHighlightedIndex(i);
-                      }}
-                      key={option.key}
-                    >
-                      <RenderListItem option={option.dto} />
-                    </MentionSelectionListItem>
-                  ))}
-                </ul>
-              </div>,
-              anchorElementRef.current!,
+              <GenericTooltip
+                anchor={anchorElementRef.current!}
+                onClose={() => {}}
+              >
+                <div className={cx(c.typeaheadPopover, c.mentionsMenu)}>
+                  <ul>
+                    {options.map((option, i: number) => (
+                      <MentionSelectionListItem
+                        index={i}
+                        isSelected={selectedIndex === i}
+                        onClick={() => {
+                          setHighlightedIndex(i);
+                          selectOptionAndCleanUp(option);
+                        }}
+                        onMouseEnter={() => {
+                          setHighlightedIndex(i);
+                        }}
+                        key={option.key}
+                      >
+                        <RenderListItem option={option.dto} />
+                      </MentionSelectionListItem>
+                    ))}
+                  </ul>
+                </div>
+              </GenericTooltip>,
+              document.body,
             )
           : null
       }

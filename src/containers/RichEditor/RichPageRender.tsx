@@ -15,7 +15,8 @@ import { ItemMentionNode } from "@/containers/RichEditor/plugins/ItemMentionPlug
 import { HeroMentionNode } from "@/containers/RichEditor/plugins/HeroMentionPlugin/HeroMentionNode";
 import { PlayerMentionNode } from "@/containers/RichEditor/plugins/PlayerMentionPlugin/PlayerMentionNode";
 import { ImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
-
+import cx from "clsx";
+import c from "./RichEditor.module.scss"
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });
@@ -46,7 +47,7 @@ export const RichPageRender = ({ state }: RichPageRenderProps) => {
   };
 
   return (
-    <div className={threadFont.className}>
+    <div className={cx(threadFont.className, c.render)}>
       <LexicalComposer initialConfig={editorConfig}>
         <RichTextPlugin
           contentEditable={<ContentEditable className="editor-input" />}

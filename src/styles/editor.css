@@ -225,6 +225,7 @@ h1 {
   margin-top: 10px;
   padding: 0;
   text-transform: uppercase;
+  margin-block-end: 1em;
 }
 
 .editor-quote {
