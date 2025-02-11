@@ -16,6 +16,7 @@ import { DevVersionIndicator, GreedyFocusManager } from "@/containers";
 import { ToastContainer } from "react-toastify";
 import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModalContainer";
 // Font files can be colocated inside of `pages`
+import "@/styles/editor.css";
 
 /**
  * Same as Partial<T> but goes deeper and makes Partial<T> all its properties and sub-properties.

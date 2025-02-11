@@ -13,7 +13,9 @@ export class ThreadsStore implements HydratableStore<HydrateData> {
 
   constructor(private readonly auth: AuthStore) {
     makeObservable(this);
-    if (typeof window !== "undefined") this.fetchEmoticons();
+    if (typeof window !== "undefined") {
+      this.fetchEmoticons();
+    }
   }
 
   private async fetchEmoticons() {

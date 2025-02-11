@@ -9,13 +9,18 @@ import cx from "clsx";
 
 interface IForumUserEmbedProps {
   steamId: string;
+  nolink?: boolean;
 }
 
 export const ForumUserEmbed: React.FC<IForumUserEmbedProps> = observer(
-  ({ steamId }) => {
+  ({ steamId, nolink }) => {
     const { user, auth } = useStore();
+    const RootComponent: React.FC = nolink
+      ? (p: never) => React.createElement("a", { ...p, href: "#" })
+      : PageLink;
+
     return (
-      <PageLink
+      <RootComponent
         className={cx(
           c.userEmbed,
           "link",
@@ -23,13 +28,8 @@ export const ForumUserEmbed: React.FC<IForumUserEmbedProps> = observer(
         )}
         link={AppRouter.players.player.index(steamId).link}
       >
-        {/*<Image*/}
-        {/*  width={30}*/}
-        {/*  height={30}*/}
-        {/*  src={user.tryGetUser(steamId)?.user?.avatar || "/avatar.png"}*/}
-        {/*  alt={`Avatar of user ${steamId}`}*/}
-        {/*/>*/}@{user.tryGetUser(steamId)?.entry?.user?.name || "Loading..."}
-      </PageLink>
+        @{user.tryGetUser(steamId)?.entry?.user?.name || "Loading..."}
+      </RootComponent>
     );
   },
 );

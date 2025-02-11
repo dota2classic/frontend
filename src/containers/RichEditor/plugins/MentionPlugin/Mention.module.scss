@@ -1,0 +1,40 @@
+@import "../../../../common.scss";
+
+.typeaheadPopover {
+  @include box();
+  background-color: $bg2;
+  position: fixed;
+
+  & ul {
+    list-style: none;
+    padding-inline-start: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: scroll;
+    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+  }
+}
+
+.mentionsMenu {
+}
+
+.selected {
+}
+
+.item {
+  cursor: pointer;
+  line-height: 16px;
+  font-size: 15px;
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  flex-shrink: 0;
+  justify-content: space-between;
+  border-radius: 8px;
+  border: 0;
+  max-width: 400px;
+  min-width: 200px;
+}
