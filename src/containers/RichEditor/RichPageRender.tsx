@@ -14,6 +14,7 @@ import React from "react";
 import { ItemMentionNode } from "@/containers/RichEditor/plugins/ItemMentionPlugin/ItemMentionNode";
 import { HeroMentionNode } from "@/containers/RichEditor/plugins/HeroMentionPlugin/HeroMentionNode";
 import { PlayerMentionNode } from "@/containers/RichEditor/plugins/PlayerMentionPlugin/PlayerMentionNode";
+import { ImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -38,6 +39,7 @@ export const RichPageRender = ({ state }: RichPageRenderProps) => {
       PlayerMentionNode,
       HeroMentionNode,
       ItemMentionNode,
+      ImageNode,
     ],
     theme: ExampleTheme,
     editorState: state,

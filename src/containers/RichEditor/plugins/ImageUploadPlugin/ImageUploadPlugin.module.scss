@@ -1,0 +1,28 @@
+@import "../../../../common.scss";
+
+.gallery {
+  @include box();
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-gap: 15px;
+
+  padding: 8px;
+
+  width: 400px;
+  height: 400px;
+  background-color: $bg2;
+  overflow-y: auto;
+}
+
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.embedImage {
+  object-fit: contain;
+  max-width: 100%;
+}

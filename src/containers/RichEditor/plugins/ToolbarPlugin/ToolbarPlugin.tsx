@@ -27,7 +27,6 @@ import {
   FaAlignLeft,
   FaAlignRight,
   FaBold,
-  FaGrinTongueSquint,
   FaHeading,
   FaItalic,
   FaRedo,
@@ -37,8 +36,6 @@ import {
 } from "react-icons/fa";
 import c from "./ToolbarPlugin.module.scss";
 import cx from "clsx";
-import { createPortal } from "react-dom";
-import { EmoticonSelectWindow } from "@/components";
 import { EmoticonDto } from "@/api/back";
 import { $createEmojiNode } from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiNode";
 import findEmoji from "@/containers/RichEditor/plugins/EmojiPlugin/findEmoji";
@@ -84,17 +81,12 @@ function Divider() {
 }
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
-  const toolbarRef = useRef(null);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
-
-  const emojiRef = useRef<HTMLButtonElement | null>(null);
-
-  const [visible, setVisible] = useState(false);
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -151,21 +143,8 @@ export default function ToolbarPlugin() {
     });
   }, [editor]);
 
-  const insertEmoji = useCallback(
-    (emo: EmoticonDto) => {
-      editor.update(() => {
-        // Create a new ParagraphNode
-        const emojiNode = $createEmojiNode(emo.code, emo.src);
-
-        $insertNodes([emojiNode]);
-        // Finally, append the paragraph to the root
-      });
-    },
-    [editor],
-  );
-
   return (
-    <div className={c.toolbar} ref={toolbarRef}>
+    <>
       <button
         disabled={!canUndo}
         onClick={() => {
@@ -266,25 +245,7 @@ export default function ToolbarPlugin() {
         aria-label="Justify Align"
       >
         <FaAlignJustify />
-      </button>{" "}
-      <Divider />
-      {visible &&
-        createPortal(
-          <EmoticonSelectWindow
-            onSelect={insertEmoji}
-            anchor={emojiRef}
-            onClose={() => setVisible(false)}
-          />,
-          document.body,
-        )}
-      <button
-        onClick={() => setVisible((vis) => !vis)}
-        className={cx(c.toolbarItem, c.spaced)}
-        aria-label="Undo"
-        ref={emojiRef}
-      >
-        <FaGrinTongueSquint />
       </button>
-    </div>
+    </>
   );
 }

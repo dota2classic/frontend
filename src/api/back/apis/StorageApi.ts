@@ -17,6 +17,18 @@ import * as runtime from "../runtime";
 import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
+import {
+  UploadedImageDto,
+  UploadedImageDtoFromJSON,
+  UploadedImageDtoToJSON,
+  UploadedImagePageDto,
+  UploadedImagePageDtoFromJSON,
+  UploadedImagePageDtoToJSON,
+} from "../models";
+
+export interface StorageControllerGetUploadedFilesRequest {
+  ctoken?: string;
+}
 
 export interface StorageControllerUploadImageRequest {
   file?: Blob;
@@ -29,12 +41,62 @@ export class StorageApi extends runtime.BaseAPI {
 
     /**
      */
-    private async storageControllerUploadImageRaw(requestParameters: StorageControllerUploadImageRequest): Promise<runtime.ApiResponse<void>> {
+    private async storageControllerGetUploadedFilesRaw(requestParameters: StorageControllerGetUploadedFilesRequest): Promise<runtime.ApiResponse<UploadedImagePageDto>> {
+        this.storageControllerGetUploadedFilesValidation(requestParameters);
+        const context = this.storageControllerGetUploadedFilesContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UploadedImagePageDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private storageControllerGetUploadedFilesValidation(requestParameters: StorageControllerGetUploadedFilesRequest) {
+    }
+
+    /**
+     */
+    storageControllerGetUploadedFilesContext(requestParameters: StorageControllerGetUploadedFilesRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.ctoken !== undefined) {
+            queryParameters["ctoken"] = requestParameters.ctoken;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/storage`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    storageControllerGetUploadedFiles = async (ctoken?: string): Promise<UploadedImagePageDto> => {
+        const response = await this.storageControllerGetUploadedFilesRaw({ ctoken: ctoken });
+        return await response.value();
+    }
+
+    useStorageControllerGetUploadedFiles(ctoken?: string, config?: SWRConfiguration<UploadedImagePageDto, Error>) {
+        let valid = true
+
+        const context = this.storageControllerGetUploadedFilesContext({ ctoken: ctoken! });
+        return useSWR(context, valid ? () => this.storageControllerGetUploadedFiles(ctoken!) : null, config)
+    }
+
+    /**
+     */
+    private async storageControllerUploadImageRaw(requestParameters: StorageControllerUploadImageRequest): Promise<runtime.ApiResponse<UploadedImageDto>> {
         this.storageControllerUploadImageValidation(requestParameters);
         const context = this.storageControllerUploadImageContext(requestParameters);
         const response = await this.request(context);
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => UploadedImageDtoFromJSON(jsonValue));
     }
 
 
@@ -90,8 +152,9 @@ export class StorageApi extends runtime.BaseAPI {
 
     /**
      */
-    storageControllerUploadImage = async (file?: Blob): Promise<void> => {
-        await this.storageControllerUploadImageRaw({ file: file });
+    storageControllerUploadImage = async (file?: Blob): Promise<UploadedImageDto> => {
+        const response = await this.storageControllerUploadImageRaw({ file: file });
+        return await response.value();
     }
 
 

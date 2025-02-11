@@ -79,6 +79,8 @@ export * from "./UpdateModeDTO";
 export * from "./UpdateRolesDto";
 export * from "./UpdateThreadDTO";
 export * from "./UpdateUserDTO";
+export * from "./UploadedImageDto";
+export * from "./UploadedImagePageDto";
 export * from "./UserBanSummaryDto";
 export * from "./UserDTO";
 export * from "./UserRoleSummaryDto";

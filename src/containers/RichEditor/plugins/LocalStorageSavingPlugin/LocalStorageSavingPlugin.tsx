@@ -22,10 +22,12 @@ export function LocalStorageSavingPlugin({
       setIsFirstRender(false);
 
       if (serializedEditorState) {
-        const initialEditorState = editor.parseEditorState(
-          serializedEditorState,
-        );
-        editor.setEditorState(initialEditorState);
+        editor.update(() => {
+          const initialEditorState = editor.parseEditorState(
+            serializedEditorState,
+          );
+          editor.setEditorState(initialEditorState);
+        });
       }
     }
   }, [isFirstRender, serializedEditorState, editor]);
