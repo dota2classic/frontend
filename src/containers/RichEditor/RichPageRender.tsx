@@ -16,7 +16,7 @@ import { HeroMentionNode } from "@/containers/RichEditor/plugins/HeroMentionPlug
 import { PlayerMentionNode } from "@/containers/RichEditor/plugins/PlayerMentionPlugin/PlayerMentionNode";
 import { ImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
 import cx from "clsx";
-import c from "./RichEditor.module.scss"
+import c from "./RichEditor.module.scss";
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });

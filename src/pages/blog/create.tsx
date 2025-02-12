@@ -2,7 +2,6 @@ import { RichEditor } from "@/containers";
 import { useLocalStorage } from "react-use";
 import { RichPageRender } from "@/containers/RichEditor/RichPageRender";
 import dynamic from "next/dynamic";
-import { useEffect } from "react";
 
 interface Props {}
 
@@ -14,7 +13,7 @@ function CreateBlog({}: Props) {
         saveKey={"edit"}
         onChange={(e) => setValue(JSON.stringify(e.toJSON()))}
       />
-      {/*{value && <RichPageRender state={value} />}*/}
+      {value && <RichPageRender state={value} />}
     </>
   );
 }

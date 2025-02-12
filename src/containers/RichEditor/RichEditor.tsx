@@ -18,6 +18,7 @@ import c from "@/containers/RichEditor/plugins/ToolbarPlugin/ToolbarPlugin.modul
 import EmojiPlugin from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiPlugin";
 import ImageUploadPlugin from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageUploadPlugin";
 import { ImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
+import TreeViewPlugin from "@/containers/RichEditor/plugins/TreeViewPlugin";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -62,6 +63,7 @@ export const RichEditor: React.FC<IRichEditorProps> = ({
           <RichEditorEditMode saveKey={saveKey} />
           <OnChangePlugin onChange={onChange} />
         </div>
+        <TreeViewPlugin />
       </LexicalComposer>
     </div>
   );
