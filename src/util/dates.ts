@@ -17,6 +17,10 @@ export function fullDate(d: Date): string {
   return format.format(d) + ", " + timeString;
 }
 
+export function formatDate(d: Date): string {
+  return new Intl.DateTimeFormat("ru-RU", {}).format(d);
+}
+
 export function formatShortTime(d: Date): string {
   const now = new Date();
   const diffDays = now.getDate() - d.getDate();

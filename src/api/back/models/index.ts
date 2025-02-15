@@ -1,6 +1,8 @@
 export * from "./AchievementDto";
 export * from "./BanHammerDto";
 export * from "./BanStatusDto";
+export * from "./BlogPageDto";
+export * from "./BlogpostDto";
 export * from "./ChangeTeamInLobbyDto";
 export * from "./ConnectionDto";
 export * from "./CreateFeedbackDto";
@@ -72,6 +74,7 @@ export * from "./ThreadMessageDTO";
 export * from "./ThreadMessagePageDTO";
 export * from "./ThreadMessageSseDto";
 export * from "./ThreadPageDTO";
+export * from "./UpdateBlogpostDraftDto";
 export * from "./UpdateFeedbackDto";
 export * from "./UpdateLobbyDto";
 export * from "./UpdateMessageReactionDto";

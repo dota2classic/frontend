@@ -1,0 +1,25 @@
+@import "../../../common.scss";
+
+
+.post {
+  flex-direction: column;
+  margin-top: 20px;
+  align-items: stretch;
+}
+.title {
+  text-align: center;
+  font-size: 4rem;
+}
+
+.date {
+  font-size: 2rem;
+  color: $primaryTextDark;
+  text-align: center;
+  margin-block-start: 0;
+}
+
+
+
+.thread {
+  margin-top: 20px;
+}

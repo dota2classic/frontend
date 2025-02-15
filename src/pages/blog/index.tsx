@@ -1,31 +1,68 @@
-import { getExampleMarkdown } from "@/util/markdown";
 import { Rubik } from "next/font/google";
-import { MarkdownPost } from "@/components";
+import { BlogPageDto } from "@/api/back";
+import c from "./Blog.module.scss";
+import cx from "clsx";
+import { CarouselItem } from "@/components/Landing/CarouselItem";
+import { AppRouter } from "@/route";
+import { NextPageContext } from "next";
+import { numberOrDefault } from "@/util/urls";
+import { getApi } from "@/api/hooks";
+import { Breadcrumbs, PageLink, Panel } from "@/components";
+import React from "react";
+import { useIsModerator } from "@/util";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });
+
 interface Props {
-  postData: {
-    contentHtml: string;
-  };
+  page: BlogPageDto;
 }
 
-export default function RenderMarkdown({ postData }: Props) {
+export default function NewsList({ page }: Props) {
+  const isMod = useIsModerator();
   return (
-    <div className={threadFont.className}>
-      <MarkdownPost markdown={postData.contentHtml} />
-    </div>
+    <>
+      <Panel>
+        <div className="left">
+          <Breadcrumbs>
+            <PageLink link={AppRouter.blog.index.link}>Новости</PageLink>
+          </Breadcrumbs>
+        </div>
+        <div className="right">
+          {isMod && (
+            <dl>
+              <dd>
+                <PageLink link={AppRouter.blog.create.link}>
+                  Создать новость
+                </PageLink>
+              </dd>
+              <dt></dt>
+            </dl>
+          )}
+        </div>
+      </Panel>
+      <div className={cx(threadFont.className, c.posts)}>
+        {page.data.map((post) => (
+          <CarouselItem
+            key={post.id}
+            title={post.title}
+            image={post.image.url}
+            link={AppRouter.blog.post(post.id).link}
+            description={post.shortDescription}
+            date={post.publishDate}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
-export async function getStaticProps({}) {
+NewsList.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   // Add the "await" keyword like this:
-  const postData = await getExampleMarkdown();
+  const page = numberOrDefault(ctx.query.page as string, 0);
 
   return {
-    props: {
-      postData,
-    },
+    page: await getApi().blog.blogpostControllerBlogPage(page),
   };
-}
+};

@@ -1,21 +1,8 @@
-import { RichEditor } from "@/containers";
-import { useLocalStorage } from "react-use";
-import { RichPageRender } from "@/containers/RichEditor/RichPageRender";
+import { BlogEditContainer } from "@/containers";
 import dynamic from "next/dynamic";
 
-interface Props {}
-
-function CreateBlog({}: Props) {
-  const [value, setValue] = useLocalStorage<string>("edit");
-  return (
-    <>
-      <RichEditor
-        saveKey={"edit"}
-        onChange={(e) => setValue(JSON.stringify(e.toJSON()))}
-      />
-      {value && <RichPageRender state={value} />}
-    </>
-  );
+function CreateBlog() {
+  return <BlogEditContainer />;
 }
 
 const CreateBlogPage = dynamic(() => Promise.resolve<unknown>(CreateBlog), {
