@@ -1,4 +1,5 @@
 import bundleAnalyzer from "@next/bundle-analyzer"
+import webpack from "webpack"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -39,7 +40,7 @@ const nextConfig = {
   },
   experimental: {
     scrollRestoration: true,
-    fallbackNodePolyfills: false
+    fallbackNodePolyfills: true
   }
 };
 
