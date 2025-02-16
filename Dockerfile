@@ -11,7 +11,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json bun.lockb ./
-RUN bun install  --frozen-lockfile # --production
+RUN bun install # --frozen-lockfile --production
 
 
 # Rebuild the source code only when needed
@@ -25,7 +25,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 #ENV NEXT_TELEMETRY_DISABLED=1
 
-ENV NODE_ENV=production
+#ENV NODE_ENV=production
 
 ARG API_URL
 ENV API_URL=$API_URL
