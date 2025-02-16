@@ -40,7 +40,7 @@ ENV SOCKET_URL=$SOCKET_URL
 ARG VAPID_PUBLIC_KEY
 ENV VAPID_PUBLIC_KEY=$VAPID_PUBLIC_KEY
 
-RUN bun run build
+RUN bun run build --debug
 
 # Production image, copy all the files and run next
 FROM base AS runner
