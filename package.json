@@ -48,7 +48,7 @@
     "react-toastify": "^11.0.3",
     "react-use": "^17.6.0",
     "react-virtuoso": "^4.12.5",
-    "sass": "^1.85.0",
+    "sass": "1.77.6",
     "socket.io-client": "^4.8.1",
     "swr": "^2.3.2",
     "toad-scheduler": "^3.0.1",
