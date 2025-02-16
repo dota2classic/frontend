@@ -1,18 +1,21 @@
 import { BlogEditContainer } from "@/containers";
 import { getApi } from "@/api/hooks";
-import { BlogpostDto } from "@/api/back";
-import { NextPageContext } from "next";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { Breadcrumbs, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
 import { formatDate } from "@/util/dates";
 
 interface Props {
-  post: BlogpostDto;
+  id: number;
 }
 
-export default function EditBlog({ post }: Props) {
+export default function EditBlog({ id }: Props) {
+  const { data: post, isLoading } =
+    getApi().blog.useBlogpostControllerGetBlogpostDraft(id);
+
+  if (!post) {
+    return isLoading ? <h1>Loading</h1> : <h1>...</h1>;
+  }
   return (
     <>
       <Panel>
@@ -42,13 +45,3 @@ export default function EditBlog({ post }: Props) {
     </>
   );
 }
-
-EditBlog.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-  const id = Number(ctx.query.id as string);
-
-  return {
-    post: await withTemporaryToken(ctx, () =>
-      getApi().blog.blogpostControllerGetBlogpostDraft(id),
-    ),
-  };
-};
