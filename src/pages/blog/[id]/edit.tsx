@@ -47,7 +47,6 @@ export default function EditBlog({ id }: Props) {
   );
 }
 
-
 EditBlog.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const id = Number(ctx.query.id as string);
 
