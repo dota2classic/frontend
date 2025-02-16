@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { RichEditor } from "..";
 import { BlogpostDto, UploadedImageDto } from "@/api/back";
-import { useDebounce } from "react-use";
+import { useDebounce, useLocalStorage } from "react-use";
 import { SerializedEditorState } from "lexical";
 import { getApi } from "@/api/hooks";
 import {
@@ -26,17 +26,30 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
 }) => {
   const router = useRouter();
 
+  const saveKey = useMemo(() => {
+    return `${process.env.NEXT_PUBLIC_API_URL}-edit-${post?.id || "draft"}`;
+  }, [post]);
+
+  const [loaded, setLoaded] = useState(false);
+
   const [title, setTitle] = useState(post?.title || "");
   const [description, setDescription] = useState(post?.shortDescription || "");
-
-  const [value, setValue] = useState<SerializedEditorState>(
+  const [newval, setNewValue] = useLocalStorage<SerializedEditorState>(
+    saveKey,
     post ? JSON.parse(post.content) : undefined,
   );
 
+  useEffect(() => {
+    if (post) {
+      setNewValue(JSON.parse(post.content));
+    }
+    setLoaded(true);
+  }, [post]);
   const [image, setImage] = useState<UploadedImageDto | undefined>(post?.image);
 
   useDebounce(
     () => {
+      if (!loaded) return;
       if (!title && !description && !image?.key) return;
       const doRedirect = !post;
 
@@ -44,7 +57,7 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
         .blog.blogpostControllerUpdatePostDraft({
           id: post?.id,
           title: title,
-          content: JSON.stringify(value),
+          content: JSON.stringify(newval),
           imageKey: image?.key,
           shortDescription: description,
         })
@@ -56,7 +69,7 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
         });
     },
     500,
-    [value, image, title, description],
+    [newval, image, title, description],
   );
 
   const publishPost = useCallback(async () => {
@@ -107,13 +120,14 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
         </Carousel>
       )}
       <h3>Содержимое статьи</h3>
-      <RichEditor
-        saveKey={"edit"}
-        onChange={(e) => {
-          setValue(e.toJSON());
-        }}
-      />
-
+      {loaded && (
+        <RichEditor
+          saveKey={saveKey}
+          onChange={(e) => {
+            setNewValue(e.toJSON());
+          }}
+        />
+      )}
       <Button disabled={post?.published} mega onClick={publishPost}>
         Опубликовать
       </Button>

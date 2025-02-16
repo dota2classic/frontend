@@ -1,5 +1,6 @@
 import { BlogEditContainer } from "@/containers";
 import { getApi } from "@/api/hooks";
+import { NextPageContext } from "next";
 import { Breadcrumbs, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
@@ -45,3 +46,12 @@ export default function EditBlog({ id }: Props) {
     </>
   );
 }
+
+
+EditBlog.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const id = Number(ctx.query.id as string);
+
+  return {
+    id,
+  };
+};
