@@ -25,15 +25,16 @@ export const GameReadyModal = observer(
     return (
       <div className={className} data-testid="game-ready-modal">
         <h2>Игра готова!</h2>
-        <div className={c.connectInfo}>
-          <a
-            className={cx(c.button2, c.accept)}
-            target={"__blank"}
-            href={`steam://connect/${q.gameState?.serverUrl}`}
-          >
-            Подключиться к игре
-          </a>
-        </div>
+        {/*<div className={c.connectInfo}>*/}
+        {/*  <a*/}
+        {/*    className={cx(c.button2, c.accept)}*/}
+        {/*    target={"__blank"}*/}
+        {/*    href={`steam://connect/${q.gameState?.serverUrl}`}*/}
+        {/*  >*/}
+        {/*    Подключиться к игре*/}
+        {/*  </a>*/}
+        {/*</div>*/}
+        <h4>Используй консольную комманду для подключения:</h4>
         <CopySomething
           something={`connect ${q.gameState?.serverUrl}`}
           placeholder={
@@ -50,8 +51,7 @@ export const GameReadyModal = observer(
               <li>Убедись, что запущен steam.</li>
               <li>Убедись, что запущен наш клиент игры.</li>
               <li>
-                Нажми на кнопку "подключиться" / Используй консольную команду
-                под ней.
+                Используй консольную команду для подключения к игровому серверу
               </li>
               <li>Не получается? Пиши в чат, постараемся помочь</li>
             </ol>
