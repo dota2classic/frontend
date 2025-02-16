@@ -9,7 +9,7 @@ import HeroMentionPlugin from "@/containers/RichEditor/plugins/HeroMentionPlugin
 import ItemMentionPlugin from "@/containers/RichEditor/plugins/ItemMentionPlugin/ItemMentionPlugin";
 import PlayerMentionPlugin from "@/containers/RichEditor/plugins/PlayerMentionPlugin/PlayerMentionPlugin";
 
-const placeholder = "Enter some rich text...";
+// const placeholder = "Enter some rich text...";
 
 interface RichEditorEditModeProps {
   saveKey: string;
@@ -21,9 +21,10 @@ export const RichEditorEditMode = ({ saveKey }: RichEditorEditModeProps) => {
         contentEditable={
           <ContentEditable
             className="editor-input"
-            aria-placeholder={placeholder}
+            // aria-placeholder={placeholder}
             placeholder={
-              <div className="editor-placeholder">{placeholder}</div>
+              // <div className="editor-placeholder">{placeholder}</div>
+              null
             }
           />
         }
