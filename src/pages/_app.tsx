@@ -93,6 +93,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
       user: {},
       threads: { emoticons: [] },
       greedyFocus: {},
+      image: {},
       ...inferredState,
     };
 

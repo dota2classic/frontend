@@ -9,7 +9,6 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { mergeRegister } from "@lexical/utils";
 import {
   $getSelection,
-  $insertNodes,
   $isRangeSelection,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
@@ -20,7 +19,7 @@ import {
   TextNode,
   UNDO_COMMAND,
 } from "lexical";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   FaAlignCenter,
   FaAlignJustify,
@@ -36,7 +35,6 @@ import {
 } from "react-icons/fa";
 import c from "./ToolbarPlugin.module.scss";
 import cx from "clsx";
-import { EmoticonDto } from "@/api/back";
 import { $createEmojiNode } from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiNode";
 import findEmoji from "@/containers/RichEditor/plugins/EmojiPlugin/findEmoji";
 import { $setBlocksType } from "@lexical/selection";
@@ -109,7 +107,7 @@ export default function ToolbarPlugin() {
       }),
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
-        (_payload, _newEditor) => {
+        () => {
           $updateToolbar();
           return false;
         },

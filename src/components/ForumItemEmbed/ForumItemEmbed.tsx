@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 
 import { ItemIconRaw, PageLink } from "..";
 
@@ -16,17 +16,23 @@ export const ForumItemEmbed: React.FC<IForumItemEmbedProps> = ({
   itemId,
   nolink,
 }) => {
-  const RootComponent: React.FC = nolink
-    ? (p: PropsWithChildren<{ className?: string }>) =>
-        React.createElement("a", { ...p, href: "#" })
-    : PageLink;
-  return (
-    <RootComponent
-      link={AppRouter.items.item(itemId).link}
-      className={cx(c.heroEmbed, "link")}
-    >
+  const content = (
+    <>
       <ItemIconRaw small item={itemId} />
       <span>{itemName(itemId)}</span>
-    </RootComponent>
+    </>
+  );
+
+  return nolink ? (
+    <a href="#" className={cx(c.heroEmbed)}>
+      {content}
+    </a>
+  ) : (
+    <PageLink
+      className={cx(c.heroEmbed, "link")}
+      link={AppRouter.items.item(itemId).link}
+    >
+      {content}
+    </PageLink>
   );
 };

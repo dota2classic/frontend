@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
+import React, { useCallback, useRef, useState, useTransition } from "react";
 
 import { GenericTooltip } from "..";
 
@@ -39,7 +33,12 @@ export const ImagePickerUploader: React.FC<IImagePickerUploaderProps> = ({
   const uploadFile = useCallback(
     (file: File) => {
       startUploading(async () => {
-        await store.uploadImage(file).then(submitImage);
+        await store
+          .uploadImage(file)
+          .then(submitImage)
+          .catch((e) => {
+            console.error("Issue uploading", e);
+          });
       });
     },
     [submitImage, store],

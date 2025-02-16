@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 
 import { HeroIcon, PageLink } from "..";
 
@@ -16,18 +16,23 @@ export const ForumHeroEmbed: React.FC<IForumHeroEmbedProps> = ({
   hero,
   nolink,
 }) => {
-  const RootComponent: React.FC = nolink
-    ? (p: PropsWithChildren<{ className?: string }>) =>
-        React.createElement("a", { ...p, href: "#" })
-    : PageLink;
-
-  return (
-    <RootComponent
-      link={AppRouter.heroes.hero.index(hero).link}
-      className={cx(c.heroEmbed, "link")}
-    >
+  const content = (
+    <>
       <HeroIcon small hero={hero} />
       <span>{heroName(hero)}</span>
-    </RootComponent>
+    </>
+  );
+
+  return nolink ? (
+    <a href="#" className={cx(c.heroEmbed)}>
+      {content}
+    </a>
+  ) : (
+    <PageLink
+      className={cx(c.heroEmbed, "link")}
+      link={AppRouter.heroes.hero.index(hero).link}
+    >
+      {content}
+    </PageLink>
   );
 };

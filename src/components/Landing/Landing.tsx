@@ -8,9 +8,6 @@ import { BlogpostDto, LiveMatchDto } from "@/api/back";
 import { RecentPostsCarousel } from "@/components/Landing/RecentPostsCarousel";
 import { ProjectStatisticsCarousel } from "@/components/Landing/ProjectStatisticsCarousel";
 import { MetaCarousel } from "@/components/Landing/MetaCarousel";
-import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
-import { LandingLiveMatch } from "@/components/Landing/LandingLiveMatch";
-import {LiveMatchCarousel} from "@/components/Landing/LiveMatchCarousel";
 
 interface Props {
   recentPosts: BlogpostDto[];

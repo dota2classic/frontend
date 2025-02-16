@@ -6,24 +6,13 @@ import c from "./ItemTooltip.module.scss";
 
 import { FaCoins } from "react-icons/fa";
 import cx from "clsx";
+import type { ItemDataEntry } from "@/const/itemdata";
 import { ItemKey } from "@/const/itemdata";
 import { ItemMap } from "@/const/items";
 
 interface IItemTooltipProps {
   item: ItemKey | string;
   hoveredElement: HTMLElement;
-}
-
-export interface ItemDataEntry {
-  idx: number;
-  item_name: string;
-  description: string;
-  name: string;
-  cooldown: number;
-  specials: string[];
-  cost: number;
-  recipe: boolean;
-  notes: string[];
 }
 
 export const ItemTooltipRaw = ({

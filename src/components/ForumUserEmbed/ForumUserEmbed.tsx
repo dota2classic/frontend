@@ -15,12 +15,13 @@ interface IForumUserEmbedProps {
 export const ForumUserEmbed: React.FC<IForumUserEmbedProps> = observer(
   ({ steamId, nolink }) => {
     const { user, auth } = useStore();
-    const RootComponent: React.FC = nolink
-      ? (p: never) => React.createElement("a", { ...p, href: "#" })
-      : PageLink;
 
     return (
-      <RootComponent
+      <PageLink
+        onClick={(e: React.MouseEvent) => {
+          if (!nolink) return;
+          e.preventDefault();
+        }}
         className={cx(
           c.userEmbed,
           "link",
@@ -29,7 +30,7 @@ export const ForumUserEmbed: React.FC<IForumUserEmbedProps> = observer(
         link={AppRouter.players.player.index(steamId).link}
       >
         @{user.tryGetUser(steamId)?.entry?.user?.name || "Loading..."}
-      </RootComponent>
+      </PageLink>
     );
   },
 );

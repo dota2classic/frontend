@@ -22,15 +22,15 @@ export const CarouselItem: React.FC<ICarouselItemProps> = ({
   description,
 }) => {
   const RenderContainer = link
-    ? PageLink
+    ? (p: PropsWithChildren<{ className?: string }>) => (
+        <PageLink className={p.className} link={link!}>
+          {p.children}
+        </PageLink>
+      )
     : (p: PropsWithChildren<{ className?: string }>) =>
         createElement("a", { ...p, href: "#" });
   return (
-    <RenderContainer
-      className={c.card}
-      link={link}
-      // style={{ backgroundImage: `url(${image})` }}
-    >
+    <RenderContainer className={c.card}>
       <Image
         className={c.image}
         alt={""}

@@ -36,7 +36,7 @@ import Cookies from "cookies";
 import { QueueStore } from "@/store/queue/QueueStore";
 import BrowserCookies from "browser-cookies";
 import { modEnableCondition } from "@/components/MatchmakingOption/utils";
-import {getLobbyTypePriority} from "@/util/getLobbyTypePriority";
+import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -80,8 +80,6 @@ const NotificationSetting = observer(() => {
     </Button>
   );
 });
-
-
 
 const ModeList = observer(
   ({ modes }: Omit<Props, "@party" | "@defaultModes">) => {

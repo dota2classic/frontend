@@ -3,10 +3,14 @@ export type ItemDataEntry = {
   item_name: string;
   description: string;
   name: string;
+  cooldown?: number;
+  cost?: number;
+  recipe?: boolean;
+  notes: string[];
+  specials: string[];
 };
 export const ItemData: ItemDataEntry[] = [
   {
-    idx: 0,
     item_name: "item_blink",
     description:
       "Активируемая: Blink — телепортирует к указанной точке на расстоянии до 1200 единиц. Если вы получите урон, то не сможете использовать Blink Dagger в течение 3 сек.",
@@ -22,7 +26,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1,
   },
   {
-    idx: 1,
     item_name: "item_blades_of_attack",
     description: " ",
     name: "Blades of Attack",
@@ -33,7 +36,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 2,
   },
   {
-    idx: 2,
     item_name: "item_broadsword",
     description: " ",
     name: "Broadsword",
@@ -44,7 +46,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 3,
   },
   {
-    idx: 3,
     item_name: "item_chainmail",
     description: " ",
     name: "Chainmail",
@@ -55,7 +56,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 4,
   },
   {
-    idx: 4,
     item_name: "item_claymore",
     description: " ",
     name: "Claymore",
@@ -66,7 +66,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 5,
   },
   {
-    idx: 5,
     item_name: "item_helm_of_iron_will",
     description: " ",
     name: "Helm of Iron Will",
@@ -77,7 +76,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 6,
   },
   {
-    idx: 6,
     item_name: "item_javelin",
     description:
       "Пассивная: Pierce — дает шанс нанести дополнительный урон при каждой атаке.",
@@ -89,7 +87,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 7,
   },
   {
-    idx: 7,
     item_name: "item_mithril_hammer",
     description: " ",
     name: "Mithril Hammer",
@@ -100,7 +97,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 8,
   },
   {
-    idx: 8,
     item_name: "item_platemail",
     description: " ",
     name: "Platemail",
@@ -111,7 +107,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 9,
   },
   {
-    idx: 9,
     item_name: "item_quarterstaff",
     description: " ",
     name: "Quarterstaff",
@@ -122,7 +117,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 10,
   },
   {
-    idx: 10,
     item_name: "item_quelling_blade",
     description:
       "Активируемая: Chop Tree/Ward — уничтожает выбранное дерево или вард. Дальность использования больше, если цель способности — вард.\nПассивная: Quell — увеличивает урон от атак по юнитам, не являющимися героями, в зависимости от типа атаки владельца. Не увеличивает урон по Рошану.",
@@ -140,7 +134,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 11,
   },
   {
-    idx: 11,
     item_name: "item_ring_of_protection",
     description: " ",
     name: "Ring of Protection",
@@ -151,7 +144,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 12,
   },
   {
-    idx: 12,
     item_name: "item_stout_shield",
     description:
       "Пассивная: Damage Block — дает шанс заблокировать урон в зависимости от типа атаки вашего героя.",
@@ -167,7 +159,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 182,
   },
   {
-    idx: 13,
     item_name: "item_recipe_moon_shard",
     description: "",
     name: "Рецепт Moon Shard",
@@ -178,7 +169,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 247,
   },
   {
-    idx: 14,
     item_name: "item_moon_shard",
     description:
       "Использование: поглощает Moon Shard и навсегда увеличивает скорость атаки на 60. Повторное использование невозможно.\nПассивная: Shade Sight - увеличивает радиус обзора ночью на 250.",
@@ -194,7 +184,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 247,
   },
   {
-    idx: 15,
     item_name: "item_gauntlets",
     description: " ",
     name: "Gauntlets of Strength",
@@ -205,7 +194,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 13,
   },
   {
-    idx: 16,
     item_name: "item_slippers",
     description: " ",
     name: "Slippers of Agility",
@@ -216,7 +204,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 14,
   },
   {
-    idx: 17,
     item_name: "item_mantle",
     description: " ",
     name: "Mantle of Intelligence",
@@ -227,7 +214,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 15,
   },
   {
-    idx: 18,
     item_name: "item_branches",
     description: "  ",
     name: "Iron Branch",
@@ -238,7 +224,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 16,
   },
   {
-    idx: 19,
     item_name: "item_belt_of_strength",
     description: " ",
     name: "Belt of Strength",
@@ -249,7 +234,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 17,
   },
   {
-    idx: 20,
     item_name: "item_boots_of_elves",
     description: " ",
     name: "Band of Elvenskin",
@@ -260,7 +244,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 18,
   },
   {
-    idx: 21,
     item_name: "item_robe",
     description: " ",
     name: "Robe of the Magi",
@@ -271,7 +254,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 19,
   },
   {
-    idx: 22,
     item_name: "item_circlet",
     description: " ",
     name: "Circlet",
@@ -282,7 +264,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 20,
   },
   {
-    idx: 23,
     item_name: "item_ogre_axe",
     description: " ",
     name: "Ogre Club",
@@ -293,7 +274,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 21,
   },
   {
-    idx: 24,
     item_name: "item_blade_of_alacrity",
     description: " ",
     name: "Blade of Alacrity",
@@ -304,7 +284,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 22,
   },
   {
-    idx: 25,
     item_name: "item_staff_of_wizardry",
     description: " ",
     name: "Staff of Wizardry",
@@ -315,7 +294,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 23,
   },
   {
-    idx: 26,
     item_name: "item_ultimate_orb",
     description: " ",
     name: "Ultimate Orb",
@@ -326,7 +304,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 24,
   },
   {
-    idx: 27,
     item_name: "item_gloves",
     description: "  ",
     name: "Gloves of Haste",
@@ -337,7 +314,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 25,
   },
   {
-    idx: 28,
     item_name: "item_lifesteal",
     description:
       "Пассивная: Lifesteal — дает владельцу вампиризм, который с каждой атакой восстанавливает его здоровье на часть нанесенного урона.\n\nMorbid Mask — уникальный модификатор атаки, он не будет сочетаться с другими уникальными модификаторами атаки.",
@@ -349,7 +325,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 26,
   },
   {
-    idx: 29,
     item_name: "item_ring_of_regen",
     description: " ",
     name: "Ring of Regen",
@@ -360,7 +335,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 27,
   },
   {
-    idx: 30,
     item_name: "item_sobi_mask",
     description: " ",
     name: "Sage's Mask",
@@ -371,7 +345,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 28,
   },
   {
-    idx: 31,
     item_name: "item_boots",
     description:
       "Основные бонусы к скорости передвижения от нескольких пар ботинок не складываются.",
@@ -383,7 +356,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 29,
   },
   {
-    idx: 32,
     item_name: "item_gem",
     description:
       "Пассивная: True Sight — дает носителю и его союзникам возможность видеть невидимых юнитов и варды в определенном радиусе.\nВыпадает при смерти и не может быть уничтожен.",
@@ -395,7 +367,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 30,
   },
   {
-    idx: 33,
     item_name: "item_cloak",
     description: "",
     name: "Cloak",
@@ -408,7 +379,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 31,
   },
   {
-    idx: 34,
     item_name: "item_talisman_of_evasion",
     description:
       "Сочетается по закону убывающей полезности с другими источниками уклонения.",
@@ -420,7 +390,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 32,
   },
   {
-    idx: 35,
     item_name: "item_cheese",
     description:
       "Использование: исчезает и мгновенно восстанавливает здоровье и ману.",
@@ -433,7 +402,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 33,
   },
   {
-    idx: 36,
     item_name: "item_magic_stick",
     description:
       "Активируемая: Energy Charge — восстанавливает здоровье и ману в зависимости от количества имеющихся зарядов (максимум: 10). За каждое использование способности врагом, который видим и находится неподалеку, добавляется один заряд.",
@@ -449,7 +417,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 34,
   },
   {
-    idx: 37,
     item_name: "item_recipe_magic_wand",
     description: "",
     name: "Рецепт Magic Wand",
@@ -460,7 +427,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 35,
   },
   {
-    idx: 38,
     item_name: "item_magic_wand",
     description:
       "Активируемая: Energy Charge — восстанавливает здоровье и ману в зависимости от количества имеющихся зарядов (максимум: 17). За каждое использование способности врагом, который видим и находится неподалеку, добавляется один заряд.",
@@ -476,7 +442,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 36,
   },
   {
-    idx: 39,
     item_name: "item_ghost",
     description:
       "Активируемая: Ghost Form — придает бесплотную форму, в которой герой полностью защищен от физического урона, но получает на 40%% больше урона от заклинаний и теряет возможность атаковать.\nИспользование Town Portal Scroll или Boots of Travel не развеивает бесплотную форму.",
@@ -492,7 +457,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 37,
   },
   {
-    idx: 40,
     item_name: "item_clarity",
     description: "",
     name: "Clarity",
@@ -503,7 +467,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 38,
   },
   {
-    idx: 41,
     item_name: "item_enchanted_mango",
     description: "",
     name: "Enchanted Mango",
@@ -514,7 +477,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 216,
   },
   {
-    idx: 42,
     item_name: "item_flask",
     description: "",
     name: "Healing Salve",
@@ -525,7 +487,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 39,
   },
   {
-    idx: 43,
     item_name: "item_dust",
     description:
       "Использование: делает всех невидимых героев поблизости видимыми и замедляет их.",
@@ -540,7 +501,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 40,
   },
   {
-    idx: 44,
     item_name: "item_bottle",
     description:
       "Использование: теряет один заряд и постепенно восстанавливает цели здоровье и ману. Восстановление прекращается при получении урона. Пустую бутыль можно пополнить возле союзного фонтана. В ней также можете хранить руны для последующего использования. Спустя 2 минуты помещенная в бутыль руна задействуется сама. Если бутыль не полна, то несущий ее курьер передвигается на 30%% медленнее.\n\nЧтобы использовать бутыль на союзном герое, удерживайте клавишу Ctrl. Руны не передаются другим героям.",
@@ -558,7 +518,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 41,
   },
   {
-    idx: 45,
     item_name: "item_ward_observer",
     description:
       "Использование: устанавливает Observer Ward, невидимого стража, который дает обзор близлежащей местности. Действует 7 мин.\n\nЧтобы передать один Observer Ward союзному герою, удерживайте клавишу Ctrl.",
@@ -576,7 +535,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 42,
   },
   {
-    idx: 46,
     item_name: "item_ward_sentry",
     description:
       "Использование: устанавливает Sentry Ward, невидимого стража, который имеет способность True Sight, раскрывающую невидимых юнитов в близлежащей местности. Действует 4 мин.\n\nЧтобы передать один Sentry Ward союзному герою, удерживайте клавишу Ctrl.",
@@ -594,7 +552,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 43,
   },
   {
-    idx: 47,
     item_name: "item_recipe_ward_dispenser",
     description: "",
     name: "Рецепт Варды",
@@ -605,7 +562,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 218,
   },
   {
-    idx: 48,
     item_name: "item_ward_dispenser",
     description:
       "Нажмите дважды, чтобы сменить вид выбранного варда.\n\nИспользование: устанавливает выбранный вард в указанной местности. Observer Ward дает вашей команде обзор территории. Sentry Ward имеют True Sight — способность, раскрывающую невидимых юнитов и варды, если они попадают в обзор любого союзника.",
@@ -623,7 +579,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 218,
   },
   {
-    idx: 49,
     item_name: "item_tango",
     description:
       "Использование: съедает дерево или вард, постепенно восстанавливая здоровье.\n\nМожно использовать 4 раза. Используйте на союзном герое, чтобы дать ему один Tango.",
@@ -640,7 +595,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 44,
   },
   {
-    idx: 50,
     item_name: "item_tango_single",
     description:
       "Использование: съедает дерево или вард, постепенно восстанавливая здоровье.",
@@ -658,7 +612,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 241,
   },
   {
-    idx: 51,
     item_name: "item_courier",
     description:
       "Активируемая: Deploy Courier — создает существо, которое переносит вещи на вашу базу и обратно.",
@@ -670,7 +623,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 45,
   },
   {
-    idx: 52,
     item_name: "item_tpscroll",
     description:
       "Использование: телепортирует вас к выбранной союзной постройке. Двойное нажатие телепортирует вас к фонтану вашей команды.",
@@ -689,7 +641,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 46,
   },
   {
-    idx: 53,
     item_name: "item_recipe_travel_boots",
     description: "",
     name: "Рецепт Boots of Travel",
@@ -700,7 +651,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 47,
   },
   {
-    idx: 54,
     item_name: "item_recipe_travel_boots_2",
     description: "",
     name: "Рецепт Boots of Travel",
@@ -711,7 +661,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 220,
   },
   {
-    idx: 55,
     item_name: "item_travel_boots",
     description:
       "Активируемая: Teleport — телепортирует вас к дружественному юниту, не являющимся героем, или сооружению. Двойное нажатие телепортирует вас к фонтану вашей команды. Улучшение позволяет телепортироваться к союзным героям.\n\nОсновные бонусы к скорости передвижения от нескольких пар ботинок не складываются.",
@@ -724,7 +673,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 48,
   },
   {
-    idx: 56,
     item_name: "item_travel_boots_2",
     description:
       "Активируемая: Teleport — телепортирует вас к дружественному сооружению или юниту, включая героев. Двойное нажатие телепортирует вас к фонтану вашей команды.\n\nОсновные бонусы к скорости передвижения от нескольких пар ботинок не складываются.",
@@ -737,7 +685,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 220,
   },
   {
-    idx: 57,
     item_name: "item_recipe_phase_boots",
     description: "",
     name: "Рецепт Phase Boots",
@@ -748,7 +695,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 49,
   },
   {
-    idx: 58,
     item_name: "item_phase_boots",
     description:
       "Активируемая: Phase — увеличивает скорость передвижения и позволяет проходить сквозь юнитов. Сила эффекта зависит от типа атаки владельца. Эффект снимается преждевременно, если будет использован другой предмет или способность.\n\nОсновные бонусы к скорости передвижения от нескольких пар ботинок не складываются.",
@@ -768,7 +714,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 50,
   },
   {
-    idx: 59,
     item_name: "item_demon_edge",
     description: "  ",
     name: "Demon Edge",
@@ -779,7 +724,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 51,
   },
   {
-    idx: 60,
     item_name: "item_eagle",
     description: "  ",
     name: "Eaglesong",
@@ -790,7 +734,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 52,
   },
   {
-    idx: 61,
     item_name: "item_reaver",
     description: "  ",
     name: "Reaver",
@@ -801,7 +744,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 53,
   },
   {
-    idx: 62,
     item_name: "item_relic",
     description: "  ",
     name: "Sacred Relic",
@@ -812,7 +754,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 54,
   },
   {
-    idx: 63,
     item_name: "item_hyperstone",
     description: "  ",
     name: "Hyperstone",
@@ -823,7 +764,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 55,
   },
   {
-    idx: 64,
     item_name: "item_ring_of_health",
     description: "  ",
     name: "Ring of Health",
@@ -834,7 +774,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 56,
   },
   {
-    idx: 65,
     item_name: "item_void_stone",
     description: " ",
     name: "Void Stone",
@@ -845,7 +784,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 57,
   },
   {
-    idx: 66,
     item_name: "item_mystic_staff",
     description: "  ",
     name: "Mystic Staff",
@@ -856,7 +794,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 58,
   },
   {
-    idx: 67,
     item_name: "item_energy_booster",
     description: "  ",
     name: "Energy Booster",
@@ -867,7 +804,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 59,
   },
   {
-    idx: 68,
     item_name: "item_point_booster",
     description: "\r\n",
     name: "Point Booster",
@@ -878,7 +814,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 60,
   },
   {
-    idx: 69,
     item_name: "item_vitality_booster",
     description: " ",
     name: "Vitality Booster",
@@ -889,7 +824,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 61,
   },
   {
-    idx: 70,
     item_name: "item_recipe_power_treads",
     description: "",
     name: "Рецепт Power Treads",
@@ -900,7 +834,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 62,
   },
   {
-    idx: 71,
     item_name: "item_power_treads",
     description:
       "Активируемая: Switch Attribute — меняет значение выбранного параметра между силой, ловкостью и интеллектом.\n\nPower Treads могут быть собраны с помощью Belt of Strength, Band of Elvenskin или Robe of the Magi. Основные бонусы к скорости передвижения от нескольких пар ботинок не складываются. Бонусы к скорости атаки от нескольких Power Treads не складываются.",
@@ -917,7 +850,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 63,
   },
   {
-    idx: 72,
     item_name: "item_recipe_hand_of_midas",
     description: "",
     name: "Рецепт Hand of Midas",
@@ -928,7 +860,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 64,
   },
   {
-    idx: 73,
     item_name: "item_hand_of_midas",
     description:
       "Активируемая: Transmute — мгновенно убивает цель (не героя), давая 190 золота и в 2.5 раза больше опыта. Невозможно использовать на древних крипах.",
@@ -949,7 +880,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 65,
   },
   {
-    idx: 74,
     item_name: "item_recipe_oblivion_staff",
     description: "",
     name: "Рецепт Oblivion Staff",
@@ -960,7 +890,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 66,
   },
   {
-    idx: 75,
     item_name: "item_oblivion_staff",
     description: "  ",
     name: "Oblivion Staff",
@@ -976,7 +905,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 67,
   },
   {
-    idx: 76,
     item_name: "item_recipe_pers",
     description: "",
     name: "Рецепт Perseverance",
@@ -987,7 +915,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 68,
   },
   {
-    idx: 77,
     item_name: "item_pers",
     description: "  ",
     name: "Perseverance",
@@ -1002,7 +929,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 69,
   },
   {
-    idx: 78,
     item_name: "item_recipe_poor_mans_shield",
     description: "",
     name: "Рецепт Poor Man's Shield",
@@ -1013,7 +939,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 70,
   },
   {
-    idx: 79,
     item_name: "item_poor_mans_shield",
     description:
       "Пассивная: Damage Block — блокирует некоторое количество урона, наносимого физической атакой, в зависимости от типа атаки вашего героя. Poor Man's Shield всегда будет блокировать урон, наносимый вражескими героями, но урон от крипов блокируется с вероятностью в 53%%.",
@@ -1031,7 +956,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 71,
   },
   {
-    idx: 80,
     item_name: "item_recipe_bracer",
     description: "",
     name: "Рецепт Bracer",
@@ -1042,7 +966,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 72,
   },
   {
-    idx: 81,
     item_name: "item_bracer",
     description: "  ",
     name: "Bracer",
@@ -1053,7 +976,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 73,
   },
   {
-    idx: 82,
     item_name: "item_recipe_wraith_band",
     description: "",
     name: "Рецепт Wraith Band",
@@ -1064,7 +986,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 74,
   },
   {
-    idx: 83,
     item_name: "item_wraith_band",
     description: "  ",
     name: "Wraith Band",
@@ -1075,7 +996,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 75,
   },
   {
-    idx: 84,
     item_name: "item_recipe_null_talisman",
     description: "",
     name: "Рецепт Null Talisman",
@@ -1086,7 +1006,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 76,
   },
   {
-    idx: 85,
     item_name: "item_null_talisman",
     description: "  ",
     name: "Null Talisman",
@@ -1097,7 +1016,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 77,
   },
   {
-    idx: 86,
     item_name: "item_recipe_mekansm",
     description: "",
     name: "Рецепт Mekansm",
@@ -1108,7 +1026,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 78,
   },
   {
-    idx: 87,
     item_name: "item_mekansm",
     description:
       "Активируемая: Restore — восстанавливает 250 здоровья и дает +2 брони в радиусе 900 вокруг владельца.\nПассивная: Mekansm Aura — увеличивает скорость восстановления здоровья на 4 у союзников в радиусе 900 вокруг владельца.\n\nЭффекты от нескольких Mekansm Aura не складываются.",
@@ -1132,7 +1049,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 79,
   },
   {
-    idx: 88,
     item_name: "item_recipe_vladmir",
     description: "",
     name: "Рецепт Vladmir's Offering",
@@ -1143,7 +1059,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 80,
   },
   {
-    idx: 89,
     item_name: "item_vladmir",
     description:
       "Пассивная: Vladmir's Aura — дает эффект вампиризма, дополнительный урон и броню, а также усиливает восстановление здоровья и маны у всех союзников в радиусе 900. Эффект вампиризма Vladmir's Aura зависит от типа атаки героя.\n\nЭффекты от нескольких Vladmir's Aura не складываются.",
@@ -1166,7 +1081,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 81,
   },
   {
-    idx: 90,
     item_name: "item_flying_courier",
     description:
       "Улучшает вашего обычного курьера до летающего, позволяя ему пролетать над препятствиями и ускоряться, чтобы быстрее переносить ваши предметы.\n\nТребуется обычный курьер.",
@@ -1178,7 +1092,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 84,
   },
   {
-    idx: 91,
     item_name: "item_recipe_buckler",
     description: "",
     name: "Рецепт Buckler",
@@ -1189,7 +1102,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 85,
   },
   {
-    idx: 92,
     item_name: "item_buckler",
     description:
       "Активируемая: Armor Bonus — дает +2 к броне всем союзникам в радиусе 900. Действует 25 секунд на героях, 30 секунд на юнитах.",
@@ -1209,7 +1121,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 86,
   },
   {
-    idx: 93,
     item_name: "item_recipe_ring_of_basilius",
     description: "",
     name: "Рецепт Ring of Basilius",
@@ -1220,7 +1131,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 87,
   },
   {
-    idx: 94,
     item_name: "item_ring_of_basilius",
     description:
       "Пассивная: Basilius Aura — увеличивает скорость регенерации маны и броню в радиусе 900.\nАктивируемая: переключает действие ауры на юнитов, не являющихся героями.\n\nЭффекты от нескольких Basilius Aura не складываются.",
@@ -1240,7 +1150,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 88,
   },
   {
-    idx: 95,
     item_name: "item_recipe_pipe",
     description: "",
     name: "Рецепт Pipe of Insight",
@@ -1251,7 +1160,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 89,
   },
   {
-    idx: 96,
     item_name: "item_pipe",
     description:
       "Активируемая: Barrier — создает на себе и союзниках, находящихся в радиусе 900, магический барьер, блокирующий 400 магического урона.\nПассивная: Insight Aura — увеличивает скорость восстановления здоровья на 4 у союзников в радиусе 900 вокруг владельца и увеличивает их сопротивление магии на 10%%.",
@@ -1278,7 +1186,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 90,
   },
   {
-    idx: 97,
     item_name: "item_recipe_urn_of_shadows",
     description: "",
     name: "Рецепт Urn of Shadows",
@@ -1289,7 +1196,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 91,
   },
   {
-    idx: 98,
     item_name: "item_urn_of_shadows",
     description:
       "Активируемая: Soul Release — постепенно восстанавливает здоровье дружественным юнитам, либо наносит постепенный урон вражеским юнитам. Лечебный эффект утрачивается при получении юнитом урона от вражеского героя или башни.\nПолучает заряды каждый раз, когда вражеский герой умирает в радиусе 1400. Заряд получит только артефакт, ближайший к умирающему герою.",
@@ -1316,7 +1222,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 92,
   },
   {
-    idx: 99,
     item_name: "item_recipe_headdress",
     description: "",
     name: "Рецепт Headdress",
@@ -1327,7 +1232,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 93,
   },
   {
-    idx: 100,
     item_name: "item_headdress",
     description:
       "Пассивная: Regeneration Aura — постепенно восстанавливает здоровье всем союзникам в радиусе 900.\n\nЭффект нескольких одинаковых аур не складывается.",
@@ -1343,7 +1247,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 94,
   },
   {
-    idx: 101,
     item_name: "item_recipe_sheepstick",
     description: "",
     name: "Рецепт Scythe of Vyse",
@@ -1354,7 +1257,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 95,
   },
   {
-    idx: 102,
     item_name: "item_sheepstick",
     description:
       "Активируемая: Hex — превращает цель в безобидную зверушку на 3.5 сек. Мгновенно уничтожает иллюзии.",
@@ -1376,7 +1278,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 96,
   },
   {
-    idx: 103,
     item_name: "item_recipe_orchid",
     description: "",
     name: "Рецепт Orchid Malevolence",
@@ -1387,7 +1288,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 97,
   },
   {
-    idx: 104,
     item_name: "item_orchid",
     description:
       "Активируемая: Soul Burn — запрещает выбранной цели колдовать на 5 секунд и увеличивает наносимый ей урон на 30%%.",
@@ -1409,7 +1309,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 98,
   },
   {
-    idx: 105,
     item_name: "item_recipe_cyclone",
     description: "",
     name: "Рецепт Eul's Scepter of Divinity",
@@ -1420,7 +1319,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 99,
   },
   {
-    idx: 106,
     item_name: "item_cyclone",
     description:
       "Активируемая: Cyclone — подбрасывает выбранную цель ураганом в небо, делая ее неуязвимой на 2.5 сек. Можно использовать на себя. Если цель — враг, то по приземлении он получит 50 магического урона.",
@@ -1442,7 +1340,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 100,
   },
   {
-    idx: 107,
     item_name: "item_recipe_force_staff",
     description: "",
     name: "Рецепт Force Staff",
@@ -1453,7 +1350,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 101,
   },
   {
-    idx: 108,
     item_name: "item_force_staff",
     description:
       "Активируемая: Force — толкает любой выбранный юнит на расстояние в 600 в направлении его взгляда. При двойном нажатии мгновенно применяется на самого себя.",
@@ -1474,7 +1370,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 102,
   },
   {
-    idx: 109,
     item_name: "item_recipe_dagon",
     description: "",
     name: "Рецепт Dagon",
@@ -1485,7 +1380,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 103,
   },
   {
-    idx: 110,
     item_name: "item_recipe_dagon_2",
     description: "",
     name: "Рецепт Dagon",
@@ -1496,7 +1390,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 197,
   },
   {
-    idx: 111,
     item_name: "item_recipe_dagon_3",
     description: "",
     name: "Рецепт Dagon",
@@ -1507,7 +1400,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 198,
   },
   {
-    idx: 112,
     item_name: "item_recipe_dagon_4",
     description: "",
     name: "Рецепт Dagon",
@@ -1518,7 +1410,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 199,
   },
   {
-    idx: 113,
     item_name: "item_recipe_dagon_5",
     description: "",
     name: "Рецепт Dagon",
@@ -1529,7 +1420,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 200,
   },
   {
-    idx: 114,
     item_name: "item_dagon",
     description:
       "Активируемая: Energy Burst — выпускает мощный всплеск энергии, наносящий урон выбранному вражескому юниту. Улучшаемая.",
@@ -1547,7 +1437,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 104,
   },
   {
-    idx: 115,
     item_name: "item_dagon_2",
     description:
       "Активируемая: Energy Burst — выпускает мощный всплеск энергии, наносящий урон выбранному вражескому юниту. Улучшаемая.",
@@ -1565,7 +1454,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 201,
   },
   {
-    idx: 116,
     item_name: "item_dagon_3",
     description:
       "Активируемая: Energy Burst — выпускает мощный всплеск энергии, наносящий урон выбранному вражескому юниту. Улучшаемая.",
@@ -1583,7 +1471,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 202,
   },
   {
-    idx: 117,
     item_name: "item_dagon_4",
     description:
       "Активируемая: Energy Burst — выпускает мощный всплеск энергии, наносящий урон выбранному вражескому юниту. Улучшаемая.",
@@ -1601,7 +1488,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 203,
   },
   {
-    idx: 118,
     item_name: "item_dagon_5",
     description:
       "Активируемая: Energy Burst — выпускает мощный всплеск энергии, наносящий урон выбранному вражескому юниту.",
@@ -1619,7 +1505,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 204,
   },
   {
-    idx: 119,
     item_name: "item_recipe_necronomicon",
     description: "",
     name: "Рецепт Necronomicon",
@@ -1630,7 +1515,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 105,
   },
   {
-    idx: 120,
     item_name: "item_recipe_necronomicon_2",
     description: "",
     name: "Рецепт Necronomicon",
@@ -1641,7 +1525,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 191,
   },
   {
-    idx: 121,
     item_name: "item_recipe_necronomicon_3",
     description: "",
     name: "Рецепт Necronomicon",
@@ -1652,7 +1535,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 192,
   },
   {
-    idx: 122,
     item_name: "item_necronomicon",
     description:
       "Активируемая: Demonic Summoning — призывает на 40 сек. воина и лучника, сила и ловкость которых увеличиваются вместе с уровнем Necronomicon. Воин третьего уровня способен раскрывать невидимых юнитов. Можно улучшить.",
@@ -1680,7 +1562,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 106,
   },
   {
-    idx: 123,
     item_name: "item_necronomicon_2",
     description:
       "Активируемая: Demonic Summoning — призывает на 40 сек. воина и лучника, сила и ловкость которых увеличиваются вместе с уровнем Necronomicon. Воин третьего уровня способен раскрывать невидимых юнитов. Можно улучшить.",
@@ -1708,7 +1589,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 193,
   },
   {
-    idx: 124,
     item_name: "item_necronomicon_3",
     description:
       "Активируемая: Demonic Summoning — призывает на 40 сек. воина и лучника, сила и ловкость которых увеличиваются вместе с уровнем Necronomicon. Воин третьего уровня способен раскрывать невидимых юнитов.",
@@ -1736,7 +1616,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 194,
   },
   {
-    idx: 125,
     item_name: "item_recipe_ultimate_scepter",
     description: "",
     name: "Рецепт Aghanim's Scepter",
@@ -1747,7 +1626,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 107,
   },
   {
-    idx: 126,
     item_name: "item_ultimate_scepter",
     description:
       "Пассивная: Ultimate Upgrade — улучшает ульт, а также некоторые способности части героев.",
@@ -1759,7 +1637,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 108,
   },
   {
-    idx: 127,
     item_name: "item_recipe_refresher",
     description: "",
     name: "Рецепт Refresher Orb",
@@ -1770,7 +1647,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 109,
   },
   {
-    idx: 128,
     item_name: "item_refresher",
     description:
       "Активируемая: Reset Cooldowns — сбрасывает время перезарядки всех ваших предметов и способностей.",
@@ -1787,7 +1663,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 110,
   },
   {
-    idx: 129,
     item_name: "item_recipe_assault",
     description: "",
     name: "Рецепт Assault Cuirass",
@@ -1798,7 +1673,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 111,
   },
   {
-    idx: 130,
     item_name: "item_assault",
     description:
       "Пассивная: Assault Aura — увеличивает скорость атаки и броню союзникам, при этом снижая броню вражеским юнитам поблизости.\n\nЭффект от нескольких Assault of Aura не складывается.",
@@ -1817,7 +1691,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 112,
   },
   {
-    idx: 131,
     item_name: "item_recipe_heart",
     description: "",
     name: "Рецепт Heart of Tarrasque",
@@ -1828,7 +1701,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 113,
   },
   {
-    idx: 132,
     item_name: "item_heart",
     description:
       "Пассивная: Health Regeneration — восстанавливает определенный процент максимального здоровья в секунду. Если владелец получит урон от вражеского героя или Рошана, способность отключается на 5 сек. для героев ближнего боя, или на 7 сек. для героев дальнего боя.",
@@ -1847,7 +1719,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 114,
   },
   {
-    idx: 133,
     item_name: "item_recipe_black_king_bar",
     description: "",
     name: "Рецепт Black King Bar",
@@ -1858,7 +1729,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 115,
   },
   {
-    idx: 134,
     item_name: "item_black_king_bar",
     description:
       "Активируемая: Avatar — дает невосприимчивость к заклинаниям и полное сопротивление магическому урону. Продолжительность и время перезарядки уменьшаются с каждым использованием. Некоторые способности могут проходить сквозь невосприимчивость к заклинаниям.",
@@ -1873,7 +1743,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 116,
   },
   {
-    idx: 135,
     item_name: "item_aegis",
     description:
       "Пассивная: Reincarnation — возвращает вас к жизни с полными здоровьем и маной через 5 секунд после вашей смерти на том же месте, где вы погибли. Должно быть использовано в течение 5 минут, иначе Aegis of the Immortal исчезнет. Если это случилось, то оно полностью излечит вас в течение 5 секунд (эффект спадает при получении урона).",
@@ -1885,7 +1754,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 117,
   },
   {
-    idx: 136,
     item_name: "item_recipe_shivas_guard",
     description: "",
     name: "Рецепт Shiva's Guard",
@@ -1896,7 +1764,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 118,
   },
   {
-    idx: 137,
     item_name: "item_shivas_guard",
     description:
       "Активируемая: Arctic Blast — выпускает замораживающую волну, которая наносит 200 урона противникам и снижает их скорость передвижения на -40%% на 4 сек.\nПассивная: Freezing Aura — снижает скорость атаки противников в радиусе 900.\n\nЭффекты от нескольких Freezing Aura не складываются.",
@@ -1921,7 +1788,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 119,
   },
   {
-    idx: 138,
     item_name: "item_recipe_bloodstone",
     description: "",
     name: "Рецепт Bloodstone",
@@ -1932,7 +1798,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 120,
   },
   {
-    idx: 139,
     item_name: "item_bloodstone",
     description:
       "Активная: Pocket Deny — мгновенно убивает вас.\nПассивная: Bloodpact — изначально имеет 8 зарядов и получает 1 дополнительный заряд каждый раз, когда в радиусе 1675 умирает вражеский герой. Каждый заряд увеличивает регенерацию маны на 1 и уменьшает время возрождения на 3 сек. Если владелец Bloodstone умирает, предмет потеряет треть зарядов и восстановит 500 здоровья + 30 здоровья за каждый заряд всем союзникам в радиусе 1675.",
@@ -1956,7 +1821,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 121,
   },
   {
-    idx: 140,
     item_name: "item_recipe_sphere",
     description: "",
     name: "Рецепт Linken's Sphere",
@@ -1967,7 +1831,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 122,
   },
   {
-    idx: 141,
     item_name: "item_sphere",
     description:
       "Пассивная: Spellblock — блокирует большинство направленных заклинаний каждые 16 сек.\nАктивируемая: Transfer Spellblock — временно снимает пассивный эффект с носителя и передает его выбранному союзнику.",
@@ -1986,7 +1849,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 123,
   },
   {
-    idx: 142,
     item_name: "item_recipe_lotus_orb",
     description: "",
     name: "Рецепт Lotus Orb",
@@ -1997,7 +1859,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 226,
   },
   {
-    idx: 143,
     item_name: "item_lotus_orb",
     description:
       "Активируемая: Echo Shell - создает вокруг цели щит, отражающий большинство направленных заклинаний обратно во врага. Вражеские заклинания всё равно будут наносить урон. При применении рассеивает все негативные эффекты.",
@@ -2017,7 +1878,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 226,
   },
   {
-    idx: 144,
     item_name: "item_recipe_vanguard",
     description: "",
     name: "Рецепт Vanguard",
@@ -2028,7 +1888,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 124,
   },
   {
-    idx: 145,
     item_name: "item_vanguard",
     description:
       "Пассивная: Damage Block — дает владельцу шанс отразить часть урона от каждой атаки в зависимости от типа атаки вашего героя.",
@@ -2046,7 +1905,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 125,
   },
   {
-    idx: 146,
     item_name: "item_recipe_crimson_guard",
     description: "",
     name: "Рецепт Crimson Guard",
@@ -2057,7 +1915,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 242,
   },
   {
-    idx: 147,
     item_name: "item_crimson_guard",
     description:
       "Активируемая: Guard — дает героям поблизости 2 брони и 100%% шанс заблокировать 55 урона от каждой атаки. Длится 10 секунд.\nПассивная: Damage Block — дает носителю шанс заблокировать урон от каждой атаки, зависящий от типа атаки владельца.",
@@ -2086,7 +1943,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 242,
   },
   {
-    idx: 148,
     item_name: "item_recipe_blade_mail",
     description: "",
     name: "Рецепт Blade Mail",
@@ -2097,7 +1953,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 126,
   },
   {
-    idx: 149,
     item_name: "item_blade_mail",
     description:
       "Активируемая: Damage Return — отражает любой получаемый урон наносящему его врагу в течение 4.5 сек.",
@@ -2119,7 +1974,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 127,
   },
   {
-    idx: 150,
     item_name: "item_recipe_soul_booster",
     description: "",
     name: "Рецепт Soul Booster",
@@ -2130,7 +1984,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 128,
   },
   {
-    idx: 151,
     item_name: "item_soul_booster",
     description: "  ",
     name: "Soul Booster",
@@ -2146,7 +1999,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 129,
   },
   {
-    idx: 152,
     item_name: "item_recipe_hood_of_defiance",
     description: "",
     name: "Рецепт Hood of Defiance",
@@ -2157,7 +2009,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 130,
   },
   {
-    idx: 153,
     item_name: "item_hood_of_defiance",
     description: "",
     name: "Hood of Defiance",
@@ -2170,7 +2021,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 131,
   },
   {
-    idx: 154,
     item_name: "item_recipe_rapier",
     description: "",
     name: "Рецепт Divine Rapier",
@@ -2181,7 +2031,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 132,
   },
   {
-    idx: 155,
     item_name: "item_rapier",
     description:
       "Выпадает при смерти. Если союзник подобрал этот артефакт, то он теряет свои свойства, пока его не вернут бывшему владельцу. Если его подберет враг, это правило отменяется, позволяя кому угодно получить бонусы от подобранной Divine Rapier. Курьер не может подобрать этот артефакт, если он выпал при смерти.",
@@ -2195,7 +2044,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 133,
   },
   {
-    idx: 156,
     item_name: "item_recipe_monkey_king_bar",
     description: "",
     name: "Рецепт Monkey King Bar",
@@ -2206,7 +2054,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 134,
   },
   {
-    idx: 157,
     item_name: "item_monkey_king_bar",
     description:
       "Пассивная: Mini-Bash — дает шанс нанести дополнительный урон и кратковременно оглушить цель при каждой атаке.\nПассивная: True Strike — исключает шанс промаха при атаке, если только целью не является вражеская постройка.",
@@ -2224,7 +2071,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 135,
   },
   {
-    idx: 158,
     item_name: "item_recipe_radiance",
     description: "",
     name: "Рецепт Radiance",
@@ -2235,7 +2081,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 136,
   },
   {
-    idx: 159,
     item_name: "item_radiance",
     description:
       "Активируемая: Toggle Burn — когда включено, каждую секунду наносит 50 урона противникам и ослепляет их, вынуждая промахиваться в 17%% случаев.",
@@ -2252,7 +2097,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 137,
   },
   {
-    idx: 160,
     item_name: "item_recipe_butterfly",
     description: "",
     name: "Рецепт Butterfly",
@@ -2263,7 +2107,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 138,
   },
   {
-    idx: 161,
     item_name: "item_butterfly",
     description:
       "Активируемая: Flutter — обменивает шанс уклонения на 25%% дополнительной скорости в течение 6 секунд.\n\nСочетается по закону убывающей полезности с другими источниками уклонения.",
@@ -2283,7 +2126,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 139,
   },
   {
-    idx: 162,
     item_name: "item_recipe_greater_crit",
     description: "",
     name: "Рецепт Daedalus",
@@ -2294,7 +2136,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 140,
   },
   {
-    idx: 163,
     item_name: "item_greater_crit",
     description:
       "Пассивная: Critical Strike — дает шанс нанести дополнительный урон при каждой атаке. Строениям дополнительный урон не наносится.",
@@ -2306,7 +2147,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 141,
   },
   {
-    idx: 164,
     item_name: "item_recipe_basher",
     description: "",
     name: "Рецепт Skull Basher",
@@ -2317,7 +2157,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 142,
   },
   {
-    idx: 165,
     item_name: "item_basher",
     description:
       "Пассивная: Bash — дает каждой атаке шанс оглушить цель на 1.4 сек. и нанести 60 дополнительного урона; шанс зависит от типа атаки владельца.",
@@ -2341,7 +2180,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 143,
   },
   {
-    idx: 166,
     item_name: "item_recipe_bfury",
     description: "",
     name: "Рецепт Battle Fury",
@@ -2352,7 +2190,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 144,
   },
   {
-    idx: 167,
     item_name: "item_bfury",
     description:
       "Активируемая: Chop Tree/Ward — уничтожает выбранное дерево или вард. Дальность использования больше, если цель способности — вард.\nПассивная: Quell — увеличивает урон от атак по юнитам, не являющимися героями, в зависимости от типа атаки владельца. Не увеличивает урон по Рошану.\nПассивная: Cleave — наносит процент от урона всем врагам в радиусе 280 единиц вокруг цели атаки. Не работает на героях с дальней атакой.",
@@ -2379,7 +2216,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 145,
   },
   {
-    idx: 168,
     item_name: "item_recipe_manta",
     description: "",
     name: "Рецепт Manta Style",
@@ -2390,7 +2226,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 146,
   },
   {
-    idx: 169,
     item_name: "item_manta",
     description:
       "Активируемая: Mirror Image — создает 2 зеркальные копии вашего героя, которые существуют 20 сек. Время перезарядки способности зависит от типа атаки владельца: 30 сек. для героев ближнего боя и 45 сек. для героев дальнего боя.\n\nИллюзии героев ближнего боя наносят 33%% урона и получают 350%% урона, а иллюзии героев дальнего боя наносят 28%% урона и получают 400%% урона.\n\nБонусы к скорости передвижения от нескольких предметов на основе Yasha не складываются.",
@@ -2421,7 +2256,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 147,
   },
   {
-    idx: 170,
     item_name: "item_recipe_lesser_crit",
     description: "",
     name: "Рецепт Crystalys",
@@ -2432,7 +2266,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 148,
   },
   {
-    idx: 171,
     item_name: "item_lesser_crit",
     description:
       "Пассивная: Critical Strike — дает шанс нанести дополнительный урон при каждой атаке. Строениям дополнительный урон не наносится.",
@@ -2444,7 +2277,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 149,
   },
   {
-    idx: 172,
     item_name: "item_recipe_armlet",
     description: "",
     name: "Рецепт Armlet of Mordiggian",
@@ -2455,7 +2287,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 150,
   },
   {
-    idx: 173,
     item_name: "item_armlet",
     description:
       "Активируемая: Unholy Strength — на время действия увеличивает урон на 31 и силу на 25, но отнимает 40 здоровья в секунду. Вы не можете умереть ни от потери здоровья во время действия способности, ни от спада бонуса к силе после ее отключения.",
@@ -2481,7 +2312,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 151,
   },
   {
-    idx: 174,
     item_name: "item_recipe_invis_sword",
     description: "",
     name: "Рецепт Shadow Blade",
@@ -2492,7 +2322,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 183,
   },
   {
-    idx: 175,
     item_name: "item_invis_sword",
     description:
       "Активируемая: Shadow Walk — делает вас невидимым на время действия или до момента вашей атаки или использования заклинания. Пока Shadow Walk активна, вы движетесь на 20%% быстрее и можете проходить сквозь юнитов. Атака, раскрывающая невидимость, нанесет 175 дополнительного урона. Длится 14 секунд.",
@@ -2514,7 +2343,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 152,
   },
   {
-    idx: 176,
     item_name: "item_recipe_silver_edge",
     description: "",
     name: "Рецепт Silver Edge",
@@ -2525,7 +2353,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 249,
   },
   {
-    idx: 177,
     item_name: "item_silver_edge",
     description:
       "Активируемая: Shadow Walk — делает вас невидимым на время действия или до момента вашей атаки или использования заклинания. Пока Shadow Walk активна, вы движетесь на 20%% быстрее и можете проходить сквозь юнитов. Атака, раскрывающая невидимость, нанесет 225 дополнительного урона, отключит пассивные способности цели и уменьшит весь наносимый ею урон.\nПассивная: Lesser Maim — каждая атака получает шанс нанести травму, уменьшающую скорость передвижения и атаки врага на 4 сек.",
@@ -2552,7 +2379,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 249,
   },
   {
-    idx: 178,
     item_name: "item_recipe_sange_and_yasha",
     description: "",
     name: "Рецепт Sange and Yasha",
@@ -2563,7 +2389,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 153,
   },
   {
-    idx: 179,
     item_name: "item_sange_and_yasha",
     description:
       "Пассивная: Greater Maim — каждая атака получает шанс нанести травму, уменьшающую скорость передвижения и атаки врага на 5 сек.\n\nПроцентная прибавка к скорости передвижения от нескольких предметов на основе Yasha не суммируется.",
@@ -2585,7 +2410,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 154,
   },
   {
-    idx: 180,
     item_name: "item_recipe_satanic",
     description: "",
     name: "Рецепт Satanic",
@@ -2596,7 +2420,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 155,
   },
   {
-    idx: 181,
     item_name: "item_satanic",
     description:
       "Активируемая: Unholy Rage — увеличивает эффект Lifesteal до 200%% на 4 сек.\nПассивная: Lifesteal — дает владельцу вампиризм, который с каждой атакой восстанавливает его здоровье на часть нанесенного урона.\n\nSatanic — уникальный модификатор атаки, он не будет сочетаться с другими уникальными модификаторами атаки.",
@@ -2617,7 +2440,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 156,
   },
   {
-    idx: 182,
     item_name: "item_recipe_mjollnir",
     description: "",
     name: "Рецепт Mjollnir",
@@ -2628,7 +2450,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 157,
   },
   {
-    idx: 183,
     item_name: "item_mjollnir",
     description:
       "Активируемая: Static Charge — устанавливает на выбранном юните заряженный щит, который имеет шанс в 20%% ударить разрядом атакующего врага и 4 других.\nПассивная: Chain Lightning — дает шанс при атаке создать разряд цепной молнии, которая скакнет по 12 целям и нанесет каждой по 150 магического урона.\n\nMjollnir — уникальный модификатор атаки, который сочетается с другими уникальными модификаторами атаки, но будет перекрывать их в момент срабатывания молнии.",
@@ -2659,7 +2480,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 158,
   },
   {
-    idx: 184,
     item_name: "item_recipe_skadi",
     description: "",
     name: "Рецепт Eye of Skadi",
@@ -2670,7 +2490,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 159,
   },
   {
-    idx: 185,
     item_name: "item_skadi",
     description:
       "Пассивная: Cold Attack — каждая атака замедляет скорость передвижения и атаки цели. Длительность эффекта зависит от типа атаки владельца.\n\nEye of Skadi — уникальный модификатор атаки, он не будет сочетаться с другими уникальными модификаторами атаки. Eye of Skadi сочетается с модификаторами атаки, дарующими вампиризм.",
@@ -2692,7 +2511,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 160,
   },
   {
-    idx: 186,
     item_name: "item_recipe_sange",
     description: "",
     name: "Рецепт Sange",
@@ -2703,7 +2521,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 161,
   },
   {
-    idx: 187,
     item_name: "item_sange",
     description:
       "Пассивная: Lesser Maim — каждая атака получает шанс нанести травму, уменьшающую скорость передвижения и атаки врага на 4 сек.",
@@ -2722,7 +2539,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 162,
   },
   {
-    idx: 188,
     item_name: "item_recipe_helm_of_the_dominator",
     description: "",
     name: "Рецепт Helm of the Dominator",
@@ -2733,7 +2549,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 163,
   },
   {
-    idx: 189,
     item_name: "item_helm_of_the_dominator",
     description:
       "Активируемая: Dominate — дает контроль над выбранным существом, не являющимся ни героем, ни древним крипом. Запас здоровья прирученного существа увеличивается до указанного минимума.\nПассивная: Lifesteal — дает владельцу вампиризм, который с каждой атакой восстанавливает его здоровье на часть нанесенного урона.\n\nHelm of the Dominator — уникальный модификатор атаки, он не будет сочетаться с другими уникальными модификаторами атаки.",
@@ -2755,7 +2570,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 164,
   },
   {
-    idx: 190,
     item_name: "item_recipe_maelstrom",
     description: "",
     name: "Рецепт Maelstrom",
@@ -2766,7 +2580,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 165,
   },
   {
-    idx: 191,
     item_name: "item_maelstrom",
     description:
       "Пассивная: Chain Lightning — дает шанс при атаке создать разряд цепной молнии, которая скакнет по 4 целям и нанесет каждой по 120 магического урона.\n\nMaelstrom — уникальный модификатор атаки, который сочетается с другими уникальными модификаторами атаки, но будет перекрывать их в момент срабатывания молнии.",
@@ -2785,7 +2598,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 166,
   },
   {
-    idx: 192,
     item_name: "item_recipe_desolator",
     description: "",
     name: "Рецепт Desolator",
@@ -2796,7 +2608,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 167,
   },
   {
-    idx: 193,
     item_name: "item_desolator",
     description:
       "Пассивная: Corruption — ваши атаки уменьшают броню цели на 15 секунд.\n\nDesolator — уникальный модификатор атаки, он не будет сочетаться с другими уникальными модификаторами атаки.",
@@ -2808,7 +2619,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 168,
   },
   {
-    idx: 194,
     item_name: "item_recipe_yasha",
     description: "",
     name: "Рецепт Yasha",
@@ -2819,7 +2629,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 169,
   },
   {
-    idx: 195,
     item_name: "item_yasha",
     description:
       "Процентные бонусы к скорости от нескольких предметов на основе Yasha не складываются.",
@@ -2835,7 +2644,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 170,
   },
   {
-    idx: 196,
     item_name: "item_recipe_mask_of_madness",
     description: "",
     name: "Рецепт Mask of Madness",
@@ -2846,7 +2654,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 171,
   },
   {
-    idx: 197,
     item_name: "item_mask_of_madness",
     description:
       "Активируемая: Berserk — дает 100 к скорости атаки и 17%% к скорости передвижения, но заставляет получать на 30%% больше урона. Длится 12 сек.\nПассивная: Lifesteal — дает владельцу вампиризм, который с каждой атакой восстанавливает его здоровье на часть нанесенного урона.\n\nMask of Madness — уникальный модификатор атаки, он не будет сочетаться с другими уникальными модификаторами атаки.",
@@ -2865,7 +2672,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 172,
   },
   {
-    idx: 198,
     item_name: "item_recipe_diffusal_blade",
     description: "",
     name: "Рецепт Diffusal Blade",
@@ -2876,7 +2682,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 173,
   },
   {
-    idx: 199,
     item_name: "item_recipe_diffusal_blade_2",
     description: "",
     name: "Рецепт Diffusal Blade",
@@ -2887,7 +2692,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 195,
   },
   {
-    idx: 200,
     item_name: "item_diffusal_blade",
     description:
       "Активируемая: Purge — снимает положительные эффекты и замедляет противника на 4 сек. или снимает отрицательные эффекты с союзника.\nПассивная: Manabreak — каждая ваша атака сжигает 25 маны врага и наносит ему такое же количество физического урона. Иллюзии героев дальнего боя сжигают по 12 маны за атаку. Не складывается с другими способностями, сжигающими ману.\n\nМожно улучшить.",
@@ -2908,7 +2712,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 174,
   },
   {
-    idx: 201,
     item_name: "item_diffusal_blade_2",
     description:
       "Активируемая: Purge — снимает положительные эффекты и замедляет противника на 4 сек. или снимает отрицательные эффекты с союзника.\nПассивная: Manabreak — каждая ваша атака сжигает 25 маны врага и наносит ему такое же количество физического урона. Иллюзии героев дальнего боя сжигают по 12 маны за атаку. Не складывается с другими способностями, сжигающими ману.",
@@ -2929,7 +2732,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 196,
   },
   {
-    idx: 202,
     item_name: "item_recipe_ethereal_blade",
     description: "",
     name: "Рецепт Ethereal Blade",
@@ -2940,7 +2742,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 175,
   },
   {
-    idx: 203,
     item_name: "item_ethereal_blade",
     description:
       "Активируемая: Ether Blast — выпускает снаряд, который придает вашей цели бесплотную форму. В этой форме цель не может атаковать, получает повышенный магический урон, но полностью защищена от физического урона. При применении на противника тот будет замедлен и получит магический урон в размере 2х вашего основного атрибута +75 ед.\nИспользование Town Portal Scroll или Boots of Travel не развеивает бесплотную форму.",
@@ -2968,7 +2769,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 176,
   },
   {
-    idx: 204,
     item_name: "item_recipe_soul_ring",
     description: "",
     name: "Рецепт Soul Ring",
@@ -2979,7 +2779,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 177,
   },
   {
-    idx: 205,
     item_name: "item_soul_ring",
     description:
       "Активируемая: Sacrifice — переводит 150 ед. вашего здоровья в 150 ед. маны. Действует 10 секунд.",
@@ -3000,7 +2799,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 178,
   },
   {
-    idx: 206,
     item_name: "item_recipe_arcane_boots",
     description: "",
     name: "Рецепт Arcane Boots",
@@ -3011,7 +2809,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 179,
   },
   {
-    idx: 207,
     item_name: "item_arcane_boots",
     description:
       "Активируемая: Replenish Mana — восстанавливает ману всем союзникам в радиусе 900 вокруг героя.\n\nОсновные бонусы к скорости передвижения от нескольких пар ботинок не складываются.",
@@ -3029,7 +2826,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 180,
   },
   {
-    idx: 208,
     item_name: "item_recipe_octarine_core",
     description: "",
     name: "Рецепт Octarine Core",
@@ -3040,7 +2836,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 235,
   },
   {
-    idx: 209,
     item_name: "item_octarine_core",
     description:
       "Пассивная: Cooldown Reduction - уменьшает время перезарядки всех способностей и предметов на 25%%.\nПассивная: Spell Lifesteal - дает магический вампиризм, который восстанавливает здоровье в размере доли от нанесенного способностями урона.",
@@ -3061,7 +2856,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 235,
   },
   {
-    idx: 210,
     item_name: "item_orb_of_venom",
     description:
       "Пассивная: Poison Attack — отравляет цель, нанося периодический урон и снижая скорость передвижения в зависимости от типа атаки вашего героя.\n\nOrb of Venom — уникальный модификатор атаки, он не будет сочетаться с другими уникальными модификаторами атаки. Orb of Venom сочетается с модификаторами атаки, дарующими вампиризм.",
@@ -3078,7 +2872,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 181,
   },
   {
-    idx: 211,
     item_name: "item_recipe_ancient_janggo",
     description: "",
     name: "Рецепт Drum of Endurance",
@@ -3089,7 +2882,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 184,
   },
   {
-    idx: 212,
     item_name: "item_ancient_janggo",
     description:
       "Активируемая: Endurance — дает +25 к скорости атаки и +10%% к скорости передвижения союзников в радиусе 900.\nПассивная: Swiftness Aura — увеличивает скорость атаки и передвижения союзников в радиусе 900.\n\nЭффекты нескольких Swiftness Aura не складываются.",
@@ -3111,7 +2903,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 185,
   },
   {
-    idx: 213,
     item_name: "item_recipe_medallion_of_courage",
     description: "",
     name: "Рецепт Medallion of Courage",
@@ -3122,7 +2913,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 186,
   },
   {
-    idx: 214,
     item_name: "item_medallion_of_courage",
     description:
       "Активируемая: Valor — при использовании на союзника увеличивает его броню и снижает вашу. При использовании на противника снижает броню и у вас, и у цели. Не действует на невосприимчивых к магии. Действует на Roshan вполсилы.",
@@ -3141,7 +2931,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 187,
   },
   {
-    idx: 215,
     item_name: "item_recipe_solar_crest",
     description: "",
     name: "Рецепт Solar Crest",
@@ -3152,7 +2941,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 229,
   },
   {
-    idx: 216,
     item_name: "item_solar_crest",
     description:
       "Активируемая: Shine - временно убирает у владельца дополнительную броню и шанс уклонения, даруемые этим предметом. При использовании на союзнике увеличивает ему броню на 10 и дает шанс уклонения в 25%%. При использовании на противнике уменьшает его броню на 10 и ослепляет, заставляя его промахиваться атаками в 25%% случаев. Не действует на невосприимчивых к магии. Действует на Roshan вполсилы.",
@@ -3175,7 +2963,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 229,
   },
   {
-    idx: 217,
     item_name: "item_smoke_of_deceit",
     description:
       "Использование: после активации ваш герой и все союзники, которые находятся поблизости, становятся невидимыми и получают дополнительную скорость передвижения на короткое время. Также ваши иконки не будут отображаться на мини-карте. При атаке или приближении к вражеским героям или башням в радиусе 1025 невидимость теряется.",
@@ -3188,7 +2975,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 188,
   },
   {
-    idx: 218,
     item_name: "item_recipe_veil_of_discord",
     description: "",
     name: "Рецепт Veil of Discord",
@@ -3199,7 +2985,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 189,
   },
   {
-    idx: 219,
     item_name: "item_veil_of_discord",
     description:
       "Активируемая: Magic Weakness — ослабляет врагов, увеличивая магический урон, наносимый им, в течение 16 секунд.",
@@ -3220,7 +3005,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 190,
   },
   {
-    idx: 220,
     item_name: "item_recipe_guardian_greaves",
     description: "",
     name: "Рецепт Guardian Greaves",
@@ -3231,7 +3015,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 231,
   },
   {
-    idx: 221,
     item_name: "item_guardian_greaves",
     description:
       "Активируемая: Mend - восстанавливает 250 здоровья и 160 маны всем окружающим союзникам, а также рассеивает большинство отрицательных эффектов на владельце.\nПассивная: Guardian Aura - дарует окружающим союзникам +4 к восстановлению здоровья и +2 к броне. Если в радиусе действия есть союзный герой, уровень здоровья которого ниже 20%%, то для него восстановление здоровья увеличивается до 15, а броня — до 15.",
@@ -3258,7 +3041,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 231,
   },
   {
-    idx: 222,
     item_name: "item_recipe_rod_of_atos",
     description: "",
     name: "Рецепт Rod of Atos",
@@ -3269,7 +3051,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 205,
   },
   {
-    idx: 223,
     item_name: "item_rod_of_atos",
     description: "Активируемая: Cripple — снижает скорость передвижения цели.",
     name: "Rod of Atos",
@@ -3289,7 +3070,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 206,
   },
   {
-    idx: 224,
     item_name: "item_recipe_abyssal_blade",
     description: "",
     name: "Рецепт Abyssal Blade",
@@ -3300,7 +3080,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 207,
   },
   {
-    idx: 225,
     item_name: "item_abyssal_blade",
     description:
       "Активируемая: Overwhelm — оглушает выбранного противника на 2 сек. Проходит сквозь невосприимчивость к заклинаниям.\nПассивная: Bash — дает каждой атаке шанс оглушить противника на 1.4 сек. и нанести 60 дополнительного урона; шанс зависит от типа атаки владельца.",
@@ -3326,7 +3105,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 208,
   },
   {
-    idx: 226,
     item_name: "item_recipe_heavens_halberd",
     description: "",
     name: "Рецепт Heaven's Halberd",
@@ -3337,7 +3115,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 209,
   },
   {
-    idx: 227,
     item_name: "item_heavens_halberd",
     description:
       "Активируемая: Disarm — запрещает цели атаковать. Длится 3 сек. при использовании на героях ближнего боя и 4.5 на героях дальнего боя.\nПассивная: Lesser Maim — каждая атака получает шанс нанести травму, уменьшающую скорость передвижения и атаки врага на  4 сек.\n\nСочетается по закону убывающей полезности с другими источниками уклонения.",
@@ -3361,7 +3138,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 210,
   },
   {
-    idx: 228,
     item_name: "item_recipe_ring_of_aquila",
     description: "",
     name: "Рецепт Ring of Aquila",
@@ -3372,7 +3148,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 211,
   },
   {
-    idx: 229,
     item_name: "item_ring_of_aquila",
     description:
       "Пассивная: Aquila Aura — увеличивает броню и скорость регенерации маны в радиусе 900.\nАктивируемая: переключает действие ауры на юнитов, не являющихся героями.\n\nЭффекты от нескольких Aquila Aura не складываются.",
@@ -3395,7 +3170,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 212,
   },
   {
-    idx: 230,
     item_name: "item_recipe_tranquil_boots",
     description: "",
     name: "Рецепт Tranquil Boots",
@@ -3406,7 +3180,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 213,
   },
   {
-    idx: 231,
     item_name: "item_tranquil_boots",
     description:
       "Пассивная: Break — Tranquil Boots теряют регенерацию здоровья и 30 скорости передвижения на 13 секунд, если владелец атаковал или атакован.",
@@ -3426,7 +3199,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 214,
   },
   {
-    idx: 232,
     item_name: "item_shadow_amulet",
     description:
       "Активируемая: Fade — делает вас или союзника невидимым спустя 1.5 сек. Передвижение снимает невидимость. Применение на себя не включает перезарядку.",
@@ -3439,7 +3211,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 215,
   },
   {
-    idx: 233,
     item_name: "item_recipe_glimmer_cape",
     description: "",
     name: "Рецепт Glimmer Cape",
@@ -3450,7 +3221,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 254,
   },
   {
-    idx: 234,
     item_name: "item_glimmer_cape",
     description:
       "Активируемая: Glimmer - делает вас или союзника невидимым спустя 0.6 сек., а также дает цели 45%% к сопротивлению магии. Можно использовать во время произнесения заклинаний.",
@@ -3469,7 +3239,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 254,
   },
   {
-    idx: 235,
     item_name: "item_halloween_candy_corn",
     description:
       "Использование: вы можете положить леденец в свою тыкву, чтобы все герои на карте получили золото и опыт, или можете пожертвовать его разъяренному от голода Roshan. Команда, набравшая больше леденцов, получит приз! Когда вы несете леденец, ваше максимальное здоровье снижается.",
@@ -3481,7 +3250,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1000,
   },
   {
-    idx: 236,
     item_name: "item_mystery_hook",
     description: "",
     name: "item_mystery_hook",
@@ -3498,7 +3266,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1001,
   },
   {
-    idx: 237,
     item_name: "item_mystery_arrow",
     description: "",
     name: "item_mystery_arrow",
@@ -3517,7 +3284,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1002,
   },
   {
-    idx: 238,
     item_name: "item_mystery_missile",
     description: "",
     name: "item_mystery_missile",
@@ -3539,7 +3305,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1003,
   },
   {
-    idx: 239,
     item_name: "item_mystery_toss",
     description: "",
     name: "item_mystery_toss",
@@ -3559,7 +3324,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1004,
   },
   {
-    idx: 240,
     item_name: "item_mystery_vacuum",
     description: "",
     name: "item_mystery_vacuum",
@@ -3571,7 +3335,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1005,
   },
   {
-    idx: 241,
     item_name: "item_halloween_rapier",
     description: "",
     name: "item_halloween_rapier",
@@ -3582,7 +3345,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1006,
   },
   {
-    idx: 242,
     item_name: "item_greevil_whistle",
     description:
       "Используйте свисток, чтобы временно превратиться в вашего грявола!",
@@ -3595,7 +3357,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1007,
   },
   {
-    idx: 243,
     item_name: "item_greevil_whistle_toggle",
     description:
       "Используйте свисток, чтобы переключаться между гряволом и героем!",
@@ -3608,7 +3369,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1008,
   },
   {
-    idx: 244,
     item_name: "item_present",
     description: "",
     name: "A Gift!",
@@ -3619,7 +3379,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1009,
   },
   {
-    idx: 245,
     item_name: "item_winter_stocking",
     description: "Использование: загляните в носок, чтобы получить подарки!",
     name: "item_winter_stocking",
@@ -3630,7 +3389,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1010,
   },
   {
-    idx: 246,
     item_name: "item_winter_skates",
     description:
       "Повышают скорость передвижения на 100 единиц. Помогают устоять на льду. Для лучшего результата используйте короткие пути!",
@@ -3642,7 +3400,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1011,
   },
   {
-    idx: 247,
     item_name: "item_winter_cake",
     description:
       "Используйте кекс, чтобы восстановить 400 ед. здоровья и 50 ед. маны за 8 секунд",
@@ -3654,7 +3411,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1012,
   },
   {
-    idx: 248,
     item_name: "item_winter_cookie",
     description:
       "Используйте печенье, чтобы восстановить 350 ед. здоровья и 100 ед. маны за 11 секунд",
@@ -3666,7 +3422,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1013,
   },
   {
-    idx: 249,
     item_name: "item_winter_coco",
     description:
       "Используйте какао, чтобы восстановить 300 ед. здоровья и 150 ед. маны за 14 секунд",
@@ -3678,7 +3433,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1014,
   },
   {
-    idx: 250,
     item_name: "item_winter_ham",
     description:
       "Используйте ветчину, чтобы восстановить 300 ед. здоровья и 75 ед. маны за 2 секунды",
@@ -3690,7 +3444,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1015,
   },
   {
-    idx: 251,
     item_name: "item_winter_kringle",
     description:
       "Используйте крендель, чтобы восстановить 250 ед. здоровья и 200 ед. маны за 17 секунд",
@@ -3702,7 +3455,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1016,
   },
   {
-    idx: 252,
     item_name: "item_winter_mushroom",
     description: "Обновляет все способности грявола.",
     name: "item_winter_mushroom",
@@ -3713,7 +3465,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1017,
   },
   {
-    idx: 253,
     item_name: "item_winter_greevil_treat",
     description:
       "Ваш грявол передвигается на максимальной скорости в течение 10 секунд.",
@@ -3725,7 +3476,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1018,
   },
   {
-    idx: 254,
     item_name: "item_winter_greevil_garbage",
     description:
       "Используйте лакомство, чтобы восстановить гряволу 400 ед. здоровья и 150 ед. маны за 5 секунд.",
@@ -3737,7 +3487,6 @@ export const ItemData: ItemDataEntry[] = [
     id: 1019,
   },
   {
-    idx: 255,
     item_name: "item_winter_greevil_chewy",
     description: "Спустя 2 секунды грявол появляется в новом месте.",
     name: "item_winter_greevil_chewy",

@@ -127,7 +127,7 @@ export default function GenericMentionPlugin<T>({
   );
 
   return (
-    <LexicalTypeaheadMenuPlugin<MentionSelectionListItem>
+    <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption<T>>
       onQueryChange={setQueryString}
       onSelectOption={onSelectOption}
       triggerFn={checkForMentionMatch}

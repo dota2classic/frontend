@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { RichEditor } from "..";
 import { BlogpostDto, UploadedImageDto } from "@/api/back";
 import { useDebounce, useLocalStorage } from "react-use";
-import { SerializedEditorState } from "lexical/LexicalEditorState";
+import { SerializedEditorState } from "lexical";
 import { getApi } from "@/api/hooks";
 import {
   Button,

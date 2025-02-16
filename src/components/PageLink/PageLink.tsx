@@ -5,7 +5,7 @@ import Link from "next/link";
 interface IPageLinkProps {
   link: NextLinkProp;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   testId?: string;
   style?: CSSProperties;
 }

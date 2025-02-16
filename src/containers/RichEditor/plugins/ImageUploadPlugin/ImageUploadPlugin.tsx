@@ -8,60 +8,23 @@ import React, {
   useState,
   useTransition,
 } from "react";
-import { getApi } from "@/api/hooks";
 import { createPortal } from "react-dom";
-import { observer, useLocalObservable } from "mobx-react-lite";
-import { observable, runInAction } from "mobx";
+import { observer } from "mobx-react-lite";
 import { UploadedImageDto } from "@/api/back";
 import { ImageGalleryModal } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageGalleryModal";
 import { GenericTooltip } from "@/components";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $insertNodes } from "lexical";
 import { $createImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
+import { useStore } from "@/store";
 
-class UploadStore {
-  @observable
-  gallery: UploadedImageDto[] = [];
-
-  @observable
-  contToken: string | undefined = undefined;
-
-  constructor() {
-    this.loadMore();
-  }
-
-  loadMore = () => {
-    return getApi()
-      .storageApi.storageControllerGetUploadedFiles(this.contToken)
-      .then((data) =>
-        runInAction(() => {
-          this.gallery.push(...data.items);
-          this.contToken = data.ctoken;
-        }),
-      );
-  };
-
-  uploadImage = async (file: File) => {
-    try {
-      const uploadResult =
-        await getApi().storageApi.storageControllerUploadImage(file);
-      runInAction(() => {
-        this.gallery.push(uploadResult);
-      });
-      return uploadResult;
-    } catch (e) {
-      return undefined;
-    }
-  };
-}
-
-export default observer(function ImageUploadPlugin() {
+const ImageUploadPlugin = observer(function ImageUploadPlugin() {
   const [editor] = useLexicalComposerContext();
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLButtonElement | null>(null);
   const [isUploading, startUploading] = useTransition();
 
-  const store = useLocalObservable(() => new UploadStore());
+  const { image: store } = useStore();
 
   const onSelectImage = useCallback(
     (img: UploadedImageDto) => {
@@ -98,8 +61,10 @@ export default observer(function ImageUploadPlugin() {
 
   useEffect(() => {
     const listener = function (evt: ClipboardEvent) {
+      if (!evt.clipboardData) return;
       const clipboardItems = evt.clipboardData.items;
-      const items = [].slice.call(clipboardItems).filter(function (item) {
+
+      const items = Array.from(clipboardItems).filter(function (item) {
         // Filter the image items only
         return /^image\//.test(item.type);
       });
@@ -109,6 +74,7 @@ export default observer(function ImageUploadPlugin() {
 
       const item = items[0];
       const blob = item.getAsFile();
+      if (!blob) return;
       uploadFile(blob);
     };
     document.addEventListener("paste", listener);
@@ -163,3 +129,5 @@ export default observer(function ImageUploadPlugin() {
     </>
   );
 });
+
+export default ImageUploadPlugin;
