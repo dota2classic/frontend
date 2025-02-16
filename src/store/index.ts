@@ -10,6 +10,7 @@ import { NotificationStore } from "@/store/NotificationStore";
 import { UserCacheStore } from "@/store/UserCacheStore";
 import { ThreadsStore } from "@/store/ThreadsStore";
 import { GreedyFocusStore } from "@/store/GreedyFocusStore";
+import { ImageStore } from "@/store/ImageStore";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -37,6 +38,7 @@ function createStore(): RootStore {
     user: ucache,
     threads,
     greedyFocus: new GreedyFocusStore(),
+    image: new ImageStore(),
   };
 }
 export const __unsafeGetClientStore = () => clientStore;
@@ -76,6 +78,7 @@ export interface RootStore {
   notify: NotificationStore;
   threads: ThreadsStore;
   greedyFocus: GreedyFocusStore;
+  image: ImageStore;
 }
 
 export function useStore(): RootStore {

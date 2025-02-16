@@ -2,6 +2,7 @@ import {
   AdminApi,
   AdminFeedbackApi,
   AuthApi,
+  BlogApi,
   FeedbackApi,
   ForumApi,
   LiveApi,
@@ -11,6 +12,7 @@ import {
   NotificationApi,
   PlayerApi,
   StatsApi,
+  StorageApi,
 } from "./back/apis";
 import {
   Configuration,
@@ -126,6 +128,8 @@ export class AppApi {
   readonly feedback = new FeedbackApi(this.apiConfig);
   readonly adminFeedback = new AdminFeedbackApi(this.apiConfig);
   readonly notificationApi = new NotificationApi(this.apiConfig);
+  readonly storageApi = new StorageApi(this.apiConfig);
+  readonly blog = new BlogApi(this.apiConfig);
 }
 
 export const appApi = new AppApi();

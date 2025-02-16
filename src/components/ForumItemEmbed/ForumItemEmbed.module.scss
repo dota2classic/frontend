@@ -1,0 +1,22 @@
+@import "../../common.scss";
+.heroEmbed {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  vertical-align: bottom;
+  margin-inline-start: 2px;
+  margin-inline-end: 2px;
+
+  & img {
+    height: 1em !important;
+    width: auto !important;
+  }
+
+  & a,
+  span {
+    margin-left: 6px;
+    text-transform: capitalize;
+    white-space: nowrap;
+    font-size: 1em !important;
+  }
+}

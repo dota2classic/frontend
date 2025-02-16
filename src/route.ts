@@ -56,7 +56,15 @@ export const AppRouter = {
   donate: spage("/donate"),
   download: spage("/download"),
   stats: spage("/stats/leaderboard"),
-  blog: spage("/blog"),
+  blog: {
+    index: spage("/blog"),
+    create: spage("/blog/create"),
+    post: (id: number, edit: boolean = false) => {
+      if (edit) return page("/blog/[id]/edit", `/blog/${id}/edit`);
+
+      return page("/blog/[id]", `/blog/${id}`);
+    },
+  },
   queue: spage("/queue"),
   queueGuide: spage("/queue/guide"),
   leaderboard: spage("/stats/leaderboard"),

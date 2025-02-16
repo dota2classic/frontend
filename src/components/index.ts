@@ -82,3 +82,8 @@ export { MessageReactionsTooltip } from "./MessageReactionsTooltip/MessageReacti
 export { Checkbox } from "./Checkbox/Checkbox";
 export { GenericToast } from "./Toast/GenericToast";
 export { ThreadsTable } from "./ThreadsTable/ThreadsTable";
+export { ForumHeroEmbed } from "./ForumHeroEmbed/ForumHeroEmbed";
+export { ForumItemEmbed } from "./ForumItemEmbed/ForumItemEmbed";
+export { ImagePickerUploader } from "./ImagePickerUploader/ImagePickerUploader";
+export { CarouselItem } from "./CarouselItem/CarouselItem";
+export { Carousel } from "./Carousel/Carousel";

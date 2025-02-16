@@ -1,18 +1,20 @@
-import React, { PropsWithChildren } from "react";
+import React, { CSSProperties, PropsWithChildren } from "react";
 import { NextLinkProp } from "@/route";
 import Link from "next/link";
 
 interface IPageLinkProps {
   link: NextLinkProp;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   testId?: string;
+  style?: CSSProperties;
 }
 
 export const PageLink: React.FC<PropsWithChildren<IPageLinkProps>> = React.memo(
   function PageLink(props) {
     return (
       <Link
+        style={props.style}
         className={props.className}
         href={props.link.href}
         as={props.link.as}

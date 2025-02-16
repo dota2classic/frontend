@@ -1,0 +1,18 @@
+@import "../../common.scss";
+
+
+.carousel {
+  position: relative;
+  min-height: 308px;
+  z-index: 100;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 2rem;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    width: 100vw;
+  }
+}

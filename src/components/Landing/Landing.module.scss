@@ -4,7 +4,8 @@
   width: 100%;
   top: -1px;
   z-index: -2;
-  opacity: 0.5;
+  filter: brightness(0.5);
+  display: flex;
 
   & video {
     z-index: -2;
@@ -28,31 +29,19 @@
   position: relative;
 }
 
-.longtext {
-  font-size: 20px;
-  line-height: 28px;
+.middleBlock {
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
 }
 
-.intent {
-  & h3 {
-    font-size: 24px;
-    @media (max-width: 600px) {
-      font-size: 20px;
-      margin-left: 10px;
-    }
-  }
+.newsMore {
+  display: flex;
+  flex-direction: row;
+  padding: 16px 0px;
+  gap: 16px;
 
-  & ol {
-    font-size: 20px;
-    @media (max-width: 600px) {
-      font-size: 16px;
-    }
-    & li {
-      margin-top: 10px;
-      padding-right: 12px;
-      line-height: 140%;
-    }
-  }
+  font-size: 1.4em;
 }
 
 .leadingIntent {
@@ -60,8 +49,7 @@
   top: 0;
   z-index: 5;
   height: 100%;
-  width: fit-content;
-  //max-width: 60%;
+  width: 100%;
   padding-left: 10%;
   display: flex;
   flex-direction: column;
@@ -73,6 +61,12 @@
 
   & p {
     padding-right: 20px;
+    max-width: 60%;
+
+    @media (max-width: 600px) {
+      font-size: 14px;
+      max-width: 80%;
+    }
   }
 
   @media (max-width: 600px) {
@@ -81,14 +75,52 @@
 
   & h1 {
     margin-top: 6rem;
-    font-size: 4rem;
+    font-size: 6rem;
+
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+
+    @media (max-width: 1400px) {
+      font-size: 5rem;
+    }
+
+    @media (max-height: 71200px) {
+      font-size: 4rem;
+      margin-top: 3rem;
+    }
+
     @media (max-width: 600px) {
       font-size: 2rem;
       margin-top: 4rem;
+    }
 
-      @media (max-height: 700px) {
-        font-size: 1.5rem;
-      }
+    @media (max-height: 700px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  & h2 {
+    margin-top: 30%;
+    font-size: 4.2rem;
+    line-height: 5.2rem;
+
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+
+    max-width: 80%;
+
+    @media (max-width: 1600px) {
+      margin-top: 24%;
+    }
+
+    @media (max-width: 1400px) {
+      margin-top: 24%;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 1.4rem;
+      line-height: 1.6rem;
+      margin-block-start: 1.4rem;
     }
   }
 }
@@ -134,135 +166,6 @@
   opacity: 0.6;
 }
 
-.carousel {
-  width: 1200px;
-  max-width: 100%;
-  position: relative;
-  min-height: 308px;
-  margin: 20px auto 65px;
-  z-index: 100;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-    width: 100vw;
-  }
-
-  &__stat {
-    min-height: 150px;
-    margin: 60px auto 65px;
-  }
-
-  & a + a,
-  & .stat + .stat {
-    margin-left: 30px;
-    @media (max-width: 600px) {
-      margin-left: 0;
-    }
-  }
-
-  & .stat {
-    padding: 12px;
-    flex: 1;
-    text-align: center;
-
-    background-color: $bg2;
-    box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
-    display: block;
-
-    & dd:first-child {
-      text-decoration: underline;
-      text-decoration-color: $primaryTextDark;
-    }
-
-    & dt {
-      font-size: 16px;
-    }
-
-    & dd {
-      font-size: 1.2rem;
-      margin-inline-start: 0;
-      margin-block-start: 1em;
-      margin-bottom: 8px;
-    }
-  }
-
-  & a {
-    width: 400px;
-    height: 245px;
-    justify-items: center;
-    position: relative;
-    overflow: hidden;
-
-    @media (max-width: 600px) {
-      width: unset;
-    }
-
-    &:hover {
-      & img {
-        filter: brightness(0.2);
-      }
-    }
-
-    & h3 {
-      position: absolute;
-      bottom: 20px;
-      left: 0;
-      right: 0;
-      margin: auto;
-      width: fit-content;
-    }
-
-    & img {
-      width: 100%;
-      transition: 0.3s ease;
-      position: absolute;
-      filter: brightness(0.5);
-      left: 0;
-      bottom: 0;
-      top: 0;
-      right: 0;
-      object-fit: cover;
-      z-index: -1;
-    }
-  }
-}
-
-.wow {
-  position: absolute;
-  top: 0;
-  margin-top: 200px;
-  color: $primaryTextHighlight;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  line-height: 145%;
-  font-size: 1.6rem;
-  text-align: center;
-
-  @media (max-width: 600px) {
-    margin-top: 0;
-    font-size: 1.2rem;
-  }
-
-  & h2 {
-    font-size: 2.2rem;
-    @media (max-width: 600px) {
-      font-size: 1.4rem;
-    }
-  }
-
-  & div {
-    margin-top: 82px;
-    @media (max-width: 600px) {
-      margin-top: 0px;
-      font-size: 1rem;
-      line-height: 140%;
-    }
-  }
-}
-
 .panel {
   margin-top: 20px;
   padding: 8px 12px;
@@ -288,7 +191,46 @@
   }
 }
 
-
 .telegram {
   margin-top: 40px;
+  @media (max-width: 600px) {
+    margin-top: 0px;
+  }
+}
+
+.carouselBlock {
+  height: 0px;
+  transform: translateY(-80px);
+  z-index: 100;
+
+  @media (max-width: 1400px) {
+    transform: translateY(-50px);
+  }
+
+  @media (max-width: 600px) {
+    height: 200px;
+    transform: translateY(0);
+  }
+}
+
+.playBottom {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  width: 100%;
+  padding-left: 10%;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+}
+
+.liveMatchPreview {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+}
+
+.liveMatchCarouselItem {
+  grid-column: span 1;
+  height: 300px;
 }

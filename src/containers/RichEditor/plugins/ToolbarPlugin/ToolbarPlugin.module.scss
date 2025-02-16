@@ -1,0 +1,118 @@
+@import "../../../../common.scss";
+
+.toolbar {
+  display: flex;
+  margin-bottom: 1px;
+  //background: #fff;
+  background-color: $bg2;
+  padding: 4px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  vertical-align: middle;
+}
+
+.toolbarItem {
+  border: 0;
+  display: flex;
+  background: none;
+  padding: 8px;
+  cursor: pointer;
+  vertical-align: middle;
+  outline: none;
+  border: none;
+  color: $primaryText;
+  &:hover {
+    background-color: $transparentTint;
+  }
+}
+
+.toolbar-item:disabled {
+  cursor: not-allowed;
+}
+
+.toolbar-item.spaced {
+  margin-right: 2px;
+}
+
+.toolbar-item svg.format {
+  background-size: contain;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  margin-top: 2px;
+  vertical-align: -0.25em;
+  display: flex;
+  opacity: 0.6;
+}
+
+.toolbar-item:disabled i.format {
+  opacity: 0.2;
+}
+
+.active {
+  //background-color: $primaryTextSemiDark;
+}
+
+.toolbar-item.active svg {
+  opacity: 1;
+}
+
+.toolbar-item:hover:not([disabled]) {
+  background-color: #eee;
+}
+
+.divider {
+  width: 1px;
+  background-color: $bg1;
+  margin: 0 4px;
+}
+
+.toolbar-item .text {
+  display: flex;
+  line-height: 20px;
+  width: 200px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #777;
+  text-overflow: ellipsis;
+  width: 70px;
+  overflow: hidden;
+  height: 20px;
+  text-align: left;
+}
+
+.toolbar-item svg {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  user-select: none;
+  margin-right: 8px;
+  line-height: 16px;
+  background-size: contain;
+}
+
+.hiddenInput {
+  //width: 0.1px;
+  //height: 0.1px;
+  //opacity: 0;
+  //overflow: hidden;
+  //position: absolute;
+  //z-index: -1;
+  display: none;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.uploadFileAnimation {
+  animation-name: spin;
+  animation-duration: 2000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
