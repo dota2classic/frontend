@@ -14,7 +14,7 @@ export const RecentPostsCarousel: React.FC<Props> = ({ recentPosts }) => {
     <div className={cx(c.carouselBlock, c.middleBlock)}>
       <div className={c.newsMore}>
         <header>Новости</header>
-        <PageLink link={AppRouter.index.link}>Посмотреть все</PageLink>
+        <PageLink link={AppRouter.blog.index.link}>Посмотреть все</PageLink>
       </div>
       <Carousel>
         {recentPosts.map((it) => (
