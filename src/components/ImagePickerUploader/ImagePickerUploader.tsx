@@ -55,25 +55,6 @@ export const ImagePickerUploader: React.FC<IImagePickerUploaderProps> = ({
     [uploadFile],
   );
 
-  useEffect(() => {
-    const listener = function (evt: ClipboardEvent) {
-      const clipboardItems = evt.clipboardData.items;
-      const items = [].slice.call(clipboardItems).filter(function (item) {
-        // Filter the image items only
-        return /^image\//.test(item.type);
-      });
-      if (items.length === 0) {
-        return;
-      }
-
-      const item = items[0];
-      const blob = item.getAsFile();
-      uploadFile(blob);
-    };
-    document.addEventListener("paste", listener);
-    return () => document.removeEventListener("paste", listener);
-  }, [uploadFile]);
-
   return (
     <div className={c.buttons}>
       {visible &&

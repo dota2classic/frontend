@@ -24,7 +24,7 @@ export class ImageNode extends TextNode {
   }
 
   constructor(src: string, key?: NodeKey) {
-    super(src, key);
+    super("1", key);
 
     this.__src = src;
   }

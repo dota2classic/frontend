@@ -7,14 +7,14 @@ import { SerializedEditorState } from "lexical/LexicalEditorState";
 import { getApi } from "@/api/hooks";
 import {
   Button,
+  CarouselItem,
   ImagePickerUploader,
   Input,
   MarkdownTextarea,
 } from "@/components";
 import { useRouter } from "next/router";
 import { AppRouter } from "@/route";
-import { CarouselItem } from "@/components/Landing/CarouselItem";
-import { Carousel } from "@/components/Landing/Carousel";
+import { Carousel } from "@/components";
 import c from "./BlogEditContainer.module.scss";
 
 interface IBlogEditContainerProps {

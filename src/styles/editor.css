@@ -201,6 +201,7 @@
   margin: 0;
   margin-bottom: 8px;
   position: relative;
+  line-height: 1.2em;
 }
 
 .editor-paragraph:last-child {
