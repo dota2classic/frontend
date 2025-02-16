@@ -8,9 +8,9 @@ import {
   ItemIconRaw,
   KDABarChart,
   PageLink,
-  PlayerAvatar,
   Table,
   TableRowLoading,
+  UserPreview,
 } from "..";
 import { AppRouter, NextLinkProp } from "@/route";
 import heroName, { itemName } from "@/util/heroName";
@@ -104,28 +104,11 @@ const ColRenderer: React.FC<{
   if (type === ColumnType.Player) {
     return (
       <td className={col.mobileOmit ? "omit" : undefined}>
-        <div
-          className={c.player}
-          style={col.maxWidth ? { maxWidth: col.maxWidth } : undefined}
-        >
-          <PlayerAvatar
-            width={40}
-            height={40}
-            className={c.avatar}
-            src={value.avatarSmall || "/avatar.png"}
-            alt={`Avatar of player ${value.name}`}
-          />
-          <PageLink
-            className="link"
-            link={
-              col.link
-                ? col.link(data)
-                : AppRouter.players.player.index(value.steamId).link
-            }
-          >
-            {Number(value.steamId) > 10 ? value.name : "Бот"}
-          </PageLink>
-        </div>
+        <UserPreview
+          avatarSize={40}
+          user={value}
+          link={col.link ? col.link(data) : undefined}
+        />
       </td>
     );
   } else if (type === ColumnType.Hero) {

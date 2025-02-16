@@ -7,10 +7,8 @@ import { FaMapPin, FaUser } from "react-icons/fa";
 import { SiDota2 } from "react-icons/si";
 import { FaMessage } from "react-icons/fa6";
 import c from "./ThreadsTable.module.scss";
-import { PageLink } from "@/components";
+import { PageLink, UserPreview } from "@/components";
 import { AppRouter } from "@/route";
-import TableClasses from "@/components/GenericTable/GenericTable.module.scss";
-import Image from "next/image";
 import cx from "clsx";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { ThreadMessagePreview } from "@/components/ThreadsTable/ThreadMessagePreview";
@@ -60,23 +58,7 @@ export const ThreadTableRow = observer(
         </td>
         <td className="omit">{thread.views}</td>
         <td className="omit">
-          {op && (
-            <PageLink
-              link={AppRouter.players.player.index(op.steamId).link}
-              className={TableClasses.player}
-            >
-              <Image
-                width={30}
-                height={30}
-                className={TableClasses.avatar__small}
-                src={op.avatar || "/avatar.png"}
-                alt=""
-              />
-              <div style={{ marginLeft: 6 }}>
-                {Number(op.steamId) > 10 ? op.name : "Бот"}
-              </div>
-            </PageLink>
-          )}
+          {op && <UserPreview avatarSize={30} user={op} />}
         </td>
         <td>
           {thread.lastMessage && (

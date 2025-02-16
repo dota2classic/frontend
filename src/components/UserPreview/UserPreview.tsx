@@ -4,7 +4,7 @@ import { PageLink } from "..";
 
 import c from "./UserPreview.module.scss";
 import { UserDTO } from "@/api/back";
-import { AppRouter } from "@/route";
+import { AppRouter, NextLinkProp } from "@/route";
 import Image from "next/image";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
@@ -16,6 +16,7 @@ interface IUserPreviewProps {
   avatarSize?: number;
   nolink?: boolean;
   className?: string;
+  link?: NextLinkProp;
 }
 
 type DivProps = React.DetailedHTMLProps<
@@ -24,7 +25,7 @@ type DivProps = React.DetailedHTMLProps<
 >;
 
 export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
-  ({ user, avatarSize, nolink, className, ...props }) => {
+  ({ user, avatarSize, nolink, className, link, ...props }) => {
     const { queue } = useStore();
     const isOnline = computed(
       () => queue.online.findIndex((x) => x === user.steamId) !== -1,
@@ -32,7 +33,10 @@ export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
 
     return (
       <div {...props} className={cx(c.user, className)}>
-        <picture className={isOnline ? c.online : undefined}>
+        <picture
+          className={isOnline ? c.online : undefined}
+          style={{ width: avatarSize || 45, height: avatarSize || 45 }}
+        >
           <Image
             width={avatarSize || 45}
             height={avatarSize || 45}
@@ -45,9 +49,9 @@ export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
         ) : (
           <PageLink
             className={"link"}
-            link={AppRouter.players.player.index(user.steamId).link}
+            link={link || AppRouter.players.player.index(user.steamId).link}
           >
-            {user.name}
+            {Number(user.steamId) > 10 ? user.name : "Бот"}
           </PageLink>
         )}
       </div>

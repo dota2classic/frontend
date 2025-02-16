@@ -22,7 +22,7 @@ export const ThreadMessagePreview = ({
         height={30}
         alt=""
       />
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, marginLeft: 2 }}>
         <PageLink
           className={c.block}
           link={AppRouter.players.player.index(message.author.steamId).link}
