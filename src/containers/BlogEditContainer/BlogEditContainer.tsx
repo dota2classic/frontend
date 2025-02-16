@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { RichEditor } from "..";
 import { BlogpostDto, UploadedImageDto } from "@/api/back";
@@ -7,6 +7,7 @@ import { SerializedEditorState } from "lexical";
 import { getApi } from "@/api/hooks";
 import {
   Button,
+  Carousel,
   CarouselItem,
   ImagePickerUploader,
   Input,
@@ -14,7 +15,6 @@ import {
 } from "@/components";
 import { useRouter } from "next/router";
 import { AppRouter } from "@/route";
-import { Carousel } from "@/components";
 import c from "./BlogEditContainer.module.scss";
 
 interface IBlogEditContainerProps {
@@ -26,16 +26,26 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
 }) => {
   const router = useRouter();
 
+  const [loaded, setLoaded] = useState(false);
+
   const [title, setTitle] = useState(post?.title || "");
   const [description, setDescription] = useState(post?.shortDescription || "");
   const [newval, setNewValue] = useLocalStorage<SerializedEditorState>(
     `${process.env.NEXT_PUBLIC_API_URL}-edit-${post?.id || "draft"}`,
     post ? JSON.parse(post.content) : undefined,
   );
+
+  useEffect(() => {
+    if (post) {
+      setNewValue(JSON.parse(post.content));
+    }
+    setLoaded(true);
+  }, [post]);
   const [image, setImage] = useState<UploadedImageDto | undefined>(post?.image);
 
   useDebounce(
     () => {
+      if (!loaded) return;
       if (!title && !description && !image?.key) return;
       const doRedirect = !post;
 
@@ -106,12 +116,14 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
         </Carousel>
       )}
       <h3>Содержимое статьи</h3>
-      <RichEditor
-        saveKey={"edit"}
-        onChange={(e) => {
-          setNewValue(e.toJSON());
-        }}
-      />
+      {loaded && (
+        <RichEditor
+          saveKey={"edit"}
+          onChange={(e) => {
+            setNewValue(e.toJSON());
+          }}
+        />
+      )}
       <Button disabled={post?.published} mega onClick={publishPost}>
         Опубликовать
       </Button>
