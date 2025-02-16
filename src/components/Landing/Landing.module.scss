@@ -16,6 +16,7 @@
     height: auto;
     background: #000;
     pointer-events: none;
+    aspect-ratio: auto 1920 / 1080;
 
     @media (max-width: 600px) {
       height: 50vh;
