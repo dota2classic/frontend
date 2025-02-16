@@ -9,11 +9,11 @@
 
   & video {
     z-index: -2;
-    width: 100%;
+    //width: 100%;
+    //height: auto;
     top: 0;
     left: 0;
     right: 0;
-    height: auto;
     background: #000;
     pointer-events: none;
     aspect-ratio: auto 1920 / 1080;

@@ -29,7 +29,7 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
   const [title, setTitle] = useState(post?.title || "");
   const [description, setDescription] = useState(post?.shortDescription || "");
   const [newval, setNewValue] = useLocalStorage<SerializedEditorState>(
-    `edit-${post?.id || "draft"}`,
+    `${process.env.NEXT_PUBLIC_API_URL}-edit-${post?.id || "draft"}`,
     post ? JSON.parse(post.content) : undefined,
   );
   const [image, setImage] = useState<UploadedImageDto | undefined>(post?.image);
