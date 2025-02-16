@@ -18,23 +18,6 @@ import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModal
 // Font files can be colocated inside of `pages`
 import "@/styles/editor.css";
 
-/**
- * Same as Partial<T> but goes deeper and makes Partial<T> all its properties and sub-properties.
- */
-export type DeepPartial<T> =
-  | T
-  | (T extends Array<infer U>
-      ? DeepPartial<U>[]
-      : T extends Map<infer K, infer V>
-        ? Map<DeepPartial<K>, DeepPartial<V>>
-        : T extends Set<infer M>
-          ? Set<DeepPartial<M>>
-          : T extends object
-            ? {
-                [K in keyof T]?: DeepPartial<T[K]>;
-              }
-            : T);
-
 const myFont = localFont({
   src: [
     { path: "./Trajan Pro 3 Regular.otf", weight: "500" },
