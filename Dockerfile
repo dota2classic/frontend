@@ -11,7 +11,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json bun.lockb ./
-RUN bun install  --frozen-lockfile --production
+RUN bun install  --frozen-lockfile # --production
 
 
 # Rebuild the source code only when needed
