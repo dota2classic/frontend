@@ -64,9 +64,7 @@ interface QueueStoreHydrateProps {
 }
 
 export class QueueStore
-  implements
-    HydratableStore<QueueStoreHydrateProps>,
-    GameCoordinatorNewListener
+  implements HydratableStore<QueueStoreHydrateProps>, GameCoordinatorNewListener
 {
   // public static UNRANKED_QUEUE_HOURS = [
   //   17, 18, 19, 20, 21, 22, 23, 24, 0, 1, 2, 3,
