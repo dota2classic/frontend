@@ -1,14 +1,13 @@
 @import "../../common.scss";
 
 .navbar {
-  position: sticky;
+  //position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  background: $bg2;
+  //background: $bg2;
   color: $primaryText;
   z-index: 100000;
-  border-bottom: 1px solid $transparentTint2;
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
 
   &__admin {
@@ -36,8 +35,8 @@
 .navbarInner {
   max-width: 1200px;
   margin: auto;
-  overflow-x: auto;
-  overflow-y: hidden;
+  //overflow-x: ;
+  //overflow-y: hidden;
 }
 
 

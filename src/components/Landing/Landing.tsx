@@ -33,7 +33,7 @@ export const Landing = ({ recentPosts }: Props) => {
             playsInline
             autoPlay
             controls={false}
-            src={`/landing/d2video-new.webm`}
+            src={`/landing/output_action.webm`}
           />
         </div>
         <div className={c.leadingIntent}>

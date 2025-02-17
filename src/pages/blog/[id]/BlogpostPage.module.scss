@@ -1,6 +1,5 @@
 @import "../../../common.scss";
 
-
 .post {
   flex-direction: column;
   margin-top: 20px;
@@ -8,7 +7,7 @@
 }
 .title {
   text-align: center;
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .date {
@@ -18,8 +17,22 @@
   margin-block-start: 0;
 }
 
-
+.newsLink {
+  font-size: 1.4rem;
+  color: $primaryTextDark;
+  text-align: center;
+  display: block;
+  margin: 4rem auto auto;
+}
 
 .thread {
   margin-top: 20px;
+}
+
+.postContainer {
+  max-width: 800px;
+  margin: 10px auto auto;
+
+
+  color: $primaryText;
 }

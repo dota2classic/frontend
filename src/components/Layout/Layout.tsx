@@ -19,7 +19,9 @@ export const Layout = ({
 
   return (
     <ThemeContext.Provider value={{ newYear: true }}>
-      <div className={cx(c.wrapper, isQueuePage && c.wrapper__queue)}>
+      <div
+        className={cx(c.wrapper, isQueuePage && c.wrapper__queue, c.blogpost)}
+      >
         <Navbar className={className} />
         <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
           <Notifications />
@@ -34,7 +36,7 @@ export const Layout = ({
             {children}
           </main>
           <footer className={c.footer}>
-            <div> © 2020 - 2024 dotaclassic.ru</div>
+            <div> © 2020 - 2025 dotaclassic.ru</div>
             <div>Dota 2 is a registered trademark of Valve Corporation.</div>
             <TelegramInvite />
           </footer>

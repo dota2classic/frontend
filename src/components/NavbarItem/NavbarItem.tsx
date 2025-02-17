@@ -5,6 +5,7 @@ import { NextLinkProp } from "@/route";
 import { PageLink } from "@/components";
 import cx from "clsx";
 import { useRouter } from "next/router";
+import { FaAngleDown } from "react-icons/fa";
 
 type Action = NextLinkProp | (() => void) | string;
 
@@ -49,16 +50,23 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
     renderedLink = (
       <PageLink className={"link"} link={action}>
         {children}
+        {options && <FaAngleDown />}
       </PageLink>
     );
   } else if (typeof action === "string") {
     renderedLink = (
       <a className={"link"} href={action}>
         {children}
+        {options && <FaAngleDown />}
       </a>
     );
   } else {
-    renderedLink = <a onClick={action}>{children}</a>;
+    renderedLink = (
+      <a onClick={action}>
+        {children}
+        {options && <FaAngleDown />}
+      </a>
+    );
   }
 
   return (
@@ -72,7 +80,7 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
       data-testid={testId}
     >
       {tip && <span className={c.tip}>{tip}</span>}
-      {renderedLink}
+      <>{renderedLink}</>
       {options && (
         <div className={c.options}>
           {options.map((op, index) =>

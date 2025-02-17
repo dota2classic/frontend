@@ -34,9 +34,11 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
 
   const [title, setTitle] = useState(post?.title || "");
   const [description, setDescription] = useState(post?.shortDescription || "");
-  const [newval, setNewValue] = useLocalStorage<SerializedEditorState>(
+  const [newval, setNewValue] = useLocalStorage<
+    [SerializedEditorState, string]
+  >(
     saveKey,
-    post ? JSON.parse(post.content) : undefined,
+    post ? [JSON.parse(post.content), post.renderedContentHtml] : undefined,
   );
 
   useEffect(() => {
@@ -44,12 +46,13 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
       setNewValue(JSON.parse(post.content));
     }
     setLoaded(true);
-  }, [post]);
+  }, [post, setNewValue]);
   const [image, setImage] = useState<UploadedImageDto | undefined>(post?.image);
 
   useDebounce(
     () => {
       if (!loaded) return;
+      if (!newval) return;
       if (!title && !description && !image?.key) return;
       const doRedirect = !post;
 
@@ -57,7 +60,8 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
         .blog.blogpostControllerUpdatePostDraft({
           id: post?.id,
           title: title,
-          content: JSON.stringify(newval),
+          content: JSON.stringify(newval[0]),
+          renderedContentHtml: newval[1],
           imageKey: image?.key,
           shortDescription: description,
         })
@@ -123,8 +127,8 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
       {loaded && (
         <RichEditor
           saveKey={saveKey}
-          onChange={(e) => {
-            setNewValue(e.toJSON());
+          onChange={(serializedState, renderedHtml) => {
+            setNewValue([serializedState, renderedHtml]);
           }}
         />
       )}

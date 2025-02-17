@@ -56,6 +56,9 @@ export const AppRouter = {
   donate: spage("/donate"),
   download: spage("/download"),
   stats: spage("/stats/leaderboard"),
+  wiki: {
+    index: spage("/wiki"),
+  },
   blog: {
     index: spage("/blog"),
     create: spage("/blog/create"),

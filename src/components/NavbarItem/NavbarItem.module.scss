@@ -6,32 +6,40 @@
 
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
 
   color: inherit;
   transition: 0.3s ease;
+  align-items: stretch;
 
   & > a {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 6px 8px;
+    padding: 8px 12px;
+    font-size: 1.2rem;
+
+    & svg {
+      font-size: 0.9em;
+      margin-left: 4px;
+      margin-top: -3px;
+    }
   }
 
   &:focus,
   &:hover {
-    background: $transparentTint;
+    background: $deepBlue;
     & .options {
       visibility: visible;
       opacity: 1;
+      //display: flex;
     }
   }
 
   &.active {
     color: $gold;
-    background: $transparentTint;
+    background: $deepBlue;
   }
 }
 
@@ -46,10 +54,11 @@
 }
 
 .options {
+  @include box();
+  clip-path: inset(0px -10px -10px -10px);
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  padding: 6px 8px;
   top: 100%;
   left: 0;
   right: 0;
@@ -57,7 +66,10 @@
   display: flex;
   flex-direction: column;
   transition: 0.3s ease;
-  background: #243446;
+  background: $deepBlue;
+
+  padding: 8px 12px;
+  font-size: 1.2rem;
 }
 
 .option {
@@ -80,3 +92,5 @@
     left: calc(50% + 30px);
   }
 }
+
+

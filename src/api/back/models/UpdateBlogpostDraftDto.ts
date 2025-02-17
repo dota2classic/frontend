@@ -36,6 +36,12 @@ export interface UpdateBlogpostDraftDto {
      * @type {string}
      * @memberof UpdateBlogpostDraftDto
      */
+    renderedContentHtml: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateBlogpostDraftDto
+     */
     title: string;
     /**
      * 
@@ -63,6 +69,7 @@ export function UpdateBlogpostDraftDtoFromJSONTyped(json: any, ignoreDiscriminat
         
         'id': !exists(json, 'id') ? undefined : json['id'],
         'content': json['content'],
+        'renderedContentHtml': json['renderedContentHtml'],
         'title': json['title'],
         'shortDescription': json['shortDescription'],
         'imageKey': !exists(json, 'imageKey') ? undefined : json['imageKey'],
@@ -80,6 +87,7 @@ export function UpdateBlogpostDraftDtoToJSON(value?: UpdateBlogpostDraftDto | nu
         
         'id': value.id,
         'content': value.content,
+        'renderedContentHtml': value.renderedContentHtml,
         'title': value.title,
         'shortDescription': value.shortDescription,
         'imageKey': value.imageKey,

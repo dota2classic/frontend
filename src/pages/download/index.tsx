@@ -19,6 +19,11 @@ import { AppRouter } from "@/route";
 import { metrika } from "@/ym";
 import { getAuthUrl } from "@/util/getAuthUrl";
 import { ColumnType } from "@/const/tables";
+import { Noto_Sans } from "next/font/google";
+
+const threadFont = Noto_Sans({
+  subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
+});
 
 const _data = [
   [
@@ -275,7 +280,7 @@ export default function DownloadPage({ initialOS }: Props) {
     ...GuideCompact(),
   ];
   return (
-    <>
+    <div className={threadFont.className}>
       <EmbedProps
         title={"Начать играть"}
         description={
@@ -403,7 +408,7 @@ export default function DownloadPage({ initialOS }: Props) {
           },
         ]}
       />
-    </>
+    </div>
   );
 }
 

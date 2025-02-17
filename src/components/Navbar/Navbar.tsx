@@ -12,6 +12,7 @@ import cx from "clsx";
 import { SiDota2 } from "react-icons/si";
 import { useRouterChanging } from "@/util";
 import { LoginProfileNavbarItem } from "@/components/Navbar/LoginProfileNavbarItem";
+import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth } = useStore();
@@ -42,16 +43,10 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
           </NavbarItem>
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
             {isAuthorized && (
-              <NavbarItem action={AppRouter.queue.link}>Поиск</NavbarItem>
+              <NavbarItem action={AppRouter.queue.link}>Поиск игры</NavbarItem>
             )}
-            <NavbarItem action={AppRouter.download.link}>Играть</NavbarItem>
-            <NavbarItem action={AppRouter.players.leaderboard().link}>
-              Игроки
-            </NavbarItem>
-            <NavbarItem action={AppRouter.heroes.index.link}>Герои</NavbarItem>
-            <NavbarItem action={AppRouter.matches.index().link}>
-              Матчи
-            </NavbarItem>
+            <NavbarItem action={AppRouter.download.link}>Старт</NavbarItem>
+            <MetaNavbarItem />
             <NavbarItem action={AppRouter.forum.index().link}>Форум</NavbarItem>
             {hasLiveMatches && (
               <NavbarItem

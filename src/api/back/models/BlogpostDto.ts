@@ -47,6 +47,12 @@ export interface BlogpostDto {
      * @type {string}
      * @memberof BlogpostDto
      */
+    renderedContentHtml: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BlogpostDto
+     */
     title: string;
     /**
      * 
@@ -98,6 +104,7 @@ export function BlogpostDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean
         
         'id': json['id'],
         'content': json['content'],
+        'renderedContentHtml': json['renderedContentHtml'],
         'title': json['title'],
         'shortDescription': json['shortDescription'],
         'image': UploadedImageDtoFromJSON(json['image']),
@@ -119,6 +126,7 @@ export function BlogpostDtoToJSON(value?: BlogpostDto | null): any {
         
         'id': value.id,
         'content': value.content,
+        'renderedContentHtml': value.renderedContentHtml,
         'title': value.title,
         'shortDescription': value.shortDescription,
         'image': UploadedImageDtoToJSON(value.image),

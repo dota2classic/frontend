@@ -87,3 +87,4 @@ export { ForumItemEmbed } from "./ForumItemEmbed/ForumItemEmbed";
 export { ImagePickerUploader } from "./ImagePickerUploader/ImagePickerUploader";
 export { CarouselItem } from "./CarouselItem/CarouselItem";
 export { Carousel } from "./Carousel/Carousel";
+export { BlogpostRenderer } from "./BlogpostRenderer/BlogpostRenderer";

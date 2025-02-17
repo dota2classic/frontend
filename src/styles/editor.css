@@ -198,10 +198,12 @@
 }
 
 .editor-paragraph {
-  margin: 0;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
   position: relative;
-  line-height: 1.2em;
+  font-size: 1.3rem;
+  line-height: 1.4em;
+  margin-block-start: 1em;
+  /*font-weight: 400;*/
 }
 
 .editor-paragraph:last-child {
@@ -218,6 +220,9 @@
 }
 
 .editor-heading-h2 {
+  &:first-child {
+    margin-block-start: 0;
+  }
   font-size: 1.4rem;
   line-height: 2.4rem;
   color: rgb(207, 207, 207);
