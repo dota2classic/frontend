@@ -43,7 +43,12 @@ export const RenderChatThread = observer(function RenderChatThread() {
       initialTopMostItemIndex={pool.length === 0 ? undefined : pool.length - 1}
       style={{ width: "100%", height: "100%" }}
       itemContent={(idx, [msg, header]: [ThreadMessageDTO, boolean]) => {
-        return <Message message={msg} header={header} lightweight={false} />;
+        return (
+          <>
+            <Message message={msg} header={header} lightweight={false} />
+            {idx === 99999 ? <br /> : null}
+          </>
+        );
       }}
       alignToBottom
       increaseViewportBy={{
