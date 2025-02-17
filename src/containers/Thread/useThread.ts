@@ -5,12 +5,9 @@ import {
   ThreadMessageDTO,
   ThreadMessagePageDTO,
 } from "@/api/back";
-import { useLocalObservable } from "mobx-react-lite";
 import { useCallback, useEffect, useState } from "react";
-import { ThreadContainer } from "@/containers/Thread/ThreadContainer";
 import { getApi } from "@/api/hooks";
-import { ThreadInputData } from "@/containers/Thread/ThreadInputData";
-import { ThreadContextData } from "@/containers/Thread/threadContext";
+import { ThreadStore } from "@/store/ThreadStore";
 
 export const useThread = (
   id: string,
@@ -19,24 +16,10 @@ export const useThread = (
   loadLatest: boolean = false,
   page?: number,
   batchSize: number = 100,
-): ThreadContextData => {
-  const [value, setValue] = useState("");
-  const threadContext = useLocalObservable<ThreadContextData>(() => {
-    const thread = new ThreadContainer(
-      id.toString(),
-      threadType,
-      initialMessages,
-      page,
-    );
-    const input = new ThreadInputData(thread);
-
-    return {
-      thread,
-      input,
-    };
-  });
-
-  const { thread } = threadContext;
+): ThreadStore => {
+  const [thread] = useState<ThreadStore>(
+    new ThreadStore(id.toString(), threadType, initialMessages, page),
+  );
 
   const [trigger, setTrigger] = useState(0);
 
@@ -82,7 +65,7 @@ export const useThread = (
     }
   }, [page]);
 
-  return threadContext;
+  return thread;
 };
 
 const useThreadEventSource = (

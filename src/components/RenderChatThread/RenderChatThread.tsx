@@ -1,33 +1,21 @@
-import React, {
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
+import React, { useContext, useMemo, useRef, useTransition } from "react";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
-import { ThreadContext } from "@/containers/Thread/threadContext";
 import { observer } from "mobx-react-lite";
 import { ThreadMessageDTO } from "@/api/back";
 import { Message } from "@/components";
+import { ThreadContext } from "@/containers/Thread/threadContext";
 
 export const RenderChatThread = observer(function RenderChatThread() {
-  const scrollableRef = useRef<VirtuosoHandle | null>(null);
-  const { thread, input } = useContext(ThreadContext);
-  const [isLoadingOlder, startTransition] = useTransition();
-
-  console.log("Ctx changed");
+  const thread = useContext(ThreadContext);
 
   const pool = thread.pool;
+
+  const scrollableRef = useRef<VirtuosoHandle | null>(null);
+  const [isLoadingOlder, startTransition] = useTransition();
 
   const renderChat = useMemo(() => pool.length > 0, [pool.length]);
 
   const firstItemIndex = useMemo(() => 100000 - pool.length, [pool.length]);
-
-  const atBottomStateChange = (atBottom: boolean) => {
-    // setAtBottom(atBottom);
-  };
 
   const startReached = () => {
     if (thread.isThreadReady && !isLoadingOlder) {
@@ -44,10 +32,10 @@ export const RenderChatThread = observer(function RenderChatThread() {
       followOutput={"auto"}
       ref={(e) => {
         scrollableRef.current = e;
-        input.setScrollRef(e || undefined);
+        thread.setScrollRef(e || undefined);
       }}
+      computeItemKey={(idx, d) => d[0].messageId}
       skipAnimationFrameInResizeObserver={true}
-      atBottomStateChange={atBottomStateChange}
       atBottomThreshold={10}
       startReached={startReached}
       firstItemIndex={firstItemIndex}
@@ -55,12 +43,7 @@ export const RenderChatThread = observer(function RenderChatThread() {
       initialTopMostItemIndex={pool.length === 0 ? undefined : pool.length - 1}
       style={{ width: "100%", height: "100%" }}
       itemContent={(idx, [msg, header]: [ThreadMessageDTO, boolean]) => {
-        return (
-          <>
-            <Message message={msg} header={header} lightweight={false} />
-            {idx === 99999 ? <br /> : null}
-          </>
-        );
+        return <Message message={msg} header={header} lightweight={false} />;
       }}
       alignToBottom
       increaseViewportBy={{

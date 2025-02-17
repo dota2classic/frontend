@@ -12,7 +12,7 @@ interface Props {
 export const AddReactionTool = React.memo(function AddReactionTool({
   messageId,
 }: Props) {
-  const threadCtx = useContext(ThreadContext);
+  const thread = useContext(ThreadContext);
 
   const emoticonAnchorRef = useRef<HTMLElement | null>(null);
 
@@ -20,9 +20,9 @@ export const AddReactionTool = React.memo(function AddReactionTool({
 
   const react = useCallback(
     (e: EmoticonDto) => {
-      threadCtx.thread.react(messageId, e.id);
+      thread.react(messageId, e.id);
     },
-    [threadCtx, messageId],
+    [thread, messageId],
   );
 
   const showEmoticonWindow = useCallback(() => {

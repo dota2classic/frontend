@@ -40,7 +40,7 @@ export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar(
   const [error, setError] = useState<unknown>(null);
 
   return (
-    <img
+    <Image
       {...props}
       alt={props.alt || "Image"}
       src={error ? "/avatar.png" : props.src}

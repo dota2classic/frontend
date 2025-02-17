@@ -12,11 +12,11 @@ export const EditMessageTool = observer(function EditMessageTool({
   message,
 }: Props) {
   const { auth } = useStore();
-  const { input } = useContext(ThreadContext);
+  const thread = useContext(ThreadContext);
 
   const editMessage = useCallback(() => {
-    input.setEditMessage(message.messageId);
-  }, [input, message.messageId]);
+    thread.setEditMessage(message.messageId);
+  }, [thread, message.messageId]);
 
   if (message?.author?.steamId !== auth.parsedToken?.sub) return null;
 

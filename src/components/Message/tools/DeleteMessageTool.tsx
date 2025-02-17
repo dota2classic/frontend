@@ -10,7 +10,7 @@ interface Props {
 export const DeleteMessageTool = React.memo(
   observer(function DeleteMessageTool({ messageId }: Props) {
     const { auth } = useStore();
-    const { thread } = useContext(ThreadContext);
+    const thread = useContext(ThreadContext);
 
     if (!auth.isAdmin && !auth.isModerator) return null;
 

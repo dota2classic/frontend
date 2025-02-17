@@ -30,17 +30,18 @@ export const MessageHeader = observer(function MessageHeader({
   lightweight,
 }: IMessageProps) {
   const { queue } = useStore();
-  const { input } = useContext(ThreadContext);
   const [hoveredRole, setHoveredRole] = useState<
     { role: Role; ref: HTMLElement } | undefined
   >(undefined);
+
+  const thread = useContext(ThreadContext);
 
   const isOnline = computed(
     () => queue.online.findIndex((x) => x === message.author.steamId) !== -1,
   ).get();
 
-  const isEdited = computed(
-    () => input.editingMessageId === message.messageId,
+  const isBeingEdited = computed(
+    () => thread.editingMessageId === message.messageId,
   ).get();
 
   const roles = (
@@ -84,7 +85,7 @@ export const MessageHeader = observer(function MessageHeader({
       className={cx(
         c.contentWrapper,
         c.header,
-        !isEdited && c.contentWrapper_reactions,
+        !isBeingEdited && c.contentWrapper_reactions,
       )}
     >
       <div className={cx(c.contentWrapper__left, c.contentWrapper__left_user)}>

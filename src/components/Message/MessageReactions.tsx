@@ -22,7 +22,7 @@ export const MessageReactions = observer(function MessageReactions({
   >(undefined);
 
   const mySteamId = useStore().auth.parsedToken?.sub;
-  const ctx = useContext(ThreadContext);
+  const thread = useContext(ThreadContext);
 
   return (
     <div className={cx(c.reactions, reactions.length && c.reactions__nonempty)}>
@@ -43,7 +43,7 @@ export const MessageReactions = observer(function MessageReactions({
           }
           onMouseLeave={() => setTooltipReaction(undefined)}
           key={reaction.emoticon.id}
-          onClick={() => ctx.thread.react(messageId, reaction.emoticon.id)}
+          onClick={() => thread.react(messageId, reaction.emoticon.id)}
           className={cx(
             c.reaction,
             reaction.reacted.findIndex(

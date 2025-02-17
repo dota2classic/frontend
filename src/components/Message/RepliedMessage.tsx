@@ -12,11 +12,11 @@ interface IRepliedMessageProps {
 export const RepliedMessage = observer(function RepliedMessage({
   message,
 }: IRepliedMessageProps) {
-  const { input } = useContext(ThreadContext);
+  const thread = useContext(ThreadContext);
   const scrollRepliedMessage = useCallback(() => {
     if (!message) return;
-    input.scrollIntoView(message.messageId);
-  }, [input, message]);
+    thread.scrollIntoView(message.messageId);
+  }, [thread, message]);
   if (!message) return null;
 
   return (

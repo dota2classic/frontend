@@ -1,12 +1,6 @@
 import React from "react";
-import { ThreadContainer } from "@/containers/Thread/ThreadContainer";
-import { ThreadInputData } from "@/containers/Thread/ThreadInputData";
+import { ThreadStore } from "@/store/ThreadStore";
 
-export interface ThreadContextData {
-  thread: ThreadContainer;
-  input: ThreadInputData;
-}
-
-export const ThreadContext = React.createContext<ThreadContextData>(
+export const ThreadContext = React.createContext<ThreadStore>(
   {} as unknown as never,
 );

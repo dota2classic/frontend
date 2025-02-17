@@ -1,3 +1,4 @@
+import { HydratableStore } from "@/store/HydratableStore";
 import {
   action,
   computed,
@@ -6,18 +7,28 @@ import {
   runInAction,
   trace,
 } from "mobx";
+import { ThreadType } from "@/api/mapped-models";
 import {
   SortOrder,
   ThreadDTO,
   ThreadMessageDTO,
   ThreadMessagePageDTO,
-  ThreadType,
 } from "@/api/back";
-import { maxBy } from "@/util";
-import { getApi } from "@/api/hooks";
 import { diffMillis } from "@/util/dates";
+import { getApi } from "@/api/hooks";
+import { maxBy } from "@/util";
+import { VirtuosoHandle } from "react-virtuoso";
 
-export class ThreadContainer {
+export class ThreadStore implements HydratableStore<unknown> {
+  @observable
+  replyingMessageId: string | undefined = undefined;
+
+  @observable
+  editingMessageId: string | undefined = undefined;
+
+  @observable.ref
+  chatScrollRef: VirtuosoHandle | undefined = undefined;
+
   @observable.ref
   private id: string = "";
 
@@ -35,6 +46,36 @@ export class ThreadContainer {
 
   @observable
   thread: ThreadDTO | undefined = undefined;
+
+  @computed
+  public get replyingMessage(): ThreadMessageDTO | undefined {
+    return (
+      (this.replyingMessageId && this.messageMap.get(this.replyingMessageId)) ||
+      undefined
+    );
+  }
+
+  public scrollIntoView = (messageId: string) => {
+    const msg = this.messageMap.get(messageId);
+    if (!msg || msg.deleted) return;
+
+    const idx = this.pool.findIndex((d) => d[0].messageId === messageId);
+    if (this.chatScrollRef) {
+      this.chatScrollRef.scrollToIndex(idx);
+    }
+  };
+
+  @action setScrollRef = (e: VirtuosoHandle | undefined) => {
+    this.chatScrollRef = e;
+  };
+
+  @action setReplyMessageId = (messageId: string | undefined) => {
+    this.replyingMessageId = messageId;
+  };
+
+  @action setEditMessage = (editingMessageId: string | undefined) => {
+    this.editingMessageId = editingMessageId;
+  };
 
   @computed
   public get isThreadReady() {
@@ -243,4 +284,6 @@ export class ThreadContainer {
       .forumApi.forumControllerEditMessage(id, { content })
       .then(this.consumeMessage);
   }
+
+  hydrate(): void {}
 }

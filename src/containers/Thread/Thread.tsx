@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import c from "./Thread.module.scss";
 import { observer } from "mobx-react-lite";
@@ -46,6 +46,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
   showLastMessages,
   pagination,
 }) {
+  const [value, setValue] = useState("");
   const { threads, auth } = useStore();
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
     return !!auth.parsedToken;
   }, [auth.parsedToken]);
 
-  const { thread, input, ...editInput } = useThread(
+  const thread = useThread(
     id,
     threadType,
     populateMessages,
@@ -68,15 +69,15 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
   const sendMessage = useCallback(
     (msg: string) => {
       return thread
-        .sendMessage(msg, input.replyingMessageId)
-        .then(() => input.setReplyMessageId(undefined));
+        .sendMessage(msg, thread.replyingMessageId)
+        .then(() => thread.setReplyMessageId(undefined));
     },
-    [input, thread],
+    [thread],
   );
 
   const clearReply = useCallback(() => {
-    input.setReplyMessageId(undefined);
-  }, [input]);
+    thread.setReplyMessageId(undefined);
+  }, [thread]);
 
   const displayInput =
     !pagination ||
@@ -85,12 +86,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
     thread.pg.page == thread.pg.pages - 1;
 
   return (
-    <ThreadContext.Provider
-      value={{
-        thread,
-        input,
-      }}
-    >
+    <ThreadContext.Provider value={thread}>
       <div className={cx(c.thread, threadFont.className, className)}>
         {pagination && (
           <Pagination
@@ -122,10 +118,12 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
         )}
         {displayInput && (
           <MessageInput
+            value={value}
+            setValue={setValue}
             greedyFocus={GreedyFocusPriority.FORUM_SEND_MESSAGE}
             canMessage={canMessage}
             onMessage={sendMessage}
-            replyMessage={input.replyingMessage}
+            replyMessage={thread.replyingMessage}
             cancelReply={clearReply}
           />
         )}

@@ -10,28 +10,28 @@ interface Props {
   message: ThreadMessageDTO;
 }
 export const MessageContent = observer(({ message }: Props) => {
-  const { thread, input } = useContext(ThreadContext);
+  const thread = useContext(ThreadContext);
 
   const [value, setValue] = useState(message.content);
 
   useEffect(() => {
     setValue(message.content);
-  }, [message.content, input.editingMessageId]);
+  }, [message.content, thread.editingMessageId]);
 
   const cancelEdit = useCallback(() => {
-    input.setEditMessage(undefined);
-  }, [input]);
+    thread.setEditMessage(undefined);
+  }, [thread]);
 
   const editMessage = useCallback(
     (content: string) => {
       return thread
         .editMessage(message.messageId, content)
-        .then(() => input.setEditMessage(undefined));
+        .then(() => thread.setEditMessage(undefined));
     },
-    [input, message.messageId, thread],
+    [message.messageId, thread],
   );
 
-  return input.editingMessageId === message.messageId ? (
+  return thread.editingMessageId === message.messageId ? (
     <>
       <MessageInput
         greedyFocus={GreedyFocusPriority.FORUM_EDIT_MESSAGE}
@@ -39,7 +39,7 @@ export const MessageContent = observer(({ message }: Props) => {
         canMessage
         onMessage={editMessage}
         value={value}
-        onValue={setValue}
+        setValue={setValue}
       />
       <span className={c.edited}>
         <span className="gold">escape</span> для отмены,{" "}

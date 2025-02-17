@@ -14,14 +14,17 @@ export const MessageInput = observer(function MessageInput(p: {
   onMessage: (content: string) => Promise<void>;
   className?: string;
 
+  value: string;
+  setValue: (v: string) => void;
+
   onEscape?: () => void;
   replyMessage?: ThreadMessageDTO;
   cancelReply?: () => void;
   greedyFocus?: number;
 }) {
+  const { value, setValue } = p;
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [value, setValue] = useState("");
 
   useGreedyFocus(p.greedyFocus, textareaRef);
 

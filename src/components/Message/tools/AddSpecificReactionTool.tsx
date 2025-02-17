@@ -12,10 +12,10 @@ export const AddSpecificReactionTool = ({
   emoticon,
   messageId,
 }: IAddSpecificReactionToolProps) => {
-  const threadCtx = useContext(ThreadContext);
+  const thread = useContext(ThreadContext);
   const react = useCallback(() => {
-    threadCtx.thread.react(messageId, emoticon.id);
-  }, [threadCtx, messageId, emoticon]);
+    thread.react(messageId, emoticon.id);
+  }, [thread, messageId, emoticon]);
   return (
     <span onClick={react}>
       <Emoticon code={emoticon.code} />

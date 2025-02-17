@@ -16,10 +16,10 @@ interface IMessageProps {
 export const FollowupMessage = observer(function FollowupMessage({
   message,
 }: IMessageProps) {
-  const { input } = useContext(ThreadContext);
+  const thread = useContext(ThreadContext);
 
   const isEdited = computed(
-    () => input.editingMessageId === message.messageId,
+    () => thread.editingMessageId === message.messageId,
   ).get();
 
   return (
