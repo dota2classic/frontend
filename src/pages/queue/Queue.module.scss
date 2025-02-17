@@ -35,7 +35,8 @@
   }
 
   &__list {
-    background-color: $bg2;
+    //background-color: $bg2;
+    background-color: rgba(255, 255, 255, 0.04);
     box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
     align-items: stretch;
     grid-row: span 23;
