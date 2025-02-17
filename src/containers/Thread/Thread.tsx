@@ -56,7 +56,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
     return !!auth.parsedToken;
   }, [auth.parsedToken]);
 
-  const { thread, input } = useThread(
+  const { thread, input, ...editInput } = useThread(
     id,
     threadType,
     populateMessages,
@@ -125,8 +125,6 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
             greedyFocus={GreedyFocusPriority.FORUM_SEND_MESSAGE}
             canMessage={canMessage}
             onMessage={sendMessage}
-            onValue={input.setValue}
-            value={input.value}
             replyMessage={input.replyingMessage}
             cancelReply={clearReply}
           />

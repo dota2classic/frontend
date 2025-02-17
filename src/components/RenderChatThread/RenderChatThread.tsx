@@ -14,26 +14,19 @@ import { Message } from "@/components";
 
 export const RenderChatThread = observer(function RenderChatThread() {
   const scrollableRef = useRef<VirtuosoHandle | null>(null);
-  const [atBottom, setAtBottom] = useState(true);
   const { thread, input } = useContext(ThreadContext);
   const [isLoadingOlder, startTransition] = useTransition();
+
+  console.log("Ctx changed");
 
   const pool = thread.pool;
 
   const renderChat = useMemo(() => pool.length > 0, [pool.length]);
 
-  useEffect(() => {
-    if (!scrollableRef.current) return;
-    if (atBottom && thread.isThreadReady && pool.length > 0) {
-      console.log("OK, lets scroll!");
-      // scrollableRef.current?.scrollToIndex(pool.length);
-    }
-  }, [atBottom, thread.isThreadReady, pool]);
-
   const firstItemIndex = useMemo(() => 100000 - pool.length, [pool.length]);
 
   const atBottomStateChange = (atBottom: boolean) => {
-    setAtBottom(atBottom);
+    // setAtBottom(atBottom);
   };
 
   const startReached = () => {

@@ -13,8 +13,6 @@ export const MessageInput = observer(function MessageInput(p: {
   canMessage: boolean;
   onMessage: (content: string) => Promise<void>;
   className?: string;
-  value: string;
-  onValue: (v: string) => void;
 
   onEscape?: () => void;
   replyMessage?: ThreadMessageDTO;
@@ -23,6 +21,7 @@ export const MessageInput = observer(function MessageInput(p: {
 }) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [value, setValue] = useState("");
 
   useGreedyFocus(p.greedyFocus, textareaRef);
 
@@ -36,8 +35,6 @@ export const MessageInput = observer(function MessageInput(p: {
     return () => document.removeEventListener("keydown", listener);
   }, [p]);
 
-  const value = p.value;
-
   const isValid = value.trim().length >= 2;
 
   const submit = useCallback(() => {
@@ -47,7 +44,7 @@ export const MessageInput = observer(function MessageInput(p: {
     }
     // Do it optimistically, first
     const msg = value;
-    p.onValue("");
+    setValue("");
 
     p.onMessage(msg).catch((err) => {
       if (err.status === 403) {
@@ -55,7 +52,7 @@ export const MessageInput = observer(function MessageInput(p: {
       } else {
         setError("Слишком часто отправляете сообщения!");
       }
-      p.onValue(msg);
+      setValue(msg);
     });
   }, [isValid, p, value]);
 
@@ -81,7 +78,7 @@ export const MessageInput = observer(function MessageInput(p: {
         insert +
         myField.value.substring(endPos, myField.value.length);
 
-      p.onValue(myField.value);
+      setValue(myField.value);
     },
     [p],
   );
@@ -119,7 +116,7 @@ export const MessageInput = observer(function MessageInput(p: {
           value={value}
           onChange={(e) => {
             setError(null);
-            p.onValue(e.target.value);
+            setValue(e.target.value);
           }}
         />
 

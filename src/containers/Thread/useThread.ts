@@ -20,6 +20,7 @@ export const useThread = (
   page?: number,
   batchSize: number = 100,
 ): ThreadContextData => {
+  const [value, setValue] = useState("");
   const threadContext = useLocalObservable<ThreadContextData>(() => {
     const thread = new ThreadContainer(
       id.toString(),

@@ -5,9 +5,6 @@ import { VirtuosoHandle } from "react-virtuoso";
 
 export class ThreadInputData {
   @observable
-  value: string = "";
-
-  @observable
   replyingMessageId: string | undefined = undefined;
 
   @observable
@@ -41,10 +38,6 @@ export class ThreadInputData {
 
   @action setScrollRef = (e: VirtuosoHandle | undefined) => {
     this.chatScrollRef = e;
-  };
-
-  @action setValue = (s: string) => {
-    this.value = s;
   };
 
   @action setReplyMessageId = (messageId: string | undefined) => {
