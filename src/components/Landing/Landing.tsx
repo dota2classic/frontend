@@ -57,7 +57,7 @@ export const Landing = ({ recentPosts }: Props) => {
         <div className={c.promoVideoWrapper}>
           <img
             className={c.backimage}
-            src="/landing/highres1.webp"
+            src="/landing/highres2.webp"
             width={1920}
             height={1080}
             alt="123"
@@ -79,7 +79,7 @@ export const Landing = ({ recentPosts }: Props) => {
         <div className={c.promoVideoWrapper}>
           <img
             className={c.backimage}
-            src="/landing/dotaold.jpg"
+            src="/landing/dotaold.webp"
             width={1920}
             height={1080}
             alt="123"

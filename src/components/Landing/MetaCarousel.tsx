@@ -14,17 +14,17 @@ export const MetaCarousel = () => {
         <CarouselItem
           link={AppRouter.players.leaderboard().link}
           title="Лучшие игроки"
-          image="/landing/leaderboard.jpg"
+          image="/landing/leaderboard.webp"
         />
         <CarouselItem
           link={AppRouter.matches.index().link}
           title="История матчей"
-          image={"/landing/wallpaper_dota_2_01_1920x1080.jpg"}
+          image={"/landing/wallpaper-heroes.webp"}
         />
         <CarouselItem
           link={AppRouter.heroes.index.link}
           title="Сильнейшие герои"
-          image={"/landing/invoker.jpg"}
+          image={"/landing/invoker.webp"}
         />
       </Carousel>
     </div>

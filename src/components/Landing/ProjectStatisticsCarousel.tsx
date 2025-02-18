@@ -12,7 +12,7 @@ export const ProjectStatisticsCarousel = () => {
 
       <Carousel>
         <CarouselItem
-          image="/landing/leaderboard.jpg"
+          image="/landing/leaderboard.webp"
           title={
             <>
               <span className="gold">Более 22,000</span> сыгранных матчей
@@ -26,7 +26,7 @@ export const ProjectStatisticsCarousel = () => {
           }
         />
         <CarouselItem
-          image="/landing/meeponegeroi.jpg"
+          image="/landing/meeponegeroi.webp"
           title={
             <>
               <span className="gold">15,000+</span> уникальных игроков
