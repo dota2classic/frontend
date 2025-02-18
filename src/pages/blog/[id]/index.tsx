@@ -27,7 +27,7 @@ export default function BlogpostPage({ post }: Props) {
         </PageLink>
         <h1 className={c.title}>{post.title}</h1>
         <h4 className={c.date}>{formatDate(new Date(post.publishDate))}</h4>
-        <BlogpostRenderer post={post} />
+        <BlogpostRenderer html={post.renderedContentHtml} />
         <Thread
           className={c.thread}
           threadStyle={ThreadStyle.FORUM}

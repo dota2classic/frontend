@@ -1,6 +1,7 @@
 import {
   $applyNodeReplacement,
   DecoratorNode,
+  DOMExportOutput,
   type NodeKey,
   SerializedLexicalNode,
   type Spread,
@@ -49,6 +50,15 @@ export class ItemMentionNode extends DecoratorNode<ReactNode> {
 
   updateDOM(): false {
     return false;
+  }
+
+  exportDOM(): DOMExportOutput {
+    const a = document.createElement("a");
+    a.dataset["item_id"] = this.__itemId.toString();
+
+    return {
+      element: a,
+    };
   }
 
   decorate(): React.ReactNode {

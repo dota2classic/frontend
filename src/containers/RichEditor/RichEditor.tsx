@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   InitialConfigType,
   LexicalComposer,
@@ -18,8 +18,8 @@ import c from "@/containers/RichEditor/plugins/ToolbarPlugin/ToolbarPlugin.modul
 import EmojiPlugin from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiPlugin";
 import ImageUploadPlugin from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageUploadPlugin";
 import { ImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
-import TreeViewPlugin from "@/containers/RichEditor/plugins/TreeViewPlugin";
 import { $generateHtmlFromNodes } from "@lexical/html";
+import { BlogpostRenderer } from "@/components";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -34,6 +34,7 @@ export const RichEditor: React.FC<IRichEditorProps> = ({
   onChange,
   saveKey,
 }) => {
+  const [previewHtml, setPreviewHtml] = useState("");
   const editorConfig: InitialConfigType = {
     namespace: "React.js Demo",
     onError(error: Error) {
@@ -65,13 +66,16 @@ export const RichEditor: React.FC<IRichEditorProps> = ({
           <OnChangePlugin
             onChange={(es, le) => {
               le.read(() => {
-                onChange(es.toJSON(), $generateHtmlFromNodes(le, null));
+                const html = $generateHtmlFromNodes(le, null);
+                onChange(es.toJSON(), html);
+                setPreviewHtml(html);
               });
             }}
           />
         </div>
-        <TreeViewPlugin />
       </LexicalComposer>
+
+      <BlogpostRenderer html={previewHtml} />
     </div>
   );
 };

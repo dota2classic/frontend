@@ -1,11 +1,11 @@
 import React from "react";
-import { BlogpostDto } from "@/api/back";
 import { Noto_Sans } from "next/font/google";
 import cx from "clsx";
 import c from "./BlogpostRenderer.module.scss";
+import { useEnrichedPostContent } from "@/components/BlogpostRenderer/post-enricher";
 
 interface IBlogpostRendererProps {
-  post: BlogpostDto;
+  html: string;
 }
 
 const threadFont = Noto_Sans({
@@ -13,12 +13,8 @@ const threadFont = Noto_Sans({
 });
 
 export const BlogpostRenderer: React.FC<IBlogpostRendererProps> = ({
-  post,
+  html,
 }) => {
-  return (
-    <div
-      className={cx(threadFont.className, c.post)}
-      dangerouslySetInnerHTML={{ __html: post.renderedContentHtml }}
-    />
-  );
+  const preparedHtml = useEnrichedPostContent(html);
+  return <div className={cx(threadFont.className, c.post)}>{preparedHtml}</div>;
 };

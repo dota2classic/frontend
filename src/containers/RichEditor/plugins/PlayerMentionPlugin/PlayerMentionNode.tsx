@@ -1,6 +1,7 @@
 import {
   $applyNodeReplacement,
   DecoratorNode,
+  DOMExportOutput,
   type NodeKey,
   SerializedLexicalNode,
   type Spread,
@@ -27,6 +28,15 @@ export class PlayerMentionNode extends DecoratorNode<ReactNode> {
     return $createPlayerMentionNode(serializedNode.steamId).updateFromJSON(
       serializedNode,
     );
+  }
+
+  exportDOM(): DOMExportOutput {
+    const a = document.createElement("a");
+    a.dataset["steam_id"] = this.__steamId;
+
+    return {
+      element: a,
+    };
   }
 
   constructor(

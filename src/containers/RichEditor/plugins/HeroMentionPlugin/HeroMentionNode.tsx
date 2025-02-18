@@ -1,6 +1,7 @@
 import {
   $applyNodeReplacement,
   DecoratorNode,
+  DOMExportOutput,
   type NodeKey,
   SerializedLexicalNode,
   type Spread,
@@ -40,6 +41,14 @@ export class HeroMentionNode extends DecoratorNode<ReactNode> {
     return {
       ...super.exportJSON(),
       hero: this.__hero,
+    };
+  }
+  exportDOM(): DOMExportOutput {
+    const a = document.createElement("a");
+    a.dataset["hero_id"] = this.__hero;
+
+    return {
+      element: a,
     };
   }
 
