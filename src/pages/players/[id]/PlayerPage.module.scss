@@ -16,14 +16,14 @@
 }
 
 .heroPerformance {
-  grid-column: span 4;
+  grid-column: span 5;
   @media (max-width: 600px) {
     grid-column: span 12;
   }
 }
 
 .matchHistory {
-  grid-column: span 8;
+  grid-column: span 7;
   @media (max-width: 600px) {
     grid-column: span 12;
   }

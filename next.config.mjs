@@ -19,6 +19,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'cdn.akamai.steamstatic.com'
+      },
+      {
+        protocol: 'https',
         hostname: 's3.dotaclassic.ru'
       }
     ]

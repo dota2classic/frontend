@@ -1,4 +1,4 @@
-import Router from "next/router";
+import Router, { NextRouter } from "next/router";
 import type { UrlObject } from "url";
 import { queryParameters } from "@/util/urls";
 import { ThreadType } from "@/api/mapped-models";
@@ -9,9 +9,11 @@ export interface NextLinkProp {
   passHref: boolean;
   as?: string;
 }
+
 export interface IRouterPage {
   link: NextLinkProp;
   open: (hard?: boolean) => void;
+  matches: (router: NextRouter) => boolean;
 }
 
 export interface IRouterPageablePage extends IRouterPage {
@@ -30,6 +32,9 @@ export const page = (
     } else {
       return Router.push(href, as);
     }
+  },
+  matches: (router) => {
+    return router.asPath === as;
   },
 });
 
@@ -86,6 +91,8 @@ export const AppRouter = {
       },
       heroes: (id: string) =>
         page(`/players/[id]/heroes`, `/players/${id}/heroes`),
+      records: (id: string) =>
+        page(`/players/[id]/records`, `/players/${id}/records`),
       teammates: (id: string, _page?: number) => {
         const q = queryParameters({ page: _page });
         return page(

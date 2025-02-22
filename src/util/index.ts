@@ -14,3 +14,4 @@ export * from "./useClampedPage";
 export * from "./useIsAdmin";
 export * from "./check-ping";
 export * from "./regex";
+export * from "./getRecordValue";

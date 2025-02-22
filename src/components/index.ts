@@ -88,3 +88,5 @@ export { ImagePickerUploader } from "./ImagePickerUploader/ImagePickerUploader";
 export { CarouselItem } from "./CarouselItem/CarouselItem";
 export { Carousel } from "./Carousel/Carousel";
 export { BlogpostRenderer } from "./BlogpostRenderer/BlogpostRenderer";
+export { RecordCard } from "./RecordCard/RecordCard";
+export { BigTabs } from "./BigTabs/BigTabs";

@@ -13,9 +13,10 @@ const preservedQuery = () => {
   }
 };
 
-export const useQueryBackedParameter = (
+export function useQueryBackedParameter<T extends string>(
   tabName: string = "tab",
-): [string | undefined, (a: string | number | undefined) => void] => {
+  shallow: boolean = false,
+): [T | undefined, (a: T | number | undefined) => void] {
   const router = useRouter();
   const { [tabName]: routerTab } = router.query;
 
@@ -37,9 +38,9 @@ export const useQueryBackedParameter = (
 
     // Router.replace(href + `?${queryPart}`, asPath + `?${queryPart}`, {
     router.push(href + `?${queryPart}`, asPath + `?${queryPart}`, {
-      // shallow: true,
+      shallow,
     });
   };
 
-  return [routerTab as string, setTabAction];
-};
+  return [routerTab as T, setTabAction];
+}

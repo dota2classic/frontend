@@ -1,4 +1,5 @@
 import {
+  BigTabs,
   CoolList,
   EmbedProps,
   FAQ,
@@ -10,9 +11,6 @@ import {
 import React, { useState } from "react";
 import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
-
-import c from "./Download.module.scss";
-import cx from "clsx";
 import { formatGameMode } from "@/util/gamemode";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
@@ -207,21 +205,20 @@ export default function DownloadPage({ initialOS }: Props) {
             </>
           )}
           <Section>
-            <div className={cx(c.options)}>
-              {[
+            <BigTabs<OperatingSystem>
+              items={[
                 OperatingSystem.WINDOWS,
                 OperatingSystem.MAC_OS,
                 OperatingSystem.LINUX,
-              ].map((os) => (
-                <div
-                  className={cx(c.option, os === OS && c.active)}
-                  key={os}
-                  onClick={() => setOS(os)}
-                >
-                  {os}
-                </div>
-              ))}
-            </div>
+              ].map((os) => ({
+                key: os,
+                label: os,
+                onSelect: setOS,
+              }))}
+              selected={OS}
+              flavor={"small"}
+            />
+
             <GenericTable
               className={"medium"}
               isLoading={false}

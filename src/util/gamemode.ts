@@ -5,6 +5,7 @@ import {
   MatchmakingMode,
 } from "@/api/mapped-models";
 import { ReactNode } from "react";
+import { RecordType } from "@/api/back";
 
 const messages = {
   // MatchmakingMode.TOURNAMENT
@@ -87,4 +88,23 @@ const mapName: Partial<Record<DotaMap, ReactNode>> = {
 };
 export function formatDotaMap(state: DotaMap) {
   return mapName[state] || "Неизвестная карта";
+}
+
+const recordMessages = {
+  [RecordType.KILLS]: "Убийств",
+  [RecordType.KDA]: "Лучшее KDA",
+  [RecordType.ASSISTS]: "Помощи",
+  [RecordType.DEATHS]: "Смертей",
+  [RecordType.LASTHITS]: "Добитых крипов",
+  [RecordType.DENIES]: "Не отданных крипов",
+  [RecordType.GPM]: "Золото в минуту",
+  [RecordType.XPM]: "Опыт в минуту",
+  [RecordType.NETWORTH]: "Общая стоимость",
+  [RecordType.TOWERDAMAGE]: "Урон по строениям",
+  [RecordType.HERODAMAGE]: "Урон по героям",
+  [RecordType.HEROHEALING]: "Лечение",
+};
+
+export function formatRecordType(type: RecordType) {
+  return recordMessages[type];
 }

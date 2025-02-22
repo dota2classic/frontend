@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, useRef } from "react";
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import c from "./GenericTooltip.module.scss";
 
 interface Position {
@@ -51,20 +56,40 @@ export const GenericTooltip: React.FC<
 > = ({ children, anchor }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  const repositionModal = useCallback(
+    (e: HTMLDivElement) => {
+      const position = calculateModalPosition(anchor, e);
+      if (!position) {
+        e.style.display = "none";
+      } else {
+        e.style.display = "block";
+        e.style.left = position.left + "px";
+        e.style.top = position.top + "px";
+      }
+    },
+    [anchor],
+  );
+
+  useEffect(() => {
+    const r = containerRef.current;
+    if (!r) return;
+    const listener = (entries: ResizeObserverEntry[]) => {
+      repositionModal(entries[0].target as HTMLDivElement);
+    };
+
+    const observer = new ResizeObserver(listener);
+    observer.observe(r);
+
+    return () => observer.disconnect();
+  }, [containerRef, repositionModal]);
+
   return (
     <div
       className={c.tooltip}
       ref={(e) => {
         containerRef.current = e;
         if (!e) return;
-        const position = calculateModalPosition(anchor, e);
-        if (!position) {
-          e.style.display = "none";
-        } else {
-          e.style.display = "block";
-          e.style.left = position.left + "px";
-          e.style.top = position.top + "px";
-        }
+        repositionModal(e);
       }}
     >
       {children}

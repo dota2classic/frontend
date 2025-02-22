@@ -11,6 +11,7 @@ import {
   MetaApi,
   NotificationApi,
   PlayerApi,
+  RecordApi,
   StatsApi,
   StorageApi,
 } from "./back/apis";
@@ -130,6 +131,7 @@ export class AppApi {
   readonly notificationApi = new NotificationApi(this.apiConfig);
   readonly storageApi = new StorageApi(this.apiConfig);
   readonly blog = new BlogApi(this.apiConfig);
+  readonly record = new RecordApi(this.apiConfig);
 }
 
 export const appApi = new AppApi();
