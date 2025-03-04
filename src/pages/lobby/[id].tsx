@@ -26,7 +26,6 @@ import { useStore } from "@/store";
 import { IoMdClose } from "react-icons/io";
 import { useEventSource } from "@/util";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { ThreadStyle } from "@/containers/Thread/types";
 import { Thread } from "@/containers";
 import { DotaGameModeOptions, DotaMapOptions } from "@/const/options";
 
@@ -258,8 +257,6 @@ export default function LobbyPage({ id, lobby, host }: Props) {
         threadType={ThreadType.LOBBY}
         id={lobbyId}
         className={cx(c.grid12, c.threadContainer)}
-        threadStyle={ThreadStyle.CHAT}
-        showLastMessages={100}
       />
       {/*<div className={cx(c.grid4, c.buttons)}>*/}
       {/*  <Button mega onClick={launchGame}>*/}

@@ -23,7 +23,6 @@ import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import React, { useTransition } from "react";
 import { NextPageContext } from "next";
-import { ThreadStyle } from "@/containers/Thread/types";
 import { FaBell } from "react-icons/fa";
 import { observer } from "mobx-react-lite";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -190,8 +189,6 @@ export default function QueuePage(props: Props) {
         <QueuePartyInfo />
         <Thread
           className={c.queueDiscussion}
-          showLastMessages={100}
-          threadStyle={ThreadStyle.CHAT}
           id={"17aa3530-d152-462e-a032-909ae69019ed"}
           threadType={ThreadType.FORUM}
         />

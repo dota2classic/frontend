@@ -126,17 +126,12 @@ export class ThreadStore implements HydratableStore<unknown> {
     this.threadType = threadType;
     this.id = id;
     this.page = page;
-    this.initialLoad().then(() => this.fetchThread(id, threadType));
 
     if (init) {
-      if ("page" in init) {
-        // start with page and messages for good measure
-        this.pg = init;
-        this.messageMap = new Map(init.data.map((it) => [it.messageId, it]));
-      } else {
-        // just messages
-        this.messageMap = new Map(init.map((it) => [it.messageId, it]));
-      }
+      this.setInitial(init);
+      this.fetchThread(id, threadType).then();
+    } else {
+      this.initialLoad().then(() => this.fetchThread(id, threadType));
     }
 
     trace(this, "relevantMessages");
@@ -144,6 +139,7 @@ export class ThreadStore implements HydratableStore<unknown> {
   }
 
   private initialLoad = async () => {
+    console.trace("INITIAL LOAD? WHY???");
     if (this.page !== undefined) {
       this.loadPage(this.page);
     } else {
@@ -221,6 +217,7 @@ export class ThreadStore implements HydratableStore<unknown> {
   };
 
   @action loadPage = (page: number, perPage?: number) => {
+    console.trace("Load page", page, perPage, this.id, this.threadType);
     getApi()
       .forumApi.forumControllerMessagesPage(
         this.id.toString(),
@@ -263,6 +260,7 @@ export class ThreadStore implements HydratableStore<unknown> {
   };
 
   private fetchThread = async (id: string, threadType: ThreadType) => {
+    console.trace("Fetching thread. why?");
     return getApi()
       .forumApi.forumControllerGetThread(id, threadType)
       .then((thread) => runInAction(() => (this.thread = thread)))
@@ -286,4 +284,16 @@ export class ThreadStore implements HydratableStore<unknown> {
   }
 
   hydrate(): void {}
+
+  @action
+  setInitial(init: ThreadMessageDTO[] | ThreadMessagePageDTO) {
+    if ("page" in init) {
+      // start with page and messages for good measure
+      this.pg = init;
+      this.messageMap = new Map(init.data.map((it) => [it.messageId, it]));
+    } else {
+      // just messages
+      this.messageMap = new Map(init.map((it) => [it.messageId, it]));
+    }
+  }
 }

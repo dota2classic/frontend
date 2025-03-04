@@ -36,70 +36,88 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
         <tr>
           <th>Герой</th>
           <th className={c.fixedWidth}>Игрок</th>
-          <th
+          <Tooltipable
+            tooltip="Золото в минуту / Опыт в минуту"
             className={cx(
               "middle",
               hc.includes("GPM") ? c.mobileHidden : undefined,
             )}
           >
-            GPM/XPM
-          </th>
-          <th
+            ЗВМ/ОВМ
+          </Tooltipable>
+          <Tooltipable
+            tooltip="Добито / Не отдано"
             className={cx(
               "middle",
               hc.includes("LH") ? c.mobileHidden : undefined,
             )}
           >
-            LH/D
-          </th>
-          <th
+            Д/НО
+          </Tooltipable>
+          <Tooltipable
+            tooltip="Убийств"
             className={cx(
               "middle",
               hc.includes("K") ? c.mobileHidden : undefined,
             )}
           >
-            K
-          </th>
-          <th
+            У
+          </Tooltipable>
+          <Tooltipable
+            tooltip="Смертей"
             className={cx(
               "middle",
               hc.includes("D") ? c.mobileHidden : undefined,
             )}
           >
-            D
-          </th>
-          <th
+            С
+          </Tooltipable>
+          <Tooltipable
+            tooltip="Помощи в убийствах"
             className={cx(
               "middle",
               hc.includes("A") ? c.mobileHidden : undefined,
             )}
           >
-            A
-          </th>
-          <th
+            П
+          </Tooltipable>
+
+          <Tooltipable
+            tooltip="Лечение"
+            className={cx(
+              "middle",
+              hc.includes("HH") ? c.mobileHidden : undefined,
+            )}
+          >
+            Л
+          </Tooltipable>
+          <Tooltipable
+            tooltip="Урон по героям"
             className={cx(
               "middle",
               hc.includes("HD") ? c.mobileHidden : undefined,
             )}
           >
-            HD
-          </th>
-          <th
+            УГ
+          </Tooltipable>
+          <Tooltipable
+            tooltip="Урон по строениям"
             className={cx(
               "middle",
               hc.includes("TD") ? c.mobileHidden : undefined,
             )}
           >
-            TD
-          </th>
-          <th
+            УС
+          </Tooltipable>
+          <Tooltipable
+            tooltip={"Общая стоимость"}
             className={cx(
               "middle",
               hc.includes("NW") ? c.mobileHidden : undefined,
             )}
           >
             <FaCoins color={"#C9AF1D"} />
-          </th>
+          </Tooltipable>
           <th
             className={cx(
               c.items,
@@ -198,6 +216,14 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <td
               className={cx(
                 "middle",
+                hc.includes("HH") ? c.mobileHidden : undefined,
+              )}
+            >
+              <NumberFormat number={player.heroHealing} />
+            </td>
+            <td
+              className={cx(
+                "middle",
                 hc.includes("TD") ? c.mobileHidden : undefined,
               )}
             >
@@ -233,7 +259,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = ({
             <td className={hc.includes("MMR") ? c.mobileHidden : undefined}>
               {(player.mmr?.change && (
                 <Tooltipable
-                  tooltipPosition="left"
                   tooltip={
                     Math.abs(player.mmr.change) >= 50
                       ? "Калибровочная игра"

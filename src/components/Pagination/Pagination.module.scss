@@ -1,7 +1,8 @@
 @import "../../common.scss";
 
 .pagination {
-  padding: 6px 6px;
+  //padding: 6px 6px;
+  padding: 0 !important;
   display: flex;
 
 
@@ -19,7 +20,8 @@
 
 
 .page {
-  padding: 4px 12px;
+  //padding: 4px 12px;
+  padding: 10px 16px;
   //display: flex;
   justify-content: center;
   align-items: center;
@@ -38,10 +40,10 @@
 
   }
   &.active {
-    background-color: $transparentTint;
+    background-color: $blueHighlight3;
   }
 
   &:hover, &:focus {
-    background-color: $transparentTint3;
+    background-color: $blueHighlight3
   }
 }

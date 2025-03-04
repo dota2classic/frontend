@@ -11,7 +11,6 @@ import { FaTrophy } from "react-icons/fa";
 import { getApi } from "@/api/hooks";
 import { LiveMatchDto, LiveMatchDtoFromJSON, MatchDto } from "@/api/back";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
-import { ThreadStyle } from "@/containers/Thread/types";
 import { useEventSource } from "@/util";
 import { Tabs } from "@/components/Tabs/Tabs";
 import c from "./Match.module.scss";
@@ -47,10 +46,8 @@ const options: Filter[] = [
 const MatchThread = ({ id }: { id: string }) => {
   return (
     <Thread
-      threadStyle={ThreadStyle.CHAT}
       id={id}
       threadType={ThreadType.MATCH}
-      showLastMessages={100}
       className={c.queueDiscussion}
     />
   );

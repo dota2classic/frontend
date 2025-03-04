@@ -26,8 +26,7 @@ import Head from "next/head";
 import React from "react";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
-import { ThreadStyle } from "@/containers/Thread/types";
-import { Thread } from "@/containers";
+import { LazyPaginatedThread } from "@/containers/Thread/LazyPaginatedThread";
 
 //
 interface PlayerPageProps {
@@ -37,7 +36,6 @@ interface PlayerPageProps {
   preloadedHeroStats: HeroStatsDto[];
   preloadedTeammates: PlayerTeammatePageDto;
   preloadedAchievements: AchievementDto[];
-  commentPage: number;
 }
 
 export default function PlayerPage({
@@ -47,7 +45,6 @@ export default function PlayerPage({
   preloadedHeroStats,
   preloadedTeammates,
   preloadedAchievements,
-  commentPage,
 }: PlayerPageProps) {
   const formattedMatches: PlayerMatchItem[] = (preloadedMatches?.data || [])
     .sort(MatchComparator)
@@ -124,16 +121,15 @@ export default function PlayerPage({
         </header>
         <TeammatesTable data={preloadedTeammates!.data} />
       </Section>
-      <Thread
-        threadStyle={ThreadStyle.FORUM}
+      <LazyPaginatedThread
         className={c.thread}
         id={playerId}
         threadType={ThreadType.PLAYER}
-        pagination={{
-          page: commentPage,
-          pageProvider: (p) => AppRouter.players.player.index(playerId, p).link,
-          perPage: 20,
-        }}
+        // pagination={{
+        //   page: commentPage,
+        //   pageProvider: (p) => AppRouter.players.player.index(playerId, p).link,
+        //   perPage: 20,
+        // }}
       />
     </div>
   );
@@ -143,7 +139,6 @@ PlayerPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<PlayerPageProps> => {
   const playerId = ctx.query.id as string;
-  const page = Number(ctx.query.page as string) || 0;
 
   const [
     preloadedSummary,
@@ -166,6 +161,5 @@ PlayerPage.getInitialProps = async (
     preloadedHeroStats,
     preloadedTeammates,
     preloadedAchievements,
-    commentPage: page,
   };
 };

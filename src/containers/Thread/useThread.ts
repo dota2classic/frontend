@@ -5,65 +5,90 @@ import {
   ThreadMessageDTO,
   ThreadMessagePageDTO,
 } from "@/api/back";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getApi } from "@/api/hooks";
 import { ThreadStore } from "@/store/ThreadStore";
 
 export const useThread = (
   id: string,
   threadType: ThreadType,
-  initialMessages?: ThreadMessageDTO[] | ThreadMessagePageDTO,
-  loadLatest: boolean = false,
-  page?: number,
-  batchSize: number = 100,
 ): ThreadStore => {
   const [thread] = useState<ThreadStore>(
-    new ThreadStore(id.toString(), threadType, initialMessages, page),
+    () =>
+      new ThreadStore(id.toString(), threadType, undefined, undefined),
   );
 
-  const [trigger, setTrigger] = useState(0);
+  useThreadEventSource(id.toString(), threadType, thread.consumeMessages);
 
-  useThreadEventSource(
-    id.toString(),
-    threadType,
-    thread.consumeMessages,
-    trigger,
-  );
-
-  const handleVisibilityChange = useCallback(() => {
-    if (!document.hidden) {
-      // We need to load more and re-create event source so that we don't die on thread
-      setTrigger((x) => x + 1);
-      thread.loadNewer();
-    }
-  }, [thread]);
-
-  useEffect(() => {
-    document.addEventListener(
-      "visibilitychange",
-      handleVisibilityChange,
-      false,
-    );
-
-    return () =>
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, [handleVisibilityChange]);
+  // const handleVisibilityChange = useCallback(() => {
+  //   if (!document.hidden) {
+  //     // We need to load more and re-create event source so that we don't die on thread
+  //     setTrigger((x) => x + 1);
+  //     thread.loadNewer();
+  //   }
+  // }, [thread]);
+  //
+  // useEffect(() => {
+  //   document.addEventListener(
+  //     "visibilitychange",
+  //     handleVisibilityChange,
+  //     false,
+  //   );
+  //
+  //   return () =>
+  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
+  // }, [handleVisibilityChange]);
 
   useEffect(() => {
     thread.updateThread(threadType, id);
-    if (page !== undefined) {
-      thread.updateThread(threadType, id);
-      thread.loadPage(0);
-    } else {
-      // thread.loadMore(loadLatest, batchSize);
-    }
   }, [id, threadType]);
 
+  return thread;
+};
+
+export const usePaginatedThread = (
+  id: string,
+  threadType: ThreadType,
+  initialMessages: ThreadMessageDTO[] | ThreadMessagePageDTO,
+  pagination: {
+    page: number;
+    perPage?: number;
+  },
+) => {
+  const [thread] = useState<ThreadStore>(
+    () =>
+      new ThreadStore(
+        id.toString(),
+        threadType,
+        initialMessages,
+        pagination.page,
+      ),
+  );
+
+  useThreadEventSource(id.toString(), threadType, thread.consumeMessages);
+
   useEffect(() => {
-    if (page !== undefined) {
-      thread.loadPage(page, batchSize);
-    }
-  }, [page]);
+    thread.setInitial(initialMessages);
+  }, [initialMessages]);
+
+  // const handleVisibilityChange = useCallback(() => {
+  //   if (!document.hidden) {
+  //     // We need to load more and re-create event source so that we don't die on thread
+  //     setTrigger((x) => x + 1);
+  //     thread.loadNewer();
+  //   }
+  // }, [thread]);
+  //
+  // useEffect(() => {
+  //   document.addEventListener(
+  //     "visibilitychange",
+  //     handleVisibilityChange,
+  //     false,
+  //   );
+  //
+  //   return () =>
+  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
+  // }, [handleVisibilityChange]);
 
   return thread;
 };
@@ -72,7 +97,6 @@ const useThreadEventSource = (
   id: string,
   threadType: ThreadType,
   consumeMessages: (messages: ThreadMessageDTO[]) => void,
-  trigger: number = 0,
 ) => {
   const bp = getApi().apiParams.basePath;
   const endpoint = getApi().forumApi.forumControllerThreadContext({
@@ -93,5 +117,5 @@ const useThreadEventSource = (
     };
 
     return () => es.close();
-  }, [consumeMessages, context, trigger]);
+  }, [consumeMessages, context]);
 };

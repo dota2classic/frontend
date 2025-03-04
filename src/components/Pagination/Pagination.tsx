@@ -8,10 +8,15 @@ import cx from "clsx";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
+type Action = NextLinkProp | (() => void) | string;
 interface IPaginationProps {
-  linkProducer: (page: number) => NextLinkProp;
+  linkProducer: (page: number) => Action;
   page: number;
   maxPage: number;
+}
+
+function isPageLink(action: Action): action is NextLinkProp {
+  return typeof action === "object" && "href" in action;
 }
 
 const PaginationItem = ({
@@ -19,16 +24,22 @@ const PaginationItem = ({
   link,
   active,
 }: PropsWithChildren<{
-  link?: NextLinkProp;
+  link?: Action;
   active?: boolean;
 }>) => {
   const className = cx(c.page, {
     [c.active]: active,
   });
   return link ? (
-    <PageLink className={cx(className, "link")} link={link}>
-      {children}
-    </PageLink>
+    isPageLink(link) ? (
+      <PageLink className={cx(className, "link")} link={link}>
+        {children}
+      </PageLink>
+    ) : (
+      <span className={className} onClick={link as () => void}>
+        {children}
+      </span>
+    )
   ) : (
     <span className={className}>{children}</span>
   );

@@ -7,8 +7,7 @@ import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import { numberOrDefault } from "@/util/urls";
 import React from "react";
-import { Thread } from "@/containers";
-import { ThreadStyle } from "@/containers/Thread/types";
+import { PaginatedThread } from "@/containers/Thread/PaginatedThread";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -31,13 +30,13 @@ export default function ThreadPage({ messages, thread, page }: Props) {
           <span>{thread.title}</span>
         </Breadcrumbs>
       </Panel>
-      <Thread
+      <PaginatedThread
         populateMessages={messages}
         threadType={ThreadType.FORUM}
         id={r.query.id as string}
-        threadStyle={ThreadStyle.FORUM}
         pagination={{
-          page: numberOrDefault(page, 0),
+          page: page,
+          perPage: 25,
           pageProvider: (p) =>
             AppRouter.forum.thread(thread.externalId, thread.threadType, p)
               .link,
@@ -51,6 +50,7 @@ ThreadPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const tid = ctx.query.id as string;
   const page = numberOrDefault(ctx.query.page as string, 0);
 
+  console.log("getInitialProps", tid, page);
   return {
     page,
     messages: await getApi().forumApi.forumControllerMessagesPage(

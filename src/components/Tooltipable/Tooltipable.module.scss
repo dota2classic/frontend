@@ -2,34 +2,13 @@
 
 .tooltipable {
   position: relative;
-
-  &:hover {
-    & .tooltip {
-      visibility: visible;
-    }
-  }
 }
 
 .tooltip {
-  visibility: hidden;
-
-  position: absolute;
-  z-index: 1;
-  min-width: 100px;
-
-  background-color: $bg1;
-  color: $primaryText;
-  text-align: center;
+  box-shadow: 0px 3px 10px #000;
   padding: 8px 12px;
-  border-radius: 6px;
-
-  &::after {
-    content: " ";
-    position: absolute;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent transparent black;
-  }
+  background-color: $bg2;
+  color: $primaryText;
 }
 
 .left {

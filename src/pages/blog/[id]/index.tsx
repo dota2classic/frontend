@@ -5,7 +5,6 @@ import { NextPageContext } from "next";
 import { BlogpostRenderer, EmbedProps, PageLink } from "@/components";
 import React from "react";
 import { Thread } from "@/containers";
-import { ThreadStyle } from "@/containers/Thread/types";
 import { formatDate } from "@/util/dates";
 import { AppRouter } from "@/route";
 import { FaArrowLeft } from "react-icons/fa";
@@ -30,10 +29,8 @@ export default function BlogpostPage({ post }: Props) {
         <BlogpostRenderer html={post.renderedContentHtml} />
         <Thread
           className={c.thread}
-          threadStyle={ThreadStyle.FORUM}
           id={post.id.toString()}
           threadType={ThreadType.BLOGPOST}
-          showLastMessages={100}
         />
       </div>
     </>

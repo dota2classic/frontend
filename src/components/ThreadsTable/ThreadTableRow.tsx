@@ -1,28 +1,24 @@
 import { observer } from "mobx-react-lite";
 import { ThreadDTO, ThreadType } from "@/api/back";
-import { useStore } from "@/store";
-import React, { useCallback } from "react";
-import { getApi } from "@/api/hooks";
-import { FaMapPin, FaUser } from "react-icons/fa";
+import React from "react";
+import { FaUser } from "react-icons/fa";
 import { SiDota2 } from "react-icons/si";
 import { FaMessage } from "react-icons/fa6";
 import c from "./ThreadsTable.module.scss";
 import { PageLink, UserPreview } from "@/components";
 import { AppRouter } from "@/route";
-import cx from "clsx";
-import { MdAdminPanelSettings } from "react-icons/md";
 import { ThreadMessagePreview } from "@/components/ThreadsTable/ThreadMessagePreview";
 
 export const ThreadTableRow = observer(
-  ({ thread, mutate }: { thread: ThreadDTO; mutate: () => void }) => {
-    const isAdmin = useStore().auth.isAdmin;
-    const togglePin = useCallback(() => {
-      getApi()
-        .forumApi.forumControllerUpdateThread(thread.id, {
-          pinned: !thread.pinned,
-        })
-        .then(() => mutate());
-    }, [thread.id, thread.pinned, mutate]);
+  ({ thread }: { thread: ThreadDTO; mutate: () => void }) => {
+    // const isAdmin = useStore().auth.isAdmin;
+    // const togglePin = useCallback(() => {
+    //   getApi()
+    //     .forumApi.forumControllerUpdateThread(thread.id, {
+    //       pinned: !thread.pinned,
+    //     })
+    //     .then(() => mutate());
+    // }, [thread.id, thread.pinned, mutate]);
 
     const op = thread.originalPoster;
 
@@ -65,22 +61,22 @@ export const ThreadTableRow = observer(
             <ThreadMessagePreview message={thread.lastMessage} />
           )}
         </td>
-        <td className="omit">
-          {isAdmin ? (
-            <FaMapPin
-              className={cx("adminicon", thread.pinned ? "green" : "red")}
-              onClick={togglePin}
-            />
-          ) : thread.pinned ? (
-            <FaMapPin className={c.icon} />
-          ) : null}
-          {thread.adminOnly ? (
-            <MdAdminPanelSettings
-              style={{ scale: 1.2, marginBottom: 2 }}
-              className={c.icon}
-            />
-          ) : null}
-        </td>
+        {/*<td className="omit">*/}
+        {/*  {isAdmin ? (*/}
+        {/*    <FaMapPin*/}
+        {/*      className={cx("adminicon", thread.pinned ? "green" : "red")}*/}
+        {/*      onClick={togglePin}*/}
+        {/*    />*/}
+        {/*  ) : thread.pinned ? (*/}
+        {/*    <FaMapPin className={c.icon} />*/}
+        {/*  ) : null}*/}
+        {/*  {thread.adminOnly ? (*/}
+        {/*    <MdAdminPanelSettings*/}
+        {/*      style={{ scale: 1.2, marginBottom: 2 }}*/}
+        {/*      className={c.icon}*/}
+        {/*    />*/}
+        {/*  ) : null}*/}
+        {/*</td>*/}
       </tr>
     );
   },

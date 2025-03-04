@@ -28,7 +28,7 @@ export const ThreadsTable: React.FC<IThreadsTableProps> = ({ threads }) => {
             Автор
           </th>
           <th>Последнее сообщение</th>
-          <th className="omit"></th>
+          {/*<th className="omit"></th>*/}
         </tr>
       </thead>
       <tbody>

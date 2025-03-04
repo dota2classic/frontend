@@ -5,6 +5,7 @@ export type Columns =
   | "D"
   | "A"
   | "HD"
+  | "HH"
   | "TD"
   | "NW"
   | "Items"
@@ -17,6 +18,7 @@ export const AllColumns: Columns[] = [
   "D",
   "A",
   "HD",
+  "HH",
   "TD",
   "NW",
   "Items",

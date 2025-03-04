@@ -6,9 +6,8 @@ import { ThreadDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import React from "react";
-import { Thread } from "@/containers";
-import { ThreadStyle } from "@/containers/Thread/types";
 import { numberOrDefault } from "@/util/urls";
+import { PaginatedThread } from "@/containers/Thread/PaginatedThread";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -32,11 +31,10 @@ export default function TicketPage({ messages, thread, page }: Props) {
         </Breadcrumbs>
       </Panel>
       <br />
-      <Thread
+      <PaginatedThread
         populateMessages={messages}
         threadType={ThreadType.TICKET}
         id={r.query.id as string}
-        threadStyle={ThreadStyle.FORUM}
         pagination={{
           page: numberOrDefault(page, 0),
           pageProvider: (p) =>
