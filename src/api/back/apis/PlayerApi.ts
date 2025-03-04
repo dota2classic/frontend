@@ -61,6 +61,7 @@ export interface PlayerControllerHeroSummaryRequest {
 export interface PlayerControllerLeaderboardRequest {
   page: number;
   perPage?: number;
+  seasonId?: number;
 }
 
 export interface PlayerControllerPlayerSummaryRequest {
@@ -280,6 +281,10 @@ export class PlayerApi extends runtime.BaseAPI {
             queryParameters["per_page"] = requestParameters.perPage;
         }
 
+        if (requestParameters.seasonId !== undefined) {
+            queryParameters["season_id"] = requestParameters.seasonId;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         return {
@@ -292,20 +297,20 @@ export class PlayerApi extends runtime.BaseAPI {
 
     /**
      */
-    playerControllerLeaderboard = async (page: number, perPage?: number): Promise<LeaderboardEntryPageDto> => {
-        const response = await this.playerControllerLeaderboardRaw({ page: page, perPage: perPage });
+    playerControllerLeaderboard = async (page: number, perPage?: number, seasonId?: number): Promise<LeaderboardEntryPageDto> => {
+        const response = await this.playerControllerLeaderboardRaw({ page: page, perPage: perPage, seasonId: seasonId });
         return await response.value();
     }
 
-    usePlayerControllerLeaderboard(page: number, perPage?: number, config?: SWRConfiguration<LeaderboardEntryPageDto, Error>) {
+    usePlayerControllerLeaderboard(page: number, perPage?: number, seasonId?: number, config?: SWRConfiguration<LeaderboardEntryPageDto, Error>) {
         let valid = true
 
         if (page === null || page === undefined || Number.isNaN(page)) {
             valid = false
         }
 
-        const context = this.playerControllerLeaderboardContext({ page: page!, perPage: perPage! });
-        return useSWR(context, valid ? () => this.playerControllerLeaderboard(page!, perPage!) : null, config)
+        const context = this.playerControllerLeaderboardContext({ page: page!, perPage: perPage!, seasonId: seasonId! });
+        return useSWR(context, valid ? () => this.playerControllerLeaderboard(page!, perPage!, seasonId!) : null, config)
     }
 
     /**

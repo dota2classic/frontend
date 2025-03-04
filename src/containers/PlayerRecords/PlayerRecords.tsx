@@ -18,7 +18,7 @@ export const PlayerRecords: React.FC<IPlayerRecordsProps> = ({
   noPlayer,
 }) => {
   const [span, setSpan] = useQueryBackedParameter<Span>("span", true);
-  const selectedSpan = useMemo<Span>(() => span || "month", [span]);
+  const selectedSpan = useMemo<Span>(() => span || "season", [span]);
 
   const displayedRecords = useMemo(
     () => records[selectedSpan],
@@ -30,7 +30,7 @@ export const PlayerRecords: React.FC<IPlayerRecordsProps> = ({
       <BigTabs<Span>
         flavor="small"
         items={[
-          // { key: "season", label: "В этом сезоне", onSelect: setSpan },
+          { key: "season", label: "В этом сезоне", onSelect: setSpan },
           { key: "month", label: "В этом месяце", onSelect: setSpan },
           { key: "overall", label: "За все время", onSelect: setSpan },
         ]}

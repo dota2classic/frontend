@@ -1,11 +1,10 @@
 import React from "react";
 
-import { PageLink } from "..";
+import { PageLink, PlayerAvatar } from "..";
 
 import c from "./UserPreview.module.scss";
 import { UserDTO } from "@/api/back";
 import { AppRouter, NextLinkProp } from "@/route";
-import Image from "next/image";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import cx from "clsx";
@@ -37,7 +36,7 @@ export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
           className={isOnline ? c.online : undefined}
           style={{ width: avatarSize || 45, height: avatarSize || 45 }}
         >
-          <Image
+          <PlayerAvatar
             width={avatarSize || 45}
             height={avatarSize || 45}
             src={user.avatar}

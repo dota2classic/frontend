@@ -20,6 +20,7 @@ export * from "./FeedbackOptionDto";
 export * from "./FeedbackTemplateDto";
 export * from "./FeedbackTemplateOptionDto";
 export * from "./ForumUserDto";
+export * from "./GameSeasonDto";
 export * from "./GameServerDto";
 export * from "./GameSessionDto";
 export * from "./GamemodeAccessMap";

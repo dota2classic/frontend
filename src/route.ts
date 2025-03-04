@@ -64,6 +64,9 @@ export const AppRouter = {
   wiki: {
     index: spage("/wiki"),
   },
+  records: {
+    index: spage("/records"),
+  },
   blog: {
     index: spage("/blog"),
     create: spage("/blog/create"),
@@ -115,8 +118,8 @@ export const AppRouter = {
       });
       return page(`/players/[id]/matches${q}`, `/players/${id}/matches${q}`);
     },
-    leaderboard: (pg?: number) => {
-      const q = queryParameters({ page: pg });
+    leaderboard: (pg?: number, seasonId?: number) => {
+      const q = queryParameters({ page: pg, seasonId });
       return page(`/players${q}`, `/players${q}`);
     },
   },

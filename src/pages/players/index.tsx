@@ -1,6 +1,13 @@
-import { Duration, EmbedProps, GenericTable, Pagination } from "@/components";
+import {
+  Duration,
+  EmbedProps,
+  GenericTable,
+  Pagination,
+  Panel,
+  SelectOptions,
+} from "@/components";
 import { getApi } from "@/api/hooks";
-import { LeaderboardEntryPageDto } from "@/api/back";
+import { GameSeasonDto, LeaderboardEntryPageDto } from "@/api/back";
 import { colors } from "@/colors";
 import cx from "clsx";
 import { numberOrDefault } from "@/util/urls";
@@ -8,14 +15,24 @@ import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import React from "react";
 import { ColumnType } from "@/const/tables";
+import { useRouter } from "next/router";
 
 interface LeaderboardPageProps {
   initialLeaderboard: LeaderboardEntryPageDto;
+  seasons: GameSeasonDto[];
+  selectedSeasonId?: number;
 }
 
 export default function LeaderboardPage({
   initialLeaderboard,
+  seasons,
+  selectedSeasonId,
 }: LeaderboardPageProps) {
+  const seasonOptions = seasons.map((season) => ({
+    value: season.id,
+    label: `Сезон ${season.id}`,
+  }));
+  const router = useRouter();
   return (
     <>
       <EmbedProps
@@ -25,6 +42,25 @@ export default function LeaderboardPage({
         }
       />
 
+      <Panel>
+        <SelectOptions
+          options={seasonOptions}
+          selected={selectedSeasonId}
+          onSelect={({ value }) => {
+            const link = AppRouter.players.leaderboard(0, value).link;
+            router.push(link.href, link.as);
+          }}
+          defaultText={"Сезон"}
+        />
+      </Panel>
+
+      <Pagination
+        page={initialLeaderboard.page}
+        maxPage={initialLeaderboard.pages}
+        linkProducer={(pg) =>
+          AppRouter.players.leaderboard(pg, selectedSeasonId).link
+        }
+      />
       <GenericTable
         placeholderRows={100}
         keyProvider={(it) => it[1].steamId}
@@ -104,7 +140,9 @@ export default function LeaderboardPage({
       <Pagination
         page={initialLeaderboard.page}
         maxPage={initialLeaderboard.pages}
-        linkProducer={(pg) => AppRouter.players.leaderboard(pg).link}
+        linkProducer={(pg) =>
+          AppRouter.players.leaderboard(pg, selectedSeasonId).link
+        }
       />
     </>
   );
@@ -114,11 +152,19 @@ LeaderboardPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<LeaderboardPageProps> => {
   const page = numberOrDefault(ctx.query.page as string, 0);
+  const seasonId = numberOrDefault(ctx.query.seasonId as string, 0);
 
-  return {
-    initialLeaderboard: await getApi().playerApi.playerControllerLeaderboard(
+  const [initialLeaderboard, seasons] = await Promise.combine([
+    getApi().playerApi.playerControllerLeaderboard(
       page,
       100,
+      seasonId || undefined,
     ),
+    getApi().statsApi.statsControllerGetGameSeasons(),
+  ]);
+  return {
+    initialLeaderboard,
+    seasons,
+    selectedSeasonId: seasonId || seasons.find((t) => t.isActive)?.id,
   };
 };

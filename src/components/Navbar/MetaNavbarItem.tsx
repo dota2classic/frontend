@@ -23,6 +23,10 @@ export const MetaNavbarItem = () => {
           label: "Предметы",
           action: AppRouter.wiki.index.link,
         },
+        {
+          label: "Рекорды",
+          action: AppRouter.records.index.link,
+        },
       ]}
     >
       История игр

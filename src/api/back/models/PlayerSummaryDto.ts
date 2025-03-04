@@ -59,24 +59,6 @@ export interface PlayerSummaryDto {
      * @type {number}
      * @memberof PlayerSummaryDto
      */
-    unrankedGamesLeft: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PlayerSummaryDto
-     */
-    playedAnyGame: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PlayerSummaryDto
-     */
-    hasHumanGamesAccess: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerSummaryDto
-     */
     calibrationGamesLeft: number;
     /**
      * 
@@ -118,9 +100,6 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'id': json['id'],
         'mmr': !exists(json, 'mmr') ? undefined : json['mmr'],
         'rank': !exists(json, 'rank') ? undefined : json['rank'],
-        'unrankedGamesLeft': json['unrankedGamesLeft'],
-        'playedAnyGame': json['playedAnyGame'],
-        'hasHumanGamesAccess': json['hasHumanGamesAccess'],
         'calibrationGamesLeft': json['calibrationGamesLeft'],
         'gamesPlayed': json['games_played'],
         'wins': json['wins'],
@@ -142,9 +121,6 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         'id': value.id,
         'mmr': value.mmr,
         'rank': value.rank,
-        'unrankedGamesLeft': value.unrankedGamesLeft,
-        'playedAnyGame': value.playedAnyGame,
-        'hasHumanGamesAccess': value.hasHumanGamesAccess,
         'calibrationGamesLeft': value.calibrationGamesLeft,
         'games_played': value.gamesPlayed,
         'wins': value.wins,

@@ -21,6 +21,9 @@ import {
   CurrentOnlineDto,
   CurrentOnlineDtoFromJSON,
   CurrentOnlineDtoToJSON,
+  GameSeasonDto,
+  GameSeasonDtoFromJSON,
+  GameSeasonDtoToJSON,
   MatchmakingInfo,
   MatchmakingInfoFromJSON,
   MatchmakingInfoToJSON,
@@ -30,6 +33,52 @@ import {
  * 
  */
 export class StatsApi extends runtime.BaseAPI {
+
+    /**
+     */
+    private async statsControllerGetGameSeasonsRaw(): Promise<runtime.ApiResponse<Array<GameSeasonDto>>> {
+        this.statsControllerGetGameSeasonsValidation();
+        const context = this.statsControllerGetGameSeasonsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GameSeasonDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private statsControllerGetGameSeasonsValidation() {
+    }
+
+    /**
+     */
+    statsControllerGetGameSeasonsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/stats/seasons`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    statsControllerGetGameSeasons = async (): Promise<Array<GameSeasonDto>> => {
+        const response = await this.statsControllerGetGameSeasonsRaw();
+        return await response.value();
+    }
+
+    useStatsControllerGetGameSeasons(config?: SWRConfiguration<Array<GameSeasonDto>, Error>) {
+        let valid = true
+
+        const context = this.statsControllerGetGameSeasonsContext();
+        return useSWR(context, valid ? () => this.statsControllerGetGameSeasons() : null, config)
+    }
 
     /**
      */
