@@ -36,7 +36,7 @@ export const RenderChatThread = observer(function RenderChatThread() {
       }}
       computeItemKey={(idx, d) => d[0].messageId}
       skipAnimationFrameInResizeObserver={true}
-      atBottomThreshold={10}
+      atBottomThreshold={50}
       startReached={startReached}
       firstItemIndex={firstItemIndex}
       data={pool}

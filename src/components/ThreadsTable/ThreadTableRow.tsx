@@ -11,15 +11,6 @@ import { ThreadMessagePreview } from "@/components/ThreadsTable/ThreadMessagePre
 
 export const ThreadTableRow = observer(
   ({ thread }: { thread: ThreadDTO; mutate: () => void }) => {
-    // const isAdmin = useStore().auth.isAdmin;
-    // const togglePin = useCallback(() => {
-    //   getApi()
-    //     .forumApi.forumControllerUpdateThread(thread.id, {
-    //       pinned: !thread.pinned,
-    //     })
-    //     .then(() => mutate());
-    // }, [thread.id, thread.pinned, mutate]);
-
     const op = thread.originalPoster;
 
     return (
@@ -61,22 +52,6 @@ export const ThreadTableRow = observer(
             <ThreadMessagePreview message={thread.lastMessage} />
           )}
         </td>
-        {/*<td className="omit">*/}
-        {/*  {isAdmin ? (*/}
-        {/*    <FaMapPin*/}
-        {/*      className={cx("adminicon", thread.pinned ? "green" : "red")}*/}
-        {/*      onClick={togglePin}*/}
-        {/*    />*/}
-        {/*  ) : thread.pinned ? (*/}
-        {/*    <FaMapPin className={c.icon} />*/}
-        {/*  ) : null}*/}
-        {/*  {thread.adminOnly ? (*/}
-        {/*    <MdAdminPanelSettings*/}
-        {/*      style={{ scale: 1.2, marginBottom: 2 }}*/}
-        {/*      className={c.icon}*/}
-        {/*    />*/}
-        {/*  ) : null}*/}
-        {/*</td>*/}
       </tr>
     );
   },

@@ -1,43 +1,35 @@
 /* eslint-disable */
-import { ThreadType } from "@/api/mapped-models";
-import {
-  querystring,
-  ThreadMessageDTO,
-  ThreadMessagePageDTO,
-} from "@/api/back";
-import { useEffect, useState } from "react";
-import { getApi } from "@/api/hooks";
-import { ThreadStore } from "@/store/ThreadStore";
+import {ThreadType} from "@/api/mapped-models";
+import {querystring, ThreadMessageDTO, ThreadMessagePageDTO,} from "@/api/back";
+import {useCallback, useEffect, useState} from "react";
+import {getApi} from "@/api/hooks";
+import {ThreadStore} from "@/store/ThreadStore";
 
-export const useThread = (
-  id: string,
-  threadType: ThreadType,
-): ThreadStore => {
+export const useThread = (id: string, threadType: ThreadType): ThreadStore => {
   const [thread] = useState<ThreadStore>(
     () =>
-      new ThreadStore(id.toString(), threadType, undefined, undefined),
+      new ThreadStore(id.toString(), threadType, "fast", undefined, undefined),
   );
 
   useThreadEventSource(id.toString(), threadType, thread.consumeMessages);
 
-  // const handleVisibilityChange = useCallback(() => {
-  //   if (!document.hidden) {
-  //     // We need to load more and re-create event source so that we don't die on thread
-  //     setTrigger((x) => x + 1);
-  //     thread.loadNewer();
-  //   }
-  // }, [thread]);
-  //
-  // useEffect(() => {
-  //   document.addEventListener(
-  //     "visibilitychange",
-  //     handleVisibilityChange,
-  //     false,
-  //   );
-  //
-  //   return () =>
-  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
-  // }, [handleVisibilityChange]);
+  const handleVisibilityChange = useCallback(() => {
+    if (!document.hidden) {
+      // We need to load more and re-create event source so that we don't die on thread
+      thread.loadNewer();
+    }
+  }, [thread]);
+
+  useEffect(() => {
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange,
+      false,
+    );
+
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [handleVisibilityChange]);
 
   useEffect(() => {
     thread.updateThread(threadType, id);
@@ -60,6 +52,7 @@ export const usePaginatedThread = (
       new ThreadStore(
         id.toString(),
         threadType,
+        "page",
         initialMessages,
         pagination.page,
       ),
@@ -70,25 +63,6 @@ export const usePaginatedThread = (
   useEffect(() => {
     thread.setInitial(initialMessages);
   }, [initialMessages]);
-
-  // const handleVisibilityChange = useCallback(() => {
-  //   if (!document.hidden) {
-  //     // We need to load more and re-create event source so that we don't die on thread
-  //     setTrigger((x) => x + 1);
-  //     thread.loadNewer();
-  //   }
-  // }, [thread]);
-  //
-  // useEffect(() => {
-  //   document.addEventListener(
-  //     "visibilitychange",
-  //     handleVisibilityChange,
-  //     false,
-  //   );
-  //
-  //   return () =>
-  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
-  // }, [handleVisibilityChange]);
 
   return thread;
 };
@@ -103,8 +77,27 @@ const useThreadEventSource = (
     id: id.toString(),
     threadType: threadType,
   });
+  const [trigger, setTrigger] = useState(0);
 
   const context = JSON.stringify(endpoint);
+
+  const handleVisibilityChange = useCallback(() => {
+    if (!document.hidden) {
+      // We need to load more and re-create event source so that we don't die on thread
+      setTrigger((t) => t + 1);
+    }
+  }, [setTrigger]);
+
+  useEffect(() => {
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange,
+      false,
+    );
+
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [handleVisibilityChange]);
 
   useEffect(() => {
     const es = new EventSource(
@@ -117,5 +110,5 @@ const useThreadEventSource = (
     };
 
     return () => es.close();
-  }, [consumeMessages, context]);
+  }, [consumeMessages, context, trigger]);
 };

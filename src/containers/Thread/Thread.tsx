@@ -38,10 +38,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
 
   const [sendMessage, clearReply, canMessage] = useThreadControls(thread);
 
-  const displayInput =
-    !thread.pg ||
-    thread.pg.pages === 1 ||
-    thread.pg.page == thread.pg.pages - 1;
+  const displayInput = true;
 
   return (
     <ThreadContext.Provider value={thread}>

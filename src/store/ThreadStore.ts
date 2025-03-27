@@ -119,6 +119,7 @@ export class ThreadStore implements HydratableStore<unknown> {
   constructor(
     id: string,
     threadType: ThreadType,
+    loadLatestPage: "page" | "fast",
     init: ThreadMessageDTO[] | ThreadMessagePageDTO | undefined,
     page: number | undefined,
   ) {
@@ -131,21 +132,34 @@ export class ThreadStore implements HydratableStore<unknown> {
       this.setInitial(init);
       this.fetchThread(id, threadType).then();
     } else {
-      this.initialLoad().then(() => this.fetchThread(id, threadType));
+      this.initialLoad(loadLatestPage).then(() =>
+        this.fetchThread(id, threadType),
+      );
     }
 
     trace(this, "relevantMessages");
     trace(this, "thread");
   }
 
-  private initialLoad = async () => {
-    console.trace("INITIAL LOAD? WHY???");
+  private initialLoad = async (loadLatestPage: "page" | "fast") => {
     if (this.page !== undefined) {
       this.loadPage(this.page);
     } else {
-      getApi()
-        .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 200)
-        .then(this.setPageData);
+      if (loadLatestPage === "page") {
+        getApi()
+          .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 200)
+          .then(this.setPageData);
+      } else {
+        getApi()
+          .forumApi.forumControllerGetMessages(
+            this.id,
+            this.threadType,
+            undefined,
+            200,
+            SortOrder.DESC,
+          )
+          .then(this.consumeMessages);
+      }
     }
   };
 
@@ -217,7 +231,6 @@ export class ThreadStore implements HydratableStore<unknown> {
   };
 
   @action loadPage = (page: number, perPage?: number) => {
-    console.trace("Load page", page, perPage, this.id, this.threadType);
     getApi()
       .forumApi.forumControllerMessagesPage(
         this.id.toString(),
@@ -260,7 +273,6 @@ export class ThreadStore implements HydratableStore<unknown> {
   };
 
   private fetchThread = async (id: string, threadType: ThreadType) => {
-    console.trace("Fetching thread. why?");
     return getApi()
       .forumApi.forumControllerGetThread(id, threadType)
       .then((thread) => runInAction(() => (this.thread = thread)))
