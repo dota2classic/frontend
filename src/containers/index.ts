@@ -7,3 +7,4 @@ export { DevVersionIndicator } from "./DevVersionIndicator/DevVersionIndicator";
 export { RichEditor } from "./RichEditor/RichEditor";
 export { BlogEditContainer } from "./BlogEditContainer/BlogEditContainer";
 export { PlayerRecords } from "./PlayerRecords/PlayerRecords";
+export { PlayerReportModal } from "./PlayerReportModal/PlayerReportModal";

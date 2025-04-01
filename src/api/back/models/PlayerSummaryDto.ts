@@ -18,6 +18,10 @@ import {
     GamemodeAccessMapFromJSON,
     GamemodeAccessMapFromJSONTyped,
     GamemodeAccessMapToJSON,
+    PlayerAspectDto,
+    PlayerAspectDtoFromJSON,
+    PlayerAspectDtoFromJSONTyped,
+    PlayerAspectDtoToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -80,10 +84,40 @@ export interface PlayerSummaryDto {
     loss: number;
     /**
      * 
+     * @type {number}
+     * @memberof PlayerSummaryDto
+     */
+    kills: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PlayerSummaryDto
+     */
+    deaths: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PlayerSummaryDto
+     */
+    assists: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PlayerSummaryDto
+     */
+    playtime: number;
+    /**
+     * 
      * @type {GamemodeAccessMap}
      * @memberof PlayerSummaryDto
      */
     accessMap: GamemodeAccessMap;
+    /**
+     * 
+     * @type {Array<PlayerAspectDto>}
+     * @memberof PlayerSummaryDto
+     */
+    aspects: Array<PlayerAspectDto>;
 }
 
 export function PlayerSummaryDtoFromJSON(json: any): PlayerSummaryDto {
@@ -104,7 +138,12 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'gamesPlayed': json['games_played'],
         'wins': json['wins'],
         'loss': json['loss'],
+        'kills': json['kills'],
+        'deaths': json['deaths'],
+        'assists': json['assists'],
+        'playtime': json['playtime'],
         'accessMap': GamemodeAccessMapFromJSON(json['accessMap']),
+        'aspects': ((json['aspects'] as Array<any>).map(PlayerAspectDtoFromJSON)),
     };
 }
 
@@ -125,7 +164,12 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         'games_played': value.gamesPlayed,
         'wins': value.wins,
         'loss': value.loss,
+        'kills': value.kills,
+        'deaths': value.deaths,
+        'assists': value.assists,
+        'playtime': value.playtime,
         'accessMap': GamemodeAccessMapToJSON(value.accessMap),
+        'aspects': ((value.aspects as Array<any>).map(PlayerAspectDtoToJSON)),
     };
 }
 

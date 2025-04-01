@@ -3,6 +3,7 @@ import {
   DotaGameRulesState,
   DotaMap,
   MatchmakingMode,
+  PlayerAspect,
 } from "@/api/mapped-models";
 import { ReactNode } from "react";
 import { RecordType } from "@/api/back";
@@ -107,4 +108,16 @@ const recordMessages = {
 
 export function formatRecordType(type: RecordType) {
   return recordMessages[type];
+}
+
+const aspectMessages = {
+  [PlayerAspect.FRIENDLY]: "Добряк",
+  [PlayerAspect.TOXIC]: "Токсик",
+  [PlayerAspect.WINNER]: "Тащер",
+  [PlayerAspect.RUINER]: "Руинер",
+  [PlayerAspect.GOOD]: "Молодец",
+};
+
+export function formatPlayerAspect(type: PlayerAspect) {
+  return aspectMessages[type];
 }

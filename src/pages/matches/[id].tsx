@@ -1,5 +1,5 @@
 import { NextPageContext } from "next";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   EmbedProps,
   LiveMatchPreview,
@@ -9,12 +9,17 @@ import {
 } from "@/components";
 import { FaTrophy } from "react-icons/fa";
 import { getApi } from "@/api/hooks";
-import { LiveMatchDto, LiveMatchDtoFromJSON, MatchDto } from "@/api/back";
+import {
+  LiveMatchDto,
+  LiveMatchDtoFromJSON,
+  MatchDto,
+  PlayerInMatchDto,
+} from "@/api/back";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useEventSource } from "@/util";
 import { Tabs } from "@/components/Tabs/Tabs";
 import c from "./Match.module.scss";
-import { Thread } from "@/containers";
+import { PlayerReportModal, Thread } from "@/containers";
 import { Columns } from "@/components/MatchTeamTable/columns";
 
 interface InitialProps {
@@ -43,6 +48,11 @@ const options: Filter[] = [
   },
 ];
 
+interface ReportModalData {
+  reportedPlayer: PlayerInMatchDto;
+  matchId: number;
+}
+
 const MatchThread = ({ id }: { id: string }) => {
   return (
     <Thread
@@ -65,6 +75,21 @@ export default function MatchPage({
     },
   });
 
+  const [reportModalData, setReportModalData] = useState<
+    ReportModalData | undefined
+  >(undefined);
+
+  const showReportModal = useCallback(
+    (pim: PlayerInMatchDto) => {
+      setReportModalData({ reportedPlayer: pim, matchId: matchId });
+    },
+    [matchId],
+  );
+  const closeModal = useCallback(() => {
+    console.log("close");
+    setReportModalData(undefined);
+  }, []);
+
   const isMatchLive =
     liveMatches.findIndex((t) => t.matchId === matchId) !== -1;
 
@@ -78,6 +103,13 @@ export default function MatchPage({
   if (match)
     return (
       <>
+        {reportModalData && (
+          <PlayerReportModal
+            onClose={closeModal}
+            player={reportModalData.reportedPlayer}
+            matchId={reportModalData.matchId}
+          />
+        )}
         <EmbedProps
           title={`Матч ${matchId}`}
           description={`Страница матча с ID ${matchId}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru`}
@@ -104,6 +136,8 @@ export default function MatchPage({
           onSelect={(v) => setFilter(options.find((x) => x.label === v)!)}
         />
         <MatchTeamTable
+          onTryReport={showReportModal}
+          reportable={match.reportable}
           filterColumns={filter.columns}
           duration={match.duration}
           players={match.radiant}
@@ -120,6 +154,8 @@ export default function MatchPage({
           onSelect={(v) => setFilter(options.find((x) => x.label === v)!)}
         />
         <MatchTeamTable
+          onTryReport={showReportModal}
+          reportable={match.reportable}
           filterColumns={filter.columns}
           duration={match.duration}
           players={match.dire}

@@ -38,6 +38,11 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     return this.parsedToken?.roles.includes(Role.MODERATOR) || false;
   }
 
+  @computed
+  public get hasReports(): boolean {
+    return (this.me?.reportsAvailable || 0) > 0;
+  }
+
   constructor() {
     makeObservable(this);
 

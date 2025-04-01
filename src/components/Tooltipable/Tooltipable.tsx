@@ -19,6 +19,21 @@ export const Tooltipable: React.FC<PropsWithChildren<ITooltipableProps>> = ({
 }) => {
   const [visible, setVisible] = useToggle(false);
   const ref = useRef<HTMLTableHeaderCellElement | null>(null);
+
+  const realChildren = React.Children.map(children, (child) => {
+    // Checking isValidElement is the safe way and avoids a
+    // typescript error too.
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, {
+        className: cx(c.tooltipable, className),
+        ref: ref,
+        onMouseEnter: () => setVisible(true),
+        onMouseLeave: () => setVisible(false),
+      } as unknown as never);
+    }
+    return child;
+  });
+
   return (
     <>
       {visible &&
@@ -32,14 +47,7 @@ export const Tooltipable: React.FC<PropsWithChildren<ITooltipableProps>> = ({
           </GenericTooltip>,
           document.body,
         )}
-      <th
-        className={cx(c.tooltipable, className)}
-        ref={ref}
-        onMouseEnter={() => setVisible(true)}
-        onMouseLeave={() => setVisible(false)}
-      >
-        {children}
-      </th>
+      {realChildren}
     </>
   );
 };

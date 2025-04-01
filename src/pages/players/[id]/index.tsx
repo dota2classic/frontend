@@ -2,12 +2,11 @@ import {
   AchievementStatus,
   EmbedProps,
   HeroPerformanceTable,
-  HeroWithItemsHistoryTable,
   PageLink,
   Panel,
+  PlayerPentagonStats,
   PlayerSummary,
   Section,
-  TeammatesTable,
 } from "@/components";
 import c from "./PlayerPage.module.scss";
 import { getApi } from "@/api/hooks";
@@ -17,7 +16,6 @@ import {
   HeroStatsDto,
   MatchPageDto,
   PlayerSummaryDto,
-  PlayerTeammatePageDto,
   ThreadType,
 } from "@/api/back";
 import { PlayerMatchItem } from "@/components/HeroWithItemsHistoryTable/HeroWithItemsHistoryTable";
@@ -34,7 +32,6 @@ interface PlayerPageProps {
   preloadedSummary: PlayerSummaryDto;
   preloadedMatches: MatchPageDto;
   preloadedHeroStats: HeroStatsDto[];
-  preloadedTeammates: PlayerTeammatePageDto;
   preloadedAchievements: AchievementDto[];
 }
 
@@ -43,7 +40,6 @@ export default function PlayerPage({
   preloadedSummary,
   preloadedMatches,
   preloadedHeroStats,
-  preloadedTeammates,
   preloadedAchievements,
 }: PlayerPageProps) {
   const formattedMatches: PlayerMatchItem[] = (preloadedMatches?.data || [])
@@ -93,13 +89,17 @@ export default function PlayerPage({
         </Panel>
       </Section>
       <Section className={c.matchHistory}>
-        <header data-testid="player-matches-header">
-          Матчи
-          <PageLink link={AppRouter.players.playerMatches(playerId).link}>
-            Показать еще
-          </PageLink>
+        <header data-testid="player-hero-performance-header">
+          <span>Отзывы игроков</span>
         </header>
-        <HeroWithItemsHistoryTable loading={false} data={formattedMatches} />
+        <PlayerPentagonStats
+          games={preloadedSummary.gamesPlayed}
+          aspects={preloadedSummary.aspects}
+          kills={preloadedSummary.kills}
+          deaths={preloadedSummary.deaths}
+          assists={preloadedSummary.assists}
+          playtime={preloadedSummary.playtime}
+        />
       </Section>
       <Section className={c.heroPerformance}>
         <header data-testid="player-hero-performance-header">
@@ -113,23 +113,11 @@ export default function PlayerPage({
           loading={false}
           data={formattedHeroStats}
         />
-        <header data-testid="player-teammates-header">
-          Лучшие тиммейты{" "}
-          <PageLink link={AppRouter.players.player.teammates(playerId).link}>
-            Показать всех
-          </PageLink>
-        </header>
-        <TeammatesTable data={preloadedTeammates!.data} />
       </Section>
       <LazyPaginatedThread
         className={c.thread}
         id={playerId}
         threadType={ThreadType.PLAYER}
-        // pagination={{
-        //   page: commentPage,
-        //   pageProvider: (p) => AppRouter.players.player.index(playerId, p).link,
-        //   perPage: 20,
-        // }}
       />
     </div>
   );
@@ -144,13 +132,11 @@ PlayerPage.getInitialProps = async (
     preloadedSummary,
     preloadedMatches,
     preloadedHeroStats,
-    preloadedTeammates,
     preloadedAchievements,
   ] = await Promise.combine([
     getApi().playerApi.playerControllerPlayerSummary(playerId),
     getApi().matchApi.matchControllerPlayerMatches(playerId, 0),
     getApi().playerApi.playerControllerHeroSummary(playerId),
-    getApi().playerApi.playerControllerTeammates(playerId, 0, 10),
     getApi().playerApi.playerControllerAchievements(playerId),
   ]);
 
@@ -159,7 +145,6 @@ PlayerPage.getInitialProps = async (
     preloadedSummary,
     preloadedMatches,
     preloadedHeroStats,
-    preloadedTeammates,
     preloadedAchievements,
   };
 };

@@ -8,6 +8,7 @@ export const GreedyFocusPriority = {
   EMOTICON_WINDOW_SEARCH: 2,
   INVITE_PLAYER_MODAL: 3,
   FEEDBACK_MODAL: 3,
+  REPORT_MODAL: 3,
 };
 
 export const useGreedyFocus = (

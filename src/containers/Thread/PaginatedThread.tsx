@@ -56,7 +56,7 @@ export const PaginatedThread: React.FC<PaginatedThreadProps> = observer(
     const displayInput =
       !pagination ||
       !thread.pg ||
-      thread.pg.pages === 1 ||
+      thread.pg.pages <= 1 ||
       thread.pg.page == thread.pg.pages - 1;
 
     return (

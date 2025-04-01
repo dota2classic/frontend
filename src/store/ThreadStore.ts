@@ -178,13 +178,14 @@ export class ThreadStore implements HydratableStore<unknown> {
       }
     });
     // Here we have a tricky part and don't like it
-    if (msgs.length === 1 && this.pg && this.pg.data.length > 0) {
+    if (msgs.length === 1 && this.pg) {
       const msg = msgs[0];
       // if we only consume a single message, aka "send message" or receive update via socket
       // if we know its later than our known last and fits into perPage size
       if (
+        this.pg.data.length === 0 ||
         new Date(msg.createdAt).getTime() >
-        new Date(this.pg.data[this.pg.data.length - 1].createdAt).getTime()
+          new Date(this.pg.data[this.pg.data.length - 1].createdAt).getTime()
       ) {
         // we can append it
         if (this.pg.data.length < this.pg.perPage) {

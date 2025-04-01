@@ -1,0 +1,92 @@
+@import "../../common.scss";
+
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  background-color: $panelBg;
+  flex: 1;
+}
+
+.numericalStats {
+  grid-column: 5 span;
+  padding-top: 4rem;
+
+  & dl {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    white-space: nowrap;
+  }
+
+  & dd {
+    color: $gold;
+    min-width: 80px;
+  }
+
+  & dt {
+    flex: 1;
+    text-align: left;
+  }
+
+  & .delimiter {
+    display: block;
+    width: 80%;
+    margin: auto;
+    border-bottom: 1px solid $blueHighlight3;
+  }
+}
+
+
+.pentagon {
+  grid-column: 7 span;
+  position: relative;
+  //background-color: $blueHighlight3;
+  width: 100%;
+  aspect-ratio: 1;
+  height: auto;
+}
+
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: $red;
+
+  transform: translate(-50%, -50%);
+}
+
+.aspect {
+  position: absolute;
+  transform: translate(-50%, -50%);
+
+  &:nth-child(2) {
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
+  &:nth-child(5) {
+    margin-left: -10px;
+    margin-top: 20px;
+  }
+}
+
+.svg {
+  width: 100%;
+  aspect-ratio: 1;
+  height: auto;
+
+
+  & .svg__big_penta {
+    fill: url(#grad);
+    stroke-width: 2px;
+    stroke: $deepBlue;
+  }
+
+  & .svg__small_penta {
+    stroke-width: 2px;
+    stroke: $gold;
+    fill: rgba(203, 181, 66, 0.35);
+  }
+}

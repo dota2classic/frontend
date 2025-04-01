@@ -24,6 +24,9 @@ import {
   MatchPageDto,
   MatchPageDtoFromJSON,
   MatchPageDtoToJSON,
+  ReportPlayerDto,
+  ReportPlayerDtoFromJSON,
+  ReportPlayerDtoToJSON,
 } from "../models";
 
 export interface MatchControllerHeroMatchesRequest {
@@ -48,6 +51,10 @@ export interface MatchControllerPlayerMatchesRequest {
   perPage?: number;
   mode?: number;
   hero?: string;
+}
+
+export interface MatchControllerReportPlayerInMatchRequest {
+  reportPlayerDto: ReportPlayerDto;
 }
 
 /**
@@ -328,5 +335,58 @@ export class MatchApi extends runtime.BaseAPI {
         const context = this.matchControllerPlayerMatchesContext({ id: id!, page: page!, perPage: perPage!, mode: mode!, hero: hero! });
         return useSWR(context, valid ? () => this.matchControllerPlayerMatches(id!, page!, perPage!, mode!, hero!) : null, config)
     }
+
+    /**
+     */
+    private async matchControllerReportPlayerInMatchRaw(requestParameters: MatchControllerReportPlayerInMatchRequest): Promise<runtime.ApiResponse<void>> {
+        this.matchControllerReportPlayerInMatchValidation(requestParameters);
+        const context = this.matchControllerReportPlayerInMatchContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private matchControllerReportPlayerInMatchValidation(requestParameters: MatchControllerReportPlayerInMatchRequest) {
+        if (requestParameters.reportPlayerDto === null || requestParameters.reportPlayerDto === undefined) {
+            throw new runtime.RequiredError("reportPlayerDto","Required parameter requestParameters.reportPlayerDto was null or undefined when calling matchControllerReportPlayerInMatch.");
+        }
+    }
+
+    /**
+     */
+    matchControllerReportPlayerInMatchContext(requestParameters: MatchControllerReportPlayerInMatchRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/match/report`,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReportPlayerDtoToJSON(requestParameters.reportPlayerDto),
+        };
+    }
+
+    /**
+     */
+    matchControllerReportPlayerInMatch = async (reportPlayerDto: ReportPlayerDto): Promise<void> => {
+        await this.matchControllerReportPlayerInMatchRaw({ reportPlayerDto: reportPlayerDto });
+    }
+
 
 }
