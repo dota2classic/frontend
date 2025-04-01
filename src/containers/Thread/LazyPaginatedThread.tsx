@@ -38,7 +38,7 @@ export const LazyPaginatedThread: React.FC<Props> = ({
       .then(setPageData);
   }, [id, page, threadType]);
 
-  if (!pageData) return null;
+  if (!pageData || page === undefined) return null;
 
   return (
     <PaginatedThread
