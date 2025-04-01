@@ -87,15 +87,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
             </Tooltipable>
 
             <Tooltipable
-              tooltip="Лечение"
-              className={cx(
-                "middle",
-                hc.includes("HH") ? c.mobileHidden : undefined,
-              )}
-            >
-              <th>Л</th>
-            </Tooltipable>
-            <Tooltipable
               tooltip="Урон по героям"
               className={cx(
                 "middle",
@@ -103,6 +94,15 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
               )}
             >
               <th>УГ</th>
+            </Tooltipable>
+            <Tooltipable
+              tooltip="Лечение"
+              className={cx(
+                "middle",
+                hc.includes("HH") ? c.mobileHidden : undefined,
+              )}
+            >
+              <th>Л</th>
             </Tooltipable>
             <Tooltipable
               tooltip="Урон по строениям"
