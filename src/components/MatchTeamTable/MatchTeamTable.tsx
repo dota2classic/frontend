@@ -282,7 +282,13 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                         : "Обычная игра "
                     }
                   >
-                    <span>
+                    <span
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "4px",
+                      }}
+                    >
                       {player.mmr?.mmrBefore}{" "}
                       <span
                         className={cx(
