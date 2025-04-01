@@ -31,14 +31,18 @@
   min-width: 20px;
   max-width: 20px;
 
+  color: $green;
+  text-decoration: none;
+  cursor: pointer;
+
   & svg {
     vertical-align: middle;
   }
 
   & a {
     color: $green;
-
   }
+
   &.active {
     background-color: $blueHighlight3;
   }

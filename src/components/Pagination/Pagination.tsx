@@ -36,7 +36,7 @@ const PaginationItem = ({
         {children}
       </PageLink>
     ) : (
-      <span className={className} onClick={link as () => void}>
+      <span className={cx(className, "link")} onClick={link as () => void}>
         {children}
       </span>
     )

@@ -115,6 +115,7 @@ export default function PlayerPage({
         />
       </Section>
       <LazyPaginatedThread
+        startLatest
         className={c.thread}
         id={playerId}
         threadType={ThreadType.PLAYER}
@@ -135,7 +136,7 @@ PlayerPage.getInitialProps = async (
     preloadedAchievements,
   ] = await Promise.combine([
     getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().matchApi.matchControllerPlayerMatches(playerId, 0),
+    getApi().matchApi.matchControllerPlayerMatches(playerId, 0, 1),
     getApi().playerApi.playerControllerHeroSummary(playerId),
     getApi().playerApi.playerControllerAchievements(playerId),
   ]);
