@@ -132,7 +132,7 @@ export class ThreadStore implements HydratableStore<unknown> {
       this.setInitial(init);
       this.fetchThread(id, threadType).then();
     } else {
-      this.initialLoad(loadLatestPage).then(() =>
+      this.initialLoad().then(() =>
         this.fetchThread(id, threadType),
       );
     }
@@ -141,25 +141,13 @@ export class ThreadStore implements HydratableStore<unknown> {
     trace(this, "thread");
   }
 
-  private initialLoad = async (loadLatestPage: "page" | "fast") => {
+  private initialLoad = async () => {
     if (this.page !== undefined) {
       this.loadPage(this.page);
     } else {
-      if (loadLatestPage === "page") {
-        getApi()
-          .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 200)
-          .then(this.setPageData);
-      } else {
-        getApi()
-          .forumApi.forumControllerGetMessages(
-            this.id,
-            this.threadType,
-            undefined,
-            200,
-            SortOrder.DESC,
-          )
-          .then(this.consumeMessages);
-      }
+      getApi()
+        .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 200)
+        .then(this.setPageData);
     }
   };
 
