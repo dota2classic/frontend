@@ -132,9 +132,7 @@ export class ThreadStore implements HydratableStore<unknown> {
       this.setInitial(init);
       this.fetchThread(id, threadType).then();
     } else {
-      this.initialLoad().then(() =>
-        this.fetchThread(id, threadType),
-      );
+      this.initialLoad().then(() => this.fetchThread(id, threadType));
     }
 
     trace(this, "relevantMessages");
