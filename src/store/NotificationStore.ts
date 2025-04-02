@@ -10,6 +10,7 @@ import {
   createNotificationToast,
   makeSimpleToast,
 } from "@/components/Toast/toasts";
+import { AppRouter } from "@/route";
 
 export class PopupNotificationDto {
   constructor(
@@ -176,19 +177,24 @@ export class NotificationStore implements HydratableStore<unknown> {
 
   @action finishFeedback = async (feedback?: FeedbackDto) => {
     if (feedback) {
-      await getApi().feedback.feedbackControllerSubmitFeedbackResult(
-        feedback.id,
-        {
-          comment: feedback.comment,
-          options: feedback.options,
-          createTicket: feedback.comment?.length > 0,
-        },
-      );
+      const feedbackResponse =
+        await getApi().feedback.feedbackControllerSubmitFeedbackResult(
+          feedback.id,
+          {
+            comment: feedback.comment,
+            options: feedback.options,
+            createTicket: feedback.comment?.length > 0,
+          },
+        );
       makeSimpleToast(
         "Обратная связь сохранена",
         "Спасибо, что помогаешь стать нам лучше",
         10000,
       );
+
+      if (feedbackResponse.ticketId) {
+        AppRouter.forum.ticket.ticket(feedbackResponse.ticketId).open();
+      }
     }
     this.currentFeedback = undefined;
   };

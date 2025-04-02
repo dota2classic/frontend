@@ -42,52 +42,6 @@ export class FeedbackApi extends runtime.BaseAPI {
 
     /**
      */
-    private async feedbackControllerGetAllRaw(): Promise<runtime.ApiResponse<Array<FeedbackDto>>> {
-        this.feedbackControllerGetAllValidation();
-        const context = this.feedbackControllerGetAllContext();
-        const response = await this.request(context);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(FeedbackDtoFromJSON));
-    }
-
-
-
-    /**
-     */
-    private feedbackControllerGetAllValidation() {
-    }
-
-    /**
-     */
-    feedbackControllerGetAllContext(): runtime.RequestOpts {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        return {
-            path: `/v1/feedback/test`,
-            method: "GET",
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     */
-    feedbackControllerGetAll = async (): Promise<Array<FeedbackDto>> => {
-        const response = await this.feedbackControllerGetAllRaw();
-        return await response.value();
-    }
-
-    useFeedbackControllerGetAll(config?: SWRConfiguration<Array<FeedbackDto>, Error>) {
-        let valid = true
-
-        const context = this.feedbackControllerGetAllContext();
-        return useSWR(context, valid ? () => this.feedbackControllerGetAll() : null, config)
-    }
-
-    /**
-     */
     private async feedbackControllerGetFeedbackRaw(requestParameters: FeedbackControllerGetFeedbackRequest): Promise<runtime.ApiResponse<FeedbackDto>> {
         this.feedbackControllerGetFeedbackValidation(requestParameters);
         const context = this.feedbackControllerGetFeedbackContext(requestParameters);

@@ -56,6 +56,12 @@ export interface FeedbackDto {
      * @memberof FeedbackDto
      */
     options: Array<FeedbackOptionDto>;
+    /**
+     * 
+     * @type {string}
+     * @memberof FeedbackDto
+     */
+    ticketId?: string;
 }
 
 export function FeedbackDtoFromJSON(json: any): FeedbackDto {
@@ -73,6 +79,7 @@ export function FeedbackDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'finished': json['finished'],
         'comment': json['comment'],
         'options': ((json['options'] as Array<any>).map(FeedbackOptionDtoFromJSON)),
+        'ticketId': !exists(json, 'ticketId') ? undefined : json['ticketId'],
     };
 }
 
@@ -90,6 +97,7 @@ export function FeedbackDtoToJSON(value?: FeedbackDto | null): any {
         'finished': value.finished,
         'comment': value.comment,
         'options': ((value.options as Array<any>).map(FeedbackOptionDtoToJSON)),
+        'ticketId': value.ticketId,
     };
 }
 
