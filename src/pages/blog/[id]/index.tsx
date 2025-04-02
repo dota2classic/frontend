@@ -4,10 +4,10 @@ import c from "./BlogpostPage.module.scss";
 import { NextPageContext } from "next";
 import { BlogpostRenderer, EmbedProps, PageLink } from "@/components";
 import React from "react";
-import { Thread } from "@/containers";
 import { formatDate } from "@/util/dates";
 import { AppRouter } from "@/route";
 import { FaArrowLeft } from "react-icons/fa";
+import { LazyPaginatedThread } from "@/containers/Thread/LazyPaginatedThread";
 
 interface Props {
   post: BlogpostDto;
@@ -27,7 +27,7 @@ export default function BlogpostPage({ post }: Props) {
         <h1 className={c.title}>{post.title}</h1>
         <h4 className={c.date}>{formatDate(new Date(post.publishDate))}</h4>
         <BlogpostRenderer html={post.renderedContentHtml} />
-        <Thread
+        <LazyPaginatedThread
           className={c.thread}
           id={post.id.toString()}
           threadType={ThreadType.BLOGPOST}
