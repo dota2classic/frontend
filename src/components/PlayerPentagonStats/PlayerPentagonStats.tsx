@@ -147,7 +147,7 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
         <span className={c.delimiter} />
 
         <dl>
-          <dd>{games.toFixed(2)}</dd>
+          <dd>{games}</dd>
           <dt>Игр сыграно</dt>
         </dl>
         <dl>
