@@ -148,7 +148,9 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
               <td>
                 <div className={c.heroWithLevel}>
                   <PageLink
-                    link={AppRouter.heroes.hero.index(player.hero).link}
+                    link={
+                      AppRouter.players.player.index(player.user.steamId).link
+                    }
                   >
                     <HeroIcon hero={player.hero} />
                   </PageLink>
