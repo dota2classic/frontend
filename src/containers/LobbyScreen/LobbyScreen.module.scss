@@ -1,0 +1,241 @@
+@import "../../common.scss";
+
+.gridPanel {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  padding-top: 20px;
+}
+
+.grid12 {
+  grid-column: span 12;
+}
+
+.grid6 {
+  grid-column: span 6;
+}
+
+.grid4 {
+  grid-column: span 4;
+}
+.grid8 {
+  grid-column: span 8;
+}
+
+.threadContainer {
+  margin-top: 0 !important;
+  height: 280px;
+
+  display: flex;
+  flex-direction: column;
+
+  & :global(.messageList) {
+    flex: 1;
+  }
+}
+
+.playerPreview {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: 0.3s ease;
+
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.09);
+  }
+
+  & span {
+    margin-left: 10px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & svg {
+    font-size: 2rem;
+    color: $red;
+    transition: 0.3s ease;
+  }
+  & svg:hover {
+    color: $error;
+  }
+
+  & .username {
+    flex: 1;
+  }
+}
+
+.slot {
+  height: 45px;
+  vertical-align: middle;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  & + & {
+    border-top: 1px solid $primaryTextDark2;
+  }
+
+  & img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  & .takeSlot {
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    justify-self: center;
+    vertical-align: middle;
+    justify-content: center;
+    flex: 1;
+
+    color: $primaryTextDark;
+
+    &:hover {
+      color: $primaryText;
+    }
+  }
+}
+
+.slots {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.team {
+  text-align: center;
+  border-bottom: 1px solid $primaryTextDark;
+  padding-bottom: 12px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  & button {
+    width: unset;
+  }
+}
+
+.host {
+  width: 300px;
+}
+.unassigned {
+  padding: 4px;
+  border: 1px solid $blueHighlight3;
+  border-radius: 4px;
+  & img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.unassignedList {
+  padding: 12px;
+  gap: 8px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.unassignedHint {
+  text-align: center;
+  padding: 16px 0;
+  color: #999999;
+  font-size: 1.2rem;
+  line-height: 16px;
+  vertical-align: middle;
+  margin: auto;
+}
+
+@keyframes popup {
+  0% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.successCopy {
+  animation: popup 0.8s;
+}
+
+.copyHolder {
+  padding-right: 12px;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    color: $gold;
+  }
+
+  & svg {
+    margin-left: 8px;
+  }
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
+  padding: 12px 16px;
+
+  & button {
+    width: unset;
+    margin-top: 12px;
+  }
+
+  & .startGame {
+    border: 1px solid $green;
+  }
+
+  & .leaveLobby {
+    border: 1px solid $primaryTextDark2;
+  }
+}
+
+
+.padded {
+  padding-right: 20px;
+}
+
+
+.options {
+  & dl {
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    & dd {
+      margin-inline-start: 0;
+      color: $primaryText;
+    }
+
+
+    & dt {
+      color: $primaryTextDark;
+      font-weight: bold;
+    }
+
+    & dd, dt {
+      padding: 4px 12px;
+    }
+  }
+}

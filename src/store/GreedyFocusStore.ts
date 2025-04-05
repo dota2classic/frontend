@@ -4,7 +4,7 @@ import { HydratableStore } from "@/store/HydratableStore";
 type Focusable = HTMLInputElement | HTMLTextAreaElement;
 export interface FocusOwner {
   priority: number;
-  ref: Focusable;
+  ref: Focusable | null;
 }
 export class GreedyFocusStore implements HydratableStore<unknown> {
   @observable
@@ -37,7 +37,7 @@ export class GreedyFocusStore implements HydratableStore<unknown> {
   }
 
   public focusCurrent = (preventScroll = true) => {
-    if (this.owner) {
+    if (this.owner && this.owner.ref) {
       this.owner.ref.focus({
         preventScroll,
       });

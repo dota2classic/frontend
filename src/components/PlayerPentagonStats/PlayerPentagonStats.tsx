@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import c from "./PlayerPentagonStats.module.scss";
 import { Duration, Tooltipable } from "@/components";
 import { PlayerAspect } from "@/api/mapped-models";
 import { formatPlayerAspect } from "@/util/gamemode";
+import { PlayerAspectIcons } from "@/containers/PlayerReportModal/PlayerAspectIcons";
 
 interface IPlayerPentagonStatsProps {
   aspects: {
@@ -30,132 +31,143 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
   const [side, setSide] = useState(-1);
   const outerPentaSize = 0.36;
 
-  const max = Math.max(
-    aspects.sort((a, b) => b.count - a.count)[0].count || 0,
-    1,
-  );
-  const r = aspects.map(({ aspect, count }, i) => {
-    const magnitude = Math.max(0.2, count / max);
-    const angle = ((Math.PI * 2) / 5) * i - Math.PI / 2;
-    return {
-      x: Math.cos(angle),
-      y: Math.sin(angle),
-      magnitude,
-      aspect,
-      count,
-    };
-  });
+  const sortedAspects = useMemo(() => {
+    const max = Math.max(
+      aspects.sort((a, b) => b.count - a.count)[0].count || 0,
+      1,
+    );
+    return aspects.map(({ aspect, count }, i) => {
+      const magnitude = Math.max(0.2, count / max);
+      const angle = ((Math.PI * 2) / 5) * i - Math.PI / 2;
+      return {
+        x: Math.cos(angle),
+        y: Math.sin(angle),
+        magnitude,
+        aspect,
+        count,
+        Icon: PlayerAspectIcons.find((t) => t.aspect === aspect)!.Icon,
+      };
+    });
+  }, [aspects]);
 
   return (
     <div className={c.stats}>
-      <div
-        className={c.pentagon}
-        ref={(e) => {
-          if (e) {
-            setSide(e.getBoundingClientRect().width);
-          }
-        }}
-      >
-        {side > 0 && (
-          <svg
-            className={c.svg}
-            xmlns="http://www.w3.org/2000/svg"
-            width={side}
-            height={side}
-          >
-            <defs>
-              <radialGradient id="grad">
-                <stop offset="5%" stopColor="#ff000070" />
-                <stop offset="90%" stopColor="#ffde044a" />
-              </radialGradient>
-            </defs>
-            <polygon
-              className={c.svg__big_penta}
-              points={r
-                .map(
-                  ({ x, y }) =>
-                    `${side / 2 + x * side * outerPentaSize},${side / 2 + y * side * outerPentaSize}`,
-                )
-                .join(" ")}
-            />
-            {r.map(({ x, y, aspect }) => (
-              <line
-                key={aspect}
-                x1={side / 2}
-                y1={side / 2}
-                x2={side / 2 + x * side * outerPentaSize}
-                y2={side / 2 + y * side * outerPentaSize}
-                stroke="black"
+      <div className={c.pentagon}>
+        <header>Отзывы</header>
+        <div
+          className={c.pentagon__visual}
+          ref={(e) => {
+            if (e) {
+              setSide(e.getBoundingClientRect().width);
+            }
+          }}
+        >
+          {side > 0 && (
+            <svg
+              className={c.svg}
+              xmlns="http://www.w3.org/2000/svg"
+              width={side}
+              height={side}
+            >
+              <defs>
+                <radialGradient id="grad">
+                  <stop offset="5%" stopColor="#ff000070" />
+                  <stop offset="90%" stopColor="#ffde044a" />
+                </radialGradient>
+              </defs>
+              <polygon
+                className={c.svg__big_penta}
+                points={sortedAspects
+                  .map(
+                    ({ x, y }) =>
+                      `${side / 2 + x * side * outerPentaSize},${side / 2 + y * side * outerPentaSize}`,
+                  )
+                  .join(" ")}
               />
+              {sortedAspects.map(({ x, y, aspect }) => (
+                <line
+                  key={aspect}
+                  x1={side / 2}
+                  y1={side / 2}
+                  x2={side / 2 + x * side * outerPentaSize}
+                  y2={side / 2 + y * side * outerPentaSize}
+                  stroke="black"
+                />
+              ))}
+              <polygon
+                className={c.svg__small_penta}
+                points={sortedAspects
+                  .map(
+                    ({ x, y, magnitude }) =>
+                      `${side / 2 + x * side * outerPentaSize * magnitude},${side / 2 + y * side * outerPentaSize * magnitude}`,
+                  )
+                  .join(" ")}
+              />
+            </svg>
+          )}
+          <span>
+            {sortedAspects.map(({ x, y, magnitude, aspect, count }) => (
+              <>
+                <Tooltipable
+                  key={aspect}
+                  tooltip={`${formatPlayerAspect(aspect)}: ${count}`}
+                  className={c.dot}
+                >
+                  <div
+                    style={{
+                      left: `calc(50% + ${x * outerPentaSize * 98 * magnitude}%)`,
+                      top: `calc(50% + ${y * outerPentaSize * 98 * magnitude}%)`,
+                    }}
+                  />
+                </Tooltipable>
+              </>
             ))}
-            <polygon
-              className={c.svg__small_penta}
-              points={r
-                .map(
-                  ({ x, y, magnitude }) =>
-                    `${side / 2 + x * side * outerPentaSize * magnitude},${side / 2 + y * side * outerPentaSize * magnitude}`,
-                )
-                .join(" ")}
-            />
-          </svg>
-        )}
-        {r.map(({ x, y, magnitude, aspect, count }) => (
-          <>
-            <Tooltipable
-              key={aspect}
-              tooltip={`${formatPlayerAspect(aspect)}: ${count}`}
-              className={c.dot}
-            >
+          </span>
+          <span>
+            {sortedAspects.map(({ x, y, aspect }) => (
               <div
+                key={aspect}
+                className={c.aspect}
                 style={{
-                  left: `calc(50% + ${x * outerPentaSize * 98 * magnitude}%)`,
-                  top: `calc(50% + ${y * outerPentaSize * 98 * magnitude}%)`,
+                  left: `calc(50% + ${x * outerPentaSize * 110}%)`,
+                  top: `calc(50% + ${y * outerPentaSize * 110}%)`,
                 }}
-              />
-            </Tooltipable>
-          </>
-        ))}
-        <span>
-          {r.map(({ x, y, aspect }) => (
-            <div
-              key={aspect}
-              className={c.aspect}
-              style={{
-                left: `calc(50% + ${x * outerPentaSize * 110}%)`,
-                top: `calc(50% + ${y * outerPentaSize * 110}%)`,
-              }}
-            >
-              {formatPlayerAspect(aspect)}
-            </div>
-          ))}
-        </span>
+              >
+                {formatPlayerAspect(aspect)}
+              </div>
+            ))}
+          </span>
+        </div>
       </div>
 
-      <div className={c.numericalStats}>
-        <dl>
-          <dd>{kills.toFixed(2)}</dd>
-          <dt>Убийств</dt>
-        </dl>
-        <dl>
-          <dd>{deaths.toFixed(2)}</dd>
-          <dt>Смертей</dt>
-        </dl>
-        <dl>
-          <dd>{assists.toFixed(2)}</dd>
-          <dt>Помощи</dt>
-        </dl>
-        <span className={c.delimiter} />
+      <div className={c.statsContainer}>
+        <header>Статистика за все время</header>
+        <div className={c.numericalStats}>
+          <dl>
+            <dd>{kills.toFixed(2)}</dd>
+            <dt>Убийств</dt>
+          </dl>
+          <dl>
+            <dd>{deaths.toFixed(2)}</dd>
+            <dt>Смертей</dt>
+          </dl>
+          <dl>
+            <dd>{assists.toFixed(2)}</dd>
+            <dt>Помощи</dt>
+          </dl>
+          <span className={c.delimiter} />
 
-        <dl>
-          <dd>{games}</dd>
-          <dt>Игр сыграно</dt>
-        </dl>
-        <dl>
-          <dd>
-            <Duration big duration={playtime} />
-          </dd>
-          <dt>Времени в игре</dt>
-        </dl>
+          <dl>
+            <dd>{games}</dd>
+            <dt>Игр сыграно</dt>
+          </dl>
+          <dl>
+            <dd>
+              <Duration big duration={playtime} />
+            </dd>
+            <dt>Времени в игре</dt>
+          </dl>
+        </div>
       </div>
     </div>
   );

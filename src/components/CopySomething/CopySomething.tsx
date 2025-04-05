@@ -6,11 +6,13 @@ import { FaCheck, FaCopy } from "react-icons/fa6";
 interface ICopySomethingProps {
   something: string;
   placeholder?: ReactNode;
+  className?: string;
 }
 
 export const CopySomething = ({
   something,
   placeholder,
+  className,
 }: ICopySomethingProps) => {
   const [copied, setCopied] = useState(false);
   const [cancelTimeout, setCancelTimeout] = useState<number | undefined>(
@@ -42,7 +44,7 @@ export const CopySomething = ({
           .then(() => onCopy(something, true))
       }
     >
-      <span style={{ display: "flex", flex: 1 }}>
+      <span className={className} style={{ display: "flex", flex: 1 }}>
         {placeholder || something}
       </span>
       {copied ? <FaCheck className={c.successCopy} /> : <FaCopy />}

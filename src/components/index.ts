@@ -91,3 +91,4 @@ export { BlogpostRenderer } from "./BlogpostRenderer/BlogpostRenderer";
 export { RecordCard } from "./RecordCard/RecordCard";
 export { BigTabs } from "./BigTabs/BigTabs";
 export { PlayerPentagonStats } from "./PlayerPentagonStats/PlayerPentagonStats";
+export { IconButton } from "./IconButton/IconButton";

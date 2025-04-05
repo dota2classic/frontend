@@ -21,6 +21,12 @@ import {
   ChangeTeamInLobbyDto,
   ChangeTeamInLobbyDtoFromJSON,
   ChangeTeamInLobbyDtoToJSON,
+  JoinLobbyDto,
+  JoinLobbyDtoFromJSON,
+  JoinLobbyDtoToJSON,
+  KickPlayerDto,
+  KickPlayerDtoFromJSON,
+  KickPlayerDtoToJSON,
   LobbyDto,
   LobbyDtoFromJSON,
   LobbyDtoToJSON,
@@ -47,6 +53,12 @@ export interface LobbyControllerGetLobbyRequest {
 
 export interface LobbyControllerJoinLobbyRequest {
   id: string;
+  joinLobbyDto: JoinLobbyDto;
+}
+
+export interface LobbyControllerKickPlayerRequest {
+  id: string;
+  kickPlayerDto: KickPlayerDto;
 }
 
 export interface LobbyControllerLeaveLobbyRequest {
@@ -315,6 +327,9 @@ export class LobbyApi extends runtime.BaseAPI {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling lobbyControllerJoinLobby.");
         }
+        if (requestParameters.joinLobbyDto === null || requestParameters.joinLobbyDto === undefined) {
+            throw new runtime.RequiredError("joinLobbyDto","Required parameter requestParameters.joinLobbyDto was null or undefined when calling lobbyControllerJoinLobby.");
+        }
     }
 
     /**
@@ -323,6 +338,8 @@ export class LobbyApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -337,13 +354,71 @@ export class LobbyApi extends runtime.BaseAPI {
             method: "POST",
             headers: headerParameters,
             query: queryParameters,
+            body: JoinLobbyDtoToJSON(requestParameters.joinLobbyDto),
         };
     }
 
     /**
      */
-    lobbyControllerJoinLobby = async (id: string): Promise<LobbyDto> => {
-        const response = await this.lobbyControllerJoinLobbyRaw({ id: id });
+    lobbyControllerJoinLobby = async (id: string, joinLobbyDto: JoinLobbyDto): Promise<LobbyDto> => {
+        const response = await this.lobbyControllerJoinLobbyRaw({ id: id, joinLobbyDto: joinLobbyDto });
+        return await response.value();
+    }
+
+
+    /**
+     */
+    private async lobbyControllerKickPlayerRaw(requestParameters: LobbyControllerKickPlayerRequest): Promise<runtime.ApiResponse<LobbyDto>> {
+        this.lobbyControllerKickPlayerValidation(requestParameters);
+        const context = this.lobbyControllerKickPlayerContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LobbyDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private lobbyControllerKickPlayerValidation(requestParameters: LobbyControllerKickPlayerRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling lobbyControllerKickPlayer.");
+        }
+        if (requestParameters.kickPlayerDto === null || requestParameters.kickPlayerDto === undefined) {
+            throw new runtime.RequiredError("kickPlayerDto","Required parameter requestParameters.kickPlayerDto was null or undefined when calling lobbyControllerKickPlayer.");
+        }
+    }
+
+    /**
+     */
+    lobbyControllerKickPlayerContext(requestParameters: LobbyControllerKickPlayerRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/lobby/{id}/kickPlayer`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: KickPlayerDtoToJSON(requestParameters.kickPlayerDto),
+        };
+    }
+
+    /**
+     */
+    lobbyControllerKickPlayer = async (id: string, kickPlayerDto: KickPlayerDto): Promise<LobbyDto> => {
+        const response = await this.lobbyControllerKickPlayerRaw({ id: id, kickPlayerDto: kickPlayerDto });
         return await response.value();
     }
 
@@ -422,14 +497,6 @@ export class LobbyApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === "function" ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
         return {
             path: `/v1/lobby`,
             method: "GET",
@@ -479,6 +546,14 @@ export class LobbyApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/lobby/sse/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: "GET",

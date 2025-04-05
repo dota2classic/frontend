@@ -11,18 +11,32 @@ export const Button: React.FC<
     className?: string;
     onClick?: () => void;
     mega?: boolean;
+    small?: boolean;
     target?: string;
   }>
-> = ({ className, link, mega, ...props }) => {
+> = ({ className, link, mega, small, ...props }) => {
   if (link)
     return (
-      <a className={cx(c.button, mega && c.megaButton, className)} {...props}>
+      <a
+        className={cx(
+          c.button,
+          mega && c.megaButton,
+          small && c.smaller,
+          className,
+        )}
+        {...props}
+      >
         {props.children}
       </a>
     );
   return (
     <button
-      className={cx(c.button, mega && c.megaButton, className)}
+      className={cx(
+        c.button,
+        mega && c.megaButton,
+        small && c.smaller,
+        className,
+      )}
       {...props}
     >
       {/*{mega && (*/}

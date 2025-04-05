@@ -1,0 +1,8 @@
+@import "../../common.scss";
+
+.modal {
+  & :global(.modal) {
+    gap: 24px;
+    min-width: 400px;
+  }
+}

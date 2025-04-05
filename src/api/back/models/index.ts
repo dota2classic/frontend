@@ -31,6 +31,8 @@ export * from "./HeroSummaryDto";
 export * from "./InlineObject";
 export * from "./ItemDto";
 export * from "./ItemHeroDto";
+export * from "./JoinLobbyDto";
+export * from "./KickPlayerDto";
 export * from "./LeaderboardEntryDto";
 export * from "./LeaderboardEntryPageDto";
 export * from "./LiveMatchDto";

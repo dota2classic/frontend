@@ -42,6 +42,30 @@ export interface UpdateLobbyDto {
      * @memberof UpdateLobbyDto
      */
     map?: DotaMap;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateLobbyDto
+     */
+    password?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateLobbyDto
+     */
+    name?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateLobbyDto
+     */
+    fillBots?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateLobbyDto
+     */
+    enableCheats?: boolean;
 }
 
 export function UpdateLobbyDtoFromJSON(json: any): UpdateLobbyDto {
@@ -56,6 +80,10 @@ export function UpdateLobbyDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
         
         'gameMode': !exists(json, 'gameMode') ? undefined : DotaGameModeFromJSON(json['gameMode']),
         'map': !exists(json, 'map') ? undefined : DotaMapFromJSON(json['map']),
+        'password': !exists(json, 'password') ? undefined : json['password'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
+        'fillBots': !exists(json, 'fillBots') ? undefined : json['fillBots'],
+        'enableCheats': !exists(json, 'enableCheats') ? undefined : json['enableCheats'],
     };
 }
 
@@ -70,6 +98,10 @@ export function UpdateLobbyDtoToJSON(value?: UpdateLobbyDto | null): any {
         
         'gameMode': DotaGameModeToJSON(value.gameMode),
         'map': DotaMapToJSON(value.map),
+        'password': value.password,
+        'name': value.name,
+        'fillBots': value.fillBots,
+        'enableCheats': value.enableCheats,
     };
 }
 

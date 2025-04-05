@@ -7,49 +7,20 @@ import {
   UserPreview,
 } from "@/components";
 import c from "./PlayerReportModal.module.scss";
-import { FaPeopleGroup, FaWheelchairMove } from "react-icons/fa6";
-import type { IconType } from "react-icons";
 import { formatPlayerAspect } from "@/util/gamemode";
-import { GiCrownedSkull, GiPoisonBottle } from "react-icons/gi";
-import { MdRecommend } from "react-icons/md";
 import cx from "clsx";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { makeSimpleToast } from "@/components/Toast/toasts";
+import { PlayerAspectIcons } from "@/containers/PlayerReportModal/PlayerAspectIcons";
 
 interface IPlayerReportModalProps {
   player: PlayerInMatchDto;
   matchId: number;
   onClose: () => void;
 }
-
-const options: {
-  aspect: PlayerAspect;
-  Icon: IconType;
-}[] = [
-  {
-    aspect: PlayerAspect.FRIENDLY,
-    Icon: FaPeopleGroup,
-  },
-  {
-    aspect: PlayerAspect.WINNER,
-    Icon: GiCrownedSkull,
-  },
-  {
-    aspect: PlayerAspect.GOOD,
-    Icon: MdRecommend,
-  },
-  {
-    aspect: PlayerAspect.TOXIC,
-    Icon: GiPoisonBottle,
-  },
-  {
-    aspect: PlayerAspect.RUINER,
-    Icon: FaWheelchairMove,
-  },
-];
 
 export const PlayerReportModal: React.FC<IPlayerReportModalProps> = observer(
   ({ player, matchId, onClose }) => {
@@ -103,7 +74,7 @@ export const PlayerReportModal: React.FC<IPlayerReportModalProps> = observer(
           <span>Осталось отзывов: {auth.me.reportsAvailable}</span>
         </div>
         <div className={c.categories}>
-          {options.map(({ aspect, Icon }) => (
+          {PlayerAspectIcons.map(({ aspect, Icon }) => (
             <div
               onClick={() => setSelectedAspect(aspect)}
               key={aspect}

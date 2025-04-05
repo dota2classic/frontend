@@ -9,8 +9,21 @@ export const GreedyFocusPriority = {
   INVITE_PLAYER_MODAL: 3,
   FEEDBACK_MODAL: 3,
   REPORT_MODAL: 3,
+  EDIT_LOBBY_MODAL: 3,
 };
 
+export const useFocusLock = () => {
+  const { greedyFocus } = useStore();
+  useEffect(() => {
+    const owner = {
+      priority: 100000,
+      ref: null,
+    };
+    greedyFocus.requestOwnership(owner);
+
+    return () => greedyFocus.revokeOwnership(owner);
+  }, [greedyFocus]);
+};
 export const useGreedyFocus = (
   priority: number | undefined,
   ref: React.RefObject<HTMLTextAreaElement | HTMLInputElement | null>,

@@ -1,6 +1,7 @@
 import { querystring, RequestOpts } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { useCallback, useEffect, useState } from "react";
+import { fetchEventSource } from "@microsoft/fetch-event-source";
 
 export const useEventSource = <T extends object>(
   endpoint: RequestOpts,
@@ -37,16 +38,31 @@ export const useEventSource = <T extends object>(
     if (typeof window === "undefined") return;
 
     console.log("Creating event source, why?", JSON.stringify(endpoint));
-    const es = new EventSource(
-      `${bp}${endpoint.path}${endpoint.query && querystring(endpoint.query, "?")}`,
-    );
-    es.onmessage = ({ data: msg }) => {
-      const raw = JSON.parse(msg);
-      const formatted = transformer(raw);
-      setData(formatted);
-    };
 
-    return () => es.close();
+    const ctrl = new AbortController();
+    fetchEventSource(
+      `${bp}${endpoint.path}${endpoint.query && querystring(endpoint.query, "?")}`,
+      {
+        headers: endpoint.headers,
+
+        onmessage: (something) => {
+          if (something.data.length <= 0) return;
+          const msg = something.data;
+          const raw = JSON.parse(msg);
+          const formatted = transformer(raw);
+          setData(formatted);
+        },
+        onclose() {
+          // if the server closes the connection unexpectedly, retry:
+          console.log("CLOSED?");
+        },
+        onerror(err) {
+          console.error("ERROR", err);
+        },
+      },
+    ).then((a) => console.log("Resolved?", a));
+
+    return () => ctrl.abort();
   }, [context, trigger]);
 
   if (typeof window === "undefined") return initial;

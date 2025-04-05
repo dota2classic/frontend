@@ -90,7 +90,7 @@ export default function PlayerPage({
       </Section>
       <Section className={c.matchHistory}>
         <header data-testid="player-hero-performance-header">
-          <span>Отзывы игроков</span>
+          <span>Сводка</span>
         </header>
         <PlayerPentagonStats
           games={preloadedSummary.gamesPlayed}

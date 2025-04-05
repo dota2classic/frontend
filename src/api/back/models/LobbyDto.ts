@@ -68,6 +68,36 @@ export interface LobbyDto {
      * @memberof LobbyDto
      */
     slots: Array<LobbySlotDto>;
+    /**
+     * 
+     * @type {string}
+     * @memberof LobbyDto
+     */
+    password?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof LobbyDto
+     */
+    requiresPassword: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof LobbyDto
+     */
+    name: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof LobbyDto
+     */
+    fillBots: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof LobbyDto
+     */
+    enableCheats: boolean;
 }
 
 export function LobbyDtoFromJSON(json: any): LobbyDto {
@@ -85,6 +115,11 @@ export function LobbyDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'id': json['id'],
         'owner': UserDTOFromJSON(json['owner']),
         'slots': ((json['slots'] as Array<any>).map(LobbySlotDtoFromJSON)),
+        'password': !exists(json, 'password') ? undefined : json['password'],
+        'requiresPassword': json['requiresPassword'],
+        'name': json['name'],
+        'fillBots': json['fillBots'],
+        'enableCheats': json['enableCheats'],
     };
 }
 
@@ -102,6 +137,11 @@ export function LobbyDtoToJSON(value?: LobbyDto | null): any {
         'id': value.id,
         'owner': UserDTOToJSON(value.owner),
         'slots': ((value.slots as Array<any>).map(LobbySlotDtoToJSON)),
+        'password': value.password,
+        'requiresPassword': value.requiresPassword,
+        'name': value.name,
+        'fillBots': value.fillBots,
+        'enableCheats': value.enableCheats,
     };
 }
 
