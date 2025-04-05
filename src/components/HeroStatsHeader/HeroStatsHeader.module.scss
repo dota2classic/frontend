@@ -2,7 +2,13 @@
 
 
 .heroSummary {
-  grid-column: span 12;
+  grid-column: span 24;
+
+  & :global(.left) {
+    & img {
+      margin-right: 1rem;
+    }
+  }
 }
 
 

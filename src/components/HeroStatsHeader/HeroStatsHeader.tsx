@@ -24,7 +24,7 @@ export const HeroStatsHeader: React.FC<IHeroStatsHeaderProps> = ({
     <Panel className={c.heroSummary}>
       <div className={"left"}>
         <HeroIcon hero={hero} />
-        <span className={c.heroName}>{heroName(hero)}</span>
+        <h3 className={c.heroName}>{heroName(hero)}</h3>
       </div>
       <div className="right">
         <dl>
