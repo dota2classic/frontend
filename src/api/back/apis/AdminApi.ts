@@ -39,6 +39,9 @@ import {
   QueueEntryDTO,
   QueueEntryDTOFromJSON,
   QueueEntryDTOToJSON,
+  SmurfData,
+  SmurfDataFromJSON,
+  SmurfDataToJSON,
   StopServerDto,
   StopServerDtoFromJSON,
   StopServerDtoToJSON,
@@ -77,6 +80,10 @@ export interface AdminUserControllerLogFileRequest {
 
 export interface AdminUserControllerRoleOfRequest {
   id: string;
+}
+
+export interface AdminUserControllerSmurfOfRequest {
+  steamId: string;
 }
 
 export interface AdminUserControllerUpdateGameModeRequest {
@@ -472,6 +479,67 @@ export class AdminApi extends runtime.BaseAPI {
 
         const context = this.adminUserControllerRoleOfContext({ id: id! });
         return useSWR(context, valid ? () => this.adminUserControllerRoleOf(id!) : null, config)
+    }
+
+    /**
+     */
+    private async adminUserControllerSmurfOfRaw(requestParameters: AdminUserControllerSmurfOfRequest): Promise<runtime.ApiResponse<Array<SmurfData>>> {
+        this.adminUserControllerSmurfOfValidation(requestParameters);
+        const context = this.adminUserControllerSmurfOfContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SmurfDataFromJSON));
+    }
+
+
+
+    /**
+     */
+    private adminUserControllerSmurfOfValidation(requestParameters: AdminUserControllerSmurfOfRequest) {
+        if (requestParameters.steamId === null || requestParameters.steamId === undefined) {
+            throw new runtime.RequiredError("steamId","Required parameter requestParameters.steamId was null or undefined when calling adminUserControllerSmurfOf.");
+        }
+    }
+
+    /**
+     */
+    adminUserControllerSmurfOfContext(requestParameters: AdminUserControllerSmurfOfRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/smurf/{steam_id}`.replace(`{${"steam_id"}}`, encodeURIComponent(String(requestParameters.steamId))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    adminUserControllerSmurfOf = async (steamId: string): Promise<Array<SmurfData>> => {
+        const response = await this.adminUserControllerSmurfOfRaw({ steamId: steamId });
+        return await response.value();
+    }
+
+    useAdminUserControllerSmurfOf(steamId: string, config?: SWRConfiguration<Array<SmurfData>, Error>) {
+        let valid = true
+
+        if (steamId === null || steamId === undefined || Number.isNaN(steamId)) {
+            valid = false
+        }
+
+        const context = this.adminUserControllerSmurfOfContext({ steamId: steamId! });
+        return useSWR(context, valid ? () => this.adminUserControllerSmurfOf(steamId!) : null, config)
     }
 
     /**

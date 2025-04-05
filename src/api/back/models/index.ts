@@ -69,6 +69,7 @@ export * from "./ReactionEntry";
 export * from "./RecordType";
 export * from "./ReportPlayerDto";
 export * from "./RoleSubscriptionEntryDto";
+export * from "./SmurfData";
 export * from "./SortOrder";
 export * from "./StopServerDto";
 export * from "./SubmitFeedbackDto";

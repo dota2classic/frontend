@@ -8,6 +8,7 @@ import {
   Section,
   SelectOptions,
   Table,
+  UserPreview,
 } from "@/components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -18,6 +19,7 @@ import {
   PlayerSummaryDto,
   Role,
   RoleSubscriptionEntryDto,
+  SmurfData,
   UserBanSummaryDto,
 } from "@/api/back";
 import c from "./AdminPlayerPage.module.scss";
@@ -25,6 +27,8 @@ import c2 from "../AdminStyles.module.scss";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { RoleNames } from "@/const/roles";
 import cx from "clsx";
+import { fullDate } from "@/util/dates";
+import { formatBanReason } from "@/util/texts/bans";
 
 const BanReasonOptions = [
   {
@@ -156,12 +160,14 @@ interface AdminPlayerPageProps {
   preloadedSummary: PlayerSummaryDto;
   preloadedBans: UserBanSummaryDto;
   preloadedForumUser: ForumUserDto;
+  smurfData: SmurfData[];
 }
 
 export default function AdminPlayerPage({
   preloadedBans,
   preloadedSummary,
   preloadedForumUser,
+  smurfData,
 }: AdminPlayerPageProps) {
   const { id } = useRouter().query;
   const steamId = id as string;
@@ -272,6 +278,35 @@ export default function AdminPlayerPage({
       />
 
       <Section className={c2.grid12}>
+        <header>Смурфы</header>
+        <Table>
+          <thead>
+            <tr>
+              <th>Аккаунт</th>
+              <th>Статус бана</th>
+            </tr>
+          </thead>
+          <tbody>
+            {smurfData.map((smurf) => (
+              <tr key={smurf.user.steamId}>
+                <td>
+                  <UserPreview avatarSize={30} user={smurf.user} />
+                </td>
+                {smurf.ban.isBanned ? (
+                  <td>
+                    {formatBanReason(smurf.ban.status)}{" "}
+                    {fullDate(new Date(smurf.ban.bannedUntil))}
+                  </td>
+                ) : (
+                  <td>Бана нет</td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Section>
+
+      <Section className={c2.grid12}>
         <header>Роли и баны</header>
         <Table>
           <thead>
@@ -370,7 +405,7 @@ AdminPlayerPage.getInitialProps = async (
 ): Promise<AdminPlayerPageProps> => {
   const playerId = ctx.query.id as string;
 
-  const [preloadedSummary, preloadedBans, preloadedForumUser] =
+  const [preloadedSummary, preloadedBans, preloadedForumUser, smurfData] =
     await Promise.combine([
       getApi().playerApi.playerControllerPlayerSummary(playerId),
       withTemporaryToken(ctx, () =>
@@ -379,11 +414,15 @@ AdminPlayerPage.getInitialProps = async (
       withTemporaryToken(ctx, () =>
         getApi().forumApi.forumControllerGetUser(playerId),
       ),
+      withTemporaryToken(ctx, () =>
+        getApi().adminApi.adminUserControllerSmurfOf(playerId),
+      ),
     ]);
 
   return {
     preloadedSummary,
     preloadedBans,
     preloadedForumUser,
+    smurfData,
   };
 };
