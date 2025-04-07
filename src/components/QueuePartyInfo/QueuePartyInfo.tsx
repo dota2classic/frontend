@@ -6,7 +6,7 @@ import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { PartyMemberDTO, UserDTO } from "@/api/back";
-import { InvitePlayerModalRaw, PageLink } from "@/components";
+import { InvitePlayerModalRaw, PageLink, Tooltipable } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
 import { createPortal } from "react-dom";
@@ -87,16 +87,20 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
           </PageLink>
         ))}
 
-        <div
+        <Tooltipable
+          tooltip={"Пригласить в группу"}
           className={cx(c.partyItem, c.invite)}
-          onClick={(e: React.MouseEvent) => {
-            // Some hacking to do
-            (e.nativeEvent as { nasty?: boolean }).nasty = true;
-            setInviteOpen(true);
-          }}
         >
-          <img width={50} height={50} src={`/plus.png`} alt="" />
-        </div>
+          <div
+            onClick={(e: React.MouseEvent) => {
+              // Some hacking to do
+              (e.nativeEvent as { nasty?: boolean }).nasty = true;
+              setInviteOpen(true);
+            }}
+          >
+            <img width={50} height={50} src={`/plus.png`} alt="" />
+          </div>
+        </Tooltipable>
       </div>
 
       {!isSoloParty && (
@@ -106,15 +110,17 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
       )}
 
       {onlineData ? (
-        <div className={c.searchGameBar}>
-          <span>
-            {onlineData.inGame} в игре, {queue.online.length} онлайн
-          </span>
-          {/*<span>*/}
-          {/*  Свободных серверов: {onlineData.servers - onlineData.sessions}*/}
-          {/*</span>*/}
-          <span>Игр идет: {onlineData.sessions}</span>
-        </div>
+        <Tooltipable
+          className={c.searchGameBar}
+          tooltip={`${onlineData.inGame} сейчас играют, у ${queue.online.length} открыта вкладка в браузере`}
+        >
+          <div>
+            <span>
+              {onlineData.inGame} в игре, {queue.online.length} онлайн
+            </span>
+            <span>Игр идет: {onlineData.sessions}</span>
+          </div>
+        </Tooltipable>
       ) : null}
     </div>
   );

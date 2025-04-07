@@ -6,12 +6,15 @@ import { PageLink } from "@/components";
 import cx from "clsx";
 import { useRouter } from "next/router";
 import { FaAngleDown } from "react-icons/fa";
+import { IconType } from "react-icons";
 
 type Action = NextLinkProp | (() => void) | string;
 
 interface DropdownOption {
   action: NextLinkProp | (() => void);
   label: ReactNode;
+  Icon?: IconType;
+  newCategory?: boolean;
 }
 interface INavbarItemProps {
   action: Action;
@@ -83,25 +86,33 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
       <>{renderedLink}</>
       {options && (
         <div className={c.options}>
-          {options.map((op, index) =>
-            "href" in op.action ? (
-              <PageLink
-                className={cx(c.option, "link")}
-                key={index}
-                link={op.action}
-              >
-                {op.label}
-              </PageLink>
-            ) : (
-              <span
-                key={index}
-                className={cx(c.option, "link")}
-                onClick={op.action}
-              >
-                {op.label}
-              </span>
-            ),
-          )}
+          {options.map((op, index) => {
+            const Icon = op.Icon;
+            return (
+              <>
+                {op.newCategory && <div className={c.delimiter} />}
+                {"href" in op.action ? (
+                  <PageLink
+                    className={cx(c.option, "link")}
+                    key={index}
+                    link={op.action}
+                  >
+                    {Icon && <Icon />}
+                    {op.label}
+                  </PageLink>
+                ) : (
+                  <span
+                    key={index}
+                    className={cx(c.option, "link")}
+                    onClick={op.action}
+                  >
+                    {Icon && <Icon />}
+                    {op.label}
+                  </span>
+                )}
+              </>
+            );
+          })}
         </div>
       )}
     </li>

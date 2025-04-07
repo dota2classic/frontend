@@ -2,6 +2,9 @@ import c from "@/components/Navbar/Navbar.module.scss";
 import { AppRouter } from "@/route";
 import { NavbarItem } from "@/components";
 import React from "react";
+import { MdLeaderboard, MdViewList } from "react-icons/md";
+import { GiBattleAxe, GiFeatheredWing } from "react-icons/gi";
+import { IoMdTrophy } from "react-icons/io";
 
 export const MetaNavbarItem = () => {
   return (
@@ -12,24 +15,34 @@ export const MetaNavbarItem = () => {
       action={AppRouter.matches.index().link}
       options={[
         {
+          Icon: MdViewList,
+          label: "Матчи",
+          action: AppRouter.matches.index().link,
+        },
+        {
+          Icon: GiFeatheredWing,
           label: "Герои",
           action: AppRouter.heroes.index.link,
         },
         {
-          label: "Игроки",
-          action: AppRouter.players.leaderboard().link,
-        },
-        {
+          Icon: GiBattleAxe,
           label: "Предметы",
           action: AppRouter.wiki.index.link,
         },
         {
+          newCategory: true,
+          Icon: MdLeaderboard,
+          label: "Игроки",
+          action: AppRouter.players.leaderboard().link,
+        },
+        {
+          Icon: IoMdTrophy,
           label: "Рекорды",
           action: AppRouter.records.index.link,
         },
       ]}
     >
-      История игр
+      Статистика
     </NavbarItem>
   );
 };

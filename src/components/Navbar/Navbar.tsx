@@ -13,6 +13,8 @@ import { SiDota2 } from "react-icons/si";
 import { useRouterChanging } from "@/util";
 import { LoginProfileNavbarItem } from "@/components/Navbar/LoginProfileNavbarItem";
 import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
+import { MdForum } from "react-icons/md";
+import { IoMdPlay } from "react-icons/io";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth } = useStore();
@@ -42,12 +44,36 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             DOTA2CLASSIC
           </NavbarItem>
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
-            {isAuthorized && (
-              <NavbarItem action={AppRouter.queue.link}>Поиск игры</NavbarItem>
+            {(isAuthorized && (
+              <NavbarItem
+                action={AppRouter.queue.link}
+                options={[
+                  {
+                    Icon: IoMdPlay,
+                    label: "Гайд",
+                    action: AppRouter.download.link,
+                  },
+                ]}
+              >
+                Играть
+              </NavbarItem>
+            )) || (
+              <NavbarItem action={AppRouter.download.link}>Гайд</NavbarItem>
             )}
-            <NavbarItem action={AppRouter.download.link}>Старт</NavbarItem>
+
             <MetaNavbarItem />
-            <NavbarItem action={AppRouter.forum.index().link}>Форум</NavbarItem>
+            <NavbarItem
+              options={[
+                {
+                  Icon: MdForum,
+                  action: AppRouter.forum.index().link,
+                  label: "Форум",
+                },
+              ]}
+              action={AppRouter.blog.index.link}
+            >
+              Новости
+            </NavbarItem>
             {hasLiveMatches && (
               <NavbarItem
                 className={c.liveMatch}

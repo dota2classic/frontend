@@ -1,17 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // TODO: Refactor from any => Types for columns and type guards by column type
-import React, {ReactNode, useState} from "react";
+import React, { ReactNode, useState } from "react";
 import c from "./GenericTable.module.scss";
-import {HeroIcon, ItemIcon, ItemIconRaw, KDABarChart, PageLink, Table, TableRowLoading, UserPreview,} from "..";
-import {AppRouter, NextLinkProp} from "@/route";
-import heroName, {itemName} from "@/util/heroName";
+import {
+  HeroIcon,
+  ItemIcon,
+  ItemIconRaw,
+  KDABarChart,
+  PageLink,
+  Table,
+  TableRowLoading,
+  UserPreview,
+} from "..";
+import { AppRouter, NextLinkProp } from "@/route";
+import heroName, { itemName } from "@/util/heroName";
 import cx from "clsx";
-import {maxBy} from "@/util";
-import {FaSort} from "react-icons/fa6";
-import {FaSortAmountDown, FaSortAmountUp} from "react-icons/fa";
-import {colors} from "@/colors";
-import {SingleWeightedBarChart} from "@/components/BarChart/SingleWeightedBarChart";
-import {ColumnType} from "@/const/tables";
+import { maxBy } from "@/util";
+import { FaSort } from "react-icons/fa6";
+import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
+import { colors } from "@/colors";
+import { SingleWeightedBarChart } from "@/components/BarChart/SingleWeightedBarChart";
+import { ColumnType } from "@/const/tables";
 
 interface Column {
   name: ReactNode;

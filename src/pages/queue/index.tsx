@@ -18,6 +18,7 @@ import {
   QueuePartyInfo,
   SearchGameButton,
   Section,
+  Tooltipable,
 } from "@/components";
 import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
@@ -55,17 +56,19 @@ const NotificationSetting = observer(() => {
 
   if (!notify.subscription) {
     return (
-      <Button
+      <Tooltipable
         className={c.notify}
-        onClick={() => startTransition(notify.subscribeToPush)}
+        tooltip={"Получать push уведомления, когда находится игра"}
       >
-        <span style={{ flex: 1 }}>Включить уведомления</span>
-        {isPending ? (
-          <AiOutlineLoading3Quarters className="loading" />
-        ) : (
-          <FaBell style={{ float: "right" }} />
-        )}
-      </Button>
+        <Button onClick={() => startTransition(notify.subscribeToPush)}>
+          <span style={{ flex: 1 }}>Включить уведомления</span>
+          {isPending ? (
+            <AiOutlineLoading3Quarters className="loading" />
+          ) : (
+            <FaBell style={{ float: "right" }} />
+          )}
+        </Button>
+      </Tooltipable>
     );
   }
 
