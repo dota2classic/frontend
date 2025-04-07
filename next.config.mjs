@@ -7,19 +7,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'avatars.steamstatic.com'
-      },
-      {
-        protocol: 'https',
-        hostname: 'avatars.fastly.steamstatic.com'
+        hostname: '**.steamstatic.com'
       },
       {
         protocol: 'https',
         hostname: 'steamcdn-a.akamaihd.net'
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.akamai.steamstatic.com'
       },
       {
         protocol: 'https',

@@ -11,7 +11,9 @@ interface IRichMessageProps {
 export const RichMessage = React.memo(function RichMessage({
   rawMsg,
 }: IRichMessageProps) {
-  const msg = rawMsg.replace(/\n\s*\n/g, "\n");
+  const msg = rawMsg
+    .replace(/\n\s*\n/g, "\n")
+    .replace(/\[([^\[\]]*)\]\((.*?)\)/gm, "$2");
 
   const parts: ReactNode[] = [];
   const r = new RegExp(
