@@ -23,6 +23,8 @@ import { matchToPlayerMatchItem } from "@/util/mappers";
 import { NextPageContext } from "next";
 import { MatchComparator } from "@/util/sorts";
 import { GameModeOptions, HeroOptions } from "@/const/options";
+import { cachedBackendRequest } from "@/util/cached-backend-request";
+import { GSSProps } from "@/misc";
 
 interface Props {
   playerId: string;
@@ -123,9 +125,10 @@ export default function PlayerMatches({
   );
 }
 
-PlayerMatches.getInitialProps = async (
+// eslint-disable-next-line react-refresh/only-export-components
+export async function getServerSideProps(
   ctx: NextPageContext,
-): Promise<Props> => {
+): Promise<GSSProps<Props>> {
   const playerId = ctx.query.id as string;
   let hero = ctx.query.hero as string;
   hero = hero && fullName(hero);
@@ -133,23 +136,28 @@ PlayerMatches.getInitialProps = async (
   const page = numberOrDefault(ctx.query.page, 0);
   const mode = numberOrDefault(ctx.query.mode, undefined);
 
-  const [preloadedSummary, initialMatches] = await Promise.combine<
-    PlayerSummaryDto,
-    MatchPageDto
-  >([
-    getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().matchApi.matchControllerPlayerMatches(
-      playerId,
-      numberOrDefault(page, 0),
-      undefined,
-      numberOrDefault(mode, undefined),
-      hero,
-    ),
-  ]);
-
+  const dataFetch = () =>
+    Promise.combine([
+      getApi().playerApi.playerControllerPlayerSummary(playerId),
+      getApi().matchApi.matchControllerPlayerMatches(
+        playerId,
+        numberOrDefault(page, 0),
+        undefined,
+        numberOrDefault(mode, undefined),
+        hero,
+      ),
+    ]);
+  const [preloadedSummary, initialMatches] = await cachedBackendRequest(
+    dataFetch,
+    "player_profile__matches",
+    [playerId, page, mode, hero],
+    60_000, // 1 minute cache
+  );
   return {
-    playerId,
-    preloadedSummary,
-    initialMatches,
+    props: {
+      playerId,
+      preloadedSummary,
+      initialMatches,
+    },
   };
-};
+}

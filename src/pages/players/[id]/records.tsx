@@ -4,6 +4,8 @@ import { getApi } from "@/api/hooks";
 import { EmbedProps, PlayerSummary, Section } from "@/components";
 import React from "react";
 import { PlayerRecords } from "@/containers";
+import { GSSProps } from "@/misc";
+import { cachedBackendRequest } from "@/util/cached-backend-request";
 
 interface Props {
   preloadedSummary: PlayerSummaryDto;
@@ -38,18 +40,27 @@ export default function PlayerRecordsPage({
   );
 }
 
-PlayerRecordsPage.getInitialProps = async (
+// eslint-disable-next-line react-refresh/only-export-components
+export async function getServerSideProps(
   ctx: NextPageContext,
-): Promise<Props> => {
+): Promise<GSSProps<Props>> {
   const playerId = ctx.query.id as string;
-
-  const [preloadedSummary, records] = await Promise.combine([
-    getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().record.recordControllerPlayerRecords(playerId),
-  ]);
+  const dataFetch = () =>
+    Promise.combine([
+      getApi().playerApi.playerControllerPlayerSummary(playerId),
+      getApi().record.recordControllerPlayerRecords(playerId),
+    ]);
+  const [preloadedSummary, records] = await cachedBackendRequest(
+    dataFetch,
+    "player_profile__records",
+    [playerId],
+    60_000 * 5, // 5 minutes cache
+  );
 
   return {
-    preloadedSummary,
-    records,
+    props: {
+      preloadedSummary,
+      records,
+    },
   };
-};
+}

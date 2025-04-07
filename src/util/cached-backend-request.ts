@@ -1,28 +1,31 @@
+import { BackendCache } from "@/store/BackendCache";
+import { performance } from "perf_hooks";
+
+export function measure<T>(msg: string, lambda: () => T) {
+  const start = performance.now();
+  const r = lambda();
+  const duration = performance.now() - start;
+  console.log(`[${msg}] - ${duration}`);
+
+  return r;
+}
+
 export async function cachedBackendRequest<Response>(
   request: () => Promise<Response>,
   cacheKey: string,
   cacheProps: unknown[],
   cacheTtl: number,
 ) {
-  if (typeof window !== "undefined") {
-    console.log("Browser: no redis caching here");
-    return request();
-  }
-  const BackendCache = (await import("@/store/BackendCache")).BackendCache;
   const compositeKey = JSON.stringify({
     cacheKey,
     cacheProps: cacheProps.sort(),
   });
-  console.log(compositeKey);
   const some = await BackendCache.get<Response>(compositeKey);
   if (!some) {
     const freshData = await request();
     await BackendCache.set(compositeKey, freshData, cacheTtl);
-    console.log("No cached data: refetched");
 
-    return freshData;
+    return JSON.parse(JSON.stringify(freshData));
   }
-
-  console.log("Returning cached data! Cool!");
   return some;
 }

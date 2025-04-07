@@ -7,6 +7,8 @@ import { AppRouter } from "@/route";
 import { colors } from "@/colors";
 import { winrate } from "@/util/math";
 import { ColumnType } from "@/const/tables";
+import { cachedBackendRequest } from "@/util/cached-backend-request";
+import { GSSProps } from "@/misc";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -22,12 +24,6 @@ export default function PlayerHeroes({
   const formattedHeroStats = (preloadedHeroStats || []).toSorted(
     (a, b) => b.games - a.games,
   );
-  // .map((it) => ({
-  //   hero: it.hero,
-  //   kda: it.kda,
-  //   wins: it.wins,
-  //   loss: it.loss,
-  // }));
 
   return (
     <>
@@ -114,13 +110,27 @@ export default function PlayerHeroes({
   );
 }
 
-PlayerHeroes.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+// eslint-disable-next-line react-refresh/only-export-components
+export async function getServerSideProps(
+  ctx: NextPageContext,
+): Promise<GSSProps<Props>> {
   const playerId = ctx.query.id as string;
-
+  const dataFetch = () =>
+    Promise.combine([
+      getApi().playerApi.playerControllerPlayerSummary(playerId),
+      getApi().playerApi.playerControllerHeroSummary(playerId),
+    ]);
+  const [summary, preloadedHeroStats] = await cachedBackendRequest(
+    dataFetch,
+    "player_profile__heroes",
+    [playerId],
+    60_000,
+  );
   return {
-    summary: await getApi().playerApi.playerControllerPlayerSummary(playerId),
-    preloadedHeroStats:
-      await getApi().playerApi.playerControllerHeroSummary(playerId),
-    playerId,
+    props: {
+      playerId,
+      preloadedHeroStats,
+      summary,
+    },
   };
-};
+}
