@@ -14,7 +14,7 @@ export function withTemporaryToken<T>(
     const token = cookies.get(AuthStore.cookieTokenKey) || undefined;
 
     const store = getRootStore(undefined);
-    store.auth.setToken(token);
+    store.auth.setToken(token, false);
     return call(store);
   } else {
     return call(__unsafeGetClientStore());

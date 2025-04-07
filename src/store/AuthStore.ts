@@ -50,7 +50,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       // Get cookies from browser cookies
       const cookie = BrowserCookies.get(AuthStore.cookieTokenKey);
       if (cookie) {
-        this.setToken(cookie);
+        this.setToken(cookie, false);
       }
       this.periodicallyFetchMe();
     }
@@ -97,10 +97,13 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   }
 
   @action
-  public setToken = (token: string | undefined) => {
+  public setToken = (token: string | undefined, fetchMe: boolean = true) => {
     this.token = token;
     appApi.apiParams.accessToken = token;
-    this.fetchMe();
+
+    if (fetchMe) {
+      this.fetchMe();
+    }
   };
 
   @action
@@ -121,6 +124,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   hydrate = (data?: { token?: string }) => {
     if (!data) return;
-    this.setToken(data.token);
+    this.setToken(data.token, false);
   };
 }
