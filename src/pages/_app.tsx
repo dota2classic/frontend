@@ -96,6 +96,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
   render() {
     const { Component, pageProps, initialState } = this.props;
     const store = getRootStore(initialState);
+    console.log("App render!", pageProps);
 
     return (
       <MobxContext.Provider value={store}>

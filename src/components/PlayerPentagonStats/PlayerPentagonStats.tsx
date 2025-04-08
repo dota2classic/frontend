@@ -107,20 +107,18 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
           )}
           <span>
             {sortedAspects.map(({ x, y, magnitude, aspect, count }) => (
-              <>
-                <Tooltipable
-                  key={aspect}
-                  tooltip={`${formatPlayerAspect(aspect)}: ${count}`}
-                  className={c.dot}
-                >
-                  <div
-                    style={{
-                      left: `calc(50% + ${x * outerPentaSize * 98 * magnitude}%)`,
-                      top: `calc(50% + ${y * outerPentaSize * 98 * magnitude}%)`,
-                    }}
-                  />
-                </Tooltipable>
-              </>
+              <Tooltipable
+                key={aspect}
+                tooltip={`${formatPlayerAspect(aspect)}: ${count}`}
+                className={c.dot}
+              >
+                <div
+                  style={{
+                    left: `calc(50% + ${x * outerPentaSize * 98 * magnitude}%)`,
+                    top: `calc(50% + ${y * outerPentaSize * 98 * magnitude}%)`,
+                  }}
+                />
+              </Tooltipable>
             ))}
           </span>
           <span>

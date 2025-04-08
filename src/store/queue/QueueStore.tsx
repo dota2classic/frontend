@@ -248,6 +248,12 @@ export class QueueStore
 
   @computed
   public get ready(): boolean {
+    console.log(
+      "Socket auth complete:" +
+        (this.readyState === GameCoordinatorState.CONNECTION_COMPLETE),
+      "Party loaded:" + !!this.party,
+      "Need auth:" + this.needAuth,
+    );
     return (
       this.readyState === GameCoordinatorState.CONNECTION_COMPLETE &&
       this.party !== undefined &&
@@ -402,8 +408,12 @@ export class QueueStore
 
   hydrate(p: QueueStoreHydrateProps): void {
     runInAction(() => {
-      this.party = p.party;
-      this.selectedModes = p.defaultModes;
+      if ("party" in p) {
+        this.party = p.party;
+      }
+      if ("defaultModes" in p) {
+        this.selectedModes = p.defaultModes;
+      }
     });
   }
 
