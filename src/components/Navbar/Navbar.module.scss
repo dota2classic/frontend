@@ -39,7 +39,6 @@
   //overflow-y: hidden;
 }
 
-
 .navbarList {
   display: flex;
   flex-direction: row;
@@ -121,8 +120,6 @@
   }
 }
 
-
-
 @keyframes attention {
   0% {
     left: 0;
@@ -139,11 +136,9 @@
   overflow: hidden;
   position: relative;
 
-
-
   &::before {
     z-index: -1;
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     height: 4px;
@@ -152,14 +147,16 @@
     background: $gold;
 
     animation: attention 10s ease infinite;
-
   }
 }
-
 
 .omitInTablet {
   @media (max-width: 1000px) {
     display: none;
-
   }
+}
+
+.playerName {
+  min-width: 12ch;
+  text-align: right;
 }

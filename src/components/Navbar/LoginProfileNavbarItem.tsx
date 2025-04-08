@@ -12,6 +12,7 @@ import { getAuthUrl } from "@/util/getAuthUrl";
 import { IoMdExit, IoMdTrophy } from "react-icons/io";
 import { GiFeatheredWing } from "react-icons/gi";
 import { MdViewList } from "react-icons/md";
+import cx from "clsx";
 
 export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   const { parsedToken, smallAvatar, logout } = useStore().auth;
@@ -59,7 +60,7 @@ export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
         },
       ]}
     >
-      <span className={c.omitInTablet}>{parsedToken.name}</span>
+      <span className={cx(c.omitInTablet, c.playerName)}>{parsedToken.name}</span>
       <Image
         width={30}
         height={30}
