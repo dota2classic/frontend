@@ -26,7 +26,6 @@ import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
 import { LazyPaginatedThread } from "@/containers/Thread/LazyPaginatedThread";
 import { cachedBackendRequest } from "@/util/cached-backend-request";
-import { GSSProps } from "@/misc";
 
 //
 interface PlayerPageProps {
@@ -126,10 +125,36 @@ export default function PlayerPage({
   );
 }
 
+// PlayerPage.getInitialProps = async (
+//   ctx: NextPageContext,
+// ): Promise<PlayerPageProps> => {
+//   const playerId = ctx.query.id as string;
+//
+//   const dataFetch = () =>
+//     Promise.combine([
+//       getApi().playerApi.playerControllerPlayerSummary(playerId),
+//       getApi().matchApi.matchControllerPlayerMatches(playerId, 0, 1),
+//       getApi().playerApi.playerControllerHeroSummary(playerId),
+//       getApi().playerApi.playerControllerAchievements(playerId),
+//     ]);
+//   const [
+//     preloadedSummary,
+//     preloadedMatches,
+//     preloadedHeroStats,
+//     preloadedAchievements,
+//   ] = await dataFetch();
+//
+//   return {
+//     playerId,
+//     preloadedSummary,
+//     preloadedMatches,
+//     preloadedHeroStats,
+//     preloadedAchievements,
+//   };
+// };
+
 // eslint-disable-next-line react-refresh/only-export-components
-export async function getServerSideProps(
-  ctx: NextPageContext,
-): Promise<GSSProps<PlayerPageProps>> {
+export async function getServerSideProps(ctx: NextPageContext) {
   const playerId = ctx.query.id as string;
   const dataFetch = () =>
     Promise.combine([
@@ -145,17 +170,19 @@ export async function getServerSideProps(
     preloadedAchievements,
   ] = await cachedBackendRequest(
     dataFetch,
-    "player_profile__index",
+    "player_profile",
     [playerId],
     60_000,
   );
   return {
-    props: {
-      playerId,
-      preloadedSummary,
-      preloadedMatches,
-      preloadedHeroStats,
-      preloadedAchievements,
-    },
+    props: JSON.parse(
+      JSON.stringify({
+        playerId,
+        preloadedSummary,
+        preloadedMatches,
+        preloadedHeroStats,
+        preloadedAchievements,
+      }),
+    ),
   };
 }
