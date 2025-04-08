@@ -60,7 +60,9 @@ export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
         },
       ]}
     >
-      <span className={cx(c.omitInTablet, c.playerName)}>{parsedToken.name}</span>
+      <span className={cx(c.omitInTablet, c.playerName)}>
+        {parsedToken.name}
+      </span>
       <Image
         width={30}
         height={30}
