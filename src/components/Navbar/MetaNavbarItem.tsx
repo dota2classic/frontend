@@ -12,7 +12,7 @@ export const MetaNavbarItem = () => {
       testId="navbar-user"
       className={c.user}
       ignoreActive
-      action={AppRouter.matches.index().link}
+      action={AppRouter.meta.index.link}
       options={[
         {
           Icon: MdViewList,

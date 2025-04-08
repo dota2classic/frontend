@@ -82,7 +82,7 @@ export const AppRouter = {
   live: spage("/stats/live"),
 
   meta: {
-    index: spage("/stats/meta/heroes"),
+    index: spage("/meta"),
     hero: (hero: string) =>
       page("/stats/meta/heroes/[id]", `/stats/meta/heroes/${hero}`),
   },
