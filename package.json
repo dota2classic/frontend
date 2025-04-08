@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "REDIS_HOST=localhost REDIS_PASSWORD=test123 REDIS_USER=default SOCKET_URL=wss://dotaclassic.ru/newsocket API_URL=https://dotaclassic.ru/api next dev",
+    "dev": "SOCKET_URL=wss://dotaclassic.ru/newsocket API_URL=https://dotaclassic.ru/api next dev",
     "dev:turbo": "API_URL=https://dotaclassic.ru/api next dev --turbopack",
     "dev:local": "SOCKET_URL=ws://localhost:6001 API_URL=http://localhost:6001 next dev",
     "dev:localturbo": "API_URL=http://localhost:6001 next dev --turbopack",
@@ -23,7 +23,6 @@
     "knip": "knip"
   },
   "dependencies": {
-    "@keyv/redis": "^4.3.3",
     "@lexical/react": "^0.24.0",
     "@lexical/rich-text": "^0.24.0",
     "@lexical/selection": "^0.24.0",
@@ -35,7 +34,6 @@
     "cookies-next": "^5.1.0",
     "format-duration": "^3.0.2",
     "html-react-parser": "^5.2.2",
-    "keyv": "^5.3.2",
     "lexical": "^0.24.0",
     "mobx": "^6.13.6",
     "mobx-react-lite": "^4.1.0",
