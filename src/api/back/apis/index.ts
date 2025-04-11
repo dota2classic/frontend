@@ -1,5 +1,6 @@
 export * from "./AdminApi";
 export * from "./AdminFeedbackApi";
+export * from "./AdminStoreApi";
 export * from "./AuthApi";
 export * from "./BlogApi";
 export * from "./FeedbackApi";
@@ -13,3 +14,4 @@ export * from "./PlayerApi";
 export * from "./RecordApi";
 export * from "./StatsApi";
 export * from "./StorageApi";
+export * from "./StoreApi";

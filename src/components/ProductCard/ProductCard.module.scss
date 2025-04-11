@@ -1,0 +1,52 @@
+@import "../../common.scss";
+
+.cardImage {
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: scale(0.9);
+}
+
+.card {
+  display: grid;
+  position: relative;
+  //background-color: rgba(255, 255, 255, 0.01);
+  cursor: pointer;
+  transition: 0.3s ease;
+  row-gap: 6px;
+
+  //background-color: #1b1c20;
+  background-color: $darkBg2;
+  border-radius: 30px;
+
+  &:hover {
+    & .cardImage {
+      transform: scale(1);
+    }
+  }
+
+  &__image {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, $bg2 66.35%, rgba(21, 24, 27, 0));
+  }
+
+  &__name {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  &__price {
+    text-align: center;
+    z-index: 10;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin: auto;
+
+    & svg {
+      color: $gold;
+      margin-bottom: -2px;
+    }
+  }
+}

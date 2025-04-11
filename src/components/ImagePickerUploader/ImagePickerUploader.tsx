@@ -22,12 +22,16 @@ export const ImagePickerUploader: React.FC<IImagePickerUploaderProps> = ({
   const ref = useRef<HTMLButtonElement | null>(null);
   const [isUploading, startUploading] = useTransition();
 
+  const onPreSelectImage = useCallback((img: UploadedImageDto) => {
+    setVisible(false);
+    onSelectImage(img);
+  }, []);
+
   const submitImage = useCallback(
     (img: UploadedImageDto) => {
-      setVisible(false);
-      onSelectImage(img);
+      onPreSelectImage(img);
     },
-    [onSelectImage],
+    [onSelectImage, setVisible],
   );
 
   const uploadFile = useCallback(
@@ -64,7 +68,7 @@ export const ImagePickerUploader: React.FC<IImagePickerUploaderProps> = ({
             onClose={() => setVisible(false)}
           >
             <ImageGalleryModal
-              onSelectImage={onSelectImage}
+              onSelectImage={onPreSelectImage}
               images={store.gallery}
             />
           </GenericTooltip>,

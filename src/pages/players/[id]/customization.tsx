@@ -1,19 +1,25 @@
-import { NextPageContext } from "next";
-import { PlayerRecordsResponse, PlayerSummaryDto } from "@/api/back";
+import { PlayerSummaryDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
-import { EmbedProps, PlayerSummary, Section } from "@/components";
+import { EmbedProps, Panel, PlayerSummary, Section } from "@/components";
 import React from "react";
-import { PlayerRecords } from "@/containers";
+import c from "./PlayerPage.module.scss";
+import Image from "next/image";
+import { FaCoins } from "react-icons/fa";
+import { NextPageContext } from "next";
+
+interface SelectHat {
+  hats: {
+    image: string;
+    price: number;
+    bought: boolean;
+  }[];
+}
 
 interface Props {
   preloadedSummary: PlayerSummaryDto;
-  records: PlayerRecordsResponse;
 }
 
-export default function PlayerRecordsPage({
-  records,
-  preloadedSummary,
-}: Props) {
+export default function PlayerCustomizationPage({ preloadedSummary }: Props) {
   return (
     <>
       <EmbedProps
@@ -28,26 +34,19 @@ export default function PlayerRecordsPage({
         mmr={preloadedSummary.mmr}
         user={preloadedSummary.user}
       />
-
-      <Section>
-        <PlayerRecords records={records} />
-      </Section>
     </>
   );
 }
 
-PlayerRecordsPage.getInitialProps = async (
+PlayerCustomizationPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
   const playerId = ctx.query.id as string;
 
-  const [preloadedSummary, records] = await Promise.combine([
-    getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().record.recordControllerPlayerRecords(playerId),
-  ]);
+  const preloadedSummary =
+    await getApi().playerApi.playerControllerPlayerSummary(playerId);
 
   return {
     preloadedSummary,
-    records,
   };
 };

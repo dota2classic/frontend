@@ -1,6 +1,7 @@
 import {
   AdminApi,
   AdminFeedbackApi,
+  AdminStoreApi,
   AuthApi,
   BlogApi,
   FeedbackApi,
@@ -14,6 +15,7 @@ import {
   RecordApi,
   StatsApi,
   StorageApi,
+  StoreApi,
 } from "./back/apis";
 import {
   Configuration,
@@ -132,6 +134,8 @@ export class AppApi {
   readonly storageApi = new StorageApi(this.apiConfig);
   readonly blog = new BlogApi(this.apiConfig);
   readonly record = new RecordApi(this.apiConfig);
+  readonly store = new StoreApi(this.apiConfig);
+  readonly adminStore = new AdminStoreApi(this.apiConfig);
 }
 
 export const appApi = new AppApi();

@@ -83,6 +83,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 Live
               </NavbarItem>
             )}
+            <NavbarItem action={AppRouter.store.index.link}>Магазин</NavbarItem>
             <div className={c.spacer} />
             <LoginProfileNavbarItem />
           </div>

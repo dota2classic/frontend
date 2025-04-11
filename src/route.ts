@@ -96,6 +96,9 @@ export const AppRouter = {
         page(`/players/[id]/heroes`, `/players/${id}/heroes`),
       records: (id: string) =>
         page(`/players/[id]/records`, `/players/${id}/records`),
+      customization: (id: string) =>
+        page(`/players/[id]/customization`, `/players/${id}/customization`),
+
       teammates: (id: string, _page?: number) => {
         const q = queryParameters({ page: _page });
         return page(
@@ -132,6 +135,16 @@ export const AppRouter = {
       edit: (id: number) =>
         page(`/admin/feedback/edit/[id]`, `/admin/feedback/edit/${id}`),
       create: spage("/admin/feedback/create"),
+    },
+
+    store: {
+      index: spage("/admin/store"),
+      createProduct: () => spage(`/admin/store/product/create`),
+      editProduct: (id: string) =>
+        page(
+          `/admin/store/product/edit/[id]`,
+          `/admin/store/product/edit/${id}`,
+        ),
     },
 
     crimes: (pg?: number, steamId?: string) => {
@@ -241,5 +254,10 @@ export const AppRouter = {
     },
     download: (id: number) =>
       page(`/matches/download/[id]`, `/matches/download/${id}`),
+  },
+  store: {
+    index: spage("/store"),
+    product: (id: string) =>
+      page(`/store/product/[id]`, `/store/product/${id}`),
   },
 };

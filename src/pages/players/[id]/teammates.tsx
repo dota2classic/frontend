@@ -51,9 +51,7 @@ export default function PlayerTeammates({
   return (
     <>
       <PlayerSummary
-        image={summary.user.avatar}
-        name={summary.user.name}
-        steamId={summary.user.steamId}
+        user={summary.user}
         wins={summary.wins}
         loss={summary.loss}
         rank={summary.rank}

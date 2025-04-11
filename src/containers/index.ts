@@ -11,3 +11,5 @@ export { PlayerReportModal } from "./PlayerReportModal/PlayerReportModal";
 export { JoinLobbyModal } from "./JoinLobbyModal/JoinLobbyModal";
 export { EditLobbyModal } from "./EditLobbyModal/EditLobbyModal";
 export { LobbyScreen } from "./LobbyScreen/LobbyScreen";
+export { EditProductContainer } from "./EditProductContainer/EditProductContainer";
+export { EditHatContainer } from "./EditHatContainer/EditHatContainer";

@@ -93,3 +93,6 @@ export { BigTabs } from "./BigTabs/BigTabs";
 export { PlayerPentagonStats } from "./PlayerPentagonStats/PlayerPentagonStats";
 export { IconButton } from "./IconButton/IconButton";
 export { ItemsTable } from "./ItemsTable/ItemsTable";
+export { Form } from "./Form/Form";
+export { ScrollableCarousel } from "./ScrollableCarousel/ScrollableCarousel";
+export { ProductCard } from "./ProductCard/ProductCard";

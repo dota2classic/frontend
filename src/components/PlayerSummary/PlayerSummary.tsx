@@ -12,18 +12,19 @@ import { FaSteam } from "react-icons/fa";
 import { MdLocalPolice } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IBigTabsProps } from "@/components/BigTabs/BigTabs";
+import { useStore } from "@/store";
+import { UserDTO } from "@/api/back";
 
 interface IPlayerSummaryProps {
   className?: string;
-  image: string;
   wins: number;
   loss: number;
 
   rank?: number;
   mmr?: number;
 
-  name: string;
-  steamId: string;
+  user: UserDTO;
+
   lastGameTimestamp?: number | string;
 }
 
@@ -31,49 +32,52 @@ type PlayerPage = "overall" | "heroes" | "matches" | "teammates" | "records";
 type Items = IBigTabsProps<PlayerPage>["items"];
 
 export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
-  ({
-    className,
-    image,
-    wins,
-    loss,
-    mmr,
-    name,
-    steamId,
-    lastGameTimestamp,
-    rank,
-  }) => {
+  ({ className, user, wins, loss, mmr, lastGameTimestamp, rank }) => {
     const isModerator = useIsModerator();
     const r = useRouter();
+    const steamId = user.steamId;
+    const isMyAccount = useStore().auth.parsedToken?.sub === steamId;
 
     const items = useMemo<Items>(
       () => [
-        {
-          key: "overall",
-          label: "Общее",
-          onSelect: AppRouter.players.player.index(steamId).link,
-        },
-        {
-          key: "matches",
-          label: "Матчи",
-          onSelect: AppRouter.players.playerMatches(steamId).link,
-        },
-        {
-          key: "teammates",
-          label: "Союзники",
-          onSelect: AppRouter.players.player.teammates(steamId).link,
-        },
-        {
-          key: "heroes",
-          label: "Герои",
-          onSelect: AppRouter.players.player.heroes(steamId).link,
-        },
-        {
-          key: "records",
-          label: "Рекорды",
-          onSelect: AppRouter.players.player.records(steamId).link,
-        },
+        ...[
+          {
+            key: "overall",
+            label: "Общее",
+            onSelect: AppRouter.players.player.index(steamId).link,
+          },
+          {
+            key: "matches",
+            label: "Матчи",
+            onSelect: AppRouter.players.playerMatches(steamId).link,
+          },
+          {
+            key: "teammates",
+            label: "Союзники",
+            onSelect: AppRouter.players.player.teammates(steamId).link,
+          },
+          {
+            key: "heroes",
+            label: "Герои",
+            onSelect: AppRouter.players.player.heroes(steamId).link,
+          },
+          {
+            key: "records",
+            label: "Рекорды",
+            onSelect: AppRouter.players.player.records(steamId).link,
+          },
+        ],
+        ...(isMyAccount
+          ? [
+              {
+                key: "customization",
+                label: "Кастомизация",
+                onSelect: AppRouter.players.player.customization(steamId).link,
+              },
+            ]
+          : []),
       ],
-      [steamId],
+      [isMyAccount, steamId],
     );
 
     const selected = useMemo(
@@ -95,15 +99,15 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
               <PlayerAvatar
                 width={65}
                 height={65}
-                src={image}
-                alt={`Avatar of player ${name}`}
+                src={user.avatar}
+                alt={`Avatar of player ${user.name}`}
               />
               <PageLink
                 className={cx(c.playerName, "link")}
                 link={AppRouter.players.player.index(steamId).link}
                 testId={"player-summary-player-name"}
               >
-                {steamId.length > 2 ? name : `Бот #${steamId}`}
+                {steamId.length > 2 ? user.name : `Бот #${steamId}`}
               </PageLink>
             </div>
             <div className={c.player}>

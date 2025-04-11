@@ -264,6 +264,8 @@ export default function AdminPlayerPage({
 
   const endMuteTime = new Date(forumUser!.mutedUntil);
 
+  console.log("SHIT", preloadedSummary);
+
   return (
     <div className={c2.gridPanel}>
       <PlayerSummary
@@ -272,9 +274,7 @@ export default function AdminPlayerPage({
         loss={preloadedSummary.loss}
         rank={preloadedSummary.rank}
         mmr={preloadedSummary.mmr}
-        image={preloadedSummary.user.avatar || "/avatar.png"}
-        name={preloadedSummary.user.name}
-        steamId={preloadedSummary.user.steamId}
+        user={preloadedSummary.user}
       />
 
       <Section className={c2.grid12}>

@@ -103,7 +103,7 @@
     width: 60px;
 
     &_user {
-      & img {
+      & :global(.user-avatar) {
         width: 45px;
         height: 45px;
         border-radius: 50%;
@@ -154,6 +154,7 @@
     bottom: 4px;
     right: -4px;
 
+    z-index: 4;
     width: 10px;
     height: 10px;
     border-radius: 50%;
