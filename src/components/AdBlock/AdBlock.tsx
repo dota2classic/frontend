@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import c from "./AdBlock.module.scss";
 
@@ -7,12 +7,18 @@ interface Props {
 }
 
 export const AdBlock: React.FC<Props> = ({ bannerId }: Props) => {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setReady(true), 500);
+  }, []);
+
   return (
     <div className={c.adBlock}>
       <div id={`yandex_rtb_${bannerId}`}></div>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
+      {ready && (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
         window.yaContextCb.push(() => {
         Ya.Context.AdvManager.render({
           "blockId": "${bannerId}",
@@ -20,8 +26,9 @@ export const AdBlock: React.FC<Props> = ({ bannerId }: Props) => {
         })
       })
       `,
-        }}
-      />
+          }}
+        />
+      )}{" "}
     </div>
   );
 };
