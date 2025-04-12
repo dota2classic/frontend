@@ -1,5 +1,6 @@
 @import "../../common.scss";
 
+
 .navbar {
   //position: sticky;
   top: 0;
@@ -9,12 +10,11 @@
   color: $primaryText;
   z-index: 100000;
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+}
 
-  &__admin {
-    //@media (max-width: 600px) {
-    //  display: none;
-    //}
-  }
+.navbar__admin {
+  min-width: 20ch;
+  justify-content: flex-start;
 }
 
 .mobileMenu {
