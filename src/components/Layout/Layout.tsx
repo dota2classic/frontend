@@ -23,6 +23,7 @@ export const Layout = ({
 }: PropsWithChildren<LayoutProps>) => {
   const r = useRouter();
   const isQueuePage = r.pathname === "/queue";
+  const isLanding = r.pathname === "/";
 
   return (
     <ThemeContext.Provider value={{ newYear: true }}>
@@ -33,7 +34,7 @@ export const Layout = ({
         <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
           <Notifications />
           <SearchGameFloater />
-          <AdBlock bannerId={AdBlockType.BANNER_LEFT} />
+          {!isLanding && <AdBlock bannerId={AdBlockType.BANNER_LEFT} />}
           <div className={c.middleContent}>
             <main
               className={cx(
@@ -50,7 +51,7 @@ export const Layout = ({
               <TelegramInvite />
             </footer>
           </div>
-          <AdBlock bannerId={AdBlockType.BANNER_RIGHT} />
+          {!isLanding && <AdBlock bannerId={AdBlockType.BANNER_RIGHT} />}
         </div>
       </div>
     </ThemeContext.Provider>
