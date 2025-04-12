@@ -12,6 +12,7 @@ import c from "./Layout.module.scss";
 import cx from "clsx";
 import { useRouter } from "next/router";
 import { ThemeContext } from "@/util/theme";
+import { AdBlockType } from "@/components/AdBlock/AdBlockType";
 
 interface LayoutProps {
   className?: string;
@@ -32,7 +33,7 @@ export const Layout = ({
         <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
           <Notifications />
           <SearchGameFloater />
-          <AdBlock />
+          <AdBlock bannerId={AdBlockType.BANNER_LEFT} />
           <div className={c.middleContent}>
             <main
               className={cx(
@@ -49,7 +50,7 @@ export const Layout = ({
               <TelegramInvite />
             </footer>
           </div>
-          <AdBlock />
+          <AdBlock bannerId={AdBlockType.BANNER_RIGHT} />
         </div>
       </div>
     </ThemeContext.Provider>
