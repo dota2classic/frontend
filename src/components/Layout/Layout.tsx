@@ -35,13 +35,15 @@ export const Layout = ({
           <Notifications />
           <SearchGameFloater />
           {!isLanding && <AdBlock bannerId={AdBlockType.BANNER_LEFT} />}
-          <div className={c.middleContent}>
+          <div
+            className={cx(
+              c.middleContent,
+              r.pathname === "/" && c.landing,
+              r.pathname === "/queue" && c.queue,
+            )}
+          >
             <main
-              className={cx(
-                c.layoutInner,
-                r.pathname === "/" && c.landing,
-                r.pathname === "/queue" && c.queue,
-              )}
+              className={cx(c.layoutInner, r.pathname === "/queue" && c.queue)}
             >
               {children}
             </main>
