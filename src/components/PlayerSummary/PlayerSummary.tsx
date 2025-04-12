@@ -3,7 +3,13 @@ import React, { useMemo } from "react";
 import c from "./PlayerSummary.module.scss";
 import cx from "clsx";
 import { formatWinrate } from "@/util/math";
-import { BigTabs, PageLink, Panel, PlayerAvatar } from "@/components";
+import {
+  BigTabs,
+  PageLink,
+  Panel,
+  PlayerAvatar,
+  Tooltipable,
+} from "@/components";
 import { AppRouter, NextLinkProp } from "@/route";
 import { steamPage, useIsModerator } from "@/util";
 import { observer } from "mobx-react-lite";
@@ -12,15 +18,13 @@ import { FaSteam } from "react-icons/fa";
 import { MdLocalPolice } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IBigTabsProps } from "@/components/BigTabs/BigTabs";
+import { PlayerSummaryDto } from "@/api/back";
 
 interface IPlayerSummaryProps {
   className?: string;
   image: string;
-  wins: number;
-  loss: number;
 
-  rank?: number;
-  mmr?: number;
+  summary: PlayerSummaryDto;
 
   name: string;
   steamId: string;
@@ -31,17 +35,8 @@ type PlayerPage = "overall" | "heroes" | "matches" | "teammates" | "records";
 type Items = IBigTabsProps<PlayerPage>["items"];
 
 export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
-  ({
-    className,
-    image,
-    wins,
-    loss,
-    mmr,
-    name,
-    steamId,
-    lastGameTimestamp,
-    rank,
-  }) => {
+  ({ className, image, name, steamId, lastGameTimestamp, summary }) => {
+    const { wins, abandons, loss, mmr, rank } = summary;
     const isModerator = useIsModerator();
     const r = useRouter();
 
@@ -140,11 +135,14 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
               </dl>
             )}
 
-            <dl data-testid="player-summary-win-loss">
-              <dd>
-                <span className="green">{wins}</span> -{" "}
-                <span className="red">{loss}</span>
-              </dd>
+            <dl className={c.games} data-testid="player-summary-win-loss">
+              <Tooltipable tooltip={"Побед - Поражений - Покинутых игр"}>
+                <dd>
+                  <span className="green">{wins}</span>
+                  <span className="red">{loss}</span>
+                  <span className="grey">{abandons}</span>
+                </dd>
+              </Tooltipable>
               <dt>Матчи</dt>
             </dl>
             <dl data-testid="player-summary-winrate">

@@ -58,3 +58,14 @@
   color: $blueHighlight;
   font-size: 1.1rem;
 }
+
+
+.games {
+  & span + span {
+    &::before {
+      content: '-';
+      color: $primaryTextDark2;
+      margin: 2px;
+    }
+  }
+}

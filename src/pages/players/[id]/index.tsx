@@ -69,10 +69,7 @@ export default function PlayerPage({
         image={preloadedSummary.user.avatar}
       />
       <PlayerSummary
-        wins={preloadedSummary.wins}
-        loss={preloadedSummary.loss}
-        rank={preloadedSummary.rank}
-        mmr={preloadedSummary.mmr}
+        summary={preloadedSummary}
         image={preloadedSummary.user.avatar || "/avatar.png"}
         name={preloadedSummary.user.name}
         steamId={preloadedSummary.user.steamId}
@@ -95,6 +92,7 @@ export default function PlayerPage({
         <PlayerPentagonStats
           games={preloadedSummary.gamesPlayed}
           aspects={preloadedSummary.aspects}
+          abandons={preloadedSummary.abandons}
           kills={preloadedSummary.kills}
           deaths={preloadedSummary.deaths}
           assists={preloadedSummary.assists}

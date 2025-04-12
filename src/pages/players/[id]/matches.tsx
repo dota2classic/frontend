@@ -59,10 +59,7 @@ export default function PlayerMatches({
       />
 
       <PlayerSummary
-        wins={preloadedSummary.wins}
-        loss={preloadedSummary.loss}
-        rank={preloadedSummary.rank}
-        mmr={preloadedSummary.mmr}
+        summary={preloadedSummary}
         image={preloadedSummary.user.avatar || "/avatar.png"}
         name={preloadedSummary.user.name}
         steamId={preloadedSummary.user.steamId}

@@ -125,6 +125,12 @@ export default function LeaderboardPage({
             mobileOmit: true,
             format: (d) => <Duration big duration={d} />,
           },
+          {
+            type: ColumnType.IntWithBar,
+            name: "Ливов",
+            mobileOmit: true,
+            color: colors.bronze,
+          },
         ]}
         data={initialLeaderboard.data.map((it) => [
           it.rank,
@@ -135,6 +141,7 @@ export default function LeaderboardPage({
           (it.wins / it.games) * 100,
           { kills: it.kills, deaths: it.deaths, assists: it.assists },
           it.playTime,
+          it.abandons,
         ])}
       />
       <Pagination

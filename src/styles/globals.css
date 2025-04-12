@@ -22,6 +22,11 @@
   color: #d7d7d7 !important;
 }
 
+.grey {
+  /*color: rgb(83, 82, 82);*/
+  color: #91500d;
+}
+
 .shit {
   color: #aaa;
 }

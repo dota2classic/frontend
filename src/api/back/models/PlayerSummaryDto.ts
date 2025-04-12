@@ -87,6 +87,12 @@ export interface PlayerSummaryDto {
      * @type {number}
      * @memberof PlayerSummaryDto
      */
+    abandons: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PlayerSummaryDto
+     */
     kills: number;
     /**
      * 
@@ -138,6 +144,7 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'gamesPlayed': json['games_played'],
         'wins': json['wins'],
         'loss': json['loss'],
+        'abandons': json['abandons'],
         'kills': json['kills'],
         'deaths': json['deaths'],
         'assists': json['assists'],
@@ -164,6 +171,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         'games_played': value.gamesPlayed,
         'wins': value.wins,
         'loss': value.loss,
+        'abandons': value.abandons,
         'kills': value.kills,
         'deaths': value.deaths,
         'assists': value.assists,

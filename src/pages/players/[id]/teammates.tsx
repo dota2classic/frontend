@@ -54,10 +54,7 @@ export default function PlayerTeammates({
         image={summary.user.avatar}
         name={summary.user.name}
         steamId={summary.user.steamId}
-        wins={summary.wins}
-        loss={summary.loss}
-        rank={summary.rank}
-        mmr={summary.mmr}
+        summary={summary}
       />
       <Section>
         <header>Тиммейты</header>

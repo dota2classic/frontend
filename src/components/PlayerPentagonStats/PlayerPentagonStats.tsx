@@ -16,6 +16,7 @@ interface IPlayerPentagonStatsProps {
   deaths: number;
   assists: number;
   playtime: number;
+  abandons: number;
 
   games: number;
 }
@@ -25,11 +26,14 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
   kills,
   deaths,
   assists,
+  abandons,
   playtime,
   games,
 }) => {
   const [side, setSide] = useState(-1);
   const outerPentaSize = 0.36;
+
+  const abandonRate = abandons / Math.max(1, games);
 
   const sortedAspects = useMemo(() => {
     const max = Math.max(
@@ -158,6 +162,10 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
           <dl>
             <dd>{games}</dd>
             <dt>Игр сыграно</dt>
+          </dl>
+          <dl>
+            <dd>{(abandonRate * 100).toFixed(1)}%</dd>
+            <dt>Покинутых игр</dt>
           </dl>
           <dl>
             <dd>

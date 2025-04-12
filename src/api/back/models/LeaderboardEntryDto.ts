@@ -67,6 +67,12 @@ export interface LeaderboardEntryDto {
      * @type {number}
      * @memberof LeaderboardEntryDto
      */
+    abandons: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LeaderboardEntryDto
+     */
     kills: number;
     /**
      * 
@@ -104,6 +110,7 @@ export function LeaderboardEntryDtoFromJSONTyped(json: any, ignoreDiscriminator:
         'rank': !exists(json, 'rank') ? undefined : json['rank'],
         'games': json['games'],
         'wins': json['wins'],
+        'abandons': json['abandons'],
         'kills': json['kills'],
         'deaths': json['deaths'],
         'assists': json['assists'],
@@ -126,6 +133,7 @@ export function LeaderboardEntryDtoToJSON(value?: LeaderboardEntryDto | null): a
         'rank': value.rank,
         'games': value.games,
         'wins': value.wins,
+        'abandons': value.abandons,
         'kills': value.kills,
         'deaths': value.deaths,
         'assists': value.assists,

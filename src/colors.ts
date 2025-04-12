@@ -3,4 +3,5 @@ export const colors = {
   red: "#c23c2a",
   gold: "#c9af1d",
   grey: "#979797",
+  bronze: "#91500d",
 };
