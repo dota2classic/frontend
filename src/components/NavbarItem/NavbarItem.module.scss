@@ -32,6 +32,7 @@
     background: $deepBlue;
     & .options {
       visibility: visible;
+      pointer-events: auto;
       opacity: 1;
       //display: flex;
     }
@@ -72,6 +73,8 @@
   font-size: 1.2rem;
 
   gap: 12px;
+
+  pointer-events: none;
 }
 
 .option {

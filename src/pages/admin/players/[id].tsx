@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Button,
+  Checkbox,
   Input,
   PlayerSummary,
   Section,
@@ -20,6 +21,7 @@ import {
   Role,
   RoleSubscriptionEntryDto,
   SmurfData,
+  UpdatePlayerFlagDto,
   UserBanSummaryDto,
 } from "@/api/back";
 import c from "./AdminPlayerPage.module.scss";
@@ -184,6 +186,15 @@ export default function AdminPlayerPage({
     ),
   );
 
+  const { data: flags, mutate: mutateFlags } =
+    getApi().adminApi.useAdminUserControllerPlayerFlags(steamId);
+
+  const updateFlag = useCallback((p: UpdatePlayerFlagDto) => {
+    getApi()
+      .adminApi.adminUserControllerFlagPlayer(steamId, p)
+      .then(mutateFlags);
+  }, []);
+
   const { data, mutate } = getApi().adminApi.useAdminUserControllerBanOf(
     steamId,
     {
@@ -276,6 +287,29 @@ export default function AdminPlayerPage({
         name={preloadedSummary.user.name}
         steamId={preloadedSummary.user.steamId}
       />
+
+      <Section className={c2.grid12}>
+        <header>Флаги</header>
+        <Table>
+          <thead>
+            <tr>
+              <th>Флаг</th>
+              <th>Включен</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Игнорировать алерты о смурф</td>
+              <td>
+                <Checkbox
+                  onChange={(e) => updateFlag({ ignoreSmurf: e })}
+                  checked={flags?.ignoreSmurf}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+      </Section>
 
       <Section className={c2.grid12}>
         <header>Смурфы</header>

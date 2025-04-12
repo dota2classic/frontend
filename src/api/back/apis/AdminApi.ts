@@ -36,6 +36,9 @@ import {
   MatchmakingInfo,
   MatchmakingInfoFromJSON,
   MatchmakingInfoToJSON,
+  PlayerFlagDto,
+  PlayerFlagDtoFromJSON,
+  PlayerFlagDtoToJSON,
   QueueEntryDTO,
   QueueEntryDTOFromJSON,
   QueueEntryDTOToJSON,
@@ -48,6 +51,9 @@ import {
   UpdateModeDTO,
   UpdateModeDTOFromJSON,
   UpdateModeDTOToJSON,
+  UpdatePlayerFlagDto,
+  UpdatePlayerFlagDtoFromJSON,
+  UpdatePlayerFlagDtoToJSON,
   UpdateRolesDto,
   UpdateRolesDtoFromJSON,
   UpdateRolesDtoToJSON,
@@ -74,7 +80,16 @@ export interface AdminUserControllerCrimesRequest {
   steamId?: string;
 }
 
+export interface AdminUserControllerFlagPlayerRequest {
+  id: string;
+  updatePlayerFlagDto: UpdatePlayerFlagDto;
+}
+
 export interface AdminUserControllerLogFileRequest {
+  id: string;
+}
+
+export interface AdminUserControllerPlayerFlagsRequest {
   id: string;
 }
 
@@ -303,6 +318,63 @@ export class AdminApi extends runtime.BaseAPI {
 
     /**
      */
+    private async adminUserControllerFlagPlayerRaw(requestParameters: AdminUserControllerFlagPlayerRequest): Promise<runtime.ApiResponse<PlayerFlagDto>> {
+        this.adminUserControllerFlagPlayerValidation(requestParameters);
+        const context = this.adminUserControllerFlagPlayerContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PlayerFlagDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private adminUserControllerFlagPlayerValidation(requestParameters: AdminUserControllerFlagPlayerRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling adminUserControllerFlagPlayer.");
+        }
+        if (requestParameters.updatePlayerFlagDto === null || requestParameters.updatePlayerFlagDto === undefined) {
+            throw new runtime.RequiredError("updatePlayerFlagDto","Required parameter requestParameters.updatePlayerFlagDto was null or undefined when calling adminUserControllerFlagPlayer.");
+        }
+    }
+
+    /**
+     */
+    adminUserControllerFlagPlayerContext(requestParameters: AdminUserControllerFlagPlayerRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/player/{id}/flag`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdatePlayerFlagDtoToJSON(requestParameters.updatePlayerFlagDto),
+        };
+    }
+
+    /**
+     */
+    adminUserControllerFlagPlayer = async (id: string, updatePlayerFlagDto: UpdatePlayerFlagDto): Promise<PlayerFlagDto> => {
+        const response = await this.adminUserControllerFlagPlayerRaw({ id: id, updatePlayerFlagDto: updatePlayerFlagDto });
+        return await response.value();
+    }
+
+
+    /**
+     */
     private async adminUserControllerListRolesRaw(): Promise<runtime.ApiResponse<Array<UserRoleSummaryDto>>> {
         this.adminUserControllerListRolesValidation();
         const context = this.adminUserControllerListRolesContext();
@@ -418,6 +490,67 @@ export class AdminApi extends runtime.BaseAPI {
 
         const context = this.adminUserControllerLogFileContext({ id: id! });
         return useSWR(context, valid ? () => this.adminUserControllerLogFile(id!) : null, config)
+    }
+
+    /**
+     */
+    private async adminUserControllerPlayerFlagsRaw(requestParameters: AdminUserControllerPlayerFlagsRequest): Promise<runtime.ApiResponse<PlayerFlagDto>> {
+        this.adminUserControllerPlayerFlagsValidation(requestParameters);
+        const context = this.adminUserControllerPlayerFlagsContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PlayerFlagDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private adminUserControllerPlayerFlagsValidation(requestParameters: AdminUserControllerPlayerFlagsRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling adminUserControllerPlayerFlags.");
+        }
+    }
+
+    /**
+     */
+    adminUserControllerPlayerFlagsContext(requestParameters: AdminUserControllerPlayerFlagsRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/admin/users/player/{id}/flag`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    adminUserControllerPlayerFlags = async (id: string): Promise<PlayerFlagDto> => {
+        const response = await this.adminUserControllerPlayerFlagsRaw({ id: id });
+        return await response.value();
+    }
+
+    useAdminUserControllerPlayerFlags(id: string, config?: SWRConfiguration<PlayerFlagDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.adminUserControllerPlayerFlagsContext({ id: id! });
+        return useSWR(context, valid ? () => this.adminUserControllerPlayerFlags(id!) : null, config)
     }
 
     /**
