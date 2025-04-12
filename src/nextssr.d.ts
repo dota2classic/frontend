@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import { NextPageContext } from "next";
 import { RootStore } from "@/store";
 import { AppApi } from "@/api/hooks";
@@ -13,6 +14,8 @@ declare global {
     registration?: ServiceWorkerRegistration;
     api: AppApi;
     ym: (key: number, fun: string, value: unknown) => void;
+    yaContextCb: any;
+    Ya: any;
   }
 
   interface PromiseConstructor {
