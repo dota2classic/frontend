@@ -2,9 +2,7 @@
 
 .layout {
   display: flex;
-  flex-direction: column;
-  //height: 100vh;
-  //overflow-y: auto;
+  flex-direction: row;
   overflow-x: hidden;
   flex: 1;
 
@@ -13,6 +11,27 @@
   }
 }
 
+
+
+
+
+.middleContent {
+  //margin: 20px auto auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  min-width: 1200px;
+  //width: 100%;
+  overflow-x: hidden;
+  flex: 1;
+
+  @media (max-width: 1200px) {
+    min-width: unset;
+  }
+}
+
+
+
 .layoutQueue {
   height: calc(100vh - 73px);
 }
@@ -20,9 +39,7 @@
 .layoutInner {
   display: flex;
   flex-direction: column;
-  max-width: 1200px;
   width: 100%;
-  margin: 20px auto auto;
   flex: 1;
 
   @media (max-width: 600px) {
@@ -44,7 +61,6 @@
 .footer {
   display: flex;
   flex-direction: row;
-  max-width: 1200px;
   width: 100%;
   margin: auto;
   font-family: monospace;

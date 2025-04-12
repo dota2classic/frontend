@@ -1,6 +1,12 @@
 import React, { PropsWithChildren } from "react";
 
-import { Navbar, Notifications, SearchGameFloater, TelegramInvite } from "..";
+import {
+  AdBlock,
+  Navbar,
+  Notifications,
+  SearchGameFloater,
+  TelegramInvite,
+} from "..";
 
 import c from "./Layout.module.scss";
 import cx from "clsx";
@@ -26,20 +32,24 @@ export const Layout = ({
         <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
           <Notifications />
           <SearchGameFloater />
-          <main
-            className={cx(
-              c.layoutInner,
-              r.pathname === "/" && c.landing,
-              r.pathname === "/queue" && c.queue,
-            )}
-          >
-            {children}
-          </main>
-          <footer className={c.footer}>
-            <div> © 2020 - 2025 dotaclassic.ru</div>
-            <div>Dota 2 is a registered trademark of Valve Corporation.</div>
-            <TelegramInvite />
-          </footer>
+          <AdBlock />
+          <div className={c.middleContent}>
+            <main
+              className={cx(
+                c.layoutInner,
+                r.pathname === "/" && c.landing,
+                r.pathname === "/queue" && c.queue,
+              )}
+            >
+              {children}
+            </main>
+            <footer className={c.footer}>
+              <div> © 2020 - 2025 dotaclassic.ru</div>
+              <div>Dota 2 is a registered trademark of Valve Corporation.</div>
+              <TelegramInvite />
+            </footer>
+          </div>
+          <AdBlock />
         </div>
       </div>
     </ThemeContext.Provider>

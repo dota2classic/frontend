@@ -1,0 +1,12 @@
+@import "../../common.scss";
+
+.adBlock {
+  position: relative;
+  background-color: red;
+  //width: 100%;
+  flex: 1;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}

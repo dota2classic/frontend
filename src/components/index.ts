@@ -93,3 +93,5 @@ export { BigTabs } from "./BigTabs/BigTabs";
 export { PlayerPentagonStats } from "./PlayerPentagonStats/PlayerPentagonStats";
 export { IconButton } from "./IconButton/IconButton";
 export { ItemsTable } from "./ItemsTable/ItemsTable";
+export { YaReklama } from "./YaReklama/YaReklama";
+export { AdBlock } from "./AdBlock/AdBlock";
