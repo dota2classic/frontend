@@ -133,7 +133,7 @@ const RoleRow = (props: RoleSubscriptionEntryDto & { mutate: () => void }) => {
       <td>
         <DatePicker
           customInputRef={""}
-          dateFormat={"dd MMMM yyyy hh:ss"}
+          dateFormat={"dd MMMM yyyy HH:mm"}
           customInput={
             isExpired ? (
               <Button className={"small"}>Назначить</Button>
@@ -356,7 +356,7 @@ export default function AdminPlayerPage({
                   customInputRef={""}
                   showTimeSelect
                   timeIntervals={1}
-                  dateFormat={"dd MMMM yyyy hh:mm"}
+                  dateFormat={"dd MMMM yyyy HH:mm"}
                   customInput={
                     <Input
                       placeholder={"Назначить"}
@@ -397,7 +397,7 @@ export default function AdminPlayerPage({
                   customInputRef={""}
                   showTimeSelect
                   timeIntervals={1}
-                  dateFormat={"dd MMMM yyyy hh:mm"}
+                  dateFormat={"dd MMMM yyyy HH:mm"}
                   customInput={
                     <Input
                       placeholder={"Назначить"}

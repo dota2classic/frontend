@@ -2,7 +2,7 @@ import { Rubik } from "next/font/google";
 import { BlogPageDto } from "@/api/back";
 import c from "./Blog.module.scss";
 import cx from "clsx";
-import { CarouselItem } from "@/components";
+import {CarouselItem, EmbedProps} from "@/components";
 import { AppRouter } from "@/route";
 import { NextPageContext } from "next";
 import { numberOrDefault } from "@/util/urls";
@@ -23,6 +23,7 @@ export default function NewsList({ page }: Props) {
   const isMod = useIsModerator();
   return (
     <>
+      <EmbedProps title={"Новости проекта"} description={"Последние новости проекта dota 2 classic"} />
       <Panel>
         <div className="left">
           <Breadcrumbs>
