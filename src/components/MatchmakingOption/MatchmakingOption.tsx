@@ -6,12 +6,12 @@ import {
   DotaGameMode,
   MatchmakingMode,
 } from "@/api/mapped-models";
-import { formatGameMode } from "@/util/gamemode";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import cx from "clsx";
 import { FaLock } from "react-icons/fa";
 import { Checkbox } from "@/components";
+import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 
 interface MatchmakingOptionProps {
   mode: MatchmakingMode;
@@ -34,6 +34,7 @@ export const MatchmakingOption = observer(
     disabled,
     selected,
     localSelected,
+    dotaMode,
     suffix,
     testId,
   }: MatchmakingOptionProps) => {
@@ -62,7 +63,10 @@ export const MatchmakingOption = observer(
         >
           <div className={c.modeTitle}>
             <span className={c.mode__name}>
-              {disabled ? <FaLock /> : null} {formatGameMode(mode)}
+              {disabled ? <FaLock /> : null}{" "}
+              {mode === MatchmakingMode.HIGHROOM
+                ? formatDotaMode(dotaMode)
+                : formatGameMode(mode)}
             </span>
             <span className={c.mode__inQueue}>
               {queue.inQueueCount(mode, version)} в поиске
