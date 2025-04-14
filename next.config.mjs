@@ -15,7 +15,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 's3.dotaclassic.ru'
+        hostname: '**.dotaclassic.ru'
       }
     ]
   },
