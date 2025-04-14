@@ -1,4 +1,5 @@
 .tooltip {
   position: fixed;
   z-index: 100000000;
+  pointer-events: none;
 }
