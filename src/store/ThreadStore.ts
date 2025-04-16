@@ -144,7 +144,7 @@ export class ThreadStore implements HydratableStore<unknown> {
       this.loadPage(this.page);
     } else {
       getApi()
-        .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 200)
+        .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 100)
         .then(this.setPageData);
     }
   };
