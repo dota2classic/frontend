@@ -26,7 +26,7 @@ export default function MetaPage({ matches }: Props) {
           <CarouselItem
             title={"Сильнейшие предметы"}
             image={
-              "https://s3.dotaclassic.ru/public/upload/9f03797a85c098fc5496d248e6bb011fe67a516afa63dc48c75eaf181ef49212.webp"
+              "https://cdn.dotaclassic.ru/public/upload/9f03797a85c098fc5496d248e6bb011fe67a516afa63dc48c75eaf181ef49212.webp"
             }
             description={
               "Подробная статистика и описание всех предметов нашего патча"
@@ -37,7 +37,7 @@ export default function MetaPage({ matches }: Props) {
           <CarouselItem
             title={"Метовые герои"}
             image={
-              "https://s3.dotaclassic.ru/public/upload/c56591b5a79d7ff50e5044c0282867986aaca67c31119efeecf71fe03bfaecf5.webp"
+              "https://cdn.dotaclassic.ru/public/upload/c56591b5a79d7ff50e5044c0282867986aaca67c31119efeecf71fe03bfaecf5.webp"
             }
             description={
               "Самые сильные и слабые герои патча, их статистика и лучшие игроки"
@@ -60,7 +60,7 @@ export default function MetaPage({ matches }: Props) {
           <CarouselItem
             title={"Рекорды"}
             image={
-              "https://s3.dotaclassic.ru/public/upload/59144c9bb2185183ac95491d9b3fc38ff60379230544155c2fe500101ffd3ce8.webp"
+              "https://cdn.dotaclassic.ru/public/upload/59144c9bb2185183ac95491d9b3fc38ff60379230544155c2fe500101ffd3ce8.webp"
             }
             description={"Поставленнные рекорды за месяц, сезон и все время"}
             link={AppRouter.records.index.link}
