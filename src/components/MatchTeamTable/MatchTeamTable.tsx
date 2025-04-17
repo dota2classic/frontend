@@ -23,13 +23,13 @@ interface IMatchTeamTableProps {
   players: PlayerInMatchDto[];
   duration: number;
   filterColumns?: Columns[];
-  reportable: boolean;
+  reportableSteamIds: string[];
   onTryReport: (plr: PlayerInMatchDto) => void;
 }
 
 export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
-  ({ players, duration, filterColumns, reportable, onTryReport }) => {
-    const { hasReports, me } = useStore().auth;
+  ({ players, duration, filterColumns, reportableSteamIds, onTryReport }) => {
+    const { hasReports } = useStore().auth;
 
     const hc = filterColumns
       ? AllColumns.filter((t) => !filterColumns.includes(t))
@@ -174,12 +174,13 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 >
                   {player.user.steamId.length > 2 ? player.user.name : "Бот"}
                 </PageLink>
-                {reportable && hasReports && me?.id !== player.user.steamId && (
-                  <MdRecommend
-                    onClick={() => onTryReport(player)}
-                    className={cx(c.commend, "adminicon")}
-                  />
-                )}
+                {hasReports &&
+                  reportableSteamIds.includes(player.user.steamId) && (
+                    <MdRecommend
+                      onClick={() => onTryReport(player)}
+                      className={cx(c.commend, "adminicon")}
+                    />
+                  )}
               </td>
               <td
                 className={cx(

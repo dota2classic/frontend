@@ -1,5 +1,5 @@
 import { NextPageContext } from "next";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   EmbedProps,
   LiveMatchPreview,
@@ -13,6 +13,7 @@ import {
   LiveMatchDto,
   LiveMatchDtoFromJSON,
   MatchDto,
+  MatchReportInfoDto,
   PlayerInMatchDto,
 } from "@/api/back";
 import { ThreadType } from "@/api/mapped-models/ThreadType";
@@ -75,6 +76,13 @@ export default function MatchPage({
     },
   });
 
+  const { data: reportMatrix, mutate: updateReportMatrix } =
+    getApi().matchApi.useMatchControllerMatchReportMatrix(matchId);
+
+  const reportableSteamIds: string[] = useMemo(() => {
+    return reportMatrix?.reportableSteamIds || [];
+  }, [reportMatrix]);
+
   const [reportModalData, setReportModalData] = useState<
     ReportModalData | undefined
   >(undefined);
@@ -108,6 +116,9 @@ export default function MatchPage({
             onClose={closeModal}
             player={reportModalData.reportedPlayer}
             matchId={reportModalData.matchId}
+            onReport={async (r: MatchReportInfoDto) => {
+              await updateReportMatrix(r);
+            }}
           />
         )}
         <EmbedProps
@@ -137,7 +148,7 @@ export default function MatchPage({
         />
         <MatchTeamTable
           onTryReport={showReportModal}
-          reportable={match.reportable}
+          reportableSteamIds={reportableSteamIds}
           filterColumns={filter.columns}
           duration={match.duration}
           players={match.radiant}
@@ -155,7 +166,7 @@ export default function MatchPage({
         />
         <MatchTeamTable
           onTryReport={showReportModal}
-          reportable={match.reportable}
+          reportableSteamIds={reportableSteamIds}
           filterColumns={filter.columns}
           duration={match.duration}
           players={match.dire}

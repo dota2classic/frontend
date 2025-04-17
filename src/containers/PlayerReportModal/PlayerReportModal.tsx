@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import { PlayerAspect, PlayerInMatchDto } from "@/api/back";
+import { MatchReportInfoDto, PlayerAspect, PlayerInMatchDto } from "@/api/back";
 import {
   Button,
   GenericModal,
@@ -20,10 +20,11 @@ interface IPlayerReportModalProps {
   player: PlayerInMatchDto;
   matchId: number;
   onClose: () => void;
+  onReport: (newMatrix: MatchReportInfoDto) => Promise<void>;
 }
 
 export const PlayerReportModal: React.FC<IPlayerReportModalProps> = observer(
-  ({ player, matchId, onClose }) => {
+  ({ player, matchId, onClose, onReport }) => {
     const [comment, setComment] = useState("");
     const [selectedAspect, setSelectedAspect] = useState<
       PlayerAspect | undefined
@@ -35,19 +36,31 @@ export const PlayerReportModal: React.FC<IPlayerReportModalProps> = observer(
 
     const report = useCallback(async () => {
       if (selectedAspect === undefined) return;
-      await getApi().matchApi.matchControllerReportPlayerInMatch({
-        steamId: player.user.steamId,
-        matchId,
-        aspect: selectedAspect,
-        comment: comment,
-      });
-      await auth.fetchMe();
-      onClose();
-      makeSimpleToast(
-        "Отзыв отправлен",
-        `Отзыв об игроке ${player.user.name} успешно сохранен!`,
-        5000,
-      );
+      try {
+        const report =
+          await getApi().matchApi.matchControllerReportPlayerInMatch({
+            steamId: player.user.steamId,
+            matchId,
+            aspect: selectedAspect,
+            comment: comment,
+          });
+        await onReport(report);
+        await auth.fetchMe();
+        onClose();
+        makeSimpleToast(
+          "Отзыв отправлен",
+          `Отзыв об игроке ${player.user.name} успешно сохранен!`,
+          5000,
+        );
+      } catch (e) {
+        console.warn(e);
+        makeSimpleToast(
+          "Произошла ошибка",
+          "Мы не смогли сохранить отзыв об игроке",
+          5000,
+        );
+        await auth.fetchMe();
+      }
     }, [
       auth,
       comment,

@@ -44,6 +44,7 @@ export * from "./LobbyUpdateType";
 export * from "./MatchDto";
 export * from "./MatchInfoDto";
 export * from "./MatchPageDto";
+export * from "./MatchReportInfoDto";
 export * from "./MatchSlotInfo";
 export * from "./MatchmakingInfo";
 export * from "./MeDto";

@@ -24,6 +24,9 @@ import {
   MatchPageDto,
   MatchPageDtoFromJSON,
   MatchPageDtoToJSON,
+  MatchReportInfoDto,
+  MatchReportInfoDtoFromJSON,
+  MatchReportInfoDtoToJSON,
   ReportPlayerDto,
   ReportPlayerDtoFromJSON,
   ReportPlayerDtoToJSON,
@@ -36,6 +39,10 @@ export interface MatchControllerHeroMatchesRequest {
 }
 
 export interface MatchControllerMatchRequest {
+  id: number;
+}
+
+export interface MatchControllerMatchReportMatrixRequest {
   id: number;
 }
 
@@ -197,6 +204,67 @@ export class MatchApi extends runtime.BaseAPI {
 
     /**
      */
+    private async matchControllerMatchReportMatrixRaw(requestParameters: MatchControllerMatchReportMatrixRequest): Promise<runtime.ApiResponse<MatchReportInfoDto>> {
+        this.matchControllerMatchReportMatrixValidation(requestParameters);
+        const context = this.matchControllerMatchReportMatrixContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MatchReportInfoDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private matchControllerMatchReportMatrixValidation(requestParameters: MatchControllerMatchReportMatrixRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling matchControllerMatchReportMatrix.");
+        }
+    }
+
+    /**
+     */
+    matchControllerMatchReportMatrixContext(requestParameters: MatchControllerMatchReportMatrixRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/match/{id}/reportMatrix`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    matchControllerMatchReportMatrix = async (id: number): Promise<MatchReportInfoDto> => {
+        const response = await this.matchControllerMatchReportMatrixRaw({ id: id });
+        return await response.value();
+    }
+
+    useMatchControllerMatchReportMatrix(id: number, config?: SWRConfiguration<MatchReportInfoDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.matchControllerMatchReportMatrixContext({ id: id! });
+        return useSWR(context, valid ? () => this.matchControllerMatchReportMatrix(id!) : null, config)
+    }
+
+    /**
+     */
     private async matchControllerMatchesRaw(requestParameters: MatchControllerMatchesRequest): Promise<runtime.ApiResponse<MatchPageDto>> {
         this.matchControllerMatchesValidation(requestParameters);
         const context = this.matchControllerMatchesContext(requestParameters);
@@ -338,12 +406,12 @@ export class MatchApi extends runtime.BaseAPI {
 
     /**
      */
-    private async matchControllerReportPlayerInMatchRaw(requestParameters: MatchControllerReportPlayerInMatchRequest): Promise<runtime.ApiResponse<void>> {
+    private async matchControllerReportPlayerInMatchRaw(requestParameters: MatchControllerReportPlayerInMatchRequest): Promise<runtime.ApiResponse<MatchReportInfoDto>> {
         this.matchControllerReportPlayerInMatchValidation(requestParameters);
         const context = this.matchControllerReportPlayerInMatchContext(requestParameters);
         const response = await this.request(context);
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => MatchReportInfoDtoFromJSON(jsonValue));
     }
 
 
@@ -384,8 +452,9 @@ export class MatchApi extends runtime.BaseAPI {
 
     /**
      */
-    matchControllerReportPlayerInMatch = async (reportPlayerDto: ReportPlayerDto): Promise<void> => {
-        await this.matchControllerReportPlayerInMatchRaw({ reportPlayerDto: reportPlayerDto });
+    matchControllerReportPlayerInMatch = async (reportPlayerDto: ReportPlayerDto): Promise<MatchReportInfoDto> => {
+        const response = await this.matchControllerReportPlayerInMatchRaw({ reportPlayerDto: reportPlayerDto });
+        return await response.value();
     }
 
 

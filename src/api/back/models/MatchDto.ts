@@ -78,12 +78,6 @@ export interface MatchDto {
     duration: number;
     /**
      * 
-     * @type {boolean}
-     * @memberof MatchDto
-     */
-    reportable: boolean;
-    /**
-     * 
      * @type {string}
      * @memberof MatchDto
      */
@@ -113,7 +107,6 @@ export function MatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'dire': ((json['dire'] as Array<any>).map(PlayerInMatchDtoFromJSON)),
         'winner': json['winner'],
         'duration': json['duration'],
-        'reportable': json['reportable'],
         'timestamp': json['timestamp'],
         'replayUrl': !exists(json, 'replayUrl') ? undefined : json['replayUrl'],
     };
@@ -135,7 +128,6 @@ export function MatchDtoToJSON(value?: MatchDto | null): any {
         'dire': ((value.dire as Array<any>).map(PlayerInMatchDtoToJSON)),
         'winner': value.winner,
         'duration': value.duration,
-        'reportable': value.reportable,
         'timestamp': value.timestamp,
         'replayUrl': value.replayUrl,
     };
