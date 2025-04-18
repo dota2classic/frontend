@@ -1,0 +1,55 @@
+@import "../../common.scss";
+
+.tooltip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000000000;
+
+  max-width: 300px;
+  background-color: $bg2;
+  box-shadow: 0px 0px 10px #000;
+  border-radius: 4px;
+  padding: 2rem 1rem 1rem;
+  &_title {
+    padding: 0 1rem 1rem;
+  }
+
+  &__content {
+    font-size: $primaryText;
+  }
+
+  &__skip {
+  }
+
+  &__spacer {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  &__footer {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 2rem;
+    color: $primaryText;
+    transition: 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      color: $red;
+    }
+  }
+
+  &__button {
+  }
+}

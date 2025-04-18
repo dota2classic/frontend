@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import c from "./Thread.module.scss";
 import { observer } from "mobx-react-lite";
-import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { useStore } from "@/store";
 import { MessageInput, RenderChatThread } from "@/components";
@@ -11,10 +10,7 @@ import { ThreadContext } from "./threadContext";
 import { GreedyFocusPriority } from "@/util/useTypingCallback";
 import { useThreadControls } from "@/containers/Thread/useThreadControls";
 import { ThreadType } from "@/api/mapped-models";
-
-const threadFont = Rubik({
-  subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
-});
+import { threadFont } from "@/const/fonts";
 
 interface IThreadProps {
   id: string;
@@ -42,7 +38,14 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
 
   return (
     <ThreadContext.Provider value={thread}>
-      <div className={cx(c.thread, threadFont.className, className)}>
+      <div
+        className={cx(
+          c.thread,
+          threadFont.className,
+          "onboarding-chat-window",
+          className,
+        )}
+      >
         <div
           className={cx(
             c.messageContainer,

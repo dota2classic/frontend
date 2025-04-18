@@ -5,6 +5,7 @@ import React from "react";
 import { MdLeaderboard, MdViewList } from "react-icons/md";
 import { GiBattleAxe, GiFeatheredWing } from "react-icons/gi";
 import { IoMdTrophy } from "react-icons/io";
+import { MatchmakingMode } from "@/api/mapped-models";
 
 export const MetaNavbarItem = () => {
   return (
@@ -17,7 +18,7 @@ export const MetaNavbarItem = () => {
         {
           Icon: MdViewList,
           label: "Матчи",
-          action: AppRouter.matches.index().link,
+          action: AppRouter.matches.index(0, MatchmakingMode.UNRANKED).link,
         },
         {
           Icon: GiFeatheredWing,

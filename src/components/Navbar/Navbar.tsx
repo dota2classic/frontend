@@ -40,7 +40,10 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
     <div className={cx(c.navbar, p.className)}>
       <div className={c.navbarInner}>
         <ul className={c.navbarList}>
-          <NavbarItem className={c.root} action={AppRouter.index.link}>
+          <NavbarItem
+            className={cx(c.root, "onboarding-logo")}
+            action={AppRouter.index.link}
+          >
             <SiDota2 />
             DOTA2CLASSIC
           </NavbarItem>

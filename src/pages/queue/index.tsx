@@ -15,6 +15,7 @@ import {
   EmbedProps,
   GameReadyModal,
   MatchmakingOption,
+  OnboardingTooltip,
   QueuePartyInfo,
   SearchGameButton,
   Section,
@@ -37,6 +38,12 @@ import { QueueStore } from "@/store/queue/QueueStore";
 import BrowserCookies from "browser-cookies";
 import { modEnableCondition } from "@/components/MatchmakingOption/utils";
 import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
+
+import dynamic from "next/dynamic";
+import { STATUS } from "react-joyride";
+import { useLocalStorage } from "react-use";
+
+const JoyRideNoSSR = dynamic(() => import("react-joyride"), { ssr: false });
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -103,49 +110,51 @@ const ModeList = observer(
     const queueGameState = useQueueState();
 
     return (
-      <Section className={c.modes}>
+      <Section className={cx(c.modes)}>
         <header>Режим игры</header>
         <div className={cx(c.modes__list, c.box)}>
-          {d84.map((info) => {
-            const modeDisabledBy = modEnableCondition(queue, info.lobbyType);
-            const isSearchedMode: boolean = queue.queueState?.inQueue
-              ? queue.queueState.modes.includes(info.lobbyType)
-              : false;
+          <div className={cx(c.modes__list, "onboarding-mode-list")}>
+            {d84.map((info) => {
+              const modeDisabledBy = modEnableCondition(queue, info.lobbyType);
+              const isSearchedMode: boolean = queue.queueState?.inQueue
+                ? queue.queueState.modes.includes(info.lobbyType)
+                : false;
 
-            const isLocalSelected = queue.selectedModes.includes(
-              info.lobbyType,
-            );
-            return (
-              <MatchmakingOption
-                testId={`mode-list-option-${info.lobbyType}`}
-                selected={isSearchedMode}
-                localSelected={isLocalSelected}
-                disabled={modeDisabledBy}
-                key={`${info.lobbyType}`}
-                onSelect={() => {
-                  if (queue.queueState?.inQueue) return;
-                  if (modeDisabledBy) return;
-                  queue.toggleMode(info.lobbyType);
-                }}
-                version={Dota2Version.Dota_684}
-                mode={info.lobbyType}
-                dotaMode={info.gameMode}
-                suffix={
-                  isCalibration &&
-                  info.lobbyType === MatchmakingMode.UNRANKED &&
-                  !modeDisabledBy ? (
-                    <>
-                      еще{" "}
-                      <span className="gold">
-                        {me?.summary?.calibrationGamesLeft}
-                      </span>{" "}
-                      калибровочных игр
-                    </>
-                  ) : undefined
-                }
-              />
-            );
-          })}
+              const isLocalSelected = queue.selectedModes.includes(
+                info.lobbyType,
+              );
+              return (
+                <MatchmakingOption
+                  testId={`mode-list-option-${info.lobbyType}`}
+                  selected={isSearchedMode}
+                  localSelected={isLocalSelected}
+                  disabled={modeDisabledBy}
+                  key={`${info.lobbyType}`}
+                  onSelect={() => {
+                    if (queue.queueState?.inQueue) return;
+                    if (modeDisabledBy) return;
+                    queue.toggleMode(info.lobbyType);
+                  }}
+                  version={Dota2Version.Dota_684}
+                  mode={info.lobbyType}
+                  dotaMode={info.gameMode}
+                  suffix={
+                    isCalibration &&
+                    info.lobbyType === MatchmakingMode.UNRANKED &&
+                    !modeDisabledBy ? (
+                      <>
+                        еще{" "}
+                        <span className="gold">
+                          {me?.summary?.calibrationGamesLeft}
+                        </span>{" "}
+                        калибровочных игр
+                      </>
+                    ) : undefined
+                  }
+                />
+              );
+            })}
+          </div>
           <NotificationSetting />
           <div style={{ flex: 1 }} />
           {queueGameState === QueueGameState.NO_GAME && (
@@ -168,6 +177,10 @@ const ModeList = observer(
 
 export default function QueuePage(props: Props) {
   const mounted = useDidMount();
+  const [tutorialComplete, setTutorialComplete] = useLocalStorage(
+    "tutorial-passed",
+    false,
+  );
 
   const { data: modes } =
     getApi().statsApi.useStatsControllerGetMatchmakingInfo({
@@ -178,25 +191,92 @@ export default function QueuePage(props: Props) {
     });
 
   return (
-    <div className={c.queue}>
-      <Head>
-        <title>Dota2Classic - поиск игры</title>
-      </Head>
-      <EmbedProps
-        title="Поиск игры"
-        description="Страница поиска игры в старую доту. Играй в группе со своими друзьями с ботами и другими людьми"
+    <>
+      <JoyRideNoSSR
+        callback={({ status }) => {
+          console.log(status);
+          if (([STATUS.FINISHED] as string[]).includes(status)) {
+            setTutorialComplete(true);
+          }
+        }}
+        run={!tutorialComplete}
+        steps={[
+          {
+            title: "Режимы игры",
+            disableBeacon: true,
+            target: ".onboarding-mode-list",
+            content:
+              "Тут список режимов, доступных для поиска игры. Можно выбрать несколько режимов сразу! Чтобы искать игру 5х5, тебе нужно победить в обучении.",
+          },
+          {
+            target: ".onboarding-party",
+            title: "Группа",
+            content: 'Тут твоя группа: чтобы пригласить друга, нажми на "+"',
+          },
+          {
+            target: ".onboarding-online-stats",
+            content:
+              "Тут можно посмотреть, сколько сейчас играет и сколько просто находится на сайте",
+          },
+          {
+            target: ".onboarding-chat-window",
+            title: "Общий чат",
+            content:
+              "Общий чат для всех игроков - тут ты можешь рассказать, если возникли проблемы, и тебе помогут.",
+          },
+          {
+            title: "Кнопка поиска",
+            target: ".onboarding-queue-button",
+            content:
+              "Когда выберешь режим для поиска, нажимай на эту кнопку - начнется поиск игры.",
+          },
+          {
+            title: "Адблок",
+            target: ".onboarding-logo",
+            content:
+              "Пожалуйста, отключи блокировку рекламы на этом сайте. Хоть игра здесь абсолютно бесплатна, содержание проекта все равно стоит денег. Приятной игры!",
+          },
+        ]}
+        tooltipComponent={OnboardingTooltip}
+        debug
+        // showProgress
+        showSkipButton
+        continuous
+        locale={{
+          back: "Назад",
+          close: "Закрыть",
+          last: "Конец",
+          next: "Дальше",
+          nextLabelWithProgress: "Дальше (Шаг {step} из {steps})",
+          open: "Открыть диалог",
+          skip: "Пропустить",
+        }}
+        styles={{
+          options: {
+            zIndex: 1000000000,
+          },
+        }}
       />
-      <ModeList modes={modes || props.modes} />
-      <Section className={c.main}>
-        <header>Группа и поиск</header>
-        <QueuePartyInfo />
-        <Thread
-          className={c.queueDiscussion}
-          id={"17aa3530-d152-462e-a032-909ae69019ed"}
-          threadType={ThreadType.FORUM}
+      <div className={c.queue}>
+        <Head>
+          <title>Dota2Classic - поиск игры</title>
+        </Head>
+        <EmbedProps
+          title="Поиск игры"
+          description="Страница поиска игры в старую доту. Играй в группе со своими друзьями с ботами и другими людьми"
         />
-      </Section>
-    </div>
+        <ModeList modes={modes || props.modes} />
+        <Section className={c.main}>
+          <header>Группа и поиск</header>
+          <QueuePartyInfo />
+          <Thread
+            className={c.queueDiscussion}
+            id={"17aa3530-d152-462e-a032-909ae69019ed"}
+            threadType={ThreadType.FORUM}
+          />
+        </Section>
+      </div>
+    </>
   );
 }
 

@@ -31,9 +31,10 @@ export const DotaGameModeOptions = [
 export const GameModeOptions = [
   { value: "undefined", label: "Все режимы" },
   ...[
-    MatchmakingMode.RANKED,
+    // MatchmakingMode.RANKED,
     MatchmakingMode.UNRANKED,
     MatchmakingMode.SOLOMID,
+    MatchmakingMode.BOTS2X2,
     MatchmakingMode.BOTS,
   ].map((it) => ({
     value: it.toString(),

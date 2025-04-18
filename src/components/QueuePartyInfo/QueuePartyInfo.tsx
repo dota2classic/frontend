@@ -3,7 +3,6 @@ import React, { useCallback, useState } from "react";
 import c from "./QueuePartyInfo.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { getApi } from "@/api/hooks";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { PartyMemberDTO, UserDTO } from "@/api/back";
 import { InvitePlayerModalRaw, PageLink, Tooltipable } from "@/components";
@@ -30,7 +29,6 @@ const GameCoordinatorConnection = ({
 
 export const QueuePartyInfo = observer(function QueuePartyInfo() {
   const { queue, notify } = useStore();
-  const { data } = getApi().playerApi.usePlayerControllerMyParty();
 
   const party = queue.party;
 
@@ -63,7 +61,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
           document.body,
         )}
 
-      <div className={c.party}>
+      <div className={cx(c.party, "onboarding-party")}>
         {(party?.players || []).map((t: PartyMemberDTO) => (
           <PageLink
             key={t.summary.user.steamId}
@@ -72,7 +70,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
             <div
               className={cx(
                 c.partyItem,
-                t.summary.user.steamId === data?.leader.steamId && c.leader,
+                t.summary.user.steamId === party?.leader.steamId && c.leader,
                 t.banStatus?.isBanned && c.banned,
                 t.session && c.playing,
               )}
@@ -111,7 +109,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
 
       {onlineData ? (
         <Tooltipable
-          className={c.searchGameBar}
+          className={cx(c.searchGameBar, "onboarding-online-stats")}
           tooltip={`${onlineData.inGame} сейчас играют, у ${queue.online.length} открыта вкладка в браузере`}
         >
           <div>

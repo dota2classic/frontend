@@ -67,7 +67,11 @@ export const SearchGameButton = observer((p: Props) => {
 
   if (!queue.ready)
     return (
-      <Button mega data-testid="floater-play-button-loading">
+      <Button
+        className="onboarding-queue-button"
+        mega
+        data-testid="floater-play-button-loading"
+      >
         Подключаемся...
       </Button>
     );
@@ -85,7 +89,10 @@ export const SearchGameButton = observer((p: Props) => {
         onClick={() => {
           queue.cancelSearch();
         }}
-        className={cx(queue.gameState?.serverUrl && c.ingame)}
+        className={cx(
+          queue.gameState?.serverUrl && c.ingame,
+          "onboarding-queue-button",
+        )}
       >
         Отменить поиск
         <div className={c.disableReason}>{searchGameInfo}</div>
@@ -112,6 +119,7 @@ export const SearchGameButton = observer((p: Props) => {
           content && c.banned,
           queue.gameState?.serverUrl && c.ingame,
           content && c.longText,
+          "onboarding-queue-button",
         )}
       >
         {isQueuePage ? content || "Искать игру" : "Играть"}
