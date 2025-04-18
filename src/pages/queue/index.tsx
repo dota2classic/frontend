@@ -193,6 +193,8 @@ export default function QueuePage(props: Props) {
   return (
     <>
       <JoyRideNoSSR
+        disableScrolling
+        // disableScrollParentFix
         callback={({ status }) => {
           console.log(status);
           if (([STATUS.FINISHED] as string[]).includes(status)) {
@@ -215,16 +217,19 @@ export default function QueuePage(props: Props) {
           },
           {
             target: ".onboarding-online-stats",
+            placement: "left",
             content:
               "Тут можно посмотреть, сколько сейчас играет и сколько просто находится на сайте",
           },
           {
+            placement: "left",
             target: ".onboarding-chat-window",
             title: "Общий чат",
             content:
               "Общий чат для всех игроков - тут ты можешь рассказать, если возникли проблемы, и тебе помогут.",
           },
           {
+            placement: "top",
             title: "Кнопка поиска",
             target: ".onboarding-queue-button",
             content:
