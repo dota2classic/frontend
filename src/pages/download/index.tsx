@@ -79,7 +79,7 @@ const GuideCompact = () => [
     content: (
       <>
         Распакуй скаченный архив с игрой, запусти Steam, а затем запусти{" "}
-        <span className="gold">dota684.bat.</span>
+        <span className="gold">dota.exe</span>
         <p>
           Пока скачивается игра, заходи к нам в <TelegramInvite />! Там много
           интересного, а еще тебе помогут, если возникнут трудности.
