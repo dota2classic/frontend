@@ -11,7 +11,7 @@
   cursor: not-allowed !important;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     bottom: 0;
@@ -22,30 +22,16 @@
   }
 }
 
-
 .disabled {
   cursor: not-allowed !important;
 }
 
 .modeOption {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 12px 12px;
+  flex-direction: column;
   cursor: pointer;
-  align-items: center;
-  user-select: none;
 
-  & > div {
-    flex: 1;
-  }
-
-  //&:hover.mode__disabled {
-  //  box-shadow: 0 0 4px 4px rgba(211, 38, 38, 0.25) inset;
-  //}
-  //&:hover:not(.mode__disabled) {
-  //  box-shadow: 0 0 4px 4px rgba(183, 183, 183, 0.25) inset;
-  //}
+  padding: 12px 12px;
 
   & + & {
     border-top: 1px solid #4e4d4d;
@@ -109,5 +95,37 @@
 
   &__active {
     animation: pendingAnimation 2s linear infinite;
+  }
+}
+
+.modeMain {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-items: center;
+  user-select: none;
+
+  & > div {
+    flex: 1;
+  }
+}
+
+.modeAdditional {
+  display: flex;
+  font-size: 0.9rem;
+  color: $primaryTextTint;
+  margin-top: 0.5rem;
+
+  gap: 2px;
+
+  & svg {
+    color: $bronze;
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+  }
+
+  &__time {
+    display: flex;
+    align-items: center;
   }
 }

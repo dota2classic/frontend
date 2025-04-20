@@ -96,3 +96,4 @@ export { ItemsTable } from "./ItemsTable/ItemsTable";
 export { YaReklama } from "./YaReklama/YaReklama";
 export { AdBlock } from "./AdBlock/AdBlock";
 export { OnboardingTooltip } from "./OnboardingTooltip/OnboardingTooltip";
+export { MatchmakingModeList } from "./MatchmakingModeList/MatchmakingModeList";

@@ -1,43 +1,27 @@
 import c from "./Queue.module.scss";
-import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
 import {
-  Dota2Version,
   MatchmakingInfo,
   MatchmakingMode,
   PartyDto,
-  PartyMemberDTO,
   ThreadType,
 } from "@/api/back";
 import { useDidMount } from "@/util";
 import {
-  Button,
   EmbedProps,
-  GameReadyModal,
-  MatchmakingOption,
+  MatchmakingModeList,
   OnboardingTooltip,
   QueuePartyInfo,
-  SearchGameButton,
   Section,
-  Tooltipable,
 } from "@/components";
 import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import React, { useTransition } from "react";
+import React from "react";
 import { NextPageContext } from "next";
-import { FaBell } from "react-icons/fa";
-import { observer } from "mobx-react-lite";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { QueueGameState, useQueueState } from "@/util/useQueueState";
-import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
-import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
-import cx from "clsx";
 import { Thread } from "@/containers";
 import Cookies from "cookies";
 import { QueueStore } from "@/store/queue/QueueStore";
 import BrowserCookies from "browser-cookies";
-import { modEnableCondition } from "@/components/MatchmakingOption/utils";
-import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 
 import dynamic from "next/dynamic";
 import { STATUS } from "react-joyride";
@@ -51,129 +35,6 @@ interface Props {
   "@party"?: PartyDto;
   "@defaultModes": MatchmakingMode[];
 }
-
-const NotificationSetting = observer(() => {
-  const { notify } = useStore();
-
-  const [isPending, startTransition] = useTransition();
-
-  if (!notify.isPushSupported) return null;
-
-  if (!notify.registration) return;
-
-  if (!notify.subscription) {
-    return (
-      <Tooltipable
-        className={c.notify}
-        tooltip={"Получать push уведомления, когда находится игра"}
-      >
-        <Button onClick={() => startTransition(notify.subscribeToPush)}>
-          <span style={{ flex: 1 }}>Включить уведомления</span>
-          {isPending ? (
-            <AiOutlineLoading3Quarters className="loading" />
-          ) : (
-            <FaBell style={{ float: "right" }} />
-          )}
-        </Button>
-      </Tooltipable>
-    );
-  }
-
-  return (
-    <Button
-      className={c.notify}
-      onClick={() => startTransition(notify.unsubscribe)}
-    >
-      <span style={{ flex: 1 }}>Отключить уведомления</span>
-      <FaBell style={{ float: "right" }} />
-    </Button>
-  );
-});
-
-const ModeList = observer(
-  ({ modes }: Omit<Props, "@party" | "@defaultModes">) => {
-    const { queue, auth } = useStore();
-
-    const me: PartyMemberDTO | undefined = (queue.party?.players || []).find(
-      (plr: PartyMemberDTO) => plr.summary.id === auth.parsedToken?.sub,
-    );
-
-    const isCalibration = !!me?.summary?.calibrationGamesLeft;
-
-    const d84 = modes!
-      .filter((it) => it.enabled)
-      .sort(
-        (a, b) =>
-          getLobbyTypePriority(a.lobbyType) - getLobbyTypePriority(b.lobbyType),
-      );
-
-    const queueGameState = useQueueState();
-
-    return (
-      <Section className={cx(c.modes)}>
-        <header>Режим игры</header>
-        <div className={cx(c.modes__list, c.box)}>
-          <div className={cx(c.modes__list, "onboarding-mode-list")}>
-            {d84.map((info) => {
-              const modeDisabledBy = modEnableCondition(queue, info.lobbyType);
-              const isSearchedMode: boolean = queue.queueState?.inQueue
-                ? queue.queueState.modes.includes(info.lobbyType)
-                : false;
-
-              const isLocalSelected = queue.selectedModes.includes(
-                info.lobbyType,
-              );
-              return (
-                <MatchmakingOption
-                  testId={`mode-list-option-${info.lobbyType}`}
-                  selected={isSearchedMode}
-                  localSelected={isLocalSelected}
-                  disabled={modeDisabledBy}
-                  key={`${info.lobbyType}`}
-                  onSelect={() => {
-                    if (queue.queueState?.inQueue) return;
-                    if (modeDisabledBy) return;
-                    queue.toggleMode(info.lobbyType);
-                  }}
-                  version={Dota2Version.Dota_684}
-                  mode={info.lobbyType}
-                  dotaMode={info.gameMode}
-                  suffix={
-                    isCalibration &&
-                    info.lobbyType === MatchmakingMode.UNRANKED &&
-                    !modeDisabledBy ? (
-                      <>
-                        еще{" "}
-                        <span className="gold">
-                          {me?.summary?.calibrationGamesLeft}
-                        </span>{" "}
-                        калибровочных игр
-                      </>
-                    ) : undefined
-                  }
-                />
-              );
-            })}
-          </div>
-          <NotificationSetting />
-          <div style={{ flex: 1 }} />
-          {queueGameState === QueueGameState.NO_GAME && (
-            <SearchGameButton visible={true} />
-          )}
-          {queueGameState === QueueGameState.SERVER_READY && (
-            <GameReadyModal className={c.gameReady} />
-          )}
-          {queueGameState === QueueGameState.READY_CHECK_WAITING_OTHER && (
-            <WaitingAccept className={c.gameReady} />
-          )}
-          {queueGameState === QueueGameState.SEARCHING_SERVER && (
-            <ServerSearching className={c.gameReady} />
-          )}
-        </div>
-      </Section>
-    );
-  },
-);
 
 export default function QueuePage(props: Props) {
   const mounted = useDidMount();
@@ -270,7 +131,7 @@ export default function QueuePage(props: Props) {
           title="Поиск игры"
           description="Страница поиска игры в старую доту. Играй в группе со своими друзьями с ботами и другими людьми"
         />
-        <ModeList modes={modes || props.modes} />
+        <MatchmakingModeList modes={modes || props.modes} />
         <Section className={c.main}>
           <header>Группа и поиск</header>
           <QueuePartyInfo />
