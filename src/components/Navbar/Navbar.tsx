@@ -78,6 +78,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             >
               Новости
             </NavbarItem>
+            <NavbarItem action={AppRouter.rules.link}>Правила</NavbarItem>
             {hasLiveMatches && (
               <NavbarItem
                 className={c.liveMatch}

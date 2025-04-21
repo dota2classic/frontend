@@ -1,0 +1,18 @@
+@import "../../common.scss";
+
+.postContainer {
+  max-width: 800px;
+  margin: 10px auto 200px;
+
+  color: $primaryText;
+
+  & li {
+    line-height: 1.5rem;
+  }
+}
+
+.part {
+  color: $gold;
+  font-weight: bold;
+  line-height: 2rem;
+}
