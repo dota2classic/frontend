@@ -9,6 +9,38 @@
   & li {
     line-height: 1.5rem;
   }
+
+
+
+  & strong {
+    font-weight: bold;
+  }
+
+
+  & p {
+    margin: 0 0 8px;
+    position: relative;
+    font-size: 1.3rem;
+    line-height: 1.4em;
+    margin-block-start: 1em;
+  }
+
+
+  & h3 {
+    &:first-child {
+      margin-block-start: 0;
+    }
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    color: rgb(207, 207, 207);
+    font-weight: 700;
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+    text-transform: uppercase;
+    margin-block-end: 8px;
+    margin-block-start: 3em;
+  }
 }
 
 .part {

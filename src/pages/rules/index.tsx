@@ -1,7 +1,8 @@
 import c from "./RulesPage.module.scss";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
-import { EmbedProps } from "@/components";
+import { EmbedProps, PageLink } from "@/components";
+import { AppRouter } from "@/route";
 
 export default function RulesPage() {
   return (
@@ -371,6 +372,10 @@ export default function RulesPage() {
           использовать данные пользователей исключительно для нужд сообщества
           (например, при разбирательствах или для статистики) и защищать их от
           утечек.
+        </p>
+        <p>
+          С полным регламентом можно ознакомиться{" "}
+          <PageLink link={AppRouter.fullRules.link}>по ссылке</PageLink>
         </p>
       </div>
     </>
