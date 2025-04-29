@@ -80,7 +80,7 @@ export class ThreadStore implements HydratableStore<unknown> {
   @computed
   public get isThreadReady() {
     // We are ready if thread is not undefined and we did try load messages
-    return !!this.thread && !!this.pg;
+    return !!this.thread && (this.messageMap.size || !!this.pg);
   }
 
   @computed
@@ -144,8 +144,17 @@ export class ThreadStore implements HydratableStore<unknown> {
       this.loadPage(this.page);
     } else {
       getApi()
-        .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 100)
-        .then(this.setPageData);
+        .forumApi.forumControllerGetMessages(
+          this.id,
+          this.threadType,
+          undefined,
+          100,
+          SortOrder.DESC,
+        )
+        .then(this.consumeMessages);
+      // getApi()
+      //   .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 100)
+      //   .then(this.setPageData);
     }
   };
 
