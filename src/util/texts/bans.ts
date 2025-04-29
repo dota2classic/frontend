@@ -7,7 +7,6 @@ const s: Record<BanReason, string> = {
   [BanReason.LOAD_FAILURE]: "Не загрузился",
   [BanReason.ABANDON]: "Покидал игры",
   [BanReason.LEARN2PLAY]: "Нужно учиться играть",
-  [BanReason.COMMUNICATION_REPORTS]: "Репорты: токсик",
 };
 
 export const formatBanReason = (reason: BanReason): string => {
