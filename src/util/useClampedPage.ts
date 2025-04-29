@@ -8,8 +8,12 @@ export const useClampedPage = (
 ) => {
   useEffect(() => {
     if (totalPages !== undefined && numberOrDefault(page, 0) >= totalPages) {
-      console.log("Clamp", totalPages, page);
-      setPage(Math.max(0, totalPages - 1));
+      const newPage = Math.max(0, totalPages - 1);
+      if ((page === undefined || page === 0) && newPage === 0) {
+        return;
+      }
+      console.log("SetPage called", totalPages, page);
+      setPage(newPage);
     }
   }, [page, totalPages]);
 };
