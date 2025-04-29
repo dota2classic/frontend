@@ -33,31 +33,13 @@ import { fullDate } from "@/util/dates";
 import { formatBanReason } from "@/util/texts/bans";
 
 const BanReasonOptions = [
-  {
-    value: BanReason.GAME_DECLINE,
-    label: "Отклонение игр",
-  },
-  {
-    value: BanReason.LOAD_FAILURE,
-    label: "Не загружается в игры",
-  },
-  {
-    value: BanReason.INFINITE_BAN,
-    label: "Пермабан",
-  },
-  {
-    value: BanReason.REPORTS,
-    label: "Репорты",
-  },
-  {
-    value: BanReason.ABANDON,
-    label: "Покидание игр",
-  },
-  {
-    value: BanReason.LEARN2PLAY,
-    label: "Учись играть",
-  },
-];
+  BanReason.GAME_DECLINE,
+  BanReason.LOAD_FAILURE,
+  BanReason.INFINITE_BAN,
+  BanReason.REPORTS,
+  BanReason.ABANDON,
+  BanReason.LEARN2PLAY,
+].map((it) => ({ value: it, label: formatBanReason(it) }));
 
 const TimeControlButtons = (p: {
   value: Date;
@@ -257,17 +239,20 @@ export default function AdminPlayerPage({
     return endTime.getTime() > new Date().getTime();
   };
 
-  const updateBanTime = useCallback((d: Date | null) => {
-    if (!d) return;
-    return getApi()
-      .adminApi.adminUserControllerBanId(steamId, {
-        endTime: d.toISOString(),
-        reason: selectedBanReason
-          ? selectedBanReason.value
-          : BanReason.INFINITE_BAN,
-      })
-      .then(() => mutate());
-  }, []);
+  const updateBanTime = useCallback(
+    (d: Date | null) => {
+      if (!d) return;
+      return getApi()
+        .adminApi.adminUserControllerBanId(steamId, {
+          endTime: d.toISOString(),
+          reason: selectedBanReason
+            ? selectedBanReason.value
+            : BanReason.INFINITE_BAN,
+        })
+        .then(() => mutate());
+    },
+    [selectedBanReason],
+  );
 
   const endTime = data?.banStatus?.bannedUntil
     ? new Date(data!.banStatus!.bannedUntil)

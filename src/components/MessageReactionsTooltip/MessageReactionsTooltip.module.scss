@@ -21,3 +21,24 @@
     margin-right: 4px;
   }
 }
+
+
+
+.emoticon {
+  border-bottom: 1px solid $transparentTint;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+
+  & span {
+    color: $primaryTextSemiDark;
+  }
+
+  & img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+  }
+}

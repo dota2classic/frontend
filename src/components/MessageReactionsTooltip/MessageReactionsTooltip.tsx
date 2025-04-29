@@ -13,6 +13,10 @@ export const MessageReactionsTooltip: React.FC<
 > = ({ reaction }) => {
   return (
     <div className={c.tooltip}>
+      <div className={c.emoticon}>
+        <img src={reaction.emoticon.src} alt="" />
+        <span>:{reaction.emoticon.code}:</span>
+      </div>
       {reaction.reacted.map((user) => (
         <div className={c.reacted} key={user.steamId}>
           <PlayerAvatar src={user.avatar} alt="" width={20} height={20} />

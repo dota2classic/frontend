@@ -4,6 +4,7 @@ import c from "./Emoticon.module.scss";
 import { observer } from "mobx-react-lite";
 import { EmoticonDto } from "@/api/back";
 import { useStore } from "@/store";
+import { Tooltipable } from "@/components";
 
 type Props = { code: string } | { id: number };
 
@@ -18,6 +19,10 @@ export const Emoticon: React.FC<Props> = React.memo(
     }
 
     if (!emo) return null;
-    return <img className={c.emoticon} key={emo.id} src={emo.src} alt="" />;
+    return (
+      <Tooltipable className={c.emoticon} tooltip={`:${emo.code}:`}>
+        <img key={emo.id} src={emo.src} alt="" />
+      </Tooltipable>
+    );
   }),
 );
