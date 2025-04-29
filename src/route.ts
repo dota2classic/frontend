@@ -209,7 +209,7 @@ export const AppRouter = {
         case ThreadType.PLAYER:
           return page(`/players/[id]`, `/players/${id}`);
         case ThreadType.TICKET:
-          return page(`/forum/ticket/[id]`, `/forum/ticket/${id}`);
+          return page(`/forum/ticket/[id]${q}`, `/forum/ticket/${id}`);
 
         default:
           return page(`/forum/[id]${q}`, `/forum/${id}${q}`);
