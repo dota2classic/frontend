@@ -54,6 +54,9 @@ export const createNotificationToast = (notification: NotificationDto) => {
   const isFeedbackTicket =
     notification.entityType === NotificationDtoEntityTypeEnum.FEEDBACKTICKET;
 
+  const isReportBan =
+    notification.notificationType === NotificationType.PLAYERREPORTBAN;
+
   const ttl = new Date(notification.expiresAt).getTime() - Date.now();
 
   const acknowledge = () => {
@@ -100,6 +103,15 @@ export const createNotificationToast = (notification: NotificationDto) => {
         </>
       );
     }
+  } else if (isReportBan) {
+    title = `Тебе временно запрещен поиск`;
+    content = (
+      <>
+        В последнее время ты получил много жалоб и почти не получил похвал. В
+        связи с этим система временно приостановила твой доступ к поиску игр.
+        Если подобное поведение повторится, наказание станет более длительным.
+      </>
+    );
   }
 
   const showFeedback = async () => {
