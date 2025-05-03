@@ -143,7 +143,7 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
       </div>
 
       <div className={c.statsContainer}>
-        <header>Статистика за все время</header>
+        <header>Статистика за сезон</header>
         <div className={c.numericalStats}>
           <dl>
             <dd>{kills.toFixed(2)}</dd>
