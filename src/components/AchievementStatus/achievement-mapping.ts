@@ -30,7 +30,7 @@ export const AchievementMapping: Partial<
   },
   [AchievementKey.WIN_BOT_GAME]: {
     img: "/achievement/bots.webp",
-    description: "Пройти обучение",
+    description: "Победить против ботов",
     title: "Классиковец",
   },
   [AchievementKey.WIN_SOLOMID_GAME]: {

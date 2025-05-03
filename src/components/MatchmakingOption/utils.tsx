@@ -26,7 +26,7 @@ export const modEnableCondition = (
     if (requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
       return (
         <>
-          Нужно пройти <span className="gold">обучение</span>{" "}
+          Нужно сыграть <span className="gold">против ботов</span>{" "}
         </>
       );
     } else if (requiredAccessLevel === GameModeAccessLevel.HUMAN_GAMES) {

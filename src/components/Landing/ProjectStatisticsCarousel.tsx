@@ -15,12 +15,12 @@ export const ProjectStatisticsCarousel = () => {
           image="/landing/leaderboard.webp"
           title={
             <>
-              <span className="gold">Более 22,000</span> сыгранных матчей
+              <span className="gold">Более 27,000</span> сыгранных матчей
             </>
           }
           description={
             <>
-              Из них более 13400 в режиме 5х5, 5000 игр в обучение, 3100 в
+              Из них более 15000 в режиме 5х5, 8500 игр в с ботами, 3500 в
               режиме 1х1
             </>
           }
@@ -29,13 +29,13 @@ export const ProjectStatisticsCarousel = () => {
           image="/landing/meeponegeroi.webp"
           title={
             <>
-              <span className="gold">15,000+</span> уникальных игроков
+              <span className="gold">19,000+</span> уникальных игроков
             </>
           }
           description={
             <>
-              В наш проект так же играли контент мейкеры meeponegeroi, INBossik
-              и многие другие
+              В наш проект так же играли контент мейкеры meeponegeroi, INBossik,
+              Человек-Самовар и многие другие
             </>
           }
         />
@@ -44,7 +44,7 @@ export const ProjectStatisticsCarousel = () => {
           image="/landing/profile.jpeg"
           title={
             <>
-              <span className="gold">87,480 часов</span> игрового времени
+              <span className="gold">140,480 часов</span> игрового времени
             </>
           }
           description={
