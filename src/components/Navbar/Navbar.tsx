@@ -34,7 +34,19 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
       refreshInterval: 5000,
     });
 
+  const { data: latestBlog } = getApi().blog.useBlogpostControllerBlogPage(
+    0,
+    1,
+    {
+      refreshInterval: 30000,
+    },
+  );
+
   const hasLiveMatches = liveMatches && liveMatches.length > 0;
+  const newBlogRecently =
+    latestBlog?.data?.length &&
+    Date.now() - new Date(latestBlog.data[0].publishDate).getTime() <
+      1000 * 60 * 60 * 2;
 
   return (
     <div className={cx(c.navbar, p.className)}>
@@ -75,6 +87,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 },
               ]}
               action={AppRouter.blog.index.link}
+              tip={newBlogRecently && "!"}
             >
               Новости
             </NavbarItem>

@@ -62,6 +62,7 @@ export const ImagePickerUploader: React.FC<IImagePickerUploaderProps> = ({
           <GenericTooltip
             anchor={ref.current!}
             onClose={() => setVisible(false)}
+            interactable
           >
             <ImageGalleryModal
               onSelectImage={onSelectImage}

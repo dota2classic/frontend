@@ -52,8 +52,8 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
   if (isPageLink(action)) {
     renderedLink = (
       <PageLink className={"link"} link={action}>
-        {children}
         {options && <FaAngleDown />}
+        {children}
       </PageLink>
     );
   } else if (typeof action === "string") {

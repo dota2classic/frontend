@@ -5,6 +5,7 @@ import React, {
   useRef,
 } from "react";
 import c from "./GenericTooltip.module.scss";
+import cx from "clsx";
 
 interface Position {
   left?: number;
@@ -49,11 +50,12 @@ const calculateModalPosition = (
 interface IGenericTooltipProps {
   onClose: () => void;
   anchor: HTMLElement;
+  interactable?: boolean;
 }
 
 export const GenericTooltip: React.FC<
   PropsWithChildren<IGenericTooltipProps>
-> = ({ children, anchor }) => {
+> = ({ children, anchor, interactable }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const repositionModal = useCallback(
@@ -85,7 +87,7 @@ export const GenericTooltip: React.FC<
 
   return (
     <div
-      className={c.tooltip}
+      className={cx(c.tooltip, !interactable && c.tooltip__ephermal)}
       ref={(e) => {
         containerRef.current = e;
         if (!e) return;
