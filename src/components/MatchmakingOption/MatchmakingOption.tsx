@@ -86,9 +86,9 @@ export const MatchmakingOption = observer(
                   ? formatDotaMode(dotaMode)
                   : formatGameMode(mode)}
               </span>
-              <span className={c.mode__inQueue}>
-                {queue.inQueueCount(mode, version)} в поиске
-              </span>
+              {/*<span className={c.mode__inQueue}>*/}
+              {/*  {queue.inQueueCount(mode, version)} в поиске*/}
+              {/*</span>*/}
             </div>
 
             {disabled ? (
