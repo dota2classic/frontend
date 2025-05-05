@@ -98,7 +98,7 @@ export const MessageHeader = observer(function MessageHeader({
             <PlayerAvatar
               width={45}
               height={45}
-              src={message.author.avatar}
+              user={message.author}
               alt={`Avatar of player ${message.author.name}`}
             />
           )}

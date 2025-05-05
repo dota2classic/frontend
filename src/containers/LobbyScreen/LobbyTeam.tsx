@@ -49,7 +49,7 @@ export const LobbyTeam = observer(
                   className={cx(c.slot, c.playerPreview)}
                 >
                   <PlayerAvatar
-                    src={slot.user.avatar}
+                    user={slot.user}
                     width={34}
                     height={34}
                     alt={""}

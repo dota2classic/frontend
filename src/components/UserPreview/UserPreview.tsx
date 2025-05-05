@@ -39,7 +39,7 @@ export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
           <PlayerAvatar
             width={avatarSize || 45}
             height={avatarSize || 45}
-            src={user.avatar}
+            user={user}
             alt=""
           />
         </picture>

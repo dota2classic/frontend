@@ -189,7 +189,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
                   key={slot.user.steamId}
                 >
                   <PlayerAvatar
-                    src={slot.user.avatar}
+                    user={slot.user}
                     width={20}
                     height={20}
                     alt={""}

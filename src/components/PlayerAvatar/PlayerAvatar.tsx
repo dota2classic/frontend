@@ -6,6 +6,8 @@ import type {
   OnLoadingComplete,
   PlaceholderValue,
 } from "next/dist/shared/lib/get-img-props";
+import c from "./PlayerAvatar.module.scss";
+import { UserDTO } from "@/api/back";
 
 type Props = Omit<
   React.DetailedHTMLProps<
@@ -14,7 +16,7 @@ type Props = Omit<
   >,
   "height" | "width" | "loading" | "ref" | "alt" | "src" | "srcSet"
 > & {
-  src: string;
+  user: UserDTO;
   alt: string;
   width?: number | `${number}` | undefined;
   height?: number | `${number}` | undefined;
@@ -34,17 +36,29 @@ type Props = Omit<
   lazyRoot?: string | undefined;
 } & React.RefAttributes<HTMLImageElement | null>;
 
-export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar(
-  props: Props,
-) {
+export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
+  user,
+  ...props
+}: Props) {
   const [error, setError] = useState<unknown>(null);
+  const hat =
+    "https://s3.dotaclassic.ru/public/upload/7aa65613d616dc1ffe31e6e3fed924b25b6aabc5222493841466f2909b498314.webp";
 
   return (
-    <Image
-      {...props}
-      alt={props.alt || "Image"}
-      src={error ? "/avatar.png" : props.src}
-      onError={setError}
-    />
+    <picture className={c.avatar}>
+      <Image
+        alt=""
+        width={props.width}
+        height={props.height}
+        className={c.hat}
+        src={hat}
+      />
+      <Image
+        {...props}
+        alt={props.alt || "Image"}
+        src={error ? "/avatar.png" : user.avatar}
+        onError={setError}
+      />
+    </picture>
   );
 });

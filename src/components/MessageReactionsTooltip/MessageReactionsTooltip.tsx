@@ -19,7 +19,7 @@ export const MessageReactionsTooltip: React.FC<
       </div>
       {reaction.reacted.map((user) => (
         <div className={c.reacted} key={user.steamId}>
-          <PlayerAvatar src={user.avatar} alt="" width={20} height={20} />
+          <PlayerAvatar user={user} alt="" width={20} height={20} />
           <span>{user.name}</span>
         </div>
       ))}

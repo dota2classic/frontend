@@ -92,7 +92,7 @@ export const MessageInput = observer(function MessageInput(p: {
         <div className={c.replyMessage}>
           Ответ на сообщение{" "}
           <PlayerAvatar
-            src={p.replyMessage.author.avatar}
+            user={p.replyMessage.author}
             width={20}
             height={20}
             alt={""}

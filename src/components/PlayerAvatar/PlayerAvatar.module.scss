@@ -1,0 +1,18 @@
+.hat {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  transform: translate(0%, -60%);
+}
+
+
+.avatar {
+  position: relative;
+  display: block;
+  & img {
+    border-radius: 50%;
+  }
+}

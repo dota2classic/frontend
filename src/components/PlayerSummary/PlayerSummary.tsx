@@ -91,6 +91,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 width={65}
                 height={65}
                 src={image}
+                user={summary.user}
                 alt={`Avatar of player ${name}`}
               />
               <PageLink
