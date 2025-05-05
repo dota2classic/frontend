@@ -4,6 +4,7 @@ import {
   DotaMap,
   MatchmakingMode,
   PlayerAspect,
+  Role,
 } from "@/api/mapped-models";
 import { ReactNode } from "react";
 import { RecordType } from "@/api/back";
@@ -120,4 +121,15 @@ const aspectMessages = {
 
 export function formatPlayerAspect(type: PlayerAspect) {
   return aspectMessages[type];
+}
+
+const roleMessages = {
+  [Role.MODERATOR]: "Модератор",
+  [Role.ADMIN]: "Администратор",
+  [Role.OLD]: "Древний",
+  [Role.HUMAN]: "Человек",
+};
+
+export function formatRole(role: Role) {
+  return roleMessages[role];
 }

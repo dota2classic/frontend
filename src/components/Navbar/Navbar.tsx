@@ -16,6 +16,7 @@ import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
 import { MdForum } from "react-icons/md";
 import { IoMdPlay } from "react-icons/io";
 import { AdminNavbarItem } from "@/components/Navbar/AdminNavbarItem";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth } = useStore();
@@ -68,6 +69,11 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                     Icon: IoMdPlay,
                     label: "Гайд",
                     action: AppRouter.download.link,
+                  },
+                  {
+                    Icon: FaPeopleGroup,
+                    label: "Лобби",
+                    action: AppRouter.lobby.index.link,
                   },
                 ]}
               >

@@ -13,6 +13,7 @@ import { FaLock } from "react-icons/fa";
 import { Checkbox, Tooltipable } from "@/components";
 import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import { CgSandClock } from "react-icons/cg";
+import {pluralize} from "@/util/pluralize";
 
 interface MatchmakingOptionProps {
   mode: MatchmakingMode;
@@ -39,7 +40,7 @@ const formatQueueTime = (duration?: number) => {
     return "Меньше минуты";
   }
 
-  return `±${minutes} минут`;
+  return `±${minutes} ${pluralize(minutes, "минута", "минуты", "минут")}`;
 };
 
 export const MatchmakingOption = observer(

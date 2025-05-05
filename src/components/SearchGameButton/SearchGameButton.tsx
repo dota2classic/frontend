@@ -10,6 +10,8 @@ import { formatBanReason } from "@/util/texts/bans";
 import { Button } from "@/components";
 import { getAuthUrl } from "@/util/getAuthUrl";
 import { formatGameMode } from "@/util/gamemode";
+import { PeriodicDurationTimerClient } from "@/components/PeriodicTimer/PeriodicDurationTimerClient";
+import { pluralize } from "@/util/pluralize";
 
 interface Props {
   visible: boolean;
@@ -80,7 +82,7 @@ export const SearchGameButton = observer((p: Props) => {
     const searchedModes = queue.queueState?.modes || [];
     const searchGameInfo =
       searchedModes.length > 2
-        ? `${searchedModes.length} режимов`
+        ? `${searchedModes.length} ${pluralize(searchedModes.length, "режим", "режима", "режимов")}`
         : searchedModes.map(formatGameMode).join(", ");
     return (
       <Button
@@ -94,8 +96,18 @@ export const SearchGameButton = observer((p: Props) => {
           "onboarding-queue-button",
         )}
       >
-        Отменить поиск
-        <div className={c.disableReason}>{searchGameInfo}</div>
+        <div>Отменить поиск</div>
+
+        <div className={c.searchAdditional}>
+          {searchGameInfo}
+          {queue.party?.enterQueueAt && (
+            <span className={c.searchTimer}>
+              <PeriodicDurationTimerClient
+                startTime={queue.party.enterQueueAt}
+              />
+            </span>
+          )}
+        </div>
       </Button>
     );
   }

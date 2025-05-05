@@ -35,7 +35,16 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @computed
   public get isModerator(): boolean {
-    return this.parsedToken?.roles.includes(Role.MODERATOR) || false;
+    return (
+      this.parsedToken?.roles.includes(Role.MODERATOR) || this.isAdmin || false
+    );
+  }
+
+  @computed
+  public get isOld(): boolean {
+    return (
+      this.parsedToken?.roles.includes(Role.OLD) || this.isModerator || false
+    );
   }
 
   @computed

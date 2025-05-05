@@ -5,7 +5,7 @@ import {
   PeriodicTimerClient,
   PlayerAvatar,
 } from "@/components";
-import { MdAdminPanelSettings, MdLocalPolice } from "react-icons/md";
+import { MdAdminPanelSettings } from "react-icons/md";
 import cx from "clsx";
 import c from "@/components/Message/Message.module.scss";
 import { AppRouter } from "@/route";
@@ -19,6 +19,8 @@ import { MessageContent } from "@/components/Message/MessageContent";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { computed } from "mobx";
 import { createPortal } from "react-dom";
+import { GiAngelOutfit } from "react-icons/gi";
+import { formatRole } from "@/util/gamemode";
 
 interface IMessageProps {
   message: ThreadMessageDTO;
@@ -53,7 +55,7 @@ export const MessageHeader = observer(function MessageHeader({
             onClose={() => setHoveredRole(undefined)}
           >
             <span className={c.roleTooltip}>
-              {hoveredRole.role === Role.ADMIN ? "Администратор" : "Модератор"}
+              {formatRole(hoveredRole.role)}
             </span>
           </GenericTooltip>,
           document.body,
@@ -66,12 +68,12 @@ export const MessageHeader = observer(function MessageHeader({
           onMouseLeave={() => setHoveredRole(undefined)}
         />
       )}
-      {message.author.roles.includes(Role.MODERATOR) && (
-        <MdLocalPolice
+      {message.author.roles.includes(Role.OLD) && (
+        <GiAngelOutfit
           onMouseEnter={(e) =>
             setHoveredRole({
               ref: e.target as HTMLElement,
-              role: Role.MODERATOR,
+              role: Role.OLD,
             })
           }
           onMouseLeave={() => setHoveredRole(undefined)}

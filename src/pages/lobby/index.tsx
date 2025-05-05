@@ -2,12 +2,12 @@ import { getApi } from "@/api/hooks";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { NextPageContext } from "next";
 import { LobbyDto } from "@/api/back";
-import { Button, Table, UserPreview } from "@/components";
+import { Button, Table, Tooltipable, UserPreview } from "@/components";
 import { formatDotaMap, formatDotaMode } from "@/util/gamemode";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import c from "./Lobby.module.scss";
-import { useState } from "react";
+import React, { useState } from "react";
 import { JoinLobbyModal } from "@/containers";
 
 interface Props {
@@ -28,17 +28,32 @@ export default function ListLobbies({ lobbies }: Props) {
           onClose={() => setPendingLobby(undefined)}
         />
       )}
-      <Button
-        className={c.createLobby}
-        onClick={() => {
-          getApi()
-            .lobby.lobbyControllerCreateLobby()
-            .then((lobby) => router.push(`/lobby/[id]`, `/lobby/${lobby.id}`));
-        }}
-        disabled={!(auth.isModerator || auth.isAdmin)}
-      >
-        Создать лобби
-      </Button>
+      {auth.isOld ? (
+        <Button
+          className={c.createLobby}
+          onClick={() => {
+            getApi()
+              .lobby.lobbyControllerCreateLobby()
+              .then((lobby) =>
+                router.push(`/lobby/[id]`, `/lobby/${lobby.id}`),
+              );
+          }}
+          disabled={!auth.isOld}
+        >
+          Создать лобби
+        </Button>
+      ) : (
+        <Tooltipable
+          className={c.createLobby}
+          tooltip={"Создавать лобби могут только подписчики FIXME"}
+        >
+          <div>
+            <Button onClick={() => undefined} disabled={true}>
+              Создать лобби
+            </Button>
+          </div>
+        </Tooltipable>
+      )}
       <Table>
         <thead>
           <tr>
@@ -52,27 +67,33 @@ export default function ListLobbies({ lobbies }: Props) {
           </tr>
         </thead>
         <tbody>
-          {lobbies.map((lobby) => (
-            <tr key={lobby.id}>
-              <td>{lobby.name}</td>
-              <td>
-                <UserPreview avatarSize={30} user={lobby.owner} />
-              </td>
-              <td>{formatDotaMode(lobby.gameMode)}</td>
-              <td>{formatDotaMap(lobby.map)}</td>
-              <td>{lobby.slots.length}</td>
-              <td>{lobby.requiresPassword ? "С паролем" : "Без пароля"}</td>
-              <td>
-                <Button
-                  disabled={!auth.isAuthorized}
-                  small
-                  onClick={() => setPendingLobby(lobby)}
-                >
-                  Присоединиться
-                </Button>
-              </td>
-            </tr>
-          ))}
+          {lobbies.length === 0 ? (
+            <td colSpan={7} className={c.empty}>
+              Список лобби пуст
+            </td>
+          ) : (
+            lobbies.map((lobby) => (
+              <tr key={lobby.id}>
+                <td>{lobby.name}</td>
+                <td>
+                  <UserPreview avatarSize={30} user={lobby.owner} />
+                </td>
+                <td>{formatDotaMode(lobby.gameMode)}</td>
+                <td>{formatDotaMap(lobby.map)}</td>
+                <td>{lobby.slots.length}</td>
+                <td>{lobby.requiresPassword ? "С паролем" : "Без пароля"}</td>
+                <td>
+                  <Button
+                    disabled={!auth.isAuthorized}
+                    small
+                    onClick={() => setPendingLobby(lobby)}
+                  >
+                    Присоединиться
+                  </Button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </Table>
     </>

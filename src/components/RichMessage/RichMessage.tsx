@@ -51,15 +51,12 @@ export const RichMessage = React.memo(function RichMessage({
             src={`https://www.youtube.com/embed/${videoId}`}
           ></iframe>,
         );
-      } else {
-        // Can we embed it?
-        // regular link
-        parts.push(
-          <a key={key} className="link" href={match[5]} target="__blank">
-            {match[5]}
-          </a>,
-        );
       }
+      parts.push(
+        <a key={key} className="link" href={match[5]} target="__blank">
+          {match[5]}
+        </a>,
+      );
     } else if (match[7]) {
       const emoticonCode = match[7].replaceAll(":", "");
 

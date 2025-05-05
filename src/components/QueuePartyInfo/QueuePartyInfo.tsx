@@ -10,6 +10,7 @@ import { AppRouter } from "@/route";
 import cx from "clsx";
 import { createPortal } from "react-dom";
 import { makeSimpleToast } from "@/components/Toast/toasts";
+import {pluralize} from "@/util/pluralize";
 
 const GameCoordinatorConnection = ({
   readyState,
@@ -110,7 +111,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
       {onlineData ? (
         <Tooltipable
           className={cx(c.searchGameBar, "onboarding-online-stats")}
-          tooltip={`${onlineData.inGame} сейчас играют, у ${queue.online.length} открыта вкладка в браузере`}
+          tooltip={`${onlineData.inGame} сейчас ${pluralize(onlineData.inGame, "играет", "играет", "играют")}, у ${queue.online.length} открыта вкладка в браузере`}
         >
           <div>
             <span>
