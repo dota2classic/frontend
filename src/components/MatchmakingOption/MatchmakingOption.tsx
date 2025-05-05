@@ -13,7 +13,7 @@ import { FaLock } from "react-icons/fa";
 import { Checkbox, Tooltipable } from "@/components";
 import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import { CgSandClock } from "react-icons/cg";
-import {pluralize} from "@/util/pluralize";
+import { pluralize } from "@/util/pluralize";
 
 interface MatchmakingOptionProps {
   mode: MatchmakingMode;

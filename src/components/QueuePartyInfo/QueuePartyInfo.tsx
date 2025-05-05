@@ -10,7 +10,7 @@ import { AppRouter } from "@/route";
 import cx from "clsx";
 import { createPortal } from "react-dom";
 import { makeSimpleToast } from "@/components/Toast/toasts";
-import {pluralize} from "@/util/pluralize";
+import { pluralize } from "@/util/pluralize";
 
 const GameCoordinatorConnection = ({
   readyState,

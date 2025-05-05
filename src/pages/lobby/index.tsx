@@ -58,7 +58,7 @@ export default function ListLobbies({ lobbies }: Props) {
         <thead>
           <tr>
             <th>Лобби</th>
-            <th>Владелец</th>
+            <th>Хост</th>
             <th>Режим</th>
             <th>Карта</th>
             <th>Количество игроков</th>

@@ -81,7 +81,7 @@ export const SearchGameButton = observer((p: Props) => {
   if (isInQueue) {
     const searchedModes = queue.queueState?.modes || [];
     const searchGameInfo =
-      searchedModes.length > 2
+      searchedModes.length > 1
         ? `${searchedModes.length} ${pluralize(searchedModes.length, "режим", "режима", "режимов")}`
         : searchedModes.map(formatGameMode).join(", ");
     return (
@@ -99,7 +99,7 @@ export const SearchGameButton = observer((p: Props) => {
         <div>Отменить поиск</div>
 
         <div className={c.searchAdditional}>
-          {searchGameInfo}
+          <span className={c.searchAdditional__modes}>{searchGameInfo}</span>
           {queue.party?.enterQueueAt && (
             <span className={c.searchTimer}>
               <PeriodicDurationTimerClient
