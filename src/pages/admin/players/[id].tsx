@@ -265,7 +265,6 @@ export default function AdminPlayerPage({
       <PlayerSummary
         className={c2.grid12}
         summary={preloadedSummary}
-        image={preloadedSummary.user.avatar || "/avatar.png"}
         name={preloadedSummary.user.name}
         steamId={preloadedSummary.user.steamId}
       />

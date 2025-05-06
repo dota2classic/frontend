@@ -14,6 +14,7 @@ import { Checkbox, Tooltipable } from "@/components";
 import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import { CgSandClock } from "react-icons/cg";
 import { pluralize } from "@/util/pluralize";
+import { QueueDurationDto } from "@/api/back";
 
 interface MatchmakingOptionProps {
   mode: MatchmakingMode;
@@ -27,20 +28,39 @@ interface MatchmakingOptionProps {
   suffix?: ReactNode;
   testId?: string;
 
-  queueTime?: number;
+  queueTime: QueueDurationDto[];
 }
 
-const formatQueueTime = (duration?: number) => {
-  if (!duration) {
-    return "Неизвестно";
-  }
-  const minutes = Math.floor(duration / 60);
+const getLocalFromUtcHours = (hours: number) => {
+  const d = new Date();
+  d.setUTCHours(hours, 0, 0);
 
-  if (minutes == 0) {
-    return "Меньше минуты";
+  let expectedWait = d.getTime() - Date.now();
+  if (expectedWait < 0) {
+    expectedWait = 1000 * 60 * 60 * 24 - expectedWait;
   }
+
+  const hrs = Math.ceil(expectedWait / 1000 / 60 / 60);
+
+  return `${hrs} ${pluralize(hrs, "час", "часа", "часов")}`;
+};
+const formatQueueTime = (duration: number) => {
+  const minutes = Math.ceil(duration / 60);
 
   return `±${minutes} ${pluralize(minutes, "минута", "минуты", "минут")}`;
+};
+
+const findNextDefinedUtcHourQueueTime = (
+  utcHour: number,
+  queueTimes: QueueDurationDto[],
+): QueueDurationDto | undefined => {
+  for (let i = 0; i < 30; i++) {
+    const nextUtcHour = (utcHour + i) % 24;
+    const qTime = queueTimes.find((t) => t.utcHour === nextUtcHour);
+    if (qTime?.duration) {
+      return qTime;
+    }
+  }
 };
 
 export const MatchmakingOption = observer(
@@ -57,6 +77,15 @@ export const MatchmakingOption = observer(
     queueTime,
   }: MatchmakingOptionProps) => {
     const { queue } = useStore();
+
+    const currentQueueTime = queueTime.find(
+      (t) => t.utcHour === new Date().getUTCHours(),
+    )!;
+
+    const nextDefinedQueueTime = findNextDefinedUtcHourQueueTime(
+      new Date().getUTCHours(),
+      queueTime,
+    );
 
     return (
       <div
@@ -102,14 +131,22 @@ export const MatchmakingOption = observer(
         <div className={c.modeAdditional}>
           <Tooltipable
             tooltip={
-              queueTime
-                ? "Примерное время поиска игры"
-                : "В этом время игры крайне редки :("
+              "Ориентир по времени поиска. Расчитывается из исторических данных"
             }
             className={c.modeAdditional__time}
           >
             <span>
-              <CgSandClock /> {formatQueueTime(queueTime)}
+              <CgSandClock />{" "}
+              {currentQueueTime?.duration ? (
+                <>Время поиска: {formatQueueTime(currentQueueTime.duration)}</>
+              ) : nextDefinedQueueTime?.duration ? (
+                <>
+                  Игры обычно начинаются через{" "}
+                  {getLocalFromUtcHours(nextDefinedQueueTime.utcHour)}
+                </>
+              ) : (
+                "Неизвестно"
+              )}
             </span>
           </Tooltipable>
         </div>

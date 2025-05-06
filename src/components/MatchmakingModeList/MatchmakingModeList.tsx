@@ -82,7 +82,7 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
                   version={Dota2Version.Dota_684}
                   mode={info.lobbyType}
                   dotaMode={info.gameMode}
-                  queueTime={info.queueDuration}
+                  queueTime={info.queueDurations}
                   suffix={
                     isCalibration &&
                     info.lobbyType === MatchmakingMode.UNRANKED &&

@@ -22,12 +22,7 @@ export const RepliedMessage = observer(function RepliedMessage({
   return (
     <div className={c.repliedMessage} onClick={scrollRepliedMessage}>
       <span className={c.repliedMessage__indicator} />
-      <PlayerAvatar
-        user={message.author}
-        alt={""}
-        width={20}
-        height={20}
-      />
+      <PlayerAvatar user={message.author} alt={""} width={20} height={20} />
       <span className={c.repliedMessage__content}>{message.content}</span>
     </div>
   );

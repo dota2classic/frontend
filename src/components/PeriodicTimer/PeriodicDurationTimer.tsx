@@ -6,7 +6,7 @@ interface IPeriodicTimerProps {
   updateInterval?: number;
 }
 
-const getTextContent = (start: string) =>
+const getTextContent = (start: string | number) =>
   formatDuration(Date.now() - new Date(start).getTime());
 
 export const PeriodicDurationTimer: React.FC<IPeriodicTimerProps> = React.memo(

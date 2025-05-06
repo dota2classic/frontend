@@ -22,7 +22,6 @@ import { PlayerSummaryDto } from "@/api/back";
 
 interface IPlayerSummaryProps {
   className?: string;
-  image: string;
 
   summary: PlayerSummaryDto;
 
@@ -35,7 +34,7 @@ type PlayerPage = "overall" | "heroes" | "matches" | "teammates" | "records";
 type Items = IBigTabsProps<PlayerPage>["items"];
 
 export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
-  ({ className, image, name, steamId, lastGameTimestamp, summary }) => {
+  ({ className, name, steamId, lastGameTimestamp, summary }) => {
     const { wins, abandons, loss, mmr, rank } = summary;
     const isModerator = useIsModerator();
     const r = useRouter();
@@ -90,7 +89,6 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
               <PlayerAvatar
                 width={65}
                 height={65}
-                src={image}
                 user={summary.user}
                 alt={`Avatar of player ${name}`}
               />

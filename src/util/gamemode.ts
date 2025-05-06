@@ -124,6 +124,7 @@ export function formatPlayerAspect(type: PlayerAspect) {
 }
 
 const roleMessages = {
+  [Role.PLAYER]: "Игрок",
   [Role.MODERATOR]: "Модератор",
   [Role.ADMIN]: "Администратор",
   [Role.OLD]: "Древний",

@@ -66,6 +66,7 @@ export * from "./PlayerRecordsResponse";
 export * from "./PlayerSummaryDto";
 export * from "./PlayerTeammateDto";
 export * from "./PlayerTeammatePageDto";
+export * from "./QueueDurationDto";
 export * from "./QueueEntryDTO";
 export * from "./ReactionEntry";
 export * from "./RecordType";

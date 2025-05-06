@@ -70,7 +70,6 @@ export default function PlayerPage({
       />
       <PlayerSummary
         summary={preloadedSummary}
-        image={preloadedSummary.user.avatar || "/avatar.png"}
         name={preloadedSummary.user.name}
         steamId={preloadedSummary.user.steamId}
         lastGameTimestamp={formattedMatches[0]?.timestamp}

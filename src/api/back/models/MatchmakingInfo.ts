@@ -26,6 +26,10 @@ import {
     MatchmakingModeFromJSON,
     MatchmakingModeFromJSONTyped,
     MatchmakingModeToJSON,
+    QueueDurationDto,
+    QueueDurationDtoFromJSON,
+    QueueDurationDtoFromJSONTyped,
+    QueueDurationDtoToJSON,
 } from './';
 
 /**
@@ -54,10 +58,10 @@ export interface MatchmakingInfo {
     dotaMap: DotaMap;
     /**
      * 
-     * @type {number}
+     * @type {Array<QueueDurationDto>}
      * @memberof MatchmakingInfo
      */
-    queueDuration?: number;
+    queueDurations: Array<QueueDurationDto>;
     /**
      * 
      * @type {boolean}
@@ -79,7 +83,7 @@ export function MatchmakingInfoFromJSONTyped(json: any, ignoreDiscriminator: boo
         'lobbyType': MatchmakingModeFromJSON(json['lobby_type']),
         'gameMode': DotaGameModeFromJSON(json['game_mode']),
         'dotaMap': DotaMapFromJSON(json['dota_map']),
-        'queueDuration': !exists(json, 'queueDuration') ? undefined : json['queueDuration'],
+        'queueDurations': ((json['queueDurations'] as Array<any>).map(QueueDurationDtoFromJSON)),
         'enabled': json['enabled'],
     };
 }
@@ -96,7 +100,7 @@ export function MatchmakingInfoToJSON(value?: MatchmakingInfo | null): any {
         'lobby_type': MatchmakingModeToJSON(value.lobbyType),
         'game_mode': DotaGameModeToJSON(value.gameMode),
         'dota_map': DotaMapToJSON(value.dotaMap),
-        'queueDuration': value.queueDuration,
+        'queueDurations': ((value.queueDurations as Array<any>).map(QueueDurationDtoToJSON)),
         'enabled': value.enabled,
     };
 }

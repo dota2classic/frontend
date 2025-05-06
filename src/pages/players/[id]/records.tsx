@@ -23,7 +23,6 @@ export default function PlayerRecordsPage({
 
       <PlayerSummary
         summary={preloadedSummary}
-        image={preloadedSummary.user.avatar || "/avatar.png"}
         name={preloadedSummary.user.name}
         steamId={preloadedSummary.user.steamId}
       />
