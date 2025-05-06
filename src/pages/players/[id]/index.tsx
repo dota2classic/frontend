@@ -29,26 +29,26 @@ import { LazyPaginatedThread } from "@/containers/Thread/LazyPaginatedThread";
 //
 interface PlayerPageProps {
   playerId: string;
-  preloadedSummary: PlayerSummaryDto;
-  preloadedMatches: MatchPageDto;
-  preloadedHeroStats: HeroStatsDto[];
-  preloadedAchievements: AchievementDto[];
+  summary: PlayerSummaryDto;
+  matches: MatchPageDto;
+  heroStats: HeroStatsDto[];
+  achievements: AchievementDto[];
 }
 
 export default function PlayerPage({
   playerId,
-  preloadedSummary,
-  preloadedMatches,
-  preloadedHeroStats,
-  preloadedAchievements,
+  summary,
+  matches,
+  heroStats,
+  achievements,
 }: PlayerPageProps) {
-  const formattedMatches: PlayerMatchItem[] = (preloadedMatches?.data || [])
+  const formattedMatches: PlayerMatchItem[] = (matches?.data || [])
     .sort(MatchComparator)
     .map((it) =>
       matchToPlayerMatchItem(it, (it) => it.user.steamId === playerId),
     );
 
-  const formattedHeroStats = (preloadedHeroStats || [])
+  const formattedHeroStats = (heroStats || [])
     .toSorted((a, b) => b.games - a.games)
     .map((it) => ({
       hero: it.hero,
@@ -61,23 +61,22 @@ export default function PlayerPage({
   return (
     <div className={c.playerPage}>
       <Head>
-        <title>{`${preloadedSummary.user.name} - статистика`}</title>
+        <title>{`${summary.user.name} - статистика`}</title>
       </Head>
       <EmbedProps
-        title={`${preloadedSummary.user.name} - статистика`}
-        description={`Профиль и статистика игрока ${preloadedSummary.user.name}`}
-        image={preloadedSummary.user.avatar}
+        title={`${summary.user.name} - статистика`}
+        description={`Профиль и статистика игрока ${summary.user.name}`}
+        image={summary.user.avatar}
       />
       <PlayerSummary
-        summary={preloadedSummary}
-        name={preloadedSummary.user.name}
-        steamId={preloadedSummary.user.steamId}
+        stats={summary.overallStats}
+        user={summary.user}
         lastGameTimestamp={formattedMatches[0]?.timestamp}
       />
       <Section style={{ gridColumn: "span 12" }}>
         <header>Достижения</header>
         <Panel className={c.achievements}>
-          {preloadedAchievements
+          {achievements
             .sort((a, b) => b.key - a.key)
             .map((t) => (
               <AchievementStatus key={t.key} achievement={t} />
@@ -89,13 +88,13 @@ export default function PlayerPage({
           <span>Сводка</span>
         </header>
         <PlayerPentagonStats
-          games={preloadedSummary.gamesPlayed}
-          aspects={preloadedSummary.aspects}
-          abandons={preloadedSummary.abandons}
-          kills={preloadedSummary.kills}
-          deaths={preloadedSummary.deaths}
-          assists={preloadedSummary.assists}
-          playtime={preloadedSummary.playtime}
+          games={summary.seasonStats.gamesPlayed}
+          aspects={summary.aspects}
+          abandons={summary.seasonStats.abandons}
+          kills={summary.seasonStats.kills}
+          deaths={summary.seasonStats.deaths}
+          assists={summary.seasonStats.assists}
+          playtime={summary.seasonStats.playtime}
         />
       </Section>
       <Section className={c.heroPerformance}>
@@ -126,12 +125,7 @@ PlayerPage.getInitialProps = async (
 ): Promise<PlayerPageProps> => {
   const playerId = ctx.query.id as string;
 
-  const [
-    preloadedSummary,
-    preloadedMatches,
-    preloadedHeroStats,
-    preloadedAchievements,
-  ] = await Promise.combine([
+  const [summary, matches, heroStats, achievements] = await Promise.combine([
     getApi().playerApi.playerControllerPlayerSummary(playerId),
     getApi().matchApi.matchControllerPlayerMatches(playerId, 0, 1),
     getApi().playerApi.playerControllerHeroSummary(playerId),
@@ -140,9 +134,9 @@ PlayerPage.getInitialProps = async (
 
   return {
     playerId,
-    preloadedSummary,
-    preloadedMatches,
-    preloadedHeroStats,
-    preloadedAchievements,
+    summary,
+    matches,
+    heroStats,
+    achievements,
   };
 };

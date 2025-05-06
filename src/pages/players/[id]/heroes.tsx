@@ -31,11 +31,7 @@ export default function PlayerHeroes({
 
   return (
     <>
-      <PlayerSummary
-        name={summary.user.name}
-        steamId={summary.user.steamId}
-        summary={summary}
-      />
+      <PlayerSummary user={summary.user} stats={summary.overallStats} />
       <Section>
         <header>Герои</header>
         <GenericTable

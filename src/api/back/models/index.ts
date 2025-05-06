@@ -63,6 +63,7 @@ export * from "./PlayerInMatchDto";
 export * from "./PlayerInfo";
 export * from "./PlayerRecordDto";
 export * from "./PlayerRecordsResponse";
+export * from "./PlayerStatsDto";
 export * from "./PlayerSummaryDto";
 export * from "./PlayerTeammateDto";
 export * from "./PlayerTeammatePageDto";

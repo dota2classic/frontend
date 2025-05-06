@@ -18,6 +18,10 @@ import {
     RoleFromJSON,
     RoleFromJSONTyped,
     RoleToJSON,
+    UploadedImageDto,
+    UploadedImageDtoFromJSON,
+    UploadedImageDtoFromJSONTyped,
+    UploadedImageDtoToJSON,
 } from './';
 
 /**
@@ -56,6 +60,12 @@ export interface UserDTO {
      * @memberof UserDTO
      */
     name: string;
+    /**
+     * 
+     * @type {UploadedImageDto}
+     * @memberof UserDTO
+     */
+    hat?: UploadedImageDto;
 }
 
 export function UserDTOFromJSON(json: any): UserDTO {
@@ -73,6 +83,7 @@ export function UserDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
         'avatar': json['avatar'],
         'avatarSmall': json['avatarSmall'],
         'name': json['name'],
+        'hat': !exists(json, 'hat') ? undefined : UploadedImageDtoFromJSON(json['hat']),
     };
 }
 
@@ -90,6 +101,7 @@ export function UserDTOToJSON(value?: UserDTO | null): any {
         'avatar': value.avatar,
         'avatarSmall': value.avatarSmall,
         'name': value.name,
+        'hat': UploadedImageDtoToJSON(value.hat),
     };
 }
 

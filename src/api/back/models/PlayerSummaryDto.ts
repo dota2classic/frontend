@@ -22,6 +22,10 @@ import {
     PlayerAspectDtoFromJSON,
     PlayerAspectDtoFromJSONTyped,
     PlayerAspectDtoToJSON,
+    PlayerStatsDto,
+    PlayerStatsDtoFromJSON,
+    PlayerStatsDtoFromJSONTyped,
+    PlayerStatsDtoToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -51,67 +55,19 @@ export interface PlayerSummaryDto {
      * @type {number}
      * @memberof PlayerSummaryDto
      */
-    mmr?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerSummaryDto
-     */
-    rank?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerSummaryDto
-     */
     calibrationGamesLeft: number;
     /**
      * 
-     * @type {number}
+     * @type {PlayerStatsDto}
      * @memberof PlayerSummaryDto
      */
-    gamesPlayed: number;
+    seasonStats: PlayerStatsDto;
     /**
      * 
-     * @type {number}
+     * @type {PlayerStatsDto}
      * @memberof PlayerSummaryDto
      */
-    wins: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerSummaryDto
-     */
-    loss: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerSummaryDto
-     */
-    abandons: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerSummaryDto
-     */
-    kills: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerSummaryDto
-     */
-    deaths: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerSummaryDto
-     */
-    assists: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PlayerSummaryDto
-     */
-    playtime: number;
+    overallStats: PlayerStatsDto;
     /**
      * 
      * @type {GamemodeAccessMap}
@@ -138,17 +94,9 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         
         'user': UserDTOFromJSON(json['user']),
         'id': json['id'],
-        'mmr': !exists(json, 'mmr') ? undefined : json['mmr'],
-        'rank': !exists(json, 'rank') ? undefined : json['rank'],
         'calibrationGamesLeft': json['calibrationGamesLeft'],
-        'gamesPlayed': json['games_played'],
-        'wins': json['wins'],
-        'loss': json['loss'],
-        'abandons': json['abandons'],
-        'kills': json['kills'],
-        'deaths': json['deaths'],
-        'assists': json['assists'],
-        'playtime': json['playtime'],
+        'seasonStats': PlayerStatsDtoFromJSON(json['seasonStats']),
+        'overallStats': PlayerStatsDtoFromJSON(json['overallStats']),
         'accessMap': GamemodeAccessMapFromJSON(json['accessMap']),
         'aspects': ((json['aspects'] as Array<any>).map(PlayerAspectDtoFromJSON)),
     };
@@ -165,17 +113,9 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         
         'user': UserDTOToJSON(value.user),
         'id': value.id,
-        'mmr': value.mmr,
-        'rank': value.rank,
         'calibrationGamesLeft': value.calibrationGamesLeft,
-        'games_played': value.gamesPlayed,
-        'wins': value.wins,
-        'loss': value.loss,
-        'abandons': value.abandons,
-        'kills': value.kills,
-        'deaths': value.deaths,
-        'assists': value.assists,
-        'playtime': value.playtime,
+        'seasonStats': PlayerStatsDtoToJSON(value.seasonStats),
+        'overallStats': PlayerStatsDtoToJSON(value.overallStats),
         'accessMap': GamemodeAccessMapToJSON(value.accessMap),
         'aspects': ((value.aspects as Array<any>).map(PlayerAspectDtoToJSON)),
     };

@@ -5,11 +5,11 @@ import { UserDTO } from "@/api/back";
 
 interface UserEntry {
   user: UserDTO;
-  rank?: number;
-  mmr?: number;
-  gamesPlayed: number;
-  wins: number;
-  loss: number;
+  // rank?: number;
+  // mmr?: number;
+  // gamesPlayed: number;
+  // wins: number;
+  // loss: number;
 }
 
 interface UserHolder {
@@ -52,11 +52,11 @@ export class UserCacheStore implements HydratableStore<unknown> {
         runInAction(() => {
           this.userMap[id].entry = {
             user: user.user,
-            gamesPlayed: user.gamesPlayed,
-            wins: user.wins,
-            loss: user.loss,
-            rank: user.rank,
-            mmr: user.mmr,
+            // gamesPlayed: user.gamesPlayed,
+            // wins: user.wins,
+            // loss: user.loss,
+            // rank: user.rank,
+            // mmr: user.mmr,
           };
           this.userMap[id].resolver = undefined;
         });

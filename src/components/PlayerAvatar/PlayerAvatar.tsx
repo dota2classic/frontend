@@ -41,18 +41,19 @@ export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
   ...props
 }: Props) {
   const [error, setError] = useState<unknown>(null);
-  const hat =
-    "https://s3.dotaclassic.ru/public/upload/7aa65613d616dc1ffe31e6e3fed924b25b6aabc5222493841466f2909b498314.webp";
+  const hat = user.hat?.url;
 
   return (
     <picture className={c.avatar}>
-      <Image
-        alt=""
-        width={props.width}
-        height={props.height}
-        className={c.hat}
-        src={hat}
-      />
+      {hat && (
+        <Image
+          alt=""
+          width={props.width}
+          height={props.height}
+          className={c.hat}
+          src={hat}
+        />
+      )}
       <Image
         {...props}
         alt={props.alt || "Image"}

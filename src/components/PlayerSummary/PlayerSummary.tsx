@@ -18,15 +18,14 @@ import { FaSteam } from "react-icons/fa";
 import { MdLocalPolice } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IBigTabsProps } from "@/components/BigTabs/BigTabs";
-import { PlayerSummaryDto } from "@/api/back";
+import { PlayerStatsDto, UserDTO } from "@/api/back";
 
 interface IPlayerSummaryProps {
   className?: string;
 
-  summary: PlayerSummaryDto;
+  stats: PlayerStatsDto;
+  user: UserDTO;
 
-  name: string;
-  steamId: string;
   lastGameTimestamp?: number | string;
 }
 
@@ -34,10 +33,12 @@ type PlayerPage = "overall" | "heroes" | "matches" | "teammates" | "records";
 type Items = IBigTabsProps<PlayerPage>["items"];
 
 export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
-  ({ className, name, steamId, lastGameTimestamp, summary }) => {
-    const { wins, abandons, loss, mmr, rank } = summary;
+  ({ className, lastGameTimestamp, stats, user }) => {
+    const { wins, abandons, loss, mmr, rank } = stats;
     const isModerator = useIsModerator();
     const r = useRouter();
+
+    const { steamId, name } = user;
 
     const items = useMemo<Items>(
       () => [
@@ -89,7 +90,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
               <PlayerAvatar
                 width={65}
                 height={65}
-                user={summary.user}
+                user={user}
                 alt={`Avatar of player ${name}`}
               />
               <PageLink

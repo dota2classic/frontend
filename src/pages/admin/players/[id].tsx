@@ -264,9 +264,8 @@ export default function AdminPlayerPage({
     <div className={c2.gridPanel}>
       <PlayerSummary
         className={c2.grid12}
-        summary={preloadedSummary}
-        name={preloadedSummary.user.name}
-        steamId={preloadedSummary.user.steamId}
+        stats={preloadedSummary.overallStats}
+        user={preloadedSummary.user}
       />
 
       <Section className={c2.grid12}>

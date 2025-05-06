@@ -59,9 +59,8 @@ export default function PlayerMatches({
       />
 
       <PlayerSummary
-        summary={preloadedSummary}
-        name={preloadedSummary.user.name}
-        steamId={preloadedSummary.user.steamId}
+        stats={preloadedSummary.overallStats}
+        user={preloadedSummary.user}
       />
 
       <Section>
