@@ -11,5 +11,6 @@ export * from "./MetaApi";
 export * from "./NotificationApi";
 export * from "./PlayerApi";
 export * from "./RecordApi";
+export * from "./SettingsApi";
 export * from "./StatsApi";
 export * from "./StorageApi";

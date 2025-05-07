@@ -38,7 +38,8 @@
     height: 140px;
   }
 
-  &:hover {
+  &:hover,
+  &__hovered {
     transform: scale(1.02);
     border-color: $blueHighlight;
 
@@ -116,4 +117,22 @@
   @media (max-width: 600px) {
     font-size: 12px;
   }
+}
+
+.viewers {
+  &::before {
+    content: "";
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: $error;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 2px 4px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }

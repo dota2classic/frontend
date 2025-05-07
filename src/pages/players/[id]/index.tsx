@@ -72,6 +72,8 @@ export default function PlayerPage({
         stats={summary.overallStats}
         user={summary.user}
         lastGameTimestamp={formattedMatches[0]?.timestamp}
+        rank={summary.seasonStats.rank}
+        mmr={summary.seasonStats.mmr}
       />
       <Section style={{ gridColumn: "span 12" }}>
         <header>Достижения</header>

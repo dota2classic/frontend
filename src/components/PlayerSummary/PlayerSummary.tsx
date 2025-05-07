@@ -14,11 +14,16 @@ import { AppRouter, NextLinkProp } from "@/route";
 import { steamPage, useIsModerator } from "@/util";
 import { observer } from "mobx-react-lite";
 import { formatShortTime } from "@/util/dates";
-import { FaSteam } from "react-icons/fa";
+import { FaSteam, FaTwitch } from "react-icons/fa";
 import { MdLocalPolice } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IBigTabsProps } from "@/components/BigTabs/BigTabs";
-import { PlayerStatsDto, UserDTO } from "@/api/back";
+import {
+  PlayerStatsDto,
+  UserConnectionDtoConnectionEnum,
+  UserDTO,
+} from "@/api/back";
+import { useStore } from "@/store";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -26,49 +31,79 @@ interface IPlayerSummaryProps {
   stats: PlayerStatsDto;
   user: UserDTO;
 
+  rank?: number;
+  mmr?: number;
+
   lastGameTimestamp?: number | string;
 }
 
-type PlayerPage = "overall" | "heroes" | "matches" | "teammates" | "records";
+type PlayerPage =
+  | "overall"
+  | "heroes"
+  | "matches"
+  | "teammates"
+  | "records"
+  | "settings";
 type Items = IBigTabsProps<PlayerPage>["items"];
 
+const getMenuItems = (steamId: string, isMyProfile: boolean): Items => {
+  const menuItems: Items = [
+    {
+      key: "overall",
+      label: "Общее",
+      onSelect: AppRouter.players.player.index(steamId).link,
+    },
+    {
+      key: "matches",
+      label: "Матчи",
+      onSelect: AppRouter.players.playerMatches(steamId).link,
+    },
+    {
+      key: "teammates",
+      label: "Союзники",
+      onSelect: AppRouter.players.player.teammates(steamId).link,
+    },
+    {
+      key: "heroes",
+      label: "Герои",
+      onSelect: AppRouter.players.player.heroes(steamId).link,
+    },
+    {
+      key: "records",
+      label: "Рекорды",
+      onSelect: AppRouter.players.player.records(steamId).link,
+    },
+  ];
+
+  if (isMyProfile) {
+    menuItems.push({
+      key: "settings",
+      label: "Настройки",
+      onSelect: AppRouter.players.player.settings(steamId).link,
+    });
+  }
+
+  return menuItems;
+};
+
 export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
-  ({ className, lastGameTimestamp, stats, user }) => {
-    const { wins, abandons, loss, mmr, rank } = stats;
+  ({ className, lastGameTimestamp, stats, user, rank, mmr }) => {
+    const { wins, abandons, loss } = stats;
     const isModerator = useIsModerator();
+
+    const isMyProfile = useStore().auth.parsedToken?.sub === user.steamId;
+
+    const twitchConnection = user.connections.find(
+      (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
+    );
+
     const r = useRouter();
 
     const { steamId, name } = user;
 
     const items = useMemo<Items>(
-      () => [
-        {
-          key: "overall",
-          label: "Общее",
-          onSelect: AppRouter.players.player.index(steamId).link,
-        },
-        {
-          key: "matches",
-          label: "Матчи",
-          onSelect: AppRouter.players.playerMatches(steamId).link,
-        },
-        {
-          key: "teammates",
-          label: "Союзники",
-          onSelect: AppRouter.players.player.teammates(steamId).link,
-        },
-        {
-          key: "heroes",
-          label: "Герои",
-          onSelect: AppRouter.players.player.heroes(steamId).link,
-        },
-        {
-          key: "records",
-          label: "Рекорды",
-          onSelect: AppRouter.players.player.records(steamId).link,
-        },
-      ],
-      [steamId],
+      () => getMenuItems(steamId, isMyProfile),
+      [isMyProfile, steamId],
     );
 
     const selected = useMemo(
@@ -123,6 +158,15 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 >
                   <MdLocalPolice className={c.icon_svg} />
                 </PageLink>
+              )}
+              {twitchConnection && (
+                <a
+                  className={cx(c.externalLink, "link", c.twitch)}
+                  href={`https://twitch.tv/${twitchConnection.externalId}`}
+                >
+                  <FaTwitch className={c.icon_svg} />
+                  {twitchConnection.externalId}
+                </a>
               )}
             </div>
           </div>

@@ -61,6 +61,8 @@ export default function PlayerMatches({
       <PlayerSummary
         stats={preloadedSummary.overallStats}
         user={preloadedSummary.user}
+        rank={preloadedSummary.seasonStats.rank}
+        mmr={preloadedSummary.seasonStats.mmr}
       />
 
       <Section>

@@ -27,6 +27,9 @@ import {
   MatchmakingInfo,
   MatchmakingInfoFromJSON,
   MatchmakingInfoToJSON,
+  TwitchStreamDto,
+  TwitchStreamDtoFromJSON,
+  TwitchStreamDtoToJSON,
 } from "../models";
 
 /**
@@ -170,6 +173,52 @@ export class StatsApi extends runtime.BaseAPI {
 
         const context = this.statsControllerGetServersContext();
         return useSWR(context, valid ? () => this.statsControllerGetServers() : null, config)
+    }
+
+    /**
+     */
+    private async statsControllerGetTwitchStreamsRaw(): Promise<runtime.ApiResponse<Array<TwitchStreamDto>>> {
+        this.statsControllerGetTwitchStreamsValidation();
+        const context = this.statsControllerGetTwitchStreamsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TwitchStreamDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private statsControllerGetTwitchStreamsValidation() {
+    }
+
+    /**
+     */
+    statsControllerGetTwitchStreamsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/stats/twitch`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    statsControllerGetTwitchStreams = async (): Promise<Array<TwitchStreamDto>> => {
+        const response = await this.statsControllerGetTwitchStreamsRaw();
+        return await response.value();
+    }
+
+    useStatsControllerGetTwitchStreams(config?: SWRConfiguration<Array<TwitchStreamDto>, Error>) {
+        let valid = true
+
+        const context = this.statsControllerGetTwitchStreamsContext();
+        return useSWR(context, valid ? () => this.statsControllerGetTwitchStreams() : null, config)
     }
 
     /**

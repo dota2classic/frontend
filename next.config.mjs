@@ -16,6 +16,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '**.dotaclassic.ru'
+      },
+      {
+        protocol: 'https',
+        hostname: '**.jtvnw.net'
       }
     ]
   },

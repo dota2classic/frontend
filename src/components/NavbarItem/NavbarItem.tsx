@@ -11,7 +11,7 @@ import { IconType } from "react-icons";
 type Action = NextLinkProp | (() => void) | string;
 
 interface DropdownOption {
-  action: NextLinkProp | (() => void);
+  action: NextLinkProp | (() => void) | string;
   label: ReactNode;
   Icon?: IconType;
   newCategory?: boolean;
@@ -91,7 +91,16 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
             return (
               <>
                 {op.newCategory && <div className={c.delimiter} />}
-                {"href" in op.action ? (
+                {typeof op.action === "string" ? (
+                  <a
+                    key={index}
+                    className={cx(c.option, "link")}
+                    href={op.action}
+                  >
+                    {Icon && <Icon />}
+                    {op.label}
+                  </a>
+                ) : "href" in op.action ? (
                   <PageLink
                     className={cx(c.option, "link")}
                     key={index}

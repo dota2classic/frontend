@@ -266,6 +266,8 @@ export default function AdminPlayerPage({
         className={c2.grid12}
         stats={preloadedSummary.overallStats}
         user={preloadedSummary.user}
+        rank={preloadedSummary.seasonStats.rank}
+        mmr={preloadedSummary.seasonStats.mmr}
       />
 
       <Section className={c2.grid12}>

@@ -22,6 +22,10 @@ import {
     UploadedImageDtoFromJSON,
     UploadedImageDtoFromJSONTyped,
     UploadedImageDtoToJSON,
+    UserConnectionDto,
+    UserConnectionDtoFromJSON,
+    UserConnectionDtoFromJSONTyped,
+    UserConnectionDtoToJSON,
 } from './';
 
 /**
@@ -62,6 +66,12 @@ export interface UserDTO {
     name: string;
     /**
      * 
+     * @type {Array<UserConnectionDto>}
+     * @memberof UserDTO
+     */
+    connections: Array<UserConnectionDto>;
+    /**
+     * 
      * @type {UploadedImageDto}
      * @memberof UserDTO
      */
@@ -83,6 +93,7 @@ export function UserDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
         'avatar': json['avatar'],
         'avatarSmall': json['avatarSmall'],
         'name': json['name'],
+        'connections': ((json['connections'] as Array<any>).map(UserConnectionDtoFromJSON)),
         'hat': !exists(json, 'hat') ? undefined : UploadedImageDtoFromJSON(json['hat']),
     };
 }
@@ -101,6 +112,7 @@ export function UserDTOToJSON(value?: UserDTO | null): any {
         'avatar': value.avatar,
         'avatarSmall': value.avatarSmall,
         'name': value.name,
+        'connections': ((value.connections as Array<any>).map(UserConnectionDtoToJSON)),
         'hat': UploadedImageDtoToJSON(value.hat),
     };
 }

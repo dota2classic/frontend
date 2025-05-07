@@ -16,53 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface ConnectionDto
+ * @interface UserConnectionDto
  */
-export interface ConnectionDto {
+export interface UserConnectionDto {
     /**
      * 
      * @type {string}
-     * @memberof ConnectionDto
+     * @memberof UserConnectionDto
      */
-    connection: ConnectionDtoConnectionEnum;
+    connection: UserConnectionDtoConnectionEnum;
     /**
      * 
      * @type {string}
-     * @memberof ConnectionDto
+     * @memberof UserConnectionDto
      */
-    avatar: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ConnectionDto
-     */
-    id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ConnectionDto
-     */
-    name: string;
+    externalId: string;
 }
 
-export function ConnectionDtoFromJSON(json: any): ConnectionDto {
-    return ConnectionDtoFromJSONTyped(json, false);
+export function UserConnectionDtoFromJSON(json: any): UserConnectionDto {
+    return UserConnectionDtoFromJSONTyped(json, false);
 }
 
-export function ConnectionDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConnectionDto {
+export function UserConnectionDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserConnectionDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'connection': json['connection'],
-        'avatar': json['avatar'],
-        'id': json['id'],
-        'name': json['name'],
+        'externalId': json['externalId'],
     };
 }
 
-export function ConnectionDtoToJSON(value?: ConnectionDto | null): any {
+export function UserConnectionDtoToJSON(value?: UserConnectionDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -72,9 +58,7 @@ export function ConnectionDtoToJSON(value?: ConnectionDto | null): any {
     return {
         
         'connection': value.connection,
-        'avatar': value.avatar,
-        'id': value.id,
-        'name': value.name,
+        'externalId': value.externalId,
     };
 }
 
@@ -82,7 +66,7 @@ export function ConnectionDtoToJSON(value?: ConnectionDto | null): any {
 * @export
 * @enum {string}
 */
-export enum ConnectionDtoConnectionEnum {
+export enum UserConnectionDtoConnectionEnum {
     DISCORD = 'DISCORD',
     TWITCH = 'TWITCH'
 }

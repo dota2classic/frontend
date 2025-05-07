@@ -50,7 +50,12 @@ export default function PlayerTeammates({
 
   return (
     <>
-      <PlayerSummary stats={summary.overallStats} user={summary.user} />
+      <PlayerSummary
+        stats={summary.overallStats}
+        user={summary.user}
+        rank={summary.seasonStats.rank}
+        mmr={summary.seasonStats.mmr}
+      />
       <Section>
         <header>Тиммейты</header>
         <TeammatesTable

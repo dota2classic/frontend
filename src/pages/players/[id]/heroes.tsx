@@ -31,7 +31,12 @@ export default function PlayerHeroes({
 
   return (
     <>
-      <PlayerSummary user={summary.user} stats={summary.overallStats} />
+      <PlayerSummary
+        user={summary.user}
+        stats={summary.overallStats}
+        rank={summary.seasonStats.rank}
+        mmr={summary.seasonStats.mmr}
+      />
       <Section>
         <header>Герои</header>
         <GenericTable

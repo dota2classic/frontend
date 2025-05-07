@@ -12,6 +12,7 @@ import {
   NotificationApi,
   PlayerApi,
   RecordApi,
+  SettingsApi,
   StatsApi,
   StorageApi,
 } from "./back/apis";
@@ -118,6 +119,7 @@ export class AppApi {
   private readonly apiConfig = new Configuration(this.apiParams);
 
   readonly authApi = new AuthApi(this.apiConfig);
+  readonly settings = new SettingsApi(this.apiConfig);
   readonly matchApi = new MatchApi(this.apiConfig);
   readonly liveApi = new LiveApi(this.apiConfig);
   readonly forumApi = new ForumApi(this.apiConfig);

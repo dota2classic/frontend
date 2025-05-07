@@ -4,10 +4,12 @@ import c from "./Landing.module.scss";
 import { EmbedProps, PageLink, TelegramInvite } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
-import { BlogpostDto, LiveMatchDto } from "@/api/back";
+import { BlogpostDto, LiveMatchDto, TwitchStreamDto } from "@/api/back";
 import { RecentPostsCarousel } from "@/components/Landing/RecentPostsCarousel";
 import { ProjectStatisticsCarousel } from "@/components/Landing/ProjectStatisticsCarousel";
 import { MetaCarousel } from "@/components/Landing/MetaCarousel";
+import { getApi } from "@/api/hooks";
+import { StreamCarousel } from "@/components/Landing/StreamCarousel";
 
 interface Props {
   recentPosts: BlogpostDto[];
@@ -15,6 +17,12 @@ interface Props {
 }
 
 export const Landing = ({ recentPosts }: Props) => {
+  const { data: streams } =
+    getApi().statsApi.useStatsControllerGetTwitchStreams({
+      refreshInterval: 15000,
+    });
+
+  const streamList: TwitchStreamDto[] = streams || [];
   return (
     <>
       <EmbedProps
@@ -93,7 +101,11 @@ export const Landing = ({ recentPosts }: Props) => {
           </p>
         </div>
       </div>
-      <MetaCarousel />
+      {streamList.length ? (
+        <StreamCarousel streamList={streamList} />
+      ) : (
+        <MetaCarousel />
+      )}
 
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>

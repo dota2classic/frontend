@@ -5,13 +5,16 @@ import { PageLink } from "..";
 import c from "./CarouselItem.module.scss";
 import { NextLinkProp } from "@/route";
 import { formatDate } from "@/util/dates";
+import cx from "clsx";
 
 interface ICarouselItemProps {
-  link?: NextLinkProp;
+  link?: NextLinkProp | string;
   title: ReactNode;
   image: string;
   date?: string;
   description?: ReactNode;
+  alwaysShowDescription?: boolean;
+  badge?: number;
 }
 
 export const CarouselItem: React.FC<ICarouselItemProps> = ({
@@ -20,17 +23,25 @@ export const CarouselItem: React.FC<ICarouselItemProps> = ({
   image,
   date,
   description,
+  badge,
+  alwaysShowDescription,
 }) => {
   const RenderContainer = link
-    ? (p: PropsWithChildren<{ className?: string }>) => (
-        <PageLink className={p.className} link={link!}>
-          {p.children}
-        </PageLink>
-      )
+    ? typeof link === "string"
+      ? (p: PropsWithChildren<{ className?: string }>) =>
+          createElement("a", { ...p, href: link })
+      : (p: PropsWithChildren<{ className?: string }>) => (
+          <PageLink className={p.className} link={link as NextLinkProp}>
+            {p.children}
+          </PageLink>
+        )
     : (p: PropsWithChildren<{ className?: string }>) =>
         createElement("a", { ...p, href: "#" });
   return (
-    <RenderContainer className={c.card}>
+    <RenderContainer
+      className={cx(c.card, alwaysShowDescription && c.card__hovered)}
+    >
+      {badge && <span className={c.viewers}>{badge}</span>}
       <Image
         className={c.image}
         alt={""}

@@ -4,6 +4,9 @@ import { setCookie } from "cookies-next";
 
 export const getAuthUrl = () => `${appApi.apiParams.basePath}/v1/auth/steam`;
 
+export const getTwitchConnectUrl = () =>
+  `${appApi.apiParams.basePath}/v1/auth/twitch`;
+
 export const useSniffReferral = () => {
   const router = useRouter();
   const ref = router.query["referral"];
