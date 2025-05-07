@@ -319,11 +319,25 @@
   background-color: $primaryTextDark2;
 }
 
-
-
 .roleTooltip {
   @include box();
   padding: 8px 12px;
   background-color: $bg2;
   color: $primaryText;
+}
+
+@keyframes shine {
+  from {
+    color: #c9af1d;
+  }
+
+  to {
+    color: #eccf2c;
+    transform: scale(1.2);
+  }
+}
+.old {
+  animation: shine 0.3s ease-in infinite alternate;
+  width: 1.4em;
+  height: 1.4em;
 }

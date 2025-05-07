@@ -127,7 +127,7 @@ const roleMessages = {
   [Role.PLAYER]: "Игрок",
   [Role.MODERATOR]: "Модератор",
   [Role.ADMIN]: "Администратор",
-  [Role.OLD]: "Древний",
+  [Role.OLD]: "Бессмертный",
   [Role.HUMAN]: "Человек",
 };
 

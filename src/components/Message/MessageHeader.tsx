@@ -19,7 +19,6 @@ import { MessageContent } from "@/components/Message/MessageContent";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { computed } from "mobx";
 import { createPortal } from "react-dom";
-import { GiAngelOutfit } from "react-icons/gi";
 import { formatRole } from "@/util/gamemode";
 
 interface IMessageProps {
@@ -69,7 +68,9 @@ export const MessageHeader = observer(function MessageHeader({
         />
       )}
       {message.author.roles.includes(Role.OLD) && (
-        <GiAngelOutfit
+        <img
+          src="/aegis2.svg"
+          className={c.old}
           onMouseEnter={(e) =>
             setHoveredRole({
               ref: e.target as HTMLElement,
@@ -78,6 +79,16 @@ export const MessageHeader = observer(function MessageHeader({
           }
           onMouseLeave={() => setHoveredRole(undefined)}
         />
+        // <GiAngelOutfit
+        //   className={c.old}
+        //   onMouseEnter={(e) =>
+        //     setHoveredRole({
+        //       ref: e.target as HTMLElement,
+        //       role: Role.OLD,
+        //     })
+        //   }
+        //   onMouseLeave={() => setHoveredRole(undefined)}
+        // />
       )}
     </>
   );

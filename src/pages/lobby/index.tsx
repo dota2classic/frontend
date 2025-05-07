@@ -1,9 +1,9 @@
 import { getApi } from "@/api/hooks";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { NextPageContext } from "next";
-import { LobbyDto } from "@/api/back";
+import { LobbyDto, Role } from "@/api/back";
 import { Button, Table, Tooltipable, UserPreview } from "@/components";
-import { formatDotaMap, formatDotaMode } from "@/util/gamemode";
+import { formatDotaMap, formatDotaMode, formatRole } from "@/util/gamemode";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import c from "./Lobby.module.scss";
@@ -45,7 +45,7 @@ export default function ListLobbies({ lobbies }: Props) {
       ) : (
         <Tooltipable
           className={c.createLobby}
-          tooltip={"Создавать лобби могут только подписчики FIXME"}
+          tooltip={`Создавать лобби могут только обладатели роли ${formatRole(Role.OLD)}`}
         >
           <div>
             <Button onClick={() => undefined} disabled={true}>
