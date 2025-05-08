@@ -1,5 +1,11 @@
 import { NextPageContext } from "next";
-import { Button, Panel, PlayerSummary, Section } from "@/components";
+import {
+  Button,
+  EmbedProps,
+  Panel,
+  PlayerSummary,
+  Section,
+} from "@/components";
 import React from "react";
 import { PlayerSummaryDto, UserConnectionDtoConnectionEnum } from "@/api/back";
 import { getApi } from "@/api/hooks";
@@ -20,6 +26,10 @@ export default function PlayerSettings({ summary }: Props) {
   );
   return (
     <>
+      <EmbedProps
+        description={"Настройки своего профиля"}
+        title={"Настройки"}
+      />
       <PlayerSummary
         stats={summary.overallStats}
         user={summary.user}
@@ -43,6 +53,11 @@ export default function PlayerSettings({ summary }: Props) {
             автоматически будем показывать ссылку на ваш запущенный стрим, чтобы
             зрители могли легко найти ваш канал. Это отличный способ привлечь
             новую аудиторию и сделать ваш стрим более заметным! 🎮📺
+          </p>
+          <p>
+            <span className="gold">Внимание:</span> чтобы твой стрим отображался
+            на главной странице, игра должны быть Dota 2, а название включать в
+            себя <span className="gold">dotaclassic.ru</span>
           </p>
           <div className={c.twitchBlock}>
             <span>Подключенный аккаунт:</span>
