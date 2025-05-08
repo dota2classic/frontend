@@ -32,10 +32,15 @@ interface MatchmakingOptionProps {
 }
 
 const getLocalFromUtcHours = (hours: number) => {
-  const d = new Date();
+  let d = new Date();
   d.setUTCHours(hours, 0, 0);
 
+  if (Date.now() > d.getTime()) {
+    d = new Date(d.getTime() + 1000 * 60 * 60 * 24);
+  }
+
   let expectedWait = d.getTime() - Date.now();
+
   if (expectedWait < 0) {
     expectedWait = 1000 * 60 * 60 * 24 - expectedWait;
   }
