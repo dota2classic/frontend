@@ -4,6 +4,7 @@ import {
   PageLink,
   PeriodicTimerClient,
   PlayerAvatar,
+  Tooltipable,
 } from "@/components";
 import { MdAdminPanelSettings } from "react-icons/md";
 import cx from "clsx";
@@ -14,12 +15,13 @@ import { MessageTools } from "@/components/Message/MessageTools";
 import { MessageReactions } from "@/components/Message/MessageReactions";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import { ThreadMessageDTO } from "@/api/back";
+import { ThreadMessageDTO, UserConnectionDtoConnectionEnum } from "@/api/back";
 import { MessageContent } from "@/components/Message/MessageContent";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { computed } from "mobx";
 import { createPortal } from "react-dom";
 import { formatRole } from "@/util/gamemode";
+import { FaTwitch } from "react-icons/fa";
 
 interface IMessageProps {
   message: ThreadMessageDTO;
@@ -45,6 +47,10 @@ export const MessageHeader = observer(function MessageHeader({
     () => thread.editingMessageId === message.messageId,
   ).get();
 
+  const twitchConnection = message.author.connections.find(
+    (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
+  );
+
   const roles = (
     <>
       {hoveredRole &&
@@ -61,11 +67,20 @@ export const MessageHeader = observer(function MessageHeader({
         )}
       {message.author.roles.includes(Role.ADMIN) && (
         <MdAdminPanelSettings
+          className={"grey"}
           onMouseEnter={(e) =>
             setHoveredRole({ ref: e.target as HTMLElement, role: Role.ADMIN })
           }
           onMouseLeave={() => setHoveredRole(undefined)}
         />
+      )}
+      {twitchConnection && (
+        <Tooltipable
+          className={"purple"}
+          tooltip={`twitch.tv/${twitchConnection.externalId}`}
+        >
+          <FaTwitch />
+        </Tooltipable>
       )}
       {message.author.roles.includes(Role.OLD) && (
         <img
@@ -79,16 +94,6 @@ export const MessageHeader = observer(function MessageHeader({
           }
           onMouseLeave={() => setHoveredRole(undefined)}
         />
-        // <GiAngelOutfit
-        //   className={c.old}
-        //   onMouseEnter={(e) =>
-        //     setHoveredRole({
-        //       ref: e.target as HTMLElement,
-        //       role: Role.OLD,
-        //     })
-        //   }
-        //   onMouseLeave={() => setHoveredRole(undefined)}
-        // />
       )}
     </>
   );
