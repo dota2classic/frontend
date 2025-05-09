@@ -161,6 +161,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
               )}
               {twitchConnection && (
                 <a
+                  target="__blank"
                   className={cx(c.externalLink, "link", c.twitch)}
                   href={`https://twitch.tv/${twitchConnection.externalId}`}
                 >
