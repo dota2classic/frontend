@@ -79,7 +79,12 @@ export const MessageHeader = observer(function MessageHeader({
           className={"purple"}
           tooltip={`twitch.tv/${twitchConnection.externalId}`}
         >
-          <FaTwitch />
+          <a
+            target="__blank"
+            href={`https://twitch.tv/${twitchConnection.externalId}`}
+          >
+            <FaTwitch />
+          </a>
         </Tooltipable>
       )}
       {message.author.roles.includes(Role.OLD) && (
