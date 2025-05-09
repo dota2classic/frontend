@@ -5,6 +5,7 @@ import { Duration, Tooltipable } from "@/components";
 import { PlayerAspect } from "@/api/mapped-models";
 import { formatPlayerAspect } from "@/util/gamemode";
 import { PlayerAspectIcons } from "@/containers/PlayerReportModal/PlayerAspectIcons";
+import { formatWinrate } from "@/util/math";
 
 interface IPlayerPentagonStatsProps {
   aspects: {
@@ -17,6 +18,7 @@ interface IPlayerPentagonStatsProps {
   assists: number;
   playtime: number;
   abandons: number;
+  wins: number;
 
   games: number;
 }
@@ -29,6 +31,7 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
   abandons,
   playtime,
   games,
+  wins,
 }) => {
   const [side, setSide] = useState(-1);
   const outerPentaSize = 0.36;
@@ -162,6 +165,10 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
           <dl>
             <dd>{games}</dd>
             <dt>Игр сыграно</dt>
+          </dl>
+          <dl>
+            <dd>{formatWinrate(wins, games - wins)}</dd>
+            <dt>Доля побед</dt>
           </dl>
           <dl>
             <dd>{(abandonRate * 100).toFixed(1)}%</dd>

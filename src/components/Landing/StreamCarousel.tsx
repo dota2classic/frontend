@@ -17,6 +17,7 @@ export const StreamCarousel = ({ streamList }: Props) => {
       <Carousel>
         {streamList.map((stream) => (
           <CarouselItem
+            unoptimized
             badge={stream.viewers}
             link={stream.link}
             key={stream.user.steamId}

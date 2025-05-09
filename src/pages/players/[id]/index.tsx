@@ -97,6 +97,7 @@ export default function PlayerPage({
           deaths={summary.seasonStats.deaths}
           assists={summary.seasonStats.assists}
           playtime={summary.seasonStats.playtime}
+          wins={summary.seasonStats.wins}
         />
       </Section>
       <Section className={c.heroPerformance}>

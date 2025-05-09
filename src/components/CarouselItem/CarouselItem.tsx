@@ -15,6 +15,7 @@ interface ICarouselItemProps {
   description?: ReactNode;
   alwaysShowDescription?: boolean;
   badge?: number;
+  unoptimized?: boolean;
 }
 
 export const CarouselItem: React.FC<ICarouselItemProps> = ({
@@ -25,6 +26,7 @@ export const CarouselItem: React.FC<ICarouselItemProps> = ({
   description,
   badge,
   alwaysShowDescription,
+  unoptimized,
 }) => {
   const RenderContainer = link
     ? typeof link === "string"
@@ -48,6 +50,7 @@ export const CarouselItem: React.FC<ICarouselItemProps> = ({
         src={image}
         width={500}
         height={500}
+        unoptimized={unoptimized}
       />
       <div className={c.shadow} />
       <div className={c.contentContainer}>
