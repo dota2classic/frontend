@@ -74,6 +74,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
       queue: { defaultModes: [] },
       notify: {},
       user: {},
+      live: {},
       threads: { emoticons: [] },
       greedyFocus: {},
       image: {},

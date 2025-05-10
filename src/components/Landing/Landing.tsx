@@ -8,21 +8,19 @@ import { BlogpostDto, LiveMatchDto, TwitchStreamDto } from "@/api/back";
 import { RecentPostsCarousel } from "@/components/Landing/RecentPostsCarousel";
 import { ProjectStatisticsCarousel } from "@/components/Landing/ProjectStatisticsCarousel";
 import { MetaCarousel } from "@/components/Landing/MetaCarousel";
-import { getApi } from "@/api/hooks";
 import { StreamCarousel } from "@/components/Landing/StreamCarousel";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/store";
 
 interface Props {
   recentPosts: BlogpostDto[];
   live: LiveMatchDto[];
 }
 
-export const Landing = ({ recentPosts }: Props) => {
-  const { data: streams } =
-    getApi().statsApi.useStatsControllerGetTwitchStreams({
-      refreshInterval: 15000,
-    });
+export const Landing = observer(({ recentPosts }: Props) => {
+  const { live } = useStore();
 
-  const streamList: TwitchStreamDto[] = streams || [];
+  const streamList: TwitchStreamDto[] = live.streams;
   return (
     <>
       <EmbedProps
@@ -61,6 +59,7 @@ export const Landing = ({ recentPosts }: Props) => {
         </div>
       </div>
       <RecentPostsCarousel recentPosts={recentPosts} />
+
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>
           <img
@@ -82,7 +81,12 @@ export const Landing = ({ recentPosts }: Props) => {
           <TelegramInvite className={cx(c.playButton, c.telegram)} />
         </div>
       </div>
-      <ProjectStatisticsCarousel />
+      {streamList.length ? (
+        <StreamCarousel streamList={streamList} />
+      ) : (
+        <ProjectStatisticsCarousel />
+      )}
+
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>
           <img
@@ -101,11 +105,7 @@ export const Landing = ({ recentPosts }: Props) => {
           </p>
         </div>
       </div>
-      {streamList.length ? (
-        <StreamCarousel streamList={streamList} />
-      ) : (
-        <MetaCarousel />
-      )}
+      <MetaCarousel />
 
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>
@@ -125,4 +125,4 @@ export const Landing = ({ recentPosts }: Props) => {
       </div>
     </>
   );
-};
+});

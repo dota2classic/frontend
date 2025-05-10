@@ -235,3 +235,13 @@
   grid-column: span 1;
   height: 300px;
 }
+
+.streamWrapper {
+  grid-column: span 1;
+
+  & iframe {
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+  }
+}

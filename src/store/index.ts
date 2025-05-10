@@ -11,6 +11,7 @@ import { UserCacheStore } from "@/store/UserCacheStore";
 import { ThreadsStore } from "@/store/ThreadsStore";
 import { GreedyFocusStore } from "@/store/GreedyFocusStore";
 import { ImageStore } from "@/store/ImageStore";
+import { LiveStore } from "@/store/LiveStore";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -35,6 +36,7 @@ function createStore(): RootStore {
     auth,
     queue,
     notify,
+    live: new LiveStore(),
     user: ucache,
     threads,
     greedyFocus: new GreedyFocusStore(),
@@ -76,6 +78,7 @@ export interface RootStore {
   queue: QueueStore;
   user: UserCacheStore;
   notify: NotificationStore;
+  live: LiveStore;
   threads: ThreadsStore;
   greedyFocus: GreedyFocusStore;
   image: ImageStore;

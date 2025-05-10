@@ -17,9 +17,10 @@ import { MdForum } from "react-icons/md";
 import { IoMdPlay } from "react-icons/io";
 import { AdminNavbarItem } from "@/components/Navbar/AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { FaTwitch } from "react-icons/fa";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
-  const { auth } = useStore();
+  const { auth, live } = useStore();
   const { isAdmin, isModerator } = auth;
   const isAuthorized = auth.isAuthorized;
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,11 +31,6 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
     if (changing && menuOpen) setMenuOpen(false);
   }, [changing, menuOpen]);
 
-  const { data: liveMatches } =
-    getApi().liveApi.useLiveMatchControllerListMatches({
-      refreshInterval: 5000,
-    });
-
   const { data: latestBlog } = getApi().blog.useBlogpostControllerBlogPage(
     0,
     1,
@@ -43,7 +39,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
     },
   );
 
-  const hasLiveMatches = liveMatches && liveMatches.length > 0;
+  const hasLiveMatches = live.liveMatches.length > 0 || live.streams.length > 0;
   const newBlogRecently =
     latestBlog?.data?.length &&
     Date.now() - new Date(latestBlog.data[0].publishDate).getTime() <
@@ -102,9 +98,16 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
               <NavbarItem
                 className={c.liveMatch}
                 action={AppRouter.matches.live.link}
-                tip={liveMatches?.length}
+                tip={live.liveMatches.length}
+                options={[
+                  {
+                    label: "Стримы",
+                    action: AppRouter.streams.link,
+                    Icon: FaTwitch,
+                  },
+                ]}
               >
-                Live
+                Смотреть
               </NavbarItem>
             )}
             {(isAdmin || isModerator) && <AdminNavbarItem />}

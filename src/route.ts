@@ -81,7 +81,8 @@ export const AppRouter = {
   queue: spage("/queue"),
   queueGuide: spage("/queue/guide"),
   leaderboard: spage("/stats/leaderboard"),
-  live: spage("/stats/live"),
+  live: spage("/live/matches"),
+  streams: spage("/live/streams"),
 
   meta: {
     index: spage("/meta"),

@@ -1,0 +1,20 @@
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
+export const useRefreshPageProps = () => {
+  const router = useRouter();
+
+  return () => router.replace(router.asPath);
+};
+
+export const usePeriodicRefreshPageProps = (interval: number) => {
+  const refresh = useRefreshPageProps();
+
+  useEffect(() => {
+    const timer = setInterval(async () => {
+      await refresh();
+    }, interval);
+
+    return clearInterval(timer);
+  }, [interval, refresh]);
+};
