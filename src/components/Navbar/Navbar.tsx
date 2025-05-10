@@ -59,6 +59,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
             {(isAuthorized && (
               <NavbarItem
+                className={c.play}
                 action={AppRouter.queue.link}
                 options={[
                   {
@@ -76,7 +77,9 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 Играть
               </NavbarItem>
             )) || (
-              <NavbarItem action={AppRouter.download.link}>Гайд</NavbarItem>
+              <NavbarItem className={c.play} action={AppRouter.download.link}>
+                Гайд
+              </NavbarItem>
             )}
 
             <MetaNavbarItem />
