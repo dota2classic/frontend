@@ -11,6 +11,9 @@ export const usePeriodicRefreshPageProps = (interval: number) => {
   const refresh = useRefreshPageProps();
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
     const timer = setInterval(async () => {
       await refresh();
     }, interval);

@@ -4,7 +4,6 @@ import c from "./Streams.module.scss";
 import { TwitchStreamDto } from "@/api/back";
 import React from "react";
 import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
-import { getDomain } from "@/util/domain";
 
 interface InitialProps {
   streams: TwitchStreamDto[];
@@ -14,6 +13,8 @@ export default function LiveStreams({ streams }: InitialProps) {
   usePeriodicRefreshPageProps(5000);
 
   const fakeData: TwitchStreamDto[] = streams;
+
+  const domain = "dotaclassic.ru";
 
   return (
     <>
@@ -32,7 +33,7 @@ export default function LiveStreams({ streams }: InitialProps) {
         {fakeData.map((it) => (
           <div className={c.stream} key={it.link}>
             <iframe
-              src={`https://player.twitch.tv/?channel=${it.link.split("twitch.tv/")[1]}&parent=${getDomain()}&muted=true&autoplay=false`}
+              src={`https://player.twitch.tv/?channel=${it.link.split("twitch.tv/")[1]}&parent=${domain}&muted=true&autoplay=false`}
               allowFullScreen={false}
             />
           </div>
