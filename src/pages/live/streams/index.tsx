@@ -13,14 +13,7 @@ interface InitialProps {
 export default function LiveStreams({ streams }: InitialProps) {
   usePeriodicRefreshPageProps(5000);
 
-  const fakeData: TwitchStreamDto[] = [
-    ...streams,
-    ...streams,
-    ...streams,
-    ...streams,
-    ...streams,
-    ...streams,
-  ];
+  const fakeData: TwitchStreamDto[] = streams;
 
   return (
     <>
