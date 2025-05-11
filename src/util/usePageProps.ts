@@ -18,6 +18,6 @@ export const usePeriodicRefreshPageProps = (interval: number) => {
       await refresh();
     }, interval);
 
-    return clearInterval(timer);
+    return () => clearInterval(timer);
   }, [interval, refresh]);
 };

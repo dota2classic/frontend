@@ -1,6 +1,6 @@
 import { getApi } from "@/api/hooks";
 import { LiveMatchDto, TwitchStreamDto } from "@/api/back";
-import { makeObservable, observable } from "mobx";
+import { makeObservable, observable, runInAction } from "mobx";
 import { HydratableStore } from "@/store/HydratableStore";
 
 export class LiveStore implements HydratableStore<unknown> {
@@ -29,8 +29,10 @@ export class LiveStore implements HydratableStore<unknown> {
       getApi().statsApi.statsControllerGetTwitchStreams(),
     ]);
 
-    this.liveMatches = liveMatches;
-    this.streams = streams;
+    runInAction(() => {
+      this.liveMatches = liveMatches;
+      this.streams = streams;
+    });
   }
 
   hydrate(): void {}
