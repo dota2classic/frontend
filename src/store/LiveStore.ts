@@ -11,7 +11,9 @@ export class LiveStore implements HydratableStore<unknown> {
 
   constructor() {
     makeObservable(this);
-    this.periodicallyFetchLiveData();
+    if (typeof window !== "undefined") {
+      this.periodicallyFetchLiveData();
+    }
   }
 
   private periodicallyFetchLiveData() {
