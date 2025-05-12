@@ -38,9 +38,13 @@ export const RichMessage = React.memo(function RichMessage({
       const playerId = match[4];
       parts.push(<ForumUserEmbed key={key} steamId={playerId} />);
     } else if (match[5]) {
+      let url = match[5];
+      if (url.endsWith(".")) {
+        url = url.substring(0, url.length - 1);
+      }
       const domain = match[6];
 
-      const videoId = youtubeVideo(match[5]);
+      const videoId = youtubeVideo(url);
 
       if ((domain === "youtube" || domain === "www.youtube") && videoId) {
         // we can try to embed it
@@ -53,7 +57,7 @@ export const RichMessage = React.memo(function RichMessage({
         );
       }
       parts.push(
-        <a key={key} className="link" href={match[5]} target="__blank">
+        <a key={key} className="link" href={url} target="__blank">
           {match[5]}
         </a>,
       );
