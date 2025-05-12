@@ -17,11 +17,8 @@ import { AppRouter } from "@/route";
 import { metrika } from "@/ym";
 import { getAuthUrl } from "@/util/getAuthUrl";
 import { ColumnType } from "@/const/tables";
-import { Noto_Sans } from "next/font/google";
-
-const threadFont = Noto_Sans({
-  subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
-});
+import c from "./Download.module.scss";
+import { NotoSans } from "@/const/notosans";
 
 const _data = [
   [
@@ -129,7 +126,7 @@ const GuideCompact = () => [
           </li>
           <li>Принять найденную игру</li>
           <li>
-            Запустить <span className="blue">Steam</span>, запустить клиент игры
+            Запустить <span className="shit">Steam</span>, запустить клиент игры
           </li>
           <li>
             Загрузиться по кнопке "подключиться" или вставив команду в консоль
@@ -277,7 +274,7 @@ export default function DownloadPage({ initialOS }: Props) {
     ...GuideCompact(),
   ];
   return (
-    <div className={threadFont.className}>
+    <div className={NotoSans.className}>
       <EmbedProps
         title={"Начать играть"}
         description={
@@ -286,7 +283,51 @@ export default function DownloadPage({ initialOS }: Props) {
       />
       <h1 style={{ textAlign: "center" }}>Как начать играть?</h1>
       <CoolList items={coolListContent} />
-      {/*<h2 style={{ textAlign: "center" }}>Ссылки на скачивание игры</h2>*/}
+      <h2 style={{ textAlign: "center", marginTop: 40 }}>
+        Полезные консольные команды
+      </h2>
+      <ul className={c.guide}>
+        <li>
+          ФПС, пинг, потери пакетов - <span className="shit">net_graph 1</span>
+        </li>
+        <li>
+          Отключить приближение камеры -{" "}
+          <span className="shit">dota_camera_disable_zoom 1</span>
+        </li>
+        <li>
+          Добивание союзных крипов на ПКМ -{" "}
+          <span className="shit">dota_force_right_click_attack 1</span>
+        </li>
+        <li>
+          Автоматический повтор нажатия ПКМ -{" "}
+          <span className="shit">dota_player_auto_repeat_right_mouse 1</span>
+        </li>
+        <li>
+          Отключить задержку клика по мини-карте -{" "}
+          <span className="shit">dota_minimap_misclick_time 0</span>
+        </li>
+        <li>
+          Увеличение иконок героев на мини-карте -{" "}
+          <span className="shit">dota_minimap_hero_size 1000</span>
+        </li>
+        <li>
+          Быстрая атака -{" "}
+          <span className="shit">
+            bind "a" "mc_attack; +sixense_left_click; -sixense_left_click"
+          </span>
+        </li>
+        <li>
+          Идти в направлении -{" "}
+          <span className="shit">
+            dota_unit_allow_moveto_direction 1, bind alt
+            +dota_unit_movetodirection
+          </span>
+        </li>
+        <li>
+          Дальность умений -{" "}
+          <span className="shit">dota_disable_range_finder 0</span>
+        </li>
+      </ul>
 
       <h2 style={{ textAlign: "center", marginTop: 40 }}>
         FAQ - часто задаваемые вопросы
@@ -320,6 +361,26 @@ export default function DownloadPage({ initialOS }: Props) {
                 Баны в актуальной версии игры не работают на нашем сайте.
                 Однако, если будешь часто покидать игры, руинить игры и в целом
                 плохо себя вести - будешь забанен и здесь.
+              </>
+            ),
+          },
+          {
+            title: "Only one dota 2 client per customer",
+            content: (
+              <>
+                Закройте клиент новой или старой доты, если уже открыт (убейте
+                процесс через диспетчер задач). Одновременно может быть запущен
+                только 1 клиент доты.
+              </>
+            ),
+          },
+          {
+            title: "Ошибка не найден dota.exe",
+            content: (
+              <>
+                Нужно в .bat файл через блокнот в начале прописать cd{" "}
+                <span className="gold">C:\Program Files (x86)\Dota 6.84</span>{" "}
+                (заменить на путь до клиента со старой дотой)
               </>
             ),
           },
@@ -393,16 +454,35 @@ export default function DownloadPage({ initialOS }: Props) {
             ),
           },
           {
-            title: "Failed to load the launcher DLL",
+            title:
+              "Failed to load the launcher DLL / Setup file 'gameinfo.txt' doesn't exist in subdirectory 'dota2'",
             content: (
               <>
                 Возможно, архив с игрой не до конца распаковался. Настойчиво
-                рекомендуем использовать 7-zip для разархивации.
+                рекомендуем использовать <span className="gold">7-zip</span> для
+                разархивации.
                 <br />
                 Для ее исправления необходимо исключить русские/кириллические
                 буквы в пути или же распаковать архив на рабочий стол. Если это
                 вам не помогает, то распакуйте архив с игрой в корень диска C:\
                 или D:\
+              </>
+            ),
+          },
+          {
+            title: "Графические артефакты",
+            content: (
+              <>
+                Можно попробовать:
+                <ol>
+                  <li>
+                    <span className="shit"> gl_clear 0</span> в консоль
+                  </li>
+                  <li>
+                    Переустановить видеодрайвера, либо установить более позднюю
+                    / новую версию
+                  </li>
+                </ol>
               </>
             ),
           },

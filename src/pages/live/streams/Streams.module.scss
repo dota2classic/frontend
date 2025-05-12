@@ -31,10 +31,15 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+  padding: 16px;
 }
 
 .stream {
   grid-column: span 1;
+
+  @media (max-width: 600px) {
+    grid-column: span 2;
+  }
 
   & iframe {
     width: 100%;

@@ -13,11 +13,9 @@ import { SiDota2 } from "react-icons/si";
 import { useRouterChanging } from "@/util";
 import { LoginProfileNavbarItem } from "@/components/Navbar/LoginProfileNavbarItem";
 import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
-import { MdForum } from "react-icons/md";
-import { IoMdPlay } from "react-icons/io";
 import { AdminNavbarItem } from "@/components/Navbar/AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
-import { FaTwitch } from "react-icons/fa";
+import { FaList, FaTwitch } from "react-icons/fa";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth, live } = useStore();
@@ -57,16 +55,11 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             DOTA2CLASSIC
           </NavbarItem>
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
-            {(isAuthorized && (
+            {isAuthorized && (
               <NavbarItem
                 className={c.play}
                 action={AppRouter.queue.link}
                 options={[
-                  {
-                    Icon: IoMdPlay,
-                    label: "Гайд",
-                    action: AppRouter.download.link,
-                  },
                   {
                     Icon: FaPeopleGroup,
                     label: "Лобби",
@@ -76,27 +69,36 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
               >
                 Играть
               </NavbarItem>
-            )) || (
-              <NavbarItem className={c.play} action={AppRouter.download.link}>
-                Гайд
-              </NavbarItem>
             )}
+
+            <NavbarItem
+              className={c.play}
+              action={AppRouter.download.link}
+              options={[
+                {
+                  label: "Правила",
+                  action: AppRouter.rules.link,
+                  Icon: FaList,
+                },
+              ]}
+            >
+              Гайд
+            </NavbarItem>
 
             <MetaNavbarItem />
             <NavbarItem
-              options={[
-                {
-                  Icon: MdForum,
-                  action: AppRouter.forum.index().link,
-                  label: "Форум",
-                },
-              ]}
               action={AppRouter.blog.index.link}
               tip={newBlogRecently && "!"}
             >
               Новости
             </NavbarItem>
-            <NavbarItem action={AppRouter.rules.link}>Правила</NavbarItem>
+            <NavbarItem
+              className={c.play}
+              action={AppRouter.forum.index().link}
+            >
+              Форум
+            </NavbarItem>
+            {/*<NavbarItem action={AppRouter.rules.link}>Правила</NavbarItem>*/}
             {hasLiveMatches && (
               <NavbarItem
                 className={c.liveMatch}
@@ -110,7 +112,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                   },
                 ]}
               >
-                Смотреть
+                Live
               </NavbarItem>
             )}
             {(isAdmin || isModerator) && <AdminNavbarItem />}

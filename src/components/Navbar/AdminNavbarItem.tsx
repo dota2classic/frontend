@@ -2,6 +2,7 @@ import { NavbarItem } from "@/components";
 import { AppRouter } from "@/route";
 
 import c from "./Navbar.module.scss";
+import { MdLocalPolice } from "react-icons/md";
 
 export const AdminNavbarItem = () => {
   return (
@@ -29,7 +30,7 @@ export const AdminNavbarItem = () => {
         },
       ]}
     >
-      Очереди
+      <MdLocalPolice />
     </NavbarItem>
   );
 };

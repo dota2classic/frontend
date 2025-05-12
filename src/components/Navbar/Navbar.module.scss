@@ -1,18 +1,17 @@
 @import "../../common.scss";
 
 .navbar {
-  //position: sticky;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  //background: $bg2;
+  background: $bg2;
   color: $primaryText;
   z-index: 100000;
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
 }
 
 .navbar__admin {
-  min-width: 20ch;
   justify-content: flex-start;
 }
 
@@ -134,7 +133,7 @@
   color: $gold;
   //overflow: hidden;
   position: relative;
-  width: 13ch;
+  //width: 13ch;
 
 }
 
@@ -150,5 +149,5 @@
 }
 
 .play {
-  width: 12ch;
+  //width: 12ch;
 }

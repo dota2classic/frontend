@@ -1,6 +1,6 @@
 import cx from "clsx";
 import c from "@/components/Landing/Landing.module.scss";
-import { Carousel, PageLink } from "@/components";
+import { PageLink } from "@/components";
 import React from "react";
 import { TwitchStreamDto } from "@/api/back";
 import { AppRouter } from "@/route";
@@ -18,11 +18,11 @@ export const StreamCarousel = ({ streamList }: Props) => {
         </PageLink>
       </div>
 
-      <Carousel>
-        {streamList.map((stream) => (
+      <div className={c.streamCarousel}>
+        {streamList.map((stream, idx) => (
           <div className={c.streamWrapper} key={stream.link}>
             <iframe
-              src={`https://player.twitch.tv/?channel=${stream.link.split("twitch.tv/")[1]}&parent=${getDomain()}&muted=true&autoplay=false`}
+              src={`https://player.twitch.tv/?channel=${stream.link.split("twitch.tv/")[1]}&parent=${getDomain()}&muted=true&autoplay=${idx < 2}`}
               allowFullScreen={false}
             />
           </div>
@@ -43,7 +43,7 @@ export const StreamCarousel = ({ streamList }: Props) => {
           //   description={stream.title}
           // />
         ))}
-      </Carousel>
+      </div>
     </div>
   );
 };

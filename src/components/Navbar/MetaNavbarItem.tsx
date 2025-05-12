@@ -1,4 +1,3 @@
-import c from "@/components/Navbar/Navbar.module.scss";
 import { AppRouter } from "@/route";
 import { NavbarItem } from "@/components";
 import React from "react";
@@ -11,7 +10,7 @@ export const MetaNavbarItem = () => {
   return (
     <NavbarItem
       testId="navbar-user"
-      className={c.user}
+      // className={c.user}
       ignoreActive
       action={AppRouter.meta.index.link}
       options={[
@@ -43,7 +42,7 @@ export const MetaNavbarItem = () => {
         },
       ]}
     >
-      Статистика
+      Мета
     </NavbarItem>
   );
 };
