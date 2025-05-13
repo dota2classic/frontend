@@ -14,14 +14,14 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    ProfileDecorationDto,
+    ProfileDecorationDtoFromJSON,
+    ProfileDecorationDtoFromJSONTyped,
+    ProfileDecorationDtoToJSON,
     Role,
     RoleFromJSON,
     RoleFromJSONTyped,
     RoleToJSON,
-    UploadedImageDto,
-    UploadedImageDtoFromJSON,
-    UploadedImageDtoFromJSONTyped,
-    UploadedImageDtoToJSON,
     UserConnectionDto,
     UserConnectionDtoFromJSON,
     UserConnectionDtoFromJSONTyped,
@@ -72,10 +72,28 @@ export interface UserDTO {
     connections: Array<UserConnectionDto>;
     /**
      * 
-     * @type {UploadedImageDto}
+     * @type {ProfileDecorationDto}
      * @memberof UserDTO
      */
-    hat?: UploadedImageDto;
+    hat?: ProfileDecorationDto;
+    /**
+     * 
+     * @type {ProfileDecorationDto}
+     * @memberof UserDTO
+     */
+    icon?: ProfileDecorationDto;
+    /**
+     * 
+     * @type {ProfileDecorationDto}
+     * @memberof UserDTO
+     */
+    title?: ProfileDecorationDto;
+    /**
+     * 
+     * @type {ProfileDecorationDto}
+     * @memberof UserDTO
+     */
+    chatIconAnimation?: ProfileDecorationDto;
 }
 
 export function UserDTOFromJSON(json: any): UserDTO {
@@ -94,7 +112,10 @@ export function UserDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
         'avatarSmall': json['avatarSmall'],
         'name': json['name'],
         'connections': ((json['connections'] as Array<any>).map(UserConnectionDtoFromJSON)),
-        'hat': !exists(json, 'hat') ? undefined : UploadedImageDtoFromJSON(json['hat']),
+        'hat': !exists(json, 'hat') ? undefined : ProfileDecorationDtoFromJSON(json['hat']),
+        'icon': !exists(json, 'icon') ? undefined : ProfileDecorationDtoFromJSON(json['icon']),
+        'title': !exists(json, 'title') ? undefined : ProfileDecorationDtoFromJSON(json['title']),
+        'chatIconAnimation': !exists(json, 'chatIconAnimation') ? undefined : ProfileDecorationDtoFromJSON(json['chatIconAnimation']),
     };
 }
 
@@ -113,7 +134,10 @@ export function UserDTOToJSON(value?: UserDTO | null): any {
         'avatarSmall': value.avatarSmall,
         'name': value.name,
         'connections': ((value.connections as Array<any>).map(UserConnectionDtoToJSON)),
-        'hat': UploadedImageDtoToJSON(value.hat),
+        'hat': ProfileDecorationDtoToJSON(value.hat),
+        'icon': ProfileDecorationDtoToJSON(value.icon),
+        'title': ProfileDecorationDtoToJSON(value.title),
+        'chatIconAnimation': ProfileDecorationDtoToJSON(value.chatIconAnimation),
     };
 }
 

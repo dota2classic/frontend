@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import c from "./GenericTooltip.module.scss";
 import cx from "clsx";
+import useOutsideClick from "@/util/useOutsideClick";
 
 interface Position {
   left?: number;
@@ -50,12 +51,13 @@ const calculateModalPosition = (
 interface IGenericTooltipProps {
   onClose: () => void;
   anchor: HTMLElement;
+  friends?: React.RefObject<HTMLElement | null>[];
   interactable?: boolean;
 }
 
 export const GenericTooltip: React.FC<
   PropsWithChildren<IGenericTooltipProps>
-> = ({ children, anchor, interactable }) => {
+> = ({ children, anchor, interactable, friends, onClose }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const repositionModal = useCallback(
@@ -71,6 +73,8 @@ export const GenericTooltip: React.FC<
     },
     [anchor],
   );
+
+  useOutsideClick(onClose, containerRef, friends);
 
   useEffect(() => {
     const r = containerRef.current;

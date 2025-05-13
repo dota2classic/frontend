@@ -7,23 +7,30 @@ import {
   Section,
 } from "@/components";
 import React from "react";
-import { PlayerSummaryDto, UserConnectionDtoConnectionEnum } from "@/api/back";
+import {
+  PlayerSummaryDto,
+  ProfileDecorationDto,
+  UserConnectionDtoConnectionEnum,
+} from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { FaTwitch } from "react-icons/fa";
 import c from "./PlayerPage.module.scss";
 import { getTwitchConnectUrl } from "@/util/getAuthUrl";
 import cx from "clsx";
-import { threadFont } from "@/const/fonts";
+import { NotoSans } from "@/const/notosans";
+import { EditProfileDecorations } from "@/containers";
 
 interface Props {
   summary: PlayerSummaryDto;
+  decorations: ProfileDecorationDto[];
   playerId: string;
 }
 
-export default function PlayerSettings({ summary }: Props) {
+export default function PlayerSettings({ summary, decorations }: Props) {
   const twitchConnection = summary.user.connections.find(
     (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
   );
+
   return (
     <>
       <EmbedProps
@@ -41,7 +48,7 @@ export default function PlayerSettings({ summary }: Props) {
           <FaTwitch className={c.twitch} /> Twitch
         </header>
 
-        <Panel className={cx(c.panel, threadFont.className)}>
+        <Panel className={cx(c.panel, NotoSans.className)}>
           <p>
             <b>
               Подключите свой Twitch-профиль к учетной записи и получите
@@ -91,6 +98,14 @@ export default function PlayerSettings({ summary }: Props) {
           </div>
         </Panel>
       </Section>
+
+      <Section>
+        <header className={c.heading}>
+          <FaTwitch className={c.twitch} /> Подписка dotaclassic plus
+        </header>
+
+        <EditProfileDecorations decorations={decorations} user={summary.user} />
+      </Section>
     </>
   );
 }
@@ -100,8 +115,13 @@ PlayerSettings.getInitialProps = async (
 ): Promise<Props> => {
   const playerId = ctx.query.id as string;
 
+  const [summary, decorations] = await Promise.combine([
+    getApi().playerApi.playerControllerPlayerSummary(playerId),
+    getApi().decoration.customizationControllerAll(),
+  ]);
   return {
-    summary: await getApi().playerApi.playerControllerPlayerSummary(playerId),
+    summary,
+    decorations,
     playerId,
   };
 };

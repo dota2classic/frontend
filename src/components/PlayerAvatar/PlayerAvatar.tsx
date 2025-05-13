@@ -41,7 +41,7 @@ export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
   ...props
 }: Props) {
   const [error, setError] = useState<unknown>(null);
-  const hat = user.hat?.url;
+  const hat = user.hat?.image.url;
 
   return (
     <picture className={c.avatar}>

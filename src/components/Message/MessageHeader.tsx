@@ -34,7 +34,7 @@ export const MessageHeader = observer(function MessageHeader({
 }: IMessageProps) {
   const { queue } = useStore();
   const [hoveredRole, setHoveredRole] = useState<
-    { role: Role; ref: HTMLElement } | undefined
+    { label: string; ref: HTMLElement } | undefined
   >(undefined);
 
   const thread = useContext(ThreadContext);
@@ -51,6 +51,8 @@ export const MessageHeader = observer(function MessageHeader({
     (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
   );
 
+  const chatIconOld = message.author.icon;
+
   const roles = (
     <>
       {hoveredRole &&
@@ -59,9 +61,7 @@ export const MessageHeader = observer(function MessageHeader({
             anchor={hoveredRole.ref}
             onClose={() => setHoveredRole(undefined)}
           >
-            <span className={c.roleTooltip}>
-              {formatRole(hoveredRole.role)}
-            </span>
+            <span className={c.roleTooltip}>{hoveredRole.label}</span>
           </GenericTooltip>,
           document.body,
         )}
@@ -69,7 +69,10 @@ export const MessageHeader = observer(function MessageHeader({
         <MdAdminPanelSettings
           className={"grey"}
           onMouseEnter={(e) =>
-            setHoveredRole({ ref: e.target as HTMLElement, role: Role.ADMIN })
+            setHoveredRole({
+              ref: e.target as HTMLElement,
+              label: formatRole(Role.ADMIN),
+            })
           }
           onMouseLeave={() => setHoveredRole(undefined)}
         />
@@ -87,14 +90,15 @@ export const MessageHeader = observer(function MessageHeader({
           </a>
         </Tooltipable>
       )}
-      {message.author.roles.includes(Role.OLD) && (
+      {message.author.roles.includes(Role.OLD) && chatIconOld && (
         <img
-          src="/aegis2.svg"
-          className={c.old}
+          src={chatIconOld.image.url}
+          className={cx(c.old, message.author.chatIconAnimation?.image.key)}
           onMouseEnter={(e) =>
             setHoveredRole({
               ref: e.target as HTMLElement,
-              role: Role.OLD,
+              label:
+                message.author.title?.title || "Подписчик dotaclassic plus",
             })
           }
           onMouseLeave={() => setHoveredRole(undefined)}

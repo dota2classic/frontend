@@ -12,3 +12,4 @@ export { JoinLobbyModal } from "./JoinLobbyModal/JoinLobbyModal";
 export { EditLobbyModal } from "./EditLobbyModal/EditLobbyModal";
 export { LobbyScreen } from "./LobbyScreen/LobbyScreen";
 export { LiveMatchPage } from "./LiveMatchPage/LiveMatchPage";
+export { EditProfileDecorations } from "./EditProfileDecorations/EditProfileDecorations";

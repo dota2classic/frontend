@@ -3,6 +3,7 @@ import {
   AdminFeedbackApi,
   AuthApi,
   BlogApi,
+  CustomizationApi,
   FeedbackApi,
   ForumApi,
   LiveApi,
@@ -134,6 +135,7 @@ export class AppApi {
   readonly storageApi = new StorageApi(this.apiConfig);
   readonly blog = new BlogApi(this.apiConfig);
   readonly record = new RecordApi(this.apiConfig);
+  readonly decoration = new CustomizationApi(this.apiConfig);
 }
 
 export const appApi = new AppApi();
