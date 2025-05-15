@@ -5,7 +5,6 @@ import { Layout, ReferralSniffer } from "@/components";
 import Cookies from "cookies";
 import "../util/promise";
 // import * as Fonts from 'next/font/google'
-import localFont from "next/font/local";
 import { SWRConfig } from "swr";
 import React, { createContext } from "react";
 import { getRootStore, HydrateRootData, RootStore } from "@/store";
@@ -17,13 +16,7 @@ import { ToastContainer } from "react-toastify";
 import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModalContainer";
 // Font files can be colocated inside of `pages`
 import "@/styles/editor.css";
-
-const myFont = localFont({
-  src: [
-    { path: "./Trajan Pro 3 Regular.otf", weight: "500" },
-    { path: "./TrajanPro3SemiBold.ttf", weight: "800" },
-  ],
-});
+import { TrajanPro } from "@/const/fonts";
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
@@ -110,7 +103,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
         </Head>
         <SWRConfig>
           {/*<PushNotificationManager />*/}
-          <Layout className={cx(myFont.className)}>
+          <Layout className={cx(TrajanPro.className)}>
             <Component {...pageProps} />
           </Layout>
         </SWRConfig>

@@ -15,6 +15,8 @@ import { getApi } from "@/api/hooks";
 import { SelectImageDecoration } from "@/containers/EditProfileDecorations/SelectImageDecoration";
 import { SelectTextDecoration } from "@/containers/EditProfileDecorations/SelectTextDecoration";
 
+// import { useRouter } from "next/router";
+
 interface IEditProfileDecorationsProps {
   user: UserDTO;
   decorations: ProfileDecorationDto[];
@@ -22,7 +24,8 @@ interface IEditProfileDecorationsProps {
 
 export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
   observer(({ user: _user, decorations }) => {
-    const { me, fetchMe } = useStore().auth;
+    const { me, fetchMe, isOld } = useStore().auth;
+    // const router = useRouter();
 
     const user = me?.user || _user;
 
@@ -44,6 +47,10 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
 
     const updateChatIcon = useCallback(
       async (type: UserProfileDecorationType, id?: number) => {
+        if (!isOld) {
+          // AppRouter.
+          console.error("TODO FIXME");
+        }
         await getApi().decoration.customizationControllerSelectDecoration({
           type,
           id,
@@ -81,6 +88,7 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
           <SelectImageDecoration
             decorations={icons}
             current={user.icon}
+            small
             onSelect={(it) =>
               updateChatIcon(UserProfileDecorationType.CHATICON, it)
             }

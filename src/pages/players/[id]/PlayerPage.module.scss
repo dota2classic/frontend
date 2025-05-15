@@ -97,3 +97,13 @@
   display: flex;
   gap: 8px;
 }
+
+.inlineButton {
+  display: inline-flex;
+  width: fit-content;
+}
+
+
+.section {
+  gap: 16px;
+}

@@ -2,12 +2,16 @@ import { NextPageContext } from "next";
 import {
   Button,
   EmbedProps,
+  InvitePlayerModalRaw,
   Panel,
   PlayerSummary,
   Section,
+  Table,
+  UserPreview,
 } from "@/components";
-import React from "react";
+import React, { useState } from "react";
 import {
+  DodgeListEntryDto,
   PlayerSummaryDto,
   ProfileDecorationDto,
   UserConnectionDtoConnectionEnum,
@@ -19,6 +23,10 @@ import { getTwitchConnectUrl } from "@/util/getAuthUrl";
 import cx from "clsx";
 import { NotoSans } from "@/const/notosans";
 import { EditProfileDecorations } from "@/containers";
+import { formatDate } from "@/util/dates";
+import { createPortal } from "react-dom";
+import { SiAdblock } from "react-icons/si";
+import { GiAngelWings } from "react-icons/gi";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -27,12 +35,34 @@ interface Props {
 }
 
 export default function PlayerSettings({ summary, decorations }: Props) {
+  const { data, mutate } = getApi().playerApi.usePlayerControllerGetDodgeList();
+  const [dodgeListOpen, setDodgeListOpen] = useState(false);
+
+  const dodgeList: DodgeListEntryDto[] = data || [];
+
   const twitchConnection = summary.user.connections.find(
     (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
   );
 
+  const close = () => setDodgeListOpen(false);
+
   return (
     <>
+      {dodgeListOpen &&
+        createPortal(
+          <InvitePlayerModalRaw
+            close={close}
+            onSelect={(user) => {
+              getApi()
+                .playerApi.playerControllerDodgePlayer({
+                  dodgeSteamId: user.steamId,
+                })
+                .then(mutate);
+              close();
+            }}
+          />,
+          document.body,
+        )}
       <EmbedProps
         description={"Настройки своего профиля"}
         title={"Настройки"}
@@ -43,7 +73,66 @@ export default function PlayerSettings({ summary, decorations }: Props) {
         rank={summary.seasonStats.rank}
         mmr={summary.seasonStats.mmr}
       />
-      <Section>
+
+      <Section className={cx(c.section)}>
+        <header className={c.heading}>
+          <GiAngelWings className={"gold"} /> Оформление профиля
+        </header>
+
+        <EditProfileDecorations decorations={decorations} user={summary.user} />
+      </Section>
+      <Section className={cx(c.section)}>
+        <header className={c.heading}>
+          <SiAdblock className={"red"} /> Избегаемые игроки
+        </header>
+        <Panel className={cx(c.panel, NotoSans.className)}>
+          <p>
+            Обладатели подписки dotaclassic plus могут добавить до одного игрока
+            в список избегаемых игроков. Это позволит никогда не попадаться с
+            неприятными игрокам за одну команду.
+          </p>
+          <Table>
+            <thead>
+              <tr>
+                <th>Игрок</th>
+                <th>Дата доджа</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dodgeList.map((it) => (
+                <tr key={it.user.steamId}>
+                  <td>
+                    <UserPreview user={it.user} />
+                  </td>
+                  <td>{formatDate(new Date(it.createdAt))}</td>
+                  <td>
+                    <Button
+                      onClick={() =>
+                        getApi()
+                          .playerApi.playerControllerUnDodgePlayer({
+                            dodgeSteamId: it.user.steamId,
+                          })
+                          .then(mutate)
+                      }
+                    >
+                      Убрать
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <Button
+            className={c.inlineButton}
+            onClick={() => setDodgeListOpen(true)}
+          >
+            Избегать игрока
+          </Button>
+        </Panel>
+      </Section>
+
+      <Section className={cx(c.section)}>
         <header className={c.heading}>
           <FaTwitch className={c.twitch} /> Twitch
         </header>
@@ -97,14 +186,6 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             )}
           </div>
         </Panel>
-      </Section>
-
-      <Section>
-        <header className={c.heading}>
-          <FaTwitch className={c.twitch} /> Подписка dotaclassic plus
-        </header>
-
-        <EditProfileDecorations decorations={decorations} user={summary.user} />
       </Section>
     </>
   );

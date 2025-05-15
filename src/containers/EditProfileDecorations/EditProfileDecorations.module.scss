@@ -58,6 +58,14 @@
 
   height: 400px;
 
+  &__small {
+    grid-template-columns: repeat(10, 1fr);
+    & img {
+      width: 40px !important;
+      height: auto;
+    }
+  }
+
   & img {
     width: 80px;
     height: auto;

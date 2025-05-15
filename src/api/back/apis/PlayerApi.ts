@@ -21,6 +21,12 @@ import {
   AchievementDto,
   AchievementDtoFromJSON,
   AchievementDtoToJSON,
+  DodgeListEntryDto,
+  DodgeListEntryDtoFromJSON,
+  DodgeListEntryDtoToJSON,
+  DodgePlayerDto,
+  DodgePlayerDtoFromJSON,
+  DodgePlayerDtoToJSON,
   HeroStatsDto,
   HeroStatsDtoFromJSON,
   HeroStatsDtoToJSON,
@@ -51,6 +57,10 @@ export interface PlayerControllerAchievementsRequest {
   id: string;
 }
 
+export interface PlayerControllerDodgePlayerRequest {
+  dodgePlayerDto: DodgePlayerDto;
+}
+
 export interface PlayerControllerHeroSummaryRequest {
   id: string;
 }
@@ -74,6 +84,10 @@ export interface PlayerControllerTeammatesRequest {
   id: string;
   page: number;
   perPage?: number;
+}
+
+export interface PlayerControllerUnDodgePlayerRequest {
+  dodgePlayerDto: DodgePlayerDto;
 }
 
 /**
@@ -186,6 +200,114 @@ export class PlayerApi extends runtime.BaseAPI {
 
         const context = this.playerControllerConnectionsContext();
         return useSWR(context, valid ? () => this.playerControllerConnections() : null, config)
+    }
+
+    /**
+     */
+    private async playerControllerDodgePlayerRaw(requestParameters: PlayerControllerDodgePlayerRequest): Promise<runtime.ApiResponse<Array<DodgeListEntryDto>>> {
+        this.playerControllerDodgePlayerValidation(requestParameters);
+        const context = this.playerControllerDodgePlayerContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(DodgeListEntryDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private playerControllerDodgePlayerValidation(requestParameters: PlayerControllerDodgePlayerRequest) {
+        if (requestParameters.dodgePlayerDto === null || requestParameters.dodgePlayerDto === undefined) {
+            throw new runtime.RequiredError("dodgePlayerDto","Required parameter requestParameters.dodgePlayerDto was null or undefined when calling playerControllerDodgePlayer.");
+        }
+    }
+
+    /**
+     */
+    playerControllerDodgePlayerContext(requestParameters: PlayerControllerDodgePlayerRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/dodge_list`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DodgePlayerDtoToJSON(requestParameters.dodgePlayerDto),
+        };
+    }
+
+    /**
+     */
+    playerControllerDodgePlayer = async (dodgePlayerDto: DodgePlayerDto): Promise<Array<DodgeListEntryDto>> => {
+        const response = await this.playerControllerDodgePlayerRaw({ dodgePlayerDto: dodgePlayerDto });
+        return await response.value();
+    }
+
+
+    /**
+     */
+    private async playerControllerGetDodgeListRaw(): Promise<runtime.ApiResponse<Array<DodgeListEntryDto>>> {
+        this.playerControllerGetDodgeListValidation();
+        const context = this.playerControllerGetDodgeListContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(DodgeListEntryDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private playerControllerGetDodgeListValidation() {
+    }
+
+    /**
+     */
+    playerControllerGetDodgeListContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/dodge_list`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerGetDodgeList = async (): Promise<Array<DodgeListEntryDto>> => {
+        const response = await this.playerControllerGetDodgeListRaw();
+        return await response.value();
+    }
+
+    usePlayerControllerGetDodgeList(config?: SWRConfiguration<Array<DodgeListEntryDto>, Error>) {
+        let valid = true
+
+        const context = this.playerControllerGetDodgeListContext();
+        return useSWR(context, valid ? () => this.playerControllerGetDodgeList() : null, config)
     }
 
     /**
@@ -601,6 +723,70 @@ export class PlayerApi extends runtime.BaseAPI {
 
         const context = this.playerControllerTeammatesContext({ id: id!, page: page!, perPage: perPage! });
         return useSWR(context, valid ? () => this.playerControllerTeammates(id!, page!, perPage!) : null, config)
+    }
+
+    /**
+     */
+    private async playerControllerUnDodgePlayerRaw(requestParameters: PlayerControllerUnDodgePlayerRequest): Promise<runtime.ApiResponse<Array<DodgeListEntryDto>>> {
+        this.playerControllerUnDodgePlayerValidation(requestParameters);
+        const context = this.playerControllerUnDodgePlayerContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(DodgeListEntryDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private playerControllerUnDodgePlayerValidation(requestParameters: PlayerControllerUnDodgePlayerRequest) {
+        if (requestParameters.dodgePlayerDto === null || requestParameters.dodgePlayerDto === undefined) {
+            throw new runtime.RequiredError("dodgePlayerDto","Required parameter requestParameters.dodgePlayerDto was null or undefined when calling playerControllerUnDodgePlayer.");
+        }
+    }
+
+    /**
+     */
+    playerControllerUnDodgePlayerContext(requestParameters: PlayerControllerUnDodgePlayerRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/dodge_list`,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DodgePlayerDtoToJSON(requestParameters.dodgePlayerDto),
+        };
+    }
+
+    /**
+     */
+    playerControllerUnDodgePlayer = async (dodgePlayerDto: DodgePlayerDto): Promise<Array<DodgeListEntryDto>> => {
+        const response = await this.playerControllerUnDodgePlayerRaw({ dodgePlayerDto: dodgePlayerDto });
+        return await response.value();
+    }
+
+    usePlayerControllerUnDodgePlayer(dodgePlayerDto: DodgePlayerDto, config?: SWRConfiguration<Array<DodgeListEntryDto>, Error>) {
+        let valid = true
+
+        if (dodgePlayerDto === null || dodgePlayerDto === undefined || Number.isNaN(dodgePlayerDto)) {
+            valid = false
+        }
+
+        const context = this.playerControllerUnDodgePlayerContext({ dodgePlayerDto: dodgePlayerDto! });
+        return useSWR(context, valid ? () => this.playerControllerUnDodgePlayer(dodgePlayerDto!) : null, config)
     }
 
 }

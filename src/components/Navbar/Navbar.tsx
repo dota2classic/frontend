@@ -15,7 +15,7 @@ import { LoginProfileNavbarItem } from "@/components/Navbar/LoginProfileNavbarIt
 import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
 import { AdminNavbarItem } from "@/components/Navbar/AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
-import { FaList, FaTwitch } from "react-icons/fa";
+import { FaList } from "react-icons/fa";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth, live } = useStore();
@@ -37,7 +37,9 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
     },
   );
 
-  const hasLiveMatches = live.liveMatches.length > 0 || live.streams.length > 0;
+  const hasLiveMatches = live.liveMatches.length > 0;
+  const hasStreams = live.streams.length > 0;
+
   const newBlogRecently =
     latestBlog?.data?.length &&
     Date.now() - new Date(latestBlog.data[0].publishDate).getTime() <
@@ -104,13 +106,15 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 className={c.liveMatch}
                 action={AppRouter.matches.live.link}
                 tip={live.liveMatches.length}
-                options={[
-                  {
-                    label: "Стримы",
-                    action: AppRouter.streams.link,
-                    Icon: FaTwitch,
-                  },
-                ]}
+              >
+                Live
+              </NavbarItem>
+            )}
+            {hasStreams && (
+              <NavbarItem
+                className={c.liveMatch}
+                action={AppRouter.streams.link}
+                tip={live.streams.length}
               >
                 Live
               </NavbarItem>
