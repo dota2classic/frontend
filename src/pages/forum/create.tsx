@@ -9,20 +9,31 @@ import React, { useCallback, useState } from "react";
 import c from "./Forum.module.scss";
 import { getApi } from "@/api/hooks";
 import { useRouter } from "next/router";
+import { ThreadType } from "@/api/mapped-models";
+import { NextPageContext } from "next";
 
-export default function CreateThreadPage() {
+interface Props {
+  threadType: ThreadType;
+}
+export default function CreateThreadPage({ threadType }: Props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const router = useRouter();
 
-  const createThread = useCallback(() => {
-    getApi()
-      .forumApi.forumControllerCreateThread({
-        content,
-        title,
-      })
-      .then((res) => router.push(`/forum/[id]`, `/forum/${res.externalId}`));
-  }, [content, title, router]);
+  const createThread = useCallback(async () => {
+    const res = await getApi().forumApi.forumControllerCreateThread({
+      content,
+      title,
+      threadType,
+    });
+
+    const forTicket = res.threadType === ThreadType.TICKET ? "/ticket" : "";
+
+    await router.push(
+      `/forum${forTicket}/[id]`,
+      `/forum${forTicket}/${res.externalId}`,
+    );
+  }, [content, title, threadType, router]);
 
   return (
     <Panel className={c.createThread}>
@@ -56,3 +67,13 @@ export default function CreateThreadPage() {
     </Panel>
   );
 }
+CreateThreadPage.getInitialProps = async (
+  ctx: NextPageContext,
+): Promise<Props> => {
+  const threadType = (ctx.query.thread_type as ThreadType) || ThreadType.FORUM;
+
+  console.log(threadType);
+  return {
+    threadType,
+  };
+};

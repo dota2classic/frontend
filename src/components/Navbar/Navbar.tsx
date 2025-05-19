@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { NavbarItem } from "..";
+import { Logo, NavbarItem } from "..";
 
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";
@@ -9,13 +9,14 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { IoMenu } from "react-icons/io5";
 import cx from "clsx";
-import { SiDota2 } from "react-icons/si";
 import { useRouterChanging } from "@/util";
 import { LoginProfileNavbarItem } from "@/components/Navbar/LoginProfileNavbarItem";
 import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
 import { AdminNavbarItem } from "@/components/Navbar/AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
-import { FaList } from "react-icons/fa";
+import { MdGavel } from "react-icons/md";
+import { FaCoins, FaHandshake } from "react-icons/fa";
+import { IoMdContacts, IoMdHelp } from "react-icons/io";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth, live } = useStore();
@@ -53,8 +54,9 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             className={cx(c.root, "onboarding-logo")}
             action={AppRouter.index.link}
           >
-            <SiDota2 />
-            DOTA2CLASSIC
+            {/*<SiDota2 />*/}
+            <Logo />
+            <span>DOTA2CLASSIC</span>
           </NavbarItem>
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
             {isAuthorized && (
@@ -73,17 +75,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
               </NavbarItem>
             )}
 
-            <NavbarItem
-              className={c.play}
-              action={AppRouter.download.link}
-              options={[
-                {
-                  label: "Правила",
-                  action: AppRouter.rules.link,
-                  Icon: FaList,
-                },
-              ]}
-            >
+            <NavbarItem className={c.play} action={AppRouter.download.link}>
               Гайд
             </NavbarItem>
 
@@ -97,9 +89,44 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             <NavbarItem
               className={c.play}
               action={AppRouter.forum.index().link}
+              options={[
+                {
+                  Icon: IoMdHelp,
+                  label: "Тикеты",
+                  action: AppRouter.forum.ticket.index.link,
+                },
+              ]}
             >
               Форум
             </NavbarItem>
+            <NavbarItem
+              className={c.play}
+              action={AppRouter.info.link}
+              options={[
+                {
+                  Icon: MdGavel,
+                  label: "Правила",
+                  action: AppRouter.rules.link,
+                },
+                {
+                  Icon: FaHandshake,
+                  label: "Оферта",
+                  action: AppRouter.offer.link,
+                },
+                {
+                  Icon: IoMdContacts,
+                  label: "Контакты",
+                  action: AppRouter.contact.link,
+                },
+              ]}
+            >
+              О проекте
+            </NavbarItem>
+            <NavbarItem action={AppRouter.store.index.link}>
+              <FaCoins color={"#f8d300"} />
+              Магазин
+            </NavbarItem>
+
             {/*<NavbarItem action={AppRouter.rules.link}>Правила</NavbarItem>*/}
             {hasLiveMatches && (
               <NavbarItem

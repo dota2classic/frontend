@@ -27,6 +27,12 @@ export default function TicketsPage({ threads, page }: Props) {
       />
       <div className={c.buttons}>
         <PageLink
+          link={AppRouter.forum.createThread(ThreadType.TICKET).link}
+          className={c.createThread}
+        >
+          <Button>Новый тикет</Button>
+        </PageLink>
+        <PageLink
           link={AppRouter.forum.index().link}
           className={c.createThread}
         >

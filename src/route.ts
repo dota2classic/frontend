@@ -60,8 +60,11 @@ export const AppRouter = {
   index: spage("/"),
   donate: spage("/donate"),
   download: spage("/download"),
-  rules: spage("/rules"),
-  fullRules: spage("/rules/full"),
+  rules: spage("/static/rules"),
+  offer: spage("/static/offer"),
+  info: spage("/static/info"),
+  contact: spage("/static/contact"),
+  fullRules: spage("/static/rules/full"),
   stats: spage("/stats/leaderboard"),
   wiki: {
     index: spage("/wiki"),
@@ -83,6 +86,10 @@ export const AppRouter = {
   leaderboard: spage("/stats/leaderboard"),
   live: spage("/live/matches"),
   streams: spage("/live/streams"),
+
+  store: {
+    index: spage("/store"),
+  },
 
   meta: {
     index: spage("/meta"),
@@ -203,7 +210,11 @@ export const AppRouter = {
       const q = queryParameters({ page: _page });
       return spage(`/forum${q}`, false);
     },
-    createThread: spage("/forum/create"),
+    // createThread: spage("/forum/create"),
+    createThread(threadType: ThreadType) {
+      const q = queryParameters({ thread_type: threadType });
+      return spage(`/forum/create${q}`);
+    },
     thread(id: string, threadType: ThreadType, _page?: number) {
       const q = queryParameters({ page: _page });
       switch (threadType) {

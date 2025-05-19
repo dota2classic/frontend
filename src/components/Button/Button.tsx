@@ -35,6 +35,7 @@ export const Button: React.FC<
         c.button,
         mega && c.megaButton,
         small && c.smaller,
+        c.experiment,
         className,
       )}
       {...props}

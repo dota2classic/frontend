@@ -1,10 +1,10 @@
+// https://discord.gg/36D4WdNquT
+import cx from "clsx";
+import c from "@/components/TelegramInvite/TelegramInvite.module.scss";
+import { FaDiscord } from "react-icons/fa";
 import React from "react";
 
-import c from "./TelegramInvite.module.scss";
-import { FaTelegram } from "react-icons/fa";
-import cx from "clsx";
-
-export const TelegramInvite = ({
+export const DiscordInvite = ({
   className,
   noText,
 }: {
@@ -17,7 +17,7 @@ export const TelegramInvite = ({
       href="https://t.me/+GMQcIPRZnVAzY2Vi"
       className={cx(c.telegram, "link", className)}
     >
-      <FaTelegram /> {!noText && "Telegram"}
+      <FaDiscord /> {!noText && "Discord"}
     </a>
   );
 };

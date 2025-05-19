@@ -13,6 +13,7 @@ import cx from "clsx";
 import { useRouter } from "next/router";
 import { ThemeContext } from "@/util/theme";
 import { AdBlockType } from "@/components/AdBlock/AdBlockType";
+import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
 
 interface LayoutProps {
   className?: string;
@@ -48,9 +49,14 @@ export const Layout = ({
               {children}
             </main>
             <footer className={c.footer}>
-              <div> © 2020 - 2025 dotaclassic.ru</div>
-              <div>Dota 2 is a registered trademark of Valve Corporation.</div>
-              <TelegramInvite />
+              <div className={c.footer__bottom}>
+                <div> © 2020 - 2025 dotaclassic.ru</div>
+                <div>
+                  Dota 2 is a registered trademark of Valve Corporation.
+                </div>
+                <TelegramInvite noText />
+                <DiscordInvite noText />
+              </div>
             </footer>
           </div>
           {!isLanding && <AdBlock bannerId={AdBlockType.BANNER_RIGHT} />}

@@ -13,12 +13,25 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    ThreadType,
+    ThreadTypeFromJSON,
+    ThreadTypeFromJSONTyped,
+    ThreadTypeToJSON,
+} from './';
+
 /**
  * 
  * @export
  * @interface CreateThreadDTO
  */
 export interface CreateThreadDTO {
+    /**
+     * 
+     * @type {ThreadType}
+     * @memberof CreateThreadDTO
+     */
+    threadType: ThreadType;
     /**
      * 
      * @type {string}
@@ -43,6 +56,7 @@ export function CreateThreadDTOFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
+        'threadType': ThreadTypeFromJSON(json['threadType']),
         'title': json['title'],
         'content': json['content'],
     };
@@ -57,6 +71,7 @@ export function CreateThreadDTOToJSON(value?: CreateThreadDTO | null): any {
     }
     return {
         
+        'threadType': ThreadTypeToJSON(value.threadType),
         'title': value.title,
         'content': value.content,
     };

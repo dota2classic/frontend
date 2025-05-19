@@ -52,6 +52,10 @@ const getLocalFromUtcHours = (hours: number) => {
 const formatQueueTime = (duration: number) => {
   const minutes = Math.ceil(duration / 60);
 
+  if (minutes > 5) {
+    return `±${25} ${pluralize(25, "минута", "минуты", "минут")}`;
+  }
+
   return `±${minutes} ${pluralize(minutes, "минута", "минуты", "минут")}`;
 };
 

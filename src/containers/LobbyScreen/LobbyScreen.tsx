@@ -15,7 +15,6 @@ import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import {
   Button,
-  CopySomething,
   IconButton,
   Panel,
   PlayerAvatar,
@@ -27,6 +26,7 @@ import { observer } from "mobx-react-lite";
 import { formatDotaMap, formatDotaMode } from "@/util/gamemode";
 import { IoMdExit } from "react-icons/io";
 import { makeSimpleToast } from "@/components/Toast/toasts";
+import { useAsyncButton } from "@/util/use-async-button";
 
 interface ILobbyScreenProps {
   lobby: LobbyDto;
@@ -45,6 +45,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
 
     const { auth } = useStore();
     const { data, lobbyId } = evt || { data: lobby, lobbyId: lobby.id };
+    const mySteamId = auth.parsedToken?.sub;
 
     const takeSlot = useCallback(
       (
@@ -83,6 +84,11 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
       }
     }, [data]);
 
+    const [$shuffleLobby, shuffleLobby] = useAsyncButton(async () => {
+      if (!data || data.owner?.steamId !== mySteamId) return;
+      getApi().lobby.lobbyControllerShuffleLobby(data.id).catch();
+    }, [data, mySteamId]);
+
     // AMGOUS
 
     if (!auth.isAuthorized) {
@@ -93,9 +99,6 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
       return <h2>Лобби не существует</h2>;
     }
 
-    const host = "123";
-
-    const mySteamId = auth.parsedToken?.sub;
     const isOwner = data.owner?.steamId === mySteamId;
 
     const onUpdatedLobby = () => Promise.resolve();
@@ -131,16 +134,16 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
               <dd>{data.owner.name}</dd>
               <dt>Хост лобби</dt>
             </dl>
-            <dl>
-              <dd>
-                <CopySomething
-                  className={c.padded}
-                  something={`${host}/lobby?join=${data.id}`}
-                  placeholder={"Нажми для копирования"}
-                />
-              </dd>
-              <dt>Ссылка на приглашение</dt>
-            </dl>
+            {/*<dl>*/}
+            {/*  <dd>*/}
+            {/*    <CopySomething*/}
+            {/*      className={c.padded}*/}
+            {/*      something={`${host}/lobby?join=${data.id}`}*/}
+            {/*      placeholder={"Нажми для копирования"}*/}
+            {/*    />*/}
+            {/*  </dd>*/}
+            {/*  <dt>Ссылка на приглашение</dt>*/}
+            {/*</dl>*/}
           </div>
         </Panel>
 
@@ -164,6 +167,9 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             slots={dire}
           />
           <div className={cx(c.grid4, c.settings)}>
+            <Button disabled={!isOwner || $shuffleLobby} onClick={shuffleLobby}>
+              Перемешать игроков
+            </Button>
             <Button disabled={!isOwner} onClick={() => setIsEditing(true)}>
               Настройки
             </Button>

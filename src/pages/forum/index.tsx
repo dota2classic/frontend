@@ -44,7 +44,7 @@ export default function ForumIndexPage({ threads, page }: Props) {
 
       <div className={c.buttons}>
         <PageLink
-          link={AppRouter.forum.createThread.link}
+          link={AppRouter.forum.createThread(ThreadType.FORUM).link}
           className={c.createThread}
         >
           <Button>Новая тема</Button>

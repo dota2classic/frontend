@@ -69,6 +69,10 @@ export interface LobbyControllerLobbyUpdatesRequest {
   id: string;
 }
 
+export interface LobbyControllerShuffleLobbyRequest {
+  id: string;
+}
+
 export interface LobbyControllerStartLobbyRequest {
   id: string;
 }
@@ -579,6 +583,56 @@ export class LobbyApi extends runtime.BaseAPI {
         const context = this.lobbyControllerLobbyUpdatesContext({ id: id! });
         return useSWR(context, valid ? () => this.lobbyControllerLobbyUpdates(id!) : null, config)
     }
+
+    /**
+     */
+    private async lobbyControllerShuffleLobbyRaw(requestParameters: LobbyControllerShuffleLobbyRequest): Promise<runtime.ApiResponse<void>> {
+        this.lobbyControllerShuffleLobbyValidation(requestParameters);
+        const context = this.lobbyControllerShuffleLobbyContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private lobbyControllerShuffleLobbyValidation(requestParameters: LobbyControllerShuffleLobbyRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling lobbyControllerShuffleLobby.");
+        }
+    }
+
+    /**
+     */
+    lobbyControllerShuffleLobbyContext(requestParameters: LobbyControllerShuffleLobbyRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/lobby/{id}/shuffle`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    lobbyControllerShuffleLobby = async (id: string): Promise<void> => {
+        await this.lobbyControllerShuffleLobbyRaw({ id: id });
+    }
+
 
     /**
      */

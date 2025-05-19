@@ -18,10 +18,20 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+  CreatePaymentDto,
+  CreatePaymentDtoFromJSON,
+  CreatePaymentDtoToJSON,
   StartPaymentDto,
   StartPaymentDtoFromJSON,
   StartPaymentDtoToJSON,
+  SubscriptionProductDto,
+  SubscriptionProductDtoFromJSON,
+  SubscriptionProductDtoToJSON,
 } from "../models";
+
+export interface UserPaymentsControllerCreatePaymentRequest {
+  createPaymentDto: CreatePaymentDto;
+}
 
 /**
  * 
@@ -30,9 +40,9 @@ export class UserPaymentApi extends runtime.BaseAPI {
 
     /**
      */
-    private async userPaymentsControllerCreatePaymentRaw(): Promise<runtime.ApiResponse<StartPaymentDto>> {
-        this.userPaymentsControllerCreatePaymentValidation();
-        const context = this.userPaymentsControllerCreatePaymentContext();
+    private async userPaymentsControllerCreatePaymentRaw(requestParameters: UserPaymentsControllerCreatePaymentRequest): Promise<runtime.ApiResponse<StartPaymentDto>> {
+        this.userPaymentsControllerCreatePaymentValidation(requestParameters);
+        const context = this.userPaymentsControllerCreatePaymentContext(requestParameters);
         const response = await this.request(context);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => StartPaymentDtoFromJSON(jsonValue));
@@ -42,15 +52,20 @@ export class UserPaymentApi extends runtime.BaseAPI {
 
     /**
      */
-    private userPaymentsControllerCreatePaymentValidation() {
+    private userPaymentsControllerCreatePaymentValidation(requestParameters: UserPaymentsControllerCreatePaymentRequest) {
+        if (requestParameters.createPaymentDto === null || requestParameters.createPaymentDto === undefined) {
+            throw new runtime.RequiredError("createPaymentDto","Required parameter requestParameters.createPaymentDto was null or undefined when calling userPaymentsControllerCreatePayment.");
+        }
     }
 
     /**
      */
-    userPaymentsControllerCreatePaymentContext(): runtime.RequestOpts {
+    userPaymentsControllerCreatePaymentContext(requestParameters: UserPaymentsControllerCreatePaymentRequest): runtime.RequestOpts {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -65,15 +80,62 @@ export class UserPaymentApi extends runtime.BaseAPI {
             method: "POST",
             headers: headerParameters,
             query: queryParameters,
+            body: CreatePaymentDtoToJSON(requestParameters.createPaymentDto),
         };
     }
 
     /**
      */
-    userPaymentsControllerCreatePayment = async (): Promise<StartPaymentDto> => {
-        const response = await this.userPaymentsControllerCreatePaymentRaw();
+    userPaymentsControllerCreatePayment = async (createPaymentDto: CreatePaymentDto): Promise<StartPaymentDto> => {
+        const response = await this.userPaymentsControllerCreatePaymentRaw({ createPaymentDto: createPaymentDto });
         return await response.value();
     }
 
+
+    /**
+     */
+    private async userPaymentsControllerGetProductsRaw(): Promise<runtime.ApiResponse<Array<SubscriptionProductDto>>> {
+        this.userPaymentsControllerGetProductsValidation();
+        const context = this.userPaymentsControllerGetProductsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SubscriptionProductDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private userPaymentsControllerGetProductsValidation() {
+    }
+
+    /**
+     */
+    userPaymentsControllerGetProductsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/user_payment/products`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    userPaymentsControllerGetProducts = async (): Promise<Array<SubscriptionProductDto>> => {
+        const response = await this.userPaymentsControllerGetProductsRaw();
+        return await response.value();
+    }
+
+    useUserPaymentsControllerGetProducts(config?: SWRConfiguration<Array<SubscriptionProductDto>, Error>) {
+        let valid = true
+
+        const context = this.userPaymentsControllerGetProductsContext();
+        return useSWR(context, valid ? () => this.userPaymentsControllerGetProducts() : null, config)
+    }
 
 }

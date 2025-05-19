@@ -1,0 +1,102 @@
+@import "../../common.scss";
+
+.modal {
+}
+
+.finalPrice {
+}
+
+.plans {
+  display: flex;
+  flex-direction: column;
+}
+
+.plan {
+  //padding: 12px 2px;
+  //background-color: $panelBg;
+
+  &.active {
+  }
+
+  & header {
+  }
+
+  & .price {
+    color: $gold;
+  }
+}
+
+.subscriptionDurations {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.subItem {
+  position: relative;
+  grid-column: span 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  gap: 6px;
+  border-radius: 4px;
+  border: 1px solid $panelBg;
+  cursor: pointer;
+  transition: 0.3s ease;
+  min-width: 200px;
+
+  &:hover {
+    border: 1px solid $gold;
+  }
+  &__selected {
+    border: 1px solid $gold;
+  }
+
+  & header {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}
+
+.price {
+  color: $gold;
+}
+
+.discount {
+}
+
+.selectionIndicator {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 2rem;
+  color: $primaryTextDark2;
+
+  &__selected {
+    color: $blueHighlight;
+  }
+}
+
+.checkoutInfo {
+  padding: 0px 6px;
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0px;
+    & svg {
+      margin-right: 6px;
+      margin-bottom: -2px;
+    }
+  }
+}
+
+.delimiter {
+  border-bottom: 1px solid $primaryTextDark;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.payButton {
+  margin-top: 2rem;
+}
