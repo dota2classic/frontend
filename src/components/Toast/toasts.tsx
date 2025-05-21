@@ -54,6 +54,9 @@ export const createNotificationToast = (notification: NotificationDto) => {
   const isFeedbackTicket =
     notification.entityType === NotificationDtoEntityTypeEnum.FEEDBACKTICKET;
 
+  const isPlayerFeedback =
+    notification.notificationType === NotificationType.PLAYERFEEDBACK;
+
   const isReportBan =
     notification.notificationType === NotificationType.PLAYERREPORTBAN;
 
@@ -103,6 +106,18 @@ export const createNotificationToast = (notification: NotificationDto) => {
         </>
       );
     }
+  } else if (isPlayerFeedback) {
+    title = `Тебе оставили отзыв!`;
+    content = (
+      <>
+        <PageLink
+          link={AppRouter.matches.match(Number(notification.entityId)).link}
+          onClick={acknowledge}
+        >
+          Оставить отзывы другим игрокам
+        </PageLink>
+      </>
+    );
   } else if (isReportBan) {
     title = `Тебе временно запрещен поиск`;
     content = (
