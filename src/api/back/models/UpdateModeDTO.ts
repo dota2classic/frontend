@@ -58,6 +58,18 @@ export interface UpdateModeDTO {
      * @memberof UpdateModeDTO
      */
     enabled: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateModeDTO
+     */
+    enableCheats: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateModeDTO
+     */
+    fillBots: boolean;
 }
 
 export function UpdateModeDTOFromJSON(json: any): UpdateModeDTO {
@@ -74,6 +86,8 @@ export function UpdateModeDTOFromJSONTyped(json: any, ignoreDiscriminator: boole
         'dotaGameMode': DotaGameModeFromJSON(json['dotaGameMode']),
         'dotaMap': DotaMapFromJSON(json['dotaMap']),
         'enabled': json['enabled'],
+        'enableCheats': json['enableCheats'],
+        'fillBots': json['fillBots'],
     };
 }
 
@@ -90,6 +104,8 @@ export function UpdateModeDTOToJSON(value?: UpdateModeDTO | null): any {
         'dotaGameMode': DotaGameModeToJSON(value.dotaGameMode),
         'dotaMap': DotaMapToJSON(value.dotaMap),
         'enabled': value.enabled,
+        'enableCheats': value.enableCheats,
+        'fillBots': value.fillBots,
     };
 }
 

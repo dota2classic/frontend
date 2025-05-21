@@ -42,9 +42,10 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
   const hasStreams = live.streams.length > 0;
 
   const newBlogRecently =
-    latestBlog?.data?.length &&
-    Date.now() - new Date(latestBlog.data[0].publishDate).getTime() <
-      1000 * 60 * 60 * 2;
+    latestBlog && latestBlog.data.length > 0
+      ? Date.now() - new Date(latestBlog.data[0].publishDate).getTime() <
+        1000 * 60 * 60 * 2
+      : false;
 
   return (
     <div className={cx(c.navbar, p.className)}>

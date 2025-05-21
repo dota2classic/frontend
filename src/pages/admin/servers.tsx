@@ -165,6 +165,8 @@ export default function AdminServersPage({
       gameMode: existing?.gameMode || DotaGameMode.ALLPICK,
       dotaMap: existing?.dotaMap || DotaMap.DOTA,
       enabled: existing?.enabled || false,
+      enableCheats: existing?.enableCheats || false,
+      fillBots: existing?.fillBots || false,
     };
   });
 
@@ -180,6 +182,8 @@ export default function AdminServersPage({
       gamemode: DotaGameMode,
       dotaMap: DotaMap,
       enabled: boolean,
+      enableCheats: boolean,
+      fillBots: boolean,
     ) => {
       appApi.adminApi
         .adminUserControllerUpdateGameMode({
@@ -187,6 +191,8 @@ export default function AdminServersPage({
           dotaGameMode: gamemode,
           dotaMap: dotaMap,
           enabled: enabled,
+          enableCheats,
+          fillBots,
         })
         .then(mutate);
     },
@@ -204,6 +210,8 @@ export default function AdminServersPage({
               <th style={{ width: 200 }}>Игровой режим</th>
               <th>Карта</th>
               <th>Активен</th>
+              <th>Читы</th>
+              <th>Боты</th>
             </tr>
           </thead>
           <tbody>
@@ -221,6 +229,8 @@ export default function AdminServersPage({
                         value.value,
                         t.dotaMap,
                         t.enabled,
+                        t.enableCheats,
+                        t.fillBots,
                       )
                     }
                   />
@@ -236,6 +246,8 @@ export default function AdminServersPage({
                         t.gameMode,
                         value.value,
                         t.enabled,
+                        t.enableCheats,
+                        t.fillBots,
                       )
                     }
                   />
@@ -248,10 +260,45 @@ export default function AdminServersPage({
                         t.gameMode,
                         t.dotaMap,
                         e.target.checked,
+                        t.enableCheats,
+                        t.fillBots,
                       )
                     }
                     type="checkbox"
                     checked={t.enabled}
+                  />
+                </td>
+
+                <td>
+                  <input
+                    onChange={(e) =>
+                      updateGameMode(
+                        t.lobbyType,
+                        t.gameMode,
+                        t.dotaMap,
+                        t.enabled,
+                        e.target.checked,
+                        t.fillBots,
+                      )
+                    }
+                    type="checkbox"
+                    checked={t.enableCheats}
+                  />
+                </td>
+                <td>
+                  <input
+                    onChange={(e) =>
+                      updateGameMode(
+                        t.lobbyType,
+                        t.gameMode,
+                        t.dotaMap,
+                        t.enabled,
+                        t.enableCheats,
+                        e.target.checked,
+                      )
+                    }
+                    type="checkbox"
+                    checked={t.fillBots}
                   />
                 </td>
               </tr>

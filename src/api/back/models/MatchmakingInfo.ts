@@ -67,6 +67,18 @@ export interface MatchmakingInfo {
      * @type {boolean}
      * @memberof MatchmakingInfo
      */
+    enableCheats: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MatchmakingInfo
+     */
+    fillBots: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MatchmakingInfo
+     */
     enabled: boolean;
 }
 
@@ -84,6 +96,8 @@ export function MatchmakingInfoFromJSONTyped(json: any, ignoreDiscriminator: boo
         'gameMode': DotaGameModeFromJSON(json['game_mode']),
         'dotaMap': DotaMapFromJSON(json['dota_map']),
         'queueDurations': ((json['queueDurations'] as Array<any>).map(QueueDurationDtoFromJSON)),
+        'enableCheats': json['enableCheats'],
+        'fillBots': json['fillBots'],
         'enabled': json['enabled'],
     };
 }
@@ -101,6 +115,8 @@ export function MatchmakingInfoToJSON(value?: MatchmakingInfo | null): any {
         'game_mode': DotaGameModeToJSON(value.gameMode),
         'dota_map': DotaMapToJSON(value.dotaMap),
         'queueDurations': ((value.queueDurations as Array<any>).map(QueueDurationDtoToJSON)),
+        'enableCheats': value.enableCheats,
+        'fillBots': value.fillBots,
         'enabled': value.enabled,
     };
 }

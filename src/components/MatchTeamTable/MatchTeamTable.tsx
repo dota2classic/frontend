@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import {
   HeroIcon,
@@ -30,6 +30,11 @@ interface IMatchTeamTableProps {
 export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
   ({ players, duration, filterColumns, reportableSteamIds, onTryReport }) => {
     const { hasReports } = useStore().auth;
+
+    const sortedPlayers = useMemo(
+      () => [...players].sort((a, b) => a.partyIndex - b.partyIndex),
+      [players],
+    );
 
     const hc = filterColumns
       ? AllColumns.filter((t) => !filterColumns.includes(t))
@@ -143,173 +148,207 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
           </tr>
         </thead>
         <tbody>
-          {players.map((player) => (
-            <tr key={player.user.steamId}>
-              <td>
-                <div className={c.heroWithLevel}>
+          {sortedPlayers.map((player, idx) => {
+            const iFirstPartyPlayer = sortedPlayers.findIndex(
+              (t) => t.partyIndex === player.partyIndex,
+            );
+            const iLastPartyPlayer = sortedPlayers.findLastIndex(
+              (t) => t.partyIndex === player.partyIndex,
+            );
+
+            const shouldDisplay =
+              (!filterColumns || filterColumns.includes("MMR")) &&
+              player.partyIndex !== -1 &&
+              (iFirstPartyPlayer !== idx || idx !== iLastPartyPlayer);
+
+            const shouldDisplayStart =
+              iFirstPartyPlayer === idx && idx !== iLastPartyPlayer;
+            const shouldDisplayMiddle =
+              iFirstPartyPlayer !== idx && idx !== iLastPartyPlayer;
+            const shouldDisplayEnd =
+              iFirstPartyPlayer !== idx && idx === iLastPartyPlayer;
+
+            return (
+              <tr key={player.user.steamId}>
+                <td>
+                  <div className={cx(c.heroWithLevel)}>
+                    {shouldDisplay && (
+                      <span className={c.party__indicator_root}>
+                        <span
+                          className={cx(
+                            c.party__indicator,
+                            shouldDisplayStart && c.party__indicator__start,
+                            shouldDisplayMiddle && c.party__indicator__middle,
+                            shouldDisplayEnd && c.party__indicator__end,
+                            `party_${player.partyIndex}`,
+                          )}
+                        />
+                      </span>
+                    )}
+                    <PageLink
+                      link={
+                        AppRouter.players.player.index(player.user.steamId).link
+                      }
+                    >
+                      <HeroIcon hero={player.hero} />
+                    </PageLink>
+                    <img
+                      className={cx(
+                        c.abandon,
+                        player.abandoned && c.abandon__visible,
+                      )}
+                      alt={`Player ${player.user.name} abandoned`}
+                      src="/abandon.png"
+                    />
+                    <span className={c.level}>{player.level}</span>
+                  </div>
+                </td>
+                <td className={c.fixedWidth}>
                   <PageLink
+                    className={"link"}
                     link={
                       AppRouter.players.player.index(player.user.steamId).link
                     }
                   >
-                    <HeroIcon hero={player.hero} />
+                    {player.user.steamId.length > 2 ? player.user.name : "Бот"}
                   </PageLink>
-                  <img
-                    className={cx(
-                      c.abandon,
-                      player.abandoned && c.abandon__visible,
+                  {hasReports &&
+                    reportableSteamIds.includes(player.user.steamId) && (
+                      <MdRecommend
+                        onClick={() => onTryReport(player)}
+                        className={cx(c.commend, "adminicon")}
+                      />
                     )}
-                    alt={`Player ${player.user.name} abandoned`}
-                    src="/abandon.png"
-                  />
-                  <span className={c.level}>{player.level}</span>
-                </div>
-              </td>
-              <td className={c.fixedWidth}>
-                <PageLink
-                  className={"link"}
-                  link={
-                    AppRouter.players.player.index(player.user.steamId).link
-                  }
+                </td>
+                <td
+                  className={cx(
+                    "middle",
+                    hc.includes("GPM") ? c.mobileHidden : undefined,
+                  )}
                 >
-                  {player.user.steamId.length > 2 ? player.user.name : "Бот"}
-                </PageLink>
-                {hasReports &&
-                  reportableSteamIds.includes(player.user.steamId) && (
-                    <MdRecommend
-                      onClick={() => onTryReport(player)}
-                      className={cx(c.commend, "adminicon")}
-                    />
+                  {player.gpm}/{player.xpm}
+                </td>
+                <td
+                  className={cx(
+                    "middle",
+                    hc.includes("LH") ? c.mobileHidden : undefined,
                   )}
-              </td>
-              <td
-                className={cx(
-                  "middle",
-                  hc.includes("GPM") ? c.mobileHidden : undefined,
-                )}
-              >
-                {player.gpm}/{player.xpm}
-              </td>
-              <td
-                className={cx(
-                  "middle",
-                  hc.includes("LH") ? c.mobileHidden : undefined,
-                )}
-              >
-                {player.lastHits}/{player.denies}
-              </td>
+                >
+                  {player.lastHits}/{player.denies}
+                </td>
 
-              <td
-                className={cx(
-                  "middle",
-                  hc.includes("K") ? c.mobileHidden : undefined,
-                )}
-              >
-                {player.kills}
-              </td>
-              <td
-                className={cx(
-                  "middle",
-                  hc.includes("D") ? c.mobileHidden : undefined,
-                )}
-              >
-                {player.deaths}
-              </td>
-              <td
-                className={cx(
-                  "middle",
-                  hc.includes("A") ? c.mobileHidden : undefined,
-                )}
-              >
-                {player.assists}
-              </td>
-
-              <td
-                className={cx(
-                  "middle",
-                  hc.includes("HD") ? c.mobileHidden : undefined,
-                )}
-              >
-                <NumberFormat number={player.heroDamage} />
-              </td>
-              <td
-                className={cx(
-                  "middle",
-                  hc.includes("HH") ? c.mobileHidden : undefined,
-                )}
-              >
-                <NumberFormat number={player.heroHealing} />
-              </td>
-              <td
-                className={cx(
-                  "middle",
-                  hc.includes("TD") ? c.mobileHidden : undefined,
-                )}
-              >
-                <NumberFormat number={player.towerDamage} />
-              </td>
-              <td
-                className={cx(
-                  c.gold,
-                  hc.includes("NW") ? c.mobileHidden : undefined,
-                )}
-              >
-                <NumberFormat
-                  number={Math.round(
-                    player.gold ||
-                      Math.round((player.gpm * duration) / 60) * 0.6,
+                <td
+                  className={cx(
+                    "middle",
+                    hc.includes("K") ? c.mobileHidden : undefined,
                   )}
-                />
-              </td>
-              <td
-                className={cx(
-                  c.items,
-                  hc.includes("Items") ? c.mobileHidden : undefined,
-                )}
-              >
-                <div className={c.itemsWrapper}>
-                  <ItemIcon item={player.item0} />
-                  <ItemIcon item={player.item1} />
-                  <ItemIcon item={player.item2} />
-                  <ItemIcon item={player.item3} />
-                  <ItemIcon item={player.item4} />
-                  <ItemIcon item={player.item5} />
-                </div>
-              </td>
-              <td className={hc.includes("MMR") ? c.mobileHidden : undefined}>
-                {(player.mmr?.change && (
-                  <Tooltipable
-                    tooltip={
-                      Math.abs(player.mmr.change) >= 50
-                        ? "Калибровочная игра"
-                        : "Обычная игра "
-                    }
-                  >
-                    <span
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "4px",
-                      }}
+                >
+                  {player.kills}
+                </td>
+                <td
+                  className={cx(
+                    "middle",
+                    hc.includes("D") ? c.mobileHidden : undefined,
+                  )}
+                >
+                  {player.deaths}
+                </td>
+                <td
+                  className={cx(
+                    "middle",
+                    hc.includes("A") ? c.mobileHidden : undefined,
+                  )}
+                >
+                  {player.assists}
+                </td>
+
+                <td
+                  className={cx(
+                    "middle",
+                    hc.includes("HD") ? c.mobileHidden : undefined,
+                  )}
+                >
+                  <NumberFormat number={player.heroDamage} />
+                </td>
+                <td
+                  className={cx(
+                    "middle",
+                    hc.includes("HH") ? c.mobileHidden : undefined,
+                  )}
+                >
+                  <NumberFormat number={player.heroHealing} />
+                </td>
+                <td
+                  className={cx(
+                    "middle",
+                    hc.includes("TD") ? c.mobileHidden : undefined,
+                  )}
+                >
+                  <NumberFormat number={player.towerDamage} />
+                </td>
+                <td
+                  className={cx(
+                    c.gold,
+                    hc.includes("NW") ? c.mobileHidden : undefined,
+                  )}
+                >
+                  <NumberFormat
+                    number={Math.round(
+                      player.gold ||
+                        Math.round((player.gpm * duration) / 60) * 0.6,
+                    )}
+                  />
+                </td>
+                <td
+                  className={cx(
+                    c.items,
+                    hc.includes("Items") ? c.mobileHidden : undefined,
+                  )}
+                >
+                  <div className={c.itemsWrapper}>
+                    <ItemIcon item={player.item0} />
+                    <ItemIcon item={player.item1} />
+                    <ItemIcon item={player.item2} />
+                    <ItemIcon item={player.item3} />
+                    <ItemIcon item={player.item4} />
+                    <ItemIcon item={player.item5} />
+                  </div>
+                </td>
+                <td className={hc.includes("MMR") ? c.mobileHidden : undefined}>
+                  {(player.mmr?.change && (
+                    <Tooltipable
+                      tooltip={
+                        player.mmr.calibration
+                          ? "Калибровочная игра"
+                          : "Обычная игра "
+                      }
                     >
-                      {player.mmr?.mmrBefore}{" "}
                       <span
-                        className={cx(
-                          Math.sign(player.mmr?.change || 0) > 0
-                            ? "green"
-                            : "red",
-                          Math.abs(player.mmr.change) >= 50 && "gold",
-                        )}
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "4px",
+                        }}
                       >
-                        {signedNumber(player.mmr?.change || 0)}
+                        {player.mmr?.mmrBefore}{" "}
+                        <span
+                          className={cx(
+                            Math.sign(player.mmr?.change || 0) > 0
+                              ? "green"
+                              : "red",
+                            Math.abs(player.mmr.change) >= 50 && "gold",
+                          )}
+                        >
+                          {signedNumber(player.mmr?.change || 0)}
+                        </span>
                       </span>
-                    </span>
-                  </Tooltipable>
-                )) ||
-                  "-"}
-              </td>
-            </tr>
-          ))}
+                    </Tooltipable>
+                  )) ||
+                    "-"}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     );

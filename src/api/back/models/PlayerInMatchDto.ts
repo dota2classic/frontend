@@ -41,6 +41,12 @@ export interface PlayerInMatchDto {
      * @type {number}
      * @memberof PlayerInMatchDto
      */
+    partyIndex: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PlayerInMatchDto
+     */
     team: number;
     /**
      * 
@@ -181,6 +187,7 @@ export function PlayerInMatchDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'user': UserDTOFromJSON(json['user']),
+        'partyIndex': json['partyIndex'],
         'team': json['team'],
         'hero': json['hero'],
         'level': json['level'],
@@ -216,6 +223,7 @@ export function PlayerInMatchDtoToJSON(value?: PlayerInMatchDto | null): any {
     return {
         
         'user': UserDTOToJSON(value.user),
+        'partyIndex': value.partyIndex,
         'team': value.team,
         'hero': value.hero,
         'level': value.level,

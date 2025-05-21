@@ -45,13 +45,7 @@
   }
 }
 
-.experiment {
-  background: radial-gradient($gold 0%, $red 100%);
-  background-size: 150% 150%;
-  animation: shinyText 3s ease alternate infinite;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+
 
 .megaButton {
   outline: none;
@@ -64,11 +58,17 @@
   font-size: 1.5rem;
   letter-spacing: 2.5px;
   font-weight: bold;
-  background-color: $bg15;
+  //background-color: $bg15;
   padding: 20px 20px 20px 20px;
   transition: 0.2s ease;
   cursor: pointer;
   text-align: center;
+
+  background: radial-gradient($gold 0%, $red 100%);
+  background-size: 150% 150%;
+  animation: shinyText 3s ease alternate infinite;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 
   @media (max-width: 600px) {
     font-size: 1.2rem;

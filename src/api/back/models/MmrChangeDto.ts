@@ -43,6 +43,12 @@ export interface MmrChangeDto {
      * @memberof MmrChangeDto
      */
     isHiddenMmr: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MmrChangeDto
+     */
+    calibration: boolean;
 }
 
 export function MmrChangeDtoFromJSON(json: any): MmrChangeDto {
@@ -59,6 +65,7 @@ export function MmrChangeDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'mmrAfter': json['mmr_after'],
         'change': json['change'],
         'isHiddenMmr': json['is_hidden_mmr'],
+        'calibration': json['calibration'],
     };
 }
 
@@ -75,6 +82,7 @@ export function MmrChangeDtoToJSON(value?: MmrChangeDto | null): any {
         'mmr_after': value.mmrAfter,
         'change': value.change,
         'is_hidden_mmr': value.isHiddenMmr,
+        'calibration': value.calibration,
     };
 }
 
