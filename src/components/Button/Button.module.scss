@@ -77,6 +77,12 @@
     display: block;
   }
 
+  &:disabled {
+    background-clip: unset;
+    background: $bg1 !important;
+    -webkit-text-fill-color: unset;
+  }
+
   &:hover:enabled,
   &:focus:enabled,
   &:active:enabled {

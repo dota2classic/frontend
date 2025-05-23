@@ -5,14 +5,15 @@
   right: 0;
   margin: auto;
 
-  transform: translate(0%, -50%);
+  //transform: translate(0%, -50%);
+  bottom: 0;
 }
 
 
 .avatar {
   position: relative;
   display: block;
-  & img {
+  & img:global(.avatar) {
     border-radius: 50%;
   }
 }

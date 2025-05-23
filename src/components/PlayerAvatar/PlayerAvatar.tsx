@@ -8,6 +8,7 @@ import type {
 } from "next/dist/shared/lib/get-img-props";
 import c from "./PlayerAvatar.module.scss";
 import { UserDTO } from "@/api/back";
+import cx from "clsx";
 
 type Props = Omit<
   React.DetailedHTMLProps<
@@ -18,8 +19,8 @@ type Props = Omit<
 > & {
   user: UserDTO;
   alt: string;
-  width?: number | `${number}` | undefined;
-  height?: number | `${number}` | undefined;
+  width: number;
+  height: number;
   fill?: boolean | undefined;
   quality?: number | `${number}` | undefined;
   priority?: boolean | undefined;
@@ -49,16 +50,20 @@ export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
         <Image
           alt=""
           width={props.width}
-          height={props.height}
+          height={props.width * 1.55}
           className={c.hat}
           src={hat}
         />
       )}
       <Image
         {...props}
+        className={cx(props.className, "avatar")}
         alt={props.alt || "Image"}
         src={error ? "/avatar.png" : user.avatar}
-        onError={setError}
+        onError={(err) => {
+          console.error("ERROR loading src", err);
+          setError(err);
+        }}
       />
     </picture>
   );

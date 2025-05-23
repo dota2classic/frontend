@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { ThemeContext } from "@/util/theme";
 import { AdBlockType } from "@/components/AdBlock/AdBlockType";
 import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
+import { TrajanPro } from "@/const/fonts";
 
 interface LayoutProps {
   className?: string;
@@ -31,7 +32,7 @@ export const Layout = ({
       <div
         className={cx(c.wrapper, isQueuePage && c.wrapper__queue, c.blogpost)}
       >
-        <Navbar className={className} />
+        <Navbar className={TrajanPro.className} />
         <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
           <Notifications />
           <SearchGameFloater />

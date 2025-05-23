@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from "react";
 
 import c from "./Button.module.scss";
 import cx from "clsx";
+import { TrajanPro } from "@/const/fonts";
 
 export const Button: React.FC<
   PropsWithChildren<{
@@ -34,6 +35,7 @@ export const Button: React.FC<
       className={cx(
         c.button,
         mega && c.megaButton,
+        mega && TrajanPro.className,
         small && c.smaller,
         className,
       )}
