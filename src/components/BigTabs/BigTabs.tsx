@@ -5,7 +5,7 @@ import cx from "clsx";
 import { NextLinkProp } from "@/route";
 import { PageLink } from "@/components";
 
-interface TabItem<T extends string> {
+export interface TabItem<T extends string> {
   key: T;
   label: ReactNode;
   onSelect: SelectAction<T>;

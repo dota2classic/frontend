@@ -19,6 +19,7 @@ declare global {
   }
 
   interface PromiseConstructor {
+    combine<A>(promises: [Promise<A>]): Promise<[A]>;
     combine<A, B>(promises: [Promise<A>, Promise<B>]): Promise<[A, B]>;
     combine<A, B, C>(
       promises: [Promise<A>, Promise<B>, Promise<C>],

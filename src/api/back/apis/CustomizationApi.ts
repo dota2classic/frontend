@@ -30,10 +30,25 @@ import {
   UpdateDecorationDto,
   UpdateDecorationDtoFromJSON,
   UpdateDecorationDtoToJSON,
+  UserProfileDecorationType,
+  UserProfileDecorationTypeFromJSON,
+  UserProfileDecorationTypeToJSON,
 } from "../models";
+
+export interface CustomizationControllerAllRequest {
+  type?: UserProfileDecorationType;
+}
 
 export interface CustomizationControllerCreateDecorationRequest {
   createDecorationDto: CreateDecorationDto;
+}
+
+export interface CustomizationControllerDeleteDecorationRequest {
+  id: number;
+}
+
+export interface CustomizationControllerGetDecorationRequest {
+  id: number;
 }
 
 export interface CustomizationControllerSelectDecorationRequest {
@@ -52,9 +67,9 @@ export class CustomizationApi extends runtime.BaseAPI {
 
     /**
      */
-    private async customizationControllerAllRaw(): Promise<runtime.ApiResponse<Array<ProfileDecorationDto>>> {
-        this.customizationControllerAllValidation();
-        const context = this.customizationControllerAllContext();
+    private async customizationControllerAllRaw(requestParameters: CustomizationControllerAllRequest): Promise<runtime.ApiResponse<Array<ProfileDecorationDto>>> {
+        this.customizationControllerAllValidation(requestParameters);
+        const context = this.customizationControllerAllContext(requestParameters);
         const response = await this.request(context);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProfileDecorationDtoFromJSON));
@@ -64,13 +79,17 @@ export class CustomizationApi extends runtime.BaseAPI {
 
     /**
      */
-    private customizationControllerAllValidation() {
+    private customizationControllerAllValidation(requestParameters: CustomizationControllerAllRequest) {
     }
 
     /**
      */
-    customizationControllerAllContext(): runtime.RequestOpts {
+    customizationControllerAllContext(requestParameters: CustomizationControllerAllRequest): runtime.RequestOpts {
         const queryParameters: any = {};
+
+        if (requestParameters.type !== undefined) {
+            queryParameters["type"] = requestParameters.type;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -84,16 +103,16 @@ export class CustomizationApi extends runtime.BaseAPI {
 
     /**
      */
-    customizationControllerAll = async (): Promise<Array<ProfileDecorationDto>> => {
-        const response = await this.customizationControllerAllRaw();
+    customizationControllerAll = async (type?: UserProfileDecorationType): Promise<Array<ProfileDecorationDto>> => {
+        const response = await this.customizationControllerAllRaw({ type: type });
         return await response.value();
     }
 
-    useCustomizationControllerAll(config?: SWRConfiguration<Array<ProfileDecorationDto>, Error>) {
+    useCustomizationControllerAll(type?: UserProfileDecorationType, config?: SWRConfiguration<Array<ProfileDecorationDto>, Error>) {
         let valid = true
 
-        const context = this.customizationControllerAllContext();
-        return useSWR(context, valid ? () => this.customizationControllerAll() : null, config)
+        const context = this.customizationControllerAllContext({ type: type! });
+        return useSWR(context, valid ? () => this.customizationControllerAll(type!) : null, config)
     }
 
     /**
@@ -149,6 +168,127 @@ export class CustomizationApi extends runtime.BaseAPI {
         return await response.value();
     }
 
+
+    /**
+     */
+    private async customizationControllerDeleteDecorationRaw(requestParameters: CustomizationControllerDeleteDecorationRequest): Promise<runtime.ApiResponse<void>> {
+        this.customizationControllerDeleteDecorationValidation(requestParameters);
+        const context = this.customizationControllerDeleteDecorationContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private customizationControllerDeleteDecorationValidation(requestParameters: CustomizationControllerDeleteDecorationRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling customizationControllerDeleteDecoration.");
+        }
+    }
+
+    /**
+     */
+    customizationControllerDeleteDecorationContext(requestParameters: CustomizationControllerDeleteDecorationRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/customization/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    customizationControllerDeleteDecoration = async (id: number): Promise<void> => {
+        await this.customizationControllerDeleteDecorationRaw({ id: id });
+    }
+
+    useCustomizationControllerDeleteDecoration(id: number, config?: SWRConfiguration<void, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.customizationControllerDeleteDecorationContext({ id: id! });
+        return useSWR(context, valid ? () => this.customizationControllerDeleteDecoration(id!) : null, config)
+    }
+
+    /**
+     */
+    private async customizationControllerGetDecorationRaw(requestParameters: CustomizationControllerGetDecorationRequest): Promise<runtime.ApiResponse<ProfileDecorationDto>> {
+        this.customizationControllerGetDecorationValidation(requestParameters);
+        const context = this.customizationControllerGetDecorationContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ProfileDecorationDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private customizationControllerGetDecorationValidation(requestParameters: CustomizationControllerGetDecorationRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling customizationControllerGetDecoration.");
+        }
+    }
+
+    /**
+     */
+    customizationControllerGetDecorationContext(requestParameters: CustomizationControllerGetDecorationRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/customization/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    customizationControllerGetDecoration = async (id: number): Promise<ProfileDecorationDto> => {
+        const response = await this.customizationControllerGetDecorationRaw({ id: id });
+        return await response.value();
+    }
+
+    useCustomizationControllerGetDecoration(id: number, config?: SWRConfiguration<ProfileDecorationDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.customizationControllerGetDecorationContext({ id: id! });
+        return useSWR(context, valid ? () => this.customizationControllerGetDecoration(id!) : null, config)
+    }
 
     /**
      */

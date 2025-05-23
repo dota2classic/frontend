@@ -1,0 +1,23 @@
+@import "../../../common.scss";
+
+.decorationCard {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 1;
+
+  & img {
+    max-width: 100%;
+    height: auto;;
+  }
+}
+
+.decorations {
+  padding-top: 16px;
+  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  &.small {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}

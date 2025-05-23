@@ -14,3 +14,4 @@ export { LobbyScreen } from "./LobbyScreen/LobbyScreen";
 export { LiveMatchPage } from "./LiveMatchPage/LiveMatchPage";
 export { EditProfileDecorations } from "./EditProfileDecorations/EditProfileDecorations";
 export { StoreLanding } from "./StoreLanding/StoreLanding";
+export { EditHatContainer } from "./EditHatContainer/EditHatContainer";

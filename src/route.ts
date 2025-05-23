@@ -2,6 +2,7 @@ import Router, { NextRouter } from "next/router";
 import type { UrlObject } from "url";
 import { queryParameters } from "@/util/urls";
 import { ThreadType } from "@/api/mapped-models";
+import { UserProfileDecorationType } from "@/api/back";
 
 export interface NextLinkProp {
   href: string | UrlObject;
@@ -144,6 +145,21 @@ export const AppRouter = {
       edit: (id: number) =>
         page(`/admin/feedback/edit/[id]`, `/admin/feedback/edit/${id}`),
       create: spage("/admin/feedback/create"),
+    },
+
+    decoration: {
+      create: (type: UserProfileDecorationType) => {
+        const q = queryParameters({ type });
+
+        return spage(`/admin/decoration/create${q}`);
+      },
+      list: (type?: UserProfileDecorationType) => {
+        const q = queryParameters({ type });
+
+        return page(`/admin/decoration${q}`, `/admin/decoration${q}`);
+      },
+      edit: (id: number) =>
+        page("/admin/decoration/[id]", `/admin/decoration/${id}`),
     },
 
     crimes: (pg?: number, steamId?: string) => {

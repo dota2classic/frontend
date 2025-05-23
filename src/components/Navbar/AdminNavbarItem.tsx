@@ -28,6 +28,11 @@ export const AdminNavbarItem = () => {
           label: "Ф:Список",
           action: AppRouter.admin.crimes().link,
         },
+        {
+          newCategory: true,
+          label: "Декорации",
+          action: AppRouter.admin.decoration.list().link,
+        },
       ]}
     >
       <MdLocalPolice />
