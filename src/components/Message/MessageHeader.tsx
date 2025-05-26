@@ -32,7 +32,7 @@ export const MessageHeader = observer(function MessageHeader({
   message,
   lightweight,
 }: IMessageProps) {
-  const { queue } = useStore();
+  const { queue, live } = useStore();
   const [hoveredRole, setHoveredRole] = useState<
     { label: string; ref: HTMLElement } | undefined
   >(undefined);
@@ -50,6 +50,10 @@ export const MessageHeader = observer(function MessageHeader({
   const twitchConnection = message.author.connections.find(
     (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
   );
+
+  const liveStream = twitchConnection
+    ? live.getLiveStream(message.author.steamId)
+    : undefined;
 
   const chatIconOld = message.author.icon;
 
@@ -77,15 +81,12 @@ export const MessageHeader = observer(function MessageHeader({
           onMouseLeave={() => setHoveredRole(undefined)}
         />
       )}
-      {twitchConnection && (
+      {liveStream && (
         <Tooltipable
           className={"purple"}
-          tooltip={`twitch.tv/${twitchConnection.externalId}`}
+          tooltip={`Стримит dotaclassic.ru прямо сейчас!`}
         >
-          <a
-            target="__blank"
-            href={`https://twitch.tv/${twitchConnection.externalId}`}
-          >
+          <a target="__blank" href={liveStream.link}>
             <FaTwitch />
           </a>
         </Tooltipable>

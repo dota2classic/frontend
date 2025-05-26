@@ -36,4 +36,8 @@ export class LiveStore implements HydratableStore<unknown> {
   }
 
   hydrate(): void {}
+
+  getLiveStream(steamId: string): TwitchStreamDto | undefined {
+    return this.streams.find((t) => t.user.steamId === steamId);
+  }
 }
