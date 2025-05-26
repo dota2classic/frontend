@@ -405,6 +405,14 @@ export class ForumApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/forum/thread/{id}/{threadType}/latestPage`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))).replace(`{${"threadType"}}`, encodeURIComponent(String(requestParameters.threadType))),
             method: "GET",
@@ -477,6 +485,14 @@ export class ForumApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/forum/thread/{id}/{threadType}/messages`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))).replace(`{${"threadType"}}`, encodeURIComponent(String(requestParameters.threadType))),
             method: "GET",
@@ -673,6 +689,14 @@ export class ForumApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/forum/thread/{id}/{threadType}/page`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))).replace(`{${"threadType"}}`, encodeURIComponent(String(requestParameters.threadType))),
             method: "GET",
@@ -848,6 +872,14 @@ export class ForumApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/forum/thread/{id}/{threadType}/sse`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))).replace(`{${"threadType"}}`, encodeURIComponent(String(requestParameters.threadType))),
             method: "GET",

@@ -339,9 +339,7 @@
   }
 }
 
-
 @keyframes disappear {
-
   0% {
     opacity: 1;
     transform: scale(1);
@@ -357,7 +355,6 @@
     transform: scale(0.4);
   }
 }
-
 
 @keyframes roll {
   0% {
@@ -377,8 +374,6 @@
   height: 1.4em;
 }
 
-
-
 .old:global(.pulse) {
   animation: pulse 0.3s ease-in infinite alternate;
 }
@@ -388,5 +383,42 @@
 }
 
 .old:global(.roll) {
-  animation: roll 10s ease infinite;
+  animation: roll 6s ease infinite;
+}
+
+.blockedMessage {
+  font-size: 1.2rem;
+}
+
+.showBlockedMessage {
+  color: $primaryTextDark;
+  cursor: pointer;
+  display: flex;
+  transition: 0.3s ease;
+
+  &:hover {
+    text-decoration: underline;
+    color: $blueHighlight;
+  }
+
+  & svg {
+    margin-bottom: 1px;
+    margin-right: 4px;
+  }
+}
+
+
+
+
+.hover_red {
+  transition: 0.3s ease;
+  &:hover {
+    color: $red;
+  }
+}
+.hover_green {
+  transition: 0.3s ease;
+  &:hover {
+    color: $green;
+  }
 }

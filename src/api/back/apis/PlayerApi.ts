@@ -57,6 +57,10 @@ export interface PlayerControllerAchievementsRequest {
   id: string;
 }
 
+export interface PlayerControllerBlockPlayerRequest {
+  id: string;
+}
+
 export interface PlayerControllerDodgePlayerRequest {
   dodgePlayerDto: DodgePlayerDto;
 }
@@ -88,6 +92,10 @@ export interface PlayerControllerTeammatesRequest {
 
 export interface PlayerControllerUnDodgePlayerRequest {
   dodgePlayerDto: DodgePlayerDto;
+}
+
+export interface PlayerControllerUnblockPlayerRequest {
+  id: string;
 }
 
 /**
@@ -147,6 +155,56 @@ export class PlayerApi extends runtime.BaseAPI {
         const context = this.playerControllerAchievementsContext({ id: id! });
         return useSWR(context, valid ? () => this.playerControllerAchievements(id!) : null, config)
     }
+
+    /**
+     */
+    private async playerControllerBlockPlayerRaw(requestParameters: PlayerControllerBlockPlayerRequest): Promise<runtime.ApiResponse<void>> {
+        this.playerControllerBlockPlayerValidation(requestParameters);
+        const context = this.playerControllerBlockPlayerContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private playerControllerBlockPlayerValidation(requestParameters: PlayerControllerBlockPlayerRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerBlockPlayer.");
+        }
+    }
+
+    /**
+     */
+    playerControllerBlockPlayerContext(requestParameters: PlayerControllerBlockPlayerRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/block/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerBlockPlayer = async (id: string): Promise<void> => {
+        await this.playerControllerBlockPlayerRaw({ id: id });
+    }
+
 
     /**
      */
@@ -787,6 +845,66 @@ export class PlayerApi extends runtime.BaseAPI {
 
         const context = this.playerControllerUnDodgePlayerContext({ dodgePlayerDto: dodgePlayerDto! });
         return useSWR(context, valid ? () => this.playerControllerUnDodgePlayer(dodgePlayerDto!) : null, config)
+    }
+
+    /**
+     */
+    private async playerControllerUnblockPlayerRaw(requestParameters: PlayerControllerUnblockPlayerRequest): Promise<runtime.ApiResponse<void>> {
+        this.playerControllerUnblockPlayerValidation(requestParameters);
+        const context = this.playerControllerUnblockPlayerContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private playerControllerUnblockPlayerValidation(requestParameters: PlayerControllerUnblockPlayerRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerUnblockPlayer.");
+        }
+    }
+
+    /**
+     */
+    playerControllerUnblockPlayerContext(requestParameters: PlayerControllerUnblockPlayerRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/block/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerUnblockPlayer = async (id: string): Promise<void> => {
+        await this.playerControllerUnblockPlayerRaw({ id: id });
+    }
+
+    usePlayerControllerUnblockPlayer(id: string, config?: SWRConfiguration<void, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.playerControllerUnblockPlayerContext({ id: id! });
+        return useSWR(context, valid ? () => this.playerControllerUnblockPlayer(id!) : null, config)
     }
 
 }

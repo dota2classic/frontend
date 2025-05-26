@@ -8,6 +8,7 @@ import { AddSpecificReactionTool } from "@/components/Message/tools/AddSpecificR
 import { ReplyToMessageTool } from "@/components/Message/tools/ReplyToMessageTool";
 import { EditMessageTool } from "@/components/Message/tools/EditMessageTool";
 import { ThreadMessageDTO } from "@/api/back";
+import { BlockUserTool } from "@/components/Message/tools/BlockUserTool";
 
 interface Props {
   message: ThreadMessageDTO;
@@ -31,6 +32,10 @@ export const MessageTools = observer(({ message }: Props) => {
       <ReplyToMessageTool messageId={message.messageId} />
       <EditMessageTool message={message} />
       <DeleteMessageTool messageId={message.messageId} />
+      <BlockUserTool
+        blockStatus={message.blocked}
+        relatedSteamId={message.author.steamId}
+      />
     </div>
   );
 });

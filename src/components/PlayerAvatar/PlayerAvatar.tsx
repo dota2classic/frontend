@@ -60,10 +60,7 @@ export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
         className={cx(props.className, "avatar")}
         alt={props.alt || "Image"}
         src={error ? "/avatar.png" : user.avatar}
-        onError={(err) => {
-          console.error("ERROR loading src", err);
-          setError(err);
-        }}
+        onError={setError}
       />
     </picture>
   );

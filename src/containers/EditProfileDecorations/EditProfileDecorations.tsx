@@ -67,6 +67,7 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
             header={true}
             message={{
               author: user,
+              blocked: false,
               messageId: "123",
               threadId: "123",
               content: "Я помогаю проекту dotaclassic.ru!",

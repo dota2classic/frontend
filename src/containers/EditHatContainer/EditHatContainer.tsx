@@ -125,6 +125,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
     return {
       author: user,
       messageId: "123",
+      blocked: false,
       threadId: "123",
       content: "Я помогаю проекту dotaclassic.ru!",
       createdAt: new Date().toISOString(),

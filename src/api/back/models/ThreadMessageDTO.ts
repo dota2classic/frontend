@@ -38,6 +38,12 @@ export interface ThreadMessageDTO {
     author: UserDTO;
     /**
      * 
+     * @type {boolean}
+     * @memberof ThreadMessageDTO
+     */
+    blocked: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof ThreadMessageDTO
      */
@@ -103,6 +109,7 @@ export function ThreadMessageDTOFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'author': UserDTOFromJSON(json['author']),
+        'blocked': json['blocked'],
         'threadId': json['threadId'],
         'messageId': json['messageId'],
         'content': json['content'],
@@ -125,6 +132,7 @@ export function ThreadMessageDTOToJSON(value?: ThreadMessageDTO | null): any {
     return {
         
         'author': UserDTOToJSON(value.author),
+        'blocked': value.blocked,
         'threadId': value.threadId,
         'messageId': value.messageId,
         'content': value.content,
