@@ -32,7 +32,7 @@ export const BlockUserTool = observer(function BlockUserTool({
   return (
     <>
       <MdBlock
-        className={blockStatus ? c.hover_red : c.hover_green}
+        className={blockStatus ? c.hover_green : c.hover_red}
         onClick={block}
       />
     </>

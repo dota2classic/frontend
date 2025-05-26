@@ -13,7 +13,7 @@ import { appApi, getApi } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
 import { metrika } from "@/ym";
 
-interface JwtAuthToken {
+export interface JwtAuthToken {
   sub: string;
   roles: Role[];
   name: string;

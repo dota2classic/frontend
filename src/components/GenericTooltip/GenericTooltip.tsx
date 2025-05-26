@@ -7,6 +7,7 @@ import React, {
 import c from "./GenericTooltip.module.scss";
 import cx from "clsx";
 import useOutsideClick from "@/util/useOutsideClick";
+import { NotoSans } from "@/const/notosans";
 
 interface Position {
   left?: number;
@@ -91,7 +92,11 @@ export const GenericTooltip: React.FC<
 
   return (
     <div
-      className={cx(c.tooltip, !interactable && c.tooltip__ephermal)}
+      className={cx(
+        c.tooltip,
+        NotoSans.className,
+        !interactable && c.tooltip__ephermal,
+      )}
       ref={(e) => {
         containerRef.current = e;
         if (!e) return;
