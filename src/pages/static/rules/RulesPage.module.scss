@@ -19,28 +19,31 @@
 
 
   & p {
-    margin: 0 0 8px;
+    margin: 0;
     position: relative;
     font-size: 1.3rem;
     line-height: 1.4em;
-    margin-block-start: 1em;
+    margin-block-start: 1rem;
   }
 
 
+  & h2 {
+    font-size: 2rem;
+    margin-block-end: 0.2rem;
+    margin-block-start: 2rem;
+
+  }
+
   & h3 {
-    &:first-child {
-      margin-block-start: 0;
-    }
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     line-height: 2.4rem;
     color: rgb(207, 207, 207);
     font-weight: 700;
     margin: 0;
-    margin-top: 10px;
     padding: 0;
     text-transform: uppercase;
-    margin-block-end: 8px;
-    margin-block-start: 3em;
+    margin-block-end: 2px;
+    margin-block-start: 1rem;
   }
 }
 

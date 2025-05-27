@@ -17,6 +17,7 @@ import {
   StatsApi,
   StorageApi,
   UserPaymentApi,
+  RulesApi,
 } from "./back/apis";
 import {
   Configuration,
@@ -138,6 +139,7 @@ export class AppApi {
   readonly record = new RecordApi(this.apiConfig);
   readonly decoration = new CustomizationApi(this.apiConfig);
   readonly payment = new UserPaymentApi(this.apiConfig);
+  readonly rules = new RulesApi(this.apiConfig);
 }
 
 export const appApi = new AppApi();

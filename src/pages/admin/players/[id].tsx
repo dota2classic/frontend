@@ -263,6 +263,7 @@ export default function AdminPlayerPage({
   return (
     <div className={c2.gridPanel}>
       <PlayerSummary
+        banStatus={preloadedSummary.banStatus}
         className={c2.grid12}
         stats={preloadedSummary.overallStats}
         user={preloadedSummary.user}

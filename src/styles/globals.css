@@ -55,6 +55,7 @@ html {
   background-color: #171717;
   color: white;
   font-weight: 1000;
+  scroll-padding-top: 60px;
 }
 
 body {

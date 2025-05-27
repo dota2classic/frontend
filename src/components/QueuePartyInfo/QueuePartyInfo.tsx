@@ -72,7 +72,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
               className={cx(
                 c.partyItem,
                 t.summary.user.steamId === party?.leader.steamId && c.leader,
-                t.banStatus?.isBanned && c.banned,
+                t.summary.banStatus?.isBanned && c.banned,
                 t.session && c.playing,
               )}
             >

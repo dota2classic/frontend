@@ -176,9 +176,9 @@ export class QueueStore
     const shouldExpire =
       this.partyBanStatus?.isBanned &&
       this.party.players.findIndex((player) => {
-        if (!player.banStatus.isBanned) return false;
+        if (!player.summary.banStatus.isBanned) return false;
         // If end time is in past
-        return new Date(player.banStatus.bannedUntil) < new Date();
+        return new Date(player.summary.banStatus.bannedUntil) < new Date();
       }) !== -1;
 
     if (shouldExpire) {
@@ -193,9 +193,9 @@ export class QueueStore
       ban = this.authStore.me!.banStatus;
     } else if (this.party) {
       const activeBan = this.party?.players?.find(
-        (t: PartyMemberDTO) => t.banStatus?.isBanned,
+        (t: PartyMemberDTO) => t.summary.banStatus?.isBanned,
       );
-      ban = activeBan?.banStatus;
+      ban = activeBan?.summary?.banStatus;
     }
     return ban;
   }

@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    BanStatusDto,
+    BanStatusDtoFromJSON,
+    BanStatusDtoFromJSONTyped,
+    BanStatusDtoToJSON,
     GamemodeAccessMap,
     GamemodeAccessMapFromJSON,
     GamemodeAccessMapFromJSONTyped,
@@ -44,6 +48,12 @@ export interface PlayerSummaryDto {
      * @memberof PlayerSummaryDto
      */
     user: UserDTO;
+    /**
+     * 
+     * @type {BanStatusDto}
+     * @memberof PlayerSummaryDto
+     */
+    banStatus: BanStatusDto;
     /**
      * 
      * @type {string}
@@ -93,6 +103,7 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'user': UserDTOFromJSON(json['user']),
+        'banStatus': BanStatusDtoFromJSON(json['banStatus']),
         'id': json['id'],
         'calibrationGamesLeft': json['calibrationGamesLeft'],
         'seasonStats': PlayerStatsDtoFromJSON(json['seasonStats']),
@@ -112,6 +123,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
     return {
         
         'user': UserDTOToJSON(value.user),
+        'banStatus': BanStatusDtoToJSON(value.banStatus),
         'id': value.id,
         'calibrationGamesLeft': value.calibrationGamesLeft,
         'seasonStats': PlayerStatsDtoToJSON(value.seasonStats),

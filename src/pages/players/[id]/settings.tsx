@@ -68,6 +68,7 @@ export default function PlayerSettings({ summary, decorations }: Props) {
         title={"Настройки"}
       />
       <PlayerSummary
+        banStatus={summary.banStatus}
         stats={summary.overallStats}
         user={summary.user}
         rank={summary.seasonStats.rank}

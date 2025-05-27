@@ -12,6 +12,14 @@
   cursor: pointer;
   background-color: $bg3;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & svg {
+    margin-right: 0.5em;
+  }
+
   &:disabled {
     cursor: not-allowed;
     color: $primaryTextDark;

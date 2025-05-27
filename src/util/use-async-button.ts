@@ -1,15 +1,21 @@
+/* eslint-disable */
 import { useCallback, useTransition } from "react";
 
-export const useAsyncButton = (
-  callback: () => Promise<unknown>,
-  deps: unknown[],
-): [boolean, () => void] => {
+type AsyncFn = (...args: any[]) => Promise<unknown>;
+
+export function useAsyncButton(
+  callback: AsyncFn,
+  deps: any[],
+): [boolean, AsyncFn] {
   const [isPending, startTransition] = useTransition();
-  const doAction = useCallback(() => {
-    startTransition(async () => {
-      await callback();
-    });
-  }, [callback, ...deps]);
+  const doAction = useCallback(
+    async (...args: unknown[]) => {
+      await startTransition(async () => {
+        await callback(...args);
+      });
+    },
+    [callback, ...deps],
+  );
 
   return [isPending, doAction];
-};
+}

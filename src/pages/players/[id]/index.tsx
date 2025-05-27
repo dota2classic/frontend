@@ -69,6 +69,7 @@ export default function PlayerPage({
         image={summary.user.avatar}
       />
       <PlayerSummary
+        banStatus={summary.banStatus}
         stats={summary.overallStats}
         user={summary.user}
         lastGameTimestamp={formattedMatches[0]?.timestamp}

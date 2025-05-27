@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import { dataURLToBlob } from "@/util/dataUrlToBlob";
 import { getApi } from "@/api/hooks";
 import {
+  BanReason,
   ProfileDecorationDto,
   Role,
   ThreadMessageDTO,
@@ -178,6 +179,11 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
   return (
     <>
       <PlayerSummary
+        banStatus={{
+          status: BanReason.REPORTS,
+          isBanned: false,
+          bannedUntil: new Date().toISOString(),
+        }}
         stats={{
           gamesPlayed: 52,
           wins: 52,

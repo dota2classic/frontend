@@ -51,6 +51,7 @@ export default function PlayerTeammates({
   return (
     <>
       <PlayerSummary
+        banStatus={summary.banStatus}
         stats={summary.overallStats}
         user={summary.user}
         rank={summary.seasonStats.rank}

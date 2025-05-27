@@ -8,6 +8,7 @@ import {
   PageLink,
   Panel,
   PlayerAvatar,
+  TimeAgo,
   Tooltipable,
 } from "@/components";
 import { AppRouter, NextLinkProp } from "@/route";
@@ -19,17 +20,20 @@ import { MdLocalPolice } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IBigTabsProps } from "@/components/BigTabs/BigTabs";
 import {
+  BanStatusDto,
   PlayerStatsDto,
   UserConnectionDtoConnectionEnum,
   UserDTO,
 } from "@/api/back";
 import { useStore } from "@/store";
+import { formatBanReason } from "@/util/texts/bans";
 
 interface IPlayerSummaryProps {
   className?: string;
 
   stats: PlayerStatsDto;
   user: UserDTO;
+  banStatus: BanStatusDto;
 
   rank?: number;
   mmr?: number;
@@ -87,7 +91,7 @@ const getMenuItems = (steamId: string, isMyProfile: boolean): Items => {
 };
 
 export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
-  ({ className, lastGameTimestamp, stats, user, rank, mmr }) => {
+  ({ className, lastGameTimestamp, banStatus, stats, user, rank, mmr }) => {
     const { wins, abandons, loss } = stats;
     const isModerator = useIsModerator();
 
@@ -179,7 +183,18 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 <dt>последняя игра</dt>
               </dl>
             )}
-
+            {banStatus.isBanned && (
+              <dl data-testid="player-summary-win-loss">
+                <Tooltipable
+                  tooltip={`Причина: ${formatBanReason(banStatus.status)}`}
+                >
+                  <dd>
+                    <TimeAgo date={banStatus.bannedUntil} />
+                  </dd>
+                </Tooltipable>
+                <dt>Блокировка</dt>
+              </dl>
+            )}
             <dl className={c.games} data-testid="player-summary-win-loss">
               <Tooltipable tooltip={"Побед - Поражений - Покинутых игр"}>
                 <dd>

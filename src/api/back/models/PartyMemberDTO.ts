@@ -14,10 +14,6 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    BanStatusDto,
-    BanStatusDtoFromJSON,
-    BanStatusDtoFromJSONTyped,
-    BanStatusDtoToJSON,
     PlayerSummaryDto,
     PlayerSummaryDtoFromJSON,
     PlayerSummaryDtoFromJSONTyped,
@@ -30,12 +26,6 @@ import {
  * @interface PartyMemberDTO
  */
 export interface PartyMemberDTO {
-    /**
-     * 
-     * @type {BanStatusDto}
-     * @memberof PartyMemberDTO
-     */
-    banStatus: BanStatusDto;
     /**
      * 
      * @type {PlayerSummaryDto}
@@ -60,7 +50,6 @@ export function PartyMemberDTOFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'banStatus': BanStatusDtoFromJSON(json['banStatus']),
         'summary': PlayerSummaryDtoFromJSON(json['summary']),
         'session': !exists(json, 'session') ? undefined : json['session'],
     };
@@ -75,7 +64,6 @@ export function PartyMemberDTOToJSON(value?: PartyMemberDTO | null): any {
     }
     return {
         
-        'banStatus': BanStatusDtoToJSON(value.banStatus),
         'summary': PlayerSummaryDtoToJSON(value.summary),
         'session': value.session,
     };

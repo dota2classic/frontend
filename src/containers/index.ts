@@ -15,3 +15,5 @@ export { LiveMatchPage } from "./LiveMatchPage/LiveMatchPage";
 export { EditProfileDecorations } from "./EditProfileDecorations/EditProfileDecorations";
 export { StoreLanding } from "./StoreLanding/StoreLanding";
 export { EditHatContainer } from "./EditHatContainer/EditHatContainer";
+export { EditRulesContainer } from "./EditRulesContainer/EditRulesContainer";
+export { RuleRender } from "./RuleRender/RuleRender";
