@@ -146,6 +146,10 @@ export const AppRouter = {
         page(`/admin/feedback/edit/[id]`, `/admin/feedback/edit/${id}`),
       create: spage("/admin/feedback/create"),
     },
+    rules: {
+      editRules: spage(`/admin/rules/edit`),
+      editPunishments: spage(`/admin/rules/punishments`),
+    },
 
     decoration: {
       create: (type: UserProfileDecorationType) => {

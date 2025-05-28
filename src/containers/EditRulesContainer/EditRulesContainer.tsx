@@ -1,13 +1,19 @@
 import React, { useCallback, useRef } from "react";
 
 import c from "./EditRulesContainer.module.scss";
-import { RuleDto, UpdateRuleIndexDto } from "@/api/back";
+import { RuleDto, RulePunishmentDto, UpdateRuleIndexDto } from "@/api/back";
 import { observer, useLocalObservable } from "mobx-react-lite";
-import { Tree, TreeApi, MoveHandler } from "@dota2classic/react-arborist";
+import { MoveHandler, Tree, TreeApi } from "@dota2classic/react-arborist";
 import { RuleNode } from "@/containers/EditRulesContainer/RuleNode";
 import { getApi } from "@/api/hooks";
 import { runInAction, toJS } from "mobx";
-import { Button, MarkdownTextarea } from "@/components";
+import {
+  Button,
+  Duration,
+  Input,
+  MarkdownTextarea,
+  SelectOptions,
+} from "@/components";
 import { useAsyncButton } from "@/util/use-async-button";
 import useResizeObserver from "use-resize-observer";
 import { NotoSans } from "@/const/notosans";
@@ -20,19 +26,22 @@ import { GoListOrdered } from "react-icons/go";
 
 interface IEditRulesContainerProps {
   rules?: RuleDto[];
+  punishments?: RulePunishmentDto[];
 }
 
 type RuleDtoEditable = RuleDto & { dirty?: boolean };
 
 export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
-  ({ rules }) => {
+  ({ rules, punishments }) => {
     const treeRef = useRef<TreeApi<RuleDtoEditable> | null>(null);
 
     const state = useLocalObservable<{
       rules: RuleDtoEditable[];
+      punishments: RulePunishmentDto[];
       editedRule?: RuleDtoEditable;
     }>(() => ({
       rules: rules || [],
+      punishments: punishments || [],
       editedRule: undefined,
     }));
 
@@ -44,6 +53,8 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
         Number(state.editedRule.id),
         {
           description: state.editedRule.description,
+          title: state.editedRule.title,
+          punishmentId: state.editedRule.punishment?.id || null,
         },
       );
       const rules = await getApi().rules.ruleControllerGetAllRules();
@@ -98,7 +109,6 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
 
     const onMove: MoveHandler<RuleDto> = useCallback(
       async (args) => {
-        console.log(args);
         if (args.dragNodes.length !== 1) return;
         const node = args.dragNodes[0];
 
@@ -129,10 +139,21 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
       [state],
     );
 
+    const updateEditedRule = useCallback(
+      (p: Partial<RuleDtoEditable>) => {
+        runInAction(() => {
+          if (!state.editedRule) return;
+          Object.assign(state.editedRule, p);
+          state.editedRule.dirty = true;
+        });
+      },
+      [state.editedRule],
+    );
+
     return (
       <div className={cx(c.container, NotoSans.className)}>
         <div className={c.tree}>
-          <Button onClick={onCreate} disabled={creating}>
+          <Button onClick={() => onCreate()} disabled={creating}>
             <IoMdCreate />
             Создать правило
           </Button>
@@ -164,17 +185,51 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
         <div className={c.edit}>
           {state.editedRule && (
             <>
+              <header>Правило</header>
+              <Input
+                placeholder={"Правило"}
+                value={state.editedRule.title}
+                onChange={(e) => updateEditedRule({ title: e.target.value })}
+              />
+              <header>Описание правила</header>
               <MarkdownTextarea
                 rows={12}
                 value={state.editedRule.description}
-                onChange={(e) => {
-                  runInAction(() => {
-                    if (!state.editedRule) return;
-                    state.editedRule.description = e.target.value;
-                    state.editedRule.dirty = true;
+                onChange={(e) =>
+                  updateEditedRule({ description: e.target.value })
+                }
+                placeholder={"Описание правила"}
+              />
+
+              <header>Наказание</header>
+              <SelectOptions
+                defaultText={"Наказание"}
+                options={[
+                  {
+                    label: "Убрать наказание",
+                    value: undefined,
+                  },
+                  ...state.punishments.map((punishment) => ({
+                    label: (
+                      <>
+                        {punishment.title}:{" "}
+                        <Duration
+                          long
+                          duration={punishment.durationHours * 60 * 60}
+                        />
+                      </>
+                    ),
+                    value: punishment.id,
+                  })),
+                ]}
+                selected={state.editedRule.punishment?.id}
+                onSelect={(p: { value: number; label: string } | undefined) => {
+                  updateEditedRule({
+                    punishment: state.punishments.find(
+                      (t) => t.id === p?.value,
+                    ),
                   });
                 }}
-                placeholder={"Текст правила"}
               />
 
               <div className={c.buttons}>

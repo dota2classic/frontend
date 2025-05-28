@@ -21,12 +21,21 @@ import {
   CreateRuleDto,
   CreateRuleDtoFromJSON,
   CreateRuleDtoToJSON,
+  PrettyRuleDto,
+  PrettyRuleDtoFromJSON,
+  PrettyRuleDtoToJSON,
   RuleDeleteResultDto,
   RuleDeleteResultDtoFromJSON,
   RuleDeleteResultDtoToJSON,
   RuleDto,
   RuleDtoFromJSON,
   RuleDtoToJSON,
+  RulePunishmentDto,
+  RulePunishmentDtoFromJSON,
+  RulePunishmentDtoToJSON,
+  UpdatePunishmentDto,
+  UpdatePunishmentDtoFromJSON,
+  UpdatePunishmentDtoToJSON,
   UpdateRuleDto,
   UpdateRuleDtoFromJSON,
   UpdateRuleDtoToJSON,
@@ -39,7 +48,15 @@ export interface RuleControllerCreateRuleRequest {
   createRuleDto: CreateRuleDto;
 }
 
+export interface RuleControllerDeletePunishmentRequest {
+  id: number;
+}
+
 export interface RuleControllerDeleteRuleRequest {
+  id: number;
+}
+
+export interface RuleControllerGetPunishmentRequest {
   id: number;
 }
 
@@ -51,6 +68,11 @@ export interface RuleControllerUpdateIndicesRequest {
   updateRuleIndicesDto: UpdateRuleIndicesDto;
 }
 
+export interface RuleControllerUpdatePunishmentRequest {
+  id: number;
+  updatePunishmentDto: UpdatePunishmentDto;
+}
+
 export interface RuleControllerUpdateRuleRequest {
   id: number;
   updateRuleDto: UpdateRuleDto;
@@ -60,6 +82,54 @@ export interface RuleControllerUpdateRuleRequest {
  * 
  */
 export class RulesApi extends runtime.BaseAPI {
+
+    /**
+     */
+    private async ruleControllerCreatePunishmentRaw(): Promise<runtime.ApiResponse<RulePunishmentDto>> {
+        this.ruleControllerCreatePunishmentValidation();
+        const context = this.ruleControllerCreatePunishmentContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulePunishmentDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private ruleControllerCreatePunishmentValidation() {
+    }
+
+    /**
+     */
+    ruleControllerCreatePunishmentContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/rules/punishment`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    ruleControllerCreatePunishment = async (): Promise<RulePunishmentDto> => {
+        const response = await this.ruleControllerCreatePunishmentRaw();
+        return await response.value();
+    }
+
 
     /**
      */
@@ -90,8 +160,16 @@ export class RulesApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
-            path: `/v1/rules`,
+            path: `/v1/rules/rule`,
             method: "POST",
             headers: headerParameters,
             query: queryParameters,
@@ -106,6 +184,67 @@ export class RulesApi extends runtime.BaseAPI {
         return await response.value();
     }
 
+
+    /**
+     */
+    private async ruleControllerDeletePunishmentRaw(requestParameters: RuleControllerDeletePunishmentRequest): Promise<runtime.ApiResponse<RuleDeleteResultDto>> {
+        this.ruleControllerDeletePunishmentValidation(requestParameters);
+        const context = this.ruleControllerDeletePunishmentContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RuleDeleteResultDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private ruleControllerDeletePunishmentValidation(requestParameters: RuleControllerDeletePunishmentRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling ruleControllerDeletePunishment.");
+        }
+    }
+
+    /**
+     */
+    ruleControllerDeletePunishmentContext(requestParameters: RuleControllerDeletePunishmentRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/rules/punishment/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    ruleControllerDeletePunishment = async (id: number): Promise<RuleDeleteResultDto> => {
+        const response = await this.ruleControllerDeletePunishmentRaw({ id: id });
+        return await response.value();
+    }
+
+    useRuleControllerDeletePunishment(id: number, config?: SWRConfiguration<RuleDeleteResultDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.ruleControllerDeletePunishmentContext({ id: id! });
+        return useSWR(context, valid ? () => this.ruleControllerDeletePunishment(id!) : null, config)
+    }
 
     /**
      */
@@ -134,6 +273,14 @@ export class RulesApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/rules/rule/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: "DELETE",
@@ -162,6 +309,52 @@ export class RulesApi extends runtime.BaseAPI {
 
     /**
      */
+    private async ruleControllerGetAllPunishmentsRaw(): Promise<runtime.ApiResponse<Array<RulePunishmentDto>>> {
+        this.ruleControllerGetAllPunishmentsValidation();
+        const context = this.ruleControllerGetAllPunishmentsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RulePunishmentDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private ruleControllerGetAllPunishmentsValidation() {
+    }
+
+    /**
+     */
+    ruleControllerGetAllPunishmentsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/rules/punishment`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    ruleControllerGetAllPunishments = async (): Promise<Array<RulePunishmentDto>> => {
+        const response = await this.ruleControllerGetAllPunishmentsRaw();
+        return await response.value();
+    }
+
+    useRuleControllerGetAllPunishments(config?: SWRConfiguration<Array<RulePunishmentDto>, Error>) {
+        let valid = true
+
+        const context = this.ruleControllerGetAllPunishmentsContext();
+        return useSWR(context, valid ? () => this.ruleControllerGetAllPunishments() : null, config)
+    }
+
+    /**
+     */
     private async ruleControllerGetAllRulesRaw(): Promise<runtime.ApiResponse<Array<RuleDto>>> {
         this.ruleControllerGetAllRulesValidation();
         const context = this.ruleControllerGetAllRulesContext();
@@ -185,7 +378,7 @@ export class RulesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         return {
-            path: `/v1/rules`,
+            path: `/v1/rules/rule`,
             method: "GET",
             headers: headerParameters,
             query: queryParameters,
@@ -204,6 +397,105 @@ export class RulesApi extends runtime.BaseAPI {
 
         const context = this.ruleControllerGetAllRulesContext();
         return useSWR(context, valid ? () => this.ruleControllerGetAllRules() : null, config)
+    }
+
+    /**
+     */
+    private async ruleControllerGetPrettyRulesRaw(): Promise<runtime.ApiResponse<Array<PrettyRuleDto>>> {
+        this.ruleControllerGetPrettyRulesValidation();
+        const context = this.ruleControllerGetPrettyRulesContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(PrettyRuleDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private ruleControllerGetPrettyRulesValidation() {
+    }
+
+    /**
+     */
+    ruleControllerGetPrettyRulesContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/rules/reportable`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    ruleControllerGetPrettyRules = async (): Promise<Array<PrettyRuleDto>> => {
+        const response = await this.ruleControllerGetPrettyRulesRaw();
+        return await response.value();
+    }
+
+    useRuleControllerGetPrettyRules(config?: SWRConfiguration<Array<PrettyRuleDto>, Error>) {
+        let valid = true
+
+        const context = this.ruleControllerGetPrettyRulesContext();
+        return useSWR(context, valid ? () => this.ruleControllerGetPrettyRules() : null, config)
+    }
+
+    /**
+     */
+    private async ruleControllerGetPunishmentRaw(requestParameters: RuleControllerGetPunishmentRequest): Promise<runtime.ApiResponse<RulePunishmentDto>> {
+        this.ruleControllerGetPunishmentValidation(requestParameters);
+        const context = this.ruleControllerGetPunishmentContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulePunishmentDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private ruleControllerGetPunishmentValidation(requestParameters: RuleControllerGetPunishmentRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling ruleControllerGetPunishment.");
+        }
+    }
+
+    /**
+     */
+    ruleControllerGetPunishmentContext(requestParameters: RuleControllerGetPunishmentRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/rules/punishment/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    ruleControllerGetPunishment = async (id: number): Promise<RulePunishmentDto> => {
+        const response = await this.ruleControllerGetPunishmentRaw({ id: id });
+        return await response.value();
+    }
+
+    useRuleControllerGetPunishment(id: number, config?: SWRConfiguration<RulePunishmentDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.ruleControllerGetPunishmentContext({ id: id! });
+        return useSWR(context, valid ? () => this.ruleControllerGetPunishment(id!) : null, config)
     }
 
     /**
@@ -288,6 +580,14 @@ export class RulesApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/rules/indices`,
             method: "POST",
@@ -301,6 +601,63 @@ export class RulesApi extends runtime.BaseAPI {
      */
     ruleControllerUpdateIndices = async (updateRuleIndicesDto: UpdateRuleIndicesDto): Promise<Array<RuleDto>> => {
         const response = await this.ruleControllerUpdateIndicesRaw({ updateRuleIndicesDto: updateRuleIndicesDto });
+        return await response.value();
+    }
+
+
+    /**
+     */
+    private async ruleControllerUpdatePunishmentRaw(requestParameters: RuleControllerUpdatePunishmentRequest): Promise<runtime.ApiResponse<RulePunishmentDto>> {
+        this.ruleControllerUpdatePunishmentValidation(requestParameters);
+        const context = this.ruleControllerUpdatePunishmentContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulePunishmentDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private ruleControllerUpdatePunishmentValidation(requestParameters: RuleControllerUpdatePunishmentRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling ruleControllerUpdatePunishment.");
+        }
+        if (requestParameters.updatePunishmentDto === null || requestParameters.updatePunishmentDto === undefined) {
+            throw new runtime.RequiredError("updatePunishmentDto","Required parameter requestParameters.updatePunishmentDto was null or undefined when calling ruleControllerUpdatePunishment.");
+        }
+    }
+
+    /**
+     */
+    ruleControllerUpdatePunishmentContext(requestParameters: RuleControllerUpdatePunishmentRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/rules/punishment/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdatePunishmentDtoToJSON(requestParameters.updatePunishmentDto),
+        };
+    }
+
+    /**
+     */
+    ruleControllerUpdatePunishment = async (id: number, updatePunishmentDto: UpdatePunishmentDto): Promise<RulePunishmentDto> => {
+        const response = await this.ruleControllerUpdatePunishmentRaw({ id: id, updatePunishmentDto: updatePunishmentDto });
         return await response.value();
     }
 
@@ -337,6 +694,14 @@ export class RulesApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/rules/rule/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: "PATCH",

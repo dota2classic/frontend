@@ -4,8 +4,8 @@ import c from "./PlayerPentagonStats.module.scss";
 import { Duration, Tooltipable } from "@/components";
 import { PlayerAspect } from "@/api/mapped-models";
 import { formatPlayerAspect } from "@/util/gamemode";
-import { PlayerAspectIcons } from "@/containers/PlayerReportModal/PlayerAspectIcons";
 import { formatWinrate } from "@/util/math";
+import { PlayerAspectIcons } from "@/containers/PlayerFeedbackModal/PlayerAspectIcons";
 
 interface IPlayerPentagonStatsProps {
   aspects: {

@@ -23,74 +23,53 @@ import {
 /**
  * 
  * @export
- * @interface RuleDto
+ * @interface PrettyRuleDto
  */
-export interface RuleDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof RuleDto
-     */
-    id: string;
+export interface PrettyRuleDto {
     /**
      * 
      * @type {number}
-     * @memberof RuleDto
+     * @memberof PrettyRuleDto
      */
-    index: number;
+    id: number;
     /**
      * 
      * @type {string}
-     * @memberof RuleDto
+     * @memberof PrettyRuleDto
      */
-    title: string;
+    fullIndex: string;
     /**
      * 
      * @type {string}
-     * @memberof RuleDto
+     * @memberof PrettyRuleDto
      */
     description: string;
     /**
      * 
-     * @type {number}
-     * @memberof RuleDto
-     */
-    parentId?: number;
-    /**
-     * 
-     * @type {Array<RuleDto>}
-     * @memberof RuleDto
-     */
-    children: Array<RuleDto>;
-    /**
-     * 
      * @type {RulePunishmentDto}
-     * @memberof RuleDto
+     * @memberof PrettyRuleDto
      */
     punishment?: RulePunishmentDto;
 }
 
-export function RuleDtoFromJSON(json: any): RuleDto {
-    return RuleDtoFromJSONTyped(json, false);
+export function PrettyRuleDtoFromJSON(json: any): PrettyRuleDto {
+    return PrettyRuleDtoFromJSONTyped(json, false);
 }
 
-export function RuleDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): RuleDto {
+export function PrettyRuleDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): PrettyRuleDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'id': json['id'],
-        'index': json['index'],
-        'title': json['title'],
+        'fullIndex': json['fullIndex'],
         'description': json['description'],
-        'parentId': !exists(json, 'parentId') ? undefined : json['parentId'],
-        'children': ((json['children'] as Array<any>).map(RuleDtoFromJSON)),
         'punishment': !exists(json, 'punishment') ? undefined : RulePunishmentDtoFromJSON(json['punishment']),
     };
 }
 
-export function RuleDtoToJSON(value?: RuleDto | null): any {
+export function PrettyRuleDtoToJSON(value?: PrettyRuleDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -100,11 +79,8 @@ export function RuleDtoToJSON(value?: RuleDto | null): any {
     return {
         
         'id': value.id,
-        'index': value.index,
-        'title': value.title,
+        'fullIndex': value.fullIndex,
         'description': value.description,
-        'parentId': value.parentId,
-        'children': ((value.children as Array<any>).map(RuleDtoToJSON)),
         'punishment': RulePunishmentDtoToJSON(value.punishment),
     };
 }

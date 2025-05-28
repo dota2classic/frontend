@@ -30,7 +30,19 @@ export interface UpdateRuleDto {
      * @type {string}
      * @memberof UpdateRuleDto
      */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateRuleDto
+     */
     description?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateRuleDto
+     */
+    punishmentId?: number | null;
     /**
      * 
      * @type {number}
@@ -50,7 +62,9 @@ export function UpdateRuleDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
     return {
         
         'parent': !exists(json, 'parent') ? undefined : json['parent'],
+        'title': !exists(json, 'title') ? undefined : json['title'],
         'description': !exists(json, 'description') ? undefined : json['description'],
+        'punishmentId': !exists(json, 'punishmentId') ? undefined : json['punishmentId'],
         'index': !exists(json, 'index') ? undefined : json['index'],
     };
 }
@@ -65,7 +79,9 @@ export function UpdateRuleDtoToJSON(value?: UpdateRuleDto | null): any {
     return {
         
         'parent': value.parent,
+        'title': value.title,
         'description': value.description,
+        'punishmentId': value.punishmentId,
         'index': value.index,
     };
 }

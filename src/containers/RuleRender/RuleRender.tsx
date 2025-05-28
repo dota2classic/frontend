@@ -3,6 +3,7 @@ import React from "react";
 import c from "./RuleRender.module.scss";
 import { RuleDto } from "@/api/back";
 import { FaHashtag } from "react-icons/fa";
+import { Duration } from "@/components";
 
 interface IRuleRenderProps {
   rule: RuleDto;
@@ -30,13 +31,26 @@ export const RuleRender: React.FC<IRuleRenderProps> = ({
     </a>
   );
 
+  const Description = rule.description ? (
+    <p className={c.description}>{rule.description}</p>
+  ) : null;
+
+  const Punishment = rule.punishment ? (
+    <span className={c.punishment}>
+      Наказание:{" "}
+      <Duration duration={rule.punishment.durationHours * 60 * 60} long />
+    </span>
+  ) : null;
+
   if (!parentIndexPrefix) {
     return (
       <>
         <h2 id={ruleId} className={c.hashtagable}>
           {ReferenceButton}
-          Раздел <span className={c.part}>{fullIndex}</span>. {rule.description}
+          Раздел <span className={c.part}>{fullIndex}</span>. {rule.title}
         </h2>
+        {Description}
+        {Punishment}
         {rest}
       </>
     );
@@ -44,10 +58,14 @@ export const RuleRender: React.FC<IRuleRenderProps> = ({
 
   if (!rule.children?.length) {
     return (
-      <p id={ruleId} className={c.hashtagable}>
-        {ReferenceButton}
-        <span className={c.part}>{fullIndex}</span>. {rule.description}
-      </p>
+      <>
+        <p id={ruleId} className={c.hashtagable}>
+          {ReferenceButton}
+          <span className={c.part}>{fullIndex}</span>. {rule.title}
+        </p>
+        {Description}
+        {Punishment}
+      </>
     );
   }
 
@@ -55,8 +73,10 @@ export const RuleRender: React.FC<IRuleRenderProps> = ({
     <>
       <h3 id={ruleId} className={c.hashtagable}>
         {ReferenceButton}
-        <span className={c.part}>{fullIndex}</span> {rule.description}
+        <span className={c.part}>{fullIndex}</span> {rule.title}
       </h3>
+      {Description}
+      {Punishment}
       {rest}
     </>
   );

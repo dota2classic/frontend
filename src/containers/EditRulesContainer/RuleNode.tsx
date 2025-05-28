@@ -12,9 +12,9 @@ export function RuleNode({
   const charLimit = 30;
 
   const displayTitle =
-    node.data.description.length > charLimit
-      ? node.data.description.slice(0, charLimit) + "..."
-      : node.data.description;
+    node.data.title.length > charLimit
+      ? node.data.title.slice(0, charLimit) + "..."
+      : node.data.title;
 
   return (
     <div

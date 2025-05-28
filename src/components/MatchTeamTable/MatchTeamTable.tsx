@@ -18,17 +18,27 @@ import { AllColumns, Columns } from "./columns";
 import { MdRecommend } from "react-icons/md";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
+import { GiFist } from "react-icons/gi";
+import { GrActions } from "react-icons/gr";
 
 interface IMatchTeamTableProps {
   players: PlayerInMatchDto[];
   duration: number;
   filterColumns?: Columns[];
   reportableSteamIds: string[];
-  onTryReport: (plr: PlayerInMatchDto) => void;
+  onFeedback: (plr: PlayerInMatchDto) => void;
+  onReport: (plr: PlayerInMatchDto) => void;
 }
 
 export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
-  ({ players, duration, filterColumns, reportableSteamIds, onTryReport }) => {
+  ({
+    players,
+    duration,
+    filterColumns,
+    reportableSteamIds,
+    onFeedback,
+    onReport,
+  }) => {
     const { hasReports } = useStore().auth;
 
     const sortedPlayers = useMemo(
@@ -145,6 +155,16 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
             >
               ММР
             </th>
+            <th
+              className={cx(
+                "middle",
+                hc.includes("Actions") ? c.mobileHidden : undefined,
+              )}
+            >
+              <Tooltipable tooltip="Действия">
+                <GrActions />
+              </Tooltipable>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -212,13 +232,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   >
                     {player.user.steamId.length > 2 ? player.user.name : "Бот"}
                   </PageLink>
-                  {hasReports &&
-                    reportableSteamIds.includes(player.user.steamId) && (
-                      <MdRecommend
-                        onClick={() => onTryReport(player)}
-                        className={cx(c.commend, "adminicon")}
-                      />
-                    )}
                 </td>
                 <td
                   className={cx(
@@ -345,6 +358,27 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     </Tooltipable>
                   )) ||
                     "-"}
+                </td>
+                <td
+                  className={
+                    hc.includes("Actions") ? c.mobileHidden : undefined
+                  }
+                >
+                  <Tooltipable
+                    className={cx(c.commend, "adminicon")}
+                    tooltip={"Жалоба"}
+                  >
+                    <GiFist onClick={() => onReport(player)} />
+                  </Tooltipable>
+                  {hasReports &&
+                    reportableSteamIds.includes(player.user.steamId) && (
+                      <Tooltipable
+                        className={cx(c.commend, "adminicon")}
+                        tooltip={"Отзыв"}
+                      >
+                        <MdRecommend onClick={() => onFeedback(player)} />
+                      </Tooltipable>
+                    )}
                 </td>
               </tr>
             );

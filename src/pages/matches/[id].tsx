@@ -20,7 +20,7 @@ import { ThreadType } from "@/api/mapped-models/ThreadType";
 import { useEventSource } from "@/util";
 import { Tabs } from "@/components/Tabs/Tabs";
 import c from "./Match.module.scss";
-import { PlayerReportModal, Thread } from "@/containers";
+import { PlayerFeedbackModal, ReportModal, Thread } from "@/containers";
 import { Columns } from "@/components/MatchTeamTable/columns";
 
 interface InitialProps {
@@ -33,7 +33,7 @@ type Filter = { label: string; columns: Columns[] };
 const options: Filter[] = [
   {
     label: "Сводка",
-    columns: ["K", "D", "A", "NW", "MMR"],
+    columns: ["K", "D", "A", "NW"],
   },
   {
     label: "Фарм",
@@ -46,6 +46,10 @@ const options: Filter[] = [
   {
     label: "Предметы",
     columns: ["Items"],
+  },
+  {
+    label: "Прочее",
+    columns: ["MMR", "Actions"],
   },
 ];
 
@@ -62,6 +66,25 @@ const MatchThread = ({ id }: { id: string }) => {
       className={c.queueDiscussion}
     />
   );
+};
+
+const useReportModal = (
+  matchId: number,
+): [ReportModalData | undefined, (p: PlayerInMatchDto) => void, () => void] => {
+  const [reportModalData, setReportModalData] = useState<
+    ReportModalData | undefined
+  >(undefined);
+  const showReportModal = useCallback(
+    (pim: PlayerInMatchDto) => {
+      setReportModalData({ reportedPlayer: pim, matchId: matchId });
+    },
+    [matchId],
+  );
+  const closeModal = useCallback(() => {
+    setReportModalData(undefined);
+  }, []);
+
+  return [reportModalData, showReportModal, closeModal];
 };
 
 export default function MatchPage({
@@ -83,20 +106,11 @@ export default function MatchPage({
     return reportMatrix?.reportableSteamIds || [];
   }, [reportMatrix]);
 
-  const [reportModalData, setReportModalData] = useState<
-    ReportModalData | undefined
-  >(undefined);
+  const [feedbackData, showFeedbackModal, closeFeedbackModal] =
+    useReportModal(matchId);
 
-  const showReportModal = useCallback(
-    (pim: PlayerInMatchDto) => {
-      setReportModalData({ reportedPlayer: pim, matchId: matchId });
-    },
-    [matchId],
-  );
-  const closeModal = useCallback(() => {
-    console.log("close");
-    setReportModalData(undefined);
-  }, []);
+  const [reportData, showReportModal, closeReportModal] =
+    useReportModal(matchId);
 
   const isMatchLive =
     liveMatches.findIndex((t) => t.matchId === matchId) !== -1;
@@ -111,11 +125,20 @@ export default function MatchPage({
   if (match)
     return (
       <>
-        {reportModalData && (
-          <PlayerReportModal
-            onClose={closeModal}
-            player={reportModalData.reportedPlayer}
-            matchId={reportModalData.matchId}
+        {reportData && (
+          <ReportModal
+            onClose={closeReportModal}
+            meta={{
+              player: reportData.reportedPlayer,
+              matchId: reportData.matchId,
+            }}
+          />
+        )}
+        {feedbackData && (
+          <PlayerFeedbackModal
+            onClose={closeFeedbackModal}
+            player={feedbackData.reportedPlayer}
+            matchId={feedbackData.matchId}
             onReport={async (r: MatchReportInfoDto) => {
               await updateReportMatrix(r);
             }}
@@ -147,7 +170,8 @@ export default function MatchPage({
           onSelect={(v) => setFilter(options.find((x) => x.label === v)!)}
         />
         <MatchTeamTable
-          onTryReport={showReportModal}
+          onReport={showReportModal}
+          onFeedback={showFeedbackModal}
           reportableSteamIds={reportableSteamIds}
           filterColumns={filter.columns}
           duration={match.duration}
@@ -165,7 +189,8 @@ export default function MatchPage({
           onSelect={(v) => setFilter(options.find((x) => x.label === v)!)}
         />
         <MatchTeamTable
-          onTryReport={showReportModal}
+          onReport={showReportModal}
+          onFeedback={showFeedbackModal}
           reportableSteamIds={reportableSteamIds}
           filterColumns={filter.columns}
           duration={match.duration}

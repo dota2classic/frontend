@@ -1,0 +1,20 @@
+@import "../../common.scss";
+
+.reportModal {
+  & :global(.modal) {
+    width: 40vw;
+  }
+
+  & header {
+    margin-block-start: 1rem;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+}
+
+.player {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+}

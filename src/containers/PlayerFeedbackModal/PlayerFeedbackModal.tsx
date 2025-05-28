@@ -6,7 +6,7 @@ import {
   MarkdownTextarea,
   UserPreview,
 } from "@/components";
-import c from "./PlayerReportModal.module.scss";
+import c from "./PlayerFeedbackModal.module.scss";
 import { formatPlayerAspect } from "@/util/gamemode";
 import cx from "clsx";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
@@ -14,7 +14,7 @@ import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { makeSimpleToast } from "@/components/Toast/toasts";
-import { PlayerAspectIcons } from "@/containers/PlayerReportModal/PlayerAspectIcons";
+import { PlayerAspectIcons } from "@/containers/PlayerFeedbackModal/PlayerAspectIcons";
 
 interface IPlayerReportModalProps {
   player: PlayerInMatchDto;
@@ -23,7 +23,7 @@ interface IPlayerReportModalProps {
   onReport: (newMatrix: MatchReportInfoDto) => Promise<void>;
 }
 
-export const PlayerReportModal: React.FC<IPlayerReportModalProps> = observer(
+export const PlayerFeedbackModal: React.FC<IPlayerReportModalProps> = observer(
   ({ player, matchId, onClose, onReport }) => {
     const [comment, setComment] = useState("");
     const [selectedAspect, setSelectedAspect] = useState<

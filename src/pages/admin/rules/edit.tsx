@@ -1,15 +1,18 @@
-import { EditRulesContainer } from "@/containers";
+import { AdminRuleTabs, EditRulesContainer } from "@/containers";
 import { getApi } from "@/api/hooks";
-import { RuleDto } from "@/api/back";
+import { RuleDto, RulePunishmentDto } from "@/api/back";
+import { EmbedProps } from "@/components";
 
 interface Props {
   rules: RuleDto[];
+  punishments: RulePunishmentDto[];
 }
-export default function EditRules({ rules }: Props) {
+export default function EditRules({ rules, punishments }: Props) {
   return (
     <>
-      <br />
-      <EditRulesContainer rules={rules} />
+      <EmbedProps title={"Редактирование правил"} description={""} />
+      <AdminRuleTabs />
+      <EditRulesContainer rules={rules} punishments={punishments} />
     </>
   );
 }
@@ -17,5 +20,6 @@ export default function EditRules({ rules }: Props) {
 EditRules.getInitialProps = async () => {
   return {
     rules: await getApi().rules.ruleControllerGetAllRules(),
+    punishments: await getApi().rules.ruleControllerGetAllPunishments(),
   };
 };

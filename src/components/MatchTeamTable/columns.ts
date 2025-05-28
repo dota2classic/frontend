@@ -9,7 +9,8 @@ export type Columns =
   | "TD"
   | "NW"
   | "Items"
-  | "MMR";
+  | "MMR"
+  | "Actions";
 
 export const AllColumns: Columns[] = [
   "GPM",
@@ -23,4 +24,5 @@ export const AllColumns: Columns[] = [
   "NW",
   "Items",
   "MMR",
+  "Actions",
 ];
