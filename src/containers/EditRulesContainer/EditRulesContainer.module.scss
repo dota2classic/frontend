@@ -26,6 +26,19 @@
   text-overflow: ellipsis;
   cursor: pointer;
 
+  &__warning {
+    & > span {
+      &::after {
+        content: "*";
+        margin-right: 2px;
+        left: -4px;
+        color: $error;
+        font-size: 1rem;
+        transform: scale(1.5);
+      }
+    }
+  }
+
   &__selected,
   &:hover {
     background: $panelBg;

@@ -16,10 +16,17 @@ export function RuleNode({
       ? node.data.title.slice(0, charLimit) + "..."
       : node.data.title;
 
+  const isMissingPunishment =
+    node.data.children.length === 0 && !node.data.punishment;
+
   return (
     <div
       style={style}
-      className={cx(c.node, node.isSelected && c.node__selected)}
+      className={cx(
+        c.node,
+        node.isSelected && c.node__selected,
+        isMissingPunishment && c.node__warning,
+      )}
       ref={dragHandle as unknown as React.LegacyRef<HTMLDivElement>}
     >
       <span className="gold">{node.data.index + 1}</span> {displayTitle}
