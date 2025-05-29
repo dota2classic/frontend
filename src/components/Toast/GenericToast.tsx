@@ -11,7 +11,7 @@ export interface GenericToastProps {
   onDecline?: () => void;
   acceptText?: ReactNode;
   declineText?: ReactNode;
-  variant: "simple" | "error"
+  variant?: "simple" | "error";
 }
 export const GenericToast: React.FC<ToastContentProps & GenericToastProps> = ({
   closeToast,
@@ -21,7 +21,7 @@ export const GenericToast: React.FC<ToastContentProps & GenericToastProps> = ({
   acceptText,
   declineText,
   onDecline,
-  variant
+  variant,
 }) => {
   const accept = useCallback(() => {
     closeToast();

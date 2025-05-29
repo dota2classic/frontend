@@ -73,14 +73,13 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
             ruleId: selectedReportReason,
           });
         }
-      } catch (e: Response) {
-        const msg = await e.json();
-        makeSimpleToast(
-          "Ошибка при создании жалобы",
-          msg.message,
-          5000,
-          "error",
-        );
+      } catch (e: unknown) {
+        let errMsg = "";
+        if (e instanceof Response) {
+          const msg = await e.json();
+          errMsg = msg.message;
+        }
+        makeSimpleToast("Ошибка при создании жалобы", errMsg, 5000, "error");
       }
       report.clear();
     }, [comment, selectedReportReason]);
