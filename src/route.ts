@@ -9,6 +9,7 @@ export interface NextLinkProp {
   shallow?: boolean;
   passHref: boolean;
   as?: string;
+  matches: (router: NextRouter) => boolean;
 }
 
 export interface IRouterPage {
@@ -26,7 +27,15 @@ export const page = (
   as?: string,
   shallow?: boolean,
 ): IRouterPage => ({
-  link: { href, as, shallow, passHref: true },
+  link: {
+    href,
+    as,
+    shallow,
+    passHref: true,
+    matches: (router) => {
+      return router.asPath === as;
+    },
+  },
   open: (hard?: boolean) => {
     if (hard) {
       window.open(as as never);
@@ -244,6 +253,8 @@ export const AppRouter = {
           return page(`/players/[id]`, `/players/${id}`);
         case ThreadType.TICKET:
           return page(`/forum/ticket/[id]${q}`, `/forum/ticket/${id}`);
+        case ThreadType.REPORT:
+          return page(`/forum/report/[id]${q}`, `/forum/report/${id}`);
 
         default:
           return page(`/forum/[id]${q}`, `/forum/${id}${q}`);
@@ -254,10 +265,26 @@ export const AppRouter = {
         const q = queryParameters({ page: _page });
         return spage(`/admin/ticket${q}`, false);
       },
-      index: spage("/forum/ticket"),
+      index: (_page?: number) => {
+        const q = queryParameters({ page: _page });
+        return spage(`/forum/ticket${q}`, false);
+      },
       ticket(id: string) {
         const numericId = id.replace(/\D/g, "");
         return page("/forum/ticket/[id]", `/forum/ticket/${numericId}`);
+      },
+    },
+    report: {
+      admin: (_page?: number) => {
+        const q = queryParameters({ page: _page });
+        return spage(`/admin/report${q}`, false);
+      },
+      index: (_page?: number) => {
+        const q = queryParameters({ page: _page });
+        return spage(`/forum/report${q}`, false);
+      },
+      report(id: string) {
+        return page("/forum/report/[id]", `/forum/report/${id}`);
       },
     },
   },

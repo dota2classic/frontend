@@ -12,27 +12,12 @@ import c from "./Forum.module.scss";
 import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
-import { observer } from "mobx-react-lite";
-import { useIsModerator } from "@/util";
+import { ForumTabs } from "@/containers";
 
 interface Props {
   threads: ThreadPageDTO;
   page: number;
 }
-
-const AdminTicketPage = observer(() => {
-  const isMod = useIsModerator();
-  if (!isMod) return null;
-
-  return (
-    <PageLink
-      link={AppRouter.forum.ticket.admin().link}
-      className={c.createThread}
-    >
-      <Button>Обращения пользователей</Button>
-    </PageLink>
-  );
-});
 
 export default function ForumIndexPage({ threads, page }: Props) {
   return (
@@ -43,19 +28,13 @@ export default function ForumIndexPage({ threads, page }: Props) {
       />
 
       <div className={c.buttons}>
+        <ForumTabs />
         <PageLink
           link={AppRouter.forum.createThread(ThreadType.FORUM).link}
           className={c.createThread}
         >
           <Button>Новая тема</Button>
         </PageLink>
-        <PageLink
-          link={AppRouter.forum.ticket.index.link}
-          className={c.createThread}
-        >
-          <Button>Мои тикеты</Button>
-        </PageLink>
-        <AdminTicketPage />
       </div>
       {threads.pages > 1 && (
         <Pagination

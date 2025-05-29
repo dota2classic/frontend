@@ -12,6 +12,7 @@ import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
 import c from "@/pages/forum/Forum.module.scss";
+import { ForumTabs } from "@/containers";
 
 interface Props {
   threads: ThreadPageDTO;
@@ -22,28 +23,23 @@ export default function TicketsPage({ threads, page }: Props) {
   return (
     <>
       <EmbedProps
-        title="Форум"
+        title="Техподдержка"
         description="Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов"
       />
       <div className={c.buttons}>
+        <ForumTabs />
         <PageLink
           link={AppRouter.forum.createThread(ThreadType.TICKET).link}
           className={c.createThread}
         >
           <Button>Новый тикет</Button>
         </PageLink>
-        <PageLink
-          link={AppRouter.forum.index().link}
-          className={c.createThread}
-        >
-          <Button>Все темы</Button>
-        </PageLink>
       </div>
       {threads.pages > 1 && (
         <Pagination
           page={page}
           maxPage={threads.pages}
-          linkProducer={(page) => AppRouter.forum.index(page).link}
+          linkProducer={(page) => AppRouter.forum.ticket.index(page).link}
         />
       )}
       <ThreadsTable threads={threads} />

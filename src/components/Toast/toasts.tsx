@@ -127,6 +127,37 @@ export const createNotificationToast = (notification: NotificationDto) => {
         Если подобное поведение повторится, наказание станет более длительным.
       </>
     );
+  } else if (
+    notification.entityType === NotificationDtoEntityTypeEnum.REPORTTICKET
+  ) {
+    if (notification.notificationType === NotificationType.REPORTCREATED) {
+      title = `Создана жалоба`;
+      content = (
+        <>
+          Отслеживать ее можешь по{" "}
+          <PageLink
+            link={AppRouter.forum.report.report(notification.entityId).link}
+            onClick={acknowledge}
+          >
+            ссылке
+          </PageLink>
+        </>
+      );
+    } else if (
+      notification.notificationType === NotificationType.TICKETNEWMESSAGE
+    ) {
+      title = `Новое сообщение в твоей жалобе!`;
+      content = (
+        <>
+          <PageLink
+            link={AppRouter.forum.report.report(notification.entityId).link}
+            onClick={acknowledge}
+          >
+            Посмотреть новое сообщение
+          </PageLink>
+        </>
+      );
+    }
   }
 
   const showFeedback = async () => {

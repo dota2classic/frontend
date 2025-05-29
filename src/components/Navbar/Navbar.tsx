@@ -17,6 +17,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { MdGavel } from "react-icons/md";
 import { FaCoins, FaHandshake } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
+import { GiFist } from "react-icons/gi";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth, live } = useStore();
@@ -93,8 +94,13 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
               options={[
                 {
                   Icon: IoMdHelp,
-                  label: "Тикеты",
-                  action: AppRouter.forum.ticket.index.link,
+                  label: "Техподдержка",
+                  action: AppRouter.forum.ticket.index().link,
+                },
+                {
+                  Icon: GiFist,
+                  label: "Жалобы",
+                  action: AppRouter.forum.report.index().link,
                 },
               ]}
             >

@@ -43,6 +43,12 @@ export interface PrettyRuleDto {
      * @type {string}
      * @memberof PrettyRuleDto
      */
+    title: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PrettyRuleDto
+     */
     description: string;
     /**
      * 
@@ -64,6 +70,7 @@ export function PrettyRuleDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'id': json['id'],
         'fullIndex': json['fullIndex'],
+        'title': json['title'],
         'description': json['description'],
         'punishment': !exists(json, 'punishment') ? undefined : RulePunishmentDtoFromJSON(json['punishment']),
     };
@@ -80,6 +87,7 @@ export function PrettyRuleDtoToJSON(value?: PrettyRuleDto | null): any {
         
         'id': value.id,
         'fullIndex': value.fullIndex,
+        'title': value.title,
         'description': value.description,
         'punishment': RulePunishmentDtoToJSON(value.punishment),
     };

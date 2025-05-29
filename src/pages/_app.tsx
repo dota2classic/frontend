@@ -17,6 +17,7 @@ import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModal
 // Font files can be colocated inside of `pages`
 import "@/styles/editor.css";
 import { TrajanPro } from "@/const/fonts";
+import { ReportModalContainer } from "@/containers/ReportModal/ReportModalContainer";
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
@@ -71,6 +72,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
       threads: { emoticons: [] },
       greedyFocus: {},
       image: {},
+      report: {},
       ...inferredState,
     };
 
@@ -96,6 +98,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
         <ReferralSniffer />
         <DevVersionIndicator />
         <ToastContainer />
+        <ReportModalContainer />
         <FeedbackModalContainer />
         <GreedyFocusManager />
         <Head>

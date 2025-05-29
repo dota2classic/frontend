@@ -141,6 +141,7 @@ export enum NotificationDtoEntityTypeEnum {
     FEEDBACK = 'FEEDBACK',
     ACHIEVEMENT = 'ACHIEVEMENT',
     FEEDBACKTICKET = 'FEEDBACK_TICKET',
+    REPORTTICKET = 'REPORT_TICKET',
     PLAYER = 'PLAYER',
     MATCH = 'MATCH'
 }

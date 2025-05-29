@@ -23,7 +23,8 @@ export enum NotificationType {
     TICKETCREATED = 'TICKET_CREATED',
     TICKETNEWMESSAGE = 'TICKET_NEW_MESSAGE',
     PLAYERREPORTBAN = 'PLAYER_REPORT_BAN',
-    PLAYERFEEDBACK = 'PLAYER_FEEDBACK'
+    PLAYERFEEDBACK = 'PLAYER_FEEDBACK',
+    REPORTCREATED = 'REPORT_CREATED'
 }
 
 export function NotificationTypeFromJSON(json: any): NotificationType {

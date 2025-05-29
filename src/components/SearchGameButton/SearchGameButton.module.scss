@@ -3,6 +3,8 @@
 .banned {
   color: $primaryTextDark;
   border-color: $red;
+  display: flex;
+  flex-direction: column;
 }
 
 .ingame {

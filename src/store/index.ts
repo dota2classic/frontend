@@ -12,6 +12,7 @@ import { ThreadsStore } from "@/store/ThreadsStore";
 import { GreedyFocusStore } from "@/store/GreedyFocusStore";
 import { ImageStore } from "@/store/ImageStore";
 import { LiveStore } from "@/store/LiveStore";
+import { ReportStore } from "@/store/ReportStore";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -41,6 +42,7 @@ function createStore(): RootStore {
     threads,
     greedyFocus: new GreedyFocusStore(),
     image: new ImageStore(),
+    report: new ReportStore(),
   };
 }
 export const __unsafeGetClientStore = () => clientStore;
@@ -82,6 +84,7 @@ export interface RootStore {
   threads: ThreadsStore;
   greedyFocus: GreedyFocusStore;
   image: ImageStore;
+  report: ReportStore;
 }
 
 export function useStore(): RootStore {

@@ -15,25 +15,25 @@ interface Props {
   page: number;
 }
 
-export default function TicketPage({ messages, thread, page }: Props) {
+export default function ReportPage({ messages, thread, page }: Props) {
   const r = useRouter();
 
   return (
     <>
       <EmbedProps
         title={`${thread.title}`}
-        description={`Тикет на сайте dotaclassic.ru: ${thread.title}`}
+        description={`Жалоба на сайте dotaclassic.ru: ${thread.title}`}
       />
       <Panel>
         <Breadcrumbs>
-          <PageLink link={AppRouter.forum.ticket.index().link}>Тикеты</PageLink>
+          <PageLink link={AppRouter.forum.report.index().link}>Жалобы</PageLink>
           <span>{thread.title}</span>
         </Breadcrumbs>
       </Panel>
       <br />
       <PaginatedThread
         populateMessages={messages}
-        threadType={ThreadType.TICKET}
+        threadType={ThreadType.REPORT}
         id={r.query.id as string}
         pagination={{
           page: numberOrDefault(page, 0),
@@ -46,13 +46,13 @@ export default function TicketPage({ messages, thread, page }: Props) {
   );
 }
 
-TicketPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+ReportPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const tid = ctx.query.id as string;
   const page = numberOrDefault(ctx.query.page as string, 0);
 
   const [messages, thread] = await Promise.combine([
-    getApi().forumApi.forumControllerMessagesPage(tid, ThreadType.TICKET, page),
-    getApi().forumApi.forumControllerGetThread(tid, ThreadType.TICKET),
+    getApi().forumApi.forumControllerMessagesPage(tid, ThreadType.REPORT, page),
+    getApi().forumApi.forumControllerGetThread(tid, ThreadType.REPORT),
   ]);
 
   return {

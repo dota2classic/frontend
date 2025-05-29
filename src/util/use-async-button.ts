@@ -3,10 +3,10 @@ import { useCallback, useTransition } from "react";
 
 type AsyncFn = (...args: any[]) => Promise<unknown>;
 
-export function useAsyncButton(
-  callback: AsyncFn,
+export function useAsyncButton<T extends AsyncFn>(
+  callback: T,
   deps: any[],
-): [boolean, AsyncFn] {
+): [boolean, T] {
   const [isPending, startTransition] = useTransition();
   const doAction = useCallback(
     async (...args: unknown[]) => {
@@ -17,5 +17,5 @@ export function useAsyncButton(
     [callback, ...deps],
   );
 
-  return [isPending, doAction];
+  return [isPending, doAction as T];
 }

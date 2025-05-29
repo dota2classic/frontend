@@ -9,6 +9,7 @@ import { ReplyToMessageTool } from "@/components/Message/tools/ReplyToMessageToo
 import { EditMessageTool } from "@/components/Message/tools/EditMessageTool";
 import { ThreadMessageDTO } from "@/api/back";
 import { BlockUserTool } from "@/components/Message/tools/BlockUserTool";
+import { ReportUserTool } from "@/components/Message/tools/ReportUserTool";
 
 interface Props {
   message: ThreadMessageDTO;
@@ -36,6 +37,7 @@ export const MessageTools = observer(({ message }: Props) => {
         blockStatus={message.blocked}
         relatedSteamId={message.author.steamId}
       />
+      <ReportUserTool message={message} />
     </div>
   );
 });

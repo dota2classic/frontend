@@ -13,11 +13,11 @@ interface Props {
   page: number;
 }
 
-export default function AdminTicketsPage({ threads, page }: Props) {
+export default function ReportsPage({ threads, page }: Props) {
   return (
     <>
       <EmbedProps
-        title="Форум"
+        title="Жалобы"
         description="Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов"
       />
       <div className={c.buttons}>
@@ -27,7 +27,7 @@ export default function AdminTicketsPage({ threads, page }: Props) {
         <Pagination
           page={page}
           maxPage={threads.pages}
-          linkProducer={(page) => AppRouter.forum.ticket.admin(page).link}
+          linkProducer={(page) => AppRouter.forum.report.index(page).link}
         />
       )}
       <ThreadsTable threads={threads} />
@@ -35,16 +35,14 @@ export default function AdminTicketsPage({ threads, page }: Props) {
   );
 }
 
-AdminTicketsPage.getInitialProps = async (
-  ctx: NextPageContext,
-): Promise<Props> => {
+ReportsPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const page = numberOrDefault(ctx.query.page as string, 0);
 
   const threads = await getApi().forumApi.forumControllerThreads(
     page,
-    false,
+    true,
     15,
-    ThreadType.TICKET,
+    ThreadType.REPORT,
   );
 
   return {

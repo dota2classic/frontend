@@ -13,7 +13,7 @@ interface Props {
   page: number;
 }
 
-export default function AdminTicketsPage({ threads, page }: Props) {
+export default function AdminReportsPage({ threads, page }: Props) {
   return (
     <>
       <EmbedProps
@@ -27,7 +27,7 @@ export default function AdminTicketsPage({ threads, page }: Props) {
         <Pagination
           page={page}
           maxPage={threads.pages}
-          linkProducer={(page) => AppRouter.forum.ticket.admin(page).link}
+          linkProducer={(page) => AppRouter.forum.report.admin(page).link}
         />
       )}
       <ThreadsTable threads={threads} />
@@ -35,7 +35,7 @@ export default function AdminTicketsPage({ threads, page }: Props) {
   );
 }
 
-AdminTicketsPage.getInitialProps = async (
+AdminReportsPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
   const page = numberOrDefault(ctx.query.page as string, 0);
@@ -44,7 +44,7 @@ AdminTicketsPage.getInitialProps = async (
     page,
     false,
     15,
-    ThreadType.TICKET,
+    ThreadType.REPORT,
   );
 
   return {

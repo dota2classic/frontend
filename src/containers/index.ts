@@ -20,3 +20,5 @@ export { RuleRender } from "./RuleRender/RuleRender";
 export { ReportModal } from "./ReportModal/ReportModal";
 export { EditPunishmentsContainer } from "./EditPunishmentsContainer/EditPunishmentsContainer";
 export { AdminRuleTabs } from "./AdminRuleTabs/AdminRuleTabs";
+export { ForumTabs } from "./ForumTabs/ForumTabs";
+export { MatchPageContainer } from "./MatchPageContainer/MatchPageContainer";

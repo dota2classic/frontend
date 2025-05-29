@@ -2,8 +2,7 @@ import { ThreadMessageDTO } from "@/api/back";
 import cx from "clsx";
 import c from "./ThreadsTable.module.scss";
 import TableClasses from "@/components/GenericTable/GenericTable.module.scss";
-import Image from "next/image";
-import { PageLink, TimeAgo } from "@/components";
+import { PageLink, PlayerAvatar, TimeAgo } from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
 
@@ -15,12 +14,12 @@ export const ThreadMessagePreview = ({
   const { author } = message;
   return (
     <div className={cx(c.msg, TableClasses.player)}>
-      <Image
+      <PlayerAvatar
+        user={author}
         className={TableClasses.avatar__small}
-        src={author.avatar}
         width={30}
         height={30}
-        alt=""
+        alt={`avatar of user ${author.name}`}
       />
       <div style={{ flex: 1, marginLeft: 2 }}>
         <PageLink
