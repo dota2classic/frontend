@@ -6,6 +6,12 @@
   flex-direction: column;
   gap: 4px;
   flex: 1;
+
+  &__error {
+    & header {
+      color: $error !important;
+    }
+  }
 }
 
 .content {
@@ -24,7 +30,6 @@
 
 .buttons {
   gap: 4px;
-
 
   display: flex;
   flex-direction: row;

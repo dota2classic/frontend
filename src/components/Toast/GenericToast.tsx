@@ -2,6 +2,7 @@ import React, { ReactNode, useCallback } from "react";
 import { ToastContentProps } from "react-toastify";
 import c from "./Toast.module.scss";
 import { Button } from "@/components";
+import cx from "clsx";
 
 export interface GenericToastProps {
   title: ReactNode;
@@ -10,6 +11,7 @@ export interface GenericToastProps {
   onDecline?: () => void;
   acceptText?: ReactNode;
   declineText?: ReactNode;
+  variant: "simple" | "error"
 }
 export const GenericToast: React.FC<ToastContentProps & GenericToastProps> = ({
   closeToast,
@@ -19,6 +21,7 @@ export const GenericToast: React.FC<ToastContentProps & GenericToastProps> = ({
   acceptText,
   declineText,
   onDecline,
+  variant
 }) => {
   const accept = useCallback(() => {
     closeToast();
@@ -30,7 +33,7 @@ export const GenericToast: React.FC<ToastContentProps & GenericToastProps> = ({
   }, [closeToast, onDecline]);
 
   return (
-    <div className={c.toast}>
+    <div className={cx(c.toast, variant === "error" && c.toast__error)}>
       <div className={c.content}>
         <header>{title}</header>
         <p>{content}</p>

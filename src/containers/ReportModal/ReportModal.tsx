@@ -16,6 +16,7 @@ import c from "./ReportModal.module.scss";
 import cx from "clsx";
 import { useAsyncButton } from "@/util/use-async-button";
 import { useStore } from "@/store";
+import { makeSimpleToast } from "@/components/Toast/toasts";
 
 type MatchReportMeta = { matchId: number; player: PlayerInMatchDto };
 type MessageReportMeta = { message: ThreadMessageDTO };
@@ -56,20 +57,30 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
     const [sending, sendMatchReport] = useAsyncButton(async () => {
       if (!selectedReportReason) return;
 
-      if (isMatchReportModal(meta)) {
-        await getApi().report.reportControllerReportPlayerInMatch({
-          steamId: meta.player.user.steamId,
-          matchId: meta.matchId,
-          comment,
-          ruleId: selectedReportReason,
-        });
-      } else if (isReportModalMeta(meta)) {
-        await getApi().report.reportControllerReportMessage({
-          steamId: meta.message.author.steamId,
-          messageId: meta.message.messageId,
-          comment,
-          ruleId: selectedReportReason,
-        });
+      try {
+        if (isMatchReportModal(meta)) {
+          await getApi().report.reportControllerReportPlayerInMatch({
+            steamId: meta.player.user.steamId,
+            matchId: meta.matchId,
+            comment,
+            ruleId: selectedReportReason,
+          });
+        } else if (isReportModalMeta(meta)) {
+          await getApi().report.reportControllerReportMessage({
+            steamId: meta.message.author.steamId,
+            messageId: meta.message.messageId,
+            comment,
+            ruleId: selectedReportReason,
+          });
+        }
+      } catch (e: Response) {
+        const msg = await e.json();
+        makeSimpleToast(
+          "Ошибка при создании жалобы",
+          msg.message,
+          5000,
+          "error",
+        );
       }
       report.clear();
     }, [comment, selectedReportReason]);

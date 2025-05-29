@@ -3,7 +3,11 @@ import { ToastContentProps } from "react-toastify";
 import { GenericToast } from "@/components";
 
 export const SimpleToast: React.FC<
-  Partial<ToastContentProps> & { title: ReactNode; content: ReactNode }
+  Partial<ToastContentProps> & {
+    title: ReactNode;
+    content: ReactNode;
+    variant: "simple" | "error";
+  }
 > = (props) => {
   const fixedProps = props as ToastContentProps & {
     title: ReactNode;

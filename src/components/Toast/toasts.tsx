@@ -217,8 +217,9 @@ export const makeSimpleToast = (
   title: string,
   content: string,
   time: number,
+  variant: "simple" | "error" = "simple"
 ) => {
-  toast(<SimpleToast title={title} content={content} />, {
+  toast(<SimpleToast variant={variant} title={title} content={content} />, {
     autoClose: time,
     className: c.partyToast,
     closeButton: false,
