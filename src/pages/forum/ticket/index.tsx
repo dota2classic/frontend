@@ -23,7 +23,7 @@ export default function TicketsPage({ threads, page }: Props) {
   return (
     <>
       <EmbedProps
-        title="Техподдержка"
+        title="Поддержка"
         description="Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов"
       />
       <div className={c.buttons}>

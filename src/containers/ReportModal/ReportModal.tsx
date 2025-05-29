@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   GenericModal,
@@ -17,6 +17,7 @@ import cx from "clsx";
 import { useAsyncButton } from "@/util/use-async-button";
 import { useStore } from "@/store";
 import { makeSimpleToast } from "@/components/Toast/toasts";
+import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 
 type MatchReportMeta = { matchId: number; player: PlayerInMatchDto };
 type MessageReportMeta = { message: ThreadMessageDTO };
@@ -43,6 +44,9 @@ const makeRuleOptions = (rules: PrettyRuleDto[]) => {
 
 export const ReportModal: React.FC<IReportModalProps> = observer(
   ({ meta, onClose }) => {
+    const inputRef = useRef<HTMLTextAreaElement | null>(null);
+    useGreedyFocus(GreedyFocusPriority.REPORT_MODAL, inputRef);
+
     const { data } = getApi().rules.useRuleControllerGetPrettyRules();
     const [comment, setComment] = useState("");
     const [selectedReportReason, setSelectedReportReason] = useState<
@@ -92,45 +96,62 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
       >
         {isMatchReportModal(meta) && (
           <>
-            <header>Матч</header>
-            <Input readOnly value={`Матч ${meta.matchId}`} />
+            <div className={c.formItem}>
+              <header>Матч</header>
+              <Input readOnly value={`Матч ${meta.matchId}`} />
+            </div>
 
-            <header>Нарушитель</header>
-            <div className={c.player}>
-              <HeroIcon small hero={meta.player.hero} />
-              {meta.player.user.name}
+            <div className={c.formItem}>
+              <header>Нарушитель</header>
+              <div className={c.player}>
+                <HeroIcon small hero={meta.player.hero} />
+                {meta.player.user.name}
+              </div>
             </div>
           </>
         )}
         {isReportModalMeta(meta) && (
           <>
-            <header>Сообщение</header>
-            <Message header message={meta.message} />
+            <div className={c.formItem}>
+              <header>Сообщение</header>
+              <Message header message={meta.message} />
+            </div>
 
-            <header>Нарушитель</header>
-            <UserPreview user={meta.message.author} />
+            <div className={c.formItem}>
+              <header>Нарушитель</header>
+              <UserPreview user={meta.message.author} />
+            </div>
           </>
         )}
-        <header>Нарушенный пункт правил</header>
-        <SelectOptions
-          defaultText={"Пункт правил"}
-          options={options}
-          selected={selectedReportReason}
-          onSelect={(value, meta) => {
-            if (meta.action === "select-option") {
-              setSelectedReportReason(value.value);
-            }
-          }}
-        />
 
-        <header>Комментарий</header>
-        <MarkdownTextarea
-          placeholder={"Когда было совершено нарушение, детали"}
-          rows={4}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <Button disabled={sending} onClick={sendMatchReport}>
+        <div className={c.formItem}>
+          <header>Нарушенный пункт правил</header>
+          <SelectOptions
+            defaultText={"Пункт правил"}
+            options={options}
+            selected={selectedReportReason}
+            onSelect={(value, meta) => {
+              if (meta.action === "select-option") {
+                setSelectedReportReason(value.value);
+              }
+            }}
+          />
+        </div>
+
+        <div className={c.formItem}>
+          <header>Комментарий</header>
+          <MarkdownTextarea
+            placeholder={"Когда было совершено нарушение, детали"}
+            rows={4}
+            value={comment}
+            ref={inputRef}
+            onChange={(e) => setComment(e.target.value)}
+          />
+        </div>
+        <Button
+          disabled={!selectedReportReason || sending}
+          onClick={sendMatchReport}
+        >
           Отправить
         </Button>
       </GenericModal>

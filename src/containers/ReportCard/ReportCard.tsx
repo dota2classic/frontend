@@ -1,0 +1,154 @@
+import React, { useState } from "react";
+
+import c from "./ReportCard.module.scss";
+import { getApi } from "@/api/hooks";
+import {
+  Button,
+  Duration,
+  Message,
+  PageLink,
+  SelectOptions,
+  Table,
+  UserPreview,
+} from "@/components";
+import { AppRouter } from "@/route";
+import { observer } from "mobx-react-lite";
+import { useIsModerator } from "@/util";
+import { ReportDto, RulePunishmentDto } from "@/api/back";
+import { useAsyncButton } from "@/util/use-async-button";
+import cx from "clsx";
+
+interface IReportCardProps {
+  report: ReportDto;
+  punishments: RulePunishmentDto[];
+}
+
+export const ReportCard: React.FC<IReportCardProps> = observer(
+  ({ report: initialReport, punishments }) => {
+    const isModerator = useIsModerator();
+
+    const [report, setReport] = useState<ReportDto>(initialReport);
+
+    const [punishment, setPunishment] = useState<
+      RulePunishmentDto | undefined
+    >();
+
+    const [isBanning, applyPunishment] = useAsyncButton(async () => {
+      const result = await getApi().report.reportControllerHandleReport(
+        report.id,
+        {
+          valid: true,
+          overridePunishmentId: punishment?.id,
+        },
+      );
+      setReport(result);
+    }, [punishment, report]);
+
+    const [isForgiving, makeInnocent] = useAsyncButton(async () => {
+      const result = await getApi().report.reportControllerHandleReport(
+        report.id,
+        {
+          valid: false,
+        },
+      );
+      await setReport(result);
+    }, []);
+
+    const isApplying = report?.handled || isBanning || isForgiving;
+
+    return (
+      <>
+        {report.handled && <h2>Жалоба обработана</h2>}
+        <div className={cx(c.card, report.handled && c.card__handled)}>
+          <Table>
+            <tbody>
+              <tr>
+                <td>Правило</td>
+                <td>{report.rule.title}</td>
+              </tr>
+              <tr>
+                <td>Истец</td>
+                <td>
+                  <UserPreview user={report.reporter} />
+                </td>
+              </tr>
+              <tr>
+                <td>Обвиняемый</td>
+                <td>
+                  <UserPreview user={report.reported} />
+                </td>
+              </tr>
+              {report.message ? (
+                <tr>
+                  <td>Сообщение</td>
+                  <td>
+                    <Message header message={report.message} />
+                  </td>
+                </tr>
+              ) : null}
+              {report.matchId ? (
+                <tr>
+                  <td>Матч</td>
+                  <td>
+                    <PageLink
+                      link={AppRouter.matches.match(report.matchId).link}
+                    >
+                      {report.matchId}
+                    </PageLink>
+                  </td>
+                </tr>
+              ) : null}
+              {isModerator && (
+                <>
+                  <tr>
+                    <td>Применить наказание</td>
+                    <td>
+                      <div className={c.multiButton}>
+                        <SelectOptions
+                          defaultText={"Наказание"}
+                          onSelect={(
+                            p: { value: number; label: string } | undefined,
+                          ) => {
+                            setPunishment(
+                              punishments.find((t) => t.id === p?.value),
+                            );
+                          }}
+                          selected={
+                            punishment?.id || report.rule.punishment?.id
+                          }
+                          options={punishments.map((punishment) => ({
+                            label: (
+                              <>
+                                {punishment.title}:{" "}
+                                <Duration
+                                  long
+                                  duration={punishment.durationHours * 60 * 60}
+                                />
+                              </>
+                            ),
+                            value: punishment.id,
+                          }))}
+                        />
+                        <Button disabled={isApplying} onClick={applyPunishment}>
+                          Виновен!
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Жалоба невалидна</td>
+                    <td>
+                      <Button disabled={isApplying} onClick={makeInnocent}>
+                        Невиновен!
+                      </Button>
+                    </td>
+                  </tr>
+                </>
+              )}
+            </tbody>
+          </Table>
+        </div>
+      </>
+    );
+  },
+);

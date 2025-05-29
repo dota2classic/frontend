@@ -2,20 +2,34 @@ import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
 import { Breadcrumbs, EmbedProps, PageLink, Panel } from "@/components";
 import { getApi } from "@/api/hooks";
-import { ThreadDTO, ThreadMessagePageDTO } from "@/api/back";
+import {
+  ReportDto,
+  RulePunishmentDto,
+  ThreadDTO,
+  ThreadMessagePageDTO,
+} from "@/api/back";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import React from "react";
 import { numberOrDefault } from "@/util/urls";
 import { PaginatedThread } from "@/containers/Thread/PaginatedThread";
+import { ReportCard } from "@/containers";
 
 interface Props {
   messages: ThreadMessagePageDTO;
   thread: ThreadDTO;
   page: number;
+  report: ReportDto;
+  punishments: RulePunishmentDto[];
 }
 
-export default function ReportPage({ messages, thread, page }: Props) {
+export default function ReportPage({
+  messages,
+  thread,
+  page,
+  punishments,
+  report,
+}: Props) {
   const r = useRouter();
 
   return (
@@ -31,6 +45,7 @@ export default function ReportPage({ messages, thread, page }: Props) {
         </Breadcrumbs>
       </Panel>
       <br />
+      <ReportCard report={report} punishments={punishments} />
       <PaginatedThread
         populateMessages={messages}
         threadType={ThreadType.REPORT}
@@ -50,14 +65,18 @@ ReportPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const tid = ctx.query.id as string;
   const page = numberOrDefault(ctx.query.page as string, 0);
 
-  const [messages, thread] = await Promise.combine([
+  const [messages, thread, report, punishments] = await Promise.combine([
     getApi().forumApi.forumControllerMessagesPage(tid, ThreadType.REPORT, page),
     getApi().forumApi.forumControllerGetThread(tid, ThreadType.REPORT),
+    getApi().report.reportControllerGetReport(tid),
+    getApi().rules.ruleControllerGetAllPunishments(),
   ]);
 
   return {
     page,
     messages,
     thread,
+    report,
+    punishments,
   };
 };

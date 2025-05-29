@@ -33,6 +33,10 @@ export const AdminNavbarItem = () => {
           label: "Декорации",
           action: AppRouter.admin.decoration.list().link,
         },
+        {
+          label: "Правила",
+          action: AppRouter.admin.rules.editRules.link,
+        },
       ]}
     >
       <MdLocalPolice />

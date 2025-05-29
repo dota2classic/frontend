@@ -136,7 +136,11 @@ export const createNotificationToast = (notification: NotificationDto) => {
         <>
           Отслеживать ее можешь по{" "}
           <PageLink
-            link={AppRouter.forum.report.report(notification.entityId).link}
+            link={
+              AppRouter.forum.report.report(
+                notification.entityId.replace("report_", ""),
+              ).link
+            }
             onClick={acknowledge}
           >
             ссылке
@@ -150,7 +154,11 @@ export const createNotificationToast = (notification: NotificationDto) => {
       content = (
         <>
           <PageLink
-            link={AppRouter.forum.report.report(notification.entityId).link}
+            link={
+              AppRouter.forum.report.report(
+                notification.entityId.replace("report_", ""),
+              ).link
+            }
             onClick={acknowledge}
           >
             Посмотреть новое сообщение

@@ -15,7 +15,7 @@ import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
 import { AdminNavbarItem } from "@/components/Navbar/AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdGavel } from "react-icons/md";
-import { FaCoins, FaHandshake } from "react-icons/fa";
+import { FaCoins, FaHandshake, FaInfo, FaJournalWhills } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
 
@@ -61,7 +61,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             <span>DOTA2CLASSIC</span>
           </NavbarItem>
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
-            {isAuthorized && (
+            {(isAuthorized && (
               <NavbarItem
                 className={c.play}
                 action={AppRouter.queue.link}
@@ -71,15 +71,20 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                     label: "Лобби",
                     action: AppRouter.lobby.index.link,
                   },
+                  {
+                    Icon: FaInfo,
+                    label: "Как играть",
+                    action: AppRouter.download.link,
+                  },
                 ]}
               >
                 Играть
               </NavbarItem>
+            )) || (
+              <NavbarItem className={c.play} action={AppRouter.download.link}>
+                Как играть
+              </NavbarItem>
             )}
-
-            <NavbarItem className={c.play} action={AppRouter.download.link}>
-              Гайд
-            </NavbarItem>
 
             <MetaNavbarItem />
             <NavbarItem
@@ -94,7 +99,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
               options={[
                 {
                   Icon: IoMdHelp,
-                  label: "Техподдержка",
+                  label: "Поддержка",
                   action: AppRouter.forum.ticket.index().link,
                 },
                 {
@@ -124,6 +129,12 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                   Icon: IoMdContacts,
                   label: "Контакты",
                   action: AppRouter.contact.link,
+                },
+                {
+                  newCategory: true,
+                  Icon: FaJournalWhills,
+                  label: "Журнал нарушений",
+                  action: AppRouter.banLog.index().link,
                 },
               ]}
             >

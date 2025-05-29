@@ -22,3 +22,4 @@ export { EditPunishmentsContainer } from "./EditPunishmentsContainer/EditPunishm
 export { AdminRuleTabs } from "./AdminRuleTabs/AdminRuleTabs";
 export { ForumTabs } from "./ForumTabs/ForumTabs";
 export { MatchPageContainer } from "./MatchPageContainer/MatchPageContainer";
+export { ReportCard } from "./ReportCard/ReportCard";

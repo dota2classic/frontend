@@ -18,6 +18,15 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+  HandleReportDto,
+  HandleReportDtoFromJSON,
+  HandleReportDtoToJSON,
+  PunishmentLogPageDto,
+  PunishmentLogPageDtoFromJSON,
+  PunishmentLogPageDtoToJSON,
+  ReportDto,
+  ReportDtoFromJSON,
+  ReportDtoToJSON,
   ReportMessageDto,
   ReportMessageDtoFromJSON,
   ReportMessageDtoToJSON,
@@ -25,6 +34,20 @@ import {
   ReportPlayerInMatchDtoFromJSON,
   ReportPlayerInMatchDtoToJSON,
 } from "../models";
+
+export interface ReportControllerGetPaginationLogRequest {
+  page: number;
+  perPage?: number;
+}
+
+export interface ReportControllerGetReportRequest {
+  id: string;
+}
+
+export interface ReportControllerHandleReportRequest {
+  id: string;
+  handleReportDto: HandleReportDto;
+}
 
 export interface ReportControllerReportMessageRequest {
   reportMessageDto: ReportMessageDto;
@@ -38,6 +61,177 @@ export interface ReportControllerReportPlayerInMatchRequest {
  * 
  */
 export class ReportApi extends runtime.BaseAPI {
+
+    /**
+     */
+    private async reportControllerGetPaginationLogRaw(requestParameters: ReportControllerGetPaginationLogRequest): Promise<runtime.ApiResponse<PunishmentLogPageDto>> {
+        this.reportControllerGetPaginationLogValidation(requestParameters);
+        const context = this.reportControllerGetPaginationLogContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PunishmentLogPageDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private reportControllerGetPaginationLogValidation(requestParameters: ReportControllerGetPaginationLogRequest) {
+        if (requestParameters.page === null || requestParameters.page === undefined) {
+            throw new runtime.RequiredError("page","Required parameter requestParameters.page was null or undefined when calling reportControllerGetPaginationLog.");
+        }
+    }
+
+    /**
+     */
+    reportControllerGetPaginationLogContext(requestParameters: ReportControllerGetPaginationLogRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.page !== undefined) {
+            queryParameters["page"] = requestParameters.page;
+        }
+
+        if (requestParameters.perPage !== undefined) {
+            queryParameters["per_page"] = requestParameters.perPage;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/report/punishment`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    reportControllerGetPaginationLog = async (page: number, perPage?: number): Promise<PunishmentLogPageDto> => {
+        const response = await this.reportControllerGetPaginationLogRaw({ page: page, perPage: perPage });
+        return await response.value();
+    }
+
+    useReportControllerGetPaginationLog(page: number, perPage?: number, config?: SWRConfiguration<PunishmentLogPageDto, Error>) {
+        let valid = true
+
+        if (page === null || page === undefined || Number.isNaN(page)) {
+            valid = false
+        }
+
+        const context = this.reportControllerGetPaginationLogContext({ page: page!, perPage: perPage! });
+        return useSWR(context, valid ? () => this.reportControllerGetPaginationLog(page!, perPage!) : null, config)
+    }
+
+    /**
+     */
+    private async reportControllerGetReportRaw(requestParameters: ReportControllerGetReportRequest): Promise<runtime.ApiResponse<ReportDto>> {
+        this.reportControllerGetReportValidation(requestParameters);
+        const context = this.reportControllerGetReportContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReportDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private reportControllerGetReportValidation(requestParameters: ReportControllerGetReportRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling reportControllerGetReport.");
+        }
+    }
+
+    /**
+     */
+    reportControllerGetReportContext(requestParameters: ReportControllerGetReportRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/report/report/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    reportControllerGetReport = async (id: string): Promise<ReportDto> => {
+        const response = await this.reportControllerGetReportRaw({ id: id });
+        return await response.value();
+    }
+
+    useReportControllerGetReport(id: string, config?: SWRConfiguration<ReportDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.reportControllerGetReportContext({ id: id! });
+        return useSWR(context, valid ? () => this.reportControllerGetReport(id!) : null, config)
+    }
+
+    /**
+     */
+    private async reportControllerHandleReportRaw(requestParameters: ReportControllerHandleReportRequest): Promise<runtime.ApiResponse<ReportDto>> {
+        this.reportControllerHandleReportValidation(requestParameters);
+        const context = this.reportControllerHandleReportContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReportDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private reportControllerHandleReportValidation(requestParameters: ReportControllerHandleReportRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling reportControllerHandleReport.");
+        }
+        if (requestParameters.handleReportDto === null || requestParameters.handleReportDto === undefined) {
+            throw new runtime.RequiredError("handleReportDto","Required parameter requestParameters.handleReportDto was null or undefined when calling reportControllerHandleReport.");
+        }
+    }
+
+    /**
+     */
+    reportControllerHandleReportContext(requestParameters: ReportControllerHandleReportRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/report/report/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: HandleReportDtoToJSON(requestParameters.handleReportDto),
+        };
+    }
+
+    /**
+     */
+    reportControllerHandleReport = async (id: string, handleReportDto: HandleReportDto): Promise<ReportDto> => {
+        const response = await this.reportControllerHandleReportRaw({ id: id, handleReportDto: handleReportDto });
+        return await response.value();
+    }
+
 
     /**
      */

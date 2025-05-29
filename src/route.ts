@@ -68,7 +68,6 @@ const spage = (href: string, shallow: boolean = true) =>
 
 export const AppRouter = {
   index: spage("/"),
-  donate: spage("/donate"),
   download: spage("/download"),
   rules: spage("/static/rules"),
   offer: spage("/static/offer"),
@@ -76,6 +75,16 @@ export const AppRouter = {
   contact: spage("/static/contact"),
   fullRules: spage("/static/rules/full"),
   stats: spage("/stats/leaderboard"),
+
+  rules2: {
+    rule: (id: number | string) => spage(`/static/rules#${id}`),
+  },
+  banLog: {
+    index: (pg?: number) => {
+      const q = queryParameters({ page: pg });
+      return page(`/banlog${q}`, `/banlog${q}`);
+    },
+  },
   wiki: {
     index: spage("/wiki"),
   },
