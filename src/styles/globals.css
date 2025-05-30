@@ -108,7 +108,6 @@ iframe {
   }
 }
 
-
 .mobile-only {
   @media (min-width: 600px) {
     display: none !important;
@@ -138,18 +137,14 @@ iframe {
   animation: spinning 2s infinite ease;
 }
 
-
-
 :root {
   --toastify-z-index: 9999999999;
 }
-
 
 iframe {
   box-shadow: 0 0 4px rgba(10, 10, 10, 0.6);
   overflow: hidden;
 }
-
 
 .grid12 {
   grid-column: span 12;
@@ -162,4 +157,25 @@ iframe {
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+}
+
+@keyframes shinyText {
+  0% {
+    background-position: -50% 0%;
+  }
+  50% {
+    background-position: 91% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+.megaheading {
+  background: radial-gradient(#f8d300 0%, #c23c2a 100%);
+  background-size: 150% 150%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: shinyText 3s ease alternate infinite;
 }

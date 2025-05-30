@@ -18,10 +18,6 @@ import {
     BanStatusDtoFromJSON,
     BanStatusDtoFromJSONTyped,
     BanStatusDtoToJSON,
-    Role,
-    RoleFromJSON,
-    RoleFromJSONTyped,
-    RoleToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -34,12 +30,6 @@ import {
  * @interface MeDto
  */
 export interface MeDto {
-    /**
-     * 
-     * @type {Array<Role>}
-     * @memberof MeDto
-     */
-    roles: Array<Role>;
     /**
      * 
      * @type {UserDTO}
@@ -88,7 +78,6 @@ export function MeDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): MeD
     }
     return {
         
-        'roles': ((json['roles'] as Array<any>).map(RoleFromJSON)),
         'user': UserDTOFromJSON(json['user']),
         'id': json['id'],
         'mmr': json['mmr'],
@@ -107,7 +96,6 @@ export function MeDtoToJSON(value?: MeDto | null): any {
     }
     return {
         
-        'roles': ((value.roles as Array<any>).map(RoleToJSON)),
         'user': UserDTOToJSON(value.user),
         'id': value.id,
         'mmr': value.mmr,

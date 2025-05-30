@@ -56,6 +56,7 @@ export const MessageHeader = observer(function MessageHeader({
     : undefined;
 
   const chatIconOld = message.author.icon;
+  const roleList = message.author.roles.map((t) => t.role);
 
   const roles = (
     <>
@@ -69,7 +70,7 @@ export const MessageHeader = observer(function MessageHeader({
           </GenericTooltip>,
           document.body,
         )}
-      {message.author.roles.includes(Role.ADMIN) && (
+      {roleList.includes(Role.ADMIN) && (
         <MdAdminPanelSettings
           className={"grey"}
           onMouseEnter={(e) =>
@@ -91,7 +92,7 @@ export const MessageHeader = observer(function MessageHeader({
           </a>
         </Tooltipable>
       )}
-      {message.author.roles.includes(Role.OLD) && chatIconOld && (
+      {roleList.includes(Role.OLD) && chatIconOld && (
         <img
           src={chatIconOld.image.url}
           className={cx(c.old, message.author.chatIconAnimation?.image.key)}

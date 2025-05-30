@@ -18,10 +18,10 @@ import {
     ProfileDecorationDtoFromJSON,
     ProfileDecorationDtoFromJSONTyped,
     ProfileDecorationDtoToJSON,
-    Role,
-    RoleFromJSON,
-    RoleFromJSONTyped,
-    RoleToJSON,
+    RoleLifetimeDto,
+    RoleLifetimeDtoFromJSON,
+    RoleLifetimeDtoFromJSONTyped,
+    RoleLifetimeDtoToJSON,
     UserConnectionDto,
     UserConnectionDtoFromJSON,
     UserConnectionDtoFromJSONTyped,
@@ -34,12 +34,6 @@ import {
  * @interface UserDTO
  */
 export interface UserDTO {
-    /**
-     * 
-     * @type {Array<Role>}
-     * @memberof UserDTO
-     */
-    roles: Array<Role>;
     /**
      * 
      * @type {string}
@@ -64,6 +58,12 @@ export interface UserDTO {
      * @memberof UserDTO
      */
     name: string;
+    /**
+     * 
+     * @type {Array<RoleLifetimeDto>}
+     * @memberof UserDTO
+     */
+    roles: Array<RoleLifetimeDto>;
     /**
      * 
      * @type {Array<UserConnectionDto>}
@@ -106,11 +106,11 @@ export function UserDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
     }
     return {
         
-        'roles': ((json['roles'] as Array<any>).map(RoleFromJSON)),
         'steamId': json['steamId'],
         'avatar': json['avatar'],
         'avatarSmall': json['avatarSmall'],
         'name': json['name'],
+        'roles': ((json['roles'] as Array<any>).map(RoleLifetimeDtoFromJSON)),
         'connections': ((json['connections'] as Array<any>).map(UserConnectionDtoFromJSON)),
         'hat': !exists(json, 'hat') ? undefined : ProfileDecorationDtoFromJSON(json['hat']),
         'icon': !exists(json, 'icon') ? undefined : ProfileDecorationDtoFromJSON(json['icon']),
@@ -128,11 +128,11 @@ export function UserDTOToJSON(value?: UserDTO | null): any {
     }
     return {
         
-        'roles': ((value.roles as Array<any>).map(RoleToJSON)),
         'steamId': value.steamId,
         'avatar': value.avatar,
         'avatarSmall': value.avatarSmall,
         'name': value.name,
+        'roles': ((value.roles as Array<any>).map(RoleLifetimeDtoToJSON)),
         'connections': ((value.connections as Array<any>).map(UserConnectionDtoToJSON)),
         'hat': ProfileDecorationDtoToJSON(value.hat),
         'icon': ProfileDecorationDtoToJSON(value.icon),

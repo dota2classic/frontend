@@ -15,7 +15,7 @@ import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
 import { AdminNavbarItem } from "@/components/Navbar/AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdGavel } from "react-icons/md";
-import { FaCoins, FaHandshake, FaInfo, FaJournalWhills } from "react-icons/fa";
+import { FaCoins, FaInfo, FaJournalWhills } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
 
@@ -121,13 +121,8 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                   action: AppRouter.rules.link,
                 },
                 {
-                  Icon: FaHandshake,
-                  label: "Оферта",
-                  action: AppRouter.offer.link,
-                },
-                {
                   Icon: IoMdContacts,
-                  label: "Контакты",
+                  label: "Документы",
                   action: AppRouter.contact.link,
                 },
                 {

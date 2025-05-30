@@ -1,13 +1,7 @@
 import { toast, ToastContent, ToastContentProps } from "react-toastify";
 import c from "@/components/Toast/Toast.module.scss";
 import React, { ReactNode } from "react";
-import {
-  AchievementKey,
-  MatchmakingMode,
-  NotificationDto,
-  NotificationDtoEntityTypeEnum,
-  NotificationType,
-} from "@/api/back";
+import { MatchmakingMode, NotificationDto, NotificationType } from "@/api/back";
 import { GenericToast, PageLink } from "@/components";
 import { getApi } from "@/api/hooks";
 import { __unsafeGetClientStore } from "@/store";
@@ -43,130 +37,19 @@ export const createAcceptPartyToast = (
   });
 };
 
-export const createNotificationToast = (notification: NotificationDto) => {
-  let title = notification.title;
+export const handleNotification = (notification: NotificationDto) => {
+  let title: ReactNode = notification.title;
   let content: ReactNode = notification.content;
+  const ttl = new Date(notification.expiresAt).getTime() - Date.now();
 
   const isFeedback =
-    notification.entityType === NotificationDtoEntityTypeEnum.FEEDBACK;
-  const isAchievement =
-    notification.entityType === NotificationDtoEntityTypeEnum.ACHIEVEMENT;
-  const isFeedbackTicket =
-    notification.entityType === NotificationDtoEntityTypeEnum.FEEDBACKTICKET;
-
-  const isPlayerFeedback =
-    notification.notificationType === NotificationType.PLAYERFEEDBACK;
-
-  const isReportBan =
-    notification.notificationType === NotificationType.PLAYERREPORTBAN;
-
-  const ttl = new Date(notification.expiresAt).getTime() - Date.now();
+    notification.notificationType === NotificationType.FEEDBACKCREATED;
 
   const acknowledge = () => {
     getApi()
       .notificationApi.notificationControllerAcknowledge(notification.id)
       .then(() => toast.dismiss(notification.id));
   };
-
-  if (isAchievement) {
-    const ak = Number(notification.entityId) as AchievementKey;
-    title = `Достижение получено`;
-    content = (
-      <>
-        <span className="gold">{AchievementMapping[ak]?.title || title}</span>:{" "}
-        {AchievementMapping[ak]?.description || content}
-      </>
-    );
-  } else if (isFeedbackTicket) {
-    if (notification.notificationType === NotificationType.TICKETCREATED) {
-      title = `Создан тикет с твоей обратной связью`;
-      content = (
-        <>
-          Отслеживать его можешь по{" "}
-          <PageLink
-            link={AppRouter.forum.ticket.ticket(notification.entityId).link}
-            onClick={acknowledge}
-          >
-            ссылке
-          </PageLink>
-        </>
-      );
-    } else if (
-      notification.notificationType === NotificationType.TICKETNEWMESSAGE
-    ) {
-      title = `Новое сообщение в твоем тикете!`;
-      content = (
-        <>
-          <PageLink
-            link={AppRouter.forum.ticket.ticket(notification.entityId).link}
-            onClick={acknowledge}
-          >
-            Посмотреть новое сообщение
-          </PageLink>
-        </>
-      );
-    }
-  } else if (isPlayerFeedback) {
-    title = `Тебе оставили отзыв!`;
-    content = (
-      <>
-        <PageLink
-          link={AppRouter.matches.match(Number(notification.entityId)).link}
-          onClick={acknowledge}
-        >
-          Оставить отзывы другим игрокам
-        </PageLink>
-      </>
-    );
-  } else if (isReportBan) {
-    title = `Тебе временно запрещен поиск`;
-    content = (
-      <>
-        В последнее время ты получил много жалоб и почти не получил похвал. В
-        связи с этим система временно приостановила твой доступ к поиску игр.
-        Если подобное поведение повторится, наказание станет более длительным.
-      </>
-    );
-  } else if (
-    notification.entityType === NotificationDtoEntityTypeEnum.REPORTTICKET
-  ) {
-    if (notification.notificationType === NotificationType.REPORTCREATED) {
-      title = `Создана жалоба`;
-      content = (
-        <>
-          Отслеживать ее можешь по{" "}
-          <PageLink
-            link={
-              AppRouter.forum.report.report(
-                notification.entityId.replace("report_", ""),
-              ).link
-            }
-            onClick={acknowledge}
-          >
-            ссылке
-          </PageLink>
-        </>
-      );
-    } else if (
-      notification.notificationType === NotificationType.TICKETNEWMESSAGE
-    ) {
-      title = `Новое сообщение в твоей жалобе!`;
-      content = (
-        <>
-          <PageLink
-            link={
-              AppRouter.forum.report.report(
-                notification.entityId.replace("report_", ""),
-              ).link
-            }
-            onClick={acknowledge}
-          >
-            Посмотреть новое сообщение
-          </PageLink>
-        </>
-      );
-    }
-  }
 
   const showFeedback = async () => {
     const feedback = await getApi().feedback.feedbackControllerGetFeedback(
@@ -185,11 +68,94 @@ export const createNotificationToast = (notification: NotificationDto) => {
       await showFeedback();
     }
   };
+
   const onDecline = () => {
-    getApi()
-      .notificationApi.notificationControllerAcknowledge(notification.id)
-      .then();
+    acknowledge();
   };
+
+  switch (notification.notificationType) {
+    case NotificationType.REPORTCREATED:
+      title = "Жалоба создана";
+      content = (
+        <>
+          Отслеживать ее можешь по{" "}
+          <PageLink
+            link={
+              AppRouter.forum.report.report(
+                notification.entityId.replace("report_", ""),
+              ).link
+            }
+            onClick={acknowledge}
+          >
+            ссылке
+          </PageLink>
+        </>
+      );
+      break;
+    case NotificationType.ACHIEVEMENTCOMPLETE:
+      const ak = notification.achievement!.key;
+      title = `Достижение получено`;
+      content = (
+        <>
+          <span className="gold">{AchievementMapping[ak]?.title || title}</span>
+          : {AchievementMapping[ak]?.description || content}
+        </>
+      );
+      break;
+    case NotificationType.FEEDBACKCREATED:
+      title = notification.feedback!.title;
+      content = "Расскажи, что пошло не по плану";
+      break;
+    case NotificationType.PLAYERFEEDBACK:
+      title = `Тебе оставили отзыв!`;
+      content = (
+        <>
+          <PageLink
+            link={AppRouter.matches.match(notification.match!.id).link}
+            onClick={acknowledge}
+          >
+            Оставить отзывы другим игрокам
+          </PageLink>
+        </>
+      );
+      break;
+    case NotificationType.PLAYERREPORTBAN:
+      // TODO: reuse
+      break;
+    case NotificationType.TICKETCREATED:
+      title = `Создан тикет с твоей обратной связью`;
+      content = (
+        <>
+          Отслеживать его можешь по{" "}
+          <PageLink
+            link={
+              AppRouter.forum.ticket.ticket(notification.thread!.externalId)
+                .link
+            }
+            onClick={acknowledge}
+          >
+            ссылке
+          </PageLink>
+        </>
+      );
+      break;
+    case NotificationType.TICKETNEWMESSAGE:
+      title = `Новое сообщение в твоем тикете!`;
+      content = (
+        <>
+          <PageLink
+            link={
+              AppRouter.forum.ticket.ticket(notification.thread!.externalId)
+                .link
+            }
+            onClick={acknowledge}
+          >
+            Посмотреть новое сообщение
+          </PageLink>
+        </>
+      );
+      break;
+  }
 
   const Toast: React.FunctionComponent<ToastContentProps<unknown>> = (
     props,
@@ -206,8 +172,6 @@ export const createNotificationToast = (notification: NotificationDto) => {
     />
   );
 
-  console.log(ttl, "TTL?");
-
   // Forgive me
   toast(Toast as ToastContent, {
     toastId: notification.id,
@@ -217,8 +181,6 @@ export const createNotificationToast = (notification: NotificationDto) => {
     closeButton: false,
     className: c.partyToast,
   });
-
-  //
 };
 
 export const makeSimpleToast = (

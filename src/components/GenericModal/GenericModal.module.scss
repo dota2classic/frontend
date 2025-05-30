@@ -1,5 +1,17 @@
 @import "../../common.scss";
 
+@keyframes bgAnimate {
+  0% {
+    background-position: 10% 20%;
+  }
+  50% {
+    background-position: 91% 100%;
+  }
+  100% {
+    background-position: 40% 0%;
+  }
+}
+
 .modalWrapper {
   position: fixed;
   left: 0;
@@ -30,9 +42,14 @@
     display: flex;
     flex-direction: column;
 
-    background: $bg2;
+    //background: $bg2;
+    background: linear-gradient(25deg, $bg1 0%, $bg3 100%);
+    background-size: 200% 200%;
+    animation: bgAnimate 3s ease alternate infinite;
 
-    border-radius: 8px;
+    border: 2px solid rgb(68, 61, 21);
+
+    border-radius: 1px;
     padding: 12px;
 
     box-shadow: 0 0 12px 6px rgba(0, 0, 0, 0.65);

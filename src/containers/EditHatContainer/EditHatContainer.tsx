@@ -112,7 +112,12 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
         "https://avatars.cloudflare.steamstatic.com/72b86ac794d4c0a8c2522ea2c2a36edb9f89a989_full.jpg",
       avatarSmall: "",
       steamId: "253323011",
-      roles: [Role.OLD],
+      roles: [
+        {
+          role: Role.OLD,
+          endTime: new Date(Date.now() + 1000 * 60 * 60).toISOString(),
+        },
+      ],
       connections: [],
     };
 

@@ -6,10 +6,7 @@ import { getApi } from "@/api/hooks";
 import { FeedbackDto, NotificationDto, SubscriptionDto } from "@/api/back";
 import Queue from "queue";
 import { createDateComparator } from "@/util/dates";
-import {
-  createNotificationToast,
-  makeSimpleToast,
-} from "@/components/Toast/toasts";
+import { handleNotification, makeSimpleToast } from "@/components/Toast/toasts";
 import { AppRouter } from "@/route";
 
 export class PopupNotificationDto {
@@ -201,6 +198,6 @@ export class NotificationStore implements HydratableStore<unknown> {
 
   @action addNotification = (notificationDto: NotificationDto) => {
     if (notificationDto.acknowledged) return;
-    createNotificationToast(notificationDto);
+    handleNotification(notificationDto);
   };
 }

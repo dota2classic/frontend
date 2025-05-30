@@ -14,10 +14,26 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    NotificationAchievementDto,
+    NotificationAchievementDtoFromJSON,
+    NotificationAchievementDtoFromJSONTyped,
+    NotificationAchievementDtoToJSON,
+    NotificationMatchDto,
+    NotificationMatchDtoFromJSON,
+    NotificationMatchDtoFromJSONTyped,
+    NotificationMatchDtoToJSON,
+    NotificationThreadDto,
+    NotificationThreadDtoFromJSON,
+    NotificationThreadDtoFromJSONTyped,
+    NotificationThreadDtoToJSON,
     NotificationType,
     NotificationTypeFromJSON,
     NotificationTypeFromJSONTyped,
     NotificationTypeToJSON,
+    PlayerFeedbackDto,
+    PlayerFeedbackDtoFromJSON,
+    PlayerFeedbackDtoFromJSONTyped,
+    PlayerFeedbackDtoToJSON,
 } from './';
 
 /**
@@ -86,6 +102,30 @@ export interface NotificationDto {
      * @memberof NotificationDto
      */
     content: string;
+    /**
+     * 
+     * @type {PlayerFeedbackDto}
+     * @memberof NotificationDto
+     */
+    feedback?: PlayerFeedbackDto;
+    /**
+     * 
+     * @type {NotificationAchievementDto}
+     * @memberof NotificationDto
+     */
+    achievement?: NotificationAchievementDto;
+    /**
+     * 
+     * @type {NotificationThreadDto}
+     * @memberof NotificationDto
+     */
+    thread?: NotificationThreadDto;
+    /**
+     * 
+     * @type {NotificationMatchDto}
+     * @memberof NotificationDto
+     */
+    match?: NotificationMatchDto;
 }
 
 export function NotificationDtoFromJSON(json: any): NotificationDto {
@@ -108,6 +148,10 @@ export function NotificationDtoFromJSONTyped(json: any, ignoreDiscriminator: boo
         'entityId': json['entityId'],
         'title': json['title'],
         'content': json['content'],
+        'feedback': !exists(json, 'feedback') ? undefined : PlayerFeedbackDtoFromJSON(json['feedback']),
+        'achievement': !exists(json, 'achievement') ? undefined : NotificationAchievementDtoFromJSON(json['achievement']),
+        'thread': !exists(json, 'thread') ? undefined : NotificationThreadDtoFromJSON(json['thread']),
+        'match': !exists(json, 'match') ? undefined : NotificationMatchDtoFromJSON(json['match']),
     };
 }
 
@@ -130,6 +174,10 @@ export function NotificationDtoToJSON(value?: NotificationDto | null): any {
         'entityId': value.entityId,
         'title': value.title,
         'content': value.content,
+        'feedback': PlayerFeedbackDtoToJSON(value.feedback),
+        'achievement': NotificationAchievementDtoToJSON(value.achievement),
+        'thread': NotificationThreadDtoToJSON(value.thread),
+        'match': NotificationMatchDtoToJSON(value.match),
     };
 }
 

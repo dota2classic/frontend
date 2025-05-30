@@ -10,16 +10,31 @@ export default function ContactPage() {
     <>
       <EmbedProps title="Оферта dotaclassic.ru" description="Предложение" />
       <div className={cx(c.postContainer, NotoSans.className)}>
-        <h1 id="-">
+        <h2>
           <strong className="editor-text-bold">Контакты</strong>
-        </h1>
+        </h2>
         <p>
-          <IoDocument /> ИНН 780220038930
+          <strong>
+            <IoDocument /> ИНН:
+          </strong>{" "}
+          780220038930
         </p>
         <p>
-          <CiMail /> adv@dotaclassic.ru
+          <strong>
+            <CiMail /> Почта:
+          </strong>{" "}
+          adv@dotaclassic.ru
         </p>
-        {/*<img src={"/logo3.png"} width={"50%"} />*/}
+
+        <h2>
+          <strong className="editor-text-bold">Документы</strong>
+        </h2>
+        <br />
+        <p>
+          <a target="__blank" href="/privacy.pdf">
+            Политика обработки персональных данных
+          </a>
+        </p>
       </div>
     </>
   );

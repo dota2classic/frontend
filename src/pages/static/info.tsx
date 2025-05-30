@@ -9,10 +9,9 @@ export default function InfoPage() {
     <>
       <EmbedProps title="Оферта dotaclassic.ru" description="Предложение" />
       <div className={cx(c.postContainer, NotoSans.className)}>
-        <h1 className={TrajanPro.className}>
-          <strong className="editor-text-bold">Информация о проекте</strong>
-        </h1>
-        <h2 className={TrajanPro.className}>В чем суть сайта?</h2>
+        <h2 className={cx(TrajanPro.className, "megaheading")}>
+          В чем суть сайта?
+        </h2>
         <p>
           Этот сайт упрощает онлайн игру в старую версию Dota 2. Мы
           предоставляем авторизацию через Steam, матчмейкинг, ссылки для
@@ -23,7 +22,9 @@ export default function InfoPage() {
           для всех желающих. При несоблюдении правил пользования сервисом,
           администрация может эту возможность изъять.
         </p>
-        <h2 className={TrajanPro.className}>Почему старая дота?</h2>
+        <h2 className={cx(TrajanPro.className, "megaheading")}>
+          Почему старая дота?
+        </h2>
         <p>
           Актуальная версия игры уже сильно отличается от той, в которую многие
           играли 10 лет назад. Не всем по душе изменения, и мы не стремимся
@@ -52,7 +53,7 @@ export default function InfoPage() {
             награду.
           </li>
         </ul>
-        <h2 className={TrajanPro.className}>
+        <h2 className={cx(TrajanPro.className, "megaheading")}>
           Сколько стоит содержать этот сайт?
         </h2>
         <p>У проекта есть 3 статьи расходов:</p>
@@ -84,7 +85,9 @@ export default function InfoPage() {
           работал, но не хватает, если мы рекламируем проект и к нам приходят
           новые игроки.
         </p>
-        <h2 className={TrajanPro.className}>Кто занимается проектом?</h2>
+        <h2 className={cx(TrajanPro.className, "megaheading")}>
+          Кто занимается проектом?
+        </h2>
         <p>
           Классическая дота прошла через многие руки: первыми начали хостить
           игры западные энтузиасты в 2019 году. После этого довольно долго
@@ -103,7 +106,8 @@ export default function InfoPage() {
           </li>
           <li>
             <span className="green">RX</span> - "community manager", связь с
-            общественностью, реклама и все другое общение с людьми.
+            общественностью, реклама, изучение больших текстов и генерация умных
+            фраз
           </li>
           <li>
             <span className="green">V</span> - разработчик wiki по предметам и
@@ -139,12 +143,15 @@ export default function InfoPage() {
             вспомнить, но они точно были и помогали
           </li>
         </ul>
-        <h2 className={TrajanPro.className}>Какова конечная цель проекта?</h2>
+        <h2 className={cx(TrajanPro.className, "megaheading")}>
+          Какова конечная цель проекта?
+        </h2>
         <p>
           Стабильный онлайн, который позволяет ± за 10 минут найти балансную
           игру с игроками схожего уровня практически в любое время суток. Уютное
           место, где будет интересно играть всем: и новичкам в старую доту, и
-          заядлым старичкам.
+          заядлым старичкам. Содержание проекта полностью окупается игроками и
+          есть выход в плюс для стабильного потока рекламы.
         </p>
       </div>
     </>

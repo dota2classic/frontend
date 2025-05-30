@@ -99,3 +99,4 @@ export { OnboardingTooltip } from "./OnboardingTooltip/OnboardingTooltip";
 export { MatchmakingModeList } from "./MatchmakingModeList/MatchmakingModeList";
 export { Logo } from "./Logo/Logo";
 export { BuySubscriptionModal } from "./BuySubscriptionModal/BuySubscriptionModal";
+export { PostContainer } from "./PostContainer/PostContainer";

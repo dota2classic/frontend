@@ -1,0 +1,30 @@
+@import "../../common.scss";
+
+.modal {
+  & :global(.modal) {
+    width: 50vw;
+    position: relative;
+
+
+    gap: 16px;
+
+    & img {
+      width: 50%;
+      margin: auto;
+    }
+
+    & h3 {
+      margin: auto;
+      text-transform: uppercase;
+      font-size: 2.4rem;
+    }
+
+    & h4 {
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      margin: auto auto 2rem;
+    }
+
+
+  }
+}
