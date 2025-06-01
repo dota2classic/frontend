@@ -6,7 +6,8 @@ import { useStore } from "@/store";
 import c from "./ReceiveSubscriptionModal.module.scss";
 
 interface IReceiveSubscriptionModalProps {
-  onAcknowledge: () => undefined;
+  onAcknowledge: () => void;
+  onClose: () => void;
   title: ReactNode;
   item: {
     image: string;
@@ -19,7 +20,7 @@ interface IReceiveSubscriptionModalProps {
 }
 
 export const ReceiveSubscriptionModal: React.FC<IReceiveSubscriptionModalProps> =
-  observer(({ onAcknowledge, title, item, action }) => {
+  observer(({ onAcknowledge, title, item, action, onClose }) => {
     const { auth } = useStore();
     const steamId = auth.parsedToken?.sub;
 
@@ -32,12 +33,12 @@ export const ReceiveSubscriptionModal: React.FC<IReceiveSubscriptionModalProps> 
     }
 
     return (
-      <GenericModal className={c.modal} title="" onClose={() => undefined}>
+      <GenericModal className={c.modal} title="" onClose={onClose}>
         <h3>{title}</h3>
         <img src={item.image} alt="" />
         <h4>{item.name}</h4>
 
-        <Button pageLink={action.link} mega>
+        <Button onClick={onClose} pageLink={action.link} mega>
           {action.label}
         </Button>
       </GenericModal>

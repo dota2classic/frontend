@@ -20,7 +20,6 @@ import {
 } from "@/api/back";
 import { PlayerMatchItem } from "@/components/HeroWithItemsHistoryTable/HeroWithItemsHistoryTable";
 import { matchToPlayerMatchItem } from "@/util/mappers";
-import Head from "next/head";
 import React from "react";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
@@ -60,9 +59,6 @@ export default function PlayerPage({
 
   return (
     <div className={c.playerPage}>
-      <Head>
-        <title>{`${summary.user.name} - статистика`}</title>
-      </Head>
       <EmbedProps
         title={`${summary.user.name} - статистика`}
         description={`Профиль и статистика игрока ${summary.user.name}`}

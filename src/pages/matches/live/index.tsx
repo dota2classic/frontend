@@ -1,8 +1,8 @@
-import Head from "next/head";
 import { getApi } from "@/api/hooks";
 import { LiveMatchDto } from "@/api/back";
 import React from "react";
 import { LiveMatchPage } from "@/containers";
+import { EmbedProps } from "@/components";
 
 interface InitialProps {
   data: LiveMatchDto[];
@@ -11,9 +11,12 @@ interface InitialProps {
 export default function LiveMatches({ data }: InitialProps) {
   return (
     <>
-      <Head>
-        <title>Текущие матчи - dota2classic.ru</title>
-      </Head>
+      <EmbedProps
+        title={"Просмотр матчей"}
+        description={
+          "Просмотр матчей, которые прямо сейчас играются на сайте dotaclassic.ru"
+        }
+      />
 
       <LiveMatchPage games={data} />
     </>

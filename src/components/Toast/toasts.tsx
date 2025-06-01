@@ -38,6 +38,13 @@ export const createAcceptPartyToast = (
 };
 
 export const handleNotification = (notification: NotificationDto) => {
+  if (
+    notification.notificationType === NotificationType.SUBSCRIPTIONPURCHASED
+  ) {
+    __unsafeGetClientStore().claim.claimSubscription(notification);
+    return;
+  }
+
   let title: ReactNode = notification.title;
   let content: ReactNode = notification.content;
   const ttl = new Date(notification.expiresAt).getTime() - Date.now();
@@ -46,9 +53,7 @@ export const handleNotification = (notification: NotificationDto) => {
     notification.notificationType === NotificationType.FEEDBACKCREATED;
 
   const acknowledge = () => {
-    getApi()
-      .notificationApi.notificationControllerAcknowledge(notification.id)
-      .then(() => toast.dismiss(notification.id));
+    __unsafeGetClientStore().notify.acknowledge(notification.id).then();
   };
 
   const showFeedback = async () => {

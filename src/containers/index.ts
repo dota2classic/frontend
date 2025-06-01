@@ -24,3 +24,4 @@ export { ForumTabs } from "./ForumTabs/ForumTabs";
 export { MatchPageContainer } from "./MatchPageContainer/MatchPageContainer";
 export { ReportCard } from "./ReportCard/ReportCard";
 export { ReceiveSubscriptionModal } from "./ReceiveSubscriptionModal/ReceiveSubscriptionModal";
+export { ClaimContainer } from "./ClaimContainer/ClaimContainer";

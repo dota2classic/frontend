@@ -8,6 +8,7 @@ import Queue from "queue";
 import { createDateComparator } from "@/util/dates";
 import { handleNotification, makeSimpleToast } from "@/components/Toast/toasts";
 import { AppRouter } from "@/route";
+import { toast } from "react-toastify";
 
 export class PopupNotificationDto {
   constructor(
@@ -199,5 +200,11 @@ export class NotificationStore implements HydratableStore<unknown> {
   @action addNotification = (notificationDto: NotificationDto) => {
     if (notificationDto.acknowledged) return;
     handleNotification(notificationDto);
+  };
+
+  acknowledge = async (notificationId: string) => {
+    await getApi()
+      .notificationApi.notificationControllerAcknowledge(notificationId)
+      .then(() => toast.dismiss(notificationId));
   };
 }

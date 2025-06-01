@@ -13,6 +13,7 @@ import { GreedyFocusStore } from "@/store/GreedyFocusStore";
 import { ImageStore } from "@/store/ImageStore";
 import { LiveStore } from "@/store/LiveStore";
 import { ReportStore } from "@/store/ReportStore";
+import { ClaimItemStore } from "@/store/ClaimItemStore";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -20,9 +21,9 @@ enableStaticRendering(typeof window === "undefined");
 type InferredHydrationData<T> =
   T extends HydratableStore<infer B> ? B : undefined;
 
-export type HydrateRootData = {
+export type HydrateRootData = Partial<{
   [prop in keyof RootStore]: InferredHydrationData<RootStore[prop]>;
-};
+}>;
 
 // init a client store that we will send to client (one store for client)
 let clientStore: RootStore;
@@ -43,6 +44,7 @@ function createStore(): RootStore {
     greedyFocus: new GreedyFocusStore(),
     image: new ImageStore(),
     report: new ReportStore(),
+    claim: new ClaimItemStore(),
   };
 }
 export const __unsafeGetClientStore = () => clientStore;
@@ -85,6 +87,7 @@ export interface RootStore {
   greedyFocus: GreedyFocusStore;
   image: ImageStore;
   report: ReportStore;
+  claim: ClaimItemStore;
 }
 
 export function useStore(): RootStore {

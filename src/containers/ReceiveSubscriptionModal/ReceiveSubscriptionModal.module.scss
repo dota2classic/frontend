@@ -1,10 +1,39 @@
 @import "../../common.scss";
 
+@keyframes attention {
+  0% {
+    transform: scale(0);
+  }
+
+  30% {
+    transform: scale(0.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bgAnimate {
+  0% {
+    background-position: 10% 20%;
+  }
+  50% {
+    background-position: 91% 100%;
+  }
+  100% {
+    background-position: 40% 0%;
+  }
+}
+
 .modal {
   & :global(.modal) {
     width: 50vw;
     position: relative;
 
+    animation:
+      attention 0.4s cubic-bezier(0.87, 0.01, 0.85, 0.37),
+      bgAnimate 3s ease alternate infinite;
 
     gap: 16px;
 
@@ -24,7 +53,5 @@
       font-size: 1.4rem;
       margin: auto auto 2rem;
     }
-
-
   }
 }

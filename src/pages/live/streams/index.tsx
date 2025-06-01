@@ -1,9 +1,9 @@
-import Head from "next/head";
 import { getApi } from "@/api/hooks";
 import c from "./Streams.module.scss";
 import { TwitchStreamDto } from "@/api/back";
 import React from "react";
 import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
+import { EmbedProps } from "@/components";
 
 interface InitialProps {
   streams: TwitchStreamDto[];
@@ -18,9 +18,10 @@ export default function LiveStreams({ streams }: InitialProps) {
 
   return (
     <>
-      <Head>
-        <title>Текущие матчи - dota2classic.ru</title>
-      </Head>
+      <EmbedProps
+        title={"Стримы по старой доте"}
+        description={"Трансляции на twitch.tv по классической доте"}
+      />
 
       {fakeData!.length === 0 && (
         <div className={c.queue}>

@@ -14,7 +14,6 @@ import {
   QueuePartyInfo,
   Section,
 } from "@/components";
-import Head from "next/head";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import React from "react";
 import { NextPageContext } from "next";
@@ -124,9 +123,6 @@ export default function QueuePage(props: Props) {
         }}
       />
       <div className={c.queue}>
-        <Head>
-          <title>Dota2Classic - поиск игры</title>
-        </Head>
         <EmbedProps
           title="Поиск игры"
           description="Страница поиска игры в старую доту. Играй в группе со своими друзьями с ботами и другими людьми"

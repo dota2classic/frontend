@@ -11,7 +11,11 @@ import { getRootStore, HydrateRootData, RootStore } from "@/store";
 import Head from "next/head";
 import "../ext";
 import cx from "clsx";
-import { DevVersionIndicator, GreedyFocusManager } from "@/containers";
+import {
+  ClaimContainer,
+  DevVersionIndicator,
+  GreedyFocusManager,
+} from "@/containers";
 import { ToastContainer } from "react-toastify";
 import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModalContainer";
 // Font files can be colocated inside of `pages`
@@ -66,13 +70,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
     const initialState: HydrateRootData = {
       auth: { token: cookieToken },
       queue: { defaultModes: [] },
-      notify: {},
-      user: {},
-      live: {},
       threads: { emoticons: [] },
-      greedyFocus: {},
-      image: {},
-      report: {},
       ...inferredState,
     };
 
@@ -99,6 +97,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
         <DevVersionIndicator />
         <ToastContainer />
         <ReportModalContainer />
+        <ClaimContainer />
         <FeedbackModalContainer />
         <GreedyFocusManager />
         <Head>
