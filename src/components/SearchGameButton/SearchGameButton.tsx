@@ -94,6 +94,7 @@ export const SearchGameButton = observer((p: Props) => {
         className={cx(
           queue.gameState?.serverUrl && c.ingame,
           "onboarding-queue-button",
+          c.button,
         )}
       >
         <div>Отменить поиск</div>

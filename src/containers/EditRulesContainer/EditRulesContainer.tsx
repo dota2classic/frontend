@@ -9,6 +9,7 @@ import { getApi } from "@/api/hooks";
 import { runInAction, toJS } from "mobx";
 import {
   Button,
+  Checkbox,
   Duration,
   Input,
   MarkdownTextarea,
@@ -55,6 +56,7 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
           description: state.editedRule.description,
           title: state.editedRule.title,
           punishmentId: state.editedRule.punishment?.id || null,
+          automatic: state.editedRule.automatic,
         },
       );
       const rules = await getApi().rules.ruleControllerGetAllRules();
@@ -231,6 +233,14 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
                   });
                 }}
               />
+
+              <header>Флаги</header>
+              <Checkbox
+                onChange={(e) => updateEditedRule({ automatic: e })}
+                checked={state.editedRule.automatic}
+              >
+                Обрабатывается автоматически
+              </Checkbox>
 
               <div className={c.buttons}>
                 <Button

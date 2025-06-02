@@ -4,6 +4,7 @@ import React, { ReactNode } from "react";
 import c from "./SelectOptions.module.scss";
 import Select, { ActionMeta, SingleValue } from "react-select";
 import { JetBrains_Mono } from "next/font/google";
+import cx from "clsx";
 
 const tableFont = JetBrains_Mono({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -15,6 +16,7 @@ interface ISelectOptionsProps {
   defaultValue?: any;
   onSelect: (v: SingleValue<any>, meta: ActionMeta<any>) => void;
   defaultText: ReactNode;
+  className?: string;
 }
 
 export function SelectOptions({
@@ -23,10 +25,11 @@ export function SelectOptions({
   selected,
   defaultText,
   defaultValue,
+  className,
 }: ISelectOptionsProps) {
   return (
     <Select
-      className={tableFont.className}
+      className={cx(tableFont.className, className)}
       classNames={{
         control: () => c.select,
         option: () => c.option,

@@ -4,6 +4,7 @@ import c from "./RuleRender.module.scss";
 import { RuleDto } from "@/api/back";
 import { FaHashtag } from "react-icons/fa";
 import { Duration } from "@/components";
+import cx from "clsx";
 
 interface IRuleRenderProps {
   rule: RuleDto;
@@ -35,6 +36,12 @@ export const RuleRender: React.FC<IRuleRenderProps> = ({
     <p className={c.description}>{rule.description}</p>
   ) : null;
 
+  const Automatic = rule.automatic ? (
+    <p className={cx(c.description, "bronze")}>
+      Правило обрабатывается автоматически
+    </p>
+  ) : null;
+
   const Punishment = rule.punishment ? (
     <span className={c.punishment}>
       Наказание:{" "}
@@ -49,6 +56,7 @@ export const RuleRender: React.FC<IRuleRenderProps> = ({
           {ReferenceButton}
           Раздел <span className={c.part}>{fullIndex}</span>. {rule.title}
         </h2>
+        {Automatic}
         {Description}
         {Punishment}
         {rest}
@@ -63,6 +71,7 @@ export const RuleRender: React.FC<IRuleRenderProps> = ({
           {ReferenceButton}
           <span className={c.part}>{fullIndex}</span>. {rule.title}
         </p>
+        {Automatic}
         {Description}
         {Punishment}
       </>
@@ -71,10 +80,11 @@ export const RuleRender: React.FC<IRuleRenderProps> = ({
 
   return (
     <>
-      <h3 id={ruleId} className={c.hashtagable}>
+      <p id={ruleId} className={c.hashtagable}>
         {ReferenceButton}
         <span className={c.part}>{fullIndex}</span> {rule.title}
-      </h3>
+      </p>
+      {Automatic}
       {Description}
       {Punishment}
       {rest}

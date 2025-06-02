@@ -179,3 +179,10 @@ iframe {
 
   animation: shinyText 3s ease alternate infinite;
 }
+
+.nicerow {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  gap: 8px;
+}

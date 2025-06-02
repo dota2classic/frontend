@@ -1,12 +1,12 @@
 /* eslint-disable */
 export enum BanReason {
-  GAME_DECLINE,
-  LOAD_FAILURE,
-  INFINITE_BAN,
-  REPORTS,
-  ABANDON,
-  LEARN2PLAY
+  GAME_DECLINE = 0,
+  LOAD_FAILURE = 1,
+  INFINITE_BAN = 2,
+  ABANDON = 4,
+  RULE_VIOLATION = 7,
 }
+
 
 export function BanReasonFromJSON(json: any): BanReason {
   return BanReasonFromJSONTyped(json, false);

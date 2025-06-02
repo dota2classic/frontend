@@ -18,6 +18,9 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+  ApplyPunishmentDto,
+  ApplyPunishmentDtoFromJSON,
+  ApplyPunishmentDtoToJSON,
   HandleReportDto,
   HandleReportDtoFromJSON,
   HandleReportDtoToJSON,
@@ -34,6 +37,10 @@ import {
   ReportPlayerInMatchDtoFromJSON,
   ReportPlayerInMatchDtoToJSON,
 } from "../models";
+
+export interface ReportControllerApplyPunishmentRequest {
+  applyPunishmentDto: ApplyPunishmentDto;
+}
 
 export interface ReportControllerGetPaginationLogRequest {
   page: number;
@@ -61,6 +68,59 @@ export interface ReportControllerReportPlayerInMatchRequest {
  * 
  */
 export class ReportApi extends runtime.BaseAPI {
+
+    /**
+     */
+    private async reportControllerApplyPunishmentRaw(requestParameters: ReportControllerApplyPunishmentRequest): Promise<runtime.ApiResponse<void>> {
+        this.reportControllerApplyPunishmentValidation(requestParameters);
+        const context = this.reportControllerApplyPunishmentContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private reportControllerApplyPunishmentValidation(requestParameters: ReportControllerApplyPunishmentRequest) {
+        if (requestParameters.applyPunishmentDto === null || requestParameters.applyPunishmentDto === undefined) {
+            throw new runtime.RequiredError("applyPunishmentDto","Required parameter requestParameters.applyPunishmentDto was null or undefined when calling reportControllerApplyPunishment.");
+        }
+    }
+
+    /**
+     */
+    reportControllerApplyPunishmentContext(requestParameters: ReportControllerApplyPunishmentRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/report/admin/punish`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApplyPunishmentDtoToJSON(requestParameters.applyPunishmentDto),
+        };
+    }
+
+    /**
+     */
+    reportControllerApplyPunishment = async (applyPunishmentDto: ApplyPunishmentDto): Promise<void> => {
+        await this.reportControllerApplyPunishmentRaw({ applyPunishmentDto: applyPunishmentDto });
+    }
+
 
     /**
      */

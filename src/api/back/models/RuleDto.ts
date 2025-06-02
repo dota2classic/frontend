@@ -46,6 +46,12 @@ export interface RuleDto {
     title: string;
     /**
      * 
+     * @type {boolean}
+     * @memberof RuleDto
+     */
+    automatic: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof RuleDto
      */
@@ -83,6 +89,7 @@ export function RuleDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): R
         'id': json['id'],
         'index': json['index'],
         'title': json['title'],
+        'automatic': json['automatic'],
         'description': json['description'],
         'parentId': !exists(json, 'parentId') ? undefined : json['parentId'],
         'children': ((json['children'] as Array<any>).map(RuleDtoFromJSON)),
@@ -102,6 +109,7 @@ export function RuleDtoToJSON(value?: RuleDto | null): any {
         'id': value.id,
         'index': value.index,
         'title': value.title,
+        'automatic': value.automatic,
         'description': value.description,
         'parentId': value.parentId,
         'children': ((value.children as Array<any>).map(RuleDtoToJSON)),

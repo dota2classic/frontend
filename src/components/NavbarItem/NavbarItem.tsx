@@ -88,7 +88,7 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
           {options.map((op, index) => {
             const Icon = op.Icon;
             return (
-              <>
+              <React.Fragment key={index}>
                 {op.newCategory && <div className={c.delimiter} />}
                 {typeof op.action === "string" ? (
                   <a
@@ -118,7 +118,7 @@ export const NavbarItem: React.FC<PropsWithChildren<INavbarItemProps>> = ({
                     {op.label}
                   </span>
                 )}
-              </>
+              </React.Fragment>
             );
           })}
         </div>

@@ -12,6 +12,7 @@ import Head from "next/head";
 import "../ext";
 import cx from "clsx";
 import {
+  AcceptCookiesContainer,
   ClaimContainer,
   DevVersionIndicator,
   GreedyFocusManager,
@@ -100,6 +101,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
         <ClaimContainer />
         <FeedbackModalContainer />
         <GreedyFocusManager />
+        <AcceptCookiesContainer />
         <Head>
           <title>Dota2Classic</title>
         </Head>

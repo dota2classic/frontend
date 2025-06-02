@@ -7,7 +7,6 @@ import {
   Input,
   PlayerSummary,
   Section,
-  SelectOptions,
   Table,
   UserPreview,
 } from "@/components";
@@ -15,14 +14,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { NextPageContext } from "next";
 import {
-  BanReason,
   ForumUserDto,
   PlayerSummaryDto,
   Role,
   RoleSubscriptionEntryDto,
   SmurfData,
   UpdatePlayerFlagDto,
-  UserBanSummaryDto,
 } from "@/api/back";
 import c from "./AdminPlayerPage.module.scss";
 import c2 from "../AdminStyles.module.scss";
@@ -31,15 +28,15 @@ import { RoleNames } from "@/const/roles";
 import cx from "clsx";
 import { fullDate } from "@/util/dates";
 import { formatBanReason } from "@/util/texts/bans";
+import { AdminPlayerBanSettings } from "@/containers";
 
-const BanReasonOptions = [
-  BanReason.GAME_DECLINE,
-  BanReason.LOAD_FAILURE,
-  BanReason.INFINITE_BAN,
-  BanReason.REPORTS,
-  BanReason.ABANDON,
-  BanReason.LEARN2PLAY,
-].map((it) => ({ value: it, label: formatBanReason(it) }));
+// const BanReasonOptions = [
+//   BanReason.GAME_DECLINE,
+//   BanReason.LOAD_FAILURE,
+//   BanReason.INFINITE_BAN,
+//   BanReason.ABANDON,
+//   BanReason.RULE_VIOLATION,
+// ].map((it) => ({ value: it, label: formatBanReason(it) }));
 
 const TimeControlButtons = (p: {
   value: Date;
@@ -127,11 +124,10 @@ const RoleRow = (props: RoleSubscriptionEntryDto & { mutate: () => void }) => {
           onChange={updateEndTime}
         />
       </td>
-      <td>
+      <td className={c.actions}>
         <Button className="small" onClick={removeRole}>
           Убрать роль
         </Button>
-        <span style={{ marginLeft: 10 }} />
         <Button className="small" onClick={addMonth}>
           Добавить месяц
         </Button>
@@ -142,13 +138,11 @@ const RoleRow = (props: RoleSubscriptionEntryDto & { mutate: () => void }) => {
 
 interface AdminPlayerPageProps {
   preloadedSummary: PlayerSummaryDto;
-  preloadedBans: UserBanSummaryDto;
   preloadedForumUser: ForumUserDto;
   smurfData: SmurfData[];
 }
 
 export default function AdminPlayerPage({
-  preloadedBans,
   preloadedSummary,
   preloadedForumUser,
   smurfData,
@@ -156,17 +150,19 @@ export default function AdminPlayerPage({
   const { id } = useRouter().query;
   const steamId = id as string;
 
-  const [selectedBanReason, setSelectedBanReason] = useState<
-    { value: BanReason; label: string } | undefined
-  >(
-    BanReasonOptions.find(
-      (t) =>
-        t.value ===
-        (preloadedBans.banStatus.isBanned
-          ? preloadedBans.banStatus.status
-          : undefined),
-    ),
-  );
+  // const reloadPageProps = useRefreshPageProps();
+
+  // const [selectedBanReason, setSelectedBanReason] = useState<
+  //   { value: BanReason; label: string } | undefined
+  // >(
+  //   BanReasonOptions.find(
+  //     (t) =>
+  //       t.value ===
+  //       (preloadedBans.banStatus.isBanned
+  //         ? preloadedBans.banStatus.status
+  //         : undefined),
+  //   ),
+  // );
 
   const { data: flags, mutate: mutateFlags } =
     getApi().adminApi.useAdminUserControllerPlayerFlags(steamId);
@@ -176,13 +172,6 @@ export default function AdminPlayerPage({
       .adminApi.adminUserControllerFlagPlayer(steamId, p)
       .then(mutateFlags);
   }, []);
-
-  const { data, mutate } = getApi().adminApi.useAdminUserControllerBanOf(
-    steamId,
-    {
-      fallbackData: preloadedBans,
-    },
-  );
 
   const { data: forumUser, mutate: mutateForumUser } =
     getApi().forumApi.useForumControllerGetUser(steamId, {
@@ -238,25 +227,6 @@ export default function AdminPlayerPage({
     if (!endTime) return false;
     return endTime.getTime() > new Date().getTime();
   };
-
-  const updateBanTime = useCallback(
-    (d: Date | null) => {
-      if (!d) return;
-      return getApi()
-        .adminApi.adminUserControllerBanId(steamId, {
-          endTime: d.toISOString(),
-          reason: selectedBanReason
-            ? selectedBanReason.value
-            : BanReason.INFINITE_BAN,
-        })
-        .then(() => mutate());
-    },
-    [selectedBanReason],
-  );
-
-  const endTime = data?.banStatus?.bannedUntil
-    ? new Date(data!.banStatus!.bannedUntil)
-    : new Date(new Date().getTime() - 1000000);
 
   const endMuteTime = new Date(forumUser!.mutedUntil);
 
@@ -324,7 +294,12 @@ export default function AdminPlayerPage({
       </Section>
 
       <Section className={c2.grid12}>
-        <header>Роли и баны</header>
+        <header>Блокировка</header>
+        <AdminPlayerBanSettings steamId={steamId} />
+      </Section>
+
+      <Section className={c2.grid12}>
+        <header>Роли</header>
         <Table>
           <thead>
             <tr>
@@ -335,47 +310,6 @@ export default function AdminPlayerPage({
           </thead>
 
           <tbody>
-            <tr>
-              <td>Бан</td>
-              <td>
-                <DatePicker
-                  customInputRef={""}
-                  showTimeSelect
-                  timeIntervals={1}
-                  dateFormat={"dd MMMM yyyy HH:mm"}
-                  customInput={
-                    <Input
-                      placeholder={"Назначить"}
-                      className={cx(
-                        "iso",
-                        c.banEndTime,
-                        isBanActive(endTime) ? c.active : c.inactive,
-                      )}
-                    />
-                  }
-                  selected={endTime}
-                  onChange={updateBanTime}
-                />
-              </td>
-
-              <td className={c.actions}>
-                <TimeControlButtons
-                  value={endTime || new Date()}
-                  onChange={updateBanTime}
-                />
-              </td>
-              <td>
-                <SelectOptions
-                  defaultValue={BanReasonOptions.find(
-                    (t) => t.value === preloadedBans?.banStatus.status,
-                  )}
-                  options={BanReasonOptions}
-                  selected={selectedBanReason}
-                  onSelect={setSelectedBanReason}
-                  defaultText={"Причина бана"}
-                />
-              </td>
-            </tr>
             <tr>
               <td>Мут на форуме</td>
               <td>
@@ -422,12 +356,9 @@ AdminPlayerPage.getInitialProps = async (
 ): Promise<AdminPlayerPageProps> => {
   const playerId = ctx.query.id as string;
 
-  const [preloadedSummary, preloadedBans, preloadedForumUser, smurfData] =
+  const [preloadedSummary, preloadedForumUser, smurfData] =
     await Promise.combine([
       getApi().playerApi.playerControllerPlayerSummary(playerId),
-      withTemporaryToken(ctx, () =>
-        getApi().adminApi.adminUserControllerBanOf(playerId),
-      ),
       withTemporaryToken(ctx, () =>
         getApi().forumApi.forumControllerGetUser(playerId),
       ),
@@ -438,7 +369,6 @@ AdminPlayerPage.getInitialProps = async (
 
   return {
     preloadedSummary,
-    preloadedBans,
     preloadedForumUser,
     smurfData,
   };

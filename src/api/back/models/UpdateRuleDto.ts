@@ -49,6 +49,12 @@ export interface UpdateRuleDto {
      * @memberof UpdateRuleDto
      */
     index?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateRuleDto
+     */
+    automatic?: boolean;
 }
 
 export function UpdateRuleDtoFromJSON(json: any): UpdateRuleDto {
@@ -66,6 +72,7 @@ export function UpdateRuleDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         'description': !exists(json, 'description') ? undefined : json['description'],
         'punishmentId': !exists(json, 'punishmentId') ? undefined : json['punishmentId'],
         'index': !exists(json, 'index') ? undefined : json['index'],
+        'automatic': !exists(json, 'automatic') ? undefined : json['automatic'],
     };
 }
 
@@ -83,6 +90,7 @@ export function UpdateRuleDtoToJSON(value?: UpdateRuleDto | null): any {
         'description': value.description,
         'punishmentId': value.punishmentId,
         'index': value.index,
+        'automatic': value.automatic,
     };
 }
 

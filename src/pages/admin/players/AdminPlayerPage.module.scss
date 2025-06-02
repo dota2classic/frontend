@@ -1,12 +1,12 @@
 @import "../../../common.scss";
 
 .actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+
   & button {
     width: fit-content;
-  }
-
-  & button + button {
-    margin-left: 20px;
   }
 }
 

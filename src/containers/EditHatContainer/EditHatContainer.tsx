@@ -185,7 +185,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
     <>
       <PlayerSummary
         banStatus={{
-          status: BanReason.REPORTS,
+          status: BanReason.INFINITE_BAN,
           isBanned: false,
           bannedUntil: new Date().toISOString(),
         }}
