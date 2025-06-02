@@ -267,7 +267,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
                   id="cowbell"
                   name="cowbell"
                   min="0"
-                  max="50"
+                  max="512"
                   value={offset}
                   step="1"
                   onChange={(e) => setOffset(Number(e.target.value))}
@@ -280,7 +280,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
                   id="cowbell"
                   name="cowbell"
                   min="0"
-                  max="100"
+                  max="500"
                   value={sideTrim}
                   step="1"
                   onChange={(e) => setSideTrim(Number(e.target.value))}

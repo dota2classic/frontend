@@ -83,3 +83,7 @@ export function fromNow(
 const nf = new Intl.NumberFormat("ru-RU", { signDisplay: "exceptZero" });
 
 export const signedNumber = (n: number) => nf.format(n);
+
+export const isInFuture = (d: string | number) => {
+  return Date.now() < new Date(d).getTime();
+};

@@ -1,10 +1,10 @@
 import React, { PropsWithChildren } from "react";
 
 import {
-  AdBlock,
   Navbar,
   Notifications,
   SearchGameFloater,
+  SideAdBlock,
   TelegramInvite,
 } from "..";
 
@@ -36,7 +36,7 @@ export const Layout = ({
         <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
           <Notifications />
           <SearchGameFloater />
-          {!isLanding && <AdBlock bannerId={AdBlockType.BANNER_LEFT} />}
+          {!isLanding && <SideAdBlock bannerId={AdBlockType.BANNER_LEFT} />}
           <div
             className={cx(
               c.middleContent,
@@ -60,7 +60,7 @@ export const Layout = ({
               </div>
             </footer>
           </div>
-          {!isLanding && <AdBlock bannerId={AdBlockType.BANNER_RIGHT} />}
+          {!isLanding && <SideAdBlock bannerId={AdBlockType.BANNER_RIGHT} />}
         </div>
       </div>
     </ThemeContext.Provider>

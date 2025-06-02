@@ -94,7 +94,7 @@ export { PlayerPentagonStats } from "./PlayerPentagonStats/PlayerPentagonStats";
 export { IconButton } from "./IconButton/IconButton";
 export { ItemsTable } from "./ItemsTable/ItemsTable";
 export { YaReklama } from "./YaReklama/YaReklama";
-export { AdBlock } from "./AdBlock/AdBlock";
+export { SideAdBlock } from "./AdBlock/SideAdBlock";
 export { OnboardingTooltip } from "./OnboardingTooltip/OnboardingTooltip";
 export { MatchmakingModeList } from "./MatchmakingModeList/MatchmakingModeList";
 export { Logo } from "./Logo/Logo";

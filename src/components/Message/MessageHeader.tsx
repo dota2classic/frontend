@@ -22,6 +22,7 @@ import { computed } from "mobx";
 import { createPortal } from "react-dom";
 import { formatRole } from "@/util/gamemode";
 import { FaTwitch } from "react-icons/fa";
+import animations from "./ChatIconAnimations.module.scss";
 
 interface IMessageProps {
   message: ThreadMessageDTO;
@@ -95,7 +96,10 @@ export const MessageHeader = observer(function MessageHeader({
       {roleList.includes(Role.OLD) && chatIconOld && (
         <img
           src={chatIconOld.image.url}
-          className={cx(c.old, message.author.chatIconAnimation?.image.key)}
+          className={cx(
+            animations.old,
+            message.author.chatIconAnimation?.image.key,
+          )}
           onMouseEnter={(e) =>
             setHoveredRole({
               ref: e.target as HTMLElement,

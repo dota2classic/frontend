@@ -23,14 +23,17 @@ const PaginationItem = ({
   children,
   link,
   active,
+  disabled,
 }: PropsWithChildren<{
   link?: Action;
   active?: boolean;
+  disabled?: boolean;
 }>) => {
   const className = cx(c.page, {
     [c.active]: active,
+    [c.disabled]: disabled,
   });
-  return link ? (
+  return link && !disabled ? (
     isPageLink(link) ? (
       <PageLink className={cx(className, "link")} link={link}>
         {children}
@@ -50,31 +53,23 @@ export const Pagination: React.FC<IPaginationProps> = ({
   maxPage,
   linkProducer,
 }) => {
-  const horOffset = 2;
+  const horOffset = 1;
 
   const iter = new Array(horOffset * 2 + 1)
     .fill(null)
     .map((it, index) => index + page - horOffset)
     .filter((it) => it >= 0 && it < maxPage);
 
-  const hasMoreLeft = page - horOffset > 0;
-  const hasMoreRight = page + horOffset < maxPage;
-
   if (iter.length === 1) return null;
 
   return (
     <Panel className={c.pagination}>
-      {page > 0 && (
-        <>
-          <PaginationItem link={linkProducer(0)}>
-            <HiChevronDoubleLeft />
-          </PaginationItem>
-          <PaginationItem link={linkProducer(page - 1)}>
-            <IoChevronBack />
-          </PaginationItem>
-        </>
-      )}
-      {hasMoreLeft && <PaginationItem>..</PaginationItem>}
+      <PaginationItem disabled={page === 0} link={linkProducer(0)}>
+        <HiChevronDoubleLeft />
+      </PaginationItem>
+      <PaginationItem disabled={page === 0} link={linkProducer(page - 1)}>
+        <IoChevronBack />
+      </PaginationItem>
       {iter.map((_page) => (
         <PaginationItem
           key={_page}
@@ -84,18 +79,18 @@ export const Pagination: React.FC<IPaginationProps> = ({
           {_page + 1}
         </PaginationItem>
       ))}
-      {hasMoreRight && <PaginationItem>..</PaginationItem>}
-
-      {page < maxPage - 1 && (
-        <>
-          <PaginationItem link={linkProducer(page + 1)}>
-            <IoChevronForward />
-          </PaginationItem>
-          <PaginationItem link={linkProducer(maxPage - 1)}>
-            <HiChevronDoubleRight />
-          </PaginationItem>
-        </>
-      )}
+      <PaginationItem
+        disabled={page === maxPage - 1}
+        link={linkProducer(page + 1)}
+      >
+        <IoChevronForward />
+      </PaginationItem>
+      <PaginationItem
+        disabled={page === maxPage - 1}
+        link={linkProducer(maxPage - 1)}
+      >
+        <HiChevronDoubleRight />
+      </PaginationItem>
     </Panel>
   );
 };

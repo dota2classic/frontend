@@ -1,12 +1,15 @@
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/store";
 import React, { useEffect } from "react";
-
+import cx from "clsx";
 import c from "./AdBlock.module.scss";
 
 interface Props {
   bannerId: string;
 }
+export const GenericAdBlock: React.FC<Props> = observer(({ bannerId }) => {
+  const { auth } = useStore();
 
-export const AdBlock: React.FC<Props> = ({ bannerId }: Props) => {
   useEffect(() => {
     setTimeout(() => {
       window.yaContextCb.push(() => {
@@ -16,11 +19,11 @@ export const AdBlock: React.FC<Props> = ({ bannerId }: Props) => {
         });
       });
     }, 500);
-  }, []);
+  }, [auth.isOld, bannerId]);
+
+  if (auth.isOld) return null;
 
   return (
-    <div className={c.adBlock}>
-      <div id={`yandex_rtb_${bannerId}`} />
-    </div>
+    <div id={`yandex_rtb_${bannerId}`} className={cx(auth.isOld && c.hidden)} />
   );
-};
+});

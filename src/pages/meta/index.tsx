@@ -1,6 +1,7 @@
 import {
   Carousel,
   CarouselItem,
+  EmbedProps,
   MatchHistoryTable,
   PageLink,
   Section,
@@ -20,6 +21,12 @@ interface Props {
 export default function MetaPage({ matches }: Props) {
   return (
     <div className={cx("grid", c.grid)}>
+      <EmbedProps
+        title={"Статистика"}
+        description={
+          "Тщательно собранная статистика по матчам, героям, предметам и игроками"
+        }
+      />
       <h2 className="grid6">Мета</h2>
       <Section className={"grid12"}>
         <Carousel gridCnt={2}>

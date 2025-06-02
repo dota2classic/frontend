@@ -5,6 +5,7 @@
   flex-direction: row;
   overflow-x: hidden;
   flex: 1;
+  padding-top: 20px;
 
   @media (max-width: 600px) {
     width: 100vw;

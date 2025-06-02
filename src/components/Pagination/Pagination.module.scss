@@ -4,20 +4,18 @@
   //padding: 6px 6px;
   padding: 0 !important;
   display: flex;
-
+  flex-direction: row !important;
 
   @media (max-width: 600px) {
     // Overwrite for panel
     flex-direction: row !important;
   }
 
-
-  & + table, table + & {
+  & + table,
+  table + & {
     //margin-top: 20px;
   }
 }
-
-
 
 .page {
   //padding: 4px 12px;
@@ -46,7 +44,13 @@
     background-color: $blueHighlight3;
   }
 
-  &:hover, &:focus {
-    background-color: $blueHighlight3
+  &.disabled {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    cursor: not-allowed;
+    //pointer-events: ov;
+  }
+
+  &:hover {
+    background-color: $blueHighlight3;
   }
 }

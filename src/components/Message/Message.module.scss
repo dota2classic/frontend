@@ -369,26 +369,7 @@
   }
 }
 
-.old {
-  width: 1.4em;
-  height: 1.4em;
-}
 
-.old:global(.pulse) {
-  animation: pulse 0.3s ease-in infinite alternate;
-}
-
-.old:global(.disappear) {
-  animation: disappear 4s ease-out infinite alternate;
-}
-
-.old:global(.roll) {
-  animation: roll 6s ease infinite;
-}
-
-.old:global(.bounce) {
-  animation: old_bounce 5s ease-out infinite alternate;
-}
 
 .blockedMessage {
   font-size: 1.2rem;
@@ -424,68 +405,3 @@
   }
 }
 
-@keyframes old_bounce {
-  0.000% {
-    transform: translate(1.853%, 12.336%);
-  }
-  8.060% {
-    transform: translate(74.306%, 100%);
-  }
-  10.918% {
-    transform: translate(100%, 68.912%);
-  }
-  17.254% {
-    transform: translate(43.046%, 0%);
-  }
-  22.042% {
-    transform: translate(0%, 52.083%);
-  }
-  26.448% {
-    transform: translate(39.603%, 100%);
-  }
-  33.167% {
-    transform: translate(100%, 26.923%);
-  }
-  35.642% {
-    transform: translate(77.749%, 0%);
-  }
-  44.291% {
-    transform: translate(0%, 94.072%);
-  }
-  44.836% {
-    transform: translate(4.9%, 100%);
-  }
-  54.030% {
-    transform: translate(87.548%, 0%);
-  }
-  55.415% {
-    transform: translate(100%, 15.066%);
-  }
-  63.224% {
-    transform: translate(29.803%, 100%);
-  }
-  66.539% {
-    transform: translate(0%, 63.94%);
-  }
-  72.418% {
-    transform: translate(52.845%, 0%);
-  }
-  77.664% {
-    transform: translate(100%, 57.055%);
-  }
-  81.612% {
-    transform: translate(64.506%, 100%);
-  }
-  88.788% {
-    transform: translate(0%, 21.951%);
-  }
-  90.806% {
-    transform: translate(18.142%, 0%);
-  }
-  99.912% {
-    transform: translate(100%, 99.043%);
-  }
-  100.000% {
-    transform: translate(99.209%, 100%);
-  }
-}

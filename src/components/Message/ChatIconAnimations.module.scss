@@ -1,0 +1,116 @@
+@keyframes wobbly {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1) rotate3d(0, 0, 1, 0deg);
+  }
+  10% {
+    transform: translate(-5px, 3px) rotate(-10deg) scale(1.1) rotate3d(1, 0, 0, 10deg);
+  }
+  20% {
+    transform: translate(4px, -4px) rotate(5deg) scale(0.95) rotate3d(0, 1, 0, 15deg);
+  }
+  30% {
+    transform: translate(-3px, 2px) rotate(-3deg) scale(1.05) rotate3d(0, 0, 1, -10deg);
+  }
+  40% {
+    transform: translate(3px, -2px) rotate(7deg) scale(1) rotate3d(1, 1, 0, 5deg);
+  }
+  50% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1.1) rotate3d(1, 1, 1, 0deg);
+  }
+  60% {
+    transform: translate(-2px, 3px) rotate(-5deg) scale(0.9) rotate3d(1, 0, 1, 12deg);
+  }
+  70% {
+    transform: translate(4px, -1px) rotate(8deg) scale(1) rotate3d(0, 1, 1, -8deg);
+  }
+  80% {
+    transform: translate(-1px, 2px) rotate(-2deg) scale(1.05) rotate3d(1, 0.5, 0, 10deg);
+  }
+  90% {
+    transform: translate(2px, -3px) rotate(3deg) scale(0.97) rotate3d(0.5, 1, 1, 7deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1) rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+
+@keyframes bounce {
+  0.000% { transform: translate(-16.150%, -14.704%); }
+  3.359% { transform: translate(-50.000%, 17.702%); }
+  6.707% { transform: translate(-16.263%, 50.000%); }
+  13.283% { transform: translate(50.000%, -13.436%); }
+  17.073% { transform: translate(11.807%, -50.000%); }
+  23.206% { transform: translate(-50.000%, 9.170%); }
+  27.439% { transform: translate(-7.351%, 50.000%); }
+  33.130% { transform: translate(50.000%, -4.904%); }
+  37.805% { transform: translate(2.895%, -50.000%); }
+  43.054% { transform: translate(-50.000%, 0.638%); }
+  48.171% { transform: translate(1.561%, 50.000%); }
+  52.978% { transform: translate(50.000%, 3.627%); }
+  58.536% { transform: translate(-6.017%, -50.000%); }
+  62.901% { transform: translate(-50.000%, -7.893%); }
+  68.902% { transform: translate(10.473%, 50.000%); }
+  72.825% { transform: translate(50.000%, 12.159%); }
+  79.268% { transform: translate(-14.929%, -50.000%); }
+  82.749% { transform: translate(-50.000%, -16.425%); }
+  89.634% { transform: translate(19.385%, 50.000%); }
+  92.672% { transform: translate(50.000%, 20.691%); }
+  100.000% { transform: translate(-23.841%, -50.000%); }
+}
+
+
+@keyframes narco {
+  0% {
+    transform: rotate3d(1, 0, 0, 0deg) translateZ(0px);
+  }
+  20% {
+    transform: rotate3d(1, 1, 0, 50deg) translateZ(15px);
+  }
+  40% {
+    transform: rotate3d(0, 1, 1, -60deg) translateZ(5px);
+  }
+  60% {
+    transform: rotate3d(1, 0, 1, 40deg) translateZ(-15px);
+  }
+  80% {
+    transform: rotate3d(0.5, 1, 0.5, -40deg) translateZ(0px);
+  }
+  100% {
+    transform: rotate3d(1, 1, 1, 0deg) translateZ(0px);
+  }
+}
+
+
+.old {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+
+.old:global(.narco) {
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  display: inline-block;
+  animation: narco 5s ease infinite;
+}
+
+.old:global(.pulse) {
+  animation: pulse 0.3s ease-in infinite alternate;
+}
+
+.old:global(.disappear) {
+  animation: disappear 4s ease-out infinite alternate;
+}
+
+.old:global(.roll) {
+  animation: roll 6s ease infinite;
+}
+
+.old:global(.bounce) {
+  animation: bounce 10s ease-out infinite alternate-reverse;
+}
+
+.old:global(.wobbly) {
+  animation: wobbly 10s ease-out infinite alternate-reverse;
+}
