@@ -40,16 +40,7 @@ export const Button: React.FC<
       </a>
     );
   return (
-    <button
-      className={cx(
-        c.button,
-        mega && c.megaButton,
-        mega && TrajanPro.className,
-        small && c.smaller,
-        className,
-      )}
-      {...props}
-    >
+    <button className={cn} {...props}>
       {/*{mega && (*/}
       {/*  <>*/}
       {/*    <span className={cx(c.snow)} />*/}

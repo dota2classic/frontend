@@ -16,6 +16,7 @@ import {
   ClaimContainer,
   DevVersionIndicator,
   GreedyFocusManager,
+  PaidFeatureModal,
 } from "@/containers";
 import { ToastContainer } from "react-toastify";
 import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModalContainer";
@@ -101,6 +102,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
         <ClaimContainer />
         <FeedbackModalContainer />
         <GreedyFocusManager />
+        <PaidFeatureModal />
         <AcceptCookiesContainer />
         <Head>
           <title>Dota2Classic</title>

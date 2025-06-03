@@ -2,8 +2,11 @@
 
 .panel {
   box-shadow: none;
-  margin-top: 24px;
   flex-direction: row !important;
+
+  @media (max-width: 600px) {
+    flex-direction: column !important;
+  }
 }
 
 .summary {
@@ -21,10 +24,11 @@
 
 .externalLink {
   color: $green;
-  margin-left: 8px;
   font-size: 1rem;
   display: flex;
   gap: 6px;
+
+  margin-left: 0 !important;;
 
   & svg {
     //padding: 4px;
@@ -42,12 +46,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-
-  //& img {
-  //  width: 65px;
-  //  height: 65px;
-  //}
 }
+
+
+.icons {
+  gap: 6px;
+  margin-left: 12px;
+}
+
 .playerName {
   display: flex;
   flex-direction: row;

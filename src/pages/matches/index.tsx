@@ -41,7 +41,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
           "История матчей старой Dota 2, список матчей сыгранных на сайте dotaclassic.ru"
         }
       />
-      <Panel>
+      <Panel style={{ flexDirection: "row" }}>
         <SelectOptions
           options={GameModeOptions}
           selected={mode === undefined ? "undefined" : mode}

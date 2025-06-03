@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 4px 20px;
+  padding: 12px 20px;
   & p {
     font-size: 1.4rem;
   }
@@ -39,7 +39,7 @@
 
 .decorations {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 16px;
 }
 
@@ -82,4 +82,5 @@
   display: flex;
   flex-direction: column;
   grid-column: span 2;
+  gap: 16px;
 }

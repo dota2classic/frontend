@@ -8,6 +8,7 @@ import {
 } from "@/api/back";
 import { useDidMount } from "@/util";
 import {
+  BigTabs,
   EmbedProps,
   MatchmakingModeList,
   OnboardingTooltip,
@@ -15,7 +16,7 @@ import {
   Section,
 } from "@/components";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import React from "react";
+import React, { useState } from "react";
 import { NextPageContext } from "next";
 import { Thread } from "@/containers";
 import Cookies from "cookies";
@@ -25,6 +26,7 @@ import BrowserCookies from "browser-cookies";
 import dynamic from "next/dynamic";
 import { STATUS } from "react-joyride";
 import { useLocalStorage } from "react-use";
+import cx from "clsx";
 
 const JoyRideNoSSR = dynamic(() => import("react-joyride"), { ssr: false });
 
@@ -35,12 +37,16 @@ interface Props {
   "@defaultModes": MatchmakingMode[];
 }
 
+type Tabs = "chat" | "modes";
+
 export default function QueuePage(props: Props) {
   const mounted = useDidMount();
   const [tutorialComplete, setTutorialComplete] = useLocalStorage(
     "tutorial-passed",
     false,
   );
+
+  const [tab, setTab] = useState<Tabs>("modes");
 
   const { data: modes } =
     getApi().statsApi.useStatsControllerGetMatchmakingInfo({
@@ -127,8 +133,37 @@ export default function QueuePage(props: Props) {
           title="Поиск игры"
           description="Страница поиска игры в старую доту. Играй в группе со своими друзьями с ботами и другими людьми"
         />
-        <MatchmakingModeList modes={modes || props.modes} />
-        <Section className={c.main}>
+        <BigTabs<Tabs>
+          className={c.mobile__tabs}
+          flavor="small"
+          selected={tab}
+          items={[
+            {
+              key: "modes",
+              label: "Играть",
+              onSelect: setTab,
+            },
+            {
+              key: "chat",
+              label: "Чат",
+              onSelect: setTab,
+            },
+          ]}
+        />
+        <MatchmakingModeList
+          className={cx(
+            c.mobile__modes,
+            tab !== "modes" && c.mobile__modes_hidden,
+          )}
+          modes={modes || props.modes}
+        />
+        <Section
+          className={cx(
+            c.main,
+            c.mobile__chat,
+            tab !== "chat" && c.mobile__modes_hidden,
+          )}
+        >
           <header>Группа и поиск</header>
           <QueuePartyInfo />
           <Thread

@@ -1,5 +1,8 @@
 import React from "react";
 
-export const Logo: React.FC = () => {
-  return <img src="/logo2.png" width={46} height={46} />;
+interface Props {
+  size?: number;
+}
+export const Logo: React.FC<Props> = ({ size }) => {
+  return <img src="/logo/128.png" width={size || 46} height={size || 46} />;
 };

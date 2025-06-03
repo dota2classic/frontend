@@ -33,7 +33,14 @@ export const Layout = ({
         className={cx(c.wrapper, isQueuePage && c.wrapper__queue, c.blogpost)}
       >
         <Navbar className={TrajanPro.className} />
-        <div className={cx(c.layout, isQueuePage && c.layoutQueue, className)}>
+        <div
+          className={cx(
+            c.layout,
+            isQueuePage && c.layoutQueue,
+            isLanding && c.layoutLanding,
+            className,
+          )}
+        >
           <Notifications />
           <SearchGameFloater />
           {!isLanding && <SideAdBlock bannerId={AdBlockType.BANNER_LEFT} />}
@@ -49,7 +56,7 @@ export const Layout = ({
             >
               {children}
             </main>
-            <footer className={c.footer}>
+            <footer className={cx(c.footer, isQueuePage && c.footer__queue)}>
               <div className={c.footer__bottom}>
                 <div> © 2020 - 2025 dotaclassic.ru</div>
                 <div>

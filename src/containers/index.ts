@@ -28,3 +28,4 @@ export { ClaimContainer } from "./ClaimContainer/ClaimContainer";
 export { AdminRuleViolationContainer } from "./AdminRuleViolationContainer/AdminRuleViolationContainer";
 export { AdminPlayerBanSettings } from "./AdminPlayerBanSettings/AdminPlayerBanSettings";
 export { AcceptCookiesContainer } from "./AcceptCookiesContainer/AcceptCookiesContainer";
+export { PaidFeatureModal } from "./PaidFeatureModal/PaidFeatureModal";

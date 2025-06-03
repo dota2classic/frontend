@@ -29,6 +29,10 @@
 
 .layoutQueue {
   height: calc(100vh - 73px);
+  padding-top: 0 !important;
+}
+.layoutLanding {
+  padding-top: 0 !important;
 }
 
 .layoutInner {
@@ -93,6 +97,11 @@
     gap: 2rem;
   }
 
+  &__queue {
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
   @media (max-width: 600px) {
     flex-direction: column;
   }

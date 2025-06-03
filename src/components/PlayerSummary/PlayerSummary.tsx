@@ -12,7 +12,7 @@ import {
   Tooltipable,
 } from "@/components";
 import { AppRouter, NextLinkProp } from "@/route";
-import { steamPage, useIsModerator } from "@/util";
+import { steamPage, useIsModerator, useIsOld } from "@/util";
 import { observer } from "mobx-react-lite";
 import { formatShortTime } from "@/util/dates";
 import { FaSteam, FaTwitch } from "react-icons/fa";
@@ -94,6 +94,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
   ({ className, lastGameTimestamp, banStatus, stats, user, rank, mmr }) => {
     const { wins, abandons, loss } = stats;
     const isModerator = useIsModerator();
+    const isOld = useIsOld();
 
     const isMyProfile = useStore().auth.parsedToken?.sub === user.steamId;
 
@@ -140,7 +141,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 {steamId.length > 2 ? name : `Бот #${steamId}`}
               </PageLink>
             </div>
-            <div className={c.player}>
+            <div className={cx(c.player, c.icons)}>
               <a
                 target="__blank"
                 className={cx(c.externalLink, "link")}
@@ -155,6 +156,11 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
               >
                 <FaSteam className={c.icon_svg} />
               </a>
+              {isOld && (
+                <Tooltipable tooltip="Подписчик dotaclassic plus">
+                  <img width={20} height={20} src="/logo/128.png" />
+                </Tooltipable>
+              )}
               {isModerator && (
                 <PageLink
                   className={c.externalLink}

@@ -54,6 +54,17 @@
 .heading {
   display: flex;
   gap: 6px;
+  align-items: end;
+
+  & svg {
+    font-size: 30px;
+    margin-top: 4px;
+  }
+
+  & img {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .panel {

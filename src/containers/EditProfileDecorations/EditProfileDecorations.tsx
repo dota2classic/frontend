@@ -25,7 +25,7 @@ interface IEditProfileDecorationsProps {
 export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
   observer(({ user: _user, decorations }) => {
     const { me, fetchMe, isOld } = useStore().auth;
-    // const router = useRouter();
+    const { sub } = useStore();
 
     const user = me?.user || _user;
 
@@ -48,8 +48,8 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
     const updateChatIcon = useCallback(
       async (type: UserProfileDecorationType, id?: number) => {
         if (!isOld) {
-          // AppRouter.
-          console.error("TODO FIXME");
+          sub.show();
+          return;
         }
         await getApi().decoration.customizationControllerSelectDecoration({
           type,
@@ -57,12 +57,12 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
         });
         await fetchMe();
       },
-      [fetchMe],
+      [fetchMe, sub.show],
     );
 
     return (
       <>
-        <Panel className={cx(c.panel, NotoSans.className)}>
+        <Panel className={cx(c.panel, c.decorations, NotoSans.className)}>
           <Message
             header={true}
             message={{
@@ -78,40 +78,46 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
               reactions: [],
             }}
           />
-        </Panel>
-        <Panel className={cx(c.panel, c.decorations, NotoSans.className)}>
-          <SelectImageDecoration
-            decorations={hats}
-            current={user.hat}
-            onSelect={(it) => updateChatIcon(UserProfileDecorationType.HAT, it)}
-            title={"Шапка"}
-          />
-          <SelectImageDecoration
-            decorations={icons}
-            current={user.icon}
-            small
-            onSelect={(it) =>
-              updateChatIcon(UserProfileDecorationType.CHATICON, it)
-            }
-            title={"Иконка"}
-          />
-          <div className={c.stackedTextSelect}>
-            <SelectTextDecoration
-              current={user.title}
-              decorations={titles}
+
+          <div className="nicerow">
+            <SelectImageDecoration
+              decorations={hats}
+              current={user.hat}
               onSelect={(it) =>
-                updateChatIcon(UserProfileDecorationType.TITLE, it)
+                updateChatIcon(UserProfileDecorationType.HAT, it)
               }
-              title={"Титул"}
+              title={"Шапка"}
             />
-            <SelectTextDecoration
-              current={user.chatIconAnimation}
-              decorations={animations}
+            <SelectImageDecoration
+              decorations={icons}
+              current={user.icon}
+              small
               onSelect={(it) =>
-                updateChatIcon(UserProfileDecorationType.CHATICONANIMATION, it)
+                updateChatIcon(UserProfileDecorationType.CHATICON, it)
               }
-              title={"Анимация"}
+              title={"Иконка"}
             />
+            <div className={c.stackedTextSelect}>
+              <SelectTextDecoration
+                current={user.title}
+                decorations={titles}
+                onSelect={(it) =>
+                  updateChatIcon(UserProfileDecorationType.TITLE, it)
+                }
+                title={"Титул"}
+              />
+              <SelectTextDecoration
+                current={user.chatIconAnimation}
+                decorations={animations}
+                onSelect={(it) =>
+                  updateChatIcon(
+                    UserProfileDecorationType.CHATICONANIMATION,
+                    it,
+                  )
+                }
+                title={"Анимация"}
+              />
+            </div>
           </div>
         </Panel>
 

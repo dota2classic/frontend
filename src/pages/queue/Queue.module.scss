@@ -1,6 +1,5 @@
 @import "../../common.scss";
 
-
 .box {
   background-color: $bg2;
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
@@ -9,8 +8,6 @@
   flex-direction: column;
 }
 
-
-
 .queue {
   display: grid;
   grid-column-gap: 12px;
@@ -18,8 +15,6 @@
   grid-template-rows: repeat(12, 1fr);
   height: 100%;
 }
-
-
 
 .onlineInfo {
   position: absolute;
@@ -55,6 +50,12 @@
   }
 }
 
+.mobile__tabs {
+  @media (min-width: 600px) {
+    display: none;
+  }
+}
+
 .queueDiscussion {
   flex: 1;
   overflow-x: hidden;
@@ -69,19 +70,16 @@
   }
 }
 
-
 .deleteMe {
   & :global(.messageList) > div:first-child {
     height: 787px !important;
   }
 }
 
-
 .notify {
   display: flex;
   align-items: center;
 }
-
 
 @keyframes something {
   0% {
@@ -93,3 +91,24 @@
   }
 }
 
+.mobile__modes {
+  @media (max-width: 600px) {
+    grid-column: span 12;
+  }
+  &_hidden {
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+}
+
+.mobile__chat {
+  @media (max-width: 600px) {
+    grid-column: span 12;
+  }
+  &_hidden {
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+}

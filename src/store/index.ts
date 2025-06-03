@@ -14,6 +14,7 @@ import { ImageStore } from "@/store/ImageStore";
 import { LiveStore } from "@/store/LiveStore";
 import { ReportStore } from "@/store/ReportStore";
 import { ClaimItemStore } from "@/store/ClaimItemStore";
+import { SubStore } from "@/store/SubStore";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -45,6 +46,7 @@ function createStore(): RootStore {
     image: new ImageStore(),
     report: new ReportStore(),
     claim: new ClaimItemStore(),
+    sub: new SubStore(),
   };
 }
 export const __unsafeGetClientStore = () => clientStore;
@@ -88,6 +90,7 @@ export interface RootStore {
   image: ImageStore;
   report: ReportStore;
   claim: ClaimItemStore;
+  sub: SubStore;
 }
 
 export function useStore(): RootStore {

@@ -8,8 +8,9 @@ export default function Document() {
       <Head>
         <link rel="stylesheet" href={`/normalize.css`} />
         <link rel="stylesheet" href={`/minimap.css`} />
-        {/*<link rel="icon" href="/favicon.ico" sizes="any" />*/}
-        <link rel="icon" href="/logo3.png" sizes="any" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/logo/256.png" />
+
         <YandexMetrika />
         <YaReklama />
         <GoogleTagManager />

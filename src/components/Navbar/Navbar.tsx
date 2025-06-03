@@ -56,7 +56,6 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             className={cx(c.root, "onboarding-logo")}
             action={AppRouter.index.link}
           >
-            {/*<SiDota2 />*/}
             <Logo />
             <span>DOTA2CLASSIC</span>
           </NavbarItem>
@@ -85,14 +84,13 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 Как играть
               </NavbarItem>
             )}
-
-            <MetaNavbarItem />
             <NavbarItem
               action={AppRouter.blog.index.link}
               tip={newBlogRecently && "!"}
             >
               Новости
             </NavbarItem>
+            <MetaNavbarItem />
             <NavbarItem
               className={c.play}
               action={AppRouter.forum.index().link}

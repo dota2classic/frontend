@@ -51,7 +51,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
 
     return (
       <>
-        <Panel>
+        <Panel style={{ flexDirection: "row" }}>
           <div className="left">
             <Breadcrumbs>
               <PageLink link={AppRouter.matches.index().link}>Матчи</PageLink>

@@ -112,9 +112,15 @@ export const SearchGameButton = observer((p: Props) => {
       </Button>
     );
   }
+
   if (!isInQueue) {
     const shouldDisable =
       (isQueuePage && queue.selectedModes.length === 0) || !!content;
+    console.log(
+      isInQueue,
+      isQueuePage && queue.selectedModes.length === 0,
+      !!content,
+    );
     return (
       <Button
         mega
@@ -135,7 +141,7 @@ export const SearchGameButton = observer((p: Props) => {
           "onboarding-queue-button",
         )}
       >
-        {isQueuePage ? content || "Искать игру" : "Играть"}
+        {content || "Играть"}
       </Button>
     );
   }

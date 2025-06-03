@@ -3,10 +3,12 @@ import {
   Button,
   EmbedProps,
   InvitePlayerModalRaw,
+  Logo,
   Panel,
   PlayerSummary,
   Section,
   Table,
+  TimeAgo,
   UserPreview,
 } from "@/components";
 import React, { useState } from "react";
@@ -14,6 +16,7 @@ import {
   DodgeListEntryDto,
   PlayerSummaryDto,
   ProfileDecorationDto,
+  Role,
   UserConnectionDtoConnectionEnum,
 } from "@/api/back";
 import { getApi } from "@/api/hooks";
@@ -27,6 +30,7 @@ import { formatDate } from "@/util/dates";
 import { createPortal } from "react-dom";
 import { SiAdblock } from "react-icons/si";
 import { GiAngelWings } from "react-icons/gi";
+import { AppRouter } from "@/route";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -43,6 +47,8 @@ export default function PlayerSettings({ summary, decorations }: Props) {
   const twitchConnection = summary.user.connections.find(
     (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
   );
+
+  const oldSubscription = summary.user.roles.find((t) => t.role === Role.OLD);
 
   const close = () => setDodgeListOpen(false);
 
@@ -74,7 +80,32 @@ export default function PlayerSettings({ summary, decorations }: Props) {
         rank={summary.seasonStats.rank}
         mmr={summary.seasonStats.mmr}
       />
-
+      <Section className={cx(c.section)}>
+        <header className={c.heading}>
+          <Logo size={30} /> dotaclassic plus
+        </header>
+        <Panel className={cx(c.panel, NotoSans.className)}>
+          <p>
+            {oldSubscription ? (
+              <>
+                Активна, срок действия кончается{" "}
+                <span className="gold">
+                  <TimeAgo date={oldSubscription.endTime} />
+                </span>
+              </>
+            ) : (
+              "Подписка неактивна"
+            )}
+          </p>
+          <Button
+            className={c.inlineButton}
+            small
+            pageLink={AppRouter.store.index.link}
+          >
+            {oldSubscription ? "Продлить подписку" : "Подписаться"}
+          </Button>
+        </Panel>
+      </Section>
       <Section className={cx(c.section)}>
         <header className={c.heading}>
           <GiAngelWings className={"gold"} /> Оформление профиля

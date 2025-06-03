@@ -24,6 +24,7 @@
     "knip": "knip"
   },
   "dependencies": {
+    "@dota2classic/react-arborist": "^1.0.1",
     "@lexical/react": "^0.24.0",
     "@lexical/rich-text": "^0.24.0",
     "@lexical/selection": "^0.24.0",
@@ -41,7 +42,6 @@
     "next": "15.1.3",
     "queue": "^7.0.0",
     "react": "^19.0.0",
-    "@dota2classic/react-arborist": "^1.0.1",
     "react-datepicker": "^8.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
@@ -49,7 +49,7 @@
     "react-select": "^5.10.0",
     "react-toastify": "^11.0.3",
     "react-use": "^17.6.0",
-    "react-virtuoso": "^4.12.5",
+    "react-virtuoso": "^4.12.8",
     "sass": "1.85.0",
     "socket.io-client": "^4.8.1",
     "swr": "^2.3.2",

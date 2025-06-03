@@ -26,10 +26,11 @@ import { observer } from "mobx-react-lite";
 
 interface IMatchmakingModeListProps {
   modes: MatchmakingInfo[];
+  className?: string;
 }
 
 export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
-  observer(({ modes }) => {
+  observer(({ modes, className }) => {
     const { queue, auth } = useStore();
 
     const me: PartyMemberDTO | undefined = (queue.party?.players || []).find(
@@ -48,7 +49,7 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
     const queueGameState = useQueueState();
 
     return (
-      <Section className={cx(c.modes)}>
+      <Section className={cx(c.modes, className)}>
         <header>Режим игры</header>
         <div className={cx(c.modes__list)}>
           <div

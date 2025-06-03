@@ -14,10 +14,14 @@ export const BlockUserTool = observer(function BlockUserTool({
   relatedSteamId,
   blockStatus,
 }: Props) {
-  const { auth } = useStore();
+  const { auth, sub } = useStore();
   const thread = useContext(ThreadContext);
 
   const block = useCallback(async () => {
+    if (!auth.isOld) {
+      sub.show();
+      return;
+    }
     if (blockStatus) {
       await getApi().playerApi.playerControllerUnblockPlayer(relatedSteamId);
       thread.setBlockMessagesOf(relatedSteamId, false);
@@ -25,7 +29,7 @@ export const BlockUserTool = observer(function BlockUserTool({
       await getApi().playerApi.playerControllerBlockPlayer(relatedSteamId);
       thread.setBlockMessagesOf(relatedSteamId, true);
     }
-  }, [blockStatus, relatedSteamId, thread]);
+  }, [auth.isOld, blockStatus, relatedSteamId, sub, thread]);
 
   if (auth.parsedToken?.sub === relatedSteamId) return null;
 

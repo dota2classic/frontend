@@ -38,7 +38,8 @@
 }
 
 .smaller {
-  padding: 8px;
+  padding: 8px !important;
+  font-size: 1rem !important;
 }
 
 @keyframes shinyText {
@@ -91,10 +92,11 @@
     -webkit-text-fill-color: unset;
   }
 
-  &:hover:enabled,
-  &:focus:enabled,
-  &:active:enabled {
-    background-color: $bg1;
+  &:hover,
+  &:focus,
+  &:active {
+    //background-color: $bg1;
+    background-size: 250% 250% !important;
     color: #ee2c0a;
     border-color: $primaryTextHighlight;
     transform: translateY(-2px);
