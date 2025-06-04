@@ -14,6 +14,7 @@ import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
 import { SelectImageDecoration } from "@/containers/EditProfileDecorations/SelectImageDecoration";
 import { SelectTextDecoration } from "@/containers/EditProfileDecorations/SelectTextDecoration";
+import { paidAction } from "@/util/subscription";
 
 // import { useRouter } from "next/router";
 
@@ -24,8 +25,7 @@ interface IEditProfileDecorationsProps {
 
 export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
   observer(({ user: _user, decorations }) => {
-    const { me, fetchMe, isOld } = useStore().auth;
-    const { sub } = useStore();
+    const { me, fetchMe } = useStore().auth;
 
     const user = me?.user || _user;
 
@@ -46,18 +46,14 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
     );
 
     const updateChatIcon = useCallback(
-      async (type: UserProfileDecorationType, id?: number) => {
-        if (!isOld) {
-          sub.show();
-          return;
-        }
+      paidAction(async (type: UserProfileDecorationType, id?: number) => {
         await getApi().decoration.customizationControllerSelectDecoration({
           type,
           id,
         });
         await fetchMe();
-      },
-      [fetchMe, sub.show],
+      }),
+      [fetchMe],
     );
 
     return (

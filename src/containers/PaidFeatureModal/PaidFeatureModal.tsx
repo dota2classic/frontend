@@ -28,7 +28,7 @@ export const PaidFeatureModal: React.FC = observer(({}) => {
         <li>...и другие новые функции</li>
       </ul>
       <div className={c.buttons}>
-        <Button mega pageLink={AppRouter.store.index.link}>
+        <Button onClick={sub.hide} mega pageLink={AppRouter.store.index.link}>
           Это интересно
         </Button>
       </div>
