@@ -1,1 +1,40 @@
 @import "../../common.scss";
+
+.paywall {
+  & :global(.modal) {
+    width: 500px;
+    padding: 0 !important;
+
+    border-radius: 32px 2px 32px 2px;
+    overflow: hidden;
+
+    & :global(.close_modal) {
+    }
+
+    & :global(.modal_content) {
+      padding: 16px;
+    }
+
+    & h2 {
+      text-align: center;
+    }
+
+    & ul {
+      font-size: 1.2rem;
+      margin-left: 2rem;
+      margin-: 2rem;
+    }
+  }
+}
+
+.logo {
+  width: 100%;
+  aspect-ratio: 1.6;
+  object-fit: cover;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}

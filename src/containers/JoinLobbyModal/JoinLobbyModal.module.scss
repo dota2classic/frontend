@@ -2,7 +2,10 @@
 
 .modal {
   & :global(.modal) {
-    gap: 24px;
     min-width: 400px;
+    gap: 24px;
+  }
+  & :global(.modal__content) {
+    gap: 12px;
   }
 }

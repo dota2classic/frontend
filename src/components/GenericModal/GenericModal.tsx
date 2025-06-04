@@ -9,6 +9,7 @@ import { useDidMount } from "@/util";
 interface Props {
   onClose: () => void;
   title: ReactNode;
+  header?: React.FC;
 }
 
 type AllProps = React.DetailedHTMLProps<
@@ -18,26 +19,43 @@ type AllProps = React.DetailedHTMLProps<
   Props;
 
 export const GenericModal = React.forwardRef<HTMLDivElement, AllProps>(
-  function GenericModal({ className, title, onClose, ...props }, ref) {
+  function GenericModal(
+    { className, title, onClose, header: Header, ...props },
+    ref,
+  ) {
     const comp = useRef<HTMLDivElement | null>(null);
 
     const mounted = useDidMount();
+    const close = useCallback(() => {
+      onClose();
+    }, [onClose]);
 
     const closeWhenMounted = useCallback(() => {
       if (mounted) {
         close();
       }
-    }, [mounted]);
+    }, [close, mounted]);
 
     useOutsideClick(closeWhenMounted, comp);
     return (
       <div {...props} ref={ref} className={cx(className, c.modalWrapper)}>
         <div className="modal" ref={comp}>
-          <div className={c.header}>
-            <span className={c.header__title}>{title}</span>
-            <IoMdClose className={c.header__closeIcon} onClick={onClose} />
+          <div className={cx(c.header, "modal__header")}>
+            {Header ? (
+              <Header />
+            ) : (
+              <span className={c.header__title}>{title}</span>
+            )}
+            <button className={c.header__closeIcon_button}>
+              <IoMdClose
+                className={cx(c.header__closeIcon, "close_modal")}
+                onClick={close}
+              />
+            </button>
           </div>
-          {props.children}
+          <div className={cx(c.content, "modal__content")}>
+            {props.children}
+          </div>
         </div>
       </div>
     );

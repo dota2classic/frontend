@@ -47,7 +47,8 @@
     background-size: 200% 200%;
     animation: bgAnimate 3s ease alternate infinite;
 
-    border: 2px solid rgb(68, 61, 21);
+    //border: 2px solid rgb(68, 61, 21);
+    border: 2px solid $bronze;
 
     border-radius: 1px;
     padding: 12px;
@@ -74,19 +75,13 @@
 .header {
   display: flex;
   flex-direction: row;
-  margin-bottom: 12px;
+  position: relative;
+  //margin-bottom: 12px;
 
   &__closeIcon {
     font-size: 2rem;
-    top: 5px;
-    right: 5px;
-    color: $primaryText;
     transition: 0.3s ease;
-    cursor: pointer;
-
-    &:hover {
-      color: $red;
-    }
+    margin-top: 2px;
   }
 
   &__title {
@@ -96,4 +91,31 @@
     align-items: center;
     padding: 4px;
   }
+
+  &__closeIcon_button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    outline: none;
+    border: none;
+    padding: 0 3px;
+    color: $primaryText;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 50%;
+
+    &:hover {
+      & svg {
+        color: $red;
+      }
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  flex: 1;
+  overflow-y: auto;
 }

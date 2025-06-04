@@ -55,6 +55,7 @@ export const LobbyTeam = observer(
                     alt={""}
                   />
                   <span className={c.username}>{slot.user.name}</span>
+
                   {canRemove(slot.user) && (
                     <Tooltipable tooltip={`Убрать из команды`}>
                       <IconButton

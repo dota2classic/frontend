@@ -1,59 +1,51 @@
 import { getApi } from "@/api/hooks";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { NextPageContext } from "next";
-import { LobbyDto, Role } from "@/api/back";
-import { Button, Table, Tooltipable, UserPreview } from "@/components";
-import { formatDotaMap, formatDotaMode, formatRole } from "@/util/gamemode";
+import { LobbyDto } from "@/api/back";
+import { Button, EmbedProps, Table, UserPreview } from "@/components";
+import { formatDotaMap, formatDotaMode } from "@/util/gamemode";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import c from "./Lobby.module.scss";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { JoinLobbyModal } from "@/containers";
+import { observer } from "mobx-react-lite";
+import { paidAction } from "@/util/subscription";
 
 interface Props {
   lobbies: LobbyDto[];
 }
-export default function ListLobbies({ lobbies }: Props) {
+const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
   const { auth } = useStore();
   const router = useRouter();
 
   const [pendingLobby, setPendingLobby] = useState<LobbyDto | undefined>(
     undefined,
   );
+
+  const createLobby = useCallback(
+    paidAction(() => {
+      return getApi()
+        .lobby.lobbyControllerCreateLobby()
+        .then((lobby) => router.push(`/lobby/[id]`, `/lobby/${lobby.id}`));
+    }),
+    [],
+  );
   return (
     <>
+      <EmbedProps
+        title={"Список лобби"}
+        description={"Список игровых лобби "}
+      />
       {pendingLobby && (
         <JoinLobbyModal
           lobby={pendingLobby}
           onClose={() => setPendingLobby(undefined)}
         />
       )}
-      {auth.isOld ? (
-        <Button
-          className={c.createLobby}
-          onClick={() => {
-            getApi()
-              .lobby.lobbyControllerCreateLobby()
-              .then((lobby) =>
-                router.push(`/lobby/[id]`, `/lobby/${lobby.id}`),
-              );
-          }}
-          disabled={!auth.isOld}
-        >
-          Создать лобби
-        </Button>
-      ) : (
-        <Tooltipable
-          className={c.createLobby}
-          tooltip={`Создавать лобби могут только обладатели роли ${formatRole(Role.OLD)}`}
-        >
-          <div>
-            <Button onClick={() => undefined} disabled={true}>
-              Создать лобби
-            </Button>
-          </div>
-        </Tooltipable>
-      )}
+      <Button className={c.createLobby} onClick={createLobby}>
+        Создать лобби
+      </Button>
       <Table>
         <thead>
           <tr>
@@ -98,9 +90,13 @@ export default function ListLobbies({ lobbies }: Props) {
       </Table>
     </>
   );
-}
+});
 
-ListLobbies.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+export default ListLobbies;
+
+ListLobbies["getInitialProps"] = async (
+  ctx: NextPageContext,
+): Promise<Props> => {
   const lobbies = await withTemporaryToken(ctx, () =>
     getApi().lobby.lobbyControllerListLobbies(),
   );
