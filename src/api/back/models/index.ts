@@ -84,6 +84,7 @@ export * from "./PunishmentLogPageDto";
 export * from "./QueueDurationDto";
 export * from "./QueueEntryDTO";
 export * from "./ReactionEntry";
+export * from "./RecalibrationDto";
 export * from "./RecordType";
 export * from "./ReportDto";
 export * from "./ReportMessageDto";

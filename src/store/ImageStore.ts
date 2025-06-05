@@ -11,9 +11,9 @@ export class ImageStore implements HydratableStore<unknown> {
   contToken: string | undefined = undefined;
 
   constructor() {
-    if (typeof window !== "undefined") {
-      this.loadMore();
-    }
+    // if (typeof window !== "undefined") {
+    //   this.loadMore();
+    // }
   }
 
   loadMore = () => {

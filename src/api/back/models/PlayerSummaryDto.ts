@@ -30,6 +30,10 @@ import {
     PlayerStatsDtoFromJSON,
     PlayerStatsDtoFromJSONTyped,
     PlayerStatsDtoToJSON,
+    RecalibrationDto,
+    RecalibrationDtoFromJSON,
+    RecalibrationDtoFromJSONTyped,
+    RecalibrationDtoToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -66,6 +70,12 @@ export interface PlayerSummaryDto {
      * @memberof PlayerSummaryDto
      */
     calibrationGamesLeft: number;
+    /**
+     * 
+     * @type {RecalibrationDto}
+     * @memberof PlayerSummaryDto
+     */
+    recalibration?: RecalibrationDto;
     /**
      * 
      * @type {PlayerStatsDto}
@@ -106,6 +116,7 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'banStatus': BanStatusDtoFromJSON(json['banStatus']),
         'id': json['id'],
         'calibrationGamesLeft': json['calibrationGamesLeft'],
+        'recalibration': !exists(json, 'recalibration') ? undefined : RecalibrationDtoFromJSON(json['recalibration']),
         'seasonStats': PlayerStatsDtoFromJSON(json['seasonStats']),
         'overallStats': PlayerStatsDtoFromJSON(json['overallStats']),
         'accessMap': GamemodeAccessMapFromJSON(json['accessMap']),
@@ -126,6 +137,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         'banStatus': BanStatusDtoToJSON(value.banStatus),
         'id': value.id,
         'calibrationGamesLeft': value.calibrationGamesLeft,
+        'recalibration': RecalibrationDtoToJSON(value.recalibration),
         'seasonStats': PlayerStatsDtoToJSON(value.seasonStats),
         'overallStats': PlayerStatsDtoToJSON(value.overallStats),
         'accessMap': GamemodeAccessMapToJSON(value.accessMap),

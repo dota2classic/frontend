@@ -69,6 +69,12 @@ export interface PlayerStatsDto {
     playtime: number;
     /**
      * 
+     * @type {boolean}
+     * @memberof PlayerStatsDto
+     */
+    recalibrationAttempted: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof PlayerStatsDto
      */
@@ -99,6 +105,7 @@ export function PlayerStatsDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
         'deaths': json['deaths'],
         'assists': json['assists'],
         'playtime': json['playtime'],
+        'recalibrationAttempted': json['recalibrationAttempted'],
         'mmr': !exists(json, 'mmr') ? undefined : json['mmr'],
         'rank': !exists(json, 'rank') ? undefined : json['rank'],
     };
@@ -121,6 +128,7 @@ export function PlayerStatsDtoToJSON(value?: PlayerStatsDto | null): any {
         'deaths': value.deaths,
         'assists': value.assists,
         'playtime': value.playtime,
+        'recalibrationAttempted': value.recalibrationAttempted,
         'mmr': value.mmr,
         'rank': value.rank,
     };

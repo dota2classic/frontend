@@ -198,6 +198,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
           deaths: 52,
           assists: 52,
           playtime: 52,
+          recalibrationAttempted: true,
         }}
         user={message.author}
       />

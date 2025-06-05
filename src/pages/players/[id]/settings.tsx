@@ -31,6 +31,10 @@ import { createPortal } from "react-dom";
 import { SiAdblock } from "react-icons/si";
 import { GiAngelWings } from "react-icons/gi";
 import { AppRouter } from "@/route";
+import { useAsyncButton } from "@/util/use-async-button";
+import { makeSimpleToast } from "@/components/Toast/toasts";
+import { useRefreshPageProps } from "@/util/usePageProps";
+import { paidAction } from "@/util/subscription";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -41,6 +45,7 @@ interface Props {
 export default function PlayerSettings({ summary, decorations }: Props) {
   const { data, mutate } = getApi().playerApi.usePlayerControllerGetDodgeList();
   const [dodgeListOpen, setDodgeListOpen] = useState(false);
+  const reloadProps = useRefreshPageProps();
 
   const dodgeList: DodgeListEntryDto[] = data || [];
 
@@ -49,6 +54,25 @@ export default function PlayerSettings({ summary, decorations }: Props) {
   );
 
   const oldSubscription = summary.user.roles.find((t) => t.role === Role.OLD);
+
+  console.log(summary.recalibration);
+
+  const [isStartingRecalibration, startRecalibration] = useAsyncButton(
+    paidAction(async () => {
+      try {
+        await getApi().playerApi.playerControllerStartRecalibration();
+        reloadProps().then();
+        return;
+      } catch (e) {
+        let msg = "";
+        if (e instanceof Response) {
+          msg = await e.json().then((t) => t["message"]);
+        }
+        makeSimpleToast("Ошибка при старте рекалибровки", msg, 5000);
+      }
+    }),
+    [reloadProps],
+  );
 
   const close = () => setDodgeListOpen(false);
 
@@ -112,6 +136,41 @@ export default function PlayerSettings({ summary, decorations }: Props) {
         </header>
 
         <EditProfileDecorations decorations={decorations} user={summary.user} />
+      </Section>
+      <Section className={cx(c.section)}>
+        <header className={c.heading}>
+          <SiAdblock className={"red"} /> Избегаемые игроки
+        </header>
+        <Panel className={cx(c.panel, NotoSans.className)}>
+          <p>
+            Перекалибровка — это шанс сбросить рейтинг до 2500 и пройти
+            калибровку заново. Подойдёт тем, кто уверен, что заслуживает больше
+            и хочет начать с чистого листа. Использовать перекалибровку можно
+            только один раз за сезон.
+          </p>
+          {summary.recalibration ? (
+            <Button
+              mega
+              disabled
+              className={cx(c.inlineButton, c.recalibrationButton)}
+            >
+              Перекалибровка
+              <div>
+                Запущена <TimeAgo date={summary.recalibration.createdAt} />
+              </div>
+            </Button>
+          ) : (
+            <Button
+              disabled={isStartingRecalibration}
+              mega
+              onClick={startRecalibration}
+              className={cx(c.inlineButton, c.recalibrationButton)}
+            >
+              Перекалибровка
+              <div>Запустить!</div>
+            </Button>
+          )}
+        </Panel>
       </Section>
       <Section className={cx(c.section)}>
         <header className={c.heading}>

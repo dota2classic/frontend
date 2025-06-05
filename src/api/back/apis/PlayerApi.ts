@@ -717,6 +717,54 @@ export class PlayerApi extends runtime.BaseAPI {
 
     /**
      */
+    private async playerControllerStartRecalibrationRaw(): Promise<runtime.ApiResponse<PlayerSummaryDto>> {
+        this.playerControllerStartRecalibrationValidation();
+        const context = this.playerControllerStartRecalibrationContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PlayerSummaryDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private playerControllerStartRecalibrationValidation() {
+    }
+
+    /**
+     */
+    playerControllerStartRecalibrationContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/start_recalibration`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerStartRecalibration = async (): Promise<PlayerSummaryDto> => {
+        const response = await this.playerControllerStartRecalibrationRaw();
+        return await response.value();
+    }
+
+
+    /**
+     */
     private async playerControllerTeammatesRaw(requestParameters: PlayerControllerTeammatesRequest): Promise<runtime.ApiResponse<PlayerTeammatePageDto>> {
         this.playerControllerTeammatesValidation(requestParameters);
         const context = this.playerControllerTeammatesContext(requestParameters);
