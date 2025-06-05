@@ -54,11 +54,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     makeObservable(this);
 
     if (typeof window !== "undefined") {
-      // Get cookies from browser cookies
-      const cookie = BrowserCookies.get(AuthStore.cookieTokenKey);
-      if (cookie) {
-        this.setToken(cookie, false);
-      }
+      this.setTokenFromCookies();
       this.periodicallyFetchMe();
     }
     autorun(() => {
@@ -68,6 +64,16 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       console.log(`Set user id to ${this.parsedToken?.sub}`);
     });
   }
+
+  @action
+  private setTokenFromCookies = () => {
+    if (typeof window !== "undefined") {
+      const cookie = BrowserCookies.get(AuthStore.cookieTokenKey);
+      if (cookie) {
+        this.setToken(cookie, false);
+      }
+    }
+  };
 
   private periodicallyFetchMe() {
     this.fetchMe().finally();
@@ -81,7 +87,14 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     if (!this.parsedToken) return;
     appApi.playerApi
       .playerControllerMe()
-      .then((data) => runInAction(() => (this.me = data)))
+      .then((data) =>
+        runInAction(() => {
+          this.me = data;
+          if (this.parsedToken?.roles.length !== data.user.roles.length) {
+            this.forceRefreshToken();
+          }
+        }),
+      )
       .catch(() => (this.me = undefined));
   };
 
@@ -124,9 +137,9 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     }
   };
 
-  public async debugRefreshToken() {
+  public async forceRefreshToken() {
     if (!this.token) return;
-    return getApi().refreshToken();
+    return getApi().refreshToken().then(this.setTokenFromCookies);
   }
 
   hydrate = (data?: { token?: string }) => {

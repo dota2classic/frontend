@@ -42,6 +42,7 @@ export const handleNotification = (notification: NotificationDto) => {
     notification.notificationType === NotificationType.SUBSCRIPTIONPURCHASED
   ) {
     __unsafeGetClientStore().claim.claimSubscription(notification);
+    __unsafeGetClientStore().auth.forceRefreshToken().then();
     return;
   }
 

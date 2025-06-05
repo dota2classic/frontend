@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from "mobx";
 
 export class SubStore {
   @observable
-  subscriptionVisible: boolean = false;
+  subscriptionVisible: boolean = true;
 
   constructor() {
     makeObservable(this);
