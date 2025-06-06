@@ -17,7 +17,7 @@ export const PaidFeatureModal: React.FC = observer(({}) => {
       className={cx(c.paywall, NotoSans.className)}
       title={"Подписка dotaclassic plus"}
       onClose={sub.hide}
-      header={() => <img src="/splash/kek.png" alt="" className={c.logo} />}
+      header={() => <img src="/paywall.webp" alt="" className={c.logo} />}
     >
       <h2 className={TrajanPro.className}>dotaclassic plus</h2>
       <ul>

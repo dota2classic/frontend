@@ -12,7 +12,7 @@ import {
   Tooltipable,
 } from "@/components";
 import { AppRouter, NextLinkProp } from "@/route";
-import { steamPage, useIsModerator, useIsOld } from "@/util";
+import { steamPage, useIsModerator } from "@/util";
 import { observer } from "mobx-react-lite";
 import { formatShortTime } from "@/util/dates";
 import { FaSteam, FaTwitch } from "react-icons/fa";
@@ -27,6 +27,7 @@ import {
 } from "@/api/back";
 import { useStore } from "@/store";
 import { formatBanReason } from "@/util/texts/bans";
+import { hasSubscription } from "@/util/subscription";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -94,9 +95,9 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
   ({ className, lastGameTimestamp, banStatus, stats, user, rank, mmr }) => {
     const { wins, abandons, loss } = stats;
     const isModerator = useIsModerator();
-    const isOld = useIsOld();
 
     const isMyProfile = useStore().auth.parsedToken?.sub === user.steamId;
+    const isOld = hasSubscription(user);
 
     const twitchConnection = user.connections.find(
       (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
