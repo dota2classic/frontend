@@ -12,7 +12,7 @@ export const useThreadControls = (
         .sendMessage(msg, thread.replyingMessageId)
         .then(() => thread.setReplyMessageId(undefined));
     },
-    [thread],
+    [thread, thread.id, thread.threadType],
   );
 
   const clearReply = useCallback(() => {

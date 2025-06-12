@@ -30,10 +30,10 @@ export class ThreadStore implements HydratableStore<unknown> {
   chatScrollRef: VirtuosoHandle | undefined = undefined;
 
   @observable.ref
-  private id: string = "";
+  id: string = "";
 
   @observable.ref
-  private threadType: ThreadType = ThreadType.FORUM;
+  threadType: ThreadType = ThreadType.FORUM;
 
   @observable
   messageMap: Map<string, ThreadMessageDTO> = new Map();

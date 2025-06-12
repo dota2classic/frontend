@@ -26,6 +26,7 @@ export const Layout = ({
   const r = useRouter();
   const isQueuePage = r.pathname === "/queue";
   const isLanding = r.pathname === "/" || r.pathname === "/store";
+  const isStore = r.pathname === "/store";
 
   return (
     <ThemeContext.Provider value={{ newYear: true }}>
@@ -52,7 +53,11 @@ export const Layout = ({
             )}
           >
             <main
-              className={cx(c.layoutInner, r.pathname === "/queue" && c.queue)}
+              className={cx(
+                c.layoutInner,
+                r.pathname === "/queue" && c.queue,
+                isStore && c.store,
+              )}
             >
               {children}
             </main>

@@ -1,9 +1,13 @@
 /* eslint-disable */
-import {ThreadType} from "@/api/mapped-models";
-import {querystring, ThreadMessageDTO, ThreadMessagePageDTO,} from "@/api/back";
-import {useCallback, useEffect, useState} from "react";
-import {getApi} from "@/api/hooks";
-import {ThreadStore} from "@/store/ThreadStore";
+import { ThreadType } from "@/api/mapped-models";
+import {
+  querystring,
+  ThreadMessageDTO,
+  ThreadMessagePageDTO,
+} from "@/api/back";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { getApi } from "@/api/hooks";
+import { ThreadStore } from "@/store/ThreadStore";
 
 export const useThread = (id: string, threadType: ThreadType): ThreadStore => {
   const [thread] = useState<ThreadStore>(
@@ -47,7 +51,7 @@ export const usePaginatedThread = (
     perPage?: number;
   },
 ) => {
-  const [thread] = useState<ThreadStore>(
+  const thread = useMemo(
     () =>
       new ThreadStore(
         id.toString(),
@@ -56,6 +60,7 @@ export const usePaginatedThread = (
         initialMessages,
         pagination.page,
       ),
+    [id, threadType],
   );
 
   useThreadEventSource(id.toString(), threadType, thread.consumeMessages);
