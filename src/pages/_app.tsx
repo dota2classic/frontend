@@ -24,10 +24,12 @@ import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModal
 import "@/styles/editor.css";
 import { TrajanPro } from "@/const/fonts";
 import { ReportModalContainer } from "@/containers/ReportModal/ReportModalContainer";
+import { getApi } from "@/api/hooks";
+import { MaintenanceDto } from "@/api/back";
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
-export default class MyApp extends App<{ initialState: HydrateRootData }> {
+export default class MyApp extends App<{ initialState: HydrateRootData; maintenance: MaintenanceDto }> {
   private static inferPagePropsAsHydratable(
     props: AppInitialProps,
   ): Partial<HydrateRootData> {
@@ -61,6 +63,14 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
 
   static async getInitialProps(appContext: AppContext) {
     const appProps = await App.getInitialProps(appContext);
+    let maintenance: MaintenanceDto;
+    try {
+      maintenance = await getApi().statsApi.statsControllerMaintenance();
+    } catch (e) {
+      console.warn(e);
+      maintenance = { active: true };
+    }
+
     if (!appContext.ctx.req || !appContext.ctx.res) return { ...appProps };
 
     const cookies = new Cookies(appContext.ctx.req, appContext.ctx.res);
@@ -76,7 +86,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
       ...inferredState,
     };
 
-    return { ...appProps, initialState };
+    return { ...appProps, initialState, maintenance };
   }
 
   componentDidMount() {
@@ -90,13 +100,13 @@ export default class MyApp extends App<{ initialState: HydrateRootData }> {
   }
 
   render() {
-    const { Component, pageProps, initialState } = this.props;
+    const { Component, pageProps, initialState, maintenance  } = this.props;
     const store = getRootStore(initialState);
 
     return (
       <MobxContext.Provider value={store}>
         <ReferralSniffer />
-        <DevVersionIndicator />
+        <DevVersionIndicator maintenance={maintenance} />
         <ToastContainer />
         <ReportModalContainer />
         <ClaimContainer />
