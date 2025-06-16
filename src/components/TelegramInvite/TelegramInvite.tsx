@@ -14,7 +14,7 @@ export const TelegramInvite = ({
   return (
     <a
       target="__blank"
-      href="https://t.me/+GMQcIPRZnVAzY2Vi"
+      href="https://t.me/dota2classicru"
       className={cx(c.telegram, "link", className)}
     >
       <FaTelegram /> {!noText && "Telegram"}
