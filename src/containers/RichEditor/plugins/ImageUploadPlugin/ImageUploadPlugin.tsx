@@ -89,6 +89,7 @@ const ImageUploadPlugin = observer(function ImageUploadPlugin() {
           <GenericTooltip
             anchor={ref.current!}
             onClose={() => setVisible(false)}
+            friends={[ref]}
             interactable
           >
             <ImageGalleryModal
