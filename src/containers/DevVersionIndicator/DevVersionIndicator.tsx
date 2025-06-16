@@ -9,7 +9,9 @@ import { NotoSans } from "@/const/notosans";
 export const DevVersionIndicator: React.FC = observer(() => {
   const { auth } = useStore();
   const doShow = process.env.NEXT_PUBLIC_IS_DEV_VERSION;
-  const { data, error } = getApi().statsApi.useStatsControllerMaintenance();
+  const { data, error } = getApi().statsApi.useStatsControllerMaintenance({
+    refreshInterval: 5000,
+  });
   const isMaintenance = (data?.active || error) && !auth.isAdmin;
 
   if (isMaintenance) {
