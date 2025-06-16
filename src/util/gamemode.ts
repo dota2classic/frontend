@@ -114,9 +114,9 @@ export function formatRecordType(type: RecordType) {
 const aspectMessages = {
   [PlayerAspect.FRIENDLY]: "Добряк",
   [PlayerAspect.TOXIC]: "Токсик",
-  [PlayerAspect.WINNER]: "Тащер",
-  [PlayerAspect.RUINER]: "Руинер",
-  [PlayerAspect.GOOD]: "Молодец",
+  [PlayerAspect.TALKATIVE]: "Болтун",
+  [PlayerAspect.OPTIMIST]: "Оптимист",
+  [PlayerAspect.CLOWN]: "Клоун",
 };
 
 export function formatPlayerAspect(type: PlayerAspect) {

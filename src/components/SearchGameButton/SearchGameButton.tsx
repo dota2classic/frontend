@@ -116,11 +116,6 @@ export const SearchGameButton = observer((p: Props) => {
   if (!isInQueue) {
     const shouldDisable =
       (isQueuePage && queue.selectedModes.length === 0) || !!content;
-    console.log(
-      isInQueue,
-      isQueuePage && queue.selectedModes.length === 0,
-      !!content,
-    );
     return (
       <Button
         mega

@@ -54,8 +54,6 @@
   }
 }
 
-
-
 .megaButton {
   outline: none;
   text-transform: uppercase;
@@ -72,6 +70,9 @@
   transition: 0.2s ease;
   cursor: pointer;
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
 
   background: radial-gradient($gold 0%, $red 100%);
   background-size: 150% 150%;
@@ -92,28 +93,22 @@
     -webkit-text-fill-color: unset;
   }
 
-  &:hover,
-  &:focus,
-  &:active {
-    //background-color: $bg1;
+  &:not([disabled]):hover,
+  &:not([disabled]):focus,
+  &:not([disabled]):active {
     background-size: 250% 250% !important;
     color: #ee2c0a;
     border-color: $primaryTextHighlight;
     transform: translateY(-2px);
   }
 
-  //&.snow::before, &.snow::after {
-  //  scale: 0.6;
-  //  top: -6px;
-  //  content: '';
-  //}
-  //
-  //&.snow::before {
-  //  right: 8px;
-  //}
-  //
-  //&.snow::after {
-  //  left: 8px;
+  //&::before {
+  //  content: "";
+  //  position: absolute;
+  //  inset: 0;
+  //  background-color: #1c2024cc; // background of the button
+  //  border-radius: inherit;
+  //  z-index: -1;
   //}
 }
 

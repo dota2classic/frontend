@@ -3,8 +3,6 @@ import React, { ReactNode, useCallback, useRef } from "react";
 import c from "./GenericModal.module.scss";
 import cx from "clsx";
 import { IoMdClose } from "react-icons/io";
-import useOutsideClick from "@/util/useOutsideClick";
-import { useDidMount } from "@/util";
 
 interface Props {
   onClose: () => void;
@@ -25,18 +23,18 @@ export const GenericModal = React.forwardRef<HTMLDivElement, AllProps>(
   ) {
     const comp = useRef<HTMLDivElement | null>(null);
 
-    const mounted = useDidMount();
     const close = useCallback(() => {
       onClose();
     }, [onClose]);
 
-    const closeWhenMounted = useCallback(() => {
-      if (mounted) {
-        close();
-      }
-    }, [close, mounted]);
+    // const mounted = useDidMount();
+    // const closeWhenMounted = useCallback(() => {
+    //   if (mounted) {
+    //     close();
+    //   }
+    // }, [close, mounted]);
 
-    useOutsideClick(closeWhenMounted, comp);
+    // useOutsideClick(closeWhenMounted, comp);
     return (
       <div {...props} ref={ref} className={cx(className, c.modalWrapper)}>
         <div className="modal" ref={comp}>

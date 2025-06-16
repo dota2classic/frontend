@@ -1,5 +1,4 @@
-@import '../../common.scss';
-
+@import "../../common.scss";
 
 .container {
   position: fixed;
@@ -11,6 +10,7 @@
 
   z-index: 10000;
 
+  width: fit-content;
 
   @media (max-width: 600px) {
     bottom: 10px;

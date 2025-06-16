@@ -8,12 +8,14 @@ interface IPageLinkProps {
   onClick?: (e: React.MouseEvent) => void;
   testId?: string;
   style?: CSSProperties;
+  newTab?: boolean;
 }
 
 export const PageLink: React.FC<PropsWithChildren<IPageLinkProps>> = React.memo(
-  function PageLink(props) {
+  function PageLink({ newTab, ...props }: PropsWithChildren<IPageLinkProps>) {
     return (
       <Link
+        target={newTab ? "__blank" : undefined}
         style={props.style}
         className={props.className}
         href={props.link.href}

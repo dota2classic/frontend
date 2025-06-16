@@ -11,6 +11,7 @@ import { getApi } from "@/api/hooks";
 import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
 import { NextPageContext } from "next";
+import { handleException } from "@/util/handleException";
 
 interface Props {
   threadType: ThreadType;
@@ -21,18 +22,22 @@ export default function CreateThreadPage({ threadType }: Props) {
   const router = useRouter();
 
   const createThread = useCallback(async () => {
-    const res = await getApi().forumApi.forumControllerCreateThread({
-      content,
-      title,
-      threadType,
-    });
+    try {
+      const res = await getApi().forumApi.forumControllerCreateThread({
+        content,
+        title,
+        threadType,
+      });
 
-    const forTicket = res.threadType === ThreadType.TICKET ? "/ticket" : "";
+      const forTicket = res.threadType === ThreadType.TICKET ? "/ticket" : "";
 
-    await router.push(
-      `/forum${forTicket}/[id]`,
-      `/forum${forTicket}/${res.externalId}`,
-    );
+      await router.push(
+        `/forum${forTicket}/[id]`,
+        `/forum${forTicket}/${res.externalId}`,
+      );
+    } catch (e) {
+      await handleException("Произошла ошибка при создании поста", e);
+    }
   }, [content, title, threadType, router]);
 
   return (
@@ -41,13 +46,13 @@ export default function CreateThreadPage({ threadType }: Props) {
         title="Создать тему на форуме"
         description="Создать новую тему на форуме. Обсудить насущные вопросы"
       />
-      <h3>Название топика</h3>
+      <h2>Название топика</h2>
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder={"Гена опять запотел в паблике"}
       />
-      <h3>Сообщение</h3>
+      <h2>Сообщение</h2>
       <MarkdownTextarea
         className={c.text}
         placeholder={"Введите сообщение"}

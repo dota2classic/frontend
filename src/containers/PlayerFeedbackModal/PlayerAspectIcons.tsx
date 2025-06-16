@@ -1,8 +1,9 @@
 import { PlayerAspect } from "@/api/mapped-models";
 import type { IconType } from "react-icons";
-import { FaPeopleGroup, FaWheelchairMove } from "react-icons/fa6";
-import { GiCrownedSkull, GiPoisonBottle } from "react-icons/gi";
-import { MdRecommend } from "react-icons/md";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { GiClown, GiPoisonBottle } from "react-icons/gi";
+import { BsEmojiSunglasses } from "react-icons/bs";
+import { IoIosChatbubbles } from "react-icons/io";
 
 export const PlayerAspectIcons: {
   aspect: PlayerAspect;
@@ -13,19 +14,19 @@ export const PlayerAspectIcons: {
     Icon: FaPeopleGroup,
   },
   {
-    aspect: PlayerAspect.WINNER,
-    Icon: GiCrownedSkull,
+    aspect: PlayerAspect.OPTIMIST,
+    Icon: BsEmojiSunglasses,
   },
   {
-    aspect: PlayerAspect.GOOD,
-    Icon: MdRecommend,
+    aspect: PlayerAspect.TALKATIVE,
+    Icon: IoIosChatbubbles,
   },
   {
     aspect: PlayerAspect.TOXIC,
     Icon: GiPoisonBottle,
   },
   {
-    aspect: PlayerAspect.RUINER,
-    Icon: FaWheelchairMove,
+    aspect: PlayerAspect.CLOWN,
+    Icon: GiClown,
   },
 ];

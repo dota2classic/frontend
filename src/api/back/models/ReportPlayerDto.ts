@@ -40,12 +40,6 @@ export interface ReportPlayerDto {
     steamId: string;
     /**
      * 
-     * @type {string}
-     * @memberof ReportPlayerDto
-     */
-    comment: string;
-    /**
-     * 
      * @type {number}
      * @memberof ReportPlayerDto
      */
@@ -64,7 +58,6 @@ export function ReportPlayerDtoFromJSONTyped(json: any, ignoreDiscriminator: boo
         
         'aspect': PlayerAspectFromJSON(json['aspect']),
         'steamId': json['steamId'],
-        'comment': json['comment'],
         'matchId': json['matchId'],
     };
 }
@@ -80,7 +73,6 @@ export function ReportPlayerDtoToJSON(value?: ReportPlayerDto | null): any {
         
         'aspect': PlayerAspectToJSON(value.aspect),
         'steamId': value.steamId,
-        'comment': value.comment,
         'matchId': value.matchId,
     };
 }

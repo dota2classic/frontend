@@ -1,11 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export enum PlayerAspect {
-  FRIENDLY,
-  TOXIC,
-  WINNER,
-  RUINER,
-  GOOD,
+  FRIENDLY = "FRIENDLY",
+  TALKATIVE = "TALKATIVE",
+  OPTIMIST = "OPTIMIST",
+  TOXIC = "TOXIC",
+  CLOWN = "CLOWN",
 }
 
 export function PlayerAspectFromJSON(json: any): PlayerAspect {

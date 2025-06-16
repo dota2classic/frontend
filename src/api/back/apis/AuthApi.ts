@@ -18,6 +18,10 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 
+export interface SteamControllerSteamSessionTicketToTokenRequest {
+  ticket: string;
+}
+
 /**
  * 
  */
@@ -67,6 +71,53 @@ export class AuthApi extends runtime.BaseAPI {
      */
     steamControllerRefreshToken = async (): Promise<string> => {
         const response = await this.steamControllerRefreshTokenRaw();
+        return await response.value();
+    }
+
+
+    /**
+     */
+    private async steamControllerSteamSessionTicketToTokenRaw(requestParameters: SteamControllerSteamSessionTicketToTokenRequest): Promise<runtime.ApiResponse<string>> {
+        this.steamControllerSteamSessionTicketToTokenValidation(requestParameters);
+        const context = this.steamControllerSteamSessionTicketToTokenContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.TextApiResponse(response) as any;
+    }
+
+
+
+    /**
+     */
+    private steamControllerSteamSessionTicketToTokenValidation(requestParameters: SteamControllerSteamSessionTicketToTokenRequest) {
+        if (requestParameters.ticket === null || requestParameters.ticket === undefined) {
+            throw new runtime.RequiredError("ticket","Required parameter requestParameters.ticket was null or undefined when calling steamControllerSteamSessionTicketToToken.");
+        }
+    }
+
+    /**
+     */
+    steamControllerSteamSessionTicketToTokenContext(requestParameters: SteamControllerSteamSessionTicketToTokenRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.ticket !== undefined) {
+            queryParameters["ticket"] = requestParameters.ticket;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/auth/steam/steam_session_ticket`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    steamControllerSteamSessionTicketToToken = async (ticket: string): Promise<string> => {
+        const response = await this.steamControllerSteamSessionTicketToTokenRaw({ ticket: ticket });
         return await response.value();
     }
 

@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import c from "./BuySubscriptionModal.module.scss";
-import { Button, GenericModal } from "..";
+import { Button, Checkbox, GenericModal, PageLink } from "..";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
 import { TrajanPro } from "@/const/fonts";
@@ -19,26 +19,30 @@ import { SubscriptionProductDto } from "@/api/back";
 import { FaRubleSign } from "react-icons/fa";
 import { FaRegCalendarDays } from "react-icons/fa6";
 import { MdDiscount } from "react-icons/md";
+import { AppRouter } from "@/route";
+import { useAsyncButton } from "@/util/use-async-button";
+import { CountdownClient } from "@/components/PeriodicTimer/CountdownClient";
 
 interface IBuySubscriptionModalProps {
   onClose: () => void;
+  products: SubscriptionProductDto[];
 }
 
 export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
-  observer(({ onClose }) => {
+  observer(({ onClose, products }) => {
     const { isAuthorized } = useStore().auth;
-    const { data } = getApi().payment.useUserPaymentsControllerGetProducts();
     const [selectedPlan, setSelectedPlan] = useState(-1);
+    const [accept, setAccept] = useState(false);
 
     useEffect(() => {
-      if (selectedPlan === -1 && data) {
+      if (selectedPlan === -1) {
         setSelectedPlan(
-          [...data].sort((a, b) => b.pricePerMonth - a.pricePerMonth)[0].id,
+          [...products].sort((a, b) => b.pricePerMonth - a.pricePerMonth)[0].id,
         );
       }
-    }, [data, selectedPlan]);
+    }, [products, selectedPlan]);
 
-    const startPayment = useCallback(async () => {
+    const [isStartingPayment] = useAsyncButton(async () => {
       if (selectedPlan === -1) {
         return;
       }
@@ -66,8 +70,6 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
         console.error("Failed to create payment", e);
       }
     }, [isAuthorized, selectedPlan]);
-
-    const products: SubscriptionProductDto[] = data || [];
 
     const selectedPlanInfo = useMemo(() => {
       return products.find((t) => t.id === selectedPlan);
@@ -155,14 +157,32 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
                 {selectedPlanInfo.pricePerMonth * selectedPlanInfo.months}P
               </span>
             </div>
+            <div className={c.checkoutInfo__row} style={{ marginTop: 10 }}>
+              <Checkbox onChange={setAccept}>
+                Я согласен с{" "}
+                <PageLink newTab link={AppRouter.contact.link}>
+                  обраткой персональных данных
+                </PageLink>{" "}
+                и{" "}
+                <PageLink newTab link={AppRouter.offer.link}>
+                  офертой
+                </PageLink>
+                .
+              </Checkbox>
+            </div>
           </div>
         )}
         <Button
+          disabled={!accept || isStartingPayment}
           className={cx(TrajanPro.className, c.payButton)}
-          onClick={startPayment}
+          // onClick={startPayment}
           mega
         >
-          {isAuthorized ? "Перейти к оплате" : "Авторизоваться и оплатить"}
+          {/*{isAuthorized ? "Перейти к оплате" : "Авторизоваться и оплатить"}*/}
+          Скоро будет доступно
+          <div className={c.countdown}>
+            <CountdownClient until="2025-06-20T00:00:00.000Z" />
+          </div>
         </Button>
       </GenericModal>
     );

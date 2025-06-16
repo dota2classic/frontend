@@ -364,21 +364,23 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     hc.includes("Actions") ? c.mobileHidden : undefined
                   }
                 >
-                  <Tooltipable
-                    className={cx(c.commend, "adminicon")}
-                    tooltip={"Жалоба"}
-                  >
-                    <GiFist onClick={() => onReport(player)} />
-                  </Tooltipable>
-                  {hasReports &&
-                    reportableSteamIds.includes(player.user.steamId) && (
-                      <Tooltipable
-                        className={cx(c.commend, "adminicon")}
-                        tooltip={"Отзыв"}
-                      >
-                        <MdRecommend onClick={() => onFeedback(player)} />
-                      </Tooltipable>
-                    )}
+                  <div className={c.actions}>
+                    <Tooltipable
+                      className={cx(c.commend, "adminicon")}
+                      tooltip={"Жалоба"}
+                    >
+                      <GiFist onClick={() => onReport(player)} />
+                    </Tooltipable>
+                    {hasReports &&
+                      reportableSteamIds.includes(player.user.steamId) && (
+                        <Tooltipable
+                          className={cx(c.commend, "adminicon")}
+                          tooltip={"Отзыв"}
+                        >
+                          <MdRecommend onClick={() => onFeedback(player)} />
+                        </Tooltipable>
+                      )}
+                  </div>
                 </td>
               </tr>
             );

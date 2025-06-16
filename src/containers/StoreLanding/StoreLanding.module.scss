@@ -55,10 +55,6 @@
   text-align: center;
 }
 
-.payButton {
-  margin-top: 2rem;
-}
-
 .sectionHeader {
   width: 100%;
   border-image: -webkit-gradient(
@@ -100,6 +96,7 @@
 }
 
 .imageInfo {
+  position: relative;
   border-image: -webkit-gradient(
       linear,
       left top,
@@ -120,7 +117,6 @@
   flex-direction: row;
   left: 0;
 
-  position: relative;
   gap: 16px;
 
   &.reversed {
@@ -129,20 +125,22 @@
   & h2 {
     position: absolute;
     padding: 1rem 10rem;
-    white-space: nowrap;
+    //white-space: nowrap;
     left: 50%;
     transform: translateX(-50%);
     font-size: 5rem;
     text-align: center;
-    //color: $red;
-    //background: radial-gradient($gold 0%, $red 100%);
-    //background-clip: text;
-    //-webkit-text-fill-color: transparent;
-    //background: radial-gradient(
-    //  circle at center,
-    //  #0c0c0cff 0%,
-    //  rgba(0, 0, 0, 0) 90%
-    //);
+    width: 60%;
+
+    @media (max-width: 1200px) {
+      font-size: 4rem;
+      width: 60%;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 3rem;
+      width: unset;
+    }
   }
 
   & p {
@@ -182,18 +180,19 @@
   height: 100%;
 
   & img {
-    //width: 100%;
-    //height: auto;
-    width: 100%;
     max-height: 100%;
     object-fit: cover;
-    object-position: 0 0%;
+    object-position: center;
+
+    @media (max-width: 1000px) {
+      transform: translateX(-20%);
+    }
 
     @media (max-width: 600px) {
       //font-size: 1rem;
       height: 100%;
       object-position: 50% 50%;
-      scale: 0.3;
+      transform: translateX(-45%);
     }
   }
 
@@ -223,5 +222,21 @@
       rgba(0, 0, 0, 0.7) 70%,
       $bg2 100%
     );
+  }
+}
+
+.payButton {
+  position: absolute;
+  color: $primaryText;
+  background-color: #1c2024cc; // background of the button
+
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, 0) !important;
+  bottom: 200px;
+  width: fit-content;
+
+  @media (max-width: 600px) {
+    bottom: 300px;
   }
 }
