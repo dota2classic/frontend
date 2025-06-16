@@ -26,7 +26,7 @@ export const Landing = observer(({ recentPosts }: Props) => {
       <EmbedProps
         title={"Играть в старую доту онлайн"}
         description={
-          "Dota2Classic это единственный способ поиграть в старую доту из 2015 года. Здесь ты сможешь вспомнить ту самую игру."
+          "Dota2Classic это единственный способ поиграть в старую доту из 2015 года. Здесь ты сможешь вспомнить ту самую игру. Старый патч, dota old patch."
         }
       >
         <link rel="canonical" href="https://dotaclassic.ru" />
