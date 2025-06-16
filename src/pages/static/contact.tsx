@@ -13,6 +13,7 @@ export default function ContactPage() {
         <h2>
           <strong className="editor-text-bold">Контакты</strong>
         </h2>
+        <p>Степин Юрий Андреевич</p>
         <p>
           <strong>
             <IoDocument /> ИНН:
@@ -23,7 +24,10 @@ export default function ContactPage() {
           <strong>
             <CiMail /> Почта:
           </strong>{" "}
-          adv@dotaclassic.ru
+          <ul>
+            <li>enchantinggg4@gmail.com</li>
+            <li>adv@dotaclassic.ru</li>
+          </ul>
         </p>
 
         <h2>
@@ -31,8 +35,13 @@ export default function ContactPage() {
         </h2>
         <br />
         <p>
-          <a target="__blank" href="/privacy.pdf">
+          <a className="link" target="__blank" href="/privacy.pdf">
             Политика обработки персональных данных
+          </a>
+        </p>
+        <p>
+          <a className="link" target="__blank" href="/offer.pdf">
+            Публичная оферта
           </a>
         </p>
       </div>

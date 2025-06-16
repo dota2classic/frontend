@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import c from "./BuySubscriptionModal.module.scss";
-import { Button, Checkbox, GenericModal, PageLink } from "..";
+import { Button, Checkbox, GenericModal, Input } from "..";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
 import { TrajanPro } from "@/const/fonts";
@@ -10,7 +10,6 @@ import {
   RiCheckboxCircleFill,
 } from "react-icons/ri";
 import { getApi } from "@/api/hooks";
-import { makeSimpleToast } from "@/components/Toast/toasts";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { setCookie } from "cookies-next";
@@ -19,9 +18,10 @@ import { SubscriptionProductDto } from "@/api/back";
 import { FaRubleSign } from "react-icons/fa";
 import { FaRegCalendarDays } from "react-icons/fa6";
 import { MdDiscount } from "react-icons/md";
-import { AppRouter } from "@/route";
 import { useAsyncButton } from "@/util/use-async-button";
 import { CountdownClient } from "@/components/PeriodicTimer/CountdownClient";
+import { handleException } from "@/util/handleException";
+import { isValidEmail } from "@/util/email";
 
 interface IBuySubscriptionModalProps {
   onClose: () => void;
@@ -33,6 +33,7 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
     const { isAuthorized } = useStore().auth;
     const [selectedPlan, setSelectedPlan] = useState(-1);
     const [accept, setAccept] = useState(false);
+    const [email, setEmail] = useState("");
 
     useEffect(() => {
       if (selectedPlan === -1) {
@@ -59,21 +60,26 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
         const result =
           await getApi().payment.userPaymentsControllerCreatePayment({
             productId: selectedPlan,
+            email,
           });
         window.location.href = result.confirmationUrl;
       } catch (e) {
-        makeSimpleToast(
+        await handleException(
           "Произошла ошибка при создании платежа",
-          "Произошла ошибка на стороне платежной системе. Извиняемся за неудобства",
+          e,
           15000,
         );
         console.error("Failed to create payment", e);
       }
-    }, [isAuthorized, selectedPlan]);
+    }, [isAuthorized, selectedPlan, email]);
 
     const selectedPlanInfo = useMemo(() => {
       return products.find((t) => t.id === selectedPlan);
     }, [products, selectedPlan]);
+
+    const formValid = useMemo(() => {
+      return accept && isValidEmail(email);
+    }, [accept, email]);
 
     return (
       <GenericModal
@@ -157,23 +163,31 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
                 {selectedPlanInfo.pricePerMonth * selectedPlanInfo.months}P
               </span>
             </div>
+            <div className={c.email}>
+              <span>Email</span>
+              <Input
+                placeholder={"Адрес почты для чека"}
+                value={email}
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
             <div className={c.checkoutInfo__row} style={{ marginTop: 10 }}>
               <Checkbox onChange={setAccept}>
                 Я согласен с{" "}
-                <PageLink newTab link={AppRouter.contact.link}>
+                <a target="__blank" href="/privacy.pdf">
                   обраткой персональных данных
-                </PageLink>{" "}
+                </a>{" "}
                 и{" "}
-                <PageLink newTab link={AppRouter.offer.link}>
-                  офертой
-                </PageLink>
-                .
+                <a target="__blank" href="/offer.pdf">
+                  офертой.
+                </a>
               </Checkbox>
             </div>
           </div>
         )}
         <Button
-          disabled={!accept || isStartingPayment}
+          disabled={!formValid || isStartingPayment}
           className={cx(TrajanPro.className, c.payButton)}
           // onClick={startPayment}
           mega
