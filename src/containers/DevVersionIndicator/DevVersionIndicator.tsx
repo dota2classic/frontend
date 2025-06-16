@@ -18,7 +18,7 @@ export const DevVersionIndicator: React.FC<Props> = observer(
       refreshInterval: 5000,
       fallbackData: maintenance,
     });
-    const isMaintenance = (data?.active || error) && !auth.isAdmin;
+    const isMaintenance = (data?.active || error) && !auth.isModerator;
 
     if (isMaintenance) {
       return (

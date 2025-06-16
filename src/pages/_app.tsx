@@ -29,7 +29,10 @@ import { MaintenanceDto } from "@/api/back";
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
-export default class MyApp extends App<{ initialState: HydrateRootData; maintenance: MaintenanceDto }> {
+export default class MyApp extends App<{
+  initialState: HydrateRootData;
+  maintenance: MaintenanceDto;
+}> {
   private static inferPagePropsAsHydratable(
     props: AppInitialProps,
   ): Partial<HydrateRootData> {
@@ -100,7 +103,7 @@ export default class MyApp extends App<{ initialState: HydrateRootData; maintena
   }
 
   render() {
-    const { Component, pageProps, initialState, maintenance  } = this.props;
+    const { Component, pageProps, initialState, maintenance } = this.props;
     const store = getRootStore(initialState);
 
     return (
