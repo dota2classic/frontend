@@ -14,7 +14,7 @@ export const DiscordInvite = ({
   return (
     <a
       target="__blank"
-      href="https://t.me/+GMQcIPRZnVAzY2Vi"
+      href="https://discord.gg/36D4WdNquT"
       className={cx(c.telegram, "link", className)}
     >
       <FaDiscord /> {!noText && "Discord"}

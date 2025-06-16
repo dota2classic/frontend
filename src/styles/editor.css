@@ -105,8 +105,23 @@
 }
 
 .editor-link {
-  color: rgb(33, 111, 219);
-  text-decoration: none;
+  position: relative;
+
+  &::before {
+    transition: 0.3s ease;
+    content: "";
+    background: #c23c2a;
+    display: block;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 3px;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
 }
 
 .tree-view-output {

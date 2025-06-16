@@ -9,6 +9,7 @@ import { ParagraphNode, SerializedEditorState, TextNode } from "lexical";
 import ExampleTheme from "@/containers/RichEditor/ExampleTheme";
 import { EmojiNode } from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiNode";
 import { HeadingNode } from "@lexical/rich-text";
+import { LinkNode } from "@lexical/link";
 import { RichEditorEditMode } from "@/containers/RichEditor/RichEditorEditMode";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { ItemMentionNode } from "@/containers/RichEditor/plugins/ItemMentionPlugin/ItemMentionNode";
@@ -20,6 +21,7 @@ import ImageUploadPlugin from "@/containers/RichEditor/plugins/ImageUploadPlugin
 import { ImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import { BlogpostRenderer } from "@/components";
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -49,6 +51,7 @@ export const RichEditor: React.FC<IRichEditorProps> = ({
       HeroMentionNode,
       ItemMentionNode,
       ImageNode,
+      LinkNode,
     ],
     theme: ExampleTheme,
   };
@@ -60,6 +63,7 @@ export const RichEditor: React.FC<IRichEditorProps> = ({
           <ToolbarPlugin />
           <EmojiPlugin />
           <ImageUploadPlugin />
+          <LinkPlugin />
         </div>
         <div className="editor-inner">
           <RichEditorEditMode saveKey={saveKey} />

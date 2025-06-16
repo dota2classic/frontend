@@ -39,6 +39,7 @@ import { $createEmojiNode } from "@/containers/RichEditor/plugins/EmojiPlugin/Em
 import findEmoji from "@/containers/RichEditor/plugins/EmojiPlugin/findEmoji";
 import { $setBlocksType } from "@lexical/selection";
 import { $createHeadingNode } from "@lexical/rich-text";
+import { InsertLinkButton } from "@/containers/RichEditor/plugins/InsertLinkPlugin";
 
 function $textNodeTransform(node: TextNode): void {
   if (!node.isSimpleText() || node.hasFormat("code")) {
@@ -244,6 +245,7 @@ export default function ToolbarPlugin() {
       >
         <FaAlignJustify />
       </button>
+      <InsertLinkButton />
     </>
   );
 }
