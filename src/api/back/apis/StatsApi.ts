@@ -24,6 +24,9 @@ import {
   GameSeasonDto,
   GameSeasonDtoFromJSON,
   GameSeasonDtoToJSON,
+  MaintenanceDto,
+  MaintenanceDtoFromJSON,
+  MaintenanceDtoToJSON,
   MatchmakingInfo,
   MatchmakingInfoFromJSON,
   MatchmakingInfoToJSON,
@@ -219,6 +222,52 @@ export class StatsApi extends runtime.BaseAPI {
 
         const context = this.statsControllerGetTwitchStreamsContext();
         return useSWR(context, valid ? () => this.statsControllerGetTwitchStreams() : null, config)
+    }
+
+    /**
+     */
+    private async statsControllerMaintenanceRaw(): Promise<runtime.ApiResponse<MaintenanceDto>> {
+        this.statsControllerMaintenanceValidation();
+        const context = this.statsControllerMaintenanceContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MaintenanceDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private statsControllerMaintenanceValidation() {
+    }
+
+    /**
+     */
+    statsControllerMaintenanceContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/stats/maintenance`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    statsControllerMaintenance = async (): Promise<MaintenanceDto> => {
+        const response = await this.statsControllerMaintenanceRaw();
+        return await response.value();
+    }
+
+    useStatsControllerMaintenance(config?: SWRConfiguration<MaintenanceDto, Error>) {
+        let valid = true
+
+        const context = this.statsControllerMaintenanceContext();
+        return useSWR(context, valid ? () => this.statsControllerMaintenance() : null, config)
     }
 
     /**

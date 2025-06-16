@@ -48,6 +48,7 @@ export * from "./LobbyDto";
 export * from "./LobbySlotDto";
 export * from "./LobbyUpdateDto";
 export * from "./LobbyUpdateType";
+export * from "./MaintenanceDto";
 export * from "./MatchDto";
 export * from "./MatchInfoDto";
 export * from "./MatchPageDto";

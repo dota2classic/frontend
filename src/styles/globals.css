@@ -177,7 +177,7 @@ iframe {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  animation: shinyText 3s ease alternate infinite;
+  animation: shinyText 2s ease alternate infinite;
 }
 
 .nicerow {

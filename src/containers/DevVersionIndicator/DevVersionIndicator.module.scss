@@ -13,3 +13,32 @@
   z-index: 1000000000000;
   transform: rotate(-45deg);
 }
+
+.maintenance {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: $bg1 url("/bg_repeater.webp");
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000000000;
+
+  & h1 {
+    font-size: 4rem;
+    max-width: 60%;
+    text-align: center;
+  }
+
+  & p {
+    font-size: 1.4rem;
+    width: 60%;
+    text-align: center;
+  }
+  & img {
+    max-width: 600px;
+  }
+}

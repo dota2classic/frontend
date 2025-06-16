@@ -122,7 +122,8 @@
   &.reversed {
     flex-direction: row-reverse;
   }
-  & h2 {
+
+  & :global(.megaheading) {
     position: absolute;
     padding: 1rem 10rem;
     //white-space: nowrap;
@@ -148,7 +149,7 @@
     font-size: 1.5rem;
     line-height: 1.7rem;
     padding: 12px 10rem;
-    bottom: 20px;
+    bottom: 40px;
     width: 60%;
     max-width: 800px;
     color: $primaryText;
@@ -156,11 +157,10 @@
     left: 50%;
     text-align: center;
     transform: translateX(-50%);
-    //background: radial-gradient(
-    //  circle at center,
-    //  #0c0c0ccc 0%,
-    //  rgba(0, 0, 0, 0) 80%
-    //);
+
+    @media (max-width: 1080px) {
+      font-size: 1.3rem;
+    }
 
     @media (max-width: 600px) {
       font-size: 1rem;
@@ -181,12 +181,18 @@
 
   & img {
     max-height: 100%;
+    height: 100%;
+    width: 100%;
     object-fit: cover;
     object-position: center;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1080px) {
+      width: unset;
       transform: translateX(-20%);
     }
+
+    //@media (max-width: 1000px) {
+    //}
 
     @media (max-width: 600px) {
       //font-size: 1rem;
@@ -236,6 +242,9 @@
   bottom: 200px;
   width: fit-content;
 
+  @media (max-width: 1000px) {
+    bottom: 250px;
+  }
   @media (max-width: 600px) {
     bottom: 300px;
   }
