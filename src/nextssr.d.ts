@@ -17,6 +17,8 @@ declare global {
     ym: (key: number, fun: string, value: unknown) => void;
     yaContextCb: any;
     Ya: any;
+    API_URL: string;
+    SOCKET_URL: string;
   }
 
   interface PromiseConstructor {

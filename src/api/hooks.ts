@@ -13,12 +13,12 @@ import {
   NotificationApi,
   PlayerApi,
   RecordApi,
+  ReportApi,
+  RulesApi,
   SettingsApi,
   StatsApi,
   StorageApi,
   UserPaymentApi,
-  RulesApi,
-  ReportApi,
 } from "./back/apis";
 import {
   Configuration,
@@ -32,11 +32,11 @@ import BrowserCookies from "browser-cookies";
 import { AuthStore } from "@/store/AuthStore";
 import { __unsafeGetClientStore } from "@/store";
 import { parseJwt } from "@/util";
-import {getApiUrl} from "@/util/getApiUrl";
+import { getApiUrl } from "@/util/getApiUrl";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
-const PROD_URL = getApiUrl()
+const PROD_URL = getApiUrl();
 
 interface JwtPayload {
   sub: string;

@@ -1,5 +1,3 @@
-// noinspection TypeScriptUnresolvedReference
-
 export const getApiUrl = () => {
   if (typeof window !== "undefined") {
     return window.API_URL;
