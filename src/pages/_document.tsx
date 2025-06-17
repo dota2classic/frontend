@@ -1,7 +1,7 @@
 import { Head, Html, Main, NextScript } from "next/document";
 import { YandexMetrika, YaReklama } from "@/components";
 import { GoogleTagManager } from "@/components/YandexMetrika/GoogleTagManager";
-import { getApiUrl, getSocketUrl } from "@/util/getApiUrl";
+import { getSocketUrl } from "@/util/getApiUrl";
 
 export default function Document() {
   return (
