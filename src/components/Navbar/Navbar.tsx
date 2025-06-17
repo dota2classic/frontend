@@ -154,7 +154,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 action={AppRouter.streams.link}
                 tip={live.streams.length}
               >
-                Live
+                Стрим
               </NavbarItem>
             )}
             {(isAdmin || isModerator) && <AdminNavbarItem />}
