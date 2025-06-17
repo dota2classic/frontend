@@ -26,14 +26,12 @@ import { TrajanPro } from "@/const/fonts";
 import { ReportModalContainer } from "@/containers/ReportModal/ReportModalContainer";
 import { getApi } from "@/api/hooks";
 import { MaintenanceDto } from "@/api/back";
-import { getApiUrl } from "@/util/getApiUrl";
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
 interface AppProps {
   initialState: HydrateRootData;
   maintenance: MaintenanceDto;
-  apiUrl?: string;
 }
 
 export default class MyApp extends App<AppProps> {
@@ -77,8 +75,6 @@ export default class MyApp extends App<AppProps> {
       maintenance = { active: true };
     }
 
-    const apiUrl = getApiUrl();
-
     if (!appContext.ctx.req || !appContext.ctx.res) return { ...appProps };
 
     const cookies = new Cookies(appContext.ctx.req, appContext.ctx.res);
@@ -94,7 +90,7 @@ export default class MyApp extends App<AppProps> {
       ...inferredState,
     };
 
-    return { ...appProps, initialState, maintenance, apiUrl };
+    return { ...appProps, initialState, maintenance };
   }
 
   componentDidMount() {

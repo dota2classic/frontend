@@ -19,7 +19,7 @@ export default function Document() {
       <body>
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.API_URL = '${getApiUrl()}';window.SOCKET_URL= '${getSocketUrl()}'`,
+            __html: `window.API_URL = '${process.env.API_URL}';window.SOCKET_URL= '${getSocketUrl()}'`,
           }}
         />
         <Main />

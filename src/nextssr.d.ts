@@ -18,6 +18,7 @@ declare global {
     yaContextCb: any;
     Ya: any;
     API_URL: string;
+    SERVER_API_URL: string;
     SOCKET_URL: string;
   }
 

@@ -1,8 +1,8 @@
-export const getApiUrl = () => {
+export const getApiUrl = (): string => {
   if (typeof window !== "undefined") {
     return window.API_URL;
   } else {
-    return process.env.API_URL;
+    return process.env.SERVER_API_URL;
   }
 };
 
