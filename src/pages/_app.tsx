@@ -26,13 +26,17 @@ import { TrajanPro } from "@/const/fonts";
 import { ReportModalContainer } from "@/containers/ReportModal/ReportModalContainer";
 import { getApi } from "@/api/hooks";
 import { MaintenanceDto } from "@/api/back";
+import { getApiUrl } from "@/util/getApiUrl";
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
-export default class MyApp extends App<{
+interface AppProps {
   initialState: HydrateRootData;
   maintenance: MaintenanceDto;
-}> {
+  apiUrl?: string;
+}
+
+export default class MyApp extends App<AppProps> {
   private static inferPagePropsAsHydratable(
     props: AppInitialProps,
   ): Partial<HydrateRootData> {
@@ -63,7 +67,6 @@ export default class MyApp extends App<{
 
     return hydration;
   }
-
   static async getInitialProps(appContext: AppContext) {
     const appProps = await App.getInitialProps(appContext);
     let maintenance: MaintenanceDto;
@@ -73,6 +76,8 @@ export default class MyApp extends App<{
       console.warn(e);
       maintenance = { active: true };
     }
+
+    const apiUrl = getApiUrl();
 
     if (!appContext.ctx.req || !appContext.ctx.res) return { ...appProps };
 
@@ -89,7 +94,7 @@ export default class MyApp extends App<{
       ...inferredState,
     };
 
-    return { ...appProps, initialState, maintenance };
+    return { ...appProps, initialState, maintenance, apiUrl };
   }
 
   componentDidMount() {

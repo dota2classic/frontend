@@ -7,7 +7,7 @@ on:
 #    branches:
 #      - 'master'
   push:
-    branches: [ master ]
+    branches: [ master, k8s ]
   pull_request:
     branches: [ master ]
 jobs:
@@ -23,19 +23,6 @@ jobs:
         uses: docker/build-push-action@v6.7.0
         with:
           build-args: |
-            API_URL=https://dotaclassic.ru/api
-            SOCKET_URL=wss://dotaclassic.ru/newsocket
             VAPID_PUBLIC_KEY=BLeadyll3oCNn_oM62pZBJzSVu2ktZwE6lciUq57Xa8aS3eAyGZ67mFgNVsDg0stn5otBlVW4HIr8E5zkFUp1u8
           push: true
-          tags: dota2classic/dotabuff:prod
-
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v6.7.0
-        with:
-          build-args: |
-            API_URL=https://dev.dotaclassic.ru/api
-            SOCKET_URL=wss://dev.dotaclassic.ru/newsocket
-            IS_DEV_VERSION=true
-            VAPID_PUBLIC_KEY=BLeadyll3oCNn_oM62pZBJzSVu2ktZwE6lciUq57Xa8aS3eAyGZ67mFgNVsDg0stn5otBlVW4HIr8E5zkFUp1u8
-          push: true
-          tags: dota2classic/dotabuff:dev
+          tags: dota2classic/dotabuff:k8s

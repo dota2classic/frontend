@@ -1,6 +1,7 @@
 import { Head, Html, Main, NextScript } from "next/document";
 import { YandexMetrika, YaReklama } from "@/components";
 import { GoogleTagManager } from "@/components/YandexMetrika/GoogleTagManager";
+import { getApiUrl, getSocketUrl } from "@/util/getApiUrl";
 
 export default function Document() {
   return (
@@ -16,6 +17,11 @@ export default function Document() {
         <GoogleTagManager />
       </Head>
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.API_URL = '${getApiUrl()}';window.SOCKET_URL= '${getSocketUrl()}'`,
+          }}
+        />
         <Main />
         <NextScript />
       </body>

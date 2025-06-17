@@ -16,6 +16,7 @@ import {
 import { useRouter } from "next/router";
 import { AppRouter } from "@/route";
 import c from "./BlogEditContainer.module.scss";
+import { getApiUrl } from "@/util/getApiUrl";
 
 interface IBlogEditContainerProps {
   post?: BlogpostDto;
@@ -27,7 +28,7 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
   const router = useRouter();
 
   const saveKey = useMemo(() => {
-    return `${process.env.NEXT_PUBLIC_API_URL}-edit-${post?.id || "draft"}`;
+    return `${getApiUrl()}-edit-${post?.id || "draft"}`;
   }, [post]);
 
   const [loaded, setLoaded] = useState(false);

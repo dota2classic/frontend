@@ -53,6 +53,7 @@ import {
   makeEnterQueueToast,
 } from "@/components/Toast/toasts";
 import { toast } from "react-toastify";
+import { getSocketUrl } from "@/util/getApiUrl";
 
 export type QueueHolder = {
   [key: string]: number;
@@ -341,12 +342,7 @@ export class QueueStore
     // Make sure token is not stale
     await this.authStore.fetchMe();
 
-    console.log(
-      "Help here",
-      process.env.NEXT_PUBLIC_SOCKET_URL,
-      process.env.NEXT_PUBLIC_API_URL,
-    );
-    const url = new URL(process.env.NEXT_PUBLIC_SOCKET_URL as string);
+    const url = new URL(getSocketUrl() as string);
 
     const path = url.pathname === "/" ? undefined : url.pathname;
 
