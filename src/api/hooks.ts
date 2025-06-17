@@ -34,9 +34,8 @@ import { __unsafeGetClientStore } from "@/store";
 import { parseJwt } from "@/util";
 import { getApiUrl } from "@/util/getApiUrl";
 
-// const PROD_URL = "http://localhost:6001";
-// const PROD_URL = "https://dotaclassic.ru/api";
 const PROD_URL = getApiUrl();
+console.log("api url:", PROD_URL);
 
 interface JwtPayload {
   sub: string;
