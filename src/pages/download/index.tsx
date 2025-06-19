@@ -23,7 +23,7 @@ import { NotoSans } from "@/const/notosans";
 const _data = [
   [
     {
-      link: "https://drive.google.com/file/d/1o0jzefVwg2WZw2dZs3bCIZIxlxWyiVDt/view?usp=sharing",
+      link: "https://drive.google.com/file/d/1RKJ3kbTuSzspfZ9N1-RLWrtXw6nXt6FN/view?usp=sharing",
       label: "Игровой клиент",
     },
     {
