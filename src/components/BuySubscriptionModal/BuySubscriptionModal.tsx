@@ -195,7 +195,7 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
           {/*{isAuthorized ? "Перейти к оплате" : "Авторизоваться и оплатить"}*/}
           Скоро будет доступно
           <div className={c.countdown}>
-            <CountdownClient until="2025-06-20T00:00:00.000Z" />
+            <CountdownClient until="2025-06-26T00:00:00.000Z" />
           </div>
         </Button>
       </GenericModal>

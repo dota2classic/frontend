@@ -21,7 +21,6 @@ import cx from "clsx";
 import { modEnableCondition } from "@/components/MatchmakingOption/utils";
 import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
-import { NotificationSetting } from "@/components/MatchmakingModeList/NotificationSetting";
 import { observer } from "mobx-react-lite";
 
 interface IMatchmakingModeListProps {
@@ -101,7 +100,7 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
               );
             })}
           </div>
-          <NotificationSetting />
+          {/*<NotificationSetting />*/}
           <div style={{ flex: 1 }} />
           {queueGameState === QueueGameState.NO_GAME && (
             <SearchGameButton visible={true} />

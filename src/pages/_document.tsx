@@ -10,6 +10,10 @@ export default function Document() {
         <link rel="stylesheet" href={`/minimap.css`} />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/logo/256.png" />
+        <meta
+          name="selfwork.ru"
+          content="Cn4shOmjcDQKdnNyQ0JoiRgPLB2OmgzqFXoMSjhHK3NKQQ3KAV"
+        />
 
         <YandexMetrika />
         <YaReklama />

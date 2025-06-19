@@ -14,6 +14,11 @@
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(12, 1fr);
   height: 100%;
+
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .onlineInfo {
@@ -52,6 +57,7 @@
 
 .mobile__tabs {
   @media (min-width: 600px) {
+    grid-column: span 12;
     display: none;
   }
 }
@@ -94,6 +100,7 @@
 .mobile__modes {
   @media (max-width: 600px) {
     grid-column: span 12;
+    flex: 1;
   }
   &_hidden {
     @media (max-width: 600px) {
@@ -105,6 +112,7 @@
 .mobile__chat {
   @media (max-width: 600px) {
     grid-column: span 12;
+    flex: 1;
   }
   &_hidden {
     @media (max-width: 600px) {
