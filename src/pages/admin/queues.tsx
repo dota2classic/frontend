@@ -2,13 +2,7 @@ import { NextPageContext } from "next";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { MatchmakingInfo, QueueEntryDTO, UserDTO } from "@/api/back";
-import {
-  Button,
-  ForumUserEmbed,
-  Panel,
-  Section,
-  UserPreview,
-} from "@/components";
+import { Button, Panel, Section, UserPreview } from "@/components";
 import { formatGameMode } from "@/util/gamemode";
 import c from "./AdminStyles.module.scss";
 import { useStore } from "@/store";
@@ -30,13 +24,14 @@ const OnlineList = observer(() => {
       className={cx(c.parties, c.onlineList)}
       style={{ display: "flex", flexDirection: "column" }}
     >
-      <ul>
-        {queue.online.map((steamid) => (
-          <li key={steamid}>
-            <ForumUserEmbed key={steamid} steamId={steamid} />
-          </li>
-        ))}
-      </ul>
+      {queue.online.length}
+      {/*<ul>*/}
+      {/*  /!*{queue.online.map((steamid) => (*!/*/}
+      {/*  /!*  <li key={steamid}>*!/*/}
+      {/*  /!*    <ForumUserEmbed key={steamid} steamId={steamid} />*!/*/}
+      {/*  /!*  </li>*!/*/}
+      {/*  /!*))}*!/*/}
+      {/*</ul>*/}
     </Panel>
   );
 });
