@@ -5,6 +5,7 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { LobbyScreen } from "@/containers";
 import { EmbedProps, PageLink } from "@/components";
 import { AppRouter } from "@/route";
+import { redirectToPage } from "@/util/redirectToPage";
 
 interface Props {
   id: string;
@@ -16,7 +17,7 @@ export default function LobbyPage({ lobby }: Props) {
   if (!lobby) {
     return (
       <>
-        <h2>Лобби не существует или у тебя нет доступа</h2>
+        <h2>Лобби не существует!</h2>
 
         <PageLink link={AppRouter.lobby.index.link}>
           Вернуться к списку лобби
@@ -35,11 +36,21 @@ export default function LobbyPage({ lobby }: Props) {
 LobbyPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const lobbyId = ctx.query.id as string;
 
-  const lobby = await withTemporaryToken(ctx, () =>
-    getApi()
-      .lobby.lobbyControllerGetLobby(lobbyId)
-      .catch(() => undefined),
-  );
+  const lobby = await withTemporaryToken(ctx, async () => {
+    try {
+      return await getApi().lobby.lobbyControllerGetLobby(lobbyId);
+    } catch (e) {
+      if (e instanceof Response) {
+        if (e.status === 403) {
+          await redirectToPage(ctx, `/lobby?join=${lobbyId}`);
+        } else if (e.status === 404) {
+          return undefined;
+        }
+      } else {
+        return undefined;
+      }
+    }
+  });
 
   let host: string;
   if (typeof window === "undefined") host = ctx.req!.headers.origin!;

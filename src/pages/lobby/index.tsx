@@ -7,7 +7,7 @@ import { formatDotaMap, formatDotaMode } from "@/util/gamemode";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import c from "./Lobby.module.scss";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { JoinLobbyModal } from "@/containers";
 import { observer } from "mobx-react-lite";
 import { paidAction } from "@/util/subscription";
@@ -22,6 +22,14 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
   const [pendingLobby, setPendingLobby] = useState<LobbyDto | undefined>(
     undefined,
   );
+
+  useEffect(() => {
+    const joinLobbyId = router.query.join;
+    const lobby = lobbies.find((t) => t.id === joinLobbyId);
+    if (lobby) {
+      setPendingLobby(lobby);
+    }
+  }, [lobbies, router]);
 
   const createLobby = useCallback(
     paidAction(() => {
