@@ -31,6 +31,10 @@ const _data = [
       label: "Игровой клиент",
     },
     {
+      link: "https://host.dotaclassic.ru/Dota6.84.zip",
+      label: "Игровой клиент",
+    },
+    {
       link: "/torrent/Dota 6.84.zip.torrent",
       label: "Игровой клиент",
     },
@@ -43,6 +47,10 @@ const _data = [
     },
     {
       link: "https://disk.yandex.ru/d/blQdLqXZwOrqjQ",
+      label: "Linux библиотеки",
+    },
+    {
+      link: "https://drive.google.com/file/d/1DE0t-R_UDnLnalNz3SmS4fE0-OlhHNB-/view?usp=sharing",
       label: "Linux библиотеки",
     },
     {
@@ -59,6 +67,10 @@ const _data = [
     {
       link: "https://disk.yandex.ru/d/xOqxdW7BeIxKDg",
       label: "MacOS библиотеки",
+    },
+    {
+      link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
+      label: "Linux библиотеки",
     },
     {
       link: "/torrent/Dota 2 6.84 Source 1 Mac.tar.gz.torrent",
@@ -245,6 +257,20 @@ export default function DownloadPage({ initialOS }: Props) {
                       href={r.link}
                       className="link"
                       onClick={() => metrika("reachGoal", "DOWNLOAD_YANDEX")}
+                    >
+                      {r.label}
+                    </a>
+                  ),
+                },
+                {
+                  type: ColumnType.Raw,
+                  name: "С нашего сайта",
+                  format: (r) => (
+                    <a
+                      target="__blank"
+                      href={r.link}
+                      className="link"
+                      onClick={() => metrika("reachGoal", "DOWNLOAD_D2C")}
                     >
                       {r.label}
                     </a>
