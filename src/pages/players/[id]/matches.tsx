@@ -59,6 +59,7 @@ export default function PlayerMatches({
       />
 
       <PlayerSummary
+        session={preloadedSummary.session}
         banStatus={preloadedSummary.banStatus}
         stats={preloadedSummary.overallStats}
         user={preloadedSummary.user}

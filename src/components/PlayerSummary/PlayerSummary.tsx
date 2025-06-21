@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import { IBigTabsProps } from "@/components/BigTabs/BigTabs";
 import {
   BanStatusDto,
+  PlayerSessionDto,
   PlayerStatsDto,
   UserConnectionDtoConnectionEnum,
   UserDTO,
@@ -28,6 +29,7 @@ import {
 import { useStore } from "@/store";
 import { formatBanReason } from "@/util/texts/bans";
 import { hasSubscription } from "@/util/subscription";
+import { formatGameMode } from "@/util/gamemode";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -35,6 +37,7 @@ interface IPlayerSummaryProps {
   stats: PlayerStatsDto;
   user: UserDTO;
   banStatus: BanStatusDto;
+  session?: PlayerSessionDto;
 
   rank?: number;
   mmr?: number;
@@ -92,7 +95,16 @@ const getMenuItems = (steamId: string, isMyProfile: boolean): Items => {
 };
 
 export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
-  ({ className, lastGameTimestamp, banStatus, stats, user, rank, mmr }) => {
+  ({
+    className,
+    lastGameTimestamp,
+    session,
+    banStatus,
+    stats,
+    user,
+    rank,
+    mmr,
+  }) => {
     const { wins, abandons, loss } = stats;
     const isModerator = useIsModerator();
 
@@ -184,6 +196,18 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
           </div>
 
           <div className={"right"}>
+            {session && (
+              <dl data-testid="player-summary-last-game">
+                <dd>
+                  <PageLink
+                    link={AppRouter.matches.match(session.matchId).link}
+                  >
+                    {formatGameMode(session.lobbyType)}
+                  </PageLink>
+                </dd>
+                <dt>играет матч</dt>
+              </dl>
+            )}
             {lastGameTimestamp && (
               <dl data-testid="player-summary-last-game">
                 <dd>{formatShortTime(new Date(lastGameTimestamp))}</dd>

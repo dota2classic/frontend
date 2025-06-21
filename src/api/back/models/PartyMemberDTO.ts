@@ -18,6 +18,10 @@ import {
     PlayerSummaryDtoFromJSON,
     PlayerSummaryDtoFromJSONTyped,
     PlayerSummaryDtoToJSON,
+    SessionDto,
+    SessionDtoFromJSON,
+    SessionDtoFromJSONTyped,
+    SessionDtoToJSON,
 } from './';
 
 /**
@@ -34,10 +38,10 @@ export interface PartyMemberDTO {
     summary: PlayerSummaryDto;
     /**
      * 
-     * @type {string}
+     * @type {SessionDto}
      * @memberof PartyMemberDTO
      */
-    session?: string;
+    session?: SessionDto;
 }
 
 export function PartyMemberDTOFromJSON(json: any): PartyMemberDTO {
@@ -51,7 +55,7 @@ export function PartyMemberDTOFromJSONTyped(json: any, ignoreDiscriminator: bool
     return {
         
         'summary': PlayerSummaryDtoFromJSON(json['summary']),
-        'session': !exists(json, 'session') ? undefined : json['session'],
+        'session': !exists(json, 'session') ? undefined : SessionDtoFromJSON(json['session']),
     };
 }
 
@@ -65,7 +69,7 @@ export function PartyMemberDTOToJSON(value?: PartyMemberDTO | null): any {
     return {
         
         'summary': PlayerSummaryDtoToJSON(value.summary),
-        'session': value.session,
+        'session': SessionDtoToJSON(value.session),
     };
 }
 

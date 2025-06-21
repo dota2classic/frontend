@@ -22,6 +22,7 @@ export default function PlayerRecordsPage({
       />
 
       <PlayerSummary
+        session={preloadedSummary.session}
         banStatus={preloadedSummary.banStatus}
         stats={preloadedSummary.overallStats}
         user={preloadedSummary.user}

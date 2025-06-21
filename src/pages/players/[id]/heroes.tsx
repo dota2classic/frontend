@@ -32,6 +32,7 @@ export default function PlayerHeroes({
   return (
     <>
       <PlayerSummary
+        session={summary.session}
         banStatus={summary.banStatus}
         user={summary.user}
         stats={summary.overallStats}

@@ -65,6 +65,7 @@ export default function PlayerPage({
         image={summary.user.avatar}
       />
       <PlayerSummary
+        session={summary.session}
         banStatus={summary.banStatus}
         stats={summary.overallStats}
         user={summary.user}
