@@ -53,8 +53,8 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({
   const url = fItem.includes("empty")
     ? `/items/emptyitembg.webp`
     : fItem.includes("recipe")
-      ? "/items/recipe.jpg"
-      : `https://steamcdn-a.akamaihd.net/apps/dota2/images/items/${fItem}_lg.png`;
+      ? "/items/recipe.webp"
+      : `/items/${fItem}.webp`;
   return (
     <>
       {tooltipRef &&
