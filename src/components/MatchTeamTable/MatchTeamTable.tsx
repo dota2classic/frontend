@@ -20,8 +20,6 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { GiFist } from "react-icons/gi";
 import { GrActions } from "react-icons/gr";
-import { Username } from "../Username/Username";
-import heroName from "@/util/heroName";
 
 interface IMatchTeamTableProps {
   players: PlayerInMatchDto[];
@@ -30,7 +28,6 @@ interface IMatchTeamTableProps {
   reportableSteamIds: string[];
   onFeedback: (plr: PlayerInMatchDto) => void;
   onReport: (plr: PlayerInMatchDto) => void;
-  globalMaxValues?: Record<string, number>;
 }
 
 export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
@@ -41,42 +38,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
     reportableSteamIds,
     onFeedback,
     onReport,
-    globalMaxValues,
   }) => {
     const { hasReports } = useStore().auth;
-
-     const maxValues = globalMaxValues ?? useMemo(() => {
-      const mx: Record<string, number> = {
-        gpm: 0,
-        xpm: 0,
-        lastHits: 0,
-        denies: 0,
-        kills: 0,
-        deaths: 0,
-        assists: 0,
-        heroDamage: 0,
-        heroHealing: 0,
-        towerDamage: 0,
-        gold: 0,
-      };
-      for (const p of players) {
-        mx.gpm = Math.max(mx.gpm, p.gpm);
-        mx.xpm = Math.max(mx.xpm, p.xpm);
-        mx.lastHits = Math.max(mx.lastHits, p.lastHits);
-        mx.denies = Math.max(mx.denies, p.denies);
-        mx.kills = Math.max(mx.kills, p.kills);
-        mx.deaths = Math.max(mx.deaths, p.deaths);
-        mx.assists = Math.max(mx.assists, p.assists);
-        mx.heroDamage = Math.max(mx.heroDamage, p.heroDamage);
-        mx.heroHealing = Math.max(mx.heroHealing, p.heroHealing);
-        mx.towerDamage = Math.max(mx.towerDamage, p.towerDamage);
-        const goldValue = Math.round(
-          p.gold || Math.round((p.gpm * duration) / 60) * 0.6
-        );
-        mx.gold = Math.max(mx.gold, goldValue);
-      }
-      return mx;
-    }, [players, duration]);
 
     const sortedPlayers = useMemo(
       () => [...players].sort((a, b) => a.partyIndex - b.partyIndex),
@@ -228,7 +191,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
             return (
               <tr key={player.user.steamId}>
                 <td>
-                  <div className={cx(c.heroWithLevel)} title={heroName(player.hero)}>
+                  <div className={cx(c.heroWithLevel)}>
                     {shouldDisplay && (
                       <span className={c.party__indicator_root}>
                         <span
@@ -242,7 +205,11 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                         />
                       </span>
                     )}
-                    <PageLink link={AppRouter.heroes.hero.index(player.hero).link}>
+                    <PageLink
+                      link={
+                        AppRouter.players.player.index(player.user.steamId).link
+                      }
+                    >
                       <HeroIcon hero={player.hero} />
                     </PageLink>
                     <img
@@ -257,7 +224,14 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   </div>
                 </td>
                 <td className={c.fixedWidth}>
-                  <Username user={player.user} />
+                  <PageLink
+                    className={"link"}
+                    link={
+                      AppRouter.players.player.index(player.user.steamId).link
+                    }
+                  >
+                    {player.user.steamId.length > 2 ? player.user.name : "Бот"}
+                  </PageLink>
                 </td>
                 <td
                   className={cx(
@@ -265,9 +239,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     hc.includes("GPM") ? c.mobileHidden : undefined,
                   )}
                 >
-                  <span className={cx(player.gpm > 0 && player.gpm === maxValues.gpm && c.underline)}>{player.gpm}</span>
-                  /
-                  <span className={cx(player.xpm > 0 && player.xpm === maxValues.xpm && c.underline)}>{player.xpm}</span>
+                  {player.gpm}/{player.xpm}
                 </td>
                 <td
                   className={cx(
@@ -275,16 +247,13 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     hc.includes("LH") ? c.mobileHidden : undefined,
                   )}
                 >
-                  <span className={cx(player.lastHits > 0 && player.lastHits === maxValues.lastHits && c.underline)}>{player.lastHits}</span>
-                  /
-                  <span className={cx(player.denies > 0 && player.denies === maxValues.denies && c.underline)}>{player.denies}</span>
+                  {player.lastHits}/{player.denies}
                 </td>
 
                 <td
                   className={cx(
                     "middle",
                     hc.includes("K") ? c.mobileHidden : undefined,
-                    player.kills > 0 && player.kills === maxValues.kills && c.underline
                   )}
                 >
                   {player.kills}
@@ -293,7 +262,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   className={cx(
                     "middle",
                     hc.includes("D") ? c.mobileHidden : undefined,
-                    player.deaths > 0 && player.deaths === maxValues.deaths && c.underline
                   )}
                 >
                   {player.deaths}
@@ -302,7 +270,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   className={cx(
                     "middle",
                     hc.includes("A") ? c.mobileHidden : undefined,
-                    player.assists > 0 && player.assists === maxValues.assists && c.underline
                   )}
                 >
                   {player.assists}
@@ -312,7 +279,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   className={cx(
                     "middle",
                     hc.includes("HD") ? c.mobileHidden : undefined,
-                    player.heroDamage > 0 && player.heroDamage === maxValues.heroDamage && c.underline
                   )}
                 >
                   <NumberFormat number={player.heroDamage} />
@@ -321,7 +287,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   className={cx(
                     "middle",
                     hc.includes("HH") ? c.mobileHidden : undefined,
-                    player.heroHealing > 0 && player.heroHealing === maxValues.heroHealing && c.underline
                   )}
                 >
                   <NumberFormat number={player.heroHealing} />
@@ -330,7 +295,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   className={cx(
                     "middle",
                     hc.includes("TD") ? c.mobileHidden : undefined,
-                    player.towerDamage > 0 && player.towerDamage === maxValues.towerDamage && c.underline
                   )}
                 >
                   <NumberFormat number={player.towerDamage} />
@@ -339,7 +303,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   className={cx(
                     c.gold,
                     hc.includes("NW") ? c.mobileHidden : undefined,
-                    player.gold > 0 && player.gold === maxValues.gold && c.underline
                   )}
                 >
                   <NumberFormat

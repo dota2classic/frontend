@@ -23,7 +23,6 @@ import { createPortal } from "react-dom";
 import { formatRole } from "@/util/gamemode";
 import { FaTwitch } from "react-icons/fa";
 import animations from "./ChatIconAnimations.module.scss";
-import { Username } from "../Username/Username";
 
 interface IMessageProps {
   message: ThreadMessageDTO;
@@ -138,7 +137,12 @@ export const MessageHeader = observer(function MessageHeader({
       </div>
       <div className={c.contentWrapper__middle}>
         <div className={cx(c.author)}>
-          <Username link={AppRouter.players.player.index(message.author.steamId).link}  user={message.author} className={c.username} />
+          <PageLink
+            link={AppRouter.players.player.index(message.author.steamId).link}
+            className={cx(c.username, "link")}
+          >
+            {message.author.name}
+          </PageLink>
           {roles}
           <span className={c.messageTime}>
             {<PeriodicTimerClient time={message.createdAt} />}

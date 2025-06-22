@@ -18,49 +18,16 @@
 
   & a,
   span {
+    margin-left: 6px;
     text-transform: capitalize;
+    white-space: nowrap;
     max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     @media (max-width: 600px) {
       max-width: 120px;
     }
   }
-}
-
-.username {
-  display: flex;
-  padding-right: 1rem;
-}
-
-.anyLink {
-    display: inline-block; 
-    white-space: nowrap;  
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 0.15rem;
-}
-
-.anyLinkWrapper {
-    display: inline-block;
-    min-width: 1rem;
-}
-
-.linkContainer:hover :global(.link)::before {
-  width: 100%;
-}
-
-.contentContainer {
-  column-gap: 0.45rem;
-}
-
-.itemContainer {
-  align-items: center;
-  display: inline-flex;
-  column-gap: 0.35rem;
-}
-
-.itemName {
-  //53px ширина иконки ItemIconRaw
-  width: calc(100% - 53px);
 }
 
 .raw {
@@ -71,13 +38,16 @@
 }
 
 .item {
-  display: flex;
-  flex-direction: row;
-  white-space: nowrap;
-  
   & img {
     // margin-top: 4px;
     vertical-align: middle;
+  }
+
+  & span {
+    margin-left: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   & a {
@@ -100,7 +70,6 @@
 }
 
 .sortable {
-  cursor: pointer;
   & svg {
     vertical-align: middle;
   }
@@ -147,4 +116,11 @@
     margin-top: 1px;
     border-color: transparent transparent white transparent;
   }
+}
+
+.oneliner {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

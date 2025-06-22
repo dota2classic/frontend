@@ -23,7 +23,7 @@ export const HeroPlayersTable: React.FC<IHeroPlayersTableProps> = ({
         {
           name: "Игрок",
           type: ColumnType.Player,
-          maxWidth: 160,
+          maxWidth: 236,
         },
         {
           name: "Матчи",

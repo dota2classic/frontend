@@ -4,19 +4,22 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
-  column-gap: 0.5rem;
   font-size: 0.8rem;
   color: $primaryText;
-  
-  // & img {
-  //   border-radius: 10%;
-  // }
-  
-  &:has(:global(.avatar):hover) {
-    :global(.link)::before {
-      width: 100%;
-    }
+
+  & a,
+  span {
+    display: block;
+    flex: 1;
+    margin-left: 6px;
+    text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & img {
+    //border-radius: 10%;
   }
 }
 
@@ -27,13 +30,12 @@
     position: absolute;
     bottom: 4px;
     right: -4px;
-    
+
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background-color: rgba(34, 206, 34, 1);
     outline: 2px solid $bg2;
-    pointer-events: none;
     z-index: 1000;
   }
 }

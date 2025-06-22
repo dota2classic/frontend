@@ -19,7 +19,6 @@
   gap: 4px;
   align-items: center;
   padding-right: 8px;
-  max-height: 1rem;
 
   & svg {
     vertical-align: middle;
@@ -31,7 +30,6 @@
   flex: 1;
   justify-content: flex-end;
   display: flex;
-  white-space: nowrap;
 }
 
 .content {
@@ -42,7 +40,6 @@
   padding-top: 4px;
   padding-bottom: 4px;
   position: relative;
-  word-break: break-word;
 }
 
 .tools {
@@ -133,16 +130,11 @@
       visibility: visible;
     }
   }
-
-  &:has(:global(.avatar):hover) {
-      :global(.link)::before {
-        width: 100%;
-      }
-    }
 }
 
 .username {
   font-weight: bolder;
+  position: relative;
 }
 
 .time {

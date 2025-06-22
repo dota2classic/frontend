@@ -65,7 +65,6 @@ export default function HeroMatches({
           withItems
           loading={isLoading}
           data={formattedMatches}
-          showUser
         />
         <Pagination
           linkProducer={(page) =>

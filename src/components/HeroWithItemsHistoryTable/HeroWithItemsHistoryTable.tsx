@@ -8,7 +8,6 @@ import { colors } from "@/colors";
 import cx from "clsx";
 import { KDABarChart } from "@/components/BarChart/KDABarChart";
 import { ColumnType } from "@/const/tables";
-import { UserDTO } from "@/api/back";
 
 export interface PlayerMatchItem {
   hero: string;
@@ -29,8 +28,6 @@ export interface PlayerMatchItem {
   item3: number;
   item4: number;
   item5: number;
-
-  user: UserDTO
 }
 
 interface IPlayerMatchTableProps {
@@ -38,7 +35,6 @@ interface IPlayerMatchTableProps {
   className?: string;
   withItems?: boolean;
   loading: boolean;
-  showUser?: boolean;
 }
 
 export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
@@ -46,7 +42,6 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
   className,
   loading,
   withItems,
-  showUser
 }) => {
   return (
     <GenericTable
@@ -54,9 +49,9 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
       keyProvider={(it) => it[6]}
       columns={[
         {
-          type: showUser ? ColumnType.Player : ColumnType.Hero,
-          name: showUser ? "Игрок" : "Герой",
-          maxWidth: 150
+          type: ColumnType.Hero,
+          name: "Герой",
+          link: (d) => AppRouter.matches.match(d[6]).link,
         },
         {
           type: ColumnType.Raw,
@@ -121,7 +116,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           : []),
       ]}
       data={data.map((it) => [
-        showUser ? it.user: it.hero,
+        it.hero,
         { won: it.won, timestamp: it.timestamp, matchId: it.matchId },
         [it.mode, it.gameMode],
         it.duration,
