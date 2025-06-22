@@ -24,5 +24,6 @@ export const matchToPlayerMatchItem = (
     item3: thisPlayer.item3,
     item4: thisPlayer.item4,
     item5: thisPlayer.item5,
+    user: thisPlayer.user
   };
 };

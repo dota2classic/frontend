@@ -105,7 +105,7 @@ const ColRenderer: React.FC<{
     return (
       <td
         style={{ maxWidth: col.maxWidth }}
-        className={col.mobileOmit ? "omit" : undefined}
+        className={cx(col.mobileOmit ? "omit" : undefined, c.username)}
       >
         <UserPreview
           avatarSize={40}
@@ -116,18 +116,22 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.Hero) {
     return (
-      <td className={cx({ [c.hero]: !col.noname, omit: col.mobileOmit })}>
+      <td 
+        className={cx({ [c.hero]: !col.noname, omit: col.mobileOmit })}
+        title={heroName(value)}
+      >
         <PageLink
-          link={
-            col.link ? col.link(data) : AppRouter.heroes.hero.index(value).link
-          }
+          className={c.linkContainer}
+          link={col.link ? col.link(data) : AppRouter.heroes.hero.index(value).link}
         >
           {col.noname ? (
             <HeroIcon small hero={value} />
           ) : (
-            <div className={c.player}>
+            <div className={cx(c.player, c.contentContainer)}>
               <HeroIcon small hero={value} />
-              <span>{heroName(value)}</span>
+              <span className={cx(c.anyLinkWrapper, "link")}>
+                <span className={c.anyLink}>{heroName(value)}</span>
+              </span>
             </div>
           )}
         </PageLink>
@@ -147,18 +151,21 @@ const ColRenderer: React.FC<{
   } else if (type === ColumnType.Item) {
     return (
       <td
-        style={{ width: col.noname ? 20 : 120, overflow: "hidden" }}
+        style={{ width: col.noname ? 20 : 120}}
         className={cx(c.item, col.mobileOmit ? "omit" : undefined)}
+        title={itemName(value)}
       >
         {col.noname ? (
           <ItemIcon small item={value} />
         ) : (
           <PageLink
             link={AppRouter.items.item(value).link}
-            className={c.oneliner}
+            className={cx(c.itemContainer, c.linkContainer)}
           >
             <ItemIconRaw small item={value} />
-            <span>{!col.noname && itemName(value)}</span>
+            <span className={cx(c.anyLinkWrapper, c.itemName,"link")}>
+              <span className={c.anyLink} style={{ width: "100%"}}>{!col.noname && itemName(value)}</span>
+            </span>
           </PageLink>
         )}
       </td>
@@ -311,7 +318,7 @@ export const GenericTable: React.FC<Props> = ({
 
             return (
               <th
-                className={cx(c.sortable, {
+                className={cx(sortable ? c.sortable : undefined, {
                   [c.hero]: col.type === ColumnType.Hero,
                   omit: col.mobileOmit,
                 })}

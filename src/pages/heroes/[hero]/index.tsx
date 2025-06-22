@@ -67,7 +67,7 @@ export default function HeroHistoryPage({
             Показать еще
           </PageLink>
         </header>
-        <HeroWithItemsHistoryTable loading={false} data={formattedMatches} />
+        <HeroWithItemsHistoryTable loading={false} data={formattedMatches} showUser />
       </Section>
       <Section className={c.items}>
         <header>Лучшие игроки</header>
