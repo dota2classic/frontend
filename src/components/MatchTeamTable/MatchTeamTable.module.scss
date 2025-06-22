@@ -2,6 +2,7 @@
 
 .heroWithLevel {
   position: relative;
+  width: fit-content;
 
   & .abandon {
     position: absolute;
@@ -10,6 +11,7 @@
     right: 0;
     display: none;
     width: 100%;
+    pointer-events: none;
 
     &__visible {
       display: block;
@@ -17,14 +19,19 @@
   }
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 .level {
   color: white;
   position: absolute;
-  right: 0px;
+  right: -5px;
   bottom: 0px;
   background: rgba(0, 0, 0, 0.7);
   padding: 4px;
   border-radius: 4px;
+  pointer-events: none;
 }
 
 .gold {
@@ -68,8 +75,8 @@
   }
 }
 
-.calibration {
-}
+// .calibration {
+// }
 
 .commend {
   font-size: 1rem;

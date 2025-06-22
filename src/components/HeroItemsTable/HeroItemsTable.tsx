@@ -26,6 +26,7 @@ export const HeroItemsTable: React.FC<IHeroItemsTableProps> = ({
         {
           type: ColumnType.Item,
           name: "Предмет",
+          maxWidth: 120
         },
         {
           type: ColumnType.IntWithBar,
