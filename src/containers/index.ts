@@ -29,3 +29,4 @@ export { AdminRuleViolationContainer } from "./AdminRuleViolationContainer/Admin
 export { AdminPlayerBanSettings } from "./AdminPlayerBanSettings/AdminPlayerBanSettings";
 export { AcceptCookiesContainer } from "./AcceptCookiesContainer/AcceptCookiesContainer";
 export { PaidFeatureModal } from "./PaidFeatureModal/PaidFeatureModal";
+export { TechStaticTabs } from "./TechStaticTabs/TechStaticTabs";

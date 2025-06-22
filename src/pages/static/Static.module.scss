@@ -1,0 +1,46 @@
+.container {
+  //max-width: 800px;
+
+
+  & > h2 {
+    margin-block-start: 2em;
+    margin-block-end: 0rem;
+    text-transform: uppercase;
+  }
+
+  & > h3 {
+    margin-block-start: 1em;
+    margin-block-end: 0;
+  }
+
+  & img {
+    margin-top: 1rem;
+  }
+}
+
+
+.block {
+  display: grid;
+  & h3 {
+    margin-block-start: 1rem;
+    margin-block-end: 0;
+  }
+
+  & li {
+    line-height: 1.4em !important;
+    & > div {
+      max-width: 400px;
+    }
+  }
+
+}
+
+.copy {
+  color: #aaa;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+
+.copy_input {
+  max-width: 300px;
+}

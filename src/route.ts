@@ -314,4 +314,11 @@ export const AppRouter = {
     download: (id: number) =>
       page(`/matches/download/[id]`, `/matches/download/${id}`),
   },
+  static: {
+    tech: {
+      performance: spage("/static/tech/performance"),
+      commands: spage("/static/tech/commands"),
+      faq: spage("/static/tech/faq"),
+    },
+  },
 };

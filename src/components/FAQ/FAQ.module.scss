@@ -17,13 +17,11 @@
     border-top: 1px solid $primaryTextDark2;
   }
 
-
-
   &[open] {
     & .title {
       color: $gold;
     }
-    & svg {
+    & summary > svg {
       rotate: 180deg;
     }
   }
@@ -60,4 +58,8 @@
 .open {
   //display: block;
   //height: 100%;
+}
+
+
+.title {
 }

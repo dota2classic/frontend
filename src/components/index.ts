@@ -101,3 +101,4 @@ export { Logo } from "./Logo/Logo";
 export { BuySubscriptionModal } from "./BuySubscriptionModal/BuySubscriptionModal";
 export { PostContainer } from "./PostContainer/PostContainer";
 export { ClientPortal } from "./ClientPortal/ClientPortal";
+export { CopyBlock } from "./CopyBlock/CopyBlock";

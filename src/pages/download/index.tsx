@@ -2,7 +2,6 @@ import {
   BigTabs,
   CoolList,
   EmbedProps,
-  FAQ,
   GenericTable,
   PageLink,
   Section,
@@ -17,8 +16,8 @@ import { AppRouter } from "@/route";
 import { metrika } from "@/ym";
 import { getAuthUrl } from "@/util/getAuthUrl";
 import { ColumnType } from "@/const/tables";
-import c from "./Download.module.scss";
 import { NotoSans } from "@/const/notosans";
+import { TechStaticTabs } from "@/containers";
 
 const _data = [
   [
@@ -27,7 +26,7 @@ const _data = [
       label: "Игровой клиент",
     },
     {
-      link: "https://disk.yandex.ru/d/Vl8rITrAzB04MA",
+      link: "https://disk.yandex.ru/d/e6dil7uN8qTYSQ",
       label: "Игровой клиент",
     },
     {
@@ -46,7 +45,7 @@ const _data = [
       label: "Linux библиотеки",
     },
     {
-      link: "https://disk.yandex.ru/d/blQdLqXZwOrqjQ",
+      link: "https://disk.yandex.ru/d/6IFRyqlGS3rqag",
       label: "Linux библиотеки",
     },
     {
@@ -65,7 +64,7 @@ const _data = [
       label: "MacOS библиотеки",
     },
     {
-      link: "https://disk.yandex.ru/d/xOqxdW7BeIxKDg",
+      link: "https://disk.yandex.ru/d/-52JcDeQONUs0A",
       label: "MacOS библиотеки",
     },
     {
@@ -129,6 +128,11 @@ const GuideCompact = () => [
         </p>
         Тебе предстоит:
         <ol>
+          <li>
+            <span className="gold">ВАЖНО</span>: игровые сервера находятся на
+            территории РФ. Игрокам с Украины может помочь средство обхода
+            блокировок провайдеров.
+          </li>
           <li>
             <PageLink link={AppRouter.queue.link} className="link">
               Поставить поиск
@@ -307,213 +311,9 @@ export default function DownloadPage({ initialOS }: Props) {
           "Подробная инструкция для скачивания, установки и поиска игры Dota 2. Скачать старую версию dota 2 здесь"
         }
       />
+      <TechStaticTabs />
       <h1 style={{ textAlign: "center" }}>Как начать играть?</h1>
       <CoolList items={coolListContent} />
-      <h2 style={{ textAlign: "center", marginTop: 40 }}>
-        Полезные консольные команды
-      </h2>
-      <ul className={c.guide}>
-        <li>
-          ФПС, пинг, потери пакетов - <span className="shit">net_graph 1</span>
-        </li>
-        <li>
-          Отключить приближение камеры -{" "}
-          <span className="shit">dota_camera_disable_zoom 1</span>
-        </li>
-        <li>
-          Добивание союзных крипов на ПКМ -{" "}
-          <span className="shit">dota_force_right_click_attack 1</span>
-        </li>
-        <li>
-          Автоматический повтор нажатия ПКМ -{" "}
-          <span className="shit">dota_player_auto_repeat_right_mouse 1</span>
-        </li>
-        <li>
-          Отключить задержку клика по мини-карте -{" "}
-          <span className="shit">dota_minimap_misclick_time 0</span>
-        </li>
-        <li>
-          Увеличение иконок героев на мини-карте -{" "}
-          <span className="shit">dota_minimap_hero_size 1000</span>
-        </li>
-        <li>
-          Быстрая атака -{" "}
-          <span className="shit">
-            bind "a" "mc_attack; +sixense_left_click; -sixense_left_click"
-          </span>
-        </li>
-        <li>
-          Идти в направлении -{" "}
-          <span className="shit">
-            dota_unit_allow_moveto_direction 1, bind alt
-            +dota_unit_movetodirection
-          </span>
-        </li>
-        <li>
-          Дальность умений -{" "}
-          <span className="shit">dota_disable_range_finder 0</span>
-        </li>
-      </ul>
-
-      <h2 style={{ textAlign: "center", marginTop: 40 }}>
-        FAQ - часто задаваемые вопросы
-      </h2>
-      <FAQ
-        items={[
-          {
-            title: "Какая версия игры используется?",
-            content: (
-              <>
-                Мы играем на версии 6.84c. Это последняя версия игры на{" "}
-                <span className="gold">Source 1</span>, а так же самый
-                популярный патч по количеству игроков.
-              </>
-            ),
-          },
-          {
-            title: "Это безопасно?",
-            content: (
-              <>
-                Если ты не будешь искать и использовать читы на эту версию - да.
-                По сути наш проект это как общественные сервера по CS 1.6. Мы
-                запускаем официальный сервер от Valve, только старой версии
-              </>
-            ),
-          },
-          {
-            title: "Могу ли я играть с баном в доте?",
-            content: (
-              <>
-                Баны в актуальной версии игры не работают на нашем сайте.
-                Однако, если будешь часто покидать игры, руинить игры и в целом
-                плохо себя вести - будешь забанен и здесь.
-              </>
-            ),
-          },
-          {
-            title: "Only one dota 2 client per customer",
-            content: (
-              <>
-                Закройте клиент новой или старой доты, если уже открыт (убейте
-                процесс через диспетчер задач). Одновременно может быть запущен
-                только 1 клиент доты.
-              </>
-            ),
-          },
-          {
-            title: "Ошибка не найден dota.exe",
-            content: (
-              <>
-                Нужно в .bat файл через блокнот в начале прописать cd{" "}
-                <span className="gold">C:\Program Files (x86)\Dota 6.84</span>{" "}
-                (заменить на путь до клиента со старой дотой)
-              </>
-            ),
-          },
-          {
-            title: "Не запускается игра, что делать?",
-            content: (
-              <>
-                Скорее всего тебе чего-то не хватает. Возможные решения:
-                <ul>
-                  <li>
-                    Ты не распаковал архив с игрой и пытаешься запустить игру из
-                    архива. Распакуй архив с помощью 7-zip и запусти игру.
-                  </li>
-                  <li>
-                    Установить{" "}
-                    <a
-                      className="link"
-                      href="https://www.microsoft.com/ru-ru/download/details.aspx?id=35"
-                      target="__blank"
-                    >
-                      DirectX
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="link"
-                      href="https://aka.ms/vs/16/release/vc_redist.x86.exe"
-                      target="__blank"
-                    >
-                      Установить Microsoft Visual C++ для 32 бит
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="link"
-                      href="https://aka.ms/vs/16/release/vc_redist.x64.exe"
-                      target="__blank"
-                    >
-                      Установить Microsoft Visual C++ для 64 бит
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="link"
-                      href="http://forum.ru-board.com/topic.cgi?forum=5&amp;topic=10616&amp;start=820"
-                      target="__blank"
-                    >
-                      Установить NET Framework
-                    </a>
-                  </li>
-                </ul>
-              </>
-            ),
-          },
-          {
-            title: "Steam client is missing or out of date",
-            content: (
-              <>
-                Один из нижеперечисленных вариантов поможет вам исправить эту
-                проблему:
-                <ul>
-                  <li>Войти в аккаунт Steam</li>
-                  <li>Перезапустить Steam</li>
-                  <li>Перезагрузить пк</li>
-                  <li>Выключить режим невидимки в Steam</li>
-                  <li>
-                    Запустить DOTA Classic и Steam от имени администратора
-                  </li>
-                </ul>
-              </>
-            ),
-          },
-          {
-            title:
-              "Failed to load the launcher DLL / Setup file 'gameinfo.txt' doesn't exist in subdirectory 'dota2'",
-            content: (
-              <>
-                Возможно, архив с игрой не до конца распаковался. Настойчиво
-                рекомендуем использовать <span className="gold">7-zip</span> для
-                разархивации.
-                <br />
-                Для ее исправления необходимо исключить русские/кириллические
-                буквы в пути или же распаковать архив на рабочий стол. Если это
-                вам не помогает, то распакуйте архив с игрой в корень диска C:\
-                или D:\
-              </>
-            ),
-          },
-          {
-            title: "Графические артефакты",
-            content: (
-              <>
-                Можно попробовать:
-                <ol>
-                  <li>
-                    <span className="shit"> gl_clear 0</span> в консоль
-                  </li>
-                  <li>
-                    Переустановить видеодрайвера, либо установить более позднюю
-                    / новую версию
-                  </li>
-                </ol>
-              </>
-            ),
-          },
-        ]}
-      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 
 import c from "./FAQ.module.scss";
 import cx from "clsx";
@@ -13,13 +13,12 @@ interface IFAQProps {
 }
 
 const FAQEntry = ({ content, title }: FAQProp) => {
-  const [open, setOpen] = useState(false);
   return (
     <details className={c.entry}>
-      <summary onClick={() => setOpen((x) => !x)}>
+      <summary>
         <span className={c.title}>{title}</span> <FaChevronDown />
       </summary>
-      <div className={cx(c.entry__full, open && c.open)}>{content}</div>
+      <div className={cx(c.entry__full)}>{content}</div>
     </details>
   );
 };
