@@ -50,11 +50,9 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({
       />
     );
 
-  const url = fItem.includes("empty")
-    ? `/items/emptyitembg.webp`
-    : fItem.includes("recipe")
-      ? "/items/recipe.webp"
-      : `/items/${fItem}.webp`;
+  const url = fItem.includes("recipe")
+    ? "/items/recipe_lg.webp"
+    : `/items/${fItem}_lg.webp`;
   return (
     <>
       {tooltipRef &&
