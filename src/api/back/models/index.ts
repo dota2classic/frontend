@@ -90,6 +90,7 @@ export * from "./RecalibrationDto";
 export * from "./RecordType";
 export * from "./ReportDto";
 export * from "./ReportMessageDto";
+export * from "./ReportPageDto";
 export * from "./ReportPlayerDto";
 export * from "./ReportPlayerInMatchDto";
 export * from "./RoleLifetimeDto";

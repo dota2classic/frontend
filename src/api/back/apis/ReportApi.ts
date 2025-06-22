@@ -33,6 +33,9 @@ import {
   ReportMessageDto,
   ReportMessageDtoFromJSON,
   ReportMessageDtoToJSON,
+  ReportPageDto,
+  ReportPageDtoFromJSON,
+  ReportPageDtoToJSON,
   ReportPlayerInMatchDto,
   ReportPlayerInMatchDtoFromJSON,
   ReportPlayerInMatchDtoToJSON,
@@ -49,6 +52,11 @@ export interface ReportControllerGetPaginationLogRequest {
 
 export interface ReportControllerGetReportRequest {
   id: string;
+}
+
+export interface ReportControllerGetReportPageRequest {
+  page: number;
+  perPage?: number;
 }
 
 export interface ReportControllerHandleReportRequest {
@@ -234,6 +242,67 @@ export class ReportApi extends runtime.BaseAPI {
 
         const context = this.reportControllerGetReportContext({ id: id! });
         return useSWR(context, valid ? () => this.reportControllerGetReport(id!) : null, config)
+    }
+
+    /**
+     */
+    private async reportControllerGetReportPageRaw(requestParameters: ReportControllerGetReportPageRequest): Promise<runtime.ApiResponse<ReportPageDto>> {
+        this.reportControllerGetReportPageValidation(requestParameters);
+        const context = this.reportControllerGetReportPageContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReportPageDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private reportControllerGetReportPageValidation(requestParameters: ReportControllerGetReportPageRequest) {
+        if (requestParameters.page === null || requestParameters.page === undefined) {
+            throw new runtime.RequiredError("page","Required parameter requestParameters.page was null or undefined when calling reportControllerGetReportPage.");
+        }
+    }
+
+    /**
+     */
+    reportControllerGetReportPageContext(requestParameters: ReportControllerGetReportPageRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        if (requestParameters.page !== undefined) {
+            queryParameters["page"] = requestParameters.page;
+        }
+
+        if (requestParameters.perPage !== undefined) {
+            queryParameters["per_page"] = requestParameters.perPage;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/report/reports`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    reportControllerGetReportPage = async (page: number, perPage?: number): Promise<ReportPageDto> => {
+        const response = await this.reportControllerGetReportPageRaw({ page: page, perPage: perPage });
+        return await response.value();
+    }
+
+    useReportControllerGetReportPage(page: number, perPage?: number, config?: SWRConfiguration<ReportPageDto, Error>) {
+        let valid = true
+
+        if (page === null || page === undefined || Number.isNaN(page)) {
+            valid = false
+        }
+
+        const context = this.reportControllerGetReportPageContext({ page: page!, perPage: perPage! });
+        return useSWR(context, valid ? () => this.reportControllerGetReportPage(page!, perPage!) : null, config)
     }
 
     /**
