@@ -1,0 +1,33 @@
+@import "../../common.scss";
+
+.linkContainer {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    //40px - размер аватара
+    width: calc(100% - 40px);
+
+    & a {
+        display: flex;
+        align-items: center;
+        padding-top: 0.05rem;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.usernameLink {
+    display: inline-block; 
+    white-space: nowrap;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.usernameWrapper {
+    display: inline-flex; 
+    min-width: 0.5rem;
+}
+
+.linkContainer:hover :global(.link)::before {
+  width: 100%;
+}

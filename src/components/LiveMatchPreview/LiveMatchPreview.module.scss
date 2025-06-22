@@ -59,7 +59,6 @@
 
 }
 
-
 .heroIconWrapper {
   position: relative;
 }
@@ -71,22 +70,13 @@
 .playerHeroRow {
   display: flex;
   flex-direction: row;
+  column-gap: 0.5rem;
   align-items: center;
   color: white;
 
   & .player-wrap {
     flex: 1;
     max-width: 175px;
-  }
-
-  & span,
-  a {
-    white-space: nowrap;
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-decoration: none;
-    transition: 0.3s ease;
   }
 }
 
@@ -121,8 +111,6 @@
     height: 250px;
   }
 }
-
-
 
 .hero {
   width: 30px;
@@ -208,8 +196,6 @@
   }
 }
 
-
-
 .deadIndicator {
   color: black;
   width: 100%;
@@ -220,37 +206,37 @@
     opacity: 1;
 
   }
-
 }
-
-
 
 .level {
   color: white;
   background: rgba(0, 0, 0, 0.7);
   padding: 4px;
-  margin-right: 4px;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 12px;
   display: block;
-  width: 18px;
+  width: 16px;
+  height: 12px;
   text-align: center;
   flex: unset !important;
+  pointer-events: none;
+
+  position: absolute;
+  right: -5px;
+  bottom: 0px;
 }
 
 .skull {
   position: absolute;
   top: 4px;
-  left: 30px;
+  right: 30px;
   height: 24px;
   width: 24px;
   color: black;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 4px;
-
-
+  pointer-events: none;
 }
-
 
 .watchLive {
   font-size: 1.4rem;
@@ -266,7 +252,6 @@
   }
 }
 
-
 .abandon {
   position: absolute;
   bottom: 0;
@@ -274,7 +259,7 @@
   right: 0;
   display: none;
   width: 100%;
-
+  pointer-events: none;
 
   &__visible {
     display: block;

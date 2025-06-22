@@ -1,8 +1,8 @@
 @import "../../common.scss";
 
-.container {
-}
-
 .iframe {
-  height: 100vh;
+  box-shadow: none;
+  overflow: hidden;
+  overflow-anchor: none;
+  // transition: height 0.500s ease;
 }

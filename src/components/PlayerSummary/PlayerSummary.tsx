@@ -30,6 +30,7 @@ import { useStore } from "@/store";
 import { formatBanReason } from "@/util/texts/bans";
 import { hasSubscription } from "@/util/subscription";
 import { formatGameMode } from "@/util/gamemode";
+import { Username } from "../Username/Username";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -146,13 +147,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 user={user}
                 alt={`Avatar of player ${name}`}
               />
-              <PageLink
-                className={cx(c.playerName, "link")}
-                link={AppRouter.players.player.index(steamId).link}
-                testId={"player-summary-player-name"}
-              >
-                {steamId.length > 2 ? name : `Бот #${steamId}`}
-              </PageLink>
+              <Username user={user} className={cx(c.playerName, "link")} testId={"player-summary-player-name"} />
             </div>
             <div className={cx(c.player, c.icons)}>
               <a

@@ -10,6 +10,8 @@ import c from "./PlayerAvatar.module.scss";
 import { UserDTO } from "@/api/back";
 import cx from "clsx";
 import { hasSubscription } from "@/util/subscription";
+import { PageLink } from "../PageLink/PageLink";
+import { AppRouter, NextLinkProp } from "@/route";
 
 type Props = Omit<
   React.DetailedHTMLProps<
@@ -36,14 +38,17 @@ type Props = Omit<
   objectPosition?: string | undefined;
   lazyBoundary?: string | undefined;
   lazyRoot?: string | undefined;
+  link?: NextLinkProp;
 } & React.RefAttributes<HTMLImageElement | null>;
 
 export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
   user,
+  link,
   ...props
 }: Props) {
   const [error, setError] = useState<unknown>(null);
   const hat = hasSubscription(user) && user.hat?.image.url;
+  const linkProp = link ?? AppRouter.players.player.index(user.steamId).link;
 
   return (
     <picture className={c.avatar}>
@@ -56,13 +61,18 @@ export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
           src={hat}
         />
       )}
-      <Image
-        {...props}
-        className={cx(props.className, "avatar")}
-        alt={props.alt || "Image"}
-        src={error ? "/avatar.png" : user.avatar}
-        onError={setError}
-      />
+      <PageLink
+        link={linkProp}
+      >
+        <Image
+          {...props}
+          className={cx(props.className, "avatar")}
+          alt={props.alt || "Image"}
+          src={error ? "/avatar.png" : user.avatar}
+          onError={setError}
+          title={user.name}
+        />
+      </PageLink>
     </picture>
   );
 });
