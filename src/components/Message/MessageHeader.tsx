@@ -71,6 +71,18 @@ export const MessageHeader = observer(function MessageHeader({
           </GenericTooltip>,
           document.body,
         )}
+      {roleList.includes(Role.MODERATOR) && (
+        <MdAdminPanelSettings
+          className={"bronze"}
+          onMouseEnter={(e) =>
+            setHoveredRole({
+              ref: e.target as HTMLElement,
+              label: formatRole(Role.MODERATOR),
+            })
+          }
+          onMouseLeave={() => setHoveredRole(undefined)}
+        />
+      )}
       {roleList.includes(Role.ADMIN) && (
         <MdAdminPanelSettings
           className={"grey"}
