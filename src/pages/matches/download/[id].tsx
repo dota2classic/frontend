@@ -56,7 +56,7 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
             ),
           },
           {
-            title: <>Помести скаченный файл в папку с игрой</>,
+            title: <>Помести скачанный файл в папку с игрой</>,
             content: (
               <>
                 <p className={cx("gold", threadFont.className)}>

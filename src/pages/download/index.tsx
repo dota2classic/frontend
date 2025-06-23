@@ -18,6 +18,7 @@ import { getAuthUrl } from "@/util/getAuthUrl";
 import { ColumnType } from "@/const/tables";
 import { NotoSans } from "@/const/notosans";
 import { TechStaticTabs } from "@/containers";
+import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
 
 const _data = [
   [
@@ -86,11 +87,12 @@ const GuideCompact = () => [
     title: "Запустить игру",
     content: (
       <>
-        Распакуй скаченный архив с игрой, запусти Steam, а затем запусти{" "}
+        Распакуй скачанный архив с игрой, запусти Steam, а затем запусти{" "}
         <span className="gold">dota.exe</span>
         <p>
-          Пока скачивается игра, заходи к нам в <TelegramInvite />! Там много
-          интересного, а еще тебе помогут, если возникнут трудности.
+          Пока скачивается игра, заходи к нам в <TelegramInvite /> и{" "}
+          <DiscordInvite />! Там много интересного, а еще тебе помогут, если
+          возникнут трудности.
         </p>
       </>
     ),
@@ -161,8 +163,7 @@ const GuideCompact = () => [
           <PageLink link={AppRouter.queue.link} className="link">
             поиске
           </PageLink>{" "}
-          в режиме {formatGameMode(MatchmakingMode.UNRANKED)}. Играем мы обычно
-          вечером, примерно с 18:00 по МСК.
+          в режиме {formatGameMode(MatchmakingMode.UNRANKED)}.
         </p>
         А пока можешь изучить{" "}
         <PageLink className="link" link={AppRouter.matches.index().link}>

@@ -9,6 +9,7 @@ import {
   CopySomething,
   EmbedProps,
   Input,
+  Table,
 } from "@/components";
 
 export default function PerformanceTechTab() {
@@ -91,6 +92,23 @@ export default function PerformanceTechTab() {
                 </>
               ),
             },
+            {
+              title: "Как вернуть все обратно",
+              content: (
+                <>
+                  <p>
+                    Если нужно зайти на сайт dota2.com или по другим причинам
+                    хочешь вернуть, как было:
+                  </p>
+                  <ol>
+                    <li>Открываем файл hosts</li>
+                    <li>Убираем строку "0.0.0.0 www.dota2.com"</li>
+                    <li>Сохраняем файл"</li>
+                    <li>Теперь сайт снова доступен.</li>
+                  </ol>
+                </>
+              ),
+            },
           ]}
         />
       </div>
@@ -128,7 +146,7 @@ export default function PerformanceTechTab() {
           <li>
             <CopyBlock
               text={
-                "Как часто обновляется игра при альтабе(полезно для стримов)"
+                "Как часто обновляется игра при альтабе(полезно для стримов, значения от 0 до 20)"
               }
               command={"engine_no_focus_sleep 20"}
             />
@@ -144,11 +162,60 @@ export default function PerformanceTechTab() {
           </li>
           <li>
             <CopyBlock
+              text="Альтернативный рендер теней"
+              command="r_shadow_deferred_simd 1"
+            />
+          </li>
+          <li>
+            <CopyBlock
               text="Альтернативная работа с 'костями'"
               command="cl_simdbones 1; cl_use_simd_bones 1"
             />
           </li>
         </ul>
+      </div>
+
+      <h2>Улучшаем отзывчивость</h2>
+      <div className={c.block}>
+        <p>Если у тебя пинг 40 и ниже, можно подкрутить интерполяцию</p>
+        <p>
+          Мониторим параметр <span className="gold">lerp</span> через netgraph
+          5. Смотрим на цвет "lerp" и на табличку:
+        </p>
+        <Table className="compact">
+          <thead>
+            <tr>
+              <th>Показание lerp</th>
+              <th>Консольная команда</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Красный</td>
+              <td>
+                <CopyBlock text="" command="cl_interp 0.033" />
+              </td>
+            </tr>
+            <tr>
+              <td>Желтый</td>
+              <td>
+                <CopyBlock text="" command="cl_interp 0.037" />
+              </td>
+            </tr>
+            <tr>
+              <td>Оранжевый</td>
+              <td>
+                <CopyBlock text="" command="cl_interp 0.039" />
+              </td>
+            </tr>
+            <tr>
+              <td>Все равно не белый?</td>
+              <td>
+                <CopyBlock text="" command="cl_interp_ratio 2" />
+              </td>
+            </tr>
+          </tbody>
+        </Table>
       </div>
     </div>
   );
