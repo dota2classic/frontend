@@ -66,6 +66,27 @@ export default function FaqTechTab() {
             ),
           },
           {
+            title: "У меня сбиваются настройки игры / не работают квикасты",
+            content: (
+              <>
+                <p>
+                  Отключи Steam Cloud (для современной доты и в глобально по
+                  стиму) и не соглашайся на синхронизацию. По пути{" "}
+                  <span className="shit">Dota 6.84\dota\cfg</span> в config.cfg
+                  в свойствах файла сними галочку только чтение, если имеется.
+                </p>
+                <CopyBlock
+                  text="Включить квикасты на способности"
+                  command="dota_ability_quick_cast 1"
+                />
+                <CopyBlock
+                  text="Включить квикасты на предметы"
+                  command="dota_item_quick_cast 1"
+                />
+              </>
+            ),
+          },
+          {
             title: "Я не могу подключиться к игровому серверу",
             content: (
               <>
@@ -212,7 +233,7 @@ export default function FaqTechTab() {
             ),
           },
           {
-            title: "Графические артефакты",
+            title: "Графические / Аудио артефакты",
             content: (
               <>
                 Можно попробовать:
@@ -228,6 +249,34 @@ export default function FaqTechTab() {
                     Выполнить команда <span className="gold">snd_restart</span>{" "}
                     в коммандой строке Windows или переустановить аудиодрайвер
                   </li>
+                  <li>
+                    Отключить все дополнительные опции графики в настройках игры
+                  </li>
+                  <li>Перейти со встройки на дискретную видеокарту</li>
+                  <li>
+                    <span className="red">ЕСЛИ ПРОШЛОЕ НЕ ПОМОГЛО</span>:
+                    прописать поочередно (с проверкой результата после каждой
+                    команды):
+                  </li>
+                  <ol>
+                    <li>
+                      <CopyBlock
+                        text="Валидные значения: 1, 2"
+                        command="mat_fullbright 1"
+                      />
+                    </li>
+                    <li>
+                      <CopyBlock text="" command="mat_reloadallmaterials" />
+                    </li>
+                    <li>
+                      <CopyBlock text="" command="mat_reloadtextures" />
+                    </li>
+                    <li>
+                      С помощью параметров запуска в bat файлу, установить:{" "}
+                      <span className="shit">-dxlevel 80, 81, 90, 95, 98</span>{" "}
+                      либо <span className="shit">-gl</span>
+                    </li>
+                  </ol>
                 </ol>
               </>
             ),

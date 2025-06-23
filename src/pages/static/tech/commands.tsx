@@ -117,7 +117,9 @@ export default function CommandsTechTab() {
           </li>
           <li>
             Ищем <span className="gold">1134</span> - это стандартная высота
-            камеры
+            камеры. <span className="gold">ВАЖНО!</span> Нам нужно 2 значение в
+            поиске: рядом с ним будет{" "}
+            <span className="shit">dota_camera_pitch_max</span>
           </li>
           <li>
             Меняем на нужную дистанцию(до 1400) и сохраняем. Мы рекомендуем

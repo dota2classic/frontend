@@ -178,9 +178,12 @@ export default function PerformanceTechTab() {
       <h2>Улучшаем отзывчивость</h2>
       <div className={c.block}>
         <p>Если у тебя пинг 40 и ниже, можно подкрутить интерполяцию</p>
+        <CopyBlock text="Команда #1" command="сl_interp 0" />
+        <CopyBlock text="Команда #2" command="cl_interp_ratio 1" />
         <p>
           Мониторим параметр <span className="gold">lerp</span> через netgraph
-          5. Смотрим на цвет "lerp" и на табличку:
+          5. Смотрим на цвет "lerp" и на табличку: мы хотим добиться, чтобы lerp
+          был белого цвета!
         </p>
         <Table className="compact">
           <thead>
@@ -193,7 +196,10 @@ export default function PerformanceTechTab() {
             <tr>
               <td>Красный</td>
               <td>
-                <CopyBlock text="" command="cl_interp 0.033" />
+                <CopyBlock
+                  text="cl_interp (0 - 0.05)"
+                  command="cl_interp 0.033"
+                />
               </td>
             </tr>
             <tr>
