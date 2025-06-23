@@ -25,12 +25,6 @@ export interface CreatePaymentDto {
      * @memberof CreatePaymentDto
      */
     productId: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreatePaymentDto
-     */
-    email: string;
 }
 
 export function CreatePaymentDtoFromJSON(json: any): CreatePaymentDto {
@@ -44,7 +38,6 @@ export function CreatePaymentDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'productId': json['productId'],
-        'email': json['email'],
     };
 }
 
@@ -58,7 +51,6 @@ export function CreatePaymentDtoToJSON(value?: CreatePaymentDto | null): any {
     return {
         
         'productId': value.productId,
-        'email': value.email,
     };
 }
 

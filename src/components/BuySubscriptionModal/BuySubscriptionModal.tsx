@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import c from "./BuySubscriptionModal.module.scss";
-import { Button, Checkbox, GenericModal, Input } from "..";
+import { Button, Checkbox, GenericModal } from "..";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
 import { TrajanPro } from "@/const/fonts";
@@ -21,7 +21,7 @@ import { MdDiscount } from "react-icons/md";
 import { useAsyncButton } from "@/util/use-async-button";
 import { CountdownClient } from "@/components/PeriodicTimer/CountdownClient";
 import { handleException } from "@/util/handleException";
-import { isValidEmail } from "@/util/email";
+import { redirectWithPost } from "@/util/fakeFormRedirect";
 
 interface IBuySubscriptionModalProps {
   onClose: () => void;
@@ -30,10 +30,9 @@ interface IBuySubscriptionModalProps {
 
 export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
   observer(({ onClose, products }) => {
-    const { isAuthorized } = useStore().auth;
+    const { isAuthorized, parsedToken } = useStore().auth;
     const [selectedPlan, setSelectedPlan] = useState(-1);
     const [accept, setAccept] = useState(false);
-    const [email, setEmail] = useState("");
 
     useEffect(() => {
       if (selectedPlan === -1) {
@@ -43,10 +42,11 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
       }
     }, [products, selectedPlan]);
 
-    const [isStartingPayment] = useAsyncButton(async () => {
+    const [isStartingPayment, startPayment] = useAsyncButton(async () => {
       if (selectedPlan === -1) {
         return;
       }
+
       if (!isAuthorized) {
         // Authorize
         setCookie("d2c:auth_redirect", "store", {
@@ -56,13 +56,20 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
         return;
       }
 
+      if (parsedToken?.sub !== "116514945") {
+        return;
+      }
+
       try {
         const result =
           await getApi().payment.userPaymentsControllerCreatePayment({
             productId: selectedPlan,
-            email,
           });
-        window.location.href = result.confirmationUrl;
+
+        await redirectWithPost(
+          `https://pro.selfwork.ru/merchant/v1/init`,
+          result,
+        );
       } catch (e) {
         await handleException(
           "Произошла ошибка при создании платежа",
@@ -71,15 +78,15 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
         );
         console.error("Failed to create payment", e);
       }
-    }, [isAuthorized, selectedPlan, email]);
+    }, [isAuthorized, selectedPlan]);
 
     const selectedPlanInfo = useMemo(() => {
       return products.find((t) => t.id === selectedPlan);
     }, [products, selectedPlan]);
 
     const formValid = useMemo(() => {
-      return accept && isValidEmail(email);
-    }, [accept, email]);
+      return accept;
+    }, [accept]);
 
     return (
       <GenericModal
@@ -163,15 +170,15 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
                 {selectedPlanInfo.pricePerMonth * selectedPlanInfo.months}P
               </span>
             </div>
-            <div className={c.email}>
-              <span>Email</span>
-              <Input
-                placeholder={"Адрес почты для чека"}
-                value={email}
-                type="email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+            {/*<div className={c.email}>*/}
+            {/*  <span>Email</span>*/}
+            {/*  <Input*/}
+            {/*    placeholder={"Адрес почты для чека"}*/}
+            {/*    value={email}*/}
+            {/*    type="email"*/}
+            {/*    onChange={(e) => setEmail(e.target.value)}*/}
+            {/*  />*/}
+            {/*</div>*/}
             <div className={c.checkoutInfo__row} style={{ marginTop: 10 }}>
               <Checkbox onChange={setAccept}>
                 Я согласен с{" "}
@@ -189,7 +196,7 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
         <Button
           disabled={!formValid || isStartingPayment}
           className={cx(TrajanPro.className, c.payButton)}
-          // onClick={startPayment}
+          onClick={startPayment}
           mega
         >
           {/*{isAuthorized ? "Перейти к оплате" : "Авторизоваться и оплатить"}*/}

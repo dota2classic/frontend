@@ -70,9 +70,9 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
-    private async paymentHooksControllerYoukassaNotificationWebhookRaw(): Promise<runtime.ApiResponse<void>> {
-        this.paymentHooksControllerYoukassaNotificationWebhookValidation();
-        const context = this.paymentHooksControllerYoukassaNotificationWebhookContext();
+    private async paymentHooksControllerSelfworkCallbackHookRaw(): Promise<runtime.ApiResponse<void>> {
+        this.paymentHooksControllerSelfworkCallbackHookValidation();
+        const context = this.paymentHooksControllerSelfworkCallbackHookContext();
         const response = await this.request(context);
 
         return new runtime.VoidApiResponse(response);
@@ -82,18 +82,18 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
-    private paymentHooksControllerYoukassaNotificationWebhookValidation() {
+    private paymentHooksControllerSelfworkCallbackHookValidation() {
     }
 
     /**
      */
-    paymentHooksControllerYoukassaNotificationWebhookContext(): runtime.RequestOpts {
+    paymentHooksControllerSelfworkCallbackHookContext(): runtime.RequestOpts {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         return {
-            path: `/v1/payment_web_hook`,
+            path: `/v1/payment_web_hook/selfwork_callback`,
             method: "POST",
             headers: headerParameters,
             query: queryParameters,
@@ -102,8 +102,8 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
-    paymentHooksControllerYoukassaNotificationWebhook = async (): Promise<void> => {
-        await this.paymentHooksControllerYoukassaNotificationWebhookRaw();
+    paymentHooksControllerSelfworkCallbackHook = async (): Promise<void> => {
+        await this.paymentHooksControllerSelfworkCallbackHookRaw();
     }
 
 
