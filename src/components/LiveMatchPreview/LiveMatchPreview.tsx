@@ -19,11 +19,12 @@ import {
 import { AppRouter } from "@/route";
 import { KDATableData } from "@/components/GenericTable/GenericTable";
 import cx from "clsx";
-import { shortName } from "@/util/heroName";
+import heroName, { shortName } from "@/util/heroName";
 import { watchCmd } from "@/util/urls";
 import { TbGrave2 } from "react-icons/tb";
 import { remapNumber } from "@/util/math";
 import { iterateItems } from "@/util";
+import { Username } from "../Username/Username";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -58,16 +59,7 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
               src="/abandon.png"
             />
           </div>
-          {slot.user.steamId.length <= 2 ? (
-            <span>{"Бот"}</span>
-          ) : (
-            <PageLink
-              className={"link"}
-              link={AppRouter.players.player.index(slot.user.steamId).link}
-            >
-              <span>{slot.user.name}</span>
-            </PageLink>
-          )}
+          <Username user={slot.user} block />
           <KDATableData kills={0} deaths={0} assists={0} forceInteger />
         </div>
         <div className={c.itemRow}>
@@ -82,12 +74,16 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
   return (
     <div key={slot.user.steamId} className={c.playerRow}>
       <div className={cx(c.playerHeroRow, hero.respawnTime > 0 && c.dead)}>
-        <div className={c.heroIconWrapper}>
-          <HeroIcon small hero={hero.hero} />
+        <div className={c.iconPlusName}>
+          <div className={c.heroIconWrapper} title={heroName(hero.hero)}>
+          <PageLink link={ AppRouter.heroes.hero.index(hero.hero).link}>
+            <HeroIcon small hero={hero.hero} />
+          </PageLink>
           <TbGrave2
             style={{ opacity: hero.respawnTime > 0 ? 1 : 0 }}
             className={c.skull}
           />
+          <span className={c.level}>{hero.level}</span>
           <img
             className={cx(
               c.abandon,
@@ -100,18 +96,9 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
             alt={`Player ${slot.user.name} abandoned`}
             src="/abandon.png"
           />
+          </div>
+          <Username user={slot.user} block />
         </div>
-        <span className={c.level}>{hero.level}</span>
-        {hero.bot ? (
-          <span>{"Бот"}</span>
-        ) : (
-          <PageLink
-            className={"link"}
-            link={AppRouter.players.player.index(slot.user.steamId).link}
-          >
-            <span>{slot.user.name}</span>
-          </PageLink>
-        )}
         <KDATableData
           kills={hero.kills}
           deaths={hero.deaths}

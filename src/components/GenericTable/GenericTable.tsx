@@ -105,29 +105,34 @@ const ColRenderer: React.FC<{
     return (
       <td
         style={{ maxWidth: col.maxWidth }}
-        className={col.mobileOmit ? "omit" : undefined}
+        className={cx(col.mobileOmit ? "omit" : undefined, c.username)}
       >
         <UserPreview
           avatarSize={40}
           user={value}
           link={col.link ? col.link(data) : undefined}
+          block
         />
       </td>
     );
   } else if (type === ColumnType.Hero) {
     return (
-      <td className={cx({ [c.hero]: !col.noname, omit: col.mobileOmit })}>
+      <td 
+        className={cx({ [c.hero]: !col.noname, omit: col.mobileOmit })}
+        title={heroName(value)}
+      >
         <PageLink
-          link={
-            col.link ? col.link(data) : AppRouter.heroes.hero.index(value).link
-          }
+          className={c.linkContainer}
+          link={col.link ? col.link(data) : AppRouter.heroes.hero.index(value).link}
         >
           {col.noname ? (
             <HeroIcon small hero={value} />
           ) : (
-            <div className={c.player}>
+            <div className={cx(c.contentWrapper, c.heroWrapper)}>
               <HeroIcon small hero={value} />
-              <span>{heroName(value)}</span>
+              <span className={cx(c.heroLinkWrapper, "link", "globalLinkReference")}>
+                <span className={c.heroLink}>{heroName(value)}</span>
+              </span>
             </div>
           )}
         </PageLink>
@@ -147,18 +152,23 @@ const ColRenderer: React.FC<{
   } else if (type === ColumnType.Item) {
     return (
       <td
-        style={{ width: col.noname ? 20 : 120, overflow: "hidden" }}
+        style={{ width: col.noname ? 20 : 120}}
         className={cx(c.item, col.mobileOmit ? "omit" : undefined)}
+        title={itemName(value)}
       >
         {col.noname ? (
           <ItemIcon small item={value} />
         ) : (
           <PageLink
+            className={cx(c.linkContainer)}
             link={AppRouter.items.item(value).link}
-            className={c.oneliner}
           >
-            <ItemIconRaw small item={value} />
-            <span>{!col.noname && itemName(value)}</span>
+            <div className={cx(c.contentWrapper, c.itemWrapper)}>
+              <ItemIconRaw small item={value} />
+              <span className={cx(c.itemLinkWrapper, "link", "globalLinkReference")}>
+                <span className={c.itemLink}>{!col.noname && itemName(value)}</span>
+              </span>
+            </div>
           </PageLink>
         )}
       </td>
@@ -311,7 +321,7 @@ export const GenericTable: React.FC<Props> = ({
 
             return (
               <th
-                className={cx(c.sortable, {
+                className={cx(sortable ? c.sortable : undefined, {
                   [c.hero]: col.type === ColumnType.Hero,
                   omit: col.mobileOmit,
                 })}

@@ -9,25 +9,73 @@
   }
 }
 
-.player {
+.username {
+  display: flex;
+  padding-right: 1rem;
+}
+
+.contentWrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
 
   font-size: 0.8rem;
+}
 
+.heroWrapper {
   & a,
-  span {
-    margin-left: 6px;
+  & span {
     text-transform: capitalize;
-    white-space: nowrap;
     max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
     @media (max-width: 600px) {
       max-width: 120px;
     }
   }
+
+  column-gap: 0.45rem;
+}
+
+.heroLinkWrapper {
+    display: inline-block;
+    min-width: 1rem;
+}
+
+.heroLink {
+    display: inline-block; 
+    white-space: nowrap;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.15rem;
+}
+
+.itemWrapper {  
+  column-gap: 0.35rem;
+
+  & a,
+  & span {
+    text-transform: capitalize;
+    max-width: 140px;
+    @media (max-width: 600px) {
+      max-width: 110px;
+    }
+  }
+}
+
+.itemLinkWrapper {
+  display: inline-block;
+  min-width: 1rem;
+}
+
+.itemLink {
+    display: inline-block; 
+    white-space: nowrap;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.15rem;
+}
+
+.linkContainer:hover :global(.globalLinkReference)::before {
+  width: 100%;
 }
 
 .raw {
@@ -38,20 +86,12 @@
 }
 
 .item {
+  width: 150px;
+  align-items: center;
+  
   & img {
     // margin-top: 4px;
     vertical-align: middle;
-  }
-
-  & span {
-    margin-left: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  & a {
-    max-width: 160px;
   }
 }
 
@@ -70,6 +110,7 @@
 }
 
 .sortable {
+  cursor: pointer;
   & svg {
     vertical-align: middle;
   }
@@ -116,11 +157,4 @@
     margin-top: 1px;
     border-color: transparent transparent white transparent;
   }
-}
-
-.oneliner {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
