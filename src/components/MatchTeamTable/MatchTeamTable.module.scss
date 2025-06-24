@@ -39,17 +39,9 @@
 }
 
 .fixedWidth {
-  width: 300px;
-
-  @media (max-width: 600px) {
-    margin-left: 6px;
-    text-transform: capitalize;
-    white-space: nowrap;
-    width: 200px;
-    max-width: 130px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  width: 10rem;
+  display: flex;
+  align-items: center;
 }
 
 .mobileHidden {

@@ -9,29 +9,38 @@
   }
 }
 
-.player {
+.username {
+  display: flex;
+  padding-right: 1rem;
+}
+
+.contentWrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
 
   font-size: 0.8rem;
+}
 
+.heroWrapper {
   & a,
-  span {
+  & span {
     text-transform: capitalize;
     max-width: 200px;
     @media (max-width: 600px) {
       max-width: 120px;
     }
   }
+
+  column-gap: 0.45rem;
 }
 
-.username {
-  display: flex;
-  padding-right: 1rem;
+.heroLinkWrapper {
+    display: inline-block;
+    min-width: 1rem;
 }
 
-.anyLink {
+.heroLink {
     display: inline-block; 
     white-space: nowrap;  
     overflow: hidden;
@@ -39,28 +48,34 @@
     margin-top: 0.15rem;
 }
 
-.anyLinkWrapper {
-    display: inline-block;
-    min-width: 1rem;
-}
-
-.linkContainer:hover :global(.link)::before {
-  width: 100%;
-}
-
-.contentContainer {
-  column-gap: 0.45rem;
-}
-
-.itemContainer {
-  align-items: center;
-  display: inline-flex;
+.itemWrapper {  
   column-gap: 0.35rem;
+
+  & a,
+  & span {
+    text-transform: capitalize;
+    max-width: 140px;
+    @media (max-width: 600px) {
+      max-width: 110px;
+    }
+  }
 }
 
-.itemName {
-  //53px ширина иконки ItemIconRaw
-  width: calc(100% - 53px);
+.itemLinkWrapper {
+  display: inline-block;
+  min-width: 1rem;
+}
+
+.itemLink {
+    display: inline-block; 
+    white-space: nowrap;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.15rem;
+}
+
+.linkContainer:hover :global(.globalLinkReference)::before {
+  width: 100%;
 }
 
 .raw {
@@ -71,17 +86,12 @@
 }
 
 .item {
-  display: flex;
-  flex-direction: row;
-  white-space: nowrap;
+  width: 150px;
+  align-items: center;
   
   & img {
     // margin-top: 4px;
     vertical-align: middle;
-  }
-
-  & a {
-    max-width: 160px;
   }
 }
 

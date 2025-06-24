@@ -256,8 +256,10 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     <span className={c.level}>{player.level}</span>
                   </div>
                 </td>
-                <td className={c.fixedWidth}>
-                  <Username user={player.user} />
+                <td>
+                  <div className={c.fixedWidth}>
+                    <Username user={player.user} block />
+                  </div>
                 </td>
                 <td
                   className={cx(

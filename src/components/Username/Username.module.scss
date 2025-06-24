@@ -1,17 +1,27 @@
 @import "../../common.scss";
 
-.linkContainer {
+.usernameLinkContainer {
     display: flex;
     align-items: center;
     height: 100%;
-    //40px - размер аватара
-    width: calc(100% - 40px);
+    min-width: 0.5rem;      
+    flex-shrink: 1;  
 
     & a {
         display: flex;
         align-items: center;
         padding-top: 0.05rem;
         height: 100%;
+    }
+    
+    &.block {
+        flex: 1;
+        & a {
+            width: 100%;
+        }
+    }
+
+    &:hover :global(.globalLinkReference)::before {
         width: 100%;
     }
 }
@@ -24,10 +34,7 @@
 }
 
 .usernameWrapper {
-    display: inline-flex; 
+    display: flex;
+    flex-direction: row; 
     min-width: 0.5rem;
-}
-
-.linkContainer:hover :global(.link)::before {
-  width: 100%;
 }

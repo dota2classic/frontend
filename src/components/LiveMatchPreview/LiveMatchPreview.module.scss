@@ -72,11 +72,16 @@
   flex-direction: row;
   column-gap: 0.5rem;
   align-items: center;
+  justify-content: space-between;
   color: white;
 
-  & .player-wrap {
-    flex: 1;
-    max-width: 175px;
+  & .iconPlusName {
+    display: inline-flex;
+    align-items: center;
+    flex: 1; 
+    min-width: 0.5rem;
+    column-gap: 0.5rem;
+    max-width: 15rem;
   }
 }
 

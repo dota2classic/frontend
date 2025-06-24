@@ -56,7 +56,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
         {
           type: showUser ? ColumnType.Player : ColumnType.Hero,
           name: showUser ? "Игрок" : "Герой",
-          maxWidth: 150
+          maxWidth: showUser ? 200 : 150
         },
         {
           type: ColumnType.Raw,

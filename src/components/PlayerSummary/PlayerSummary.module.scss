@@ -47,8 +47,11 @@
   align-items: center;
   justify-content: flex-start;
   column-gap: 0.65rem;
-}
 
+  &:hover :global(.globalLinkReference)::before {
+    width: 100%;
+  }
+}
 
 .icons {
   gap: 6px;

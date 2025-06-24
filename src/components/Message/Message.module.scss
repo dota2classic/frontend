@@ -19,7 +19,6 @@
   gap: 4px;
   align-items: center;
   padding-right: 8px;
-  max-height: 1rem;
 
   & svg {
     vertical-align: middle;
@@ -135,7 +134,7 @@
   }
 
   &:has(:global(.avatar):hover) {
-      :global(.link)::before {
+      :global(.globalLinkReference)::before {
         width: 100%;
       }
     }

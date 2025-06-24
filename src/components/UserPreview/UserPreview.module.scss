@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
   column-gap: 0.5rem;
   font-size: 0.8rem;
   color: $primaryText;
@@ -14,9 +13,13 @@
   // }
   
   &:has(:global(.avatar):hover) {
-    :global(.link)::before {
+    :global(.globalLinkReference)::before {
       width: 100%;
     }
+  }
+
+  &.block {
+    width: 100%;
   }
 }
 

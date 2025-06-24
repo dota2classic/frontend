@@ -11,6 +11,7 @@ interface UsernameProps {
   nolink?: boolean;
   link?: NextLinkProp;
   testId?: string;
+  block?: boolean;
 }
 
 export const Username: React.FC<UsernameProps> = ({
@@ -19,6 +20,7 @@ export const Username: React.FC<UsernameProps> = ({
   nolink,
   link,
   testId,
+  block,
 }) => {
   const targetLink = link ?? AppRouter.players.player.index(user.steamId).link;
   const displayName =
@@ -31,9 +33,9 @@ export const Username: React.FC<UsernameProps> = ({
   }
 
   return (
-    <div className={c.linkContainer} title={user.name}>
+    <div className={cx(c.usernameLinkContainer, block ? c.block : undefined)} title={user.name}>
         <PageLink link={targetLink} testId={testId}>
-            <span className={cx(c.usernameWrapper, "link")}>
+            <span className={cx(c.usernameWrapper, "link", "globalLinkReference")}>
                 <span className={cx(c.usernameLink, className)}>
                     {displayName}
                 </span>

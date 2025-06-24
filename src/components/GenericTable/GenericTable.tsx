@@ -111,6 +111,7 @@ const ColRenderer: React.FC<{
           avatarSize={40}
           user={value}
           link={col.link ? col.link(data) : undefined}
+          block
         />
       </td>
     );
@@ -127,10 +128,10 @@ const ColRenderer: React.FC<{
           {col.noname ? (
             <HeroIcon small hero={value} />
           ) : (
-            <div className={cx(c.player, c.contentContainer)}>
+            <div className={cx(c.contentWrapper, c.heroWrapper)}>
               <HeroIcon small hero={value} />
-              <span className={cx(c.anyLinkWrapper, "link")}>
-                <span className={c.anyLink}>{heroName(value)}</span>
+              <span className={cx(c.heroLinkWrapper, "link", "globalLinkReference")}>
+                <span className={c.heroLink}>{heroName(value)}</span>
               </span>
             </div>
           )}
@@ -159,13 +160,15 @@ const ColRenderer: React.FC<{
           <ItemIcon small item={value} />
         ) : (
           <PageLink
+            className={cx(c.linkContainer)}
             link={AppRouter.items.item(value).link}
-            className={cx(c.itemContainer, c.linkContainer)}
           >
-            <ItemIconRaw small item={value} />
-            <span className={cx(c.anyLinkWrapper, c.itemName,"link")}>
-              <span className={c.anyLink} style={{ width: "100%"}}>{!col.noname && itemName(value)}</span>
-            </span>
+            <div className={cx(c.contentWrapper, c.itemWrapper)}>
+              <ItemIconRaw small item={value} />
+              <span className={cx(c.itemLinkWrapper, "link", "globalLinkReference")}>
+                <span className={c.itemLink}>{!col.noname && itemName(value)}</span>
+              </span>
+            </div>
           </PageLink>
         )}
       </td>

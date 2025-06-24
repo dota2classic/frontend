@@ -59,7 +59,7 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
               src="/abandon.png"
             />
           </div>
-          <Username user={slot.user} />
+          <Username user={slot.user} block />
           <KDATableData kills={0} deaths={0} assists={0} forceInteger />
         </div>
         <div className={c.itemRow}>
@@ -74,7 +74,8 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
   return (
     <div key={slot.user.steamId} className={c.playerRow}>
       <div className={cx(c.playerHeroRow, hero.respawnTime > 0 && c.dead)}>
-        <div className={c.heroIconWrapper} title={heroName(hero.hero)}>
+        <div className={c.iconPlusName}>
+          <div className={c.heroIconWrapper} title={heroName(hero.hero)}>
           <PageLink link={ AppRouter.heroes.hero.index(hero.hero).link}>
             <HeroIcon small hero={hero.hero} />
           </PageLink>
@@ -95,8 +96,9 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
             alt={`Player ${slot.user.name} abandoned`}
             src="/abandon.png"
           />
+          </div>
+          <Username user={slot.user} block />
         </div>
-        <Username user={slot.user}/>
         <KDATableData
           kills={hero.kills}
           deaths={hero.deaths}
