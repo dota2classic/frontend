@@ -116,10 +116,9 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
     const [filter, setFilter] = useState<Filter>(options[0]);
 
     if (match) {
-
       const allPlayers: PlayerInMatchDto[] = useMemo(
         () => [...match.radiant, ...match.dire],
-        [match.radiant, match.dire]
+        [match.radiant, match.dire],
       );
 
       const globalMaxValues = useMemo(() => {
@@ -148,7 +147,7 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
           mx.heroHealing = Math.max(mx.heroHealing, p.heroHealing);
           mx.towerDamage = Math.max(mx.towerDamage, p.towerDamage);
           const goldValue = Math.round(
-            p.gold || Math.round((p.gpm * match.duration) / 60) * 0.6
+            p.gold || Math.round((p.gpm * match.duration) / 60) * 0.6,
           );
           mx.gold = Math.max(mx.gold, goldValue);
         }

@@ -21,9 +21,6 @@ import {
   CreatePaymentDto,
   CreatePaymentDtoFromJSON,
   CreatePaymentDtoToJSON,
-  SelfCreatePaymentDto,
-  SelfCreatePaymentDtoFromJSON,
-  SelfCreatePaymentDtoToJSON,
   SubscriptionProductDto,
   SubscriptionProductDtoFromJSON,
   SubscriptionProductDtoToJSON,
@@ -40,12 +37,12 @@ export class UserPaymentApi extends runtime.BaseAPI {
 
     /**
      */
-    private async userPaymentsControllerCreatePaymentRaw(requestParameters: UserPaymentsControllerCreatePaymentRequest): Promise<runtime.ApiResponse<SelfCreatePaymentDto>> {
+    private async userPaymentsControllerCreatePaymentRaw(requestParameters: UserPaymentsControllerCreatePaymentRequest): Promise<runtime.ApiResponse<string>> {
         this.userPaymentsControllerCreatePaymentValidation(requestParameters);
         const context = this.userPaymentsControllerCreatePaymentContext(requestParameters);
         const response = await this.request(context);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => SelfCreatePaymentDtoFromJSON(jsonValue));
+        return new runtime.TextApiResponse(response) as any;
     }
 
 
@@ -86,7 +83,7 @@ export class UserPaymentApi extends runtime.BaseAPI {
 
     /**
      */
-    userPaymentsControllerCreatePayment = async (createPaymentDto: CreatePaymentDto): Promise<SelfCreatePaymentDto> => {
+    userPaymentsControllerCreatePayment = async (createPaymentDto: CreatePaymentDto): Promise<string> => {
         const response = await this.userPaymentsControllerCreatePaymentRaw({ createPaymentDto: createPaymentDto });
         return await response.value();
     }

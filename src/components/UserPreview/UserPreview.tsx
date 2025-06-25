@@ -31,7 +31,10 @@ export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
     ).get();
 
     return (
-      <div {...props} className={cx(c.user, block ? c.block : undefined, className)}>
+      <div
+        {...props}
+        className={cx(c.user, block ? c.block : undefined, className)}
+      >
         <div>
           <picture
             className={isOnline ? c.online : undefined}
@@ -46,11 +49,7 @@ export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
             />
           </picture>
         </div>
-        <Username 
-          user={user} 
-          link={link} 
-          nolink={nolink}
-          block={block} />
+        <Username user={user} link={link} nolink={nolink} block={block} />
       </div>
     );
   },

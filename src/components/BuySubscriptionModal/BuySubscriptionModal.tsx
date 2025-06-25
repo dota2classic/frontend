@@ -9,7 +9,6 @@ import {
   RiCheckboxBlankCircleLine,
   RiCheckboxCircleFill,
 } from "react-icons/ri";
-import { getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { setCookie } from "cookies-next";
@@ -21,7 +20,6 @@ import { MdDiscount } from "react-icons/md";
 import { useAsyncButton } from "@/util/use-async-button";
 import { CountdownClient } from "@/components/PeriodicTimer/CountdownClient";
 import { handleException } from "@/util/handleException";
-import { redirectWithPost } from "@/util/fakeFormRedirect";
 
 interface IBuySubscriptionModalProps {
   onClose: () => void;
@@ -61,15 +59,19 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
       }
 
       try {
-        const result =
-          await getApi().payment.userPaymentsControllerCreatePayment({
-            productId: selectedPlan,
-          });
+        // const result =
+        //   await getApi().payment.userPaymentsControllerCreatePayment({
+        //     productId: selectedPlan,
+        //     email: "enchantinggg4@gmail.com",
+        //   });
 
-        await redirectWithPost(
-          `https://pro.selfwork.ru/merchant/v1/init`,
-          result,
-        );
+        // window.location = result;
+        return;
+
+        // await redirectWithPost(
+        //   `https://pro.selfwork.ru/merchant/v1/init`,
+        //   result,
+        // );
       } catch (e) {
         await handleException(
           "Произошла ошибка при создании платежа",

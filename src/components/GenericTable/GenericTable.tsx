@@ -117,20 +117,24 @@ const ColRenderer: React.FC<{
     );
   } else if (type === ColumnType.Hero) {
     return (
-      <td 
+      <td
         className={cx({ [c.hero]: !col.noname, omit: col.mobileOmit })}
         title={heroName(value)}
       >
         <PageLink
           className={c.linkContainer}
-          link={col.link ? col.link(data) : AppRouter.heroes.hero.index(value).link}
+          link={
+            col.link ? col.link(data) : AppRouter.heroes.hero.index(value).link
+          }
         >
           {col.noname ? (
             <HeroIcon small hero={value} />
           ) : (
             <div className={cx(c.contentWrapper, c.heroWrapper)}>
               <HeroIcon small hero={value} />
-              <span className={cx(c.heroLinkWrapper, "link", "globalLinkReference")}>
+              <span
+                className={cx(c.heroLinkWrapper, "link", "globalLinkReference")}
+              >
                 <span className={c.heroLink}>{heroName(value)}</span>
               </span>
             </div>
@@ -152,7 +156,7 @@ const ColRenderer: React.FC<{
   } else if (type === ColumnType.Item) {
     return (
       <td
-        style={{ width: col.noname ? 20 : 120}}
+        style={{ width: col.noname ? 20 : 120 }}
         className={cx(c.item, col.mobileOmit ? "omit" : undefined)}
         title={itemName(value)}
       >
@@ -165,8 +169,12 @@ const ColRenderer: React.FC<{
           >
             <div className={cx(c.contentWrapper, c.itemWrapper)}>
               <ItemIconRaw small item={value} />
-              <span className={cx(c.itemLinkWrapper, "link", "globalLinkReference")}>
-                <span className={c.itemLink}>{!col.noname && itemName(value)}</span>
+              <span
+                className={cx(c.itemLinkWrapper, "link", "globalLinkReference")}
+              >
+                <span className={c.itemLink}>
+                  {!col.noname && itemName(value)}
+                </span>
               </span>
             </div>
           </PageLink>

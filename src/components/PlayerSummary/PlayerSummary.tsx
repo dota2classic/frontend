@@ -147,7 +147,11 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 user={user}
                 alt={`Avatar of player ${name}`}
               />
-              <Username user={user} className={cx(c.playerName, "link")} testId={"player-summary-player-name"} />
+              <Username
+                user={user}
+                className={cx(c.playerName, "link")}
+                testId={"player-summary-player-name"}
+              />
             </div>
             <div className={cx(c.player, c.icons)}>
               <a

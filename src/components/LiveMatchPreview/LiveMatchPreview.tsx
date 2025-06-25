@@ -76,26 +76,26 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
       <div className={cx(c.playerHeroRow, hero.respawnTime > 0 && c.dead)}>
         <div className={c.iconPlusName}>
           <div className={c.heroIconWrapper} title={heroName(hero.hero)}>
-          <PageLink link={ AppRouter.heroes.hero.index(hero.hero).link}>
-            <HeroIcon small hero={hero.hero} />
-          </PageLink>
-          <TbGrave2
-            style={{ opacity: hero.respawnTime > 0 ? 1 : 0 }}
-            className={c.skull}
-          />
-          <span className={c.level}>{hero.level}</span>
-          <img
-            className={cx(
-              c.abandon,
-              (slot.connection ===
-                DotaConnectionState.DOTA_CONNECTION_STATE_DISCONNECTED ||
-                slot.connection ===
-                  DotaConnectionState.DOTA_CONNECTION_STATE_ABANDONED) &&
-                c.abandon__visible,
-            )}
-            alt={`Player ${slot.user.name} abandoned`}
-            src="/abandon.png"
-          />
+            <PageLink link={AppRouter.heroes.hero.index(hero.hero).link}>
+              <HeroIcon small hero={hero.hero} />
+            </PageLink>
+            <TbGrave2
+              style={{ opacity: hero.respawnTime > 0 ? 1 : 0 }}
+              className={c.skull}
+            />
+            <span className={c.level}>{hero.level}</span>
+            <img
+              className={cx(
+                c.abandon,
+                (slot.connection ===
+                  DotaConnectionState.DOTA_CONNECTION_STATE_DISCONNECTED ||
+                  slot.connection ===
+                    DotaConnectionState.DOTA_CONNECTION_STATE_ABANDONED) &&
+                  c.abandon__visible,
+              )}
+              alt={`Player ${slot.user.name} abandoned`}
+              src="/abandon.png"
+            />
           </div>
           <Username user={slot.user} block />
         </div>

@@ -61,9 +61,7 @@ export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
           src={hat}
         />
       )}
-      <PageLink
-        link={linkProp}
-      >
+      <PageLink link={linkProp}>
         <Image
           {...props}
           className={cx(props.className, "avatar")}

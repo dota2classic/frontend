@@ -1,7 +1,6 @@
 import { Role } from "@/api/mapped-models";
 import {
   GenericTooltip,
-  PageLink,
   PeriodicTimerClient,
   PlayerAvatar,
   Tooltipable,
@@ -150,7 +149,11 @@ export const MessageHeader = observer(function MessageHeader({
       </div>
       <div className={c.contentWrapper__middle}>
         <div className={cx(c.author)}>
-          <Username link={AppRouter.players.player.index(message.author.steamId).link}  user={message.author} className={c.username} />
+          <Username
+            link={AppRouter.players.player.index(message.author.steamId).link}
+            user={message.author}
+            className={c.username}
+          />
           {roles}
           <span className={c.messageTime}>
             {<PeriodicTimerClient time={message.createdAt} />}

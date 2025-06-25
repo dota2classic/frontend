@@ -30,7 +30,7 @@ export interface PlayerMatchItem {
   item4: number;
   item5: number;
 
-  user: UserDTO
+  user: UserDTO;
 }
 
 interface IPlayerMatchTableProps {
@@ -46,7 +46,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
   className,
   loading,
   withItems,
-  showUser
+  showUser,
 }) => {
   return (
     <GenericTable
@@ -56,7 +56,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
         {
           type: showUser ? ColumnType.Player : ColumnType.Hero,
           name: showUser ? "Игрок" : "Герой",
-          maxWidth: showUser ? 180 : 150
+          maxWidth: showUser ? 180 : 150,
         },
         {
           type: ColumnType.Raw,
@@ -121,7 +121,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           : []),
       ]}
       data={data.map((it) => [
-        showUser ? it.user: it.hero,
+        showUser ? it.user : it.hero,
         { won: it.won, timestamp: it.timestamp, matchId: it.matchId },
         [it.mode, it.gameMode],
         it.duration,

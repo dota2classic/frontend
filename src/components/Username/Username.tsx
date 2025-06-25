@@ -25,7 +25,7 @@ export const Username: React.FC<UsernameProps> = ({
   const targetLink = link ?? AppRouter.players.player.index(user.steamId).link;
   const displayName =
     Number(user.steamId) > 10
-      ? user.name?.trim() || '<blank>'
+      ? user.name?.trim() || "<blank>"
       : `Бот #${user.steamId}`;
 
   if (nolink) {
@@ -33,14 +33,15 @@ export const Username: React.FC<UsernameProps> = ({
   }
 
   return (
-    <div className={cx(c.usernameLinkContainer, block ? c.block : undefined)} title={user.name}>
-        <PageLink link={targetLink} testId={testId}>
-            <span className={cx(c.usernameWrapper, "link", "globalLinkReference")}>
-                <span className={cx(c.usernameLink, className)}>
-                    {displayName}
-                </span>
-            </span>
-        </PageLink>
+    <div
+      className={cx(c.usernameLinkContainer, block ? c.block : undefined)}
+      title={user.name}
+    >
+      <PageLink link={targetLink} testId={testId}>
+        <span className={cx(c.usernameWrapper, "link", "globalLinkReference")}>
+          <span className={cx(c.usernameLink, className)}>{displayName}</span>
+        </span>
+      </PageLink>
     </div>
   );
 };
