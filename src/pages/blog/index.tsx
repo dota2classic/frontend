@@ -27,9 +27,7 @@ export default function NewsList({ page }: Props) {
         title={"Новости проекта"}
         description={"Последние новости проекта dota 2 classic"}
       />
-      <Panel
-
-        className="horizontal">
+      <Panel className="horizontal">
         <div className="left">
           <Breadcrumbs>
             <PageLink link={AppRouter.blog.index.link}>Новости</PageLink>
