@@ -105,9 +105,9 @@ export const MessageHeader = observer(function MessageHeader({
           </a>
         </Tooltipable>
       )}
-      {roleList.includes(Role.OLD) && chatIconOld && (
+      {roleList.includes(Role.OLD) && (
         <img
-          src={chatIconOld.image.url}
+          src={chatIconOld ? chatIconOld.image.url : "/logo/128.png"}
           className={cx(
             animations.old,
             message.author.chatIconAnimation?.image.key,
