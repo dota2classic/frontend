@@ -19,7 +19,6 @@ import { FaRegCalendarDays } from "react-icons/fa6";
 import { MdDiscount } from "react-icons/md";
 import { useAsyncButton } from "@/util/use-async-button";
 import { CountdownClient } from "@/components/PeriodicTimer/CountdownClient";
-import { handleException } from "@/util/handleException";
 
 interface IBuySubscriptionModalProps {
   onClose: () => void;
@@ -41,11 +40,12 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
     }, [products, selectedPlan]);
 
     const [isStartingPayment, startPayment] = useAsyncButton(async () => {
-      if (selectedPlan === -1) {
+      const product = products.find((t) => t.id === selectedPlan);
+      if (!product) {
         return;
       }
 
-      if (!isAuthorized) {
+      if (!isAuthorized || !parsedToken) {
         // Authorize
         setCookie("d2c:auth_redirect", "store", {
           maxAge: 60 * 5 * 24 * 90, // 5 minutes
@@ -54,32 +54,10 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
         return;
       }
 
-      if (parsedToken?.sub !== "116514945") {
-        return;
-      }
-
-      try {
-        // const result =
-        //   await getApi().payment.userPaymentsControllerCreatePayment({
-        //     productId: selectedPlan,
-        //     email: "enchantinggg4@gmail.com",
-        //   });
-
-        // window.location = result;
-        return;
-
-        // await redirectWithPost(
-        //   `https://pro.selfwork.ru/merchant/v1/init`,
-        //   result,
-        // );
-      } catch (e) {
-        await handleException(
-          "Произошла ошибка при создании платежа",
-          e,
-          15000,
-        );
-        console.error("Failed to create payment", e);
-      }
+      window.open(
+        `https://t.me/dotaclassic_payments_bot?start=${parsedToken.sub}`,
+        "__blank",
+      );
     }, [isAuthorized, selectedPlan]);
 
     const selectedPlanInfo = useMemo(() => {
