@@ -18,7 +18,6 @@ import { FaRubleSign } from "react-icons/fa";
 import { FaRegCalendarDays } from "react-icons/fa6";
 import { MdDiscount } from "react-icons/md";
 import { useAsyncButton } from "@/util/use-async-button";
-import { CountdownClient } from "@/components/PeriodicTimer/CountdownClient";
 
 interface IBuySubscriptionModalProps {
   onClose: () => void;
@@ -179,11 +178,7 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
           onClick={startPayment}
           mega
         >
-          {/*{isAuthorized ? "Перейти к оплате" : "Авторизоваться и оплатить"}*/}
-          Скоро будет доступно
-          <div className={c.countdown}>
-            <CountdownClient until="2025-06-26T00:00:00.000Z" />
-          </div>
+          {isAuthorized ? "Перейти к оплате" : "Авторизоваться и оплатить"}
         </Button>
       </GenericModal>
     );
