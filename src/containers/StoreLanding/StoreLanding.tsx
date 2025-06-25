@@ -68,7 +68,7 @@ export const StoreLanding = observer(({ products }: Props) => {
         heading="h2"
         image="/splash/unban.webp"
         title="Разбан героя"
-        text="Забанили героя? Это не повод отказываться от любимого персонажа. С функцией разбана играй на том, кто действительно нравится."
+        text="Забанили героя? Это не повод отказываться от любимого персонажа. Подписчики dotaclassic plus могут выбирать запрещенных героев."
       />
       <StoreLandingSlide
         heading="h2"

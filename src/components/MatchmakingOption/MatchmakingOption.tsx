@@ -109,6 +109,7 @@ export const MatchmakingOption = observer(
       >
         <div className={c.modeMain}>
           <Checkbox
+            className={c.mode__select}
             disabled={!!disabled}
             checked={(selected || localSelected) && !disabled}
             onChange={() => onSelect(mode, version)}

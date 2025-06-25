@@ -18,76 +18,22 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
-  CreatePaymentDto,
-  CreatePaymentDtoFromJSON,
-  CreatePaymentDtoToJSON,
+  SimulatePaymentDto,
+  SimulatePaymentDtoFromJSON,
+  SimulatePaymentDtoToJSON,
   SubscriptionProductDto,
   SubscriptionProductDtoFromJSON,
   SubscriptionProductDtoToJSON,
 } from "../models";
 
-export interface UserPaymentsControllerCreatePaymentRequest {
-  createPaymentDto: CreatePaymentDto;
+export interface UserPaymentsControllerSimulatePaymentRequest {
+  simulatePaymentDto: SimulatePaymentDto;
 }
 
 /**
  * 
  */
 export class UserPaymentApi extends runtime.BaseAPI {
-
-    /**
-     */
-    private async userPaymentsControllerCreatePaymentRaw(requestParameters: UserPaymentsControllerCreatePaymentRequest): Promise<runtime.ApiResponse<string>> {
-        this.userPaymentsControllerCreatePaymentValidation(requestParameters);
-        const context = this.userPaymentsControllerCreatePaymentContext(requestParameters);
-        const response = await this.request(context);
-
-        return new runtime.TextApiResponse(response) as any;
-    }
-
-
-
-    /**
-     */
-    private userPaymentsControllerCreatePaymentValidation(requestParameters: UserPaymentsControllerCreatePaymentRequest) {
-        if (requestParameters.createPaymentDto === null || requestParameters.createPaymentDto === undefined) {
-            throw new runtime.RequiredError("createPaymentDto","Required parameter requestParameters.createPaymentDto was null or undefined when calling userPaymentsControllerCreatePayment.");
-        }
-    }
-
-    /**
-     */
-    userPaymentsControllerCreatePaymentContext(requestParameters: UserPaymentsControllerCreatePaymentRequest): runtime.RequestOpts {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === "function" ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        return {
-            path: `/v1/user_payment`,
-            method: "POST",
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreatePaymentDtoToJSON(requestParameters.createPaymentDto),
-        };
-    }
-
-    /**
-     */
-    userPaymentsControllerCreatePayment = async (createPaymentDto: CreatePaymentDto): Promise<string> => {
-        const response = await this.userPaymentsControllerCreatePaymentRaw({ createPaymentDto: createPaymentDto });
-        return await response.value();
-    }
-
 
     /**
      */
@@ -134,5 +80,58 @@ export class UserPaymentApi extends runtime.BaseAPI {
         const context = this.userPaymentsControllerGetProductsContext();
         return useSWR(context, valid ? () => this.userPaymentsControllerGetProducts() : null, config)
     }
+
+    /**
+     */
+    private async userPaymentsControllerSimulatePaymentRaw(requestParameters: UserPaymentsControllerSimulatePaymentRequest): Promise<runtime.ApiResponse<void>> {
+        this.userPaymentsControllerSimulatePaymentValidation(requestParameters);
+        const context = this.userPaymentsControllerSimulatePaymentContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private userPaymentsControllerSimulatePaymentValidation(requestParameters: UserPaymentsControllerSimulatePaymentRequest) {
+        if (requestParameters.simulatePaymentDto === null || requestParameters.simulatePaymentDto === undefined) {
+            throw new runtime.RequiredError("simulatePaymentDto","Required parameter requestParameters.simulatePaymentDto was null or undefined when calling userPaymentsControllerSimulatePayment.");
+        }
+    }
+
+    /**
+     */
+    userPaymentsControllerSimulatePaymentContext(requestParameters: UserPaymentsControllerSimulatePaymentRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/user_payment/record_payment`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: SimulatePaymentDtoToJSON(requestParameters.simulatePaymentDto),
+        };
+    }
+
+    /**
+     */
+    userPaymentsControllerSimulatePayment = async (simulatePaymentDto: SimulatePaymentDto): Promise<void> => {
+        await this.userPaymentsControllerSimulatePaymentRaw({ simulatePaymentDto: simulatePaymentDto });
+    }
+
 
 }

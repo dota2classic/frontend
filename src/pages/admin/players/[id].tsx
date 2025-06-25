@@ -28,7 +28,7 @@ import { RoleNames } from "@/const/roles";
 import cx from "clsx";
 import { fullDate } from "@/util/dates";
 import { formatBanReason } from "@/util/texts/bans";
-import { AdminPlayerBanSettings } from "@/containers";
+import { AdminPlayerBanSettings, GiveProductContainer } from "@/containers";
 
 // const BanReasonOptions = [
 //   BanReason.GAME_DECLINE,
@@ -297,6 +297,11 @@ export default function AdminPlayerPage({
       <Section className={c2.grid12}>
         <header>Блокировка</header>
         <AdminPlayerBanSettings steamId={steamId} />
+      </Section>
+
+      <Section className={c2.grid12}>
+        <header>Подписка</header>
+        <GiveProductContainer steamId={steamId} />
       </Section>
 
       <Section className={c2.grid12}>

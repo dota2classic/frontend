@@ -30,3 +30,4 @@ export { AdminPlayerBanSettings } from "./AdminPlayerBanSettings/AdminPlayerBanS
 export { AcceptCookiesContainer } from "./AcceptCookiesContainer/AcceptCookiesContainer";
 export { PaidFeatureModal } from "./PaidFeatureModal/PaidFeatureModal";
 export { TechStaticTabs } from "./TechStaticTabs/TechStaticTabs";
+export { GiveProductContainer } from "./GiveProductContainer/GiveProductContainer";
