@@ -186,3 +186,8 @@ iframe {
   align-content: center;
   gap: 8px;
 }
+
+
+.horizontal {
+  flex-direction: row;
+}
