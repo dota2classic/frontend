@@ -66,6 +66,12 @@ export interface PunishmentLogDto {
     duration: number;
     /**
      * 
+     * @type {string}
+     * @memberof PunishmentLogDto
+     */
+    reportId?: string;
+    /**
+     * 
      * @type {RuleDto}
      * @memberof PunishmentLogDto
      */
@@ -93,6 +99,7 @@ export function PunishmentLogDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'reported': UserDTOFromJSON(json['reported']),
         'executor': UserDTOFromJSON(json['executor']),
         'duration': json['duration'],
+        'reportId': !exists(json, 'reportId') ? undefined : json['reportId'],
         'rule': RuleDtoFromJSON(json['rule']),
         'punishment': RulePunishmentDtoFromJSON(json['punishment']),
     };
@@ -112,6 +119,7 @@ export function PunishmentLogDtoToJSON(value?: PunishmentLogDto | null): any {
         'reported': UserDTOToJSON(value.reported),
         'executor': UserDTOToJSON(value.executor),
         'duration': value.duration,
+        'reportId': value.reportId,
         'rule': RuleDtoToJSON(value.rule),
         'punishment': RulePunishmentDtoToJSON(value.punishment),
     };

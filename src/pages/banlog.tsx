@@ -34,6 +34,7 @@ export default function BanLog({ page }: Props) {
             <th>Дата наказания</th>
             <th>Длительность бана</th>
             <th>Правило</th>
+            <th>Жалоба</th>
             <th>Нарушитель</th>
             <th>Исполнитель</th>
           </tr>
@@ -55,6 +56,17 @@ export default function BanLog({ page }: Props) {
                 <PageLink link={AppRouter.rules2.rule(log.rule.id).link}>
                   {log.rule.title}
                 </PageLink>
+              </td>
+              <td>
+                {log.reportId ? (
+                  <PageLink
+                    link={AppRouter.forum.report.report(log.reportId).link}
+                  >
+                    С жалобой
+                  </PageLink>
+                ) : (
+                  <span>Без жалобы</span>
+                )}
               </td>
               <td>
                 <UserPreview user={log.reported} />
