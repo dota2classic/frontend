@@ -31,3 +31,4 @@ export { AcceptCookiesContainer } from "./AcceptCookiesContainer/AcceptCookiesCo
 export { PaidFeatureModal } from "./PaidFeatureModal/PaidFeatureModal";
 export { TechStaticTabs } from "./TechStaticTabs/TechStaticTabs";
 export { GiveProductContainer } from "./GiveProductContainer/GiveProductContainer";
+export { LogFileHistory } from "./LogFileHistory/LogFileHistory";

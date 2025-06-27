@@ -18,6 +18,9 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+  LogLineDto,
+  LogLineDtoFromJSON,
+  LogLineDtoToJSON,
   UploadedImageDto,
   UploadedImageDtoFromJSON,
   UploadedImageDtoToJSON,
@@ -25,6 +28,10 @@ import {
   UploadedImagePageDtoFromJSON,
   UploadedImagePageDtoToJSON,
 } from "../models";
+
+export interface StorageControllerGetLogMessagesRequest {
+  id: number;
+}
 
 export interface StorageControllerGetUploadedFilesRequest {
   ctoken?: string;
@@ -38,6 +45,59 @@ export interface StorageControllerUploadImageRequest {
  * 
  */
 export class StorageApi extends runtime.BaseAPI {
+
+    /**
+     */
+    private async storageControllerGetLogMessagesRaw(requestParameters: StorageControllerGetLogMessagesRequest): Promise<runtime.ApiResponse<Array<LogLineDto>>> {
+        this.storageControllerGetLogMessagesValidation(requestParameters);
+        const context = this.storageControllerGetLogMessagesContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LogLineDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private storageControllerGetLogMessagesValidation(requestParameters: StorageControllerGetLogMessagesRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling storageControllerGetLogMessages.");
+        }
+    }
+
+    /**
+     */
+    storageControllerGetLogMessagesContext(requestParameters: StorageControllerGetLogMessagesRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/storage/match/{id}/log`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    storageControllerGetLogMessages = async (id: number): Promise<Array<LogLineDto>> => {
+        const response = await this.storageControllerGetLogMessagesRaw({ id: id });
+        return await response.value();
+    }
+
+    useStorageControllerGetLogMessages(id: number, config?: SWRConfiguration<Array<LogLineDto>, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.storageControllerGetLogMessagesContext({ id: id! });
+        return useSWR(context, valid ? () => this.storageControllerGetLogMessages(id!) : null, config)
+    }
 
     /**
      */

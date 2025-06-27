@@ -46,6 +46,7 @@ export default function ReportPage({
       </Panel>
       <br />
       <ReportCard report={report} punishments={punishments} />
+      <br />
       <PaginatedThread
         populateMessages={messages}
         threadType={ThreadType.REPORT}

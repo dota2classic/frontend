@@ -1,0 +1,22 @@
+@import "../../common.scss";
+
+.log {
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.empty {
+  padding: 12px 18px !important;
+}
+
+.logEntry {
+  padding: 6px 8px;
+}
+
+
+.team {
+  width: 100px;
+}

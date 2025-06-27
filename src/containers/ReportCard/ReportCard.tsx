@@ -7,6 +7,7 @@ import {
   Duration,
   Message,
   PageLink,
+  Section,
   SelectOptions,
   Table,
   UserPreview,
@@ -14,9 +15,10 @@ import {
 import { AppRouter } from "@/route";
 import { observer } from "mobx-react-lite";
 import { useIsModerator } from "@/util";
-import { ReportDto, RulePunishmentDto } from "@/api/back";
+import { ReportDto, RulePunishmentDto, RuleType } from "@/api/back";
 import { useAsyncButton } from "@/util/use-async-button";
 import cx from "clsx";
+import { LogFileHistory } from "@/containers";
 
 interface IReportCardProps {
   report: ReportDto;
@@ -147,6 +149,18 @@ export const ReportCard: React.FC<IReportCardProps> = observer(
               )}
             </tbody>
           </Table>
+
+          {report.matchId &&
+            report.rule.ruleType === RuleType.COMMUNICATION && (
+              <Section>
+                <header>История сообщений в матче</header>
+
+                <LogFileHistory
+                  matchId={report.matchId}
+                  steamId={report.reported.steamId}
+                />
+              </Section>
+            )}
         </div>
       </>
     );
