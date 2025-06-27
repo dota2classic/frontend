@@ -100,6 +100,14 @@ export const ReportCard: React.FC<IReportCardProps> = observer(
                   </td>
                 </tr>
               ) : null}
+              <tr>
+                <td>Тип правила</td>
+                <td>
+                  {report.rule.ruleType === RuleType.COMMUNICATION
+                    ? "Коммуникация"
+                    : "Геймплей"}
+                </td>
+              </tr>
               {isModerator && (
                 <>
                   <tr>
