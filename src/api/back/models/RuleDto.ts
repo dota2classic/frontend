@@ -18,6 +18,10 @@ import {
     RulePunishmentDtoFromJSON,
     RulePunishmentDtoFromJSONTyped,
     RulePunishmentDtoToJSON,
+    RuleType,
+    RuleTypeFromJSON,
+    RuleTypeFromJSONTyped,
+    RuleTypeToJSON,
 } from './';
 
 /**
@@ -26,6 +30,12 @@ import {
  * @interface RuleDto
  */
 export interface RuleDto {
+    /**
+     * 
+     * @type {RuleType}
+     * @memberof RuleDto
+     */
+    ruleType: RuleType;
     /**
      * 
      * @type {string}
@@ -86,6 +96,7 @@ export function RuleDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): R
     }
     return {
         
+        'ruleType': RuleTypeFromJSON(json['ruleType']),
         'id': json['id'],
         'index': json['index'],
         'title': json['title'],
@@ -106,6 +117,7 @@ export function RuleDtoToJSON(value?: RuleDto | null): any {
     }
     return {
         
+        'ruleType': RuleTypeToJSON(value.ruleType),
         'id': value.id,
         'index': value.index,
         'title': value.title,

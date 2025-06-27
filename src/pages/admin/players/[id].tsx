@@ -261,6 +261,16 @@ export default function AdminPlayerPage({
                 />
               </td>
             </tr>
+
+            <tr>
+              <td>Запретить жалобы</td>
+              <td>
+                <Checkbox
+                  onChange={(e) => updateFlag({ disableReports: e })}
+                  checked={flags?.disableReports}
+                />
+              </td>
+            </tr>
           </tbody>
         </Table>
       </Section>

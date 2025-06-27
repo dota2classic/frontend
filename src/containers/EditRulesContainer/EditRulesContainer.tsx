@@ -1,7 +1,12 @@
 import React, { useCallback, useRef } from "react";
 
 import c from "./EditRulesContainer.module.scss";
-import { RuleDto, RulePunishmentDto, UpdateRuleIndexDto } from "@/api/back";
+import {
+  RuleDto,
+  RulePunishmentDto,
+  RuleType,
+  UpdateRuleIndexDto,
+} from "@/api/back";
 import { observer, useLocalObservable } from "mobx-react-lite";
 import { MoveHandler, Tree, TreeApi } from "@dota2classic/react-arborist";
 import { RuleNode } from "@/containers/EditRulesContainer/RuleNode";
@@ -57,6 +62,7 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
           title: state.editedRule.title,
           punishmentId: state.editedRule.punishment?.id || null,
           automatic: state.editedRule.automatic,
+          ruleType: state.editedRule.ruleType,
         },
       );
       const rules = await getApi().rules.ruleControllerGetAllRules();
@@ -230,6 +236,29 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
                     punishment: state.punishments.find(
                       (t) => t.id === p?.value,
                     ),
+                  });
+                }}
+              />
+
+              <header>Тип правила</header>
+              <SelectOptions
+                defaultText={"Тип правила"}
+                options={[
+                  {
+                    value: RuleType.COMMUNICATION,
+                    label: "Коммуникации",
+                  },
+                  {
+                    value: RuleType.GAMEPLAY,
+                    label: "Геймплей",
+                  },
+                ]}
+                selected={state.editedRule.ruleType}
+                onSelect={(
+                  p: { value: RuleType; label: string } | undefined,
+                ) => {
+                  updateEditedRule({
+                    ruleType: p!.value,
                   });
                 }}
               />

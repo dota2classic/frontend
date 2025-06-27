@@ -15,7 +15,7 @@ import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
 import { AdminNavbarItem } from "@/components/Navbar/AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdGavel } from "react-icons/md";
-import { FaCoins, FaInfo, FaJournalWhills } from "react-icons/fa";
+import { FaCoins, FaJournalWhills } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
 
@@ -71,9 +71,21 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                     action: AppRouter.lobby.index.link,
                   },
                   {
-                    Icon: FaInfo,
+                    newCategory: true,
                     label: "Как играть",
                     action: AppRouter.download.link,
+                  },
+                  {
+                    label: "Настройка клиента",
+                    action: AppRouter.static.tech.commands.link,
+                  },
+                  {
+                    label: "FPS и пинг",
+                    action: AppRouter.static.tech.performance.link,
+                  },
+                  {
+                    label: "Частые проблемы",
+                    action: AppRouter.static.tech.faq.link,
                   },
                 ]}
               >

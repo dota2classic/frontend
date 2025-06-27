@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./RuleRender.module.scss";
-import { RuleDto } from "@/api/back";
+import { RuleDto, RuleType } from "@/api/back";
 import { FaHashtag } from "react-icons/fa";
 import { Duration } from "@/components";
 import cx from "clsx";
@@ -46,6 +46,10 @@ export const RuleRender: React.FC<IRuleRenderProps> = ({
     <span className={c.punishment}>
       Наказание:{" "}
       <Duration duration={rule.punishment.durationHours * 60 * 60} long />
+      {", "}
+      {rule.ruleType === RuleType.COMMUNICATION
+        ? "запрет коммуникаций"
+        : "запрет поиска"}
     </span>
   ) : null;
 

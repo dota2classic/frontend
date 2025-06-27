@@ -13,12 +13,25 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    RuleType,
+    RuleTypeFromJSON,
+    RuleTypeFromJSONTyped,
+    RuleTypeToJSON,
+} from './';
+
 /**
  * 
  * @export
  * @interface UpdateRuleDto
  */
 export interface UpdateRuleDto {
+    /**
+     * 
+     * @type {RuleType}
+     * @memberof UpdateRuleDto
+     */
+    ruleType?: RuleType;
     /**
      * 
      * @type {number}
@@ -67,6 +80,7 @@ export function UpdateRuleDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
+        'ruleType': !exists(json, 'ruleType') ? undefined : RuleTypeFromJSON(json['ruleType']),
         'parent': !exists(json, 'parent') ? undefined : json['parent'],
         'title': !exists(json, 'title') ? undefined : json['title'],
         'description': !exists(json, 'description') ? undefined : json['description'],
@@ -85,6 +99,7 @@ export function UpdateRuleDtoToJSON(value?: UpdateRuleDto | null): any {
     }
     return {
         
+        'ruleType': RuleTypeToJSON(value.ruleType),
         'parent': value.parent,
         'title': value.title,
         'description': value.description,

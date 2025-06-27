@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import {
   Button,
   GenericModal,
@@ -11,13 +11,20 @@ import {
 } from "@/components";
 import { observer } from "mobx-react-lite";
 import { getApi } from "@/api/hooks";
-import { PlayerInMatchDto, PrettyRuleDto, ThreadMessageDTO } from "@/api/back";
+import {
+  PlayerInMatchDto,
+  PrettyRuleDto,
+  RuleType,
+  ThreadMessageDTO,
+} from "@/api/back";
 import c from "./ReportModal.module.scss";
 import cx from "clsx";
 import { useAsyncButton } from "@/util/use-async-button";
 import { useStore } from "@/store";
 import { makeSimpleToast } from "@/components/Toast/toasts";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
+import { NotoSans } from "@/const/notosans";
+import { threadFont } from "@/const/fonts";
 
 type MatchReportMeta = { matchId: number; player: PlayerInMatchDto };
 type MessageReportMeta = { message: ThreadMessageDTO };
@@ -52,11 +59,17 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
     const [selectedReportReason, setSelectedReportReason] = useState<
       number | undefined
     >(undefined);
-    const rules: PrettyRuleDto[] = data || [];
 
     const { report } = useStore();
 
-    const options = makeRuleOptions(rules);
+    const options = useMemo(() => {
+      let pool = data || [];
+      if (!isMatchReportModal(meta)) {
+        pool = pool.filter((t) => t.ruleType === RuleType.COMMUNICATION);
+      }
+
+      return makeRuleOptions(pool);
+    }, [data, meta]);
 
     const [sending, sendMatchReport] = useAsyncButton(async () => {
       if (!selectedReportReason) return;
@@ -92,7 +105,7 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
       <GenericModal
         title={"Жалоба на игрока"}
         onClose={onClose}
-        className={cx(c.reportModal)}
+        className={cx(c.reportModal, NotoSans.className)}
       >
         {isMatchReportModal(meta) && (
           <>
@@ -112,7 +125,7 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
         )}
         {isReportModalMeta(meta) && (
           <>
-            <div className={c.formItem}>
+            <div className={cx(c.formItem, threadFont.className)}>
               <header>Сообщение</header>
               <Message header message={meta.message} />
             </div>
@@ -141,7 +154,10 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
         <div className={c.formItem}>
           <header>Комментарий</header>
           <MarkdownTextarea
-            placeholder={"Когда было совершено нарушение, детали"}
+            placeholder={
+              "Если хочешь, чтобы игрок действительно получил наказание, укажи, что именно произошло: поведение, цитаты, моменты матча. " +
+              "Помни: за частые неточные или необоснованные жалобы возможность отправки жалоб может быть отключена."
+            }
             rows={4}
             value={comment}
             ref={inputRef}

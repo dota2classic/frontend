@@ -1,6 +1,6 @@
 import { NextPageContext } from "next";
 import { numberOrDefault } from "@/util/urls";
-import { PunishmentLogPageDto } from "@/api/back";
+import { PunishmentLogPageDto, RuleType } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import {
   Duration,
@@ -46,11 +46,20 @@ export default function BanLog({ page }: Props) {
                 <TimeAgo date={log.createdAt} />
               </td>
               <td>
-                {log.duration > 60 * 60 * 24 * 1000 ? (
-                  "Пермабан"
-                ) : (
-                  <Duration duration={log.duration} long />
-                )}
+                <div>
+                  {log.rule.ruleType === RuleType.GAMEPLAY
+                    ? "Бан поиска"
+                    : "Бан коммуникаций"}
+                  {": "}
+                </div>
+
+                <div className="red">
+                  {log.duration > 60 * 60 * 24 * 1000 ? (
+                    "Пермабан"
+                  ) : (
+                    <Duration duration={log.duration} long />
+                  )}
+                </div>
               </td>
               <td>
                 <PageLink link={AppRouter.rules2.rule(log.rule.id).link}>

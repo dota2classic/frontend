@@ -31,6 +31,12 @@ export interface PlayerFlagDto {
      * @memberof PlayerFlagDto
      */
     ignoreSmurf: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PlayerFlagDto
+     */
+    disableReports: boolean;
 }
 
 export function PlayerFlagDtoFromJSON(json: any): PlayerFlagDto {
@@ -45,6 +51,7 @@ export function PlayerFlagDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'steamId': json['steamId'],
         'ignoreSmurf': json['ignoreSmurf'],
+        'disableReports': json['disableReports'],
     };
 }
 
@@ -59,6 +66,7 @@ export function PlayerFlagDtoToJSON(value?: PlayerFlagDto | null): any {
         
         'steamId': value.steamId,
         'ignoreSmurf': value.ignoreSmurf,
+        'disableReports': value.disableReports,
     };
 }
 

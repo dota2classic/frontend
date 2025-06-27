@@ -31,6 +31,12 @@ export interface UpdatePlayerFlagDto {
      * @memberof UpdatePlayerFlagDto
      */
     ignoreSmurf?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdatePlayerFlagDto
+     */
+    disableReports?: boolean;
 }
 
 export function UpdatePlayerFlagDtoFromJSON(json: any): UpdatePlayerFlagDto {
@@ -45,6 +51,7 @@ export function UpdatePlayerFlagDtoFromJSONTyped(json: any, ignoreDiscriminator:
         
         'steamId': !exists(json, 'steamId') ? undefined : json['steamId'],
         'ignoreSmurf': !exists(json, 'ignoreSmurf') ? undefined : json['ignoreSmurf'],
+        'disableReports': !exists(json, 'disableReports') ? undefined : json['disableReports'],
     };
 }
 
@@ -59,6 +66,7 @@ export function UpdatePlayerFlagDtoToJSON(value?: UpdatePlayerFlagDto | null): a
         
         'steamId': value.steamId,
         'ignoreSmurf': value.ignoreSmurf,
+        'disableReports': value.disableReports,
     };
 }
 

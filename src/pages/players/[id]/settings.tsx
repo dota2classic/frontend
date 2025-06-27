@@ -140,13 +140,13 @@ export default function PlayerSettings({ summary, decorations }: Props) {
       </Section>
       <Section className={cx(c.section)}>
         <header className={c.heading}>
-          <SiAdblock className={"red"} /> Избегаемые игроки
+          <SiAdblock className={"red"} /> Перекалибровка
         </header>
         <Panel className={cx(c.panel, NotoSans.className)}>
           <p>
-            Перекалибровка — это шанс сбросить рейтинг до 2500 и пройти
+            Перекалибровка — это шанс сбросить рейтинг до стартового и пройти
             калибровку заново. Подойдёт тем, кто уверен, что заслуживает больше
-            и хочет начать с чистого листа. Использовать перекалибровку можно
+            или хочет начать с чистого листа. Использовать перекалибровку можно
             только один раз за сезон.
           </p>
           {summary.recalibration ? (

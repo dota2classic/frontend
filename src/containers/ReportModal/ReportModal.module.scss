@@ -4,7 +4,7 @@
 
   & :global(.modal) {
     width: 40vw;
-    gap: 16px;
+    gap: 24px;
   }
 
   & header {
@@ -18,6 +18,14 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+
+  & header {
+    margin-bottom: 8px;
+  }
+
+  & textarea {
+    margin-bottom: 2rem;
+  }
 }
 
 .player {

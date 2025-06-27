@@ -18,6 +18,10 @@ import {
     RulePunishmentDtoFromJSON,
     RulePunishmentDtoFromJSONTyped,
     RulePunishmentDtoToJSON,
+    RuleType,
+    RuleTypeFromJSON,
+    RuleTypeFromJSONTyped,
+    RuleTypeToJSON,
 } from './';
 
 /**
@@ -26,6 +30,12 @@ import {
  * @interface PrettyRuleDto
  */
 export interface PrettyRuleDto {
+    /**
+     * 
+     * @type {RuleType}
+     * @memberof PrettyRuleDto
+     */
+    ruleType: RuleType;
     /**
      * 
      * @type {number}
@@ -68,6 +78,7 @@ export function PrettyRuleDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
+        'ruleType': RuleTypeFromJSON(json['ruleType']),
         'id': json['id'],
         'fullIndex': json['fullIndex'],
         'title': json['title'],
@@ -85,6 +96,7 @@ export function PrettyRuleDtoToJSON(value?: PrettyRuleDto | null): any {
     }
     return {
         
+        'ruleType': RuleTypeToJSON(value.ruleType),
         'id': value.id,
         'fullIndex': value.fullIndex,
         'title': value.title,
