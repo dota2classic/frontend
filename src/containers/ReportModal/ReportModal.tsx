@@ -165,7 +165,7 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
           />
         </div>
         <Button
-          disabled={!selectedReportReason || sending}
+          disabled={!selectedReportReason || sending || comment.length < 3}
           onClick={sendMatchReport}
         >
           Отправить
