@@ -18,6 +18,7 @@ export enum DotaGameMode {
   BALANCED_DRAFT = 17,
   ABILITY_DRAFT = 18,
 
+  ARDM = 20,
   SOLOMID = 21,
   RANKED_AP = 22,
 }

@@ -41,7 +41,11 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
   }, [lobby.id, lobbySettings, onClose, onUpdatedLobby]);
 
   return (
-    <GenericModal title={"Настройки лобби"} onClose={onClose}>
+    <GenericModal
+      className={c.modal}
+      title={"Настройки лобби"}
+      onClose={onClose}
+    >
       <div className={c.settings}>
         <div className={c.formItem}>
           <header>Название</header>
@@ -90,21 +94,22 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
             defaultText={"Режим игры"}
           />
         </div>
-        <div className={cx(c.formItem, c.formItem__inline)}>
-          <span>Включить читы</span>
+        <div className={cx(c.formItem)}>
+          <header>Настройки</header>
           <Checkbox
             checked={lobbySettings.enableCheats}
             onChange={(e) =>
               setLobbySettings((r) => ({ ...r, enableCheats: e }))
             }
-          />
-        </div>
-        <div className={cx(c.formItem, c.formItem__inline)}>
-          <span>Добавить ботов</span>
+          >
+            Включить читы
+          </Checkbox>
           <Checkbox
             checked={lobbySettings.fillBots}
             onChange={(e) => setLobbySettings((r) => ({ ...r, fillBots: e }))}
-          />
+          >
+            Добавить ботов
+          </Checkbox>
         </div>
         <Button className={c.startGame} onClick={updateLobby}>
           Сохранить изменения

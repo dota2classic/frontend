@@ -58,6 +58,7 @@ const dotaMessages = {
   [DotaGameMode.LIMITED_HEROES]: "LIMITED_HEROES",
   [DotaGameMode.BALANCED_DRAFT]: "BALANCED_DRAFT",
   [DotaGameMode.ABILITY_DRAFT]: "Ability Draft",
+  [DotaGameMode.ARDM]: "ARDM",
 
   [DotaGameMode.SOLOMID]: "Solomid",
   [DotaGameMode.RANKED_AP]: "Рейт. All Pick",

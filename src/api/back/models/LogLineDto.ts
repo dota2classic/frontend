@@ -27,6 +27,12 @@ export interface LogLineDto {
     author: string;
     /**
      * 
+     * @type {number}
+     * @memberof LogLineDto
+     */
+    team: LogLineDtoTeamEnum;
+    /**
+     * 
      * @type {string}
      * @memberof LogLineDto
      */
@@ -50,6 +56,7 @@ export function LogLineDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     return {
         
         'author': json['author'],
+        'team': json['team'],
         'say': json['say'],
         'allChat': json['allChat'],
     };
@@ -65,9 +72,19 @@ export function LogLineDtoToJSON(value?: LogLineDto | null): any {
     return {
         
         'author': value.author,
+        'team': value.team,
         'say': value.say,
         'allChat': value.allChat,
     };
+}
+
+/**
+* @export
+* @enum {string}
+*/
+export enum LogLineDtoTeamEnum {
+    NUMBER_2 = 2,
+    NUMBER_3 = 3
 }
 
 

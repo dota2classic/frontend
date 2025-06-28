@@ -34,6 +34,7 @@ export function SelectOptions({
         control: () => c.select,
         option: () => c.option,
         menu: () => c.menu,
+        menuList: () => c.menuList,
         singleValue: () => c.preview,
       }}
       defaultValue={defaultValue}

@@ -22,8 +22,10 @@ export const DotaGameModeOptions = [
   DotaGameMode.CAPTAINS_MODE,
   DotaGameMode.ABILITY_DRAFT,
   DotaGameMode.SOLOMID,
+  DotaGameMode.MID_ONLY,
   DotaGameMode.GREEVILING,
   DotaGameMode.DIRETIDE,
+  DotaGameMode.ARDM,
 ].map((gm) => ({
   label: formatDotaMode(gm),
   value: gm,
