@@ -54,7 +54,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
           lastHits: 0,
           denies: 0,
           kills: 0,
-          deaths: 0,
+          deaths: Infinity,
           assists: 0,
           heroDamage: 0,
           heroHealing: 0,
@@ -67,7 +67,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
           mx.lastHits = Math.max(mx.lastHits, p.lastHits);
           mx.denies = Math.max(mx.denies, p.denies);
           mx.kills = Math.max(mx.kills, p.kills);
-          mx.deaths = Math.max(mx.deaths, p.deaths);
+          mx.deaths = Math.min(mx.deaths, p.deaths);
           mx.assists = Math.max(mx.assists, p.assists);
           mx.heroDamage = Math.max(mx.heroDamage, p.heroDamage);
           mx.heroHealing = Math.max(mx.heroHealing, p.heroHealing);
@@ -336,8 +336,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   className={cx(
                     "middle",
                     hc.includes("D") ? c.mobileHidden : undefined,
-                    player.deaths > 0 &&
-                      player.deaths === maxValues.deaths &&
+                    player.deaths === maxValues.deaths &&
                       c.underline,
                   )}
                 >

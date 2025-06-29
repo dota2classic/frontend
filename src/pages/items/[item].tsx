@@ -5,17 +5,44 @@ import { GenericTable, Section } from "@/components";
 import { colors } from "@/colors";
 import c from "./Items.module.scss";
 import { ColumnType } from "@/const/tables";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { AppRouter } from "@/route";
 import { useRouterChanging } from "@/util";
 import { ItemBreadcrumbs } from "@/containers";
+import { useRouter } from "next/router";
 
 interface Props {
   data: ItemHeroDto[];
   item: number;
 }
 
+//ни в коем случае не ставить в конце слэш
+const BASE_URL = "https://wiki.dotaclassic.ru";
+
 export default function ItemPage({ data, item }: Props) {
+  const router = useRouter();
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const [iframeSrc] = useState(() => `${BASE_URL}/slim/items/${item}`);
+
+  const isFirstRun = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+    sendRouteToIframe(iframeRef, router.asPath);
+  }, [router.asPath]);
+
+  function sendRouteToIframe(ref: React.RefObject<HTMLIFrameElement | null>, route: string) {
+    const target = ref.current?.contentWindow;
+    if (!target) return;
+
+    const msg = { type: "sync-route", route: `/slim${route}` };
+    target.postMessage(msg, BASE_URL);
+  }
+
   useEffect(() => {
     const iframeListener = (e: MessageEvent) => {
       if (e.data?.type === "route-change") {
@@ -28,10 +55,6 @@ export default function ItemPage({ data, item }: Props) {
     window.addEventListener("message", iframeListener);
     return () => window.removeEventListener("message", iframeListener);
   }, [item]);
-
-  const originalUrl = useMemo(() => {
-    return `https://wiki.dotaclassic.ru/slim/items/${item}`;
-  }, []);
 
   const [isLoading] = useRouterChanging();
 
@@ -79,7 +102,10 @@ export default function ItemPage({ data, item }: Props) {
           />
         </Section>
         <Section className={c.itemData}>
-          <iframe src={originalUrl}></iframe>
+          <iframe
+            ref={iframeRef}
+            src={iframeSrc}
+          />
         </Section>
       </div>
     </>
