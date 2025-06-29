@@ -158,17 +158,16 @@ export const ReportCard: React.FC<IReportCardProps> = observer(
             </tbody>
           </Table>
 
-          {report.matchId &&
-            report.rule.ruleType === RuleType.COMMUNICATION && (
-              <Section>
-                <header>История сообщений в матче</header>
+          {report.matchId && (
+            <Section>
+              <header>История сообщений в матче</header>
 
-                <LogFileHistory
-                  matchId={report.matchId}
-                  steamId={report.reported.steamId}
-                />
-              </Section>
-            )}
+              <LogFileHistory
+                matchId={report.matchId}
+                steamId={report.reported.steamId}
+              />
+            </Section>
+          )}
         </div>
       </>
     );

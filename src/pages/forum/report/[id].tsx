@@ -17,7 +17,7 @@ import { ReportCard } from "@/containers";
 
 interface Props {
   messages: ThreadMessagePageDTO;
-  thread: ThreadDTO;
+  thread?: ThreadDTO;
   page: number;
   report: ReportDto;
   punishments: RulePunishmentDto[];
@@ -35,29 +35,32 @@ export default function ReportPage({
   return (
     <>
       <EmbedProps
-        title={`${thread.title}`}
-        description={`Жалоба на сайте dotaclassic.ru: ${thread.title}`}
+        title={`${thread?.title || "Жалоба"}`}
+        description={`Жалоба на сайте dotaclassic.ru: ${thread?.title || ""}`}
       />
       <Panel>
         <Breadcrumbs>
           <PageLink link={AppRouter.forum.report.index().link}>Жалобы</PageLink>
-          <span>{thread.title}</span>
+          <span>{thread?.title}</span>
         </Breadcrumbs>
       </Panel>
       <br />
       <ReportCard report={report} punishments={punishments} />
       <br />
-      <PaginatedThread
-        populateMessages={messages}
-        threadType={ThreadType.REPORT}
-        id={r.query.id as string}
-        pagination={{
-          page: numberOrDefault(page, 0),
-          pageProvider: (p) =>
-            AppRouter.forum.thread(thread.externalId, thread.threadType, p)
-              .link,
-        }}
-      />
+      {(thread && (
+        <PaginatedThread
+          populateMessages={messages}
+          threadType={ThreadType.REPORT}
+          id={r.query.id as string}
+          pagination={{
+            page: numberOrDefault(page, 0),
+            pageProvider: (p) =>
+              AppRouter.forum.thread(thread!.externalId, thread!.threadType, p)
+                .link,
+          }}
+        />
+      )) ||
+        "Ошибка при загрузке сообщений"}
     </>
   );
 }
@@ -67,8 +70,12 @@ ReportPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const page = numberOrDefault(ctx.query.page as string, 0);
 
   const [messages, thread, report, punishments] = await Promise.combine([
-    getApi().forumApi.forumControllerMessagesPage(tid, ThreadType.REPORT, page),
-    getApi().forumApi.forumControllerGetThread(tid, ThreadType.REPORT),
+    getApi()
+      .forumApi.forumControllerMessagesPage(tid, ThreadType.REPORT, page)
+      .catch(() => ({ page: 0, perPage: 0, pages: 0, data: [] })),
+    getApi()
+      .forumApi.forumControllerGetThread(tid, ThreadType.REPORT)
+      .catch(() => undefined),
     getApi().report.reportControllerGetReport(tid),
     getApi().rules.ruleControllerGetAllPunishments(),
   ]);
