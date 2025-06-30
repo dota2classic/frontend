@@ -35,7 +35,7 @@ export const modEnableCondition = (
   }
 
   if (mode === MatchmakingMode.HIGHROOM) {
-    const gamesRequired = 50;
+    const gamesRequired = 30;
     if (queue.minGamesInParty < gamesRequired) {
       return (
         <>
