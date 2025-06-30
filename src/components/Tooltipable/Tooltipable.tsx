@@ -43,7 +43,7 @@ export const Tooltipable: React.FC<PropsWithChildren<ITooltipableProps>> = ({
             anchor={ref.current!}
             onClose={() => setVisible(false)}
           >
-            <span className={c.tooltip}>{tooltip}</span>
+            <div className={c.tooltip}>{tooltip}</div>
           </GenericTooltip>,
           document.body,
         )}

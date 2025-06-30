@@ -11,7 +11,7 @@ import { useStore } from "@/store";
 import cx from "clsx";
 import { FaLock } from "react-icons/fa";
 import { Checkbox, Tooltipable } from "@/components";
-import { formatGameMode } from "@/util/gamemode";
+import { formatGameMode, formatGameModeDescription } from "@/util/gamemode";
 import { CgSandClock } from "react-icons/cg";
 import { QueueDurationDto } from "@/api/back";
 
@@ -118,9 +118,14 @@ export const MatchmakingOption = observer(
             className={cx(c.mode, localSelected ? c.mode__current : undefined)}
           >
             <div className={c.modeTitle}>
-              <span className={c.mode__name}>
-                {disabled ? <FaLock /> : null} {formatGameMode(mode)}
-              </span>
+              <Tooltipable
+                tooltip={formatGameModeDescription(mode)}
+                className={c.mode__name}
+              >
+                <span>
+                  {disabled ? <FaLock /> : null} {formatGameMode(mode)}
+                </span>
+              </Tooltipable>
               <span className={c.mode__inQueue}>
                 {queue.inQueueCount(mode, version)} в поиске
               </span>

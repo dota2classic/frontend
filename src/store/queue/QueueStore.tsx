@@ -14,6 +14,7 @@ import {
   BanStatusDto,
   CurrentOnlineDto,
   PartyDto,
+  PartyDtoFromJSON,
   PartyMemberDTO,
 } from "@/api/back";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
@@ -619,7 +620,7 @@ export class QueueStore
 
   @action onPlayerPartyState = (msg: PartyDto) => {
     console.log("Update party via socket", msg);
-    this.party = msg;
+    this.party = PartyDtoFromJSON(msg);
   };
 
   @action onPlayerServerSearching = (msg: PlayerServerSearchingMessageS2C) => {

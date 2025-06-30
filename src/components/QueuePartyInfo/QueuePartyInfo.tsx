@@ -115,7 +115,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
         >
           <div>
             <span>
-              {onlineData.inGame} в игре, {queue.online.length} онлайн
+              {onlineData.inGame} в игре, {queue.online.length} на сайте
             </span>
             <span>Игр идет: {onlineData.sessions}</span>
           </div>
