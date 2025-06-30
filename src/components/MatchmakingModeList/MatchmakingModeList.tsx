@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import {
   GameReadyModal,
@@ -67,6 +67,27 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
               const isLocalSelected = queue.selectedModes.includes(
                 info.lobbyType,
               );
+
+              let suffix: ReactNode = undefined;
+
+              if (
+                isCalibration &&
+                info.lobbyType === MatchmakingMode.UNRANKED &&
+                !modeDisabledBy
+              ) {
+                suffix = (
+                  <>
+                    еще{" "}
+                    <span className="gold">
+                      {me?.summary?.calibrationGamesLeft}
+                    </span>{" "}
+                    калибровочных игр
+                  </>
+                );
+              }
+              if (info.lobbyType === MatchmakingMode.HIGHROOM) {
+                suffix = <>Строгие наказания за ливы</>;
+              }
               return (
                 <MatchmakingOption
                   testId={`mode-list-option-${info.lobbyType}`}
@@ -83,19 +104,7 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
                   mode={info.lobbyType}
                   dotaMode={info.gameMode}
                   queueTime={info.queueDurations}
-                  suffix={
-                    isCalibration &&
-                    info.lobbyType === MatchmakingMode.UNRANKED &&
-                    !modeDisabledBy ? (
-                      <>
-                        еще{" "}
-                        <span className="gold">
-                          {me?.summary?.calibrationGamesLeft}
-                        </span>{" "}
-                        калибровочных игр
-                      </>
-                    ) : undefined
-                  }
+                  suffix={suffix}
                 />
               );
             })}

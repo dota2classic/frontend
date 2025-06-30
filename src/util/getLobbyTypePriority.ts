@@ -6,7 +6,7 @@ export const getLobbyTypePriority = (type: MatchmakingMode): number => {
   if (type === MatchmakingMode.UNRANKED) {
     score -= 1000;
   } else if (type === MatchmakingMode.HIGHROOM) {
-    score -= 500;
+    score -= 1500;
   } else if (type === MatchmakingMode.BOTS2X2) {
     score -= 100;
   }

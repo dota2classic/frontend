@@ -33,4 +33,17 @@ export const modEnableCondition = (
       return <>Нужно победить в любом режиме</>;
     }
   }
+
+  if (mode === MatchmakingMode.HIGHROOM) {
+    const gamesRequired = 50;
+    if (queue.minGamesInParty < gamesRequired) {
+      return (
+        <>
+          Нужно сыграть еще{" "}
+          <span className="gold">{gamesRequired - queue.minGamesInParty}</span>{" "}
+          игр в Обычная 5х5
+        </>
+      );
+    }
+  }
 };

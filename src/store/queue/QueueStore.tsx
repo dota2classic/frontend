@@ -208,6 +208,15 @@ export class QueueStore
   }
 
   @computed
+  public get minGamesInParty(): number {
+    return this.party
+      ? this.party.players
+          .map((t) => t.summary.overallStats.gamesPlayed)
+          .sort((a, b) => a - b)[0]
+      : 0;
+  }
+
+  @computed
   public get isPartyInGame(): boolean {
     return this.party ? isPartyInGame(this.party) : true;
   }

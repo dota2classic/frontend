@@ -25,7 +25,7 @@ const messages = {
   // MatchmakingMode.DIRETIDE
   [MatchmakingMode.DIRETIDE]: "Diretide",
   // MatchmakingMode.HIGHROOM
-  [MatchmakingMode.HIGHROOM]: "High room",
+  [MatchmakingMode.HIGHROOM]: "Опытные 5х5",
   // MatchmakingMode.BOTS
   [MatchmakingMode.BOTS]: "Против ботов",
   // MatchmakingMode.GREEVILING
