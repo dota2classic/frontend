@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { ReactNode } from "react";
+import React, {ReactNode} from "react";
 
 import c from "./SelectOptions.module.scss";
-import Select, { ActionMeta, SingleValue } from "react-select";
-import { JetBrains_Mono } from "next/font/google";
+import Select, {ActionMeta, SingleValue} from "react-select";
+import {JetBrains_Mono} from "next/font/google";
 import cx from "clsx";
 
 const tableFont = JetBrains_Mono({
@@ -37,6 +37,7 @@ export function SelectOptions({
         menuList: () => c.menuList,
         singleValue: () => c.preview,
       }}
+      menuPosition="fixed"
       defaultValue={defaultValue}
       placeholder={defaultText}
       value={options.find((t) => t.value === selected)}
