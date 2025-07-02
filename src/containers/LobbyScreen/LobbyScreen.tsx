@@ -44,7 +44,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
         lobbyId: lobby.id,
         action: LobbyUpdateTypeActionEnum.Update,
         kickedSteamIds: [],
-      }
+      },
     );
     const [isEditing, setIsEditing] = useState<boolean>(false);
 
