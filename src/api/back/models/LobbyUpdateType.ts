@@ -37,7 +37,19 @@ export interface LobbyUpdateType {
      * @type {string}
      * @memberof LobbyUpdateType
      */
+    action: LobbyUpdateTypeActionEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof LobbyUpdateType
+     */
     lobbyId: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof LobbyUpdateType
+     */
+    kickedSteamIds: Array<string>;
 }
 
 export function LobbyUpdateTypeFromJSON(json: any): LobbyUpdateType {
@@ -51,7 +63,9 @@ export function LobbyUpdateTypeFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
         'data': !exists(json, 'data') ? undefined : LobbyDtoFromJSON(json['data']),
+        'action': json['action'],
         'lobbyId': json['lobbyId'],
+        'kickedSteamIds': json['kickedSteamIds'],
     };
 }
 
@@ -65,8 +79,21 @@ export function LobbyUpdateTypeToJSON(value?: LobbyUpdateType | null): any {
     return {
         
         'data': LobbyDtoToJSON(value.data),
+        'action': value.action,
         'lobbyId': value.lobbyId,
+        'kickedSteamIds': value.kickedSteamIds,
     };
+}
+
+/**
+* @export
+* @enum {string}
+*/
+export enum LobbyUpdateTypeActionEnum {
+    Update = 'update',
+    Close = 'close',
+    Start = 'start',
+    Kick = 'kick'
 }
 
 

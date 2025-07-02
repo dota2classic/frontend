@@ -6,6 +6,7 @@ import c from "./LobbyScreen.module.scss";
 import {
   LobbyDto,
   LobbyUpdateType,
+  LobbyUpdateTypeActionEnum,
   LobbyUpdateTypeFromJSON,
   ThreadType,
 } from "@/api/back";
@@ -27,6 +28,7 @@ import { formatDotaMap, formatDotaMode } from "@/util/gamemode";
 import { IoMdExit } from "react-icons/io";
 import { makeSimpleToast } from "@/components/Toast/toasts";
 import { useAsyncButton } from "@/util/use-async-button";
+import { handleException } from "@/util/handleException";
 
 interface ILobbyScreenProps {
   lobby: LobbyDto;
@@ -37,7 +39,12 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
     const evt = useEventSource<LobbyUpdateType>(
       getApi().lobby.lobbyControllerLobbyUpdatesContext({ id: lobby.id }),
       LobbyUpdateTypeFromJSON.bind(null),
-      { data: lobby, lobbyId: lobby.id },
+      {
+        data: lobby,
+        lobbyId: lobby.id,
+        action: LobbyUpdateTypeActionEnum.Update,
+        kickedSteamIds: [],
+      }
     );
     const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -74,15 +81,24 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
     );
 
     useEffect(() => {
-      if (!data) {
+      if (!evt) return;
+
+      if (evt.kickedSteamIds.includes(mySteamId || "-1")) {
+        // We got kicked!
         router.push("/lobby");
+        makeSimpleToast("Ты покинул лобби", "Тебя выгнали", 5000);
+      } else if (evt.action === "close") {
+        router.push("/lobby");
+        makeSimpleToast("Ты покинул лобби", "Лобби было распущено", 5000);
+      } else if (evt.action === "start") {
+        router.push("/queue");
         makeSimpleToast(
-          "Лобби не существует",
-          "Лобби было распущено или тебя выгнали",
+          "Игра запущена!",
+          "Скоро появится информация по подключению",
           5000,
         );
       }
-    }, [data]);
+    }, [evt, mySteamId]);
 
     const [$shuffleLobby, shuffleLobby] = useAsyncButton(async () => {
       if (!data || data.owner?.steamId !== mySteamId) return;
@@ -106,12 +122,13 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
     const launchGame = () => {
       getApi()
         .lobby.lobbyControllerStartLobby(data.id)
-        .then(() => router.push("/queue"));
+        .catch((e) => handleException("Ошибка при запуске лобби", e));
     };
 
     const leaveLobby = () => {
       getApi()
         .lobby.lobbyControllerLeaveLobby(lobbyId)
+        .then(() => new Promise((resolve) => setTimeout(resolve, 500)))
         .then(() => router.push("/lobby"));
     };
 
@@ -217,6 +234,11 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             <div className={c.unassignedHint}>Неопределившиеся</div>
           )}
         </Panel>
+        <Thread
+          threadType={ThreadType.LOBBY}
+          id={lobbyId}
+          className={cx(c.grid12, c.threadContainer)}
+        />
         <Panel className={cx(c.grid12, c.options)}>
           <dl>
             <dt>Имя лобби</dt>
@@ -243,11 +265,6 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             <dd>{data.fillBots ? "Да" : "Нет"}</dd>
           </dl>
         </Panel>
-        <Thread
-          threadType={ThreadType.LOBBY}
-          id={lobbyId}
-          className={cx(c.grid12, c.threadContainer)}
-        />
       </div>
     );
   },
