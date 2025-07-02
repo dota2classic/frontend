@@ -21,7 +21,11 @@ import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { DefaultQueueHolder } from "@/store/queue/mock";
 import { Sounds } from "@/const/sounds";
 import { NotificationStore } from "@/store/NotificationStore";
-import { getPartyAccessLevel, isPartyInGame } from "@/util/party";
+import {
+  getPartyAccessLevel,
+  isPartyInGame,
+  isPartyInLobby,
+} from "@/util/party";
 import { PlayerQueueStateMessageS2C } from "@/store/queue/messages/s2c/player-queue-state-message.s2c";
 import { GameCoordinatorNewListener } from "@/store/queue/game-coordinator-new.listener";
 import { OnlineUpdateMessageS2C } from "@/store/queue/messages/s2c/online-update-message.s2c";
@@ -220,6 +224,20 @@ export class QueueStore
   @computed
   public get isPartyInGame(): boolean {
     return this.party ? isPartyInGame(this.party) : true;
+  }
+
+  @computed
+  public get isPartyInLobby(): boolean {
+    return this.party ? isPartyInLobby(this.party) : true;
+  }
+
+  @computed
+  public get myLobbyId(): string | undefined {
+    return this.party
+      ? this.party.players.find(
+          (t) => t.summary.id === this.authStore.me?.id && t.lobbyId,
+        )?.lobbyId
+      : undefined;
   }
 
   @computed
@@ -519,7 +537,7 @@ export class QueueStore
   }
 
   @action
-  private async fetchParty() {
+  public async fetchParty() {
     getApi()
       .playerApi.playerControllerMyParty()
       .then((data) => {
@@ -639,4 +657,14 @@ export class QueueStore
   @action onNotificationCreated = (msg: NotificationCreatedMessageS2C) => {
     this.notify.addNotification(msg.notificationDto);
   };
+
+  async abandon() {
+    await getApi().playerApi.playerControllerAbandonGame();
+
+    // Update party
+    await this.fetchParty().finally();
+
+    // Update game state
+    runInAction(() => (this.gameState = undefined));
+  }
 }

@@ -54,6 +54,7 @@
     padding: 12px;
 
     box-shadow: 0 0 12px 6px rgba(0, 0, 0, 0.65);
+    overflow: hidden;
 
     & h2 {
       text-align: center;
@@ -117,4 +118,5 @@
   flex-direction: column;
   padding: 12px;
   flex: 1;
+  overflow-y: auto;
 }

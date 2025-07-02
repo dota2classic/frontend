@@ -11,6 +11,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { JoinLobbyModal } from "@/containers";
 import { observer } from "mobx-react-lite";
 import { paidAction } from "@/util/subscription";
+import { handleException } from "@/util/handleException";
 
 interface Props {
   lobbies: LobbyDto[];
@@ -32,10 +33,14 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
   }, [lobbies, router]);
 
   const createLobby = useCallback(
-    paidAction(() => {
-      return getApi()
-        .lobby.lobbyControllerCreateLobby()
-        .then((lobby) => router.push(`/lobby/[id]`, `/lobby/${lobby.id}`));
+    paidAction(async () => {
+      try {
+        return getApi()
+          .lobby.lobbyControllerCreateLobby()
+          .then((lobby) => router.push(`/lobby/[id]`, `/lobby/${lobby.id}`));
+      } catch (e) {
+        await handleException("Ошибка при создании лобби", e);
+      }
     }),
     [],
   );

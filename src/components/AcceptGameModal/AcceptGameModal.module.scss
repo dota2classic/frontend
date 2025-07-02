@@ -145,7 +145,6 @@
   background-color: $bg2;
 }
 
-
 .dots {
   display: flex;
   flex-direction: row;
@@ -157,11 +156,23 @@
 }
 
 .connectInfo {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+
   & a {
     width: unset;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1;
+  }
+
+  & > button {
+    font-size: 20px !important;
+    & svg {
+      margin-right: 0 !important;
+    }
   }
 }
 

@@ -105,6 +105,53 @@ export class PlayerApi extends runtime.BaseAPI {
 
     /**
      */
+    private async playerControllerAbandonGameRaw(): Promise<runtime.ApiResponse<void>> {
+        this.playerControllerAbandonGameValidation();
+        const context = this.playerControllerAbandonGameContext();
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private playerControllerAbandonGameValidation() {
+    }
+
+    /**
+     */
+    playerControllerAbandonGameContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/abandon_game`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerAbandonGame = async (): Promise<void> => {
+        await this.playerControllerAbandonGameRaw();
+    }
+
+
+    /**
+     */
     private async playerControllerAchievementsRaw(requestParameters: PlayerControllerAchievementsRequest): Promise<runtime.ApiResponse<Array<AchievementDto>>> {
         this.playerControllerAchievementsValidation(requestParameters);
         const context = this.playerControllerAchievementsContext(requestParameters);

@@ -22,8 +22,12 @@ export const SearchGameButton = observer((p: Props) => {
   const router = useRouter();
 
   const isQueuePage = router.pathname === "/queue";
+  const isLobbyPage = router.pathname.startsWith("/lobby/");
 
   const isInQueue = queue.queueState?.inQueue;
+
+  const isPartyInLobby = queue.isPartyInLobby;
+  const myLobby = queue.myLobbyId;
 
   let content: ReactNode;
 
@@ -77,6 +81,63 @@ export const SearchGameButton = observer((p: Props) => {
         Подключаемся...
       </Button>
     );
+
+  // Hide button in lobby
+  if (isLobbyPage) {
+    return null;
+  }
+
+  if (isPartyInLobby) {
+    if (myLobby) {
+      return (
+        <Button
+          mega
+          data-testid="floater-play-button-enter-queue"
+          onClick={() => {
+            if (!isLobbyPage) {
+              router.push("/lobby/[id]", `/lobby/${myLobby}`).finally();
+              return;
+            }
+          }}
+          className={cx(
+            queue.gameState?.serverUrl && c.ingame,
+            "onboarding-queue-button",
+          )}
+        >
+          Вернуться в лобби
+        </Button>
+      );
+    } else {
+      // someone else in party in lobby
+      const anyLobby = queue.party
+        ? queue.party.players.find((t) => t.lobbyId)?.lobbyId
+        : undefined;
+      return (
+        <Button
+          mega
+          data-testid="floater-play-button-enter-queue"
+          onClick={() => {
+            if (!isLobbyPage) {
+              router.push("/lobby/[id]", `/lobby/${anyLobby}`).finally();
+              return;
+            }
+          }}
+          className={cx(
+            queue.gameState?.serverUrl && c.ingame,
+            c.longText,
+            "onboarding-queue-button",
+          )}
+        >
+          Группа в лобби
+          <div className={c.searchAdditional}>
+            <span className={c.searchAdditional__modes}>
+              Присоединиться к лобби
+            </span>
+          </div>
+        </Button>
+      );
+    }
+  }
 
   if (isInQueue) {
     const searchedModes = queue.queueState?.modes || [];

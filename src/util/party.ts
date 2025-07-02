@@ -18,3 +18,6 @@ export const getPartyAccessLevel = (party: PartyDto): GameModeAccessLevel => {
 
 export const isPartyInGame = (party: PartyDto) =>
   party.players.findIndex((t) => !!t.session) !== -1;
+
+export const isPartyInLobby = (party: PartyDto) =>
+  party.players.findIndex((t) => !!t.lobbyId) !== -1;

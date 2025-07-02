@@ -6,6 +6,7 @@ import React, { useCallback } from "react";
 import { Button, CopySomething, Input } from "@/components";
 import { useLocalStorageBackedParam } from "@/util/useLocalStorageBackedParam";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 export const GameReadyModal = observer(
   ({ className }: { className?: string }) => {
@@ -33,6 +34,16 @@ export const GameReadyModal = observer(
           >
             Подключиться к игре
           </a>
+          <Button
+            mega
+            small
+            onClick={async () => {
+              confirm("Ты действительно хочешь покинуть эту игру?");
+              await q.abandon();
+            }}
+          >
+            <IoClose />
+          </Button>
         </div>
         <CopySomething
           something={`connect ${q.gameState?.serverUrl}`}
