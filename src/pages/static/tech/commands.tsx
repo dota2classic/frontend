@@ -82,7 +82,7 @@ export default function CommandsTechTab() {
           <li>
             <CopyBlock
               text="Быстрая атака"
-              command={`"bind "a" "mc_attack; +sixense_left_click; -sixense_left_click"`}
+              command={`bind "a" "mc_attack; +sixense_left_click; -sixense_left_click"`}
             />
           </li>
           <li>
