@@ -38,8 +38,12 @@ export const GameReadyModal = observer(
             mega
             small
             onClick={async () => {
-              confirm("Ты действительно хочешь покинуть эту игру?");
-              await q.abandon();
+              const doAbandon = confirm(
+                "Ты действительно хочешь покинуть эту игру?",
+              );
+              if (doAbandon) {
+                await q.abandon();
+              }
             }}
           >
             <IoClose />
