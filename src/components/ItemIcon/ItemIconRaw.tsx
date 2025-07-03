@@ -10,6 +10,9 @@ import {
 import { GenericTooltip, PlaceholderImage } from "@/components";
 import { createPortal } from "react-dom";
 
+//ни в коем случае не ставить в конце слэш
+const BASE_URL = "https://wiki.dotaclassic.ru";
+
 export const ItemIconRaw: React.FC<IItemIconProps> = ({
   item,
   small,
@@ -19,6 +22,14 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({
   const [tooltipRef, setTooltipRef] = useState<HTMLElement | null>(null);
   const listener = useRef<(ev: MessageEvent) => void | null>(null);
 
+  function onIframeLoad(e: React.SyntheticEvent<HTMLIFrameElement>) {
+    const target = e.currentTarget.contentWindow;
+    if (!target) return;
+    
+    const msg = { type: "sync-route", route: `/slim/items/${item}?hideTree=true` };
+    target.postMessage(msg, BASE_URL);
+  }
+
   const handleResizeStuff = (e: HTMLIFrameElement | null) => {
     if (!e) {
       if (listener.current) {
@@ -27,7 +38,7 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({
       return;
     }
     const _listener = (ev: MessageEvent) => {
-      if (ev.data.type && ev.data.type === "resize-iframe") {
+      if (ev.data.type && ev.data.type === "resize-iframe-popup") {
         if (ev.data.payload.height === 0) return;
         // e.style.width = ev.data.payload.width + "px";
         e.style.height = ev.data.payload.height + "px";
@@ -64,8 +75,9 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({
           >
             <iframe
               ref={handleResizeStuff}
+              src={`${BASE_URL}/slim/items/${item}?hideTree=true`}
               className={c.itemPreview}
-              src={`https://wiki.dotaclassic.ru/slim/items/${item}?hideTree=true`}
+              onLoad={onIframeLoad}
             ></iframe>
           </GenericTooltip>,
           document.body,
