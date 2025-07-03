@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import c from "./Wiki.module.scss";
 
 //ни в коем случае не ставить в конце слэш
-const CHILD_ORIGIN = "https://wiki.dotaclassic.ru"
+const CHILD_ORIGIN = "https://wiki.dotaclassic.ru";
 
 interface WikiMsg {
   height: number | string;

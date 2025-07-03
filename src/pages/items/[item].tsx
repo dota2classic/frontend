@@ -5,7 +5,7 @@ import { GenericTable, Section } from "@/components";
 import { colors } from "@/colors";
 import c from "./Items.module.scss";
 import { ColumnType } from "@/const/tables";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AppRouter } from "@/route";
 import { useRouterChanging } from "@/util";
 import { ItemBreadcrumbs } from "@/containers";
@@ -21,7 +21,7 @@ const BASE_URL = "https://wiki.dotaclassic.ru";
 
 export default function ItemPage({ data, item }: Props) {
   const router = useRouter();
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   const [iframeSrc] = useState(() => `${BASE_URL}/slim/items/${item}`);
 
@@ -35,7 +35,10 @@ export default function ItemPage({ data, item }: Props) {
     sendRouteToIframe(iframeRef, router.asPath);
   }, [router.asPath]);
 
-  function sendRouteToIframe(ref: React.RefObject<HTMLIFrameElement | null>, route: string) {
+  function sendRouteToIframe(
+    ref: React.RefObject<HTMLIFrameElement | null>,
+    route: string,
+  ) {
     const target = ref.current?.contentWindow;
     if (!target) return;
 
@@ -102,10 +105,7 @@ export default function ItemPage({ data, item }: Props) {
           />
         </Section>
         <Section className={c.itemData}>
-          <iframe
-            ref={iframeRef}
-            src={iframeSrc}
-          />
+          <iframe ref={iframeRef} src={iframeSrc} />
         </Section>
       </div>
     </>

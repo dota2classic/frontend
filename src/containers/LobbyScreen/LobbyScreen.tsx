@@ -190,15 +190,16 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             <Button disabled={!isOwner} onClick={() => setIsEditing(true)}>
               Настройки
             </Button>
+            <Button className={c.leaveLobby} onClick={leaveLobby}>
+              {isOwner ? "Закрыть лобби" : "Покинуть лобби"}
+            </Button>
             <Button
+              mega
               disabled={!isOwner}
               className={c.startGame}
               onClick={launchGame}
             >
               Запустить игру
-            </Button>
-            <Button className={c.leaveLobby} onClick={leaveLobby}>
-              {isOwner ? "Закрыть лобби" : "Покинуть лобби"}
             </Button>
           </div>
         </Panel>

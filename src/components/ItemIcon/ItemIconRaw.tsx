@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { ItemMap } from "@/const/items";
 import cx from "clsx";
 import c from "@/components/ItemIcon/ItemIcon.module.scss";
@@ -22,15 +22,21 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({
   const [tooltipRef, setTooltipRef] = useState<HTMLElement | null>(null);
   const listener = useRef<(ev: MessageEvent) => void | null>(null);
 
-  function onIframeLoad(e: React.SyntheticEvent<HTMLIFrameElement>) {
-    const target = e.currentTarget.contentWindow;
-    if (!target) return;
-    
-    const msg = { type: "sync-route", route: `/slim/items/${item}?hideTree=true` };
-    target.postMessage(msg, BASE_URL);
-  }
+  const onIframeLoad = useCallback(
+    (e: React.SyntheticEvent<HTMLIFrameElement>) => {
+      const target = e.currentTarget.contentWindow;
+      if (!target) return;
 
-  const handleResizeStuff = (e: HTMLIFrameElement | null) => {
+      const msg = {
+        type: "sync-route",
+        route: `/slim/items/${item}?hideTree=true`,
+      };
+      target.postMessage(msg, BASE_URL);
+    },
+    [item],
+  );
+
+  const handleResizeStuff = useCallback((e: HTMLIFrameElement | null) => {
     if (!e) {
       if (listener.current) {
         window.removeEventListener("message", listener.current);
@@ -46,7 +52,7 @@ export const ItemIconRaw: React.FC<IItemIconProps> = ({
     };
     window.addEventListener("message", _listener, false);
     listener.current = _listener;
-  };
+  }, []);
 
   const fItem =
     typeof item === "number"
