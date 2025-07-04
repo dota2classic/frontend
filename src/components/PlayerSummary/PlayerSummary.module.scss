@@ -44,18 +44,24 @@
 .player {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: flex-start;
   column-gap: 0.65rem;
+  align-items: stretch;
 
   &:hover :global(.globalLinkReference)::before {
     width: 100%;
   }
 }
 
+.playerAndRoles {
+  display: flex;
+  flex-direction: column;
+
+}
+
 .icons {
   gap: 6px;
-  margin-left: 12px;
+  padding: 10px 0px;
 }
 
 .playerName {

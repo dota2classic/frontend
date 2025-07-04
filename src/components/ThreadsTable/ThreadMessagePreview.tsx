@@ -21,17 +21,14 @@ export const ThreadMessagePreview = ({
         height={30}
         alt={`avatar of user ${author.name}`}
       />
-      <div style={{ flex: 1, marginLeft: 2 }}>
+      <div style={{ flex: 1 }}>
         <PageLink
           className={c.block}
           link={AppRouter.players.player.index(message.author.steamId).link}
         >
           {author.name}
         </PageLink>
-        <div
-          style={{ marginLeft: 6, whiteSpace: "nowrap" }}
-          className={cx(c.block)}
-        >
+        <div style={{ whiteSpace: "nowrap" }} className={cx(c.block)}>
           <TimeAgo date={message.createdAt} />
         </div>
       </div>

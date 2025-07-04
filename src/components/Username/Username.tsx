@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { PageLink } from "../PageLink/PageLink";
 import { AppRouter, NextLinkProp } from "@/route";
 import cx from "clsx";
@@ -11,37 +11,42 @@ interface UsernameProps {
   nolink?: boolean;
   link?: NextLinkProp;
   testId?: string;
-  block?: boolean;
 }
 
-export const Username: React.FC<UsernameProps> = ({
+export const Username: React.FC<UsernameProps> = React.memo(function Username({
   user,
   className,
   nolink,
   link,
   testId,
-  block,
-}) => {
+}) {
   const targetLink = link ?? AppRouter.players.player.index(user.steamId).link;
-  const displayName =
-    Number(user.steamId) > 10
-      ? user.name?.trim() || "<blank>"
-      : `Бот #${user.steamId}`;
+
+  const displayName = useMemo(() => {
+    if (Number(user.steamId) < 10) {
+      return `Бот #${user.steamId}`;
+    }
+
+    const trimmedNickname = user.name?.trim();
+    const isEmptyNickname = !trimmedNickname || trimmedNickname === " ุ";
+
+    if (isEmptyNickname) {
+      return "<blank>";
+    }
+    return trimmedNickname;
+  }, [user]);
 
   if (nolink) {
     return <span className={cx(c.username, className)}>{displayName}</span>;
   }
 
   return (
-    <div
-      className={cx(c.usernameLinkContainer, block ? c.block : undefined)}
-      title={user.name}
+    <PageLink
+      link={targetLink}
+      testId={testId}
+      className={cx(c.usernameLinkContainer, "link", className)}
     >
-      <PageLink link={targetLink} testId={testId}>
-        <span className={cx(c.usernameWrapper, "link", "globalLinkReference")}>
-          <span className={cx(c.usernameLink, className)}>{displayName}</span>
-        </span>
-      </PageLink>
-    </div>
+      <span className={cx(c.usernameLink)}>{displayName}</span>
+    </PageLink>
   );
-};
+});

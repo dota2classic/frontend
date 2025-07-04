@@ -61,8 +61,8 @@ export const ReportCard: React.FC<IReportCardProps> = observer(
     return (
       <>
         {report.handled && <h2>Жалоба обработана</h2>}
-        <div className={cx(c.card, report.handled && c.card__handled)}>
-          <Table>
+        <div className={cx(c.card)}>
+          <Table className={report.handled ? c.handled : undefined}>
             <tbody>
               <tr>
                 <td>Правило</td>

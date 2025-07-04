@@ -111,7 +111,6 @@ const ColRenderer: React.FC<{
           avatarSize={40}
           user={value}
           link={col.link ? col.link(data) : undefined}
-          block
         />
       </td>
     );

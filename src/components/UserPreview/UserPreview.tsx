@@ -15,7 +15,6 @@ interface IUserPreviewProps {
   nolink?: boolean;
   className?: string;
   link?: NextLinkProp;
-  block?: boolean;
 }
 
 type DivProps = React.DetailedHTMLProps<
@@ -24,17 +23,14 @@ type DivProps = React.DetailedHTMLProps<
 >;
 
 export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
-  ({ user, avatarSize, nolink, className, link, block, ...props }) => {
+  ({ user, avatarSize, nolink, className, link, ...props }) => {
     const { queue } = useStore();
     const isOnline = computed(
       () => queue.online.findIndex((x) => x === user.steamId) !== -1,
     ).get();
 
     return (
-      <div
-        {...props}
-        className={cx(c.user, block ? c.block : undefined, className)}
-      >
+      <div {...props} className={cx(c.user, className)}>
         <div>
           <picture
             className={isOnline ? c.online : undefined}
@@ -49,7 +45,7 @@ export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
             />
           </picture>
         </div>
-        <Username user={user} link={link} nolink={nolink} block={block} />
+        <Username user={user} link={link} nolink={nolink} />
       </div>
     );
   },

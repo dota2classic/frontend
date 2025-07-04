@@ -1,6 +1,5 @@
 @import "../../common.scss";
 
-
 .block {
   display: block;
   max-width: unset !important;
@@ -16,7 +15,7 @@
 .msg {
   display: flex;
   flex-direction: row;
-
+  column-gap: 0.5rem;
   & img {
     vertical-align: middle;
   }
@@ -26,8 +25,6 @@
     flex-direction: column;
   }
 }
-
-
 
 .forumTitle {
   white-space: nowrap;
@@ -51,5 +48,3 @@
 .newMessages {
   color: $gold;
 }
-
-

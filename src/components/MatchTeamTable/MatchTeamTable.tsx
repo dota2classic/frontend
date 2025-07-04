@@ -236,7 +236,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 </td>
                 <td>
                   <div className={c.fixedWidth}>
-                    <Username user={player.user} block />
+                    <Username user={player.user} />
                   </div>
                 </td>
                 <td

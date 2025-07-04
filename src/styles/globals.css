@@ -184,6 +184,7 @@ iframe {
   display: flex;
   flex-direction: row;
   align-content: center;
+  align-items: center;
   gap: 8px;
 }
 

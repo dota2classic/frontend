@@ -48,6 +48,7 @@ export interface ReportControllerApplyPunishmentRequest {
 export interface ReportControllerGetPaginationLogRequest {
   page: number;
   perPage?: number;
+  steamId?: string;
 }
 
 export interface ReportControllerGetReportRequest {
@@ -163,6 +164,10 @@ export class ReportApi extends runtime.BaseAPI {
             queryParameters["per_page"] = requestParameters.perPage;
         }
 
+        if (requestParameters.steamId !== undefined) {
+            queryParameters["steam_id"] = requestParameters.steamId;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         return {
@@ -175,20 +180,20 @@ export class ReportApi extends runtime.BaseAPI {
 
     /**
      */
-    reportControllerGetPaginationLog = async (page: number, perPage?: number): Promise<PunishmentLogPageDto> => {
-        const response = await this.reportControllerGetPaginationLogRaw({ page: page, perPage: perPage });
+    reportControllerGetPaginationLog = async (page: number, perPage?: number, steamId?: string): Promise<PunishmentLogPageDto> => {
+        const response = await this.reportControllerGetPaginationLogRaw({ page: page, perPage: perPage, steamId: steamId });
         return await response.value();
     }
 
-    useReportControllerGetPaginationLog(page: number, perPage?: number, config?: SWRConfiguration<PunishmentLogPageDto, Error>) {
+    useReportControllerGetPaginationLog(page: number, perPage?: number, steamId?: string, config?: SWRConfiguration<PunishmentLogPageDto, Error>) {
         let valid = true
 
         if (page === null || page === undefined || Number.isNaN(page)) {
             valid = false
         }
 
-        const context = this.reportControllerGetPaginationLogContext({ page: page!, perPage: perPage! });
-        return useSWR(context, valid ? () => this.reportControllerGetPaginationLog(page!, perPage!) : null, config)
+        const context = this.reportControllerGetPaginationLogContext({ page: page!, perPage: perPage!, steamId: steamId! });
+        return useSWR(context, valid ? () => this.reportControllerGetPaginationLog(page!, perPage!, steamId!) : null, config)
     }
 
     /**

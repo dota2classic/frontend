@@ -1,28 +1,68 @@
 import { NextPageContext } from "next";
 import { numberOrDefault } from "@/util/urls";
-import { PunishmentLogPageDto, RuleType } from "@/api/back";
+import { PunishmentLogPageDto, RuleType, UserDTO } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import {
+  Checkbox,
   Duration,
   EmbedProps,
   PageLink,
   Pagination,
+  Panel,
   Table,
   TimeAgo,
+  UserPicker,
   UserPreview,
 } from "@/components";
 import { AppRouter } from "@/route";
+import React from "react";
+import { useQueryBackedParameter } from "@/util";
+import { useStore } from "@/store";
+import { observer } from "mobx-react-lite";
 
 interface Props {
   page: PunishmentLogPageDto;
+  chosenUser?: UserDTO;
 }
-export default function BanLog({ page }: Props) {
+const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
+  const [, setSteamId] = useQueryBackedParameter("steamId");
+  const { auth } = useStore();
   return (
     <>
       <EmbedProps
         title={"Журнал нарушений"}
         description={"Журнал нарушений правил на сайте dotaclassic.ru "}
       />
+      <Panel
+        style={{ flexDirection: "row", alignItems: "center" }}
+        className={"nicerow"}
+      >
+        {auth.isModerator ? (
+          <>
+            <UserPicker
+              value={chosenUser}
+              onSelect={(it) => {
+                setSteamId(it?.steamId);
+              }}
+            />
+          </>
+        ) : (
+          auth.isAuthorized && (
+            <Checkbox
+              checked={chosenUser?.steamId === auth?.parsedToken?.sub}
+              onChange={(e) => {
+                if (e) {
+                  setSteamId(auth.parsedToken?.sub);
+                } else {
+                  setSteamId(undefined);
+                }
+              }}
+            >
+              Только мои
+            </Checkbox>
+          )
+        )}
+      </Panel>
       <Pagination
         page={page.page}
         maxPage={page.pages}
@@ -89,12 +129,25 @@ export default function BanLog({ page }: Props) {
       </Table>
     </>
   );
-}
+});
 
+export default BanLog;
+
+// @ts-ignore
 BanLog.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const page = numberOrDefault(ctx.query.page as string, 0);
+  const steamId = ctx.query.steamId as string;
 
   return {
-    page: await getApi().report.reportControllerGetPaginationLog(page),
+    page: await getApi().report.reportControllerGetPaginationLog(
+      page,
+      20,
+      steamId,
+    ),
+    chosenUser: steamId
+      ? await getApi()
+          .playerApi.playerControllerPlayerSummary(steamId)
+          .then((t) => t.user)
+      : undefined,
   };
 };

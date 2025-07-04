@@ -147,50 +147,52 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 user={user}
                 alt={`Avatar of player ${name}`}
               />
-              <Username
-                user={user}
-                className={cx(c.playerName, "link")}
-                testId={"player-summary-player-name"}
-              />
-            </div>
-            <div className={cx(c.player, c.icons)}>
-              <a
-                target="__blank"
-                className={cx(c.externalLink, "link")}
-                href={`https://dotabuff.com/players/${steamId}`}
-              >
-                <img className={c.icon} src="/dotabuff.png" alt="" />
-              </a>
-              <a
-                target="__blank"
-                className={cx(c.externalLink, "link")}
-                href={steamPage(steamId)}
-              >
-                <FaSteam className={c.icon_svg} />
-              </a>
-              {isOld && (
-                <Tooltipable tooltip="Подписчик dotaclassic plus">
-                  <img width={20} height={20} src="/logo/128.png" />
-                </Tooltipable>
-              )}
-              {isModerator && (
-                <PageLink
-                  className={c.externalLink}
-                  link={AppRouter.admin.player(steamId).link}
-                >
-                  <MdLocalPolice className={c.icon_svg} />
-                </PageLink>
-              )}
-              {twitchConnection && (
-                <a
-                  target="__blank"
-                  className={cx(c.externalLink, "link", c.twitch)}
-                  href={`https://twitch.tv/${twitchConnection.externalId}`}
-                >
-                  <FaTwitch className={c.icon_svg} />
-                  {twitchConnection.externalId}
-                </a>
-              )}
+              <div className={c.playerAndRoles}>
+                <Username
+                  user={user}
+                  className={cx(c.playerName, "link")}
+                  testId={"player-summary-player-name"}
+                />
+                <div className={cx(c.player, c.icons)}>
+                  <a
+                    target="__blank"
+                    className={cx(c.externalLink, "link")}
+                    href={`https://dotabuff.com/players/${steamId}`}
+                  >
+                    <img className={c.icon} src="/dotabuff.png" alt="" />
+                  </a>
+                  <a
+                    target="__blank"
+                    className={cx(c.externalLink, "link")}
+                    href={steamPage(steamId)}
+                  >
+                    <FaSteam className={c.icon_svg} />
+                  </a>
+                  {isOld && (
+                    <Tooltipable tooltip="Подписчик dotaclassic plus">
+                      <img width={20} height={20} src="/logo/128.png" />
+                    </Tooltipable>
+                  )}
+                  {isModerator && (
+                    <PageLink
+                      className={c.externalLink}
+                      link={AppRouter.admin.player(steamId).link}
+                    >
+                      <MdLocalPolice className={c.icon_svg} />
+                    </PageLink>
+                  )}
+                  {twitchConnection && (
+                    <a
+                      target="__blank"
+                      className={cx(c.externalLink, "link", c.twitch)}
+                      href={`https://twitch.tv/${twitchConnection.externalId}`}
+                    >
+                      <FaTwitch className={c.icon_svg} />
+                      {twitchConnection.externalId}
+                    </a>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
