@@ -110,6 +110,7 @@ const ColRenderer: React.FC<{
         <UserPreview
           avatarSize={40}
           user={value}
+          className={c.userPreview}
           link={col.link ? col.link(data) : undefined}
         />
       </td>

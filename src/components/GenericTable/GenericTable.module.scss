@@ -14,6 +14,10 @@
   padding-right: 1rem;
 }
 
+.userPreview {
+  overflow: hidden;
+}
+
 .contentWrapper {
   display: flex;
   flex-direction: row;
@@ -41,14 +45,14 @@
 }
 
 .heroLink {
-    display: inline-block; 
-    white-space: nowrap;  
+    display: inline-block;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 0.15rem;
 }
 
-.itemWrapper {  
+.itemWrapper {
   column-gap: 0.35rem;
 
   & a,
@@ -67,8 +71,8 @@
 }
 
 .itemLink {
-    display: inline-block; 
-    white-space: nowrap;  
+    display: inline-block;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 0.15rem;
@@ -88,7 +92,7 @@
 .item {
   width: 150px;
   align-items: center;
-  
+
   & img {
     // margin-top: 4px;
     vertical-align: middle;
