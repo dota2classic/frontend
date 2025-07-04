@@ -45,24 +45,19 @@
 }
 
 .tools {
+  box-shadow: 0 0 8px rgba(10, 10, 10, 0.8);
   visibility: hidden;
   position: absolute;
   right: 10px;
   background: $bg2;
   padding: 4px 8px;
   border-radius: 4px;
-  top: 0;
+  top: -26px;
+  //bottom: 20px;
 
   display: flex;
   gap: 8px;
 
-  //& svg:hover {
-  //  color: $gold;
-  //}
-  //
-  //& span:hover {
-  //  filter: drop-shadow(2px 4px 4px $gold);
-  //}
 
   & svg,
   span {

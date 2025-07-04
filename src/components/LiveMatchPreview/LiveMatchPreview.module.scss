@@ -21,13 +21,11 @@
 .liveMatch {
   grid-column: span 12;
 
-
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 
   @media (max-width: 600px) {
     grid-template-columns: repeat(4, 1fr);
-
   }
 }
 
@@ -39,7 +37,6 @@
   @media (max-width: 600px) {
     order: 1;
   }
-
 }
 
 .playerRow {
@@ -56,7 +53,6 @@
     margin-top: 0 !important;
     padding: 8px;
   }
-
 }
 
 .heroIconWrapper {
@@ -78,7 +74,7 @@
   & .iconPlusName {
     display: inline-flex;
     align-items: center;
-    flex: 1; 
+    flex: 1;
     min-width: 0.5rem;
     column-gap: 0.5rem;
     max-width: 15rem;
@@ -209,7 +205,6 @@
 
   &__visible {
     opacity: 1;
-
   }
 }
 
@@ -269,4 +264,8 @@
   &__visible {
     display: block;
   }
+}
+
+.username {
+  flex: 1;
 }

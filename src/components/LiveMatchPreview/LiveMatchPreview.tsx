@@ -97,7 +97,7 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
               src="/abandon.png"
             />
           </div>
-          <Username user={slot.user} />
+          <Username className={c.username} user={slot.user} />
         </div>
         <KDATableData
           kills={hero.kills}
