@@ -49,6 +49,12 @@ export interface MmrChangeDto {
      * @memberof MmrChangeDto
      */
     calibration: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof MmrChangeDto
+     */
+    streak: number;
 }
 
 export function MmrChangeDtoFromJSON(json: any): MmrChangeDto {
@@ -66,6 +72,7 @@ export function MmrChangeDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'change': json['change'],
         'isHiddenMmr': json['is_hidden_mmr'],
         'calibration': json['calibration'],
+        'streak': json['streak'],
     };
 }
 
@@ -83,6 +90,7 @@ export function MmrChangeDtoToJSON(value?: MmrChangeDto | null): any {
         'change': value.change,
         'is_hidden_mmr': value.isHiddenMmr,
         'calibration': value.calibration,
+        'streak': value.streak,
     };
 }
 

@@ -23,6 +23,7 @@ import { GrActions } from "react-icons/gr";
 import { Username } from "../Username/Username";
 import heroName from "@/util/heroName";
 import { getMaxMatchValues } from "@/util/useMaxMatchValues";
+import { pluralize } from "@/util/pluralize";
 
 interface IMatchTeamTableProps {
   players: PlayerInMatchDto[];
@@ -197,6 +198,9 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
               iFirstPartyPlayer !== idx && idx !== iLastPartyPlayer;
             const shouldDisplayEnd =
               iFirstPartyPlayer !== idx && idx === iLastPartyPlayer;
+
+            const isStreak = Math.abs(player.mmr?.streak || 0) >= 2;
+            const absStreak = Math.abs(player.mmr?.streak || 0) + 1;
 
             return (
               <tr key={player.user.steamId}>
@@ -392,9 +396,20 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   {(player.mmr?.change && (
                     <Tooltipable
                       tooltip={
-                        player.mmr.calibration
-                          ? "Калибровочная игра"
-                          : "Обычная игра "
+                        <div className={c.mmrTooltip}>
+                          <span>
+                            {player.mmr.calibration
+                              ? "Калибровочная игра"
+                              : "Обычная игра "}
+                          </span>
+                          {isStreak && (
+                            <span>
+                              {player.mmr.streak > 0
+                                ? `${absStreak} ${pluralize(absStreak, "победа", "победы", "побед")} подряд!`
+                                : `${absStreak} ${pluralize(absStreak, "поражение", "поражения", "поражений")} подряд!`}
+                            </span>
+                          )}
+                        </div>
                       }
                     >
                       <span
@@ -410,7 +425,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                             Math.sign(player.mmr?.change || 0) > 0
                               ? "green"
                               : "red",
-                            Math.abs(player.mmr.change) >= 50 && "gold",
+                            player.mmr.calibration && "gold",
+                            isStreak && c.streak,
                           )}
                         >
                           {signedNumber(player.mmr?.change || 0)}
