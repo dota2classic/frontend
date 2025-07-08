@@ -99,6 +99,15 @@
   border-radius: 9px;
   z-index: 2;
 
+  @media (max-width: 600px) {
+    display: none;
+  }
+
+  //
+  &__mobile_display {
+    display: block;
+  }
+
   &:global(.party_1) {
     border-color: rgba(194, 60, 42, 0.6);
   }
@@ -160,5 +169,4 @@
 }
 
 .streak {
-
 }

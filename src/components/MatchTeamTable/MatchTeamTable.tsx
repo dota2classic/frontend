@@ -187,10 +187,12 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
               (t) => t.partyIndex === player.partyIndex,
             );
 
-            const shouldDisplay =
-              (!filterColumns || filterColumns.includes("MMR")) &&
+            const isInParty =
               player.partyIndex !== -1 &&
               (iFirstPartyPlayer !== idx || idx !== iLastPartyPlayer);
+
+            const shouldDisplay =
+              !filterColumns || !filterColumns.includes("Items");
 
             const shouldDisplayStart =
               iFirstPartyPlayer === idx && idx !== iLastPartyPlayer;
@@ -209,11 +211,12 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     className={cx(c.heroWithLevel)}
                     title={heroName(player.hero)}
                   >
-                    {shouldDisplay && (
+                    {isInParty && (
                       <span className={c.party__indicator_root}>
                         <span
                           className={cx(
                             c.party__indicator,
+                            shouldDisplay && c.party__indicator__mobile_display,
                             shouldDisplayStart && c.party__indicator__start,
                             shouldDisplayMiddle && c.party__indicator__middle,
                             shouldDisplayEnd && c.party__indicator__end,
