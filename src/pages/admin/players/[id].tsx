@@ -167,11 +167,14 @@ export default function AdminPlayerPage({
   const { data: flags, mutate: mutateFlags } =
     getApi().adminApi.useAdminUserControllerPlayerFlags(steamId);
 
-  const updateFlag = useCallback((p: UpdatePlayerFlagDto) => {
-    getApi()
-      .adminApi.adminUserControllerFlagPlayer(steamId, p)
-      .then(mutateFlags);
-  }, []);
+  const updateFlag = useCallback(
+    (p: UpdatePlayerFlagDto) => {
+      getApi()
+        .adminApi.adminUserControllerFlagPlayer(steamId, p)
+        .then(mutateFlags);
+    },
+    [mutateFlags, steamId],
+  );
 
   const { data: forumUser, mutate: mutateForumUser } =
     getApi().forumApi.useForumControllerGetUser(steamId, {
@@ -268,6 +271,16 @@ export default function AdminPlayerPage({
                 <Checkbox
                   onChange={(e) => updateFlag({ disableReports: e })}
                   checked={flags?.disableReports}
+                />
+              </td>
+            </tr>
+
+            <tr>
+              <td>Запретить стримы</td>
+              <td>
+                <Checkbox
+                  onChange={(e) => updateFlag({ disableStreams: e })}
+                  checked={flags?.disableStreams}
                 />
               </td>
             </tr>
