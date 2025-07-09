@@ -195,7 +195,7 @@ export default function PlayerSettings({ summary, decorations }: Props) {
               {dodgeList.map((it) => (
                 <tr key={it.user.steamId}>
                   <td>
-                    <UserPreview user={it.user} />
+                    <UserPreview roles user={it.user} />
                   </td>
                   <td>{formatDate(new Date(it.createdAt))}</td>
                   <td>

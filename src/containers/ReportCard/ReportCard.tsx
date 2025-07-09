@@ -71,13 +71,13 @@ export const ReportCard: React.FC<IReportCardProps> = observer(
               <tr>
                 <td>Истец</td>
                 <td>
-                  <UserPreview user={report.reporter} />
+                  <UserPreview roles user={report.reporter} />
                 </td>
               </tr>
               <tr>
                 <td>Обвиняемый</td>
                 <td>
-                  <UserPreview user={report.reported} />
+                  <UserPreview roles user={report.reported} />
                 </td>
               </tr>
               {report.message ? (

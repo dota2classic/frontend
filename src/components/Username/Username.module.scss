@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   flex-shrink: 1;
-  min-width: 30px;
+  min-width: 1em;
 }
 
 .usernameLink {
@@ -18,4 +18,20 @@
   display: flex;
   flex-direction: row;
   min-width: 0.5rem;
+}
+
+
+.roleTooltip {
+  @include box();
+  padding: 8px 12px;
+  background-color: $bg2;
+  color: $primaryText;
+}
+
+.roles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.1em;
+  gap: 4px;
 }

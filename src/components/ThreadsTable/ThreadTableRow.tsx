@@ -45,7 +45,7 @@ export const ThreadTableRow = observer(
         </td>
         <td className="omit">{thread.views}</td>
         <td className="omit">
-          {op && <UserPreview avatarSize={30} user={op} />}
+          {op && <UserPreview roles avatarSize={30} user={op} />}
         </td>
         <td>
           {thread.lastMessage && (

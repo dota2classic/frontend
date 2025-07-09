@@ -64,7 +64,7 @@ export const PlayerFeedbackModal: React.FC<IPlayerReportModalProps> = observer(
         onClose={onClose}
       >
         <div className={c.user}>
-          <UserPreview user={player.user} />
+          <UserPreview roles user={player.user} />
           <span>Осталось отзывов: {auth.me.reportsAvailable}</span>
         </div>
         <div className={c.categories}>

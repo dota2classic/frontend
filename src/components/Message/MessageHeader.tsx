@@ -1,27 +1,16 @@
-import { Role } from "@/api/mapped-models";
-import {
-  GenericTooltip,
-  PeriodicTimerClient,
-  PlayerAvatar,
-  Tooltipable,
-} from "@/components";
-import { MdAdminPanelSettings } from "react-icons/md";
+import { PeriodicTimerClient, PlayerAvatar } from "@/components";
 import cx from "clsx";
 import c from "@/components/Message/Message.module.scss";
 import { AppRouter } from "@/route";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { MessageTools } from "@/components/Message/MessageTools";
 import { MessageReactions } from "@/components/Message/MessageReactions";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import { ThreadMessageDTO, UserConnectionDtoConnectionEnum } from "@/api/back";
+import { ThreadMessageDTO } from "@/api/back";
 import { MessageContent } from "@/components/Message/MessageContent";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { computed } from "mobx";
-import { createPortal } from "react-dom";
-import { formatRole } from "@/util/gamemode";
-import { FaTwitch } from "react-icons/fa";
-import animations from "./ChatIconAnimations.module.scss";
 import { Username } from "../Username/Username";
 
 interface IMessageProps {
@@ -33,10 +22,7 @@ export const MessageHeader = observer(function MessageHeader({
   message,
   lightweight,
 }: IMessageProps) {
-  const { queue, live } = useStore();
-  const [hoveredRole, setHoveredRole] = useState<
-    { label: string; ref: HTMLElement } | undefined
-  >(undefined);
+  const { queue } = useStore();
 
   const thread = useContext(ThreadContext);
 
@@ -47,83 +33,6 @@ export const MessageHeader = observer(function MessageHeader({
   const isBeingEdited = computed(
     () => thread.editingMessageId === message.messageId,
   ).get();
-
-  const twitchConnection = message.author.connections.find(
-    (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
-  );
-
-  const liveStream = twitchConnection
-    ? live.getLiveStream(message.author.steamId)
-    : undefined;
-
-  const chatIconOld = message.author.icon;
-  const roleList = message.author.roles.map((t) => t.role);
-
-  const roles = (
-    <>
-      {hoveredRole &&
-        createPortal(
-          <GenericTooltip
-            anchor={hoveredRole.ref}
-            onClose={() => setHoveredRole(undefined)}
-          >
-            <span className={c.roleTooltip}>{hoveredRole.label}</span>
-          </GenericTooltip>,
-          document.body,
-        )}
-      {roleList.includes(Role.MODERATOR) && (
-        <MdAdminPanelSettings
-          className={"bronze"}
-          onMouseEnter={(e) =>
-            setHoveredRole({
-              ref: e.target as HTMLElement,
-              label: formatRole(Role.MODERATOR),
-            })
-          }
-          onMouseLeave={() => setHoveredRole(undefined)}
-        />
-      )}
-      {roleList.includes(Role.ADMIN) && (
-        <MdAdminPanelSettings
-          className={"grey"}
-          onMouseEnter={(e) =>
-            setHoveredRole({
-              ref: e.target as HTMLElement,
-              label: formatRole(Role.ADMIN),
-            })
-          }
-          onMouseLeave={() => setHoveredRole(undefined)}
-        />
-      )}
-      {liveStream && (
-        <Tooltipable
-          className={"purple"}
-          tooltip={`Стримит dotaclassic.ru прямо сейчас!`}
-        >
-          <a target="__blank" href={liveStream.link}>
-            <FaTwitch />
-          </a>
-        </Tooltipable>
-      )}
-      {roleList.includes(Role.OLD) && (
-        <img
-          src={chatIconOld ? chatIconOld.image.url : "/logo/128.png"}
-          className={cx(
-            animations.old,
-            message.author.chatIconAnimation?.image.key,
-          )}
-          onMouseEnter={(e) =>
-            setHoveredRole({
-              ref: e.target as HTMLElement,
-              label:
-                message.author.title?.title || "Подписчик dotaclassic plus",
-            })
-          }
-          onMouseLeave={() => setHoveredRole(undefined)}
-        />
-      )}
-    </>
-  );
 
   return (
     <div
@@ -153,8 +62,8 @@ export const MessageHeader = observer(function MessageHeader({
             link={AppRouter.players.player.index(message.author.steamId).link}
             user={message.author}
             className={c.username}
+            roles
           />
-          {roles}
           <span className={c.messageTime}>
             {<PeriodicTimerClient time={message.createdAt} />}
           </span>

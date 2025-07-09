@@ -108,6 +108,7 @@ const ColRenderer: React.FC<{
         className={cx(col.mobileOmit ? "omit" : undefined, c.username)}
       >
         <UserPreview
+          roles
           avatarSize={40}
           user={value}
           className={c.userPreview}

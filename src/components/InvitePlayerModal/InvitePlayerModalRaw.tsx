@@ -41,6 +41,7 @@ export const InvitePlayerModalRaw: React.FC<IInvitePlayerModalProps> = ({
           .filter((it) => it.steamId.length > 2)
           .map((it: UserDTO) => (
             <UserPreview
+              roles
               onClick={() => onSelect(it)}
               nolink
               key={it.steamId}

@@ -88,9 +88,9 @@ export default function QueuesPage({
               {entries.length > 0 ? (
                 entries.map((entry: QueueEntryDTO) => (
                   <div key={entry.partyId} className={c.withBorder}>
-                    <div>Party {entry.partyId}</div>
+                    <div>Party {entry.partyId} </div>
                     {entry.players.map((plr: UserDTO) => (
-                      <UserPreview key={plr.steamId} user={plr} />
+                      <UserPreview roles key={plr.steamId} user={plr} />
                     ))}
                   </div>
                 ))

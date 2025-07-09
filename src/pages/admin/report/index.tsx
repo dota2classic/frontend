@@ -61,10 +61,10 @@ export default function AdminReportsPage({ reports, page }: Props) {
               </td>
               <td>{report.rule.title}</td>
               <th>
-                <UserPreview user={report.reported} />
+                <UserPreview roles user={report.reported} />
               </th>
               <th>
-                <UserPreview user={report.reporter} />
+                <UserPreview roles user={report.reporter} />
               </th>
               <th>{report.message ? "Сообщение" : "Матч"}</th>
               <th>

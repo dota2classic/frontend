@@ -188,6 +188,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
             );
 
             const isInParty =
+              player.user.steamId.length > 2 &&
               player.partyIndex !== -1 &&
               (iFirstPartyPlayer !== idx || idx !== iLastPartyPlayer);
 
