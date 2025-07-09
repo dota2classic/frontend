@@ -202,7 +202,10 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
             const shouldDisplayEnd =
               iFirstPartyPlayer !== idx && idx === iLastPartyPlayer;
 
-            const isStreak = Math.abs(player.mmr?.streak || 0) >= 2;
+            const isStreak =
+              Math.abs(player.mmr?.streak || 0) >= 2 &&
+              Math.sign(player.mmr?.streak || 1) ===
+                Math.sign(player?.mmr?.change || -1);
             const absStreak = Math.abs(player.mmr?.streak || 0) + 1;
 
             return (
