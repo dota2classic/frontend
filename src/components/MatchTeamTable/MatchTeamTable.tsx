@@ -45,7 +45,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
     onReport,
     globalMaxValues,
   }) => {
-    const { hasReports } = useStore().auth;
+    const { hasReports, parsedToken } = useStore().auth;
 
     const maxValues = useMemo(
       () => globalMaxValues ?? getMaxMatchValues(players, duration),
@@ -449,12 +449,15 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   }
                 >
                   <div className={c.actions}>
-                    <Tooltipable
-                      className={cx(c.commend, "adminicon")}
-                      tooltip={"Жалоба"}
-                    >
-                      <GiFist onClick={() => onReport(player)} />
-                    </Tooltipable>
+                    {player.user.steamId.length > 2 &&
+                      parsedToken?.sub !== player.user.steamId && (
+                        <Tooltipable
+                          className={cx(c.commend, "adminicon")}
+                          tooltip={"Жалоба"}
+                        >
+                          <GiFist onClick={() => onReport(player)} />
+                        </Tooltipable>
+                      )}
                     {hasReports &&
                       reportableSteamIds.includes(player.user.steamId) && (
                         <Tooltipable
