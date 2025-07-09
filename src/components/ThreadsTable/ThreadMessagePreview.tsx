@@ -2,18 +2,18 @@ import { ThreadMessageDTO } from "@/api/back";
 import cx from "clsx";
 import c from "./ThreadsTable.module.scss";
 import TableClasses from "@/components/GenericTable/GenericTable.module.scss";
-import { PageLink, PlayerAvatar, TimeAgo } from "@/components";
-import { AppRouter } from "@/route";
+import { PlayerAvatar, TimeAgo } from "@/components";
 import React from "react";
+import { Username } from "@/components/Username/Username";
 
-export const ThreadMessagePreview = ({
+export const ThreadMessagePreview = React.memo(function ThreadMessagePreview({
   message,
 }: {
   message: ThreadMessageDTO;
-}) => {
+}) {
   const { author } = message;
   return (
-    <div className={cx(c.msg, TableClasses.player)}>
+    <div className={cx(c.msg)}>
       <PlayerAvatar
         user={author}
         className={TableClasses.avatar__small}
@@ -22,16 +22,13 @@ export const ThreadMessagePreview = ({
         alt={`avatar of user ${author.name}`}
       />
       <div style={{ flex: 1 }}>
-        <PageLink
-          className={c.block}
-          link={AppRouter.players.player.index(message.author.steamId).link}
-        >
-          {author.name}
-        </PageLink>
+        <div className={c.block}>
+          <Username user={message.author} roles />
+        </div>
         <div style={{ whiteSpace: "nowrap" }} className={cx(c.block)}>
           <TimeAgo date={message.createdAt} />
         </div>
       </div>
     </div>
   );
-};
+});

@@ -1,8 +1,10 @@
 @import "../../common.scss";
 
 .block {
-  display: block;
   max-width: unset !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .forumTable {
@@ -20,7 +22,7 @@
     vertical-align: middle;
   }
 
-  & div {
+  & > div {
     display: flex;
     flex-direction: column;
   }
