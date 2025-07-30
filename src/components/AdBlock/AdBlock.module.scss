@@ -10,6 +10,18 @@
   }
 }
 
+
+.horizontalAdBlock {
+  position: relative;
+  flex: 1;
+  //padding: 20px;
+  //min-height: 140px;
+
+  @media (min-width: 1200px) {
+    display: none;
+  }
+}
+
 .hidden {
   display: none;
 }

@@ -15,6 +15,8 @@ import { ThemeContext } from "@/util/theme";
 import { AdBlockType } from "@/components/AdBlock/AdBlockType";
 import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
 import { TrajanPro } from "@/const/fonts";
+import { useShowSideAdBlocks } from "@/util/usePageSize";
+import { HorizontalAdBlock } from "@/components/AdBlock/HorizontalAdBlock";
 
 interface LayoutProps {
   className?: string;
@@ -27,6 +29,10 @@ export const Layout = ({
   const isQueuePage = r.pathname === "/queue";
   const isLanding = r.pathname === "/" || r.pathname === "/store";
   const isStore = r.pathname === "/store";
+
+  const showSideAds = useShowSideAdBlocks();
+
+  console.log("Show side ads?", showSideAds);
 
   return (
     <ThemeContext.Provider value={{ newYear: true }}>
@@ -52,6 +58,7 @@ export const Layout = ({
               r.pathname === "/queue" && c.queue,
             )}
           >
+            <HorizontalAdBlock bannerId={AdBlockType.HORIZONTAL_FULLWIDTH} />
             <main
               className={cx(
                 c.layoutInner,

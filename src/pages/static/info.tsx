@@ -130,8 +130,20 @@ export default function InfoPage() {
             классческой доте
           </li>
           <li>
+            <a
+              href="https://www.youtube.com/channel/UCsd6QWmQQe7J6nnocJjpPRQ"
+              target="__blank"
+              className="green link"
+            >
+              Человек-Самовар
+            </a>{" "}
+            - именно благодаря ему классическую доту впервые увидели много
+            игроков
+          </li>
+          <li>
             <span className="green">SittingBull</span> - написал первый
-            автоматический хост серверов через дискорд бота
+            автоматический хост серверов через дискорд бота, писал первые
+            серверные плагины
           </li>
           <li>
             <span className="green">DeathTBO</span> - годами держит сайт

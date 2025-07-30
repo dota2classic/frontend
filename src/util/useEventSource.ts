@@ -25,6 +25,7 @@ export const useEventSource = <T extends object>(
         signal: ctrl.signal,
         openWhenHidden: true,
         onmessage: (something) => {
+          console.log("onmessage", something);
           if (something.data.length <= 0) return;
           const msg = something.data;
           const raw = JSON.parse(msg);

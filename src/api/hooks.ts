@@ -13,12 +13,12 @@ import {
   NotificationApi,
   PlayerApi,
   RecordApi,
+  ReportApi,
+  RulesApi,
   SettingsApi,
   StatsApi,
   StorageApi,
   UserPaymentApi,
-  RulesApi,
-  ReportApi,
 } from "./back/apis";
 import {
   Configuration,
@@ -29,7 +29,6 @@ import {
 } from "./back";
 import { getCache } from "@/api/api-cache";
 import BrowserCookies from "browser-cookies";
-import { AuthStore } from "@/store/AuthStore";
 import { __unsafeGetClientStore } from "@/store";
 import { parseJwt } from "@/util";
 
@@ -56,7 +55,7 @@ export class AppApi {
     basePath: `${PROD_URL}`,
     accessToken:
       typeof window !== "undefined"
-        ? BrowserCookies.get(AuthStore.cookieTokenKey) || undefined
+        ? BrowserCookies.get("dota2classic_auth_token") || undefined
         : undefined,
     middleware: [
       {
@@ -113,7 +112,7 @@ export class AppApi {
 
   refreshToken = async () => {
     const newToken = await this.authApi.steamControllerRefreshToken();
-    BrowserCookies.set(AuthStore.cookieTokenKey, newToken, {
+    BrowserCookies.set("dota2classic_auth_token", newToken, {
       expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30),
       path: "/",
     });
