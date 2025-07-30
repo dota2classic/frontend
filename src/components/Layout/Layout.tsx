@@ -58,7 +58,9 @@ export const Layout = ({
               r.pathname === "/queue" && c.queue,
             )}
           >
-            <HorizontalAdBlock bannerId={AdBlockType.HORIZONTAL_FULLWIDTH} />
+            {!isLanding && (
+              <HorizontalAdBlock bannerId={AdBlockType.HORIZONTAL_FULLWIDTH} />
+            )}
             <main
               className={cx(
                 c.layoutInner,
