@@ -52,6 +52,7 @@ type PlayerPage =
   | "matches"
   | "teammates"
   | "records"
+  | "drops"
   | "settings";
 type Items = IBigTabsProps<PlayerPage>["items"];
 
@@ -85,6 +86,11 @@ const getMenuItems = (steamId: string, isMyProfile: boolean): Items => {
   ];
 
   if (isMyProfile) {
+    menuItems.push({
+      key: "drops",
+      label: "Награды",
+      onSelect: AppRouter.players.player.drops(steamId).link,
+    });
     menuItems.push({
       key: "settings",
       label: "Настройки",

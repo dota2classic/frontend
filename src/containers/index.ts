@@ -32,3 +32,5 @@ export { PaidFeatureModal } from "./PaidFeatureModal/PaidFeatureModal";
 export { TechStaticTabs } from "./TechStaticTabs/TechStaticTabs";
 export { GiveProductContainer } from "./GiveProductContainer/GiveProductContainer";
 export { LogFileHistory } from "./LogFileHistory/LogFileHistory";
+export { DropList } from "./DropList/DropList";
+export { Form } from "./Form/Form";

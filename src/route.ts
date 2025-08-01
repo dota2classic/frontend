@@ -127,6 +127,8 @@ export const AppRouter = {
         page(`/players/[id]/records`, `/players/${id}/records`),
       settings: (id: string) =>
         page(`/players/[id]/settings`, `/players/${id}/settings`),
+      drops: (id: string) =>
+        page(`/players/[id]/drops`, `/players/${id}/drops`),
       teammates: (id: string, _page?: number) => {
         const q = queryParameters({ page: _page });
         return page(

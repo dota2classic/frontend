@@ -161,6 +161,36 @@ export const handleNotification = (notification: NotificationDto) => {
         </>
       );
       break;
+    case NotificationType.ITEMDROPPED:
+      title = `Тебе выпал предмет!`;
+      content = (
+        <>
+          <PageLink
+            className="link"
+            link={AppRouter.players.player.drops(notification.entityId).link}
+            onClick={acknowledge}
+          >
+            Узнать, что за предмет выпал
+          </PageLink>
+        </>
+      );
+      break;
+    case NotificationType.TRADEOFFEREXPIRED:
+      title = `Обмен предметами истек по времени!`;
+      content = (
+        <>
+          Ты не принял обмен и он был отменен. Ты можешь получить свои предметы
+          заново:{" "}
+          <PageLink
+            className="link"
+            link={AppRouter.players.player.drops(notification.entityId).link}
+            onClick={acknowledge}
+          >
+            Запросить обмен наград
+          </PageLink>
+        </>
+      );
+      break;
   }
 
   const Toast: React.FunctionComponent<ToastContentProps<unknown>> = (
@@ -196,6 +226,18 @@ export const makeSimpleToast = (
   variant: "simple" | "error" = "simple",
 ) => {
   toast(<SimpleToast variant={variant} title={title} content={content} />, {
+    autoClose: time,
+    className: c.partyToast,
+    closeButton: false,
+  });
+};
+
+export const makeLinkToast = (
+  title: string,
+  content: ReactNode,
+  time: number,
+) => {
+  toast(<SimpleToast variant="simple" title={title} content={content} />, {
     autoClose: time,
     className: c.partyToast,
     closeButton: false,

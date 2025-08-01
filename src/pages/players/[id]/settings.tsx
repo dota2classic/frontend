@@ -55,8 +55,6 @@ export default function PlayerSettings({ summary, decorations }: Props) {
 
   const oldSubscription = summary.user.roles.find((t) => t.role === Role.OLD);
 
-  console.log(summary.recalibration);
-
   const [isStartingRecalibration, startRecalibration] = useAsyncButton(
     paidAction(async () => {
       try {

@@ -4,6 +4,7 @@ import {
   AuthApi,
   BlogApi,
   CustomizationApi,
+  DropsApi,
   FeedbackApi,
   ForumApi,
   LiveApi,
@@ -141,6 +142,7 @@ export class AppApi {
   readonly payment = new UserPaymentApi(this.apiConfig);
   readonly rules = new RulesApi(this.apiConfig);
   readonly report = new ReportApi(this.apiConfig);
+  readonly drops = new DropsApi(this.apiConfig);
 }
 
 export const appApi = new AppApi();
