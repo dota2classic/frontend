@@ -21,6 +21,12 @@ import {
   DroppedItemDto,
   DroppedItemDtoFromJSON,
   DroppedItemDtoToJSON,
+  PurchaseWithTradeBalanceDto,
+  PurchaseWithTradeBalanceDtoFromJSON,
+  PurchaseWithTradeBalanceDtoToJSON,
+  TradeOfferDto,
+  TradeOfferDtoFromJSON,
+  TradeOfferDtoToJSON,
   TradeUserDto,
   TradeUserDtoFromJSON,
   TradeUserDtoToJSON,
@@ -31,6 +37,10 @@ import {
 
 export interface ItemDropControllerDiscardDropRequest {
   id: string;
+}
+
+export interface ItemDropControllerPurchaseSubscriptionWithTradeBalanceRequest {
+  purchaseWithTradeBalanceDto: PurchaseWithTradeBalanceDto;
 }
 
 export interface ItemDropControllerUpdateTradeLinkRequest {
@@ -206,6 +216,60 @@ export class DropsApi extends runtime.BaseAPI {
 
     /**
      */
+    private async itemDropControllerGetTradesRaw(): Promise<runtime.ApiResponse<Array<TradeOfferDto>>> {
+        this.itemDropControllerGetTradesValidation();
+        const context = this.itemDropControllerGetTradesContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TradeOfferDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private itemDropControllerGetTradesValidation() {
+    }
+
+    /**
+     */
+    itemDropControllerGetTradesContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/drops/user/trades`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    itemDropControllerGetTrades = async (): Promise<Array<TradeOfferDto>> => {
+        const response = await this.itemDropControllerGetTradesRaw();
+        return await response.value();
+    }
+
+    useItemDropControllerGetTrades(config?: SWRConfiguration<Array<TradeOfferDto>, Error>) {
+        let valid = true
+
+        const context = this.itemDropControllerGetTradesContext();
+        return useSWR(context, valid ? () => this.itemDropControllerGetTrades() : null, config)
+    }
+
+    /**
+     */
     private async itemDropControllerGetUserRaw(): Promise<runtime.ApiResponse<TradeUserDto>> {
         this.itemDropControllerGetUserValidation();
         const context = this.itemDropControllerGetUserContext();
@@ -257,6 +321,60 @@ export class DropsApi extends runtime.BaseAPI {
         const context = this.itemDropControllerGetUserContext();
         return useSWR(context, valid ? () => this.itemDropControllerGetUser() : null, config)
     }
+
+    /**
+     */
+    private async itemDropControllerPurchaseSubscriptionWithTradeBalanceRaw(requestParameters: ItemDropControllerPurchaseSubscriptionWithTradeBalanceRequest): Promise<runtime.ApiResponse<TradeUserDto>> {
+        this.itemDropControllerPurchaseSubscriptionWithTradeBalanceValidation(requestParameters);
+        const context = this.itemDropControllerPurchaseSubscriptionWithTradeBalanceContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TradeUserDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private itemDropControllerPurchaseSubscriptionWithTradeBalanceValidation(requestParameters: ItemDropControllerPurchaseSubscriptionWithTradeBalanceRequest) {
+        if (requestParameters.purchaseWithTradeBalanceDto === null || requestParameters.purchaseWithTradeBalanceDto === undefined) {
+            throw new runtime.RequiredError("purchaseWithTradeBalanceDto","Required parameter requestParameters.purchaseWithTradeBalanceDto was null or undefined when calling itemDropControllerPurchaseSubscriptionWithTradeBalance.");
+        }
+    }
+
+    /**
+     */
+    itemDropControllerPurchaseSubscriptionWithTradeBalanceContext(requestParameters: ItemDropControllerPurchaseSubscriptionWithTradeBalanceRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/drops/user/subscription`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PurchaseWithTradeBalanceDtoToJSON(requestParameters.purchaseWithTradeBalanceDto),
+        };
+    }
+
+    /**
+     */
+    itemDropControllerPurchaseSubscriptionWithTradeBalance = async (purchaseWithTradeBalanceDto: PurchaseWithTradeBalanceDto): Promise<TradeUserDto> => {
+        const response = await this.itemDropControllerPurchaseSubscriptionWithTradeBalanceRaw({ purchaseWithTradeBalanceDto: purchaseWithTradeBalanceDto });
+        return await response.value();
+    }
+
 
     /**
      */

@@ -2,11 +2,10 @@ import React, { useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { ReceiveSubscriptionModal } from "@/containers";
-import { AppRouter, NextLinkProp } from "@/route";
 import { ClaimType } from "@/store/ClaimItemStore";
 
 export const ClaimContainer: React.FC = observer(() => {
-  const { claim, notify, auth } = useStore();
+  const { claim, notify } = useStore();
 
   const first = claim.claimQueue[0];
 
@@ -17,18 +16,11 @@ export const ClaimContainer: React.FC = observer(() => {
 
   if (!first) return null;
 
-  let link: NextLinkProp;
-  switch (first.type) {
-    case ClaimType.SUBSCRIPTION:
-      link = auth.parsedToken
-        ? AppRouter.players.player.settings(auth.parsedToken.sub).link
-        : AppRouter.queue.link;
-  }
-
   return (
     <ReceiveSubscriptionModal
+      imageSize={first.type === ClaimType.SUBSCRIPTION ? "small" : "big"}
       onClose={onClose}
-      title="Подписка приобретена!"
+      title={first.title}
       onAcknowledge={() => undefined}
       item={{
         image: first.item.image,
@@ -36,7 +28,7 @@ export const ClaimContainer: React.FC = observer(() => {
       }}
       action={{
         label: first.action.label,
-        link,
+        link: first.action.link,
       }}
     />
   );

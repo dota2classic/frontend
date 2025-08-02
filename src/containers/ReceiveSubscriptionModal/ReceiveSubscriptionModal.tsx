@@ -4,11 +4,13 @@ import { NextLinkProp } from "@/route";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import c from "./ReceiveSubscriptionModal.module.scss";
+import cx from "clsx";
 
 interface IReceiveSubscriptionModalProps {
   onAcknowledge: () => void;
   onClose: () => void;
   title: ReactNode;
+  imageSize: "small" | "big";
   item: {
     image: string;
     name: string;
@@ -20,7 +22,7 @@ interface IReceiveSubscriptionModalProps {
 }
 
 export const ReceiveSubscriptionModal: React.FC<IReceiveSubscriptionModalProps> =
-  observer(({ onAcknowledge, title, item, action, onClose }) => {
+  observer(({ onAcknowledge, imageSize, title, item, action, onClose }) => {
     const { auth } = useStore();
     const steamId = auth.parsedToken?.sub;
 
@@ -35,7 +37,11 @@ export const ReceiveSubscriptionModal: React.FC<IReceiveSubscriptionModalProps> 
     return (
       <GenericModal className={c.modal} title="" onClose={onClose}>
         <h3>{title}</h3>
-        <img src={item.image} alt="" />
+        <img
+          className={cx(imageSize === "small" ? c.small : c.big)}
+          src={item.image}
+          alt=""
+        />
         <h4>{item.name}</h4>
 
         <Button onClick={onClose} pageLink={action.link} mega>

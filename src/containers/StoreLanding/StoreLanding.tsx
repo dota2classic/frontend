@@ -37,7 +37,16 @@ export const StoreLanding = observer(({ products }: Props) => {
   return (
     <>
       <ClientPortal visible={isCheckout}>
-        <BuySubscriptionModal products={products} onClose={endPayment} />
+        <BuySubscriptionModal
+          products={products}
+          onClose={endPayment}
+          onPurchase={(product, steamId) => {
+            window.open(
+              `https://t.me/dotaclassic_payments_bot?start=${steamId}`,
+              "__blank",
+            );
+          }}
+        />
       </ClientPortal>
 
       <EmbedProps

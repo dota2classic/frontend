@@ -22,10 +22,11 @@ import { useAsyncButton } from "@/util/use-async-button";
 interface IBuySubscriptionModalProps {
   onClose: () => void;
   products: SubscriptionProductDto[];
+  onPurchase: (product: SubscriptionProductDto, steamId: string) => void;
 }
 
 export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
-  observer(({ onClose, products }) => {
+  observer(({ onClose, products, onPurchase }) => {
     const { isAuthorized, parsedToken } = useStore().auth;
     const [selectedPlan, setSelectedPlan] = useState(-1);
     const [accept, setAccept] = useState(false);
@@ -53,11 +54,8 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
         return;
       }
 
-      window.open(
-        `https://t.me/dotaclassic_payments_bot?start=${parsedToken.sub}`,
-        "__blank",
-      );
-    }, [isAuthorized, selectedPlan]);
+      onPurchase(product, parsedToken.sub);
+    }, [isAuthorized, selectedPlan, onPurchase]);
 
     const selectedPlanInfo = useMemo(() => {
       return products.find((t) => t.id === selectedPlan);

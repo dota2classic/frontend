@@ -1,6 +1,12 @@
 import { NextPageContext } from "next";
 import React from "react";
-import { DroppedItemDto, PlayerSummaryDto, TradeUserDto } from "@/api/back";
+import {
+  DroppedItemDto,
+  PlayerSummaryDto,
+  SubscriptionProductDto,
+  TradeOfferDto,
+  TradeUserDto,
+} from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { EmbedProps, PlayerSummary } from "@/components";
 import { DropList } from "@/containers";
@@ -9,11 +15,19 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 interface Props {
   steamId: string;
   drops: DroppedItemDto[];
+  trades: TradeOfferDto[];
   summary: PlayerSummaryDto;
   user: TradeUserDto;
+  products: SubscriptionProductDto[];
 }
 
-export default function PlayerDrops({ drops, summary, user }: Props) {
+export default function PlayerDrops({
+  drops,
+  summary,
+  user,
+  trades,
+  products,
+}: Props) {
   return (
     <>
       <EmbedProps
@@ -29,19 +43,29 @@ export default function PlayerDrops({ drops, summary, user }: Props) {
         mmr={summary.seasonStats.mmr}
       />
 
-      <DropList drops={drops} summary={summary} user={user} />
+      <DropList
+        products={products}
+        trades={trades}
+        drops={drops}
+        summary={summary}
+        user={user}
+      />
     </>
   );
 }
 
 PlayerDrops.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const steamId = ctx.query.id as string;
-  const [summary, drops, user] = await withTemporaryToken(ctx, () =>
-    Promise.combine([
-      getApi().playerApi.playerControllerPlayerSummary(steamId),
-      getApi().drops.itemDropControllerGetMyDrops(),
-      getApi().drops.itemDropControllerGetUser(),
-    ]),
+  const [summary, drops, user, trades, products] = await withTemporaryToken(
+    ctx,
+    () =>
+      Promise.combine([
+        getApi().playerApi.playerControllerPlayerSummary(steamId),
+        getApi().drops.itemDropControllerGetMyDrops(),
+        getApi().drops.itemDropControllerGetUser(),
+        getApi().drops.itemDropControllerGetTrades(),
+        getApi().payment.userPaymentsControllerGetProducts(),
+      ]),
   );
 
   return {
@@ -49,5 +73,7 @@ PlayerDrops.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
     summary,
     user,
     steamId,
+    trades,
+    products,
   };
 };

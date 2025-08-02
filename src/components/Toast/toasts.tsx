@@ -46,6 +46,12 @@ export const handleNotification = (notification: NotificationDto) => {
     return;
   }
 
+  if (notification.notificationType === NotificationType.ITEMDROPPED) {
+    __unsafeGetClientStore().claim.claimSubscription(notification);
+    __unsafeGetClientStore().auth.forceRefreshToken().then();
+    return;
+  }
+
   let title: ReactNode = notification.title;
   let content: ReactNode = notification.content;
   const ttl = new Date(notification.expiresAt).getTime() - Date.now();
@@ -157,20 +163,6 @@ export const handleNotification = (notification: NotificationDto) => {
             onClick={acknowledge}
           >
             Посмотреть новое сообщение
-          </PageLink>
-        </>
-      );
-      break;
-    case NotificationType.ITEMDROPPED:
-      title = `Тебе выпал предмет!`;
-      content = (
-        <>
-          <PageLink
-            className="link"
-            link={AppRouter.players.player.drops(notification.entityId).link}
-            onClick={acknowledge}
-          >
-            Узнать, что за предмет выпал
           </PageLink>
         </>
       );

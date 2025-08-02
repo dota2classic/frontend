@@ -31,6 +31,12 @@ export interface TradeUserDto {
      * @memberof TradeUserDto
      */
     tradeUrl?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TradeUserDto
+     */
+    balance: number;
 }
 
 export function TradeUserDtoFromJSON(json: any): TradeUserDto {
@@ -45,6 +51,7 @@ export function TradeUserDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
         
         'steamId': json['steamId'],
         'tradeUrl': !exists(json, 'tradeUrl') ? undefined : json['tradeUrl'],
+        'balance': json['balance'],
     };
 }
 
@@ -59,6 +66,7 @@ export function TradeUserDtoToJSON(value?: TradeUserDto | null): any {
         
         'steamId': value.steamId,
         'tradeUrl': value.tradeUrl,
+        'balance': value.balance,
     };
 }
 
