@@ -13,7 +13,8 @@ interface IReceiveSubscriptionModalProps {
   imageSize: "small" | "big";
   item: {
     image: string;
-    name: string;
+    name: ReactNode;
+    className?: string;
   };
   action: {
     link: NextLinkProp;
@@ -36,13 +37,13 @@ export const ReceiveSubscriptionModal: React.FC<IReceiveSubscriptionModalProps> 
 
     return (
       <GenericModal className={c.modal} title="" onClose={onClose}>
-        <h3>{title}</h3>
+        <h3 className={"shinyText"}>{title}</h3>
         <img
           className={cx(imageSize === "small" ? c.small : c.big)}
           src={item.image}
           alt=""
         />
-        <h4>{item.name}</h4>
+        <h4 className={item.className}>{item.name}</h4>
 
         <Button onClick={onClose} pageLink={action.link} mega>
           {action.label}

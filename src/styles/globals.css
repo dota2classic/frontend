@@ -192,3 +192,39 @@ iframe {
 .horizontal {
   flex-direction: row;
 }
+
+
+
+.rarity {
+  &.Common {
+    color: rgb(176, 195, 217);
+  }
+  &.Uncommon {
+    color: rgb(94, 152, 217);
+  }
+  &.Rare {
+    color: rgb(75, 105, 255);
+  }
+  &.Mythical {
+    color: rgb(136, 71, 255);
+  }
+  &.Immortal {
+    color: rgb(228, 174, 57);
+  }
+  &.Legendary {
+    color: rgb(211, 44, 230);
+  }
+  &.Arcana {
+    color: rgb(173, 229, 92);
+  }
+  &.Ancient {
+    color: rgb(235, 75, 75);
+  }
+}
+
+
+.shinyText {
+  background: radial-gradient(#f8d300 0%, #c23c2a 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

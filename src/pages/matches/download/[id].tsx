@@ -2,7 +2,7 @@ import { MatchDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { useEffect } from "react";
 import { notFound } from "next/navigation";
-import { Button, CoolList, CopySomething, MatchSummary } from "@/components";
+import { Button, CoolList, CopyBlock, MatchSummary } from "@/components";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { metrika } from "@/ym";
@@ -75,7 +75,10 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
             title: <>Запусти клиент и выполни коснольную команду</>,
             content: (
               <>
-                <CopySomething something={`playdemo ${match.id}.dem`} />
+                <CopyBlock
+                  text={"Консольная команда для запуска просмотра реплея"}
+                  command={`playdemo ${match.id}.dem`}
+                />
                 <img src="/guide/replay-console-command.png" alt="" />
               </>
             ),

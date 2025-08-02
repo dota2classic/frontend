@@ -1,7 +1,12 @@
 import { toast, ToastContent, ToastContentProps } from "react-toastify";
 import c from "@/components/Toast/Toast.module.scss";
 import React, { ReactNode } from "react";
-import { MatchmakingMode, NotificationDto, NotificationType } from "@/api/back";
+import {
+  MatchmakingMode,
+  NotificationDto,
+  NotificationType,
+  ThreadType,
+} from "@/api/back";
 import { GenericToast, PageLink } from "@/components";
 import { getApi } from "@/api/hooks";
 import { __unsafeGetClientStore } from "@/store";
@@ -153,13 +158,16 @@ export const handleNotification = (notification: NotificationDto) => {
       break;
     case NotificationType.TICKETNEWMESSAGE:
       title = `Новое сообщение в твоем тикете!`;
+      const threadType = notification.thread!.externalId.split(
+        "_",
+        2,
+      )[0] as ThreadType;
+      const threadId = notification.thread!.externalId.split("_", 2)[1];
+
       content = (
         <>
           <PageLink
-            link={
-              AppRouter.forum.ticket.ticket(notification.thread!.externalId)
-                .link
-            }
+            link={AppRouter.forum.thread(threadId, threadType).link}
             onClick={acknowledge}
           >
             Посмотреть новое сообщение

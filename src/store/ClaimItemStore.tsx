@@ -6,6 +6,7 @@ import {
 } from "@/api/back";
 import { AppRouter, NextLinkProp } from "@/route";
 import { ReactNode } from "react";
+import cx from "clsx";
 
 export enum ClaimType {
   SUBSCRIPTION = "SUBSCRIPTION",
@@ -17,8 +18,9 @@ interface ClaimSubscription {
   type: ClaimType;
   title: ReactNode;
   item: {
-    label: string;
+    label: ReactNode;
     image: string;
+    className?: string;
   };
   action: {
     label: string;
@@ -74,6 +76,7 @@ export class ClaimItemStore {
         item: {
           image: marketItem.image,
           label: marketItem.marketHashName,
+          className: cx("rarity", marketItem.rarity.toString()),
         },
         action: {
           label: "Получить",

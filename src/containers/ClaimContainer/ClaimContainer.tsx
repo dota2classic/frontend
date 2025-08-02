@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { ReceiveSubscriptionModal } from "@/containers";
-import { ClaimType } from "@/store/ClaimItemStore";
 
 export const ClaimContainer: React.FC = observer(() => {
   const { claim, notify } = useStore();
@@ -18,13 +17,14 @@ export const ClaimContainer: React.FC = observer(() => {
 
   return (
     <ReceiveSubscriptionModal
-      imageSize={first.type === ClaimType.SUBSCRIPTION ? "small" : "big"}
+      imageSize={"small"}
       onClose={onClose}
       title={first.title}
       onAcknowledge={() => undefined}
       item={{
         image: first.item.image,
         name: first.item.label,
+        className: first.item.className,
       }}
       action={{
         label: first.action.label,
