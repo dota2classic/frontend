@@ -4,13 +4,16 @@ import { GenericTable } from "..";
 import { colors } from "@/colors";
 import { HeroPlayerDto } from "@/api/back";
 import { ColumnType } from "@/const/tables";
+import { AppRouter } from "@/route";
 
 interface IHeroPlayersTableProps {
+  hero: string;
   data: HeroPlayerDto[];
   loading: boolean;
 }
 
 export const HeroPlayersTable: React.FC<IHeroPlayersTableProps> = ({
+  hero,
   data,
   loading,
 }) => {
@@ -24,6 +27,7 @@ export const HeroPlayersTable: React.FC<IHeroPlayersTableProps> = ({
           name: "Игрок",
           type: ColumnType.Player,
           maxWidth: 160,
+          link: (d) => AppRouter.players.playerMatches(d[0].steamId, hero).link,
         },
         {
           name: "Матчи",

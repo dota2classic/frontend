@@ -17,7 +17,7 @@ export const RichMessage = React.memo(function RichMessage({
 
   const parts: ReactNode[] = [];
   const r = new RegExp(
-    `(https:\\/\\/dotaclassic.ru\\/matches\\/(\\d+))|(https:\\/\\/dotaclassic.ru\\/players\\/(\\d+))|(https?:\\/\\/([\\S]+)\\.[\\S]+)|(:[a-zA-Z_0-9]+:)`,
+    `(https:\\/\\/dotaclassic.ru\\/matches\\/(\\d+))|(https:\\/\\/dotaclassic.ru\\/players\\/(\\d+)$)|(https?:\\/\\/([\\S]+)\\.[\\S]+)|(:[a-zA-Z_0-9]+:)`,
     "g",
   );
   const matches = Array.from(msg.matchAll(r));
@@ -55,6 +55,13 @@ export const RichMessage = React.memo(function RichMessage({
             src={`https://www.youtube.com/embed/${videoId}`}
           ></iframe>,
         );
+      } else if (
+        url.endsWith(".png") ||
+        url.endsWith("jpg") ||
+        url.endsWith("jpeg") ||
+        url.endsWith("webp")
+      ) {
+        parts.push(<img key={key} src={url} className={c.embedImage} alt="" />);
       }
       parts.push(
         <a key={key} className="link" href={url} target="__blank">

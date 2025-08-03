@@ -75,7 +75,11 @@ export default function HeroHistoryPage({
       </Section>
       <Section className={c.items}>
         <header>Лучшие игроки</header>
-        <HeroPlayersTable loading={false} data={initialHeroPlayers} />
+        <HeroPlayersTable
+          hero={hero}
+          loading={false}
+          data={initialHeroPlayers}
+        />
         <header>Предметы</header>
         <HeroItemsTable
           loading={false}
