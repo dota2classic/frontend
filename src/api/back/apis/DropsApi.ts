@@ -18,6 +18,15 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+  CreateDropTierDto,
+  CreateDropTierDtoFromJSON,
+  CreateDropTierDtoToJSON,
+  DropSettingsDto,
+  DropSettingsDtoFromJSON,
+  DropSettingsDtoToJSON,
+  DropTierDto,
+  DropTierDtoFromJSON,
+  DropTierDtoToJSON,
   DroppedItemDto,
   DroppedItemDtoFromJSON,
   DroppedItemDtoToJSON,
@@ -30,10 +39,24 @@ import {
   TradeUserDto,
   TradeUserDtoFromJSON,
   TradeUserDtoToJSON,
+  UpdateDropSettingsDto,
+  UpdateDropSettingsDtoFromJSON,
+  UpdateDropSettingsDtoToJSON,
+  UpdateDropTierDto,
+  UpdateDropTierDtoFromJSON,
+  UpdateDropTierDtoToJSON,
   UpdateTradeLinkDto,
   UpdateTradeLinkDtoFromJSON,
   UpdateTradeLinkDtoToJSON,
 } from "../models";
+
+export interface ItemDropControllerCreateDropTierRequest {
+  createDropTierDto: CreateDropTierDto;
+}
+
+export interface ItemDropControllerDeleteTierRequest {
+  id: number;
+}
 
 export interface ItemDropControllerDiscardDropRequest {
   id: string;
@@ -41,6 +64,15 @@ export interface ItemDropControllerDiscardDropRequest {
 
 export interface ItemDropControllerPurchaseSubscriptionWithTradeBalanceRequest {
   purchaseWithTradeBalanceDto: PurchaseWithTradeBalanceDto;
+}
+
+export interface ItemDropControllerUpdateSettingsRequest {
+  updateDropSettingsDto: UpdateDropSettingsDto;
+}
+
+export interface ItemDropControllerUpdateTierRequest {
+  id: number;
+  updateDropTierDto: UpdateDropTierDto;
 }
 
 export interface ItemDropControllerUpdateTradeLinkRequest {
@@ -99,6 +131,119 @@ export class DropsApi extends runtime.BaseAPI {
         return await response.value();
     }
 
+
+    /**
+     */
+    private async itemDropControllerCreateDropTierRaw(requestParameters: ItemDropControllerCreateDropTierRequest): Promise<runtime.ApiResponse<void>> {
+        this.itemDropControllerCreateDropTierValidation(requestParameters);
+        const context = this.itemDropControllerCreateDropTierContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private itemDropControllerCreateDropTierValidation(requestParameters: ItemDropControllerCreateDropTierRequest) {
+        if (requestParameters.createDropTierDto === null || requestParameters.createDropTierDto === undefined) {
+            throw new runtime.RequiredError("createDropTierDto","Required parameter requestParameters.createDropTierDto was null or undefined when calling itemDropControllerCreateDropTier.");
+        }
+    }
+
+    /**
+     */
+    itemDropControllerCreateDropTierContext(requestParameters: ItemDropControllerCreateDropTierRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/drops/tiers`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateDropTierDtoToJSON(requestParameters.createDropTierDto),
+        };
+    }
+
+    /**
+     */
+    itemDropControllerCreateDropTier = async (createDropTierDto: CreateDropTierDto): Promise<void> => {
+        await this.itemDropControllerCreateDropTierRaw({ createDropTierDto: createDropTierDto });
+    }
+
+
+    /**
+     */
+    private async itemDropControllerDeleteTierRaw(requestParameters: ItemDropControllerDeleteTierRequest): Promise<runtime.ApiResponse<void>> {
+        this.itemDropControllerDeleteTierValidation(requestParameters);
+        const context = this.itemDropControllerDeleteTierContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private itemDropControllerDeleteTierValidation(requestParameters: ItemDropControllerDeleteTierRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling itemDropControllerDeleteTier.");
+        }
+    }
+
+    /**
+     */
+    itemDropControllerDeleteTierContext(requestParameters: ItemDropControllerDeleteTierRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/drops/tiers/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    itemDropControllerDeleteTier = async (id: number): Promise<void> => {
+        await this.itemDropControllerDeleteTierRaw({ id: id });
+    }
+
+    useItemDropControllerDeleteTier(id: number, config?: SWRConfiguration<void, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.itemDropControllerDeleteTierContext({ id: id! });
+        return useSWR(context, valid ? () => this.itemDropControllerDeleteTier(id!) : null, config)
+    }
 
     /**
      */
@@ -162,6 +307,60 @@ export class DropsApi extends runtime.BaseAPI {
 
     /**
      */
+    private async itemDropControllerGetDropTiersRaw(): Promise<runtime.ApiResponse<Array<DropTierDto>>> {
+        this.itemDropControllerGetDropTiersValidation();
+        const context = this.itemDropControllerGetDropTiersContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(DropTierDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private itemDropControllerGetDropTiersValidation() {
+    }
+
+    /**
+     */
+    itemDropControllerGetDropTiersContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/drops/tiers`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    itemDropControllerGetDropTiers = async (): Promise<Array<DropTierDto>> => {
+        const response = await this.itemDropControllerGetDropTiersRaw();
+        return await response.value();
+    }
+
+    useItemDropControllerGetDropTiers(config?: SWRConfiguration<Array<DropTierDto>, Error>) {
+        let valid = true
+
+        const context = this.itemDropControllerGetDropTiersContext();
+        return useSWR(context, valid ? () => this.itemDropControllerGetDropTiers() : null, config)
+    }
+
+    /**
+     */
     private async itemDropControllerGetMyDropsRaw(): Promise<runtime.ApiResponse<Array<DroppedItemDto>>> {
         this.itemDropControllerGetMyDropsValidation();
         const context = this.itemDropControllerGetMyDropsContext();
@@ -212,6 +411,60 @@ export class DropsApi extends runtime.BaseAPI {
 
         const context = this.itemDropControllerGetMyDropsContext();
         return useSWR(context, valid ? () => this.itemDropControllerGetMyDrops() : null, config)
+    }
+
+    /**
+     */
+    private async itemDropControllerGetSettingsRaw(): Promise<runtime.ApiResponse<DropSettingsDto>> {
+        this.itemDropControllerGetSettingsValidation();
+        const context = this.itemDropControllerGetSettingsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DropSettingsDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private itemDropControllerGetSettingsValidation() {
+    }
+
+    /**
+     */
+    itemDropControllerGetSettingsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/drops/settings`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    itemDropControllerGetSettings = async (): Promise<DropSettingsDto> => {
+        const response = await this.itemDropControllerGetSettingsRaw();
+        return await response.value();
+    }
+
+    useItemDropControllerGetSettings(config?: SWRConfiguration<DropSettingsDto, Error>) {
+        let valid = true
+
+        const context = this.itemDropControllerGetSettingsContext();
+        return useSWR(context, valid ? () => this.itemDropControllerGetSettings() : null, config)
     }
 
     /**
@@ -373,6 +626,115 @@ export class DropsApi extends runtime.BaseAPI {
     itemDropControllerPurchaseSubscriptionWithTradeBalance = async (purchaseWithTradeBalanceDto: PurchaseWithTradeBalanceDto): Promise<TradeUserDto> => {
         const response = await this.itemDropControllerPurchaseSubscriptionWithTradeBalanceRaw({ purchaseWithTradeBalanceDto: purchaseWithTradeBalanceDto });
         return await response.value();
+    }
+
+
+    /**
+     */
+    private async itemDropControllerUpdateSettingsRaw(requestParameters: ItemDropControllerUpdateSettingsRequest): Promise<runtime.ApiResponse<void>> {
+        this.itemDropControllerUpdateSettingsValidation(requestParameters);
+        const context = this.itemDropControllerUpdateSettingsContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private itemDropControllerUpdateSettingsValidation(requestParameters: ItemDropControllerUpdateSettingsRequest) {
+        if (requestParameters.updateDropSettingsDto === null || requestParameters.updateDropSettingsDto === undefined) {
+            throw new runtime.RequiredError("updateDropSettingsDto","Required parameter requestParameters.updateDropSettingsDto was null or undefined when calling itemDropControllerUpdateSettings.");
+        }
+    }
+
+    /**
+     */
+    itemDropControllerUpdateSettingsContext(requestParameters: ItemDropControllerUpdateSettingsRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/drops/settings`,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateDropSettingsDtoToJSON(requestParameters.updateDropSettingsDto),
+        };
+    }
+
+    /**
+     */
+    itemDropControllerUpdateSettings = async (updateDropSettingsDto: UpdateDropSettingsDto): Promise<void> => {
+        await this.itemDropControllerUpdateSettingsRaw({ updateDropSettingsDto: updateDropSettingsDto });
+    }
+
+
+    /**
+     */
+    private async itemDropControllerUpdateTierRaw(requestParameters: ItemDropControllerUpdateTierRequest): Promise<runtime.ApiResponse<void>> {
+        this.itemDropControllerUpdateTierValidation(requestParameters);
+        const context = this.itemDropControllerUpdateTierContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private itemDropControllerUpdateTierValidation(requestParameters: ItemDropControllerUpdateTierRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling itemDropControllerUpdateTier.");
+        }
+        if (requestParameters.updateDropTierDto === null || requestParameters.updateDropTierDto === undefined) {
+            throw new runtime.RequiredError("updateDropTierDto","Required parameter requestParameters.updateDropTierDto was null or undefined when calling itemDropControllerUpdateTier.");
+        }
+    }
+
+    /**
+     */
+    itemDropControllerUpdateTierContext(requestParameters: ItemDropControllerUpdateTierRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/drops/tiers/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateDropTierDtoToJSON(requestParameters.updateDropTierDto),
+        };
+    }
+
+    /**
+     */
+    itemDropControllerUpdateTier = async (id: number, updateDropTierDto: UpdateDropTierDto): Promise<void> => {
+        await this.itemDropControllerUpdateTierRaw({ id: id, updateDropTierDto: updateDropTierDto });
     }
 
 

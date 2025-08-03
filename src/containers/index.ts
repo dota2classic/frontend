@@ -34,3 +34,4 @@ export { GiveProductContainer } from "./GiveProductContainer/GiveProductContaine
 export { LogFileHistory } from "./LogFileHistory/LogFileHistory";
 export { DropList } from "./DropList/DropList";
 export { Form } from "./Form/Form";
+export { EditDropSettings } from "./EditDropSettings/EditDropSettings";

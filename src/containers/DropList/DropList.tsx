@@ -207,6 +207,14 @@ export const DropList: React.FC<IDropListProps> = ({
               автоматически расчитает стоимость предметов и добавит их к твоему
               внутреннему балансу. Этим балансом можно оплатить подписку!
             </p>
+            <a
+              style={{ width: "fit-content" }}
+              className="link"
+              target="__blank"
+              href="https://steamcommunity.com/tradeoffer/new/?partner=159907143&token=xczBRmXj"
+            >
+              Передать предметы
+            </a>
             <header>
               Твой баланс: {(user.balance / 100).toFixed(2)} рублей
             </header>
