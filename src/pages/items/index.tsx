@@ -1,7 +1,8 @@
 import { getApi } from "@/api/hooks";
 import { ItemDto } from "@/api/back";
 import { ItemBreadcrumbs } from "@/containers";
-import { ItemsTable } from "@/components";
+import { EmbedProps, ItemsTable } from "@/components";
+import React from "react";
 
 interface Props {
   items: ItemDto[];
@@ -12,6 +13,10 @@ export default function ItemsPage({ items }: Props) {
   return (
     <>
       <ItemBreadcrumbs itemId={undefined} />
+      <EmbedProps
+        title={"Предметы"}
+        description={`Интерактивная энциклопедия предметов Dota 2 6.84c, цена, сборки и магазины в старой доте.`}
+      />
       <br />
       <ItemsTable items={items} />
     </>

@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 import { getApi } from "@/api/hooks";
 import { ItemHeroDto } from "@/api/back";
-import { GenericTable, Section } from "@/components";
+import { EmbedProps, GenericTable, Section } from "@/components";
 import { colors } from "@/colors";
 import c from "./Items.module.scss";
 import { ColumnType } from "@/const/tables";
@@ -10,6 +10,7 @@ import { AppRouter } from "@/route";
 import { useRouterChanging } from "@/util";
 import { ItemBreadcrumbs } from "@/containers";
 import { useRouter } from "next/router";
+import { ItemData } from "@/const/itemdata";
 
 interface Props {
   data: ItemHeroDto[];
@@ -62,9 +63,15 @@ export default function ItemPage({ data, item }: Props) {
   const [isLoading] = useRouterChanging();
 
   if (Number.isNaN(item)) return null;
+
+  const itemData = ItemData.find((t) => t.id === item);
   return (
     <>
       <ItemBreadcrumbs itemId={item} />
+      <EmbedProps
+        title={itemData?.name || "Предмет"}
+        description={`${itemData?.name} в патче 6.84c Dota 2. ${itemData?.description || ""}`}
+      />
       <div className={c.itemPage}>
         <Section className={c.heroes}>
           <GenericTable
