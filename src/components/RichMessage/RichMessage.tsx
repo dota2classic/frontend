@@ -3,6 +3,7 @@ import { Emoticon, ForumUserEmbed, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import { ForumUsername } from "@/components/ForumUserEmbed/ForumUsername";
 import c from "./RichMessage.module.scss";
+import cx from "clsx";
 
 interface IRichMessageProps {
   rawMsg: string;
@@ -115,6 +116,22 @@ const rules: Rule[] = [
       />
     ),
   },
+  // basic tags: <rare>...</rare>, <uncommon>...</uncommon>, etc.
+  {
+    regex:
+      /<(common|uncommon|rare|mythical|immortal|legendary|arcana|ancient)>(.*?)<\/\1>/gis,
+    render: (match, i) => {
+      const [, tag, content] = match.match(
+        /<(common|uncommon|rare|mythical|immortal|legendary|arcana|ancient)>(.*?)<\/\1>/is,
+      )!;
+      const capitalizedTag = tag[0].toUpperCase() + tag.slice(1);
+      return (
+        <span key={`tag-${i}`} className={cx("rarity", capitalizedTag)}>
+          {content}
+        </span>
+      );
+    },
+  },
   // emoticons :code:
   {
     regex: /:([a-zA-Z0-9_+-]+):/g,
@@ -153,28 +170,32 @@ export const RichMessage = React.memo(function RichMessage({
     const newElements: React.ReactNode[] = [];
 
     elements.forEach((el) => {
-      if (typeof el === "string") {
-        let lastIndex = 0;
-        const matches = [...el.matchAll(rule.regex)];
-        if (matches.length === 0) {
-          newElements.push(el);
-          return;
-        }
-
-        matches.forEach((m, i) => {
-          const matchStart = m.index ?? 0;
-          if (matchStart > lastIndex) {
-            newElements.push(el.slice(lastIndex, matchStart));
+      try {
+        if (typeof el === "string") {
+          let lastIndex = 0;
+          const matches = [...el.matchAll(rule.regex)];
+          if (matches.length === 0) {
+            newElements.push(el);
+            return;
           }
-          newElements.push(rule.render(m[0], i));
-          lastIndex = matchStart + m[0].length;
-        });
 
-        if (lastIndex < el.length) {
-          newElements.push(el.slice(lastIndex));
+          matches.forEach((m, i) => {
+            const matchStart = m.index ?? 0;
+            if (matchStart > lastIndex) {
+              newElements.push(el.slice(lastIndex, matchStart));
+            }
+            newElements.push(rule.render(m[0], i));
+            lastIndex = matchStart + m[0].length;
+          });
+
+          if (lastIndex < el.length) {
+            newElements.push(el.slice(lastIndex));
+          }
+        } else {
+          newElements.push(el);
         }
-      } else {
-        newElements.push(el);
+      } catch (e) {
+        console.error(e);
       }
     });
 
