@@ -1,95 +1,185 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Emoticon, ForumUserEmbed, PageLink } from "@/components";
 import { AppRouter } from "@/route";
-import { youtubeVideo } from "@/util";
+import { ForumUsername } from "@/components/ForumUserEmbed/ForumUsername";
 import c from "./RichMessage.module.scss";
 
 interface IRichMessageProps {
   rawMsg: string;
 }
 
+type Rule = {
+  regex: RegExp;
+  render: (match: string, index: number) => React.ReactNode;
+};
+
+const rules: Rule[] = [
+  // https://dotaclassic.ru/players/:steamId/matches
+  {
+    regex: /https?:\/\/dotaclassic\.ru\/players\/(\d+)\/matches/g,
+    render: (match, i) => {
+      const steamId = match.match(/players\/(\d+)/)?.[1];
+      return (
+        <PageLink
+          className="link"
+          link={AppRouter.players.playerMatches(steamId!).link}
+          key={`matches-${i}`}
+        >
+          Матчи <ForumUsername steamId={steamId!} />
+        </PageLink>
+      );
+    },
+  },
+  // https://dotaclassic.ru/players/:steamId/records
+  {
+    regex: /https?:\/\/dotaclassic\.ru\/players\/(\d+)\/records/g,
+    render: (match, i) => {
+      const steamId = match.match(/players\/(\d+)/)?.[1];
+      return (
+        <PageLink
+          className="link"
+          link={AppRouter.players.player.records(steamId!).link}
+          key={`records-${i}`}
+        >
+          Рекорды <ForumUsername steamId={steamId!} />
+        </PageLink>
+      );
+    },
+  },
+  // https://dotaclassic.ru/players/:steamId/heroes
+  {
+    regex: /https?:\/\/dotaclassic\.ru\/players\/(\d+)\/heroes/g,
+    render: (match, i) => {
+      const steamId = match.match(/players\/(\d+)/)?.[1];
+      return (
+        <PageLink
+          className="link"
+          link={AppRouter.players.player.heroes(steamId!).link}
+          key={`heroes-${i}`}
+        >
+          Герои <ForumUsername steamId={steamId!} />
+        </PageLink>
+      );
+    },
+  },
+  // https://dotaclassic.ru/players/:steamId/teammates
+  {
+    regex: /https?:\/\/dotaclassic\.ru\/players\/(\d+)\/teammates/g,
+    render: (match, i) => {
+      const steamId = match.match(/players\/(\d+)/)?.[1];
+      return (
+        <PageLink
+          className="link"
+          link={AppRouter.players.player.teammates(steamId!).link}
+          key={`teammates-${i}`}
+        >
+          Тиммейты <ForumUsername steamId={steamId!} />
+        </PageLink>
+      );
+    },
+  },
+  // https://dotaclassic.ru/matches/:matchId
+  {
+    regex: /https?:\/\/dotaclassic\.ru\/matches\/(\d+)/g,
+    render: (match, i) => {
+      const matchId = Number(match.match(/matches\/(\d+)/)?.[1]);
+      return (
+        <PageLink
+          className="link"
+          key={`match-${i}`}
+          link={AppRouter.matches.match(matchId).link}
+        >
+          Матч {matchId}
+        </PageLink>
+      );
+    },
+  },
+  // https://dotaclassic.ru/players/:steamId
+  {
+    regex: /https?:\/\/dotaclassic\.ru\/players\/(\d+)(?:\/)?/g,
+    render: (match, i) => {
+      const steamId = match.match(/players\/(\d+)/)?.[1];
+      return <ForumUserEmbed key={`user-${i}`} steamId={steamId!} />;
+    },
+  },
+  // image URLs
+  {
+    regex: /(https?:\/\/[^\s]+\.(?:png|jpg|jpeg|gif))/g,
+    render: (match, i) => (
+      <img
+        loading="lazy"
+        key={`img-${i}`}
+        src={match}
+        alt=""
+        className={c.embedImage}
+      />
+    ),
+  },
+  // emoticons :code:
+  {
+    regex: /:([a-zA-Z0-9_+-]+):/g,
+    render: (match, i) => {
+      const code = match.slice(1, -1); // remove surrounding :
+      return <Emoticon key={`emote-${i}`} code={code} />;
+    },
+  },
+  // generic URLs (processed last)
+  {
+    regex: /(https?:\/\/[^\s]+)/g,
+    render: (match, i) => (
+      <a
+        key={`link-${i}`}
+        href={match}
+        className="link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {match}
+      </a>
+    ),
+  },
+];
+
 export const RichMessage = React.memo(function RichMessage({
   rawMsg,
 }: IRichMessageProps) {
   const msg = rawMsg
     .replace(/\n\s*\n/g, "\n")
-    .replace(/\[([^\[\]]*)\]\((.*?)\)/gm, "$2");
+    .replace(/\[([^\[\]]*)\]\((.*?)\)/gm, "$2"); // replace markdown links with just links
 
-  const parts: ReactNode[] = [];
-  const r = new RegExp(
-    `(https:\\/\\/dotaclassic.ru\\/matches\\/(\\d+))|(https:\\/\\/dotaclassic.ru\\/players\\/(\\d+)$)|(https?:\\/\\/([\\S]+)\\.[\\S]+)|(:[a-zA-Z_0-9]+:)`,
-    "g",
-  );
-  const matches = Array.from(msg.matchAll(r));
+  let elements: React.ReactNode[] = [msg];
 
-  let prevIdx = 0;
-  matches.forEach((match) => {
-    const prev = msg.slice(prevIdx, match.index);
+  rules.forEach((rule) => {
+    const newElements: React.ReactNode[] = [];
 
-    parts.push(prev);
+    elements.forEach((el) => {
+      if (typeof el === "string") {
+        let lastIndex = 0;
+        const matches = [...el.matchAll(rule.regex)];
+        if (matches.length === 0) {
+          newElements.push(el);
+          return;
+        }
 
-    const atIndex = match.index;
+        matches.forEach((m, i) => {
+          const matchStart = m.index ?? 0;
+          if (matchStart > lastIndex) {
+            newElements.push(el.slice(lastIndex, matchStart));
+          }
+          newElements.push(rule.render(m[0], i));
+          lastIndex = matchStart + m[0].length;
+        });
 
-    const key = `elem-${atIndex}`;
-
-    if (match[4]) {
-      // player
-      // somehow fetch user?
-      const playerId = match[4];
-      parts.push(<ForumUserEmbed key={key} steamId={playerId} />);
-    } else if (match[5]) {
-      let url = match[5];
-      if (url.endsWith(".")) {
-        url = url.substring(0, url.length - 1);
+        if (lastIndex < el.length) {
+          newElements.push(el.slice(lastIndex));
+        }
+      } else {
+        newElements.push(el);
       }
-      const domain = match[6];
+    });
 
-      const videoId = youtubeVideo(url);
-
-      if ((domain === "youtube" || domain === "www.youtube") && videoId) {
-        // we can try to embed it
-        parts.push(
-          <iframe
-            key={key}
-            className={c.iframe}
-            src={`https://www.youtube.com/embed/${videoId}`}
-          ></iframe>,
-        );
-      } else if (
-        url.endsWith(".png") ||
-        url.endsWith("jpg") ||
-        url.endsWith("jpeg") ||
-        url.endsWith("webp")
-      ) {
-        parts.push(<img key={key} src={url} className={c.embedImage} alt="" />);
-      }
-      parts.push(
-        <a key={key} className="link" href={url} target="__blank">
-          {match[5]}
-        </a>,
-      );
-    } else if (match[7]) {
-      const emoticonCode = match[7].replaceAll(":", "");
-
-      parts.push(<Emoticon key={key} code={emoticonCode} />);
-    } else {
-      // match
-      const matchId = match[2];
-      parts.push(
-        <PageLink
-          key={key}
-          className="link"
-          link={AppRouter.matches.match(Number(matchId)).link}
-        >
-          Матч {matchId}
-        </PageLink>,
-      );
-    }
-
-    prevIdx = atIndex + match[0].length;
+    elements = newElements;
   });
 
-  parts.push(msg.slice(prevIdx));
-
-  return <>{parts}</>;
+  return elements;
 });

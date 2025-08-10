@@ -1,5 +1,5 @@
 import { NextPageContext } from "next";
-import { GenericTable, PlayerSummary, Section } from "@/components";
+import { EmbedProps, GenericTable, PlayerSummary, Section } from "@/components";
 import React from "react";
 import { HeroStatsDto, PlayerSummaryDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
@@ -31,6 +31,10 @@ export default function PlayerHeroes({
 
   return (
     <>
+      <EmbedProps
+        title={`Герои игрока ${summary.user.name}`}
+        description={`Статистика героев в руках игрока ${summary.user.name}.`}
+      />
       <PlayerSummary
         session={summary.session}
         banStatus={summary.banStatus}
