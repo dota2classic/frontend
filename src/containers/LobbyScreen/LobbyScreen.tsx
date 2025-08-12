@@ -265,6 +265,10 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             <dt>Боты</dt>
             <dd>{data.fillBots ? "Да" : "Нет"}</dd>
           </dl>
+          <dl>
+            <dt>Патч</dt>
+            <dd>{data.patch}</dd>
+          </dl>
         </Panel>
       </div>
     );

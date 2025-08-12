@@ -7,5 +7,6 @@ export * from "./ThreadType";
 export * from "./AchievementKey";
 export * from "./DotaConnectionState";
 export * from "./DotaGameRulesState";
+export * from "./DotaPatch";
 export * from "./Dota_Map";
 export * from "./PlayerAspect";

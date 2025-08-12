@@ -9,7 +9,11 @@ import {
   Input,
   SelectOptions,
 } from "@/components";
-import { DotaGameModeOptions, DotaMapOptions } from "@/const/options";
+import {
+  DotaGameModeOptions,
+  DotaMapOptions,
+  DotaPatchOptions,
+} from "@/const/options";
 import { getApi } from "@/api/hooks";
 import { useFocusLock } from "@/util/useTypingCallback";
 import cx from "clsx";
@@ -92,6 +96,17 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
               }
             }}
             defaultText={"Режим игры"}
+          />
+          <header>Патч</header>
+          <SelectOptions
+            options={DotaPatchOptions}
+            selected={lobbySettings.patch || lobby.patch}
+            onSelect={(value, meta) => {
+              if (meta.action === "select-option") {
+                setLobbySettings((r) => ({ ...r, patch: value.value }));
+              }
+            }}
+            defaultText={"Патч игры"}
           />
         </div>
         <div className={cx(c.formItem)}>

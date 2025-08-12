@@ -22,6 +22,10 @@ import {
     DotaMapFromJSON,
     DotaMapFromJSONTyped,
     DotaMapToJSON,
+    DotaPatch,
+    DotaPatchFromJSON,
+    DotaPatchFromJSONTyped,
+    DotaPatchToJSON,
 } from './';
 
 /**
@@ -42,6 +46,12 @@ export interface UpdateLobbyDto {
      * @memberof UpdateLobbyDto
      */
     map?: DotaMap;
+    /**
+     * 
+     * @type {DotaPatch}
+     * @memberof UpdateLobbyDto
+     */
+    patch?: DotaPatch;
     /**
      * 
      * @type {string}
@@ -80,6 +90,7 @@ export function UpdateLobbyDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
         
         'gameMode': !exists(json, 'gameMode') ? undefined : DotaGameModeFromJSON(json['gameMode']),
         'map': !exists(json, 'map') ? undefined : DotaMapFromJSON(json['map']),
+        'patch': !exists(json, 'patch') ? undefined : DotaPatchFromJSON(json['patch']),
         'password': !exists(json, 'password') ? undefined : json['password'],
         'name': !exists(json, 'name') ? undefined : json['name'],
         'fillBots': !exists(json, 'fillBots') ? undefined : json['fillBots'],
@@ -98,6 +109,7 @@ export function UpdateLobbyDtoToJSON(value?: UpdateLobbyDto | null): any {
         
         'gameMode': DotaGameModeToJSON(value.gameMode),
         'map': DotaMapToJSON(value.map),
+        'patch': DotaPatchToJSON(value.patch),
         'password': value.password,
         'name': value.name,
         'fillBots': value.fillBots,

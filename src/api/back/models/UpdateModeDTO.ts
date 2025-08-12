@@ -22,6 +22,10 @@ import {
     DotaMapFromJSON,
     DotaMapFromJSONTyped,
     DotaMapToJSON,
+    DotaPatch,
+    DotaPatchFromJSON,
+    DotaPatchFromJSONTyped,
+    DotaPatchToJSON,
     MatchmakingMode,
     MatchmakingModeFromJSON,
     MatchmakingModeFromJSONTyped,
@@ -52,6 +56,12 @@ export interface UpdateModeDTO {
      * @memberof UpdateModeDTO
      */
     dotaMap: DotaMap;
+    /**
+     * 
+     * @type {DotaPatch}
+     * @memberof UpdateModeDTO
+     */
+    patch: DotaPatch;
     /**
      * 
      * @type {boolean}
@@ -85,6 +95,7 @@ export function UpdateModeDTOFromJSONTyped(json: any, ignoreDiscriminator: boole
         'mode': MatchmakingModeFromJSON(json['mode']),
         'dotaGameMode': DotaGameModeFromJSON(json['dotaGameMode']),
         'dotaMap': DotaMapFromJSON(json['dotaMap']),
+        'patch': DotaPatchFromJSON(json['patch']),
         'enabled': json['enabled'],
         'enableCheats': json['enableCheats'],
         'fillBots': json['fillBots'],
@@ -103,6 +114,7 @@ export function UpdateModeDTOToJSON(value?: UpdateModeDTO | null): any {
         'mode': MatchmakingModeToJSON(value.mode),
         'dotaGameMode': DotaGameModeToJSON(value.dotaGameMode),
         'dotaMap': DotaMapToJSON(value.dotaMap),
+        'patch': DotaPatchToJSON(value.patch),
         'enabled': value.enabled,
         'enableCheats': value.enableCheats,
         'fillBots': value.fillBots,

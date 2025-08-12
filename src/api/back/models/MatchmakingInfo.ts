@@ -22,6 +22,10 @@ import {
     DotaMapFromJSON,
     DotaMapFromJSONTyped,
     DotaMapToJSON,
+    DotaPatch,
+    DotaPatchFromJSON,
+    DotaPatchFromJSONTyped,
+    DotaPatchToJSON,
     MatchmakingMode,
     MatchmakingModeFromJSON,
     MatchmakingModeFromJSONTyped,
@@ -56,6 +60,12 @@ export interface MatchmakingInfo {
      * @memberof MatchmakingInfo
      */
     dotaMap: DotaMap;
+    /**
+     * 
+     * @type {DotaPatch}
+     * @memberof MatchmakingInfo
+     */
+    patch: DotaPatch;
     /**
      * 
      * @type {Array<QueueDurationDto>}
@@ -95,6 +105,7 @@ export function MatchmakingInfoFromJSONTyped(json: any, ignoreDiscriminator: boo
         'lobbyType': MatchmakingModeFromJSON(json['lobby_type']),
         'gameMode': DotaGameModeFromJSON(json['game_mode']),
         'dotaMap': DotaMapFromJSON(json['dota_map']),
+        'patch': DotaPatchFromJSON(json['patch']),
         'queueDurations': ((json['queueDurations'] as Array<any>).map(QueueDurationDtoFromJSON)),
         'enableCheats': json['enableCheats'],
         'fillBots': json['fillBots'],
@@ -114,6 +125,7 @@ export function MatchmakingInfoToJSON(value?: MatchmakingInfo | null): any {
         'lobby_type': MatchmakingModeToJSON(value.lobbyType),
         'game_mode': DotaGameModeToJSON(value.gameMode),
         'dota_map': DotaMapToJSON(value.dotaMap),
+        'patch': DotaPatchToJSON(value.patch),
         'queueDurations': ((value.queueDurations as Array<any>).map(QueueDurationDtoToJSON)),
         'enableCheats': value.enableCheats,
         'fillBots': value.fillBots,

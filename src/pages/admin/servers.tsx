@@ -10,6 +10,7 @@ import { formatGameMode } from "@/util/gamemode";
 import {
   DotaGameMode,
   DotaMap,
+  DotaPatch,
   GameServerDto,
   GameSessionDto,
   MatchmakingInfo,
@@ -24,7 +25,11 @@ import { useStore } from "@/store";
 import { NextPageContext } from "next";
 import { MatchmakingModes } from "@/store/queue/mock";
 import { ColumnType } from "@/const/tables";
-import { DotaGameModeOptions, DotaMapOptions } from "@/const/options";
+import {
+  DotaGameModeOptions,
+  DotaMapOptions,
+  DotaPatchOptions,
+} from "@/const/options";
 
 interface PageProps {
   initialServerPool: GameServerDto[];
@@ -167,6 +172,7 @@ export default function AdminServersPage({
       enabled: existing?.enabled || false,
       enableCheats: existing?.enableCheats || false,
       fillBots: existing?.fillBots || false,
+      patch: existing?.patch || DotaPatch.DOTA_684,
     };
   });
 
@@ -184,6 +190,7 @@ export default function AdminServersPage({
       enabled: boolean,
       enableCheats: boolean,
       fillBots: boolean,
+      patch: DotaPatch,
     ) => {
       appApi.adminApi
         .adminUserControllerUpdateGameMode({
@@ -193,6 +200,7 @@ export default function AdminServersPage({
           enabled: enabled,
           enableCheats,
           fillBots,
+          patch,
         })
         .then(mutate);
     },
@@ -209,6 +217,7 @@ export default function AdminServersPage({
               <th>Режим</th>
               <th style={{ width: 200 }}>Игровой режим</th>
               <th>Карта</th>
+              <th>Патч</th>
               <th>Активен</th>
               <th>Читы</th>
               <th>Боты</th>
@@ -231,6 +240,7 @@ export default function AdminServersPage({
                         t.enabled,
                         t.enableCheats,
                         t.fillBots,
+                        t.patch,
                       )
                     }
                   />
@@ -248,6 +258,25 @@ export default function AdminServersPage({
                         t.enabled,
                         t.enableCheats,
                         t.fillBots,
+                        t.patch,
+                      )
+                    }
+                  />
+                </td>
+                <td>
+                  <SelectOptions
+                    defaultText={"Патч"}
+                    options={DotaPatchOptions}
+                    selected={t.patch}
+                    onSelect={(value) =>
+                      updateGameMode(
+                        t.lobbyType,
+                        t.gameMode,
+                        t.dotaMap,
+                        t.enabled,
+                        t.enableCheats,
+                        t.fillBots,
+                        value.value,
                       )
                     }
                   />
@@ -262,6 +291,7 @@ export default function AdminServersPage({
                         e.target.checked,
                         t.enableCheats,
                         t.fillBots,
+                        t.patch,
                       )
                     }
                     type="checkbox"
@@ -279,6 +309,7 @@ export default function AdminServersPage({
                         t.enabled,
                         e.target.checked,
                         t.fillBots,
+                        t.patch,
                       )
                     }
                     type="checkbox"
@@ -295,6 +326,7 @@ export default function AdminServersPage({
                         t.enabled,
                         t.enableCheats,
                         e.target.checked,
+                        t.patch,
                       )
                     }
                     type="checkbox"

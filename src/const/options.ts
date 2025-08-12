@@ -1,4 +1,9 @@
-import { DotaGameMode, DotaMap, MatchmakingMode } from "@/api/mapped-models";
+import {
+  DotaGameMode,
+  DotaMap,
+  DotaPatch,
+  MatchmakingMode,
+} from "@/api/mapped-models";
 import { formatDotaMap, formatDotaMode, formatGameMode } from "@/util/gamemode";
 import heroes from "@/util/texts/heroes";
 
@@ -10,6 +15,14 @@ export const DotaMapOptions = [
   DotaMap.DOTA_WINTER,
 ].map((dm) => ({
   label: formatDotaMap(dm),
+  value: dm,
+}));
+
+export const DotaPatchOptions = [
+  DotaPatch.DOTA_684,
+  DotaPatch.DOTA_684_TURBO,
+].map((dm) => ({
+  label: dm,
   value: dm,
 }));
 
