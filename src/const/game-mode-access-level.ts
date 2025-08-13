@@ -46,5 +46,7 @@ export const getRequiredAccessLevel = (
       return GameModeAccessLevel.NOTHING;
     case MatchmakingMode.BOTS2X2:
       return GameModeAccessLevel.SIMPLE_MODES;
+    case MatchmakingMode.TURBO:
+      return GameModeAccessLevel.SIMPLE_MODES;
   }
 };
