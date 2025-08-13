@@ -34,6 +34,7 @@ const messages = {
   [MatchmakingMode.CAPTAINS_MODE]: "Captains Mode",
   [MatchmakingMode.LOBBY]: "Лобби",
   [MatchmakingMode.BOTS2X2]: "2х2 с ботами",
+  [MatchmakingMode.TURBO]: "Турбо",
 };
 
 export function formatGameMode(mode: MatchmakingMode) {
@@ -165,6 +166,8 @@ const gameModeDescriptions = {
   [MatchmakingMode.CAPTAINS_MODE]: "Captains Mode",
   [MatchmakingMode.LOBBY]: "Лобби",
   [MatchmakingMode.BOTS2X2]: "2х2 с ботами",
+  [MatchmakingMode.TURBO]:
+    "Упрощенный режим с быстрыми уровнями и большим количеством золота. Отлично подойдет для обучения или быстрой игры",
 };
 
 export function formatGameModeDescription(mode: MatchmakingMode) {

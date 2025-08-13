@@ -9,6 +9,8 @@ export const getLobbyTypePriority = (type: MatchmakingMode): number => {
     score -= 1500;
   } else if (type === MatchmakingMode.BOTS2X2) {
     score -= 100;
+  } else if (type === MatchmakingMode.TURBO) {
+    score -= 500;
   }
   return score;
 };
