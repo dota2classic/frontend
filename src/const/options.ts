@@ -51,6 +51,8 @@ export const GameModeOptions = [
     MatchmakingMode.SOLOMID,
     MatchmakingMode.BOTS2X2,
     MatchmakingMode.BOTS,
+    MatchmakingMode.TURBO,
+    MatchmakingMode.HIGHROOM,
   ].map((it) => ({
     value: it.toString(),
     label: formatGameMode(it),

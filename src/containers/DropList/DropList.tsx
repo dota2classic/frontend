@@ -128,10 +128,16 @@ export const DropList: React.FC<IDropListProps> = ({
 
   const discard = useCallback(
     async (item: DroppedItemDto) => {
+      const doDiscard = confirm(
+        "Ты действительно хочешь отказаться от этого предмета?",
+      );
+
+      if (!doDiscard) return;
+
       await getApi().drops.itemDropControllerDiscardDrop(item.assetId);
       await mutate(data!.filter((t) => t.assetId !== item.assetId));
     },
-    [data],
+    [data, mutate],
   );
 
   return (
