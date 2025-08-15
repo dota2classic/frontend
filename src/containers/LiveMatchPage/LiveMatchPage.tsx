@@ -19,6 +19,7 @@ import { watchCmd } from "@/util/urls";
 import { observer } from "mobx-react-lite";
 import { LiveMatchDto } from "@/api/back";
 import { useStore } from "@/store";
+import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 
 interface ILiveMatchPageProps {
   games: LiveMatchDto[];
@@ -27,7 +28,11 @@ interface ILiveMatchPageProps {
 export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
   ({ games }) => {
     const { liveMatches } = useStore().live;
-    const data = liveMatches.length ? liveMatches : games;
+    const data = (liveMatches.length ? liveMatches : games).sort(
+      (a, b) =>
+        getLobbyTypePriority(a.matchmakingMode) -
+        getLobbyTypePriority(b.matchmakingMode),
+    );
 
     return (
       <>
