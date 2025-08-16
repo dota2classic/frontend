@@ -28,11 +28,13 @@ interface ILiveMatchPageProps {
 export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
   ({ games }) => {
     const { liveMatches } = useStore().live;
-    const data = (liveMatches.length ? liveMatches : games).sort(
-      (a, b) =>
-        getLobbyTypePriority(a.matchmakingMode) -
-        getLobbyTypePriority(b.matchmakingMode),
-    );
+    const data = (liveMatches.length ? liveMatches : games)
+      .slice()
+      .sort(
+        (a, b) =>
+          getLobbyTypePriority(a.matchmakingMode) -
+          getLobbyTypePriority(b.matchmakingMode),
+      );
 
     return (
       <>
