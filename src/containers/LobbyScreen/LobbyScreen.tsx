@@ -134,7 +134,9 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
 
     const radiant = data.slots.filter((t) => t.team === 2);
     const dire = data.slots.filter((t) => t.team === 3);
-    const unassigned = data.slots.filter((t) => t.team === undefined);
+    const unassigned = data.slots
+      .filter((t) => t.team === undefined)
+      .filter((t) => t.user);
 
     return (
       <div className={c.gridPanel}>
@@ -168,7 +170,6 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           <LobbyTeam
             onKickPlayer={kickPlayer}
             isOwner={isOwner}
-            maxSlots={5}
             team={2}
             onRemoveSlot={(idx, steamId) => takeSlot(undefined, 0, steamId)}
             onTakeSlot={(idx) => takeSlot(2, idx, mySteamId)}
@@ -177,7 +178,6 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           <LobbyTeam
             onKickPlayer={kickPlayer}
             isOwner={isOwner}
-            maxSlots={5}
             team={3}
             onTakeSlot={(idx) => takeSlot(3, idx, mySteamId)}
             onRemoveSlot={(idx, steamId) => takeSlot(undefined, 0, steamId)}
@@ -210,19 +210,19 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
               {unassigned.map((slot) => (
                 <div
                   className={cx(c.playerPreview, c.unassigned)}
-                  key={slot.user.steamId}
+                  key={slot.user!.steamId}
                 >
                   <PlayerAvatar
-                    user={slot.user}
+                    user={slot.user!}
                     width={20}
                     height={20}
                     alt={""}
                   />
-                  <span className={c.username}>{slot.user.name}</span>
+                  <span className={c.username}>{slot.user!.name}</span>
                   {isOwner && (
                     <Tooltipable tooltip={`Выгнать из лобби`}>
                       <IconButton
-                        onClick={() => kickPlayer(slot!.user.steamId)}
+                        onClick={() => kickPlayer(slot.user!.steamId)}
                       >
                         <IoMdExit />
                       </IconButton>

@@ -9,11 +9,13 @@ import {
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import cx from "clsx";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaRobot } from "react-icons/fa";
 import { Checkbox, Tooltipable } from "@/components";
 import { formatGameMode, formatGameModeDescription } from "@/util/gamemode";
-import { CgSandClock } from "react-icons/cg";
 import { QueueDurationDto } from "@/api/back";
+import { GiJeweledChalice } from "react-icons/gi";
+import { MdSecurity } from "react-icons/md";
+import { BiDoorOpen } from "react-icons/bi";
 
 interface MatchmakingOptionProps {
   mode: MatchmakingMode;
@@ -30,46 +32,24 @@ interface MatchmakingOptionProps {
   queueTime: QueueDurationDto[];
 }
 
-// const getLocalFromUtcHours = (hours: number) => {
-//   let d = new Date();
-//   d.setUTCHours(hours, 0, 0);
-//
-//   if (Date.now() > d.getTime()) {
-//     d = new Date(d.getTime() + 1000 * 60 * 60 * 24);
-//   }
-//
-//   let expectedWait = d.getTime() - Date.now();
-//
-//   if (expectedWait < 0) {
-//     expectedWait = 1000 * 60 * 60 * 24 - expectedWait;
-//   }
-//
-//   const hrs = Math.ceil(expectedWait / 1000 / 60 / 60);
-//
-//   return `${hrs} ${pluralize(hrs, "час", "часа", "часов")}`;
-// };
-// const formatQueueTime = (duration: number) => {
-//   const minutes = Math.ceil(duration / 60);
-//
-//   if (minutes > 5) {
-//     return `±${25} ${pluralize(25, "минута", "минуты", "минут")}`;
-//   }
-//
-//   return `±${minutes} ${pluralize(minutes, "минута", "минуты", "минут")}`;
-// };
+const DropModes: MatchmakingMode[] = [
+  MatchmakingMode.UNRANKED,
+  MatchmakingMode.TURBO,
+  MatchmakingMode.HIGHROOM,
+  MatchmakingMode.RANKED,
+];
 
-// const findNextDefinedUtcHourQueueTime = (
-//   utcHour: number,
-//   queueTimes: QueueDurationDto[],
-// ): QueueDurationDto | undefined => {
-//   for (let i = 0; i < 30; i++) {
-//     const nextUtcHour = (utcHour + i) % 24;
-//     const qTime = queueTimes.find((t) => t.utcHour === nextUtcHour);
-//     if (qTime?.duration) {
-//       return qTime;
-//     }
-//   }
-// };
+const AbandonRestrictModes: MatchmakingMode[] = [
+  MatchmakingMode.UNRANKED,
+  MatchmakingMode.HIGHROOM,
+  MatchmakingMode.RANKED,
+];
+
+const HasBotsModes: MatchmakingMode[] = [
+  MatchmakingMode.TURBO,
+  MatchmakingMode.BOTS,
+  MatchmakingMode.BOTS2X2,
+];
 
 export const MatchmakingOption = observer(
   ({
@@ -126,9 +106,40 @@ export const MatchmakingOption = observer(
                   {disabled ? <FaLock /> : null} {formatGameMode(mode)}
                 </span>
               </Tooltipable>
-              <span className={c.mode__inQueue}>
-                {queue.inQueueCount(mode, version)} в поиске
-              </span>
+              <div className={c.modeAdditional}>
+                {HasBotsModes.includes(mode) && (
+                  <Tooltipable
+                    tooltip={"Пустые слоты заполняются ботами"}
+                    className={c.modeAdditional__neutral}
+                  >
+                    <FaRobot />
+                  </Tooltipable>
+                )}
+                {AbandonRestrictModes.includes(mode) && (
+                  <Tooltipable
+                    tooltip={"Строгие наказания за покинутые игры"}
+                    className={c.modeAdditional__bad}
+                  >
+                    <MdSecurity />
+                  </Tooltipable>
+                )}
+                {!AbandonRestrictModes.includes(mode) && (
+                  <Tooltipable
+                    tooltip={"Нет наказаний за покинутые игры"}
+                    className={c.modeAdditional__neutral}
+                  >
+                    <BiDoorOpen />
+                  </Tooltipable>
+                )}
+                {DropModes.includes(mode) && (
+                  <Tooltipable
+                    tooltip={"После матча выпадают награды"}
+                    className={c.modeAdditional__good}
+                  >
+                    <GiJeweledChalice />
+                  </Tooltipable>
+                )}
+              </div>
             </div>
 
             {disabled ? (
@@ -137,22 +148,9 @@ export const MatchmakingOption = observer(
             {suffix && <span className={c.mode__suffix}>{suffix}</span>}
           </div>
         </div>
-
-        {mode === MatchmakingMode.BOTS && (
-          <div className={c.modeAdditional}>
-            <Tooltipable
-              tooltip={
-                "Ориентир по времени поиска. Расчитывается из исторических данных"
-              }
-              className={c.modeAdditional__time}
-            >
-              <span>
-                <CgSandClock />
-                <>Время поиска: 1 - 3 минуты</>
-              </span>
-            </Tooltipable>
-          </div>
-        )}
+        <span className={c.mode__inQueue}>
+          {queue.inQueueCount(mode, version)} в поиске
+        </span>
       </div>
     );
   },

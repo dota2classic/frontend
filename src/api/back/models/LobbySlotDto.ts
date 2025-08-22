@@ -31,7 +31,7 @@ export interface LobbySlotDto {
      * @type {UserDTO}
      * @memberof LobbySlotDto
      */
-    user: UserDTO;
+    user?: UserDTO;
     /**
      * 
      * @type {number}
@@ -56,7 +56,7 @@ export function LobbySlotDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'user': UserDTOFromJSON(json['user']),
+        'user': !exists(json, 'user') ? undefined : UserDTOFromJSON(json['user']),
         'index': json['index'],
         'team': !exists(json, 'team') ? undefined : json['team'],
     };

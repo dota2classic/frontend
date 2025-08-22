@@ -11,7 +11,6 @@ interface TeamProps {
   slots: LobbySlotDto[];
   onTakeSlot: (index: number) => void;
   team: number | undefined;
-  maxSlots: number;
   onRemoveSlot: (index: number, steamId: string) => void;
   onKickPlayer: (steamId: string) => void;
 }
@@ -23,7 +22,6 @@ export const LobbyTeam = observer(
     onTakeSlot,
     onRemoveSlot,
     team,
-    maxSlots,
     onKickPlayer,
   }: TeamProps) => {
     const { auth } = useStore();
@@ -39,52 +37,63 @@ export const LobbyTeam = observer(
               : "Неопределившиеся"}
         </h2>
         <div className={c.slots}>
-          {new Array(maxSlots).fill(null).map((_, index) => {
-            const slot = slots.find((t) => t.index === index);
+          {slots
+            .filter((t) => t.team === team)
+            .sort((a, b) => a.index - b.index)
+            .map((teamSlot) => {
+              const slotHasPlayer = teamSlot?.user;
 
-            if (slot)
+              if (slotHasPlayer)
+                return (
+                  <div
+                    key={`${teamSlot?.team}_${teamSlot?.index}`}
+                    className={cx(c.slot, c.playerPreview)}
+                  >
+                    <PlayerAvatar
+                      user={slotHasPlayer}
+                      width={34}
+                      height={34}
+                      alt={""}
+                    />
+                    <span className={c.username}>{slotHasPlayer.name}</span>
+
+                    {canRemove(slotHasPlayer) && (
+                      <Tooltipable tooltip={`Убрать из команды`}>
+                        <IconButton
+                          onClick={() =>
+                            onRemoveSlot(teamSlot.index, slotHasPlayer!.steamId)
+                          }
+                        >
+                          <IoMdClose />
+                        </IconButton>
+                      </Tooltipable>
+                    )}
+                    {canRemove(slotHasPlayer) && (
+                      <Tooltipable tooltip={`Выгнать из лобби`}>
+                        <IconButton
+                          onClick={() => onKickPlayer(slotHasPlayer!.steamId)}
+                        >
+                          <IoMdExit />
+                        </IconButton>
+                      </Tooltipable>
+                    )}
+                  </div>
+                );
+
               return (
                 <div
-                  key={slot.user.steamId}
-                  className={cx(c.slot, c.playerPreview)}
+                  key={`inactive_${teamSlot?.team}_${teamSlot?.index}`}
+                  className={c.slot}
                 >
-                  <PlayerAvatar
-                    user={slot.user}
-                    width={34}
-                    height={34}
-                    alt={""}
-                  />
-                  <span className={c.username}>{slot.user.name}</span>
-
-                  {canRemove(slot.user) && (
-                    <Tooltipable tooltip={`Убрать из команды`}>
-                      <IconButton
-                        onClick={() => onRemoveSlot(index, slot!.user.steamId)}
-                      >
-                        <IoMdClose />
-                      </IconButton>
-                    </Tooltipable>
-                  )}
-                  {canRemove(slot.user) && (
-                    <Tooltipable tooltip={`Выгнать из лобби`}>
-                      <IconButton
-                        onClick={() => onKickPlayer(slot!.user.steamId)}
-                      >
-                        <IoMdExit />
-                      </IconButton>
-                    </Tooltipable>
-                  )}
+                  <span
+                    className={c.takeSlot}
+                    onClick={() => onTakeSlot(teamSlot.index)}
+                  >
+                    Занять место
+                  </span>
                 </div>
               );
-
-            return (
-              <div key={`inactive-${index}`} className={c.slot}>
-                <span className={c.takeSlot} onClick={() => onTakeSlot(index)}>
-                  Занять место
-                </span>
-              </div>
-            );
-          })}
+            })}
         </div>
       </div>
     );

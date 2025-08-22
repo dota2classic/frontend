@@ -19,6 +19,7 @@
     right: 0;
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 5;
+    pointer-events: none;
   }
 }
 
@@ -32,6 +33,7 @@
   cursor: pointer;
 
   padding: 12px 12px;
+  gap: 4px;
 
   & + & {
     border-top: 1px solid #4e4d4d;
@@ -116,20 +118,34 @@
 
 .modeAdditional {
   display: flex;
-  font-size: 0.9rem;
+  //font-size: 0.9rem;
   color: $primaryTextTint;
-  margin-top: 0.5rem;
+  //margin-top: 0.5rem;
 
-  gap: 2px;
+  gap: 6px;
 
   & svg {
-    color: $bronze;
-    font-size: 1.2rem;
+    font-size: 1.4em;
     margin-bottom: 2px;
-  }
-
-  &__time {
     display: flex;
     align-items: center;
   }
+
+  &__neutral {
+    //color: $green;
+    //color: $silver;
+  }
+
+  &__good {
+    color: $gold2;
+  }
+
+  &__bad {
+    color: $red;
+  }
+
+  //&__time {
+  //  display: flex;
+  //  align-items: center;
+  //}
 }
