@@ -35,7 +35,7 @@ export const FeedbackModal: React.FC<IFeedbackModalProps> = observer(
           <MarkdownTextarea
             onChange={(e) => (feedback.comment = e.target.value)}
             ref={textareaRef}
-            placeholder={"Опиши проблему словами"}
+            placeholder={"Твой комментарий"}
             className={c.comment}
           />
         </div>

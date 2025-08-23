@@ -79,7 +79,8 @@ export const handleNotification = (notification: NotificationDto) => {
 
   const onAccept = async () => {
     // Acknowledge notification
-    await acknowledge();
+    // FIXME
+    // await acknowledge();
 
     if (isFeedback) {
       await showFeedback();
@@ -121,7 +122,7 @@ export const handleNotification = (notification: NotificationDto) => {
       break;
     case NotificationType.FEEDBACKCREATED:
       title = notification.feedback!.title;
-      content = "Расскажи, что пошло не по плану";
+      content = "Нам очень важно твое мнение";
       break;
     case NotificationType.PLAYERFEEDBACK:
       title = `Тебе оставили отзыв!`;

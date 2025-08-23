@@ -38,12 +38,6 @@ export interface SubmitFeedbackDto {
      * @memberof SubmitFeedbackDto
      */
     options: Array<SubmittedFeedbackOptionDto>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SubmitFeedbackDto
-     */
-    createTicket: boolean;
 }
 
 export function SubmitFeedbackDtoFromJSON(json: any): SubmitFeedbackDto {
@@ -58,7 +52,6 @@ export function SubmitFeedbackDtoFromJSONTyped(json: any, ignoreDiscriminator: b
         
         'comment': !exists(json, 'comment') ? undefined : json['comment'],
         'options': ((json['options'] as Array<any>).map(SubmittedFeedbackOptionDtoFromJSON)),
-        'createTicket': json['createTicket'],
     };
 }
 
@@ -73,7 +66,6 @@ export function SubmitFeedbackDtoToJSON(value?: SubmitFeedbackDto | null): any {
         
         'comment': value.comment,
         'options': ((value.options as Array<any>).map(SubmittedFeedbackOptionDtoToJSON)),
-        'createTicket': value.createTicket,
     };
 }
 

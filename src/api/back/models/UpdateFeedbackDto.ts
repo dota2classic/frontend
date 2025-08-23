@@ -31,6 +31,12 @@ export interface UpdateFeedbackDto {
      * @memberof UpdateFeedbackDto
      */
     title: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateFeedbackDto
+     */
+    createTicket: boolean;
 }
 
 export function UpdateFeedbackDtoFromJSON(json: any): UpdateFeedbackDto {
@@ -45,6 +51,7 @@ export function UpdateFeedbackDtoFromJSONTyped(json: any, ignoreDiscriminator: b
         
         'tag': json['tag'],
         'title': json['title'],
+        'createTicket': json['createTicket'],
     };
 }
 
@@ -59,6 +66,7 @@ export function UpdateFeedbackDtoToJSON(value?: UpdateFeedbackDto | null): any {
         
         'tag': value.tag,
         'title': value.title,
+        'createTicket': value.createTicket,
     };
 }
 

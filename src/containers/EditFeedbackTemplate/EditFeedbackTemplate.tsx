@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { FeedbackTemplateDto, FeedbackTemplateOptionDto } from "@/api/back";
 import { observer, useLocalObservable } from "mobx-react-lite";
-import { Button, Input, Panel } from "@/components";
+import { Button, Checkbox, Input, Panel } from "@/components";
 import { runInAction } from "mobx";
 import c from "./EditFeedbackTemplate.module.scss";
 import { getApi } from "@/api/hooks";
@@ -29,12 +29,14 @@ export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
         tag: "",
         title: "",
         options: [],
+        needsTicket: false,
       },
       lastReceivedTemplate: template || {
         id: -1,
         tag: "",
         title: "",
         options: [],
+        needsTicket: false,
       },
       updateTemplate(template: FeedbackTemplateDto) {
         runInAction(() => {
@@ -83,10 +85,11 @@ export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
       if (template) {
         // update
         await getApi()
-          .adminFeedback.adminFeedbackControllerUpdateFeedback(
-            template.id,
-            temp.template,
-          )
+          .adminFeedback.adminFeedbackControllerUpdateFeedback(template.id, {
+            createTicket: temp.template.needsTicket,
+            tag: temp.template.tag,
+            title: temp.template.title,
+          })
           .then((it) => {
             temp.updateTemplate(it);
 
@@ -127,6 +130,15 @@ export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
             runInAction(() => (temp.template.title = e.target.value))
           }
         />
+
+        <Checkbox
+          checked={temp.template.needsTicket}
+          onChange={(v) => {
+            runInAction(() => (temp.template.needsTicket = v));
+          }}
+        >
+          Создавать тикет
+        </Checkbox>
 
         <h3>Варианты ответа</h3>
         <div className={c.options}>

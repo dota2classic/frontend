@@ -46,6 +46,12 @@ export interface FeedbackTemplateDto {
     title: string;
     /**
      * 
+     * @type {boolean}
+     * @memberof FeedbackTemplateDto
+     */
+    needsTicket: boolean;
+    /**
+     * 
      * @type {Array<FeedbackTemplateOptionDto>}
      * @memberof FeedbackTemplateDto
      */
@@ -65,6 +71,7 @@ export function FeedbackTemplateDtoFromJSONTyped(json: any, ignoreDiscriminator:
         'id': json['id'],
         'tag': json['tag'],
         'title': json['title'],
+        'needsTicket': json['needsTicket'],
         'options': ((json['options'] as Array<any>).map(FeedbackTemplateOptionDtoFromJSON)),
     };
 }
@@ -81,6 +88,7 @@ export function FeedbackTemplateDtoToJSON(value?: FeedbackTemplateDto | null): a
         'id': value.id,
         'tag': value.tag,
         'title': value.title,
+        'needsTicket': value.needsTicket,
         'options': ((value.options as Array<any>).map(FeedbackTemplateOptionDtoToJSON)),
     };
 }

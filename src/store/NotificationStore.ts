@@ -181,7 +181,6 @@ export class NotificationStore implements HydratableStore<unknown> {
           {
             comment: feedback.comment,
             options: feedback.options,
-            createTicket: feedback.comment?.length > 0,
           },
         );
       makeSimpleToast(
