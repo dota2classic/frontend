@@ -46,7 +46,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
   const newBlogRecently =
     latestBlog && latestBlog.data.length > 0
       ? Date.now() - new Date(latestBlog.data[0].publishDate).getTime() <
-        1000 * 60 * 60 * 2
+        1000 * 60 * 60 * 24
       : false;
 
   return (
