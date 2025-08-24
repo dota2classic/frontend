@@ -18,6 +18,7 @@ import { MdGavel } from "react-icons/md";
 import { FaCoins, FaJournalWhills } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
+import { AiOutlineTeam } from "react-icons/ai";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { auth, live } = useStore();
@@ -125,6 +126,11 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
               className={c.play}
               action={AppRouter.info.link}
               options={[
+                {
+                  Icon: AiOutlineTeam,
+                  label: "Вакансии",
+                  action: AppRouter.vacancies.link,
+                },
                 {
                   Icon: MdGavel,
                   label: "Правила",
