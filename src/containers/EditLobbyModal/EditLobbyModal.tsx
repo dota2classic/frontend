@@ -13,6 +13,7 @@ import {
   DotaGameModeOptions,
   DotaMapOptions,
   DotaPatchOptions,
+  RegionOptions,
 } from "@/const/options";
 import { getApi } from "@/api/hooks";
 import { useFocusLock } from "@/util/useTypingCallback";
@@ -107,6 +108,17 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
               }
             }}
             defaultText={"Патч игры"}
+          />
+          <header>Сервер</header>
+          <SelectOptions
+            options={RegionOptions}
+            selected={lobbySettings.region || lobby.region}
+            onSelect={(value, meta) => {
+              if (meta.action === "select-option") {
+                setLobbySettings((r) => ({ ...r, region: value.value }));
+              }
+            }}
+            defaultText={"Регион сервера"}
           />
         </div>
         <div className={cx(c.formItem)}>

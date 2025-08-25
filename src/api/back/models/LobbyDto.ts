@@ -30,6 +30,10 @@ import {
     LobbySlotDtoFromJSON,
     LobbySlotDtoFromJSONTyped,
     LobbySlotDtoToJSON,
+    Region,
+    RegionFromJSON,
+    RegionFromJSONTyped,
+    RegionToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -60,6 +64,12 @@ export interface LobbyDto {
      * @memberof LobbyDto
      */
     patch: DotaPatch;
+    /**
+     * 
+     * @type {Region}
+     * @memberof LobbyDto
+     */
+    region: Region;
     /**
      * 
      * @type {string}
@@ -123,6 +133,7 @@ export function LobbyDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'gameMode': DotaGameModeFromJSON(json['gameMode']),
         'map': DotaMapFromJSON(json['map']),
         'patch': DotaPatchFromJSON(json['patch']),
+        'region': RegionFromJSON(json['region']),
         'id': json['id'],
         'owner': UserDTOFromJSON(json['owner']),
         'slots': ((json['slots'] as Array<any>).map(LobbySlotDtoFromJSON)),
@@ -146,6 +157,7 @@ export function LobbyDtoToJSON(value?: LobbyDto | null): any {
         'gameMode': DotaGameModeToJSON(value.gameMode),
         'map': DotaMapToJSON(value.map),
         'patch': DotaPatchToJSON(value.patch),
+        'region': RegionToJSON(value.region),
         'id': value.id,
         'owner': UserDTOToJSON(value.owner),
         'slots': ((value.slots as Array<any>).map(LobbySlotDtoToJSON)),

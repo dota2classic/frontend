@@ -269,6 +269,10 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             <dt>Патч</dt>
             <dd>{data.patch}</dd>
           </dl>
+          <dl>
+            <dt>Регион</dt>
+            <dd>{data.region}</dd>
+          </dl>
         </Panel>
       </div>
     );

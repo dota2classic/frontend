@@ -96,6 +96,7 @@ export * from "./QueueEntryDTO";
 export * from "./ReactionEntry";
 export * from "./RecalibrationDto";
 export * from "./RecordType";
+export * from "./Region";
 export * from "./ReportDto";
 export * from "./ReportMessageDto";
 export * from "./ReportPageDto";

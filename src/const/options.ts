@@ -6,6 +6,7 @@ import {
 } from "@/api/mapped-models";
 import { formatDotaMap, formatDotaMode, formatGameMode } from "@/util/gamemode";
 import heroes from "@/util/texts/heroes";
+import { Region } from "@/api/back";
 
 export const DotaMapOptions = [
   DotaMap.DOTA,
@@ -22,6 +23,11 @@ export const DotaPatchOptions = [
   DotaPatch.DOTA_684,
   DotaPatch.DOTA_684_TURBO,
 ].map((dm) => ({
+  label: dm,
+  value: dm,
+}));
+
+export const RegionOptions = [Region.RuMoscow, Region.EuCzech].map((dm) => ({
   label: dm,
   value: dm,
 }));
