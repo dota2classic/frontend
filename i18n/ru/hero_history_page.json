@@ -1,0 +1,9 @@
+{
+  "hero_page": {
+    "statisticsAndHistory": "Statistics and match history of hero {{hero}} on dotaclassic.ru, matches played on the old Dota 2 client, {{rank}} in popularity.",
+    "matchHistory": "Match History",
+    "showMore": "Show more",
+    "topPlayers": "Top Players",
+    "items": "Items"
+  }
+}

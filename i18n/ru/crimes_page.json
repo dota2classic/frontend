@@ -1,0 +1,18 @@
+{
+  "crimes_page": {
+    "filterByPlayer": "Фильтровать по игроку",
+    "resetPlayerFilter": "Сбросить фильтр по игроку",
+    "player": "Игрок",
+    "match": "Матч",
+    "matchId": "Матч {{matchId}}",
+    "outOfMatch": "Вне матча",
+    "comment": "Комментарий",
+    "banDuration": "Длительность бана",
+    "violation": "Нарушение",
+    "gameMode": "Режим игры",
+    "date": "Дата",
+    "processed": "Обработано?",
+    "botsGame": "Игра с ботами",
+    "counted": "Засчитываем."
+  }
+}

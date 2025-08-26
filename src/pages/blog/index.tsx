@@ -10,6 +10,7 @@ import { getApi } from "@/api/hooks";
 import { Breadcrumbs, PageLink, Panel } from "@/components";
 import React from "react";
 import { useIsModerator } from "@/util";
+import { useTranslation } from "react-i18next";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -20,17 +21,20 @@ interface Props {
 }
 
 export default function NewsList({ page }: Props) {
+  const { t } = useTranslation();
   const isMod = useIsModerator();
   return (
     <>
       <EmbedProps
-        title={"Новости проекта"}
-        description={"Последние новости проекта dota 2 classic"}
+        title={t("news_list.projectNews")}
+        description={t("news_list.latestNews")}
       />
       <Panel className="horizontal">
         <div className="left">
           <Breadcrumbs>
-            <PageLink link={AppRouter.blog.index.link}>Новости</PageLink>
+            <PageLink link={AppRouter.blog.index.link}>
+              {t("news_list.news")}
+            </PageLink>
           </Breadcrumbs>
         </div>
         <div className="right">
@@ -38,7 +42,7 @@ export default function NewsList({ page }: Props) {
             <dl>
               <dd>
                 <PageLink link={AppRouter.blog.create.link}>
-                  Создать новость
+                  {t("news_list.createNews")}
                 </PageLink>
               </dd>
               <dt></dt>
@@ -63,7 +67,6 @@ export default function NewsList({ page }: Props) {
 }
 
 NewsList.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-  // Add the "await" keyword like this:
   const page = numberOrDefault(ctx.query.page as string, 0);
 
   return {

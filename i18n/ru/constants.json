@@ -14,5 +14,25 @@
     "11": "Лобби",
     "12": "2х2 с ботами",
     "13": "Турбо"
+  },
+  "game_mode": {
+    "1": "All Pick",
+    "2": "Captain Mode",
+    "3": "Random Draft",
+    "4": "Single Draft",
+    "5": "All Random",
+    "6": "INTRO",
+    "7": "Diretide",
+    "8": "Reverse Captain Mode",
+    "9": "Greeviling",
+    "10": "TUTORIAL",
+    "11": "Mid only",
+    "12": "Least Played",
+    "13": "Limited Heroes",
+    "17": "Balanced Draft",
+    "18": "Ability Draft",
+    "20": "ARDM",
+    "21": "Solomid",
+    "22": "Ranked All Pick"
   }
 }

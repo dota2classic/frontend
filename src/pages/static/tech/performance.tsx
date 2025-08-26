@@ -11,54 +11,52 @@ import {
   Input,
   Table,
 } from "@/components";
+import { useTranslation } from "react-i18next";
 
 export default function PerformanceTechTab() {
+  const { t } = useTranslation();
+
   return (
     <div className={cx(NotoSans.className, c.container)}>
       <EmbedProps
-        title="Улучшение производительности Dota 2 6.84"
-        description="Улучшение FPS и ping для игры"
+        title={t("performance_tab.performanceImprovementTitle")}
+        description={t("performance_tab.performanceImprovementDescription")}
       />
       <TechStaticTabs />
-      <h1>Настройки производительности</h1>
+      <h1>{t("performance_tab.performanceSettings")}</h1>
 
-      <h2>Убираем сильные лаги на хорошем ПК</h2>
-      <p>
-        Исправляем баг в клиенте 6.84 - главный сайт dota2 внутри игры забивает
-        процессор
-      </p>
+      <h2>{t("performance_tab.removeLagTitle")}</h2>
+      <p>{t("performance_tab.fixClientBug")}</p>
       <div className={c.block}>
         <CoolList
           items={[
             {
-              title: "Находим файл hosts",
+              title: t("performance_tab.findHostsFileTitle"),
               content: (
                 <>
                   <CopyBlock
                     command={"C:\\Windows\\System32\\drivers\\etc"}
-                    text="Папка, где находится этот файл"
+                    text={t("performance_tab.hostsFileFolder")}
                   />
                 </>
               ),
             },
             {
-              title: "Редактируем",
+              title: t("performance_tab.editTitle"),
               content: (
                 <>
                   <ol>
-                    <li>ПКМ по файлу</li>
-                    <li>Нажимаем "Свойства"</li>
-                    <li>Вкладка "Безопасность"</li>
-                    <li>Нажимаем "Изменить"</li>
-                    <li>
-                      Проставляем галки "Разрешить" и нажимаем ОК и сохраняем
-                    </li>
+                    <li>{t("performance_tab.rightClickFile")}</li>
+                    <li>{t("performance_tab.clickProperties")}</li>
+                    <li>{t("performance_tab.securityTab")}</li>
+                    <li>{t("performance_tab.clickChange")}</li>
+                    <li>{t("performance_tab.allowCheckboxes")}</li>
                   </ol>
                   <img src="/guide/hosts.webp" alt="" />
                   <ol>
-                    <li>Далее, открываем файл hosts через блокнот</li>
+                    <li>{t("performance_tab.openHostsFile")}</li>
                     <li>
-                      Добавляем в конец эту строчку
+                      {t("performance_tab.addLineToEnd")}
                       <CopySomething
                         something={"0.0.0.0 www.dota2.com"}
                         placeholder={
@@ -70,41 +68,38 @@ export default function PerformanceTechTab() {
                       />
                     </li>
                   </ol>
-                  <p>Должно получиться что-то вроде этого:</p>
+                  <p>{t("performance_tab.finalResultSubtitle")}</p>
                   <img src="/guide/hosts2.webp" alt="" />
                 </>
               ),
             },
             {
-              title: "Проверяем",
+              title: t("performance_tab.checkTitle"),
               content: (
                 <>
-                  <p>Проверим, что все получилось и клиент больше не лагает:</p>
+                  <p>{t("performance_tab.checkClientLagFree")}</p>
                   <ol>
-                    <li>Заходим в клиент игры 6.84</li>
-                    <li>Вкладка "Сегодня"</li>
+                    <li>{t("performance_tab.enterGameClient")}</li>
+                    <li>{t("performance_tab.todayTab")}</li>
                     <li>
-                      Если вместо веб страницы выдает пустую страницу с ошибкой
-                      <span className="red">-105 / -107 / -108</span> - все
-                      сделано правильно и производительность должна повыситься.
+                      {t("performance_tab.emptyPageError")}
+                      <span className="red">-105 / -107 / -108</span> -{" "}
+                      {t("performance_tab.performanceImproved")}
                     </li>
                   </ol>
                 </>
               ),
             },
             {
-              title: "Как вернуть все обратно",
+              title: t("performance_tab.restoreTitle"),
               content: (
                 <>
-                  <p>
-                    Если нужно зайти на сайт dota2.com или по другим причинам
-                    хочешь вернуть, как было:
-                  </p>
+                  <p>{t("performance_tab.restoreInstructions")}</p>
                   <ol>
-                    <li>Открываем файл hosts</li>
-                    <li>Убираем строку "0.0.0.0 www.dota2.com"</li>
-                    <li>Сохраняем файл"</li>
-                    <li>Теперь сайт снова доступен.</li>
+                    <li>{t("performance_tab.openHostsFile")}</li>
+                    <li>{t("performance_tab.removeLine")}</li>
+                    <li>{t("performance_tab.saveFile")}</li>
+                    <li>{t("performance_tab.siteAvailableAgain")}</li>
                   </ol>
                 </>
               ),
@@ -113,88 +108,101 @@ export default function PerformanceTechTab() {
         />
       </div>
 
-      <h2>netgraph</h2>
+      <h2>{t("performance_tab.netgraphTitle")}</h2>
       <div className={c.block}>
         <ul>
           <li>
             <CopyBlock
               command={"net_graph 1"}
-              text="Показать FPS, ping, потери пакетов"
+              text={t("performance_tab.showFpsPingLoss")}
             />
           </li>
           <li>
-            <CopyBlock command={"net_graphpos 1"} text="Показывать справа" />
+            <CopyBlock
+              command={"net_graphpos 1"}
+              text={t("performance_tab.showRight")}
+            />
           </li>
           <li>
-            <CopyBlock command={"net_graphpos 2"} text="Показывать по центру" />
+            <CopyBlock
+              command={"net_graphpos 2"}
+              text={t("performance_tab.showCenter")}
+            />
           </li>
           <li>
-            <CopyBlock command={"net_graphpos 3"} text="Показывать слева" />
+            <CopyBlock
+              command={"net_graphpos 3"}
+              text={t("performance_tab.showLeft")}
+            />
           </li>
           <li>
             <CopyBlock
               command={"net_graphproportionalfont 1"}
-              text="Увеличить шрифт"
+              text={t("performance_tab.increaseFont")}
             />
           </li>
         </ul>
       </div>
 
-      <h2>Команды для повышения производительности</h2>
+      <h2>{t("performance_tab.performanceCommandsTitle")}</h2>
       <div className={c.block}>
         <ul>
           <li>
             <CopyBlock
-              text={
-                "Как часто обновляется игра при альтабе(полезно для стримов, значения от 0 до 20)"
-              }
+              text={t("performance_tab.altTabFrequency")}
               command={"engine_no_focus_sleep 20"}
             />
           </li>
           <li>
             <CopyBlock
-              text={"Асинхронное микширование звука"}
+              text={t("performance_tab.asyncSoundMixing")}
               command="snd_mix_async 1"
             />
           </li>
           <li>
-            <CopyBlock text={"Мультипоток"} command="cl_threaded_init 1" />
+            <CopyBlock
+              text={t("performance_tab.multithread")}
+              command="cl_threaded_init 1"
+            />
           </li>
           <li>
             <CopyBlock
-              text="Альтернативный рендер теней"
+              text={t("performance_tab.alternateShadowRender")}
               command="r_shadow_deferred_simd 1"
             />
           </li>
           <li>
             <CopyBlock
-              text="Альтернативная работа с 'костями'"
+              text={t("performance_tab.alternateBones")}
               command="cl_simdbones 1; cl_use_simd_bones 1"
             />
           </li>
         </ul>
       </div>
 
-      <h2>Улучшаем отзывчивость</h2>
+      <h2>{t("performance_tab.improvingResponsivenessTitle")}</h2>
       <div className={c.block}>
-        <p>Если у тебя пинг 40 и ниже, можно подкрутить интерполяцию</p>
-        <CopyBlock text="Команда #1" command="сl_interp 0" />
-        <CopyBlock text="Команда #2" command="cl_interp_ratio 1" />
+        <p>{t("performance_tab.ifPingBelow")}</p>
+        <CopyBlock text={t("performance_tab.command1")} command="сl_interp 0" />
+        <CopyBlock
+          text={t("performance_tab.command2")}
+          command="cl_interp_ratio 1"
+        />
         <p>
-          Мониторим параметр <span className="gold">lerp</span> через netgraph
-          5. Смотрим на цвет "lerp" и на табличку: мы хотим добиться, чтобы lerp
-          был белого цвета!
+          {t("performance_tab.monitorLerpParameter")}{" "}
+          <span className="gold">lerp</span>{" "}
+          {t("performance_tab.netgraphMonitor")}
         </p>
         <Table className="compact">
           <thead>
             <tr>
-              <th>Показание lerp</th>
-              <th>Консольная команда</th>
+              <th>{t("performance_tab.lerpReading")}</th>
+              <th>{t("performance_tab.consoleCommand")}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Красный</td>
+              <td>{t("performance_tab.red")}</td>
               <td>
                 <CopyBlock
                   text="cl_interp (0 - 0.05)"
@@ -203,19 +211,19 @@ export default function PerformanceTechTab() {
               </td>
             </tr>
             <tr>
-              <td>Желтый</td>
+              <td>{t("performance_tab.yellow")}</td>
               <td>
                 <CopyBlock text="" command="cl_interp 0.037" />
               </td>
             </tr>
             <tr>
-              <td>Оранжевый</td>
+              <td>{t("performance_tab.orange")}</td>
               <td>
                 <CopyBlock text="" command="cl_interp 0.039" />
               </td>
             </tr>
             <tr>
-              <td>Все равно не белый?</td>
+              <td>{t("performance_tab.notWhite")}</td>
               <td>
                 <CopyBlock text="" command="cl_interp_ratio 2" />
               </td>

@@ -4,6 +4,7 @@ import { getApi } from "@/api/hooks";
 import { EmbedProps, PlayerSummary, Section } from "@/components";
 import React from "react";
 import { PlayerRecords } from "@/containers";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   preloadedSummary: PlayerSummaryDto;
@@ -14,11 +15,17 @@ export default function PlayerRecordsPage({
   records,
   preloadedSummary,
 }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title={`${preloadedSummary.user.name} история матчей`}
-        description={`История матчей игрока ${preloadedSummary.user.name}. Список игр сыгранных в старую доту`}
+        title={t("player_records.history", {
+          name: preloadedSummary.user.name,
+        })}
+        description={t("player_records.historyDescription", {
+          name: preloadedSummary.user.name,
+        })}
       />
 
       <PlayerSummary

@@ -1,0 +1,6 @@
+{
+  "hero_matches": {
+    "loading": "Loading...",
+    "matches": "Matches for {{hero}}"
+  }
+}

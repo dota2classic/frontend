@@ -6,329 +6,263 @@ import { TechStaticTabs } from "@/containers";
 import { CopyBlock, EmbedProps, FAQ, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
+import { useTranslation } from "react-i18next";
 
 export default function FaqTechTab() {
+  const { t } = useTranslation();
+
   return (
     <div className={cx(NotoSans.className, c.container)}>
-      <EmbedProps
-        title="Частые проблемы при игре Dota 2 6.84"
-        description="Проблемы с запуском, настройкой и соединением с игровыми серверами"
-      />
+      <EmbedProps title={t("faq.title")} description={t("faq.description")} />
       <TechStaticTabs />
-      <h2 style={{ textAlign: "center", marginTop: 40 }}>
-        FAQ - часто задаваемые вопросы
-      </h2>
+      <h2 style={{ textAlign: "center", marginTop: 40 }}>{t("faq.header")}</h2>
       <FAQ
         items={[
           {
-            title: "Какая версия игры используется?",
+            title: t("faq.items.version.title"),
             content: (
               <>
-                Мы играем на версии 6.84c. Это последняя версия игры на{" "}
-                <span className="gold">Source 1</span>, а так же самый
-                популярный патч по количеству игроков.
+                {t("faq.items.version.content.part1")}
+                <span className="gold">
+                  {t("faq.items.version.content.source1")}
+                </span>
+                {t("faq.items.version.content.part2")}
               </>
             ),
           },
           {
-            title: "Это безопасно?",
+            title: t("faq.items.safe.title"),
             content: (
               <>
-                Клиент был выкачан напрямую из официальных Steam-депотов, то
-                есть полностью аутентичен. Серверы работают на официальном
-                инструменте от Valve — srcds.exe, как и положено. Поэтому баны
-                исключены. Для авторизации на сайте используется безопасный
-                Steam-сервис по протоколу OpenID — он не передаёт ни логин, ни
-                пароль, ни другие личные данные. Такой способ давно применяется
-                на множестве сторонних ресурсов.
+                {t("faq.items.safe.content.part1")}
+                {t("faq.items.safe.content.part2")}
               </>
             ),
           },
           {
-            title: "Могу ли я играть с баном в доте?",
-            content: (
-              <>
-                Баны из актуальной версии Доты у нас не действуют — они не
-                переносятся на этот клиент. Но если ты регулярно выходишь из
-                игр, портишь матч другим или ведёшь себя откровенно токсично,
-                можешь получить бан уже здесь. Мы следим за порядком и не
-                закрываем глаза.
-              </>
-            ),
+            title: t("faq.items.ban.title"),
+            content: <>{t("faq.items.ban.content.part1")}</>,
           },
           {
-            title: "Как открыть консоль?",
-            content: (
-              <>
-                Забиндить в настройках управления и запускать игру через батник
-                (там прописан параметр -console)
-              </>
-            ),
+            title: t("faq.items.console.title"),
+            content: <>{t("faq.items.console.content")}</>,
           },
           {
-            title: "У меня сбиваются настройки игры / не работают квикасты",
+            title: t("faq.items.settings.title"),
             content: (
               <>
                 <p>
-                  Отключи Steam Cloud (для современной доты и в глобально по
-                  стиму) и не соглашайся на синхронизацию. По пути{" "}
-                  <span className="shit">Dota 6.84\dota\cfg</span> в config.cfg
-                  в свойствах файла сними галочку только чтение, если имеется.
+                  {t("faq.items.settings.content.part1")}
+                  <span className="shit">
+                    {t("faq.items.settings.content.part2")}
+                  </span>
+                  {t("faq.items.settings.content.part3")}
                 </p>
                 <CopyBlock
-                  text="Включить квикасты на способности"
-                  command="dota_ability_quick_cast 1"
+                  text={t("faq.items.settings.content.copyBlock1.text")}
+                  command={t("faq.items.settings.content.copyBlock1.command")}
                 />
                 <CopyBlock
-                  text="Включить квикасты на предметы"
-                  command="dota_item_quick_cast 1"
+                  text={t("faq.items.settings.content.copyBlock2.text")}
+                  command={t("faq.items.settings.content.copyBlock2.command")}
                 />
               </>
             ),
           },
           {
-            title: "Я не могу подключиться к игровому серверу",
+            title: t("faq.items.connection.title"),
             content: (
               <>
                 <ul>
-                  <li>Проверьте, совпадают ли аккаунты на сайте и в стиме.</li>
-                  <li>Перезайдите в аккаунт.</li>
-                  <li> Попробуйте подключиться несколько раз.</li>
-                  <li>
-                    Если вы из Украины или прошлые способы не помогли –
-                    попробуйте использовать средства для обхода блокировок
-                    интернет провайдеров.
-                  </li>
-                  <li>Если уже используете - попробуйте отключить</li>
-                  <li>
-                    Если вы используете мобильный интернет – попробуйте перейти
-                    на кабельный или Wi-Fi с роутера.
-                  </li>
-                  <li>Перекачайте и перераспакуйте клиент с помощью 7-zip.</li>
+                  <li>{t("faq.items.connection.content.checkAccounts")}</li>
+                  <li>{t("faq.items.connection.content.relogin")}</li>
+                  <li>{t("faq.items.connection.content.tryAgain")}</li>
+                  <li>{t("faq.items.connection.content.ukraineNote")}</li>
+                  <li>{t("faq.items.connection.content.internetNote")}</li>
+                  <li>{t("faq.items.connection.content.redownload")}</li>
                 </ul>
               </>
             ),
           },
           {
-            title: "У меня открывается новая дота, а не старая",
+            title: t("faq.items.newDota.title"),
+            content: <>{t("faq.items.newDota.content.part1")}</>,
+          },
+          {
+            title: t("faq.items.clientLimit.title"),
+            content: <>{t("faq.items.clientLimit.content.part1")}</>,
+          },
+          {
+            title: t("faq.items.dotaExeError.title"),
             content: (
               <>
-                Перед подключением на сервер предварительно откройте старый
-                клиент. Введите данные из таблички о принятой игре (в формате
-                connect ip) в консоль и.
+                {t("faq.items.dotaExeError.content.part1")}
+                <span className="gold">
+                  {t("faq.items.dotaExeError.content.path")}
+                </span>
               </>
             ),
           },
           {
-            title: "Only one dota 2 client per customer",
+            title: t("faq.items.launchError.title"),
             content: (
               <>
-                Закройте клиент новой или старой доты, если уже открыт (убейте
-                процесс через диспетчер задач). Одновременно может быть запущен
-                только 1 клиент доты.
-              </>
-            ),
-          },
-          {
-            title: "Ошибка не найден dota.exe",
-            content: (
-              <>
-                Нужно в .bat файл через блокнот в начале прописать cd{" "}
-                <span className="gold">C:\Program Files (x86)\Dota 6.84</span>{" "}
-                (заменить на путь до клиента со старой дотой)
-              </>
-            ),
-          },
-          {
-            title: "Не запускается игра, что делать?",
-            content: (
-              <>
-                Скорее всего тебе чего-то не хватает. Возможные решения:
+                {t("faq.items.launchError.content.part1")}
                 <ul>
                   <li>
-                    Ты не распаковал архив с игрой и пытаешься запустить игру из
-                    архива. Распакуй архив с помощью 7-zip и запусти игру.
+                    {t("faq.items.launchError.content.possibleSolutions.part1")}
                   </li>
                   <li>
-                    Попробуй очистить кэш загрузок Steam или сменить аккаунт
-                    перед тем, как запускать старый клиент.
+                    {t("faq.items.launchError.content.possibleSolutions.part2")}
                   </li>
                   <li>
-                    Установить{" "}
-                    <a
-                      className="link"
-                      href="https://www.microsoft.com/ru-ru/download/details.aspx?id=35"
-                      target="__blank"
-                    >
-                      DirectX
-                    </a>
+                    {t("faq.items.launchError.content.possibleSolutions.part3")}
                   </li>
                   <li>
-                    <a
-                      className="link"
-                      href="https://aka.ms/vs/16/release/vc_redist.x86.exe"
-                      target="__blank"
-                    >
-                      Установить Microsoft Visual C++ для 32 бит
-                    </a>
+                    {t("faq.items.launchError.content.possibleSolutions.part4")}
                   </li>
                   <li>
-                    <a
-                      className="link"
-                      href="https://aka.ms/vs/16/release/vc_redist.x64.exe"
-                      target="__blank"
-                    >
-                      Установить Microsoft Visual C++ для 64 бит
-                    </a>
+                    {t("faq.items.launchError.content.possibleSolutions.part5")}
                   </li>
                   <li>
-                    <a
-                      className="link"
-                      href="http://forum.ru-board.com/topic.cgi?forum=5&amp;topic=10616&amp;start=820"
-                      target="__blank"
-                    >
-                      Установить NET Framework
-                    </a>
-                  </li>
-                  <li>
-                    Если ничего не помогает – переустановите операционную
-                    систему.
+                    {t("faq.items.launchError.content.possibleSolutions.part6")}
                   </li>
                 </ul>
               </>
             ),
           },
           {
-            title: "Steam client is missing or out of date",
+            title: t("faq.items.steamClient.title"),
             content: (
               <>
-                Один из нижеперечисленных вариантов поможет вам исправить эту
-                проблему:
+                {t("faq.items.steamClient.content.part1")}
                 <ul>
-                  <li>Войти в аккаунт Steam</li>
-                  <li>Перезапустить Steam</li>
-                  <li>Перезагрузить пк</li>
-                  <li>Выключить режим невидимки в Steam</li>
-                  <li>
-                    Запустить DOTA Classic и Steam от имени администратора
-                  </li>
+                  <li>{t("faq.items.steamClient.content.solution1")}</li>
+                  <li>{t("faq.items.steamClient.content.solution2")}</li>
+                  <li>{t("faq.items.steamClient.content.solution3")}</li>
+                  <li>{t("faq.items.steamClient.content.solution4")}</li>
+                  <li>{t("faq.items.steamClient.content.solution5")}</li>
                 </ul>
               </>
             ),
           },
           {
-            title:
-              "Failed to load the launcher DLL / Setup file 'gameinfo.txt' doesn't exist in subdirectory 'dota2'",
+            title: t("faq.items.launcherError.title"),
             content: (
               <>
-                Возможно, архив с игрой не до конца распаковался. Настойчиво
-                рекомендуем использовать <span className="gold">7-zip</span> для
-                разархивации.
-                <br />
-                Для ее исправления необходимо исключить русские/кириллические
-                буквы в пути или же распаковать архив на рабочий стол. Если это
-                вам не помогает, то распакуйте архив с игрой в корень диска C:\
-                или D:\
+                {t("faq.items.launcherError.content.part1")}
+                {t("faq.items.launcherError.content.part2")}
               </>
             ),
           },
           {
-            title: "Графические / Аудио артефакты",
+            title: t("faq.items.graphicsAudio.title"),
             content: (
               <>
-                Можно попробовать:
+                {t("faq.items.graphicsAudio.content.part1")}
                 <ol>
                   <li>
-                    <CopyBlock text="gl_clear 0" command="gl_clear 0" />
+                    <CopyBlock
+                      text={t(
+                        "faq.items.graphicsAudio.content.copyBlock1.text",
+                      )}
+                      command={t(
+                        "faq.items.graphicsAudio.content.copyBlock1.command",
+                      )}
+                    />
+                  </li>
+                  <li>{t("faq.items.graphicsAudio.content.driverInstall")}</li>
+                  <li>{t("faq.items.graphicsAudio.content.audioRestart")}</li>
+                  <li>{t("faq.items.graphicsAudio.content.disableExtras")}</li>
+                  <li>
+                    {t("faq.items.graphicsAudio.content.switchToDiscrete")}
                   </li>
                   <li>
-                    Переустановить видеодрайвера, либо установить более позднюю
-                    / новую версию
+                    {t("faq.items.graphicsAudio.content.ifNotHelped")}
+                    <ol>
+                      <li>
+                        <CopyBlock
+                          text={t(
+                            "faq.items.graphicsAudio.content.copyBlock2.text",
+                          )}
+                          command={t(
+                            "faq.items.graphicsAudio.content.copyBlock2.command",
+                          )}
+                        />
+                      </li>
+                      <li>
+                        <CopyBlock
+                          text={t(
+                            "faq.items.graphicsAudio.content.copyBlock3.text",
+                          )}
+                          command={t(
+                            "faq.items.graphicsAudio.content.copyBlock3.command",
+                          )}
+                        />
+                      </li>
+                      <li>
+                        <CopyBlock
+                          text={t(
+                            "faq.items.graphicsAudio.content.copyBlock4.text",
+                          )}
+                          command={t(
+                            "faq.items.graphicsAudio.content.copyBlock4.command",
+                          )}
+                        />
+                      </li>
+                      <li>
+                        {t("faq.items.graphicsAudio.content.startupParams")}
+                      </li>
+                    </ol>
                   </li>
-                  <li>
-                    Выполнить команда <span className="gold">snd_restart</span>{" "}
-                    в коммандой строке Windows или переустановить аудиодрайвер
-                  </li>
-                  <li>
-                    Отключить все дополнительные опции графики в настройках игры
-                  </li>
-                  <li>Перейти со встройки на дискретную видеокарту</li>
-                  <li>
-                    <span className="red">ЕСЛИ ПРОШЛОЕ НЕ ПОМОГЛО</span>:
-                    прописать поочередно (с проверкой результата после каждой
-                    команды):
-                  </li>
-                  <ol>
-                    <li>
-                      <CopyBlock
-                        text="Валидные значения: 1, 2"
-                        command="mat_fullbright 1"
-                      />
-                    </li>
-                    <li>
-                      <CopyBlock text="" command="mat_reloadallmaterials" />
-                    </li>
-                    <li>
-                      <CopyBlock text="" command="mat_reloadtextures" />
-                    </li>
-                    <li>
-                      С помощью параметров запуска в bat файлу, установить:{" "}
-                      <span className="shit">-dxlevel 80, 81, 90, 95, 98</span>{" "}
-                      либо <span className="shit">-gl</span>
-                    </li>
-                  </ol>
                 </ol>
               </>
             ),
           },
           {
-            title:
-              "Есть ли способ включить остановку способностей отдельной клавишей (например, реарм на тинкере)?",
-            content: <>Нет, такого способа нет.</>,
+            title: t("faq.items.keybindAbility.title"),
+            content: <>{t("faq.items.keybindAbility.content")}</>,
           },
           {
-            title:
-              "Есть ли возможность забиндить какую-то функцию на колесико мыши или перебиндить перемещение камеры?",
-            content: <>Нет, такой возможности нет.</>,
+            title: t("faq.items.mouseBind.title"),
+            content: <>{t("faq.items.mouseBind.content")}</>,
           },
           {
-            title: `Можно ли включить "умную атаку"?`,
-            content: <>Нет, такой функции нет.</>,
+            title: t("faq.items.smartAttack.title"),
+            content: <>{t("faq.items.smartAttack.content")}</>,
           },
           {
-            title: `Есть ли возможность создать отдельное лобби 5x5 с возможностью выбора режима и других параметров?`,
+            title: t("faq.items.lobby15.title"),
             content: (
               <>
-                Да, такая функция доступна при приобретении подписки{" "}
+                {t("faq.items.lobby15.content.part1")}
                 <PageLink className="link" link={AppRouter.store.index.link}>
-                  dotaclassic plus
+                  {t("faq.items.lobby15.content.part2")}
                 </PageLink>{" "}
-                либо по договоренности с администрацией.
+                {t("faq.items.lobby15.content.part3")}
               </>
             ),
           },
           {
-            title: `Как я могу изучить мету старого патча?`,
+            title: t("faq.items.meta.title"),
             content: (
               <>
-                Ознакомься со{" "}
+                {t("faq.items.meta.content.part1")}
                 <PageLink className="link" link={AppRouter.meta.index.link}>
-                  статистикой
+                  {t("faq.items.meta.content.part2")}
                 </PageLink>{" "}
-                на нашем сайте и заходи в <DiscordInvite /> нашего проекта в
-                соответствующий раздел с информацией.
+                {t("faq.items.meta.content.part3")}
+                <DiscordInvite /> {t("faq.items.meta.content.part4")}
               </>
             ),
           },
           {
-            title: "Как посмотреть реплей?",
+            title: t("faq.items.replay.title"),
             content: (
               <>
-                На странице прошедшего матча нажми на кнопку "Скачать реплей".
-                Тебя перенаправит на страницу с подробным гайдом, как посмотреть
-                этот реплей, например,{" "}
+                {t("faq.items.replay.content.part1")}
                 <PageLink link={AppRouter.matches.download(33630).link}>
-                  Матч 33630
+                  {t("faq.items.replay.content.part2")}
                 </PageLink>
               </>
             ),

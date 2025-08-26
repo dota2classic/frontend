@@ -3,175 +3,75 @@ import cx from "clsx";
 import c from "@/pages/static/rules/RulesPage.module.scss";
 import { NotoSans } from "@/const/notosans";
 import { TrajanPro } from "@/const/fonts";
+import { useTranslation } from "react-i18next";
 
 export default function InfoPage() {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title="О проекте dotaclassic.ru"
-        description="Общее положение дел на проекте, кто им занимается, немного истории."
+        title={t("info_page.projectTitle")}
+        description={t("info_page.projectDescription")}
       />
       <div className={cx(c.postContainer, NotoSans.className)}>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          В чем суть сайта?
+          {t("info_page.siteEssence")}
         </h2>
-        <p>
-          Этот сайт помогает играть онлайн в старую версию Dota 2. Мы предлагаем
-          вход через Steam, удобный поиск игр, ссылку на клиент, поддержку и
-          полезные материалы по версии.
-        </p>
-        <p>
-          Мы даём всем желающим возможность бесплатно поиграть онлайн в старую
-          Доту. Если вы нарушаете правила, мы можем отключить доступ к сервису.
-        </p>
+        <p>{t("info_page.onlineOldDotaExplanation")}</p>
+        <p>{t("info_page.freeOldDotaOpportunity")}</p>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Почему старая дота?
+          {t("info_page.whyOldDota")}
         </h2>
-        <p>
-          Сейчас игра выглядит совсем иначе, чем 10 лет назад. Кому-то изменения
-          понравились, кому-то - нет, и мы не говорим, что старая версия —
-          лучшая. Но попробовать оригинал может быть интересно каждому. Вот чем
-          они отличаются:
-        </p>
+        <p>{t("info_page.differencesExplanation")}</p>
         <ul>
-          <li>
-            Старая карта - меньше нейтральных лагерей крипов, рошан на реке,
-            боковые лавки.
-          </li>
-          <li>
-            Намного меньше здоровья и маны у героев и больше урона - иметь 700
-            хп на 15 минуте это нормальное явление. Любая способность на линии
-            тратит много маны, но и наносит много урона. Потратить способность
-            на добитие крипа - намного более важное решение.
-          </li>
-          <li>
-            Оригинальные герои и их способности - многие способности, которые в
-            актуальной версии либо не существуют, либо очень сильно
-            преобразились. Например, Pudge, который здесь заденаиться 2 скиллом.
-          </li>
-          <li>
-            Жесткое разделение ролей: саппорту нужно гангать, чтобы зарабатывать
-            деньги. Крипов на карте намного меньше, за киллы дают большу
-            награду.
-          </li>
+          <li>{t("info_page.oldMapDetails")}</li>
+          <li>{t("info_page.heroStatsDetails")}</li>
+          <li>{t("info_page.originalHeroesDetails")}</li>
+          <li>{t("info_page.roleSeparationDetails")}</li>
         </ul>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Сколько стоит содержать этот сайт?
+          {t("info_page.costToMaintainSite")}
         </h2>
-        <p>У проекта есть 3 статьи расходов:</p>
+        <p>{t("info_page.expensesExplanation")}</p>
         <ul>
-          <li>
-            Обязательная: аренда серверов для хоста сайта и других
-            инфраструктурных сервисов(хранилище, аналитика, базы данных). Эта
-            часть почти что фиксированная и стоит примерно{" "}
-            <span className="gold">2000₽</span> в месяц. В случае больших
-            наплывов эту часть тоже приходится масштабировать, расходы
-            увеличиваются до <span className="gold">±3000₽</span> в месяц.
-          </li>
-          <li>
-            Масштбарируемая: в зависимости от онлайна, нам требуется разное
-            количество игровых серверов, чтобы всем хватало слотов на игру. Эту
-            трату легко предсказывать: один оптимальный игрвоой сервер дает 3-4
-            параллельных игры, а стоит <span className="gold">±520₽</span> в
-            месяц. Если онлайн высокий, как во время Pari Rivals 6.84, в районе
-            180 параллельных игроков - мы получаем где-то 30 параллельных игр,
-            то есть трата на сервера составит{" "}
-            <span className="gold">5500₽</span> в месяц.
-          </li>
-          <li>
-            Рекламная: самая гибкая часть расходов. Тут мы очень зависим от
-            предложения на рынке(какие ютуберы за сколько готовы сотрудничать,
-            например), и, конечно, наших финансковых возможностей. Мы всегда
-            рады новым сотрудничествам, и от дешевой рекламы не отказываемся :)
-          </li>
+          <li>{t("info_page.fixedExpenseDetails", { amount: "2000₽" })}</li>
+          <li>{t("info_page.scalableExpenseDetails", { amount: "±520₽" })}</li>
+          <li>{t("info_page.advertExpenseDetails")}</li>
         </ul>
         <p>
-          Итого, можно получить примерные затраты на поддержание: при низком
-          онлайне в 5-10 параллельных игр, это{" "}
-          <span className="gold">3500₽</span> в месяц. Если онлайн повышается,
-          срабатывает реклама или инфоповод, траты могут вырасти до{" "}
-          <span className="gold">10000₽</span>.
+          {t("info_page.approximateExpenses", {
+            lowOnline: "3500₽",
+            highOnline: "10000₽",
+          })}
         </p>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Кто занимается проектом?
+          {t("info_page.projectTeam")}
         </h2>
-        <p>
-          Классическая дота прошла через многие руки: первыми начали хостить
-          игры западные энтузиасты в 2019 году. После этого довольно долго
-          существовало 2 сообщества: западное и СНГ в виде Discord серверов.
-          Потом с 2021 по конец 2024 года все игры были на сайте{" "}
-          <a href="https://dota2classic.com" target="__blank">
-            https://dota2classic.com
-          </a>
-          С сентября 2024 года по нынешнее время все игры ведутся на этом сайте,
-          разработкой и поддержкой которой занимаются:
-        </p>
+        <p>{t("info_page.projectHistoryExplanation")}</p>
         <ul>
           <li>
-            <span className="green">Itachi / Psychology Professor</span> -
-            главный разработчик сайта
+            {t("info_page.developerDetails", {
+              name: "Itachi / Psychology Professor",
+            })}
           </li>
-          <li>
-            <span className="green">RX</span> - "community manager", связь с
-            общественностью, реклама, изучение больших текстов и генерация умных
-            фраз
-          </li>
-          <li>
-            <span className="green">V</span> - разработчик wiki по предметам и
-            героям, главный козел отпущения экспериментов матчмейкинга
-          </li>
+          <li>{t("info_page.communityManagerDetails", { name: "RX" })}</li>
+          <li>{t("info_page.wikiDeveloperDetails", { name: "V" })}</li>
         </ul>
-        <p>
-          Список людей, которые приложили руку к развитию классической доты:
-        </p>
+        <p>{t("info_page.contributorsList")}</p>
         <ul>
-          <li>
-            <span className="green">Ancient678</span> - создал СНГ сервер по
-            классческой доте
-          </li>
-          <li>
-            <a
-              href="https://www.youtube.com/channel/UCsd6QWmQQe7J6nnocJjpPRQ"
-              target="__blank"
-              className="green link"
-            >
-              Человек-Самовар
-            </a>{" "}
-            - именно благодаря ему классическую доту впервые увидели много
-            игроков
-          </li>
-          <li>
-            <span className="green">SittingBull</span> - написал первый
-            автоматический хост серверов через дискорд бота, писал первые
-            серверные плагины
-          </li>
-          <li>
-            <span className="green">DeathTBO</span> - годами держит сайт
-            dota2classic.com
-          </li>
-          <li>
-            <span className="green">Alison</span> - написал много полезных
-            серверных плагинов
-          </li>
-          <li>
-            <span className="green">konakonaqq</span> - помощь в написании
-            серверных плагинов
-          </li>
-          <li>
-            <span className="green">Многие другие</span> - которых уже тяжело
-            вспомнить, но они точно были и помогали
-          </li>
+          <li>{t("info_page.ancient678Details")}</li>
+          <li>{t("info_page.samovarDetails")}</li>
+          <li>{t("info_page.sittingBullDetails")}</li>
+          <li>{t("info_page.deathTBODetails")}</li>
+          <li>{t("info_page.alisonDetails")}</li>
+          <li>{t("info_page.konakonaqqDetails")}</li>
+          <li>{t("info_page.otherContributors")}</li>
         </ul>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Какова конечная цель проекта?
+          {t("info_page.finalGoal")}
         </h2>
-        <p>
-          Стабильный онлайн, который позволяет ± за 10 минут найти балансную
-          игру с игроками схожего уровня практически в любое время суток. Уютное
-          место, где будет интересно играть всем: и новичкам в старую доту, и
-          заядлым старичкам. Содержание проекта полностью окупается игроками и
-          есть выход в плюс для стабильного потока рекламы.
-        </p>
+        <p>{t("info_page.stableOnlineGoal")}</p>
       </div>
     </>
   );

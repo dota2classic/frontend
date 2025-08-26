@@ -1,0 +1,7 @@
+{
+  "player_feedback": {
+    "title": "{{title}}",
+    "comment": "{{comment}}",
+    "option": "{{option}}"
+  }
+}

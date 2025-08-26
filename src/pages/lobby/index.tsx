@@ -12,11 +12,13 @@ import { JoinLobbyModal } from "@/containers";
 import { observer } from "mobx-react-lite";
 import { paidAction } from "@/util/subscription";
 import { handleException } from "@/util/handleException";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   lobbies: LobbyDto[];
 }
 const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
+  const { t } = useTranslation();
   const { auth } = useStore();
   const router = useRouter();
 
@@ -39,7 +41,7 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
           .lobby.lobbyControllerCreateLobby()
           .then((lobby) => router.push(`/lobby/[id]`, `/lobby/${lobby.id}`));
       } catch (e) {
-        await handleException("Ошибка при создании лобби", e);
+        await handleException(t("lobby.createError"), e);
       }
     }),
     [],
@@ -47,8 +49,8 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
   return (
     <>
       <EmbedProps
-        title={"Список лобби"}
-        description={"Список игровых лобби "}
+        title={t("lobby.listTitle")}
+        description={t("lobby.listDescription")}
       />
       {pendingLobby && (
         <JoinLobbyModal
@@ -57,24 +59,24 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
         />
       )}
       <Button className={c.createLobby} onClick={createLobby}>
-        Создать лобби
+        {t("lobby.createLobby")}
       </Button>
       <Table>
         <thead>
           <tr>
-            <th>Лобби</th>
-            <th>Хост</th>
-            <th>Режим</th>
-            <th>Карта</th>
-            <th>Количество игроков</th>
-            <th>Приватность</th>
-            <th>Действия</th>
+            <th>{t("lobby.table.lobby")}</th>
+            <th>{t("lobby.table.host")}</th>
+            <th>{t("lobby.table.mode")}</th>
+            <th>{t("lobby.table.map")}</th>
+            <th>{t("lobby.table.playerCount")}</th>
+            <th>{t("lobby.table.privacy")}</th>
+            <th>{t("lobby.table.actions")}</th>
           </tr>
         </thead>
         <tbody>
           {lobbies.length === 0 ? (
             <td colSpan={7} className={c.empty}>
-              Список лобби пуст
+              {t("lobby.emptyList")}
             </td>
           ) : (
             lobbies.map((lobby) => (
@@ -86,14 +88,18 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
                 <td>{formatDotaMode(lobby.gameMode)}</td>
                 <td>{formatDotaMap(lobby.map)}</td>
                 <td>{lobby.slots.length}</td>
-                <td>{lobby.requiresPassword ? "С паролем" : "Без пароля"}</td>
+                <td>
+                  {lobby.requiresPassword
+                    ? t("lobby.passwordRequired")
+                    : t("lobby.passwordNotRequired")}
+                </td>
                 <td>
                   <Button
                     disabled={!auth.isAuthorized}
                     small
                     onClick={() => setPendingLobby(lobby)}
                   >
-                    Присоединиться
+                    {t("lobby.join")}
                   </Button>
                 </td>
               </tr>

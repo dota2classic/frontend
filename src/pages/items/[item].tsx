@@ -11,16 +11,17 @@ import { useRouterChanging } from "@/util";
 import { ItemBreadcrumbs } from "@/containers";
 import { useRouter } from "next/router";
 import { ItemData } from "@/const/itemdata";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data: ItemHeroDto[];
   item: number;
 }
 
-//ни в коем случае не ставить в конце слэш
 const BASE_URL = "https://wiki.dotaclassic.ru";
 
 export default function ItemPage({ data, item }: Props) {
+  const { t } = useTranslation();
   const router = useRouter();
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
@@ -69,8 +70,8 @@ export default function ItemPage({ data, item }: Props) {
     <>
       <ItemBreadcrumbs itemId={item} />
       <EmbedProps
-        title={itemData?.name || "Предмет"}
-        description={`${itemData?.name} в патче 6.84c Dota 2. ${itemData?.description || ""}`}
+        title={itemData?.name || t("item_page.defaultTitle")}
+        description={`${itemData?.name} ${t("item_page.descriptionPatch", { patch: "6.84c", game: "Dota 2" })} ${itemData?.description || ""}`}
       />
       <div className={c.itemPage}>
         <Section className={c.heroes}>
@@ -81,24 +82,24 @@ export default function ItemPage({ data, item }: Props) {
             columns={[
               {
                 type: ColumnType.Hero,
-                name: "Герой",
+                name: t("item_page.hero"),
                 sortable: true,
               },
               {
                 type: ColumnType.IntWithBar,
-                name: "Матчи",
+                name: t("item_page.matches"),
                 sortable: true,
                 defaultSort: "desc",
               },
               {
                 type: ColumnType.IntWithBar,
-                name: "Побед",
+                name: t("item_page.wins"),
                 color: colors.green,
                 sortable: true,
               },
               {
                 type: ColumnType.PercentWithBar,
-                name: "Доля побед",
+                name: t("item_page.winRate"),
                 color: colors.green,
                 sortable: true,
               },

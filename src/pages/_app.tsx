@@ -27,6 +27,7 @@ import { ReportModalContainer } from "@/containers/ReportModal/ReportModalContai
 import { getApi } from "@/api/hooks";
 import { MaintenanceDto } from "@/api/back";
 import "../i18n/i18n";
+import i18n from "@/i18n/i18n";
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
@@ -74,6 +75,24 @@ export default class MyApp extends App<{
       console.warn(e);
       maintenance = { active: true };
     }
+
+    let hostname = appContext.ctx.req
+      ? appContext.ctx.req.headers.host
+      : window.location.hostname;
+
+    if (hostname && hostname.includes(":")) {
+      hostname = hostname.split(":")[0];
+    }
+
+    let locale = "en";
+
+    if (hostname && hostname.endsWith(".ru")) {
+      locale = "ru";
+    } else if (hostname && hostname.endsWith(".com")) {
+      locale = "en";
+    }
+
+    await i18n.changeLanguage(locale);
 
     if (!appContext.ctx.req || !appContext.ctx.res) return { ...appProps };
 

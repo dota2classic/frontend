@@ -7,11 +7,14 @@ import c from "../AdminStyles.module.scss";
 import { Pagination, Panel, UserPreview } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   page: PlayerFeedbackPageDto;
 }
 export default function PlayerFeedbackPage({ page }: Props) {
+  const { t } = useTranslation();
+
   return (
     <div className={c.gridPanel}>
       <Pagination
@@ -21,16 +24,18 @@ export default function PlayerFeedbackPage({ page }: Props) {
       />
       {page.data.map((pf) => (
         <Panel key={pf.id} className={cx(c.grid6, c.playerFeedback)}>
-          <h3>{pf.title}</h3>
+          <h3>{t("player_feedback.title", { title: pf.title })}</h3>
           <header>
             <UserPreview user={pf.user} />
           </header>
-          <p>{pf.comment}</p>
+          <p>{t("player_feedback.comment", { comment: pf.comment })}</p>
           <ul>
             {pf.options
               .filter((it) => it.checked)
               .map((option) => (
-                <li key={option.id}>{option.option}</li>
+                <li key={option.id}>
+                  {t("player_feedback.option", { option: option.option })}
+                </li>
               ))}
           </ul>
         </Panel>

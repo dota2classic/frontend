@@ -11,6 +11,7 @@ import { getApi } from "@/api/hooks";
 import { EmbedProps, PlayerSummary } from "@/components";
 import { DropList } from "@/containers";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   steamId: string;
@@ -28,11 +29,12 @@ export default function PlayerDrops({
   trades,
   products,
 }: Props) {
+  const { t } = useTranslation();
   return (
     <>
       <EmbedProps
-        description={"Настройки полученных предметов"}
-        title={"Предметы"}
+        description={t("player_drops.receivedItemsSettings")}
+        title={t("player_drops.items")}
       />
       <PlayerSummary
         session={summary.session}

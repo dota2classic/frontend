@@ -7,6 +7,7 @@ import React from "react";
 import { NextPageContext } from "next";
 import c from "@/pages/forum/Forum.module.scss";
 import { ForumTabs } from "@/containers";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   threads: ThreadPageDTO;
@@ -14,11 +15,13 @@ interface Props {
 }
 
 export default function AdminTicketsPage({ threads, page }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title="Форум"
-        description="Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов"
+        title={t("admin_tickets.forum")}
+        description={t("admin_tickets.forumDescription")}
       />
       <div className={c.buttons}>
         <ForumTabs />

@@ -572,10 +572,10 @@
     "gameMode": "Game mode",
     "result": "Result",
     "duration": "Duration",
-    "radiant": "Forces of Light",
-    "dire": "Forces of Darkness",
-    "radiantVictory": "Victory of the Forces of Light",
-    "direVictory": "Victory of the Forces of Darkness"
+    "radiant": "Radiant",
+    "dire": "Dire",
+    "radiantVictory": "Radiant victory",
+    "direVictory": "Dire victory"
   },
   "match": {
     "title": "Match {{matchId}}",

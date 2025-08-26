@@ -8,21 +8,19 @@ import { formatDate } from "@/util/dates";
 import { AppRouter } from "@/route";
 import { FaArrowLeft } from "react-icons/fa";
 import { LazyPaginatedThread } from "@/containers/Thread/LazyPaginatedThread";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   post: BlogpostDto;
 }
 export default function BlogpostPage({ post }: Props) {
-  // const isMod = useIsModerator();
+  const { t } = useTranslation();
   return (
     <>
-      <EmbedProps
-        title={`${post.title}`}
-        description={`${post.shortDescription}`}
-      />
+      <EmbedProps title={post.title} description={post.shortDescription} />
       <div className={c.postContainer}>
         <PageLink link={AppRouter.blog.index.link} className={c.newsLink}>
-          <FaArrowLeft /> Все новости
+          <FaArrowLeft /> {t("blogpostPage.allNews")}
         </PageLink>
         <h1 className={c.title}>{post.title}</h1>
         <h4 className={c.date}>{formatDate(new Date(post.publishDate))}</h4>

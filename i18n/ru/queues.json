@@ -1,0 +1,8 @@
+{
+  "queues": {
+    "sendNotification": "Send notification about searching",
+    "party": "Party ",
+    "emptyQueue": "The queue is empty",
+    "online": "Online"
+  }
+}

@@ -66,7 +66,11 @@ export default function PlayerSettings({ summary, decorations }: Props) {
         if (e instanceof Response) {
           msg = await e.json().then((t) => t["message"]);
         }
-        makeSimpleToast("Ошибка при старте рекалибровки", msg, 5000);
+        makeSimpleToast(
+          t("player_settings.startRecalibrationError"),
+          msg,
+          5000,
+        );
       }
     }),
     [reloadProps],
@@ -92,8 +96,8 @@ export default function PlayerSettings({ summary, decorations }: Props) {
           document.body,
         )}
       <EmbedProps
-        description={"Настройки своего профиля"}
-        title={"Настройки"}
+        description={t("player_settings.profileSettings")}
+        title={t("player_settings.settings")}
       />
       <PlayerSummary
         session={summary.session}
@@ -111,13 +115,13 @@ export default function PlayerSettings({ summary, decorations }: Props) {
           <p>
             {oldSubscription ? (
               <>
-                Активна, срок действия кончается{" "}
+                {t("player_settings.activeSubscription")}
                 <span className="gold">
                   <TimeAgo date={oldSubscription.endTime} />
                 </span>
               </>
             ) : (
-              "Подписка неактивна"
+              t("player_settings.inactiveSubscription")
             )}
           </p>
           <Button
@@ -125,37 +129,37 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             small
             pageLink={AppRouter.store.index.link}
           >
-            {oldSubscription ? "Продлить подписку" : "Подписаться"}
+            {oldSubscription
+              ? t("player_settings.renewSubscription")
+              : t("player_settings.subscribe")}
           </Button>
         </Panel>
       </Section>
       <Section className={cx(c.section)}>
         <header className={c.heading}>
-          <GiAngelWings className={"gold"} /> Оформление профиля
+          <GiAngelWings className={"gold"} />{" "}
+          {t("player_settings.profileDecoration")}
         </header>
 
         <EditProfileDecorations decorations={decorations} user={summary.user} />
       </Section>
       <Section className={cx(c.section)}>
         <header className={c.heading}>
-          <SiAdblock className={"red"} /> Перекалибровка
+          <SiAdblock className={"red"} /> {t("player_settings.recalibration")}
         </header>
         <Panel className={cx(c.panel, NotoSans.className)}>
-          <p>
-            Перекалибровка — это шанс сбросить рейтинг до стартового и пройти
-            калибровку заново. Подойдёт тем, кто уверен, что заслуживает больше
-            или хочет начать с чистого листа. Использовать перекалибровку можно
-            только один раз за сезон.
-          </p>
+          <p>{t("player_settings.recalibrationDescription")}</p>
           {summary.recalibration ? (
             <Button
               mega
               disabled
               className={cx(c.inlineButton, c.recalibrationButton)}
             >
-              Перекалибровка
+              {t("player_settings.recalibration")}
               <div>
-                Запущена <TimeAgo date={summary.recalibration.createdAt} />
+                {t("player_settings.startedRecalibration", {
+                  time: <TimeAgo date={summary.recalibration.createdAt} />,
+                })}
               </div>
             </Button>
           ) : (
@@ -165,28 +169,24 @@ export default function PlayerSettings({ summary, decorations }: Props) {
               onClick={startRecalibration}
               className={cx(c.inlineButton, c.recalibrationButton)}
             >
-              Перекалибровка
-              <div>Запустить!</div>
+              {t("player_settings.recalibration")}
+              <div>{t("player_settings.startNow")}</div>
             </Button>
           )}
         </Panel>
       </Section>
       <Section className={cx(c.section)}>
         <header className={c.heading}>
-          <SiAdblock className={"red"} /> Избегаемые игроки
+          <SiAdblock className={"red"} /> {t("player_settings.avoidedPlayers")}
         </header>
         <Panel className={cx(c.panel, NotoSans.className)}>
-          <p>
-            Обладатели подписки dotaclassic plus могут добавить до одного игрока
-            в список избегаемых игроков. Это позволит никогда не попадаться с
-            неприятными игрокам за одну команду.
-          </p>
+          <p>{t("player_settings.avoidedPlayersInfo")}</p>
           <Table>
             <thead>
               <tr>
-                <th>Игрок</th>
-                <th>Дата доджа</th>
-                <th>Действия</th>
+                <th>{t("player_settings.player")}</th>
+                <th>{t("player_settings.dateDodge")}</th>
+                <th>{t("player_settings.actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -206,7 +206,7 @@ export default function PlayerSettings({ summary, decorations }: Props) {
                           .then(mutate)
                       }
                     >
-                      Убрать
+                      {t("player_settings.remove")}
                     </Button>
                   </td>
                 </tr>
@@ -217,36 +217,27 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             className={c.inlineButton}
             onClick={() => setDodgeListOpen(true)}
           >
-            Избегать игрока
+            {t("player_settings.avoidPlayer")}
           </Button>
         </Panel>
       </Section>
 
       <Section className={cx(c.section)}>
         <header className={c.heading}>
-          <FaTwitch className={c.twitch} /> Twitch
+          <FaTwitch className={c.twitch} /> {t("player_settings.twitch")}
         </header>
 
         <Panel className={cx(c.panel, NotoSans.className)}>
           <p>
-            <b>
-              Подключите свой Twitch-профиль к учетной записи и получите
-              дополнительные возможности!
-            </b>{" "}
-            После привязки в вашем профиле появится ссылка на ваш стрим, а в
-            чате — специальная иконка, которая выделит вас среди других
-            пользователей. Если вы ведёте трансляцию нашей игры, мы
-            автоматически будем показывать ссылку на ваш запущенный стрим, чтобы
-            зрители могли легко найти ваш канал. Это отличный способ привлечь
-            новую аудиторию и сделать ваш стрим более заметным! 🎮📺
+            <b>{t("player_settings.connectTwitchProfile")}</b>{" "}
+            {t("player_settings.twitchBenefits")}
           </p>
           <p>
-            <span className="gold">Внимание:</span> чтобы твой стрим отображался
-            на главной странице, игра должны быть Dota 2, а название включать в
-            себя <span className="gold">dotaclassic.ru</span>
+            <span className="gold">{t("player_settings.attention")}</span>{" "}
+            {t("player_settings.twitchRequirements")}
           </p>
           <div className={c.twitchBlock}>
-            <span>Подключенный аккаунт:</span>
+            <span>{t("player_settings.connectedAccount")}</span>
             {twitchConnection ? (
               <a
                 target={"__blank"}
@@ -256,13 +247,15 @@ export default function PlayerSettings({ summary, decorations }: Props) {
                 twitch.tv/{twitchConnection.externalId}
               </a>
             ) : (
-              "Не подключен"
+              t("player_settings.notConnected")
             )}
           </div>
 
           <div className={c.buttons}>
             <Button link href={getTwitchConnectUrl()}>
-              Подключить{twitchConnection ? " другой" : ""} аккаунт twitch
+              {twitchConnection
+                ? t("player_settings.connectOtherAccount")
+                : t("player_settings.connectAccount")}
             </Button>
             {twitchConnection && (
               <Button
@@ -271,7 +264,7 @@ export default function PlayerSettings({ summary, decorations }: Props) {
                   window.location.reload();
                 }}
               >
-                Отвязать twitch аккаунт
+                {t("player_settings.disconnectAccount")}
               </Button>
             )}
           </div>

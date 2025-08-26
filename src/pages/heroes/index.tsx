@@ -2,19 +2,20 @@ import { getApi } from "@/api/hooks";
 import { HeroSummaryDto } from "@/api/back";
 import { EmbedProps, HeroesMetaTable } from "@/components";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface InitialProps {
   heroes: HeroSummaryDto[];
 }
 
 export default function Heroes({ heroes }: InitialProps) {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title={"Герои"}
-        description={
-          "Статистика героев в старой Dota 2, сыгранных на сайте dotaclassic.ru"
-        }
+        title={t("heroes.title")}
+        description={t("heroes.description")}
       />
       <HeroesMetaTable loading={false} data={heroes} />
     </>

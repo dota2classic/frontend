@@ -1,0 +1,30 @@
+{
+  "admin": {
+    "servers": {
+      "sessionList": {
+        "link": "Link",
+        "matchId": "Match ID",
+        "mode": "Mode",
+        "teams": "Teams",
+        "actions": "Actions",
+        "stop": "Stop"
+      },
+      "serverPool": {
+        "title": "Server Pool"
+      },
+      "gameModes": {
+        "mode": "Mode",
+        "gameMode": "Game Mode",
+        "map": "Map",
+        "patch": "Patch",
+        "active": "Active",
+        "cheats": "Cheats",
+        "bots": "Bots",
+        "selectGameMode": "Select Game Mode",
+        "selectMap": "Select Map",
+        "selectPatch": "Select Patch"
+      },
+      "currentSessions": "Current Sessions"
+    }
+  }
+}

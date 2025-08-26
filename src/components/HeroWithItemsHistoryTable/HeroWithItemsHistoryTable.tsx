@@ -3,7 +3,6 @@ import { Duration, GenericTable, PageLink, TimeAgo } from "@/components";
 import c from "./HeroWithItemsHistoryTable.module.scss";
 import { DotaGameMode, MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
-import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import { colors } from "@/colors";
 import cx from "clsx";
 import { KDABarChart } from "@/components/BarChart/KDABarChart";
@@ -84,8 +83,8 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           name: t("hero_table.mode"),
           format: ([lobby, mode]) => (
             <div className={c.twoRows}>
-              <span>{formatGameMode(lobby)}</span>
-              <span className={c.secondary}>{formatDotaMode(mode)}</span>
+              <span>{t(`matchmaking_mode.${lobby}`)}</span>
+              <span className={c.secondary}>{t(`game_mode.${mode}`)}</span>
             </div>
           ),
           mobileOmit: true,

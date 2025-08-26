@@ -8,6 +8,7 @@ import { TabItem } from "@/components/BigTabs/BigTabs";
 import { enumValues } from "@/util/enumValues";
 import c from "./Decorations.module.scss";
 import cx from "clsx";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   decorations: ProfileDecorationDto[];
@@ -24,6 +25,8 @@ const tabs: TabItem<UserProfileDecorationType>[] =
   );
 
 export default function DecorationList({ decorations, type }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <BigTabs<UserProfileDecorationType>
@@ -32,7 +35,7 @@ export default function DecorationList({ decorations, type }: Props) {
         selected={type}
       />
       <Button onClick={() => AppRouter.admin.decoration.create(type).open()}>
-        Создать новую декорацию: {type}
+        {t("decoration_list.createNewDecoration", { type })}
       </Button>
       <div
         className={cx(

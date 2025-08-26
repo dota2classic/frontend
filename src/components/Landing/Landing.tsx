@@ -44,7 +44,7 @@ export const Landing = observer(({ recentPosts }: Props) => {
         </div>
         <div className={c.leadingIntent}>
           <h1>{t("landing.oldDota.question")}</h1>
-          <p>{t("landing.startPlaying", { game: t("game.dota2") })}</p>
+          <p>{t("landing.oldDota.startPlaying", { game: t("game.dota2") })}</p>
           <PageLink
             link={AppRouter.download.link}
             className={c.playButton}

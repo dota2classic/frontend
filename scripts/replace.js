@@ -124,7 +124,7 @@ ${fileInfo.source}`);
   }
 
   require("fs").writeFileSync(
-    `i18n/${filename}`,
+    `i18n/ru/${filename}`,
     JSON.stringify(i18n, null, 2),
   );
 

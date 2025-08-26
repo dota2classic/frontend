@@ -1,0 +1,17 @@
+{
+  "leaderboard_page": {
+    "players": "Игроки",
+    "leaderboardDescription": "Таблица лидеров игроков сайта dotaclassic.ru, лучшие игроки и их статистика",
+    "season": "Сезон",
+    "seasonSelect": "Сезон",
+    "rank": "Ранг",
+    "player": "Игрок",
+    "rating": "Рейтинг",
+    "matches": "Матчи",
+    "wins": "Победы",
+    "winRate": "% Побед",
+    "kda": "KDA",
+    "playTime": "Игровое время",
+    "abandons": "Ливов"
+  }
+}

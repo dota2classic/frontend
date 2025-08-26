@@ -8,6 +8,7 @@ import { AppRouter } from "@/route";
 import { numberOrDefault } from "@/util/urls";
 import React from "react";
 import { PaginatedThread } from "@/containers/Thread/PaginatedThread";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -17,16 +18,19 @@ interface Props {
 
 export default function ThreadPage({ messages, thread, page }: Props) {
   const r = useRouter();
+  const { t } = useTranslation();
 
   return (
     <>
       <EmbedProps
-        title={`${thread.title}`}
-        description={`Форум на сайте dotaclassic.ru: ${thread.title}`}
+        title={thread.title}
+        description={t("forum.pageDescription", { title: thread.title })}
       />
       <Panel>
         <Breadcrumbs>
-          <PageLink link={AppRouter.forum.index().link}>Форум</PageLink>
+          <PageLink link={AppRouter.forum.index().link}>
+            {t("forum.forum")}
+          </PageLink>
           <span>{thread.title}</span>
         </Breadcrumbs>
       </Panel>

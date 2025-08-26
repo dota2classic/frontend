@@ -13,6 +13,7 @@ import { useQueryBackedParameter, useRouterChanging } from "@/util";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   hero: string;
@@ -25,6 +26,7 @@ export default function HeroMatches({
   initialMatchData,
   initialHeroesMeta,
 }: Props) {
+  const { t } = useTranslation();
   const [isLoading] = useRouterChanging();
   const [page] = useQueryBackedParameter("page");
 

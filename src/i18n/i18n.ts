@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import translation_ru from "./ru.json";
 import translation_en from "./en.json";
-import LanguageDetector from "i18next-browser-languagedetector";
+import I18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -15,17 +15,31 @@ const resources = {
     translation: translation_en,
   },
 };
+
+const detector = new I18nextBrowserLanguageDetector();
+detector.addDetector({
+  name: "domainCustom",
+  lookup() {
+    if (typeof window !== "undefined") {
+      const hostname = window.location.hostname;
+      console.log("Hostname lookup:", hostname);
+      return hostname.endsWith(".com") ? "en" : "ru";
+    }
+    return undefined;
+  },
+});
+
 i18n
-  .use(LanguageDetector)
+  .use(detector)
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    detection: {
-      order: ["localStorage", "navigator"],
-      caches: ["localStorage"],
-      lookupLocalStorage: "i18nextLng",
-    },
     fallbackLng: "ru",
+    detection: {
+      // We will handle detection manually, so disable default detection
+      order: ["domainCustom"],
+      caches: [], // disable caching if needed
+    },
 
     interpolation: {
       escapeValue: false, // react already safes from xss

@@ -30,6 +30,7 @@ import {
   DotaMapOptions,
   DotaPatchOptions,
 } from "@/const/options";
+import { useTranslation } from "react-i18next";
 
 interface PageProps {
   initialServerPool: GameServerDto[];
@@ -46,34 +47,35 @@ const SessionList = observer(
     sessions: GameSessionDto[];
   }) => {
     const { isAdmin } = useStore().auth;
+    const { t } = useTranslation();
     return (
       <GenericTable
         keyProvider={(t) => t[1]}
         columns={[
           {
             type: ColumnType.ExternalLink,
-            name: "Ссылка",
+            name: t("admin.servers.sessionList.link"),
           },
           {
             type: ColumnType.Raw,
-            name: "ID Матча",
+            name: t("admin.servers.sessionList.matchId"),
           },
           {
             type: ColumnType.Raw,
-            name: "Режим",
+            name: t("admin.servers.sessionList.mode"),
             format: (t) => formatGameMode(t),
           },
           {
             type: ColumnType.Raw,
-            name: "Команды",
+            name: t("admin.servers.sessionList.teams"),
           },
           {
             type: ColumnType.Raw,
-            name: "Действия",
+            name: t("admin.servers.sessionList.actions"),
             format: (d) => (
               <>
                 <Button disabled={!isAdmin} onClick={() => stopGameSession(d)}>
-                  Остановить
+                  {t("admin.servers.sessionList.stop")}
                 </Button>
               </>
             ),
@@ -101,13 +103,14 @@ const ServerPool = observer(
     onKillServer: (url: string) => void;
   }) => {
     const { isAdmin } = useStore().auth;
+    const { t } = useTranslation();
     return (
       <Table>
         <thead>
           <tr>
-            <th>Ссылка</th>
-            <th>Версия игры</th>
-            <th>Действия</th>
+            <th>{t("admin.servers.serverPool.link")}</th>
+            <th>{t("admin.servers.serverPool.version")}</th>
+            <th>{t("admin.servers.serverPool.actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -121,7 +124,7 @@ const ServerPool = observer(
                   className="small"
                   onClick={() => onKillServer(it.url)}
                 >
-                  Остановить
+                  {t("admin.servers.serverPool.stop")}
                 </button>
               </td>
             </tr>
@@ -209,18 +212,20 @@ export default function AdminServersPage({
   return (
     <div className={c.gridPanel}>
       <Section className={c.grid12}>
-        <header>Режимы игры</header>
+        <header>{t("admin.servers.gameModes")}</header>
 
         <Table>
           <thead>
             <tr>
-              <th>Режим</th>
-              <th style={{ width: 200 }}>Игровой режим</th>
-              <th>Карта</th>
-              <th>Патч</th>
-              <th>Активен</th>
-              <th>Читы</th>
-              <th>Боты</th>
+              <th>{t("admin.servers.gameModes.mode")}</th>
+              <th style={{ width: 200 }}>
+                {t("admin.servers.gameModes.gameMode")}
+              </th>
+              <th>{t("admin.servers.gameModes.map")}</th>
+              <th>{t("admin.servers.gameModes.patch")}</th>
+              <th>{t("admin.servers.gameModes.active")}</th>
+              <th>{t("admin.servers.gameModes.cheats")}</th>
+              <th>{t("admin.servers.gameModes.bots")}</th>
             </tr>
           </thead>
           <tbody>
@@ -229,7 +234,7 @@ export default function AdminServersPage({
                 <td>{formatGameMode(t.lobbyType)}</td>
                 <td>
                   <SelectOptions
-                    defaultText={"Режим игры"}
+                    defaultText={t("admin.servers.gameModes.selectGameMode")}
                     options={DotaGameModeOptions}
                     selected={t.gameMode}
                     onSelect={(value) =>
@@ -247,7 +252,7 @@ export default function AdminServersPage({
                 </td>
                 <td>
                   <SelectOptions
-                    defaultText={"Карта"}
+                    defaultText={t("admin.servers.gameModes.selectMap")}
                     options={DotaMapOptions}
                     selected={t.dotaMap}
                     onSelect={(value) =>
@@ -265,7 +270,7 @@ export default function AdminServersPage({
                 </td>
                 <td>
                   <SelectOptions
-                    defaultText={"Патч"}
+                    defaultText={t("admin.servers.gameModes.selectPatch")}
                     options={DotaPatchOptions}
                     selected={t.patch}
                     onSelect={(value) =>
@@ -340,7 +345,7 @@ export default function AdminServersPage({
       </Section>
 
       <div className={c.grid12}>
-        <h3>Пул серверов</h3>
+        <h3>{t("admin.servers.serverPool.title")}</h3>
 
         <ServerPool
           serverPool={serverPool!}
@@ -354,7 +359,7 @@ export default function AdminServersPage({
       </div>
 
       <div className={c.grid12}>
-        <h3>Текущие сессии</h3>
+        <h3>{t("admin.servers.currentSessions")}</h3>
         <SessionList sessions={sessions} stopGameSession={stopGameSession} />
       </div>
     </div>
