@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const system2 = `
 ## Твоя роль
@@ -11,6 +11,21 @@ const system2 = `
     "i18n": "<json с переводами>",
     "i18n_filename": "уникальное названия файла для компонента"
 }
+
+Если в переданном компоненте уже присутствует интернационализация либо он в нем не нуждается, то необходимо вернуть следующий JSON:
+{
+    "ignore": true
+}
+
+В i18n JSON передавать не строкой, а уже готовым объектом с переводами.
+В i18n JSON необходимо использовать следующий формат:
+{
+    "unique_component_root_key": {
+        "i18nkey1": "value"
+    }
+}
+В JSON должен быть только 1 ключ - уникальный ключ для компонента, а в нем уже содержатся ключи для переводов внутри компонента
+Для названия файла используй snake_case
 
 ## Примеры
 На вход получаем:
@@ -68,8 +83,6 @@ module.exports = async function (fileInfo, api) {
     },
   });
 
-  console.log(process.env.GPT_TOKEN)
-
   async function generateKey(text) {
     const request = {
       model: "gpt-4o-mini",
@@ -93,53 +106,25 @@ module.exports = async function (fileInfo, api) {
     }
   }
 
-  const { code, i18n, i18n_filename } = await generateKey(`// ${fileInfo.path}
+  const { code, i18n, i18n_filename, ignore } =
+    await generateKey(`// ${fileInfo.path}
 ${fileInfo.source}`);
 
-  console.log(code, i18n, i18n_filename);
+  if (ignore) {
+    console.warn("Already processed file: ignoring")
+    return fileInfo.source;
+  }
+
+  let filename = i18n_filename;
+
+  if (!filename.endsWith(".json")) {
+    filename += ".json";
+  }
 
   require("fs").writeFileSync(
-    `i18n/${i18n_filename}.json`,
+    `i18n/${filename}`,
     JSON.stringify(i18n, null, 2),
   );
 
   return code;
-
-  // const j = api.jscodeshift;
-  //
-  // const some = j(fileInfo.source);
-  //
-  // const fetches = [];
-  //
-  // const i18n = {};
-  //
-  // const x = some.find(j.JSXText).forEach((path) => {
-  //   // Only process non-empty strings
-  //   if (typeof path.node.value === "string" && path.node.value.trim() !== "") {
-  //     // Push async operation into fetches array
-  //     fetches.push(
-  //       (async () => {
-  //         const identifier = await generateKey(path.node.value.trim());
-  //
-  //         const tCall = j.callExpression(j.identifier("t"), [
-  //           j.stringLiteral(identifier),
-  //         ]);
-  //
-  //         i18n[identifier] = path.node.value.trim();
-  //
-  //         // Replace node with JSXExpressionContainer wrapping tCall
-  //         j(path).replaceWith(j.jsxExpressionContainer(tCall));
-  //       })(),
-  //     );
-  //   }
-  // });
-  //
-  // // Wait for all async operations to complete
-  // await Promise.all(fetches);
-  //
-  // require("fs").writeFileSync(
-  //   `i18n/${rootKey}.json`,
-  //   JSON.stringify(i18n, null, 2),
-  // );
-  // return some.toSource();
 };

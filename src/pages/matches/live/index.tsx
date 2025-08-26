@@ -3,19 +3,20 @@ import { LiveMatchDto } from "@/api/back";
 import React from "react";
 import { LiveMatchPage } from "@/containers";
 import { EmbedProps } from "@/components";
+import { useTranslation } from "react-i18next";
 
 interface InitialProps {
   data: LiveMatchDto[];
 }
 
 export default function LiveMatches({ data }: InitialProps) {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title={"Просмотр матчей"}
-        description={
-          "Просмотр матчей, которые прямо сейчас играются на сайте dotaclassic.ru"
-        }
+        title={t("live_matches.viewMatches")}
+        description={t("live_matches.viewMatchesDescription")}
       />
 
       <LiveMatchPage games={data} />
