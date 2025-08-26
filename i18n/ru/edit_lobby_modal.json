@@ -1,0 +1,21 @@
+{
+  "edit_lobby": {
+    "settings": "Настройки лобби",
+    "name": "Название",
+    "lobbyName": "Название лобби",
+    "password": "Пароль",
+    "noPassword": "Без пароля",
+    "map": "Карта",
+    "selectMap": "Карта",
+    "gameMode": "Режим игры",
+    "selectGameMode": "Режим игры",
+    "patch": "Патч",
+    "server": "Сервер",
+    "gamePatch": "Патч игры",
+    "serverRegion": "Регион сервера",
+    "settingsHeader": "Настройки",
+    "enableCheats": "Включить читы",
+    "addBots": "Добавить ботов",
+    "saveChanges": "Сохранить изменения"
+  }
+}

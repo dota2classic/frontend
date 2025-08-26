@@ -1,0 +1,7 @@
+{
+  "carousel_item": {
+    "date": "Date: {{date}}",
+    "title": "Title: {{title}}",
+    "description": "Description: {{description}}"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "notification_setting": {
+    "pushTooltip": "Получать push уведомления, когда находится игра",
+    "enableNotifications": "Включить уведомления",
+    "disableNotifications": "Отключить уведомления"
+  }
+}

@@ -6,26 +6,29 @@ import { Breadcrumbs, Button, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   feedbacks: FeedbackTemplateDto[];
 }
 
 export default function FeedbackList({ feedbacks }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <Panel>
         <div className="left">
           <Breadcrumbs>
             <PageLink link={AppRouter.admin.feedback.index.link}>
-              Фидбек
+              {t("feedback_list.feedback")}
             </PageLink>
           </Breadcrumbs>
         </div>
       </Panel>
       <div className={c.gridPanel}>
         <PageLink link={AppRouter.admin.feedback.create.link}>
-          <Button>Создать</Button>
+          <Button>{t("feedback_list.create")}</Button>
         </PageLink>
         {feedbacks.map((feedback) => (
           <Panel className={c.feedback} key={feedback.tag}>
@@ -43,7 +46,7 @@ export default function FeedbackList({ feedbacks }: Props) {
                 )
               }
             >
-              Удалить
+              {t("feedback_list.delete")}
             </Button>
           </Panel>
         ))}

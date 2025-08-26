@@ -10,11 +10,13 @@ import cx from "clsx";
 import animations from "@/components/Message/ChatIconAnimations.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   user: UserDTO;
 }
 export const UsernameRoles: React.FC<Props> = observer(({ user }) => {
+  const { t } = useTranslation();
   const { live } = useStore();
 
   const [hoveredRole, setHoveredRole] = useState<
@@ -71,7 +73,7 @@ export const UsernameRoles: React.FC<Props> = observer(({ user }) => {
       {liveStream && (
         <Tooltipable
           className={"purple"}
-          tooltip={`Стримит dotaclassic.ru прямо сейчас!`}
+          tooltip={t("username_roles.streaming_now")}
         >
           <a target="__blank" href={liveStream.link}>
             <FaTwitch />
@@ -85,7 +87,9 @@ export const UsernameRoles: React.FC<Props> = observer(({ user }) => {
           onMouseEnter={(e) =>
             setHoveredRole({
               ref: e.target as HTMLElement,
-              label: user.title?.title || "Подписчик dotaclassic plus",
+              label:
+                user.title?.title ||
+                t("username_roles.default_subscriber_title"),
             })
           }
           onMouseLeave={() => setHoveredRole(undefined)}

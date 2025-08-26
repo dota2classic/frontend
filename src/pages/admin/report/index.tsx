@@ -14,6 +14,7 @@ import React from "react";
 import { NextPageContext } from "next";
 import c from "@/pages/forum/Forum.module.scss";
 import { ForumTabs } from "@/containers";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   reports: ReportPageDto;
@@ -21,11 +22,13 @@ interface Props {
 }
 
 export default function AdminReportsPage({ reports, page }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title="Форум"
-        description="Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов"
+        title={t("admin_reports.forum")}
+        description={t("admin_reports.forumDescription")}
       />
       <div className={c.buttons}>
         <ForumTabs />
@@ -40,12 +43,12 @@ export default function AdminReportsPage({ reports, page }: Props) {
       <Table className="very-compact">
         <thead>
           <tr>
-            <th>Ссылка на жалобу</th>
-            <th>Правило</th>
-            <th>Обвиняемый</th>
-            <th>Истец</th>
-            <th>Тип жалобы</th>
-            <th>Обработана?</th>
+            <th>{t("admin_reports.complaintLink")}</th>
+            <th>{t("admin_reports.rule")}</th>
+            <th>{t("admin_reports.accused")}</th>
+            <th>{t("admin_reports.plaintiff")}</th>
+            <th>{t("admin_reports.complaintType")}</th>
+            <th>{t("admin_reports.processed")}</th>
           </tr>
         </thead>
         <tbody>
@@ -56,7 +59,7 @@ export default function AdminReportsPage({ reports, page }: Props) {
                   className="link"
                   link={AppRouter.forum.report.report(report.id).link}
                 >
-                  Жалоба
+                  {t("admin_reports.complaint")}
                 </PageLink>
               </td>
               <td>{report.rule.title}</td>
@@ -66,10 +69,16 @@ export default function AdminReportsPage({ reports, page }: Props) {
               <th>
                 <UserPreview roles user={report.reporter} />
               </th>
-              <th>{report.message ? "Сообщение" : "Матч"}</th>
+              <th>
+                {report.message
+                  ? t("admin_reports.message")
+                  : t("admin_reports.match")}
+              </th>
               <th>
                 <Checkbox checked={report.handled} onChange={() => undefined}>
-                  {report.handled ? "Обработана" : "Требует обработки"}
+                  {report.handled
+                    ? t("admin_reports.processedYes")
+                    : t("admin_reports.processedNo")}
                 </Checkbox>
               </th>
             </tr>

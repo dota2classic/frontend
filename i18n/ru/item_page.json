@@ -1,0 +1,10 @@
+{
+  "item_page": {
+    "defaultTitle": "Предмет",
+    "descriptionPatch": "{{item}} в патче {{patch}} {{game}}.",
+    "hero": "Герой",
+    "matches": "Матчи",
+    "wins": "Побед",
+    "winRate": "Доля побед"
+  }
+}

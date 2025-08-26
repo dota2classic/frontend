@@ -1,15 +1,16 @@
 import React from "react";
 
 import { EmbedProps } from "..";
+import { useTranslation } from "react-i18next";
 
 export const NewLanding = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title={"Играть в старую доту онлайн"}
-        description={
-          "Dota2Classic это единственный способ поиграть в старую доту из 2015 года. Здесь ты сможешь вспомнить ту самую игру."
-        }
+        title={t("new_landing.playOldDota")}
+        description={t("new_landing.dota2ClassicDescription")}
       >
         <link rel="canonical" href="https://dotaclassic.ru" />
       </EmbedProps>

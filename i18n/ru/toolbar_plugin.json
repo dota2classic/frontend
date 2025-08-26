@@ -1,0 +1,15 @@
+{
+  "toolbar": {
+    "undo": "Undo",
+    "redo": "Redo",
+    "formatBold": "Format Bold",
+    "formatItalics": "Format Italics",
+    "formatHeading": "Format Heading",
+    "formatUnderline": "Format Underline",
+    "formatStrikethrough": "Format Strikethrough",
+    "leftAlign": "Left Align",
+    "centerAlign": "Center Align",
+    "rightAlign": "Right Align",
+    "justifyAlign": "Justify Align"
+  }
+}

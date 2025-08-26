@@ -6,6 +6,7 @@ import { LobbyScreen } from "@/containers";
 import { EmbedProps, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import { redirectToPage } from "@/util/redirectToPage";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   id: string;
@@ -14,20 +15,25 @@ interface Props {
 }
 
 export default function LobbyPage({ lobby }: Props) {
+  const { t } = useTranslation();
+
   if (!lobby) {
     return (
       <>
-        <h2>Лобби не существует!</h2>
+        <h2>{t("lobby_page.lobbyDoesNotExist")}</h2>
 
         <PageLink link={AppRouter.lobby.index.link}>
-          Вернуться к списку лобби
+          {t("lobby_page.returnToLobbyList")}
         </PageLink>
       </>
     );
   }
   return (
     <>
-      <EmbedProps title={`Лобби ${lobby.name}`} description={"Лобби"} />
+      <EmbedProps
+        title={t("lobby_page.lobbyTitle", { lobbyName: lobby.name })}
+        description={t("lobby_page.lobbyDescription")}
+      />
       <LobbyScreen lobby={lobby} />
     </>
   );

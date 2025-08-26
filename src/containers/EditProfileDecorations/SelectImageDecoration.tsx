@@ -38,7 +38,7 @@ export const SelectImageDecoration = ({
                   setIsSelectOpen(false);
                   onSelect(undefined);
                 }}
-                src={"/avatar.png"}
+                src="/avatar.png"
                 alt=""
               />
 

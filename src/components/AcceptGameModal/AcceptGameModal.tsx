@@ -9,8 +9,10 @@ import { useRouter } from "next/router";
 import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { QueueGameState, useQueueState } from "@/util/useQueueState";
 import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
+import { useTranslation } from "react-i18next";
 
 export const AcceptGameModal = observer(() => {
+  const { t } = useTranslation();
   const { queue } = useStore();
 
   const router = useRouter();
@@ -25,7 +27,7 @@ export const AcceptGameModal = observer(() => {
       <div className={c.modalWrapper} data-testid="accept-modal-waiting-user">
         <div className={c.modal}>
           <div className={c.header}>
-            <h4>Ваша игра готова</h4>
+            <h4>{t("accept_game_modal.yourGameReady")}</h4>
             <h3>{formatGameMode(queue.roomState!.mode)}</h3>
           </div>
           <div className={c.buttons}>
@@ -33,13 +35,13 @@ export const AcceptGameModal = observer(() => {
               className={cx(c.button2, c.accept)}
               onClick={queue.acceptGame}
             >
-              Принять
+              {t("accept_game_modal.accept")}
             </button>
             <button
               className={cx(c.button2, c.decline)}
               onClick={queue.declineGame}
             >
-              Отклонить
+              {t("accept_game_modal.decline")}
             </button>
           </div>
         </div>

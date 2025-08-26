@@ -23,6 +23,7 @@ import { FaTrophy } from "react-icons/fa";
 import { MatchThread } from "@/containers/MatchPageContainer/MatchThread";
 import { observer } from "mobx-react-lite";
 import { getMaxMatchValues } from "@/util/useMaxMatchValues";
+import { useTranslation } from "react-i18next";
 
 interface IMatchPageContainerProps {
   matchId: number;
@@ -34,23 +35,23 @@ type Filter = { label: string; columns: Columns[] };
 
 const options: Filter[] = [
   {
-    label: "Сводка",
+    label: "match_summary",
     columns: ["K", "D", "A", "NW"],
   },
   {
-    label: "Фарм",
+    label: "farming",
     columns: ["GPM", "LH", "NW"],
   },
   {
-    label: "Урон",
+    label: "damage",
     columns: ["HD", "TD", "NW"],
   },
   {
-    label: "Предметы",
+    label: "items",
     columns: ["Items"],
   },
   {
-    label: "Прочее",
+    label: "other",
     columns: ["MMR", "Actions"],
   },
 ];
@@ -81,6 +82,7 @@ const useReportModal = (
 
 export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
   ({ matchId, preloadedMatch, liveMatches }: IMatchPageContainerProps) => {
+    const { t } = useTranslation();
     const { report } = useStore();
     const { data: match } = getApi().matchApi.useMatchControllerMatch(matchId, {
       fallbackData: preloadedMatch,
@@ -140,8 +142,8 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
             />
           )}
           <EmbedProps
-            title={`Матч ${matchId}`}
-            description={`Страница матча с ID ${matchId}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru`}
+            title={t("match.title", { matchId })}
+            description={t("match.description", { matchId })}
           />
           <MatchSummary
             radiantKills={match.radiant.reduce((a, b) => a + b.kills, 0)}
@@ -156,7 +158,8 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
           />
 
           <Typography.Header radiant>
-            Силы Света {match.winner === 2 && <FaTrophy color={"white"} />}
+            {t("match.radiant", { winner: match.winner })}{" "}
+            {match.winner === 2 && <FaTrophy color={"white"} />}
           </Typography.Header>
           <Tabs
             className={"mobile-only"}
@@ -176,7 +179,8 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
           <br />
 
           <Typography.Header dire>
-            Силы Тьмы {match.winner === 3 && <FaTrophy color={"white"} />}
+            {t("match.dire", { winner: match.winner })}{" "}
+            {match.winner === 3 && <FaTrophy color={"white"} />}
           </Typography.Header>
           <Tabs
             className={"mobile-only"}

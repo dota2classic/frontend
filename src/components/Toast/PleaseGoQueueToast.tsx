@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { GenericToast } from "@/components";
 import { formatGameMode } from "@/util/gamemode";
 import { AppRouter } from "@/route";
+import { useTranslation } from "react-i18next";
 
 export const PleaseGoQueueToast: React.FC<
   Partial<ToastContentProps> & { inQueue: number; mode: MatchmakingMode }
@@ -14,21 +15,25 @@ export const PleaseGoQueueToast: React.FC<
     mode: MatchmakingMode;
   };
   const router = useRouter();
+  const { t } = useTranslation();
   return (
     <GenericToast
       {...props}
       title={
         <>
-          Давай поиграем в <br />
-          <span className="gold">{formatGameMode(props.mode)}</span>?
+          {" "}
+          {t("please_go_queue.titlePart1")} <br />
+          <span className="gold">{formatGameMode(props.mode)}</span>?{" "}
         </>
       }
-      content={<>Там уже {props.inQueue} в поиске!</>}
-      acceptText={"Уже иду"}
+      content={
+        <> {t("please_go_queue.queueInfo", { inQueue: props.inQueue })} </>
+      }
+      acceptText={t("please_go_queue.acceptText")}
       onAccept={() =>
         router.push(AppRouter.queue.link.href, AppRouter.queue.link.as)
       }
-      declineText={"Потом"}
+      declineText={t("please_go_queue.declineText")}
       onDecline={props.closeToast}
       {...fixedProps}
     />

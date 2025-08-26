@@ -1,0 +1,7 @@
+{
+  "layout": {
+    "showSideAds": "Show side ads? {{showSideAds}}",
+    "copyright": "© {{min}} - {{max}} dotaclassic.ru",
+    "trademark": "Dota 2 is a registered trademark of Valve Corporation."
+  }
+}

@@ -5,6 +5,7 @@ import TableClasses from "@/components/GenericTable/GenericTable.module.scss";
 import { PlayerAvatar, TimeAgo } from "@/components";
 import React from "react";
 import { Username } from "@/components/Username/Username";
+import { useTranslation } from "react-i18next";
 
 export const ThreadMessagePreview = React.memo(function ThreadMessagePreview({
   message,
@@ -12,6 +13,7 @@ export const ThreadMessagePreview = React.memo(function ThreadMessagePreview({
   message: ThreadMessageDTO;
 }) {
   const { author } = message;
+  const { t } = useTranslation();
   return (
     <div className={cx(c.msg)}>
       <PlayerAvatar
@@ -19,7 +21,7 @@ export const ThreadMessagePreview = React.memo(function ThreadMessagePreview({
         className={TableClasses.avatar__small}
         width={30}
         height={30}
-        alt={`avatar of user ${author.name}`}
+        alt={t("threads_table.avatarAlt", { name: author.name })}
       />
       <div style={{ flex: 1 }}>
         <div className={c.block}>

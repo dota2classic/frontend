@@ -1,0 +1,14 @@
+{
+  "edit_feedback_template": {
+    "tagInfo": "Тег(техническая инфа)",
+    "tagPlaceholder": "Тег",
+    "title": "Заголовок",
+    "titlePlaceholder": "Заголовок",
+    "createTicket": "Создавать тикет",
+    "responseOptions": "Варианты ответа",
+    "optionPlaceholder": "Вариант ответа",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "addResponse": "Добавить вариант ответа"
+  }
+}

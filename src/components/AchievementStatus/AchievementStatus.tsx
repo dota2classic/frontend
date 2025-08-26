@@ -9,6 +9,7 @@ import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import Image from "next/image";
 import { AchievementMapping } from "@/components/AchievementStatus/achievement-mapping";
+import { useTranslation } from "react-i18next";
 
 interface IAchievementStatusProps {
   achievement: AchievementDto;
@@ -17,6 +18,8 @@ interface IAchievementStatusProps {
 export const AchievementStatus: React.FC<IAchievementStatusProps> = ({
   achievement,
 }) => {
+  const { t } = useTranslation();
+
   const main = (
     <div
       className={cx(
@@ -41,10 +44,16 @@ export const AchievementStatus: React.FC<IAchievementStatusProps> = ({
         </div>
       )}
       <div className={c.title}>
-        {AchievementMapping[achievement.key]?.title || "TODO title"}
+        {t(
+          AchievementMapping[achievement.key]?.title ||
+            "achievementStatus.defaultTitle",
+        )}
       </div>
       <div className={c.achievementDescription}>
-        {AchievementMapping[achievement.key]?.description || "TODO description"}
+        {t(
+          AchievementMapping[achievement.key]?.description ||
+            "achievementStatus.defaultDescription",
+        )}
       </div>
     </div>
   );

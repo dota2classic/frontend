@@ -1,0 +1,8 @@
+{
+  "hero_stats": {
+    "popularity": "Популярность",
+    "matches": "Матчи",
+    "wins": "Победы",
+    "winrate": "Доля побед"
+  }
+}

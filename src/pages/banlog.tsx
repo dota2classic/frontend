@@ -19,6 +19,7 @@ import React from "react";
 import { useQueryBackedParameter } from "@/util";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   page: PunishmentLogPageDto;
@@ -27,11 +28,12 @@ interface Props {
 const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
   const [, setSteamId] = useQueryBackedParameter("steamId");
   const { auth } = useStore();
+  const { t } = useTranslation();
   return (
     <>
       <EmbedProps
-        title={"Журнал нарушений"}
-        description={"Журнал нарушений правил на сайте dotaclassic.ru "}
+        title={t("banlog.title")}
+        description={t("banlog.description")}
       />
       <Panel
         style={{ flexDirection: "row", alignItems: "center" }}
@@ -58,7 +60,7 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
                 }
               }}
             >
-              Только мои
+              {t("banlog.onlyMine")}
             </Checkbox>
           )
         )}
@@ -71,12 +73,12 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
       <Table>
         <thead>
           <tr>
-            <th>Дата наказания</th>
-            <th>Длительность бана</th>
-            <th>Правило</th>
-            <th>Жалоба</th>
-            <th>Нарушитель</th>
-            <th>Исполнитель</th>
+            <th>{t("banlog.dateOfPunishment")}</th>
+            <th>{t("banlog.durationOfBan")}</th>
+            <th>{t("banlog.rule")}</th>
+            <th>{t("banlog.complaint")}</th>
+            <th>{t("banlog.violator")}</th>
+            <th>{t("banlog.executor")}</th>
           </tr>
         </thead>
         <tbody>
@@ -88,14 +90,14 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
               <td>
                 <div>
                   {log.rule.ruleType === RuleType.GAMEPLAY
-                    ? "Бан поиска"
-                    : "Бан коммуникаций"}
+                    ? t("banlog.gameplayBan")
+                    : t("banlog.communicationBan")}
                   {": "}
                 </div>
 
                 <div className="red">
                   {log.duration > 60 * 60 * 24 * 1000 ? (
-                    "Пермабан"
+                    t("banlog.permaBan")
                   ) : (
                     <Duration duration={log.duration} long />
                   )}
@@ -111,10 +113,10 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
                   <PageLink
                     link={AppRouter.forum.report.report(log.reportId).link}
                   >
-                    С жалобой
+                    {t("banlog.withComplaint")}
                   </PageLink>
                 ) : (
-                  <span>Без жалобы</span>
+                  <span>{t("banlog.withoutComplaint")}</span>
                 )}
               </td>
               <td>

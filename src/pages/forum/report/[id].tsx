@@ -14,6 +14,7 @@ import React from "react";
 import { numberOrDefault } from "@/util/urls";
 import { PaginatedThread } from "@/containers/Thread/PaginatedThread";
 import { ReportCard } from "@/containers";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -31,16 +32,19 @@ export default function ReportPage({
   report,
 }: Props) {
   const r = useRouter();
+  const { t } = useTranslation();
 
   return (
     <>
       <EmbedProps
-        title={`${thread?.title || "Жалоба"}`}
-        description={`Жалоба на сайте dotaclassic.ru: ${thread?.title || ""}`}
+        title={thread?.title || t("report_page.defaultTitle")}
+        description={`${t("report_page.reportDescription")}: ${thread?.title || ""}`}
       />
       <Panel>
         <Breadcrumbs>
-          <PageLink link={AppRouter.forum.report.index().link}>Жалобы</PageLink>
+          <PageLink link={AppRouter.forum.report.index().link}>
+            {t("report_page.reports")}
+          </PageLink>
           <span>{thread?.title}</span>
         </Breadcrumbs>
       </Panel>
@@ -60,7 +64,7 @@ export default function ReportPage({
           }}
         />
       )) ||
-        "Ошибка при загрузке сообщений"}
+        t("report_page.loadError")}
     </>
   );
 }

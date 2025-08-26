@@ -1,0 +1,6 @@
+{
+  "error_page": {
+    "pageLoadFailed": "Возникла ошибка при загрузке страницы {{statusCode}}",
+    "returnHome": "Вернуться на главную"
+  }
+}

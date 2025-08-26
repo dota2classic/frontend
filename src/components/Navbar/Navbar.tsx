@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Logo, NavbarItem } from "..";
+import { LanguageSwitcher, Logo, NavbarItem } from "..";
 
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";
@@ -19,8 +19,10 @@ import { FaCoins, FaJournalWhills } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
 import { AiOutlineTeam } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
+  const { t } = useTranslation();
   const { auth, live } = useStore();
   const { isAdmin, isModerator } = auth;
   const isAuthorized = auth.isAuthorized;
@@ -58,7 +60,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             action={AppRouter.index.link}
           >
             <Logo />
-            <span>DOTA2CLASSIC</span>
+            <span>{t("navbar.dota2classic")}</span>
           </NavbarItem>
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
             {(isAuthorized && (
@@ -68,40 +70,40 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 options={[
                   {
                     Icon: FaPeopleGroup,
-                    label: "Лобби",
+                    label: t("navbar.lobby"),
                     action: AppRouter.lobby.index.link,
                   },
                   {
                     newCategory: true,
-                    label: "Как играть",
+                    label: t("navbar.howToPlay"),
                     action: AppRouter.download.link,
                   },
                   {
-                    label: "Настройка клиента",
+                    label: t("navbar.clientSettings"),
                     action: AppRouter.static.tech.commands.link,
                   },
                   {
-                    label: "FPS и пинг",
+                    label: t("navbar.fpsPing"),
                     action: AppRouter.static.tech.performance.link,
                   },
                   {
-                    label: "Частые проблемы",
+                    label: t("navbar.commonIssues"),
                     action: AppRouter.static.tech.faq.link,
                   },
                 ]}
               >
-                Играть
+                {t("navbar.play")}
               </NavbarItem>
             )) || (
               <NavbarItem className={c.play} action={AppRouter.download.link}>
-                Как играть
+                {t("navbar.howToPlay")}
               </NavbarItem>
             )}
             <NavbarItem
               action={AppRouter.blog.index.link}
               tip={newBlogRecently && "!"}
             >
-              Новости
+              {t("navbar.news")}
             </NavbarItem>
             <MetaNavbarItem />
             <NavbarItem
@@ -110,17 +112,17 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
               options={[
                 {
                   Icon: IoMdHelp,
-                  label: "Поддержка",
+                  label: t("navbar.support"),
                   action: AppRouter.forum.ticket.index().link,
                 },
                 {
                   Icon: GiFist,
-                  label: "Жалобы",
+                  label: t("navbar.complaints"),
                   action: AppRouter.forum.report.index().link,
                 },
               ]}
             >
-              Форум
+              {t("navbar.forum")}
             </NavbarItem>
             <NavbarItem
               className={c.play}
@@ -128,42 +130,40 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
               options={[
                 {
                   Icon: AiOutlineTeam,
-                  label: "Вакансии",
+                  label: t("navbar.vacancies"),
                   action: AppRouter.vacancies.link,
                 },
                 {
                   Icon: MdGavel,
-                  label: "Правила",
+                  label: t("navbar.rules"),
                   action: AppRouter.rules.link,
                 },
                 {
                   Icon: IoMdContacts,
-                  label: "Документы",
+                  label: t("navbar.documents"),
                   action: AppRouter.contact.link,
                 },
                 {
                   newCategory: true,
                   Icon: FaJournalWhills,
-                  label: "Журнал нарушений",
+                  label: t("navbar.violationsLog"),
                   action: AppRouter.banLog.index().link,
                 },
               ]}
             >
-              О проекте
+              {t("navbar.aboutProject")}
             </NavbarItem>
             <NavbarItem action={AppRouter.store.index.link}>
               <FaCoins color={"#f8d300"} />
-              Магазин
+              {t("navbar.store")}
             </NavbarItem>
-
-            {/*<NavbarItem action={AppRouter.rules.link}>Правила</NavbarItem>*/}
             {hasLiveMatches && (
               <NavbarItem
                 className={c.liveMatch}
                 action={AppRouter.matches.live.link}
                 tip={live.liveMatches.length}
               >
-                Live
+                {t("navbar.live")}
               </NavbarItem>
             )}
             {hasStreams && (
@@ -172,11 +172,12 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 action={AppRouter.streams.link}
                 tip={live.streams.length}
               >
-                Стрим
+                {t("navbar.stream")}
               </NavbarItem>
             )}
             {(isAdmin || isModerator) && <AdminNavbarItem />}
             <div className={c.spacer} />
+            <LanguageSwitcher />
             <LoginProfileNavbarItem />
           </div>
 

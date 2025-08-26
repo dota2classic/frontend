@@ -6,6 +6,7 @@ import { getApi } from "@/api/hooks";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import c from "../Message.module.scss";
 import { paidAction } from "@/util/subscription";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   relatedSteamId: string;
@@ -17,6 +18,7 @@ export const BlockUserTool = observer(function BlockUserTool({
 }: Props) {
   const { auth, sub } = useStore();
   const thread = useContext(ThreadContext);
+  const { t } = useTranslation();
 
   const block = useCallback(
     paidAction(async () => {
@@ -38,6 +40,7 @@ export const BlockUserTool = observer(function BlockUserTool({
       <MdBlock
         className={blockStatus ? c.hover_green : c.hover_red}
         onClick={block}
+        title={t("block_user_tool.blockButtonTitle")}
       />
     </>
   );

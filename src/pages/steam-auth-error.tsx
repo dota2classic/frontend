@@ -1,13 +1,15 @@
 import { Panel } from "@/components";
+import { useTranslation } from "react-i18next";
 
 export default function SteamAuthError() {
+  const { t } = useTranslation();
   return (
     <Panel style={{ flexDirection: "column", padding: "24px" }}>
-      <h1>Steam в данный момент не отвечает на запросы авторизации!</h1>
+      <h1>{t("steam_auth_error.steamNotResponding")}</h1>
       <p style={{ lineHeight: "1.5em" }}>
-        Пожалуйста, попробуй авторизоваться позже. Все сайты, на которые можно
-        зайти через <span className="gold">Steam</span> сейчас лишились этой
-        возможности. Уверены, скоро это починится.
+        {t("steam_auth_error.pleaseTryLater")}
+        {t("steam_auth_error.steamSitesLostAccess")}
+        {t("steam_auth_error.soonFixed")}
       </p>
       <img
         // style={{ width: "90%" }}

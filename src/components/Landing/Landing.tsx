@@ -11,6 +11,7 @@ import { MetaCarousel } from "@/components/Landing/MetaCarousel";
 import { StreamCarousel } from "@/components/Landing/StreamCarousel";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   recentPosts: BlogpostDto[];
@@ -18,16 +19,15 @@ interface Props {
 }
 
 export const Landing = observer(({ recentPosts }: Props) => {
+  const { t } = useTranslation();
   const { live } = useStore();
 
   const streamList: TwitchStreamDto[] = live.streams;
   return (
     <>
       <EmbedProps
-        title={"Играть в старую доту онлайн"}
-        description={
-          "Dota2Classic это единственный способ поиграть в старую доту из 2015 года. Здесь ты сможешь вспомнить ту самую игру. Старый патч, dota old patch."
-        }
+        title={t("landing.embed.title")}
+        description={t("landing.embed.description")}
       >
         <link rel="canonical" href="https://dotaclassic.ru" />
       </EmbedProps>
@@ -43,18 +43,14 @@ export const Landing = observer(({ recentPosts }: Props) => {
           />
         </div>
         <div className={c.leadingIntent}>
-          <h1>
-            Скучаешь по <br /> старой доте?
-          </h1>
-          <p>
-            Начни играть в настоящую <span className="gold">Dota 2</span> онлайн
-          </p>
+          <h1>{t("landing.oldDota.question")}</h1>
+          <p>{t("landing.oldDota.startPlaying", { game: t("game.dota2") })}</p>
           <PageLink
             link={AppRouter.download.link}
             className={c.playButton}
             testId="play-button-main"
           >
-            Играть бесплатно
+            {t("landing.playForFree")}
           </PageLink>
         </div>
       </div>
@@ -67,16 +63,16 @@ export const Landing = observer(({ recentPosts }: Props) => {
             src="/landing/highres2.webp"
             width={1920}
             height={1080}
-            alt="123"
+            alt="highres"
           />
         </div>
         <div className={c.leadingIntent}>
-          <h2>
-            Попробуй оригинальную <br /> игру на вкус
-          </h2>
+          <h2>{t("landing.originalGame.experience")}</h2>
           <p>
-            Тысячи игроков предпочитают играть в{" "}
-            <span className="red">Dota 2</span> на сайте dotaclassic.ru
+            {t("landing.thousandsPlayers", {
+              game: t("game.dota2"),
+              website: "dotaclassic.ru",
+            })}
           </p>
           <TelegramInvite className={cx(c.playButton, c.telegram)} />
         </div>
@@ -94,15 +90,12 @@ export const Landing = observer(({ recentPosts }: Props) => {
             src="/landing/dotaold.webp"
             width={1920}
             height={1080}
-            alt="123"
+            alt="old dota"
           />
         </div>
         <div className={c.leadingIntent}>
-          <h2>Игра, с которой все начиналось</h2>
-          <p>
-            Старая карта, оригинальные герои и способности, адекватное
-            количество здоровья у героев
-          </p>
+          <h2>{t("landing.startingGame")}</h2>
+          <p>{t("landing.oldMap.originalHeroes")}</p>
         </div>
       </div>
       <MetaCarousel />
@@ -114,12 +107,12 @@ export const Landing = observer(({ recentPosts }: Props) => {
             src="/landing/bg3.webp"
             width={1920}
             height={1080}
-            alt="123"
+            alt="background"
           />
         </div>
         <div className={cx(c.playBottom)}>
           <PageLink link={AppRouter.download.link} className={cx(c.playButton)}>
-            Играть бесплатно
+            {t("landing.playForFree")}
           </PageLink>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { Button } from "@/components";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { UserDTO } from "@/api/back";
+import { useTranslation } from "react-i18next";
 
 interface PartyInviteToastProps {
   inviteId: string;
@@ -14,6 +15,7 @@ export const PartyInviteToastFactory: React.FC<
   ToastContentProps & PartyInviteToastProps
 > = observer(({ closeToast, inviteId, inviter }) => {
   const { queue } = useStore();
+  const { t } = useTranslation();
 
   const accept = useCallback(() => {
     queue.acceptParty(inviteId);
@@ -25,11 +27,12 @@ export const PartyInviteToastFactory: React.FC<
   return (
     <div className={c.toast}>
       <div className={c.content}>
-        <span className="gold">{inviter.name}</span> приглашает тебя в группу
+        <span className="gold">{inviter.name}</span>{" "}
+        {t("party_invite.groupInvite")}
       </div>
       <div className={c.buttons}>
         <Button onClick={accept} className={c.accept}>
-          Принять
+          {t("party_invite.accept")}
         </Button>
         <Button
           onClick={() => {
@@ -37,7 +40,7 @@ export const PartyInviteToastFactory: React.FC<
             closeToast();
           }}
         >
-          Отклонить
+          {t("party_invite.decline")}
         </Button>
       </div>
     </div>

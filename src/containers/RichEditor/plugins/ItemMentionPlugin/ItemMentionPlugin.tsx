@@ -4,12 +4,14 @@ import c from "../HeroMentionPlugin/HeroMentionPlugin.module.scss";
 import { ItemIconRaw } from "@/components";
 import { ItemData, ItemDataEntry } from "@/const/itemdata";
 import { $createItemMentionNode } from "@/containers/RichEditor/plugins/ItemMentionPlugin/ItemMentionNode";
+import { useTranslation } from "react-i18next";
 
 const ItemRender = ({ name, id }: ItemDataEntry) => {
+  const { t } = useTranslation();
   return (
     <div className={c.heroEmbed}>
       <ItemIconRaw small item={id} />
-      <span>{name}</span>
+      <span>{t("item_mention_plugin.itemName", { name })}</span>
     </div>
   );
 };

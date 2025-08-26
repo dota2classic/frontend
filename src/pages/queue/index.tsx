@@ -28,6 +28,7 @@ import { STATUS } from "react-joyride";
 import { useLocalStorage } from "react-use";
 import cx from "clsx";
 import { redirectToPage } from "@/util/redirectToPage";
+import { useTranslation } from "react-i18next";
 
 const JoyRideNoSSR = dynamic(() => import("react-joyride"), { ssr: false });
 
@@ -41,6 +42,7 @@ interface Props {
 type Tabs = "chat" | "modes";
 
 export default function QueuePage(props: Props) {
+  const { t } = useTranslation();
   const mounted = useDidMount();
   const [tutorialComplete, setTutorialComplete] = useLocalStorage(
     "tutorial-passed",
@@ -61,7 +63,6 @@ export default function QueuePage(props: Props) {
     <>
       <JoyRideNoSSR
         disableScrolling
-        // disableScrollParentFix
         callback={({ status }) => {
           console.log(status);
           if (([STATUS.FINISHED] as string[]).includes(status)) {
@@ -71,57 +72,54 @@ export default function QueuePage(props: Props) {
         run={!tutorialComplete}
         steps={[
           {
-            title: "Режимы игры",
+            title: t("queue_page.onboarding.gameModes.title"),
             disableBeacon: true,
             target: ".onboarding-mode-list",
-            content:
-              "Тут список режимов, доступных для поиска игры. Можно выбрать несколько режимов сразу! Чтобы искать игру 5х5, тебе нужно победить в обучении против ботов.",
+            content: t("queue_page.onboarding.gameModes.content"),
           },
           {
             target: ".onboarding-party",
-            title: "Группа",
-            content: 'Тут твоя группа: чтобы пригласить друга, нажми на "+"',
+            title: t("queue_page.onboarding.party.title"),
+            content: t("queue_page.onboarding.party.content"),
           },
           {
             target: ".onboarding-online-stats",
             placement: "left",
-            content:
-              "Тут можно посмотреть, сколько сейчас играет и сколько просто находится на сайте",
+            content: t("queue_page.onboarding.onlineStats.content"),
           },
           {
             placement: "left",
             target: ".onboarding-chat-window",
-            title: "Общий чат",
-            content:
-              "Общий чат для всех игроков - тут ты можешь рассказать, если возникли проблемы, и тебе помогут.",
+            title: t("queue_page.onboarding.chat.title"),
+            content: t("queue_page.onboarding.chat.content"),
           },
           {
             placement: "top",
-            title: "Кнопка поиска",
+            title: t("queue_page.onboarding.searchButton.title"),
             target: ".onboarding-queue-button",
-            content:
-              "Когда выберешь режим для поиска, нажимай на эту кнопку - начнется поиск игры.",
+            content: t("queue_page.onboarding.searchButton.content"),
           },
           {
-            title: "Адблок",
+            title: t("queue_page.onboarding.adblock.title"),
             target: ".onboarding-logo",
-            content:
-              "Пожалуйста, отключи блокировку рекламы на этом сайте. Хоть игра здесь абсолютно бесплатна, содержание проекта все равно стоит денег. Приятной игры!",
+            content: t("queue_page.onboarding.adblock.content"),
           },
         ]}
         tooltipComponent={OnboardingTooltip}
         debug
-        // showProgress
         showSkipButton
         continuous
         locale={{
-          back: "Назад",
-          close: "Закрыть",
-          last: "Конец",
-          next: "Дальше",
-          nextLabelWithProgress: "Дальше (Шаг {step} из {steps})",
-          open: "Открыть диалог",
-          skip: "Пропустить",
+          back: t("queue_page.onboarding.locale.back"),
+          close: t("queue_page.onboarding.locale.close"),
+          last: t("queue_page.onboarding.locale.last"),
+          next: t("queue_page.onboarding.locale.next"),
+          nextLabelWithProgress: t(
+            "queue_page.onboarding.locale.nextLabelWithProgress",
+            { step: "step", steps: "steps" },
+          ),
+          open: t("queue_page.onboarding.locale.open"),
+          skip: t("queue_page.onboarding.locale.skip"),
         }}
         styles={{
           options: {
@@ -131,8 +129,8 @@ export default function QueuePage(props: Props) {
       />
       <div className={c.queue}>
         <EmbedProps
-          title="Поиск игры"
-          description="Страница поиска игры в старую доту. Играй в группе со своими друзьями с ботами и другими людьми"
+          title={t("queue_page.embedProps.title")}
+          description={t("queue_page.embedProps.description")}
         />
         <BigTabs<Tabs>
           className={c.mobile__tabs}
@@ -141,12 +139,12 @@ export default function QueuePage(props: Props) {
           items={[
             {
               key: "modes",
-              label: "Играть",
+              label: t("queue_page.bigTabs.play"),
               onSelect: setTab,
             },
             {
               key: "chat",
-              label: "Чат",
+              label: t("queue_page.bigTabs.chat"),
               onSelect: setTab,
             },
           ]}
@@ -165,7 +163,7 @@ export default function QueuePage(props: Props) {
             tab !== "chat" && c.mobile__modes_hidden,
           )}
         >
-          <header>Группа и поиск</header>
+          <header>{t("queue_page.section.header")}</header>
           <QueuePartyInfo />
           <Thread
             className={c.queueDiscussion}
@@ -179,10 +177,8 @@ export default function QueuePage(props: Props) {
 }
 
 QueuePage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-  // We need to check if we are logged in
   const jwt = withTemporaryToken(ctx, (store) => store.auth.parsedToken);
   if (!jwt) {
-    // not logged in
     await redirectToPage(ctx, "/download");
     return { modes: [], "@defaultModes": [] };
   }

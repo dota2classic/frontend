@@ -13,6 +13,7 @@ import React from "react";
 import { NextPageContext } from "next";
 import c from "@/pages/forum/Forum.module.scss";
 import { ForumTabs } from "@/containers";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   threads: ThreadPageDTO;
@@ -20,11 +21,13 @@ interface Props {
 }
 
 export default function TicketsPage({ threads, page }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title="Поддержка"
-        description="Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов"
+        title={t("forum.support")}
+        description={t("forum.description")}
       />
       <div className={c.buttons}>
         <ForumTabs />
@@ -32,7 +35,7 @@ export default function TicketsPage({ threads, page }: Props) {
           link={AppRouter.forum.createThread(ThreadType.TICKET).link}
           className={c.createThread}
         >
-          <Button>Новый тикет</Button>
+          <Button>{t("forum.newTicket")}</Button>
         </PageLink>
       </div>
       {threads.pages > 1 && (

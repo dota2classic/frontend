@@ -4,12 +4,14 @@ import { observer } from "mobx-react-lite";
 import { StoreLandingSlide } from "@/containers/StoreLanding/StoreLandingSlide";
 import { SubscriptionProductDto } from "@/api/back";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   products: SubscriptionProductDto[];
 }
 export const StoreLanding = observer(({ products }: Props) => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const startPayment = useCallback(() => {
     return router.push({
@@ -50,60 +52,58 @@ export const StoreLanding = observer(({ products }: Props) => {
       </ClientPortal>
 
       <EmbedProps
-        title={"dotaclassic plus"}
-        description={"Страница подписки dotaclassic plus"}
+        title={t("store_landing.title")}
+        description={t("store_landing.description")}
       />
       <StoreLandingSlide
         heading="h1"
         image="/splash/subscription.webp"
-        title="dotaclassic plus"
-        text="Ты помогаешь развивать старую доту: растёт онлайн, улучшаются матчи, появляется новый функционал. А ещё получаешь приятные привилегии и эксклюзивные фичи — в знак благодарности за поддержку."
+        title={t("store_landing.subscriptionTitle")}
+        text={t("store_landing.subscriptionText")}
         onPurchase={startPayment}
       />
       <StoreLandingSlide
         heading="h2"
         image="/splash/decoration.webp"
-        title="Декорации профиля"
-        text="Выбирай из множества стилей, рамок и эффектов, чтобы подчеркнуть свой характер и выделиться среди других. Пусть твой профиль говорит за тебя даже без слов."
+        title={t("store_landing.profileDecorationTitle")}
+        text={t("store_landing.profileDecorationText")}
       />
       <StoreLandingSlide
         heading="h2"
         image="/splash/dodge.webp"
-        title="Додж лист"
-        text="Кажется, вы снова вместе? Не сегодня. Добавь игрока в додж-лист — и больше не окажетесь в одной команде. Устал от одних и тех же «героев матча»? Собери свой идеальный состав хотя бы с одной стороны экрана."
+        title={t("store_landing.dodgeListTitle")}
+        text={t("store_landing.dodgeListText")}
         light
       />
       <StoreLandingSlide
         heading="h2"
         image="/splash/unban.webp"
-        title="Разбан героя"
-        text="Забанили героя? Это не повод отказываться от любимого персонажа. Подписчики dotaclassic plus могут выбирать запрещенных героев."
+        title={t("store_landing.unbanHeroTitle")}
+        text={t("store_landing.unbanHeroText")}
       />
       <StoreLandingSlide
         heading="h2"
         image="/splash/cm_lina.webp"
-        title="Похвалы в игре"
-        text="Можно поддержать тиммейта за старательную игру — или тонко подколоть
-        соперника за фейл. Всё как в актуальной версии. Добавили, чтобы и в
-        классике было чуть больше эмоций."
+        title={t("store_landing.inGamePraiseTitle")}
+        text={t("store_landing.inGamePraiseText")}
       />
       <StoreLandingSlide
         heading="h2"
         image="/splash/mute.webp"
-        title="Блокировка"
-        text="Больше не хочешь читать сообщения, получать инвайты или видеть чужие комменты в своём профиле? Блокируй игрока — и он исчезнет из твоего игрового пространства. Спокойствие гарантировано."
+        title={t("store_landing.muteTitle")}
+        text={t("store_landing.muteText")}
       />
       <StoreLandingSlide
         heading="h2"
         image="/splash/lobby.webp"
-        title="Лобби"
-        text="Собери друзей, выбери карту, включи (или выключи) ботов и решай сам, как будет проходить матч. Приватная игра — твои правила, твой ритм, твоя команда."
+        title={t("store_landing.lobbyTitle")}
+        text={t("store_landing.lobbyText")}
       />
       <StoreLandingSlide
         heading="h2"
         image="/splash/recalibration.webp"
-        title="Перекалибровка"
-        text="Один раз за сезон можно сбросить рейтинг до стартового и пройти 10 калибровочных игр заново. Вдруг на этот раз система поймёт, кто тут настоящий боец за MMR?"
+        title={t("store_landing.recalibrationTitle")}
+        text={t("store_landing.recalibrationText")}
         onPurchase={startPayment}
       />
     </>

@@ -7,6 +7,7 @@ import {
   Button,
   Duration,
   GenericTable,
+  InvitePlayerModalRaw,
   PageLink,
   Pagination,
   Panel,
@@ -15,11 +16,11 @@ import {
 import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
 import { formatBanReason } from "@/util/texts/bans";
-import { InvitePlayerModalRaw } from "@/components";
 import { formatGameMode } from "@/util/gamemode";
 import { ColumnType } from "@/const/tables";
 import c from "./AdminStyles.module.scss";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   crime: CrimeLogPageDto;
@@ -28,6 +29,7 @@ interface Props {
 }
 
 export default function CrimesPage({ crime, steamId }: Props) {
+  const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
 
   const close = useCallback(() => {
@@ -50,12 +52,12 @@ export default function CrimesPage({ crime, steamId }: Props) {
           document.body,
         )}
       <Panel>
-        <Button onClick={open}>Фильтровать по игроку</Button>
+        <Button onClick={open}>{t("crimes_page.filterByPlayer")}</Button>
         <Button
           disabled={!steamId}
           onClick={() => AppRouter.admin.crimes(0).open()}
         >
-          Сбросить фильтр по игроку
+          {t("crimes_page.resetPlayerFilter")}
         </Button>
       </Panel>
       <Pagination
@@ -68,49 +70,49 @@ export default function CrimesPage({ crime, steamId }: Props) {
         columns={[
           {
             type: ColumnType.Player,
-            name: "Игрок",
+            name: t("crimes_page.player"),
           },
           {
             type: ColumnType.Raw,
-            name: "Матч",
+            name: t("crimes_page.match"),
             format: (matchId?: number) =>
               matchId ? (
                 <PageLink
                   className={c.nowrap}
                   link={AppRouter.matches.match(matchId).link}
                 >
-                  Матч {matchId}
+                  {t("crimes_page.matchId", { matchId })}
                 </PageLink>
               ) : (
-                <span className={c.nowrap}>Вне матча</span>
+                <span className={c.nowrap}>{t("crimes_page.outOfMatch")}</span>
               ),
           },
           {
             type: ColumnType.Raw,
-            name: "Комментарий",
+            name: t("crimes_page.comment"),
           },
           {
             type: ColumnType.Raw,
-            name: "Длительность бана",
+            name: t("crimes_page.banDuration"),
             format: (t: number) => <Duration duration={t} />,
           },
           {
             type: ColumnType.Raw,
-            name: "Нарушение",
+            name: t("crimes_page.violation"),
             format: (t: BanReason) => (
               <span className={c.nowrap}>{formatBanReason(t)}</span>
             ),
           },
           {
             type: ColumnType.Raw,
-            name: "Режим игры",
+            name: t("crimes_page.gameMode"),
             format: (t: MatchmakingMode) => (
               <span className={c.nowrap}>{formatGameMode(t)}</span>
             ),
           },
           {
             type: ColumnType.Raw,
-            name: "Дата",
+            name: t("crimes_page.date"),
             format: (t) => (
               <span className={c.nowrap}>
                 <TimeAgo date={t} />
@@ -119,22 +121,22 @@ export default function CrimesPage({ crime, steamId }: Props) {
           },
           {
             type: ColumnType.Raw,
-            name: "Обработано?",
+            name: t("crimes_page.processed"),
             format: (t) => <input type="checkbox" readOnly checked={t} />,
           },
         ]}
-        data={crime.data.map((t) => [
-          t.user,
-          t.matchId,
-          t.lobbyType === MatchmakingMode.BOTS
-            ? "Игра с ботами"
-            : "Засчитываем.",
-          t.banDuration / 1000,
-          t.crime,
-          t.lobbyType,
-          t.createdAt,
-          t.handled,
-          t.id,
+        data={crime.data.map((crimeLog) => [
+          crimeLog.user,
+          crimeLog.matchId,
+          crimeLog.lobbyType === MatchmakingMode.BOTS
+            ? t("crimes_page.botsGame")
+            : t("crimes_page.counted"),
+          crimeLog.banDuration / 1000,
+          crimeLog.crime,
+          crimeLog.lobbyType,
+          crimeLog.createdAt,
+          crimeLog.handled,
+          crimeLog.id,
         ])}
         placeholderRows={5}
       />

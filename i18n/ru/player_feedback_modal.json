@@ -1,0 +1,14 @@
+{
+  "player_feedback": {
+    "toast": {
+      "reviewSent": "Отзыв отправлен",
+      "reviewSaved": "Отзыв об игроке {{playerName}} успешно сохранен!",
+      "errorOccurred": "Произошла ошибка",
+      "errorSaving": "Мы не смогли сохранить отзыв об игроке"
+    },
+    "modal": {
+      "title": "Отзыв игроку",
+      "reportsLeft": "Осталось отзывов: {{reportsAvailable}}"
+    }
+  }
+}

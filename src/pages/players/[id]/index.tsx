@@ -24,8 +24,8 @@ import React from "react";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
 import { LazyPaginatedThread } from "@/containers/Thread/LazyPaginatedThread";
+import { useTranslation } from "react-i18next";
 
-//
 interface PlayerPageProps {
   playerId: string;
   summary: PlayerSummaryDto;
@@ -41,6 +41,8 @@ export default function PlayerPage({
   heroStats,
   achievements,
 }: PlayerPageProps) {
+  const { t } = useTranslation();
+
   const formattedMatches: PlayerMatchItem[] = (matches?.data || [])
     .sort(MatchComparator)
     .map((it) =>
@@ -60,8 +62,8 @@ export default function PlayerPage({
   return (
     <div className={c.playerPage}>
       <EmbedProps
-        title={`${summary.user.name} - статистика`}
-        description={`Профиль и статистика игрока ${summary.user.name}`}
+        title={`${summary.user.name} - ${t("player_page.stats")}`}
+        description={`${t("player_page.profileAndStats")} ${summary.user.name}`}
         image={summary.user.avatar}
       />
       <PlayerSummary
@@ -74,7 +76,7 @@ export default function PlayerPage({
         mmr={summary.seasonStats.mmr}
       />
       <Section style={{ gridColumn: "span 12" }}>
-        <header>Достижения</header>
+        <header>{t("player_page.achievements")}</header>
         <Panel className={c.achievements}>
           {achievements
             .sort((a, b) => b.key - a.key)
@@ -85,7 +87,7 @@ export default function PlayerPage({
       </Section>
       <Section className={c.matchHistory}>
         <header data-testid="player-hero-performance-header">
-          <span>Сводка</span>
+          <span>{t("player_page.summary")}</span>
         </header>
         <PlayerPentagonStats
           games={summary.seasonStats.gamesPlayed}
@@ -100,9 +102,9 @@ export default function PlayerPage({
       </Section>
       <Section className={c.heroPerformance}>
         <header data-testid="player-hero-performance-header">
-          <span>Лучшие герои</span>
+          <span>{t("player_page.topHeroes")}</span>
           <PageLink link={AppRouter.players.player.heroes(playerId).link}>
-            Показать всех
+            {t("player_page.showAll")}
           </PageLink>
         </header>
         <HeroPerformanceTable

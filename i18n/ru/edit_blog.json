@@ -1,0 +1,13 @@
+{
+  "edit_blog": {
+    "loading": "Loading",
+    "loadingError": "...",
+    "news": "Новости",
+    "editing": "Редактирование {{title}}",
+    "published": "Опубликован",
+    "draft": "Драфт",
+    "status": "Статус",
+    "notPublished": "Еще не опубликован",
+    "publishDate": "Дата публикации"
+  }
+}

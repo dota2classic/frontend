@@ -23,6 +23,7 @@ import { matchToPlayerMatchItem } from "@/util/mappers";
 import { NextPageContext } from "next";
 import { MatchComparator } from "@/util/sorts";
 import { GameModeOptions, HeroOptions } from "@/const/options";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   playerId: string;
@@ -35,6 +36,7 @@ export default function PlayerMatches({
   playerId,
   initialMatches,
 }: Props) {
+  const { t } = useTranslation();
   const [page, setPage] = useQueryBackedParameter("page");
   const [hero, setHero] = useQueryBackedParameter("hero");
   const [mode, setMode] = useQueryBackedParameter("mode");
@@ -54,8 +56,12 @@ export default function PlayerMatches({
   return (
     <>
       <EmbedProps
-        title={`${preloadedSummary.user.name} история матчей`}
-        description={`История матчей игрока ${preloadedSummary.user.name}. Список игр сыгранных в старую доту`}
+        title={t("player_matches.historyTitle", {
+          name: preloadedSummary.user.name,
+        })}
+        description={t("player_matches.historyDescription", {
+          name: preloadedSummary.user.name,
+        })}
       />
 
       <PlayerSummary
@@ -76,7 +82,7 @@ export default function PlayerMatches({
               if (value === "undefined") setMode(undefined);
               else setMode(value);
             }}
-            defaultText={"Режим игры"}
+            defaultText={t("player_matches.gameMode")}
           />
           <SelectOptions
             options={HeroOptions}
@@ -85,7 +91,7 @@ export default function PlayerMatches({
               if (value === "undefined") setHero(undefined);
               else setHero(shortName(value));
             }}
-            defaultText={"Герой"}
+            defaultText={t("player_matches.hero")}
           />
         </Panel>
         <Pagination

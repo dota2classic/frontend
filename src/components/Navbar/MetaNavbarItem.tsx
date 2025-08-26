@@ -5,8 +5,11 @@ import { MdLeaderboard, MdViewList } from "react-icons/md";
 import { GiBattleAxe, GiFeatheredWing } from "react-icons/gi";
 import { IoMdTrophy } from "react-icons/io";
 import { MatchmakingMode } from "@/api/mapped-models";
+import { useTranslation } from "react-i18next";
 
 export const MetaNavbarItem = () => {
+  const { t } = useTranslation();
+
   return (
     <NavbarItem
       testId="navbar-user"
@@ -16,33 +19,33 @@ export const MetaNavbarItem = () => {
       options={[
         {
           Icon: MdViewList,
-          label: "Матчи",
+          label: t("meta_navbar.matches"),
           action: AppRouter.matches.index(0, MatchmakingMode.UNRANKED).link,
         },
         {
           Icon: GiFeatheredWing,
-          label: "Герои",
+          label: t("meta_navbar.heroes"),
           action: AppRouter.heroes.index.link,
         },
         {
           Icon: GiBattleAxe,
-          label: "Предметы",
+          label: t("meta_navbar.items"),
           action: AppRouter.wiki.index.link,
         },
         {
           newCategory: true,
           Icon: MdLeaderboard,
-          label: "Игроки",
+          label: t("meta_navbar.players"),
           action: AppRouter.players.leaderboard().link,
         },
         {
           Icon: IoMdTrophy,
-          label: "Рекорды",
+          label: t("meta_navbar.records"),
           action: AppRouter.records.index.link,
         },
       ]}
     >
-      Мета
+      {t("meta_navbar.meta")}
     </NavbarItem>
   );
 };

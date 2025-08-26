@@ -1,0 +1,18 @@
+{
+  "banlog": {
+    "title": "Журнал нарушений",
+    "description": "Журнал нарушений правил на сайте dotaclassic.ru",
+    "onlyMine": "Только мои",
+    "dateOfPunishment": "Дата наказания",
+    "durationOfBan": "Длительность бана",
+    "rule": "Правило",
+    "complaint": "Жалоба",
+    "violator": "Нарушитель",
+    "executor": "Исполнитель",
+    "gameplayBan": "Бан поиска",
+    "communicationBan": "Бан коммуникаций",
+    "permaBan": "Пермабан",
+    "withComplaint": "С жалобой",
+    "withoutComplaint": "Без жалобы"
+  }
+}

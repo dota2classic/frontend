@@ -8,6 +8,7 @@ import { useAsyncButton } from "@/util/use-async-button";
 import { getApi } from "@/api/hooks";
 import { runInAction } from "mobx";
 import { NotoSans } from "@/const/notosans";
+import { useTranslation } from "react-i18next";
 
 interface IEditPunishmentsContainerProps {
   punishments?: RulePunishmentDto[];
@@ -15,6 +16,7 @@ interface IEditPunishmentsContainerProps {
 
 export const EditPunishmentsContainer: React.FC<IEditPunishmentsContainerProps> =
   observer(({ punishments }) => {
+    const { t } = useTranslation();
     const state = useLocalObservable<{
       punishments: RulePunishmentDto[];
       editedPunishment?: RulePunishmentDto;
@@ -64,7 +66,7 @@ export const EditPunishmentsContainer: React.FC<IEditPunishmentsContainerProps> 
       <div className={cx(c.container, NotoSans.className)}>
         <div className={c.list}>
           <Button disabled={creating} onClick={createPunishment}>
-            Новое наказание
+            {t("edit_punishments.newPunishment")}
           </Button>
           {state.punishments.map((p) => (
             <div
@@ -89,9 +91,9 @@ export const EditPunishmentsContainer: React.FC<IEditPunishmentsContainerProps> 
         <div className={c.edit}>
           {state.editedPunishment && (
             <>
-              <header>Название</header>
+              <header>{t("edit_punishments.title")}</header>
               <Input
-                placeholder={"Наказание"}
+                placeholder={t("edit_punishments.punishmentPlaceholder")}
                 value={state.editedPunishment.title}
                 onChange={(e) =>
                   runInAction(() => {
@@ -100,10 +102,10 @@ export const EditPunishmentsContainer: React.FC<IEditPunishmentsContainerProps> 
                 }
               />
 
-              <header>Часов блокировки</header>
+              <header>{t("edit_punishments.blockHours")}</header>
               <Input
                 type="number"
-                placeholder={"12"}
+                placeholder="12"
                 value={state.editedPunishment.durationHours}
                 onChange={(e) =>
                   runInAction(() => {
@@ -116,10 +118,10 @@ export const EditPunishmentsContainer: React.FC<IEditPunishmentsContainerProps> 
 
               <div className={c.buttons}>
                 <Button disabled={updating} onClick={updatePunishment}>
-                  Сохранить
+                  {t("edit_punishments.save")}
                 </Button>
                 <Button disabled={deleting} onClick={deletePunishment}>
-                  Удалить
+                  {t("edit_punishments.delete")}
                 </Button>
               </div>
             </>

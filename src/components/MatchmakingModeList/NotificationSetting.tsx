@@ -5,9 +5,11 @@ import { Button, Tooltipable } from "@/components";
 import c from "@/pages/queue/Queue.module.scss";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export const NotificationSetting = observer(() => {
   const { notify } = useStore();
+  const { t } = useTranslation();
 
   const [isPending, startTransition] = useTransition();
 
@@ -19,10 +21,12 @@ export const NotificationSetting = observer(() => {
     return (
       <Tooltipable
         className={c.notify}
-        tooltip={"Получать push уведомления, когда находится игра"}
+        tooltip={t("notification_setting.pushTooltip")}
       >
         <Button onClick={() => startTransition(notify.subscribeToPush)}>
-          <span style={{ flex: 1 }}>Включить уведомления</span>
+          <span style={{ flex: 1 }}>
+            {t("notification_setting.enableNotifications")}
+          </span>
           {isPending ? (
             <AiOutlineLoading3Quarters className="loading" />
           ) : (
@@ -38,7 +42,9 @@ export const NotificationSetting = observer(() => {
       className={c.notify}
       onClick={() => startTransition(notify.unsubscribe)}
     >
-      <span style={{ flex: 1 }}>Отключить уведомления</span>
+      <span style={{ flex: 1 }}>
+        {t("notification_setting.disableNotifications")}
+      </span>
       <FaBell style={{ float: "right" }} />
     </Button>
   );

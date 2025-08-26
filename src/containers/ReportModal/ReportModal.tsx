@@ -25,6 +25,7 @@ import { makeSimpleToast } from "@/components/Toast/toasts";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 import { NotoSans } from "@/const/notosans";
 import { threadFont } from "@/const/fonts";
+import { useTranslation } from "react-i18next";
 
 type MatchReportMeta = { matchId: number; player: PlayerInMatchDto };
 type MessageReportMeta = { message: ThreadMessageDTO };
@@ -52,6 +53,7 @@ const makeRuleOptions = (rules: PrettyRuleDto[]) => {
 export const ReportModal: React.FC<IReportModalProps> = observer(
   ({ meta, onClose }) => {
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
+    const { t } = useTranslation();
     useGreedyFocus(GreedyFocusPriority.REPORT_MODAL, inputRef);
 
     const { data } = getApi().rules.useRuleControllerGetPrettyRules();
@@ -96,26 +98,34 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
           const msg = await e.json();
           errMsg = msg.message;
         }
-        makeSimpleToast("Ошибка при создании жалобы", errMsg, 5000, "error");
+        makeSimpleToast(
+          t("report_modal.errorCreatingReport"),
+          errMsg,
+          5000,
+          "error",
+        );
       }
       report.clear();
     }, [comment, selectedReportReason]);
 
     return (
       <GenericModal
-        title={"Жалоба на игрока"}
+        title={t("report_modal.reportPlayer")}
         onClose={onClose}
         className={cx(c.reportModal, NotoSans.className)}
       >
         {isMatchReportModal(meta) && (
           <>
             <div className={c.formItem}>
-              <header>Матч</header>
-              <Input readOnly value={`Матч ${meta.matchId}`} />
+              <header>{t("report_modal.match")}</header>
+              <Input
+                readOnly
+                value={`${t("report_modal.matchLabel")} ${meta.matchId}`}
+              />
             </div>
 
             <div className={c.formItem}>
-              <header>Нарушитель</header>
+              <header>{t("report_modal.offender")}</header>
               <div className={c.player}>
                 <HeroIcon small hero={meta.player.hero} />
                 {meta.player.user.name}
@@ -126,21 +136,21 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
         {isReportModalMeta(meta) && (
           <>
             <div className={cx(c.formItem, threadFont.className)}>
-              <header>Сообщение</header>
+              <header>{t("report_modal.message")}</header>
               <Message header message={meta.message} />
             </div>
 
             <div className={c.formItem}>
-              <header>Нарушитель</header>
+              <header>{t("report_modal.offender")}</header>
               <UserPreview user={meta.message.author} />
             </div>
           </>
         )}
 
         <div className={c.formItem}>
-          <header>Нарушенный пункт правил</header>
+          <header>{t("report_modal.brokenRule")}</header>
           <SelectOptions
-            defaultText={"Пункт правил"}
+            defaultText={t("report_modal.ruleItem")}
             options={options}
             selected={selectedReportReason}
             onSelect={(value, meta) => {
@@ -152,12 +162,9 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
         </div>
 
         <div className={c.formItem}>
-          <header>Комментарий</header>
+          <header>{t("report_modal.comment")}</header>
           <MarkdownTextarea
-            placeholder={
-              "Если хочешь, чтобы игрок действительно получил наказание, укажи, что именно произошло: поведение, цитаты, моменты матча. " +
-              "Помни: за частые неточные или необоснованные жалобы возможность отправки жалоб может быть отключена."
-            }
+            placeholder={t("report_modal.commentPlaceholder")}
             rows={4}
             value={comment}
             ref={inputRef}
@@ -168,7 +175,7 @@ export const ReportModal: React.FC<IReportModalProps> = observer(
           disabled={!selectedReportReason || sending || comment.length < 3}
           onClick={sendMatchReport}
         >
-          Отправить
+          {t("report_modal.sendButton")}
         </Button>
       </GenericModal>
     );

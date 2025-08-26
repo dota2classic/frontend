@@ -16,6 +16,7 @@ import {
 import { useRouter } from "next/router";
 import { AppRouter } from "@/route";
 import c from "./BlogEditContainer.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface IBlogEditContainerProps {
   post?: BlogpostDto;
@@ -24,6 +25,7 @@ interface IBlogEditContainerProps {
 export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
   post,
 }) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const saveKey = useMemo(() => {
@@ -84,19 +86,19 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
 
   return (
     <div className={c.editor}>
-      <h3>Заголовок статьи</h3>
+      <h3>{t("blog_edit.title")}</h3>
       <Input
-        placeholder={"Заголовок"}
+        placeholder={t("blog_edit.titlePlaceholder")}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <h3>Описание статьи</h3>
+      <h3>{t("blog_edit.description")}</h3>
       <MarkdownTextarea
-        placeholder={"Краткое описание"}
+        placeholder={t("blog_edit.descriptionPlaceholder")}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <h3>Изображение</h3>
+      <h3>{t("blog_edit.image")}</h3>
       <ImagePickerUploader onSelectImage={setImage} />
       {image && (
         <Carousel>
@@ -123,7 +125,7 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
           />
         </Carousel>
       )}
-      <h3>Содержимое статьи</h3>
+      <h3>{t("blog_edit.content")}</h3>
       {loaded && (
         <RichEditor
           saveKey={saveKey}
@@ -133,7 +135,7 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
         />
       )}
       <Button disabled={post?.published} mega onClick={publishPost}>
-        Опубликовать
+        {t("blog_edit.publish")}
       </Button>
     </div>
   );

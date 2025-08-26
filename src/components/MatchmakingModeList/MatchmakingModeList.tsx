@@ -22,6 +22,7 @@ import { modEnableCondition } from "@/components/MatchmakingOption/utils";
 import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "react-i18next";
 
 interface IMatchmakingModeListProps {
   modes: MatchmakingInfo[];
@@ -30,6 +31,7 @@ interface IMatchmakingModeListProps {
 
 export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
   observer(({ modes, className }) => {
+    const { t } = useTranslation();
     const { queue, auth } = useStore();
 
     const me: PartyMemberDTO | undefined = (queue.party?.players || []).find(
@@ -49,7 +51,7 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
 
     return (
       <Section className={cx(c.modes, className)}>
-        <header>Режим игры</header>
+        <header>{t("matchmaking_mode_list.gameMode")}</header>
         <div className={cx(c.modes__list)}>
           <div
             className={cx(
@@ -59,7 +61,11 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
             )}
           >
             {d84.map((info) => {
-              const modeDisabledBy = modEnableCondition(queue, info.lobbyType);
+              const modeDisabledBy = modEnableCondition(
+                queue,
+                info.lobbyType,
+                t,
+              );
               const isSearchedMode: boolean = queue.queueState?.inQueue
                 ? queue.queueState.modes.includes(info.lobbyType)
                 : false;
@@ -77,16 +83,15 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
               ) {
                 suffix = (
                   <>
-                    еще{" "}
-                    <span className="gold">
-                      {me?.summary?.calibrationGamesLeft}
-                    </span>{" "}
-                    калибровочных игр
+                    {" "}
+                    {t("matchmaking_mode_list.calibrationGamesLeft", {
+                      count: me?.summary?.calibrationGamesLeft,
+                    })}{" "}
                   </>
                 );
               }
               if (info.lobbyType === MatchmakingMode.HIGHROOM) {
-                suffix = <>Строгие наказания за ливы</>;
+                suffix = <> {t("matchmaking_mode_list.strictPenalties")} </>;
               }
               return (
                 <MatchmakingOption

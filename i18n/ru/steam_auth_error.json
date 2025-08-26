@@ -1,0 +1,8 @@
+{
+  "steam_auth_error": {
+    "steamNotResponding": "Steam в данный момент не отвечает на запросы авторизации!",
+    "pleaseTryLater": "Пожалуйста, попробуй авторизоваться позже.",
+    "steamSitesLostAccess": "Все сайты, на которые можно зайти через <span className=\"gold\">Steam</span> сейчас лишились этой возможности.",
+    "soonFixed": "Уверены, скоро это починится."
+  }
+}

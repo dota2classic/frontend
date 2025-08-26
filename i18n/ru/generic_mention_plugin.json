@@ -1,0 +1,6 @@
+{
+  "generic_mention_plugin": {
+    "mentionTest": "Тестирование упоминаний",
+    "noResults": "Нет результатов для '{{query}}'."
+  }
+}

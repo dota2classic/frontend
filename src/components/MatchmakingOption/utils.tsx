@@ -1,20 +1,24 @@
 import { MatchmakingMode } from "@/api/mapped-models";
-import React, { ReactNode } from "react";
+import React from "react";
 import { TimeAgo } from "@/components";
 import {
   GameModeAccessLevel,
   getRequiredAccessLevel,
 } from "@/const/game-mode-access-level";
 import { QueueStore } from "@/store/queue/QueueStore";
+import { TFunction } from "i18next";
 
 export const modEnableCondition = (
   queue: QueueStore,
   mode: MatchmakingMode,
-): ReactNode | undefined => {
+  t: TFunction<"translation", undefined>,
+): React.ReactNode | undefined => {
   if (queue.partyBanStatus?.isBanned) {
     return (
       <>
-        Поиск запрещен до <TimeAgo date={queue.partyBanStatus!.bannedUntil} />
+        {t("matchmaking_option.searchForbiddenUntil", {
+          date: <TimeAgo date={queue.partyBanStatus!.bannedUntil} />,
+        })}
       </>
     );
   }
@@ -26,11 +30,12 @@ export const modEnableCondition = (
     if (requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
       return (
         <>
-          Нужно сыграть <span className="gold">против ботов</span>{" "}
+          {t("matchmaking_option.needToPlayAgainstBots")}
+          <span className="gold">{t("matchmaking_option.bots")}</span>
         </>
       );
     } else if (requiredAccessLevel === GameModeAccessLevel.HUMAN_GAMES) {
-      return <>Нужно победить в любом режиме</>;
+      return <> {t("matchmaking_option.needToWinAnyMode")} </>;
     }
   }
 
@@ -39,9 +44,9 @@ export const modEnableCondition = (
     if (queue.minGamesInParty < gamesRequired) {
       return (
         <>
-          Нужно сыграть еще{" "}
-          <span className="gold">{gamesRequired - queue.minGamesInParty}</span>{" "}
-          игр в Обычная 5х5
+          {t("matchmaking_option.needToPlayMore", {
+            gamesRequired: gamesRequired - queue.minGamesInParty,
+          })}
         </>
       );
     }

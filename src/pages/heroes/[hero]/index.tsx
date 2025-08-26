@@ -22,6 +22,7 @@ import heroName from "@/util/heroName";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
+import { useTranslation } from "react-i18next";
 
 interface InitialProps {
   initialMatchData: MatchPageDto;
@@ -38,6 +39,8 @@ export default function HeroHistoryPage({
   initialHeroPlayers,
   hero,
 }: InitialProps) {
+  const { t } = useTranslation();
+
   const sortedSummaries: HeroSummaryDto[] = initialHeroesMeta.toSorted(
     (a, b) => b.games - a.games,
   );
@@ -51,8 +54,11 @@ export default function HeroHistoryPage({
   return (
     <div className={c.page}>
       <EmbedProps
-        title={`${heroName(hero)}`}
-        description={`Статистика и история матчей героя ${heroName(hero)} на сайте dotaclassic.ru, матчи сыгранные на старом кленте dota 2, ${sortedSummaries.indexOf(summary) + 1} по популярности герой`}
+        title={heroName(hero)}
+        description={t("hero_page.statisticsAndHistory", {
+          hero: heroName(hero),
+          rank: sortedSummaries.indexOf(summary) + 1,
+        })}
       />
       <HeroStatsHeader
         popularity={sortedSummaries.indexOf(summary) + 1}
@@ -62,9 +68,9 @@ export default function HeroHistoryPage({
       />
       <Section className={c.matchHistory}>
         <header>
-          История матчей
+          {t("hero_page.matchHistory")}
           <PageLink link={AppRouter.heroes.hero.matches(hero).link}>
-            Показать еще
+            {t("hero_page.showMore")}
           </PageLink>
         </header>
         <HeroWithItemsHistoryTable
@@ -74,13 +80,13 @@ export default function HeroHistoryPage({
         />
       </Section>
       <Section className={c.items}>
-        <header>Лучшие игроки</header>
+        <header>{t("hero_page.topPlayers")}</header>
         <HeroPlayersTable
           hero={hero}
           loading={false}
           data={initialHeroPlayers}
         />
-        <header>Предметы</header>
+        <header>{t("hero_page.items")}</header>
         <HeroItemsTable
           loading={false}
           data={initialHeroItemsData.slice(0, 20)}

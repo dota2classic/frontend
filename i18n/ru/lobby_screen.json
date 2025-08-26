@@ -1,0 +1,29 @@
+{
+  "lobby": {
+    "kickedFromLobby": "Ты покинул лобби",
+    "kicked": "Тебя выгнали",
+    "lobbyClosed": "Лобби было распущено",
+    "gameStarted": "Игра запущена!",
+    "connectionInfo": "Скоро появится информация по подключению",
+    "authorizeToView": "Авторизуйся, чтобы смотреть эту страницу",
+    "lobbyDoesNotExist": "Лобби не существует",
+    "hostingLobby": "Хост лобби",
+    "shufflePlayers": "Перемешать игроков",
+    "settings": "Настройки",
+    "closeLobby": "Закрыть лобби",
+    "leaveLobby": "Покинуть лобби",
+    "startGame": "Запустить игру",
+    "kickFromLobby": "Выгнать из лобби",
+    "unassignedPlayers": "Неопределившиеся",
+    "lobbyName": "Имя лобби",
+    "password": "Пароль",
+    "yes": "Да",
+    "no": "Нет",
+    "map": "Карта",
+    "mode": "Режим",
+    "cheats": "Читы",
+    "bots": "Боты",
+    "patch": "Патч",
+    "region": "Регион"
+  }
+}

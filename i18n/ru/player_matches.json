@@ -1,0 +1,8 @@
+{
+  "player_matches": {
+    "historyTitle": "История матчей {{name}}",
+    "historyDescription": "История матчей игрока {{name}}. Список игр сыгранных в старую доту",
+    "gameMode": "Режим игры",
+    "hero": "Герой"
+  }
+}

@@ -6,20 +6,23 @@ import React from "react";
 import { NextPageContext } from "next";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   feedback: FeedbackTemplateDto;
 }
 export default function EditFeedbackTemplatePage({ feedback }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <Panel>
         <div className="left">
           <Breadcrumbs>
             <PageLink link={AppRouter.admin.feedback.index.link}>
-              Фидбек
+              {t("feedback_page.feedback")}
             </PageLink>
-            <span>{feedback.tag}</span>
+            <span>{t("feedback_page.tag", { tag: feedback.tag })}</span>
           </Breadcrumbs>
         </div>
       </Panel>

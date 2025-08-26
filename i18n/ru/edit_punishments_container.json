@@ -1,0 +1,10 @@
+{
+  "edit_punishments": {
+    "newPunishment": "Новое наказание",
+    "title": "Название",
+    "punishmentPlaceholder": "Наказание",
+    "blockHours": "Часов блокировки",
+    "save": "Сохранить",
+    "delete": "Удалить"
+  }
+}

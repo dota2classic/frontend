@@ -10,12 +10,14 @@ import {
 import { useCallback } from "react";
 import c from "@/containers/RichEditor/plugins/ToolbarPlugin/ToolbarPlugin.module.scss";
 import { FaLink } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export function InsertLinkButton() {
+  const { t } = useTranslation();
   const [editor] = useLexicalComposerContext();
 
   const insertLink = useCallback(() => {
-    const url = prompt("Enter URL");
+    const url = prompt(t("insert_link_plugin.enterUrl"));
     if (!url) return;
 
     editor.update(() => {

@@ -17,6 +17,7 @@ import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
 import { TrajanPro } from "@/const/fonts";
 import { useShowSideAdBlocks } from "@/util/usePageSize";
 import { HorizontalAdBlock } from "@/components/AdBlock/HorizontalAdBlock";
+import { useTranslation } from "react-i18next";
 
 interface LayoutProps {
   className?: string;
@@ -25,6 +26,7 @@ export const Layout = ({
   children,
   className,
 }: PropsWithChildren<LayoutProps>) => {
+  const { t } = useTranslation();
   const r = useRouter();
   const isQueuePage = r.pathname === "/queue";
   const isLanding = r.pathname === "/" || r.pathname === "/store";
@@ -72,10 +74,8 @@ export const Layout = ({
             </main>
             <footer className={cx(c.footer, isQueuePage && c.footer__queue)}>
               <div className={c.footer__bottom}>
-                <div> © 2020 - 2025 dotaclassic.ru</div>
-                <div>
-                  Dota 2 is a registered trademark of Valve Corporation.
-                </div>
+                <div>{t("layout.copyright", { min: 2020, max: 2025 })}</div>
+                <div>{t("layout.trademark")}</div>
                 <TelegramInvite noText />
                 <DiscordInvite noText />
               </div>

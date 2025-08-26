@@ -1,0 +1,11 @@
+{
+  "navbar": {
+    "login": "Войти",
+    "matches": "Матчи",
+    "heroes": "Герои",
+    "teammates": "Союзники",
+    "records": "Рекорды",
+    "logout": "Выйти",
+    "userAvatarAlt": "User avatar"
+  }
+}

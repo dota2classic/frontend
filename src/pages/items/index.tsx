@@ -3,19 +3,20 @@ import { ItemDto } from "@/api/back";
 import { ItemBreadcrumbs } from "@/containers";
 import { EmbedProps, ItemsTable } from "@/components";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   items: ItemDto[];
 }
 
 export default function ItemsPage({ items }: Props) {
-  // use
+  const { t } = useTranslation();
   return (
     <>
       <ItemBreadcrumbs itemId={undefined} />
       <EmbedProps
-        title={"Предметы"}
-        description={`Интерактивная энциклопедия предметов Dota 2 6.84c, цена, сборки и магазины в старой доте.`}
+        title={t("items_page.title")}
+        description={t("items_page.description")}
       />
       <br />
       <ItemsTable items={items} />

@@ -16,6 +16,7 @@ import { AppRouter } from "@/route";
 import React from "react";
 import { ColumnType } from "@/const/tables";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 interface LeaderboardPageProps {
   initialLeaderboard: LeaderboardEntryPageDto;
@@ -28,18 +29,17 @@ export default function LeaderboardPage({
   seasons,
   selectedSeasonId,
 }: LeaderboardPageProps) {
+  const { t } = useTranslation();
   const seasonOptions = seasons.map((season) => ({
     value: season.id,
-    label: `Сезон ${season.id}`,
+    label: `${t("leaderboard_page.season")} ${season.id}`,
   }));
   const router = useRouter();
   return (
     <>
       <EmbedProps
-        title={"Игроки"}
-        description={
-          "Таблица лидеров игроков сайта dotaclassic.ru, лучшие игроки и их статистика"
-        }
+        title={t("leaderboard_page.players")}
+        description={t("leaderboard_page.leaderboardDescription")}
       />
 
       <Panel>
@@ -50,7 +50,7 @@ export default function LeaderboardPage({
             const link = AppRouter.players.leaderboard(0, value).link;
             router.push(link.href, link.as);
           }}
-          defaultText={"Сезон"}
+          defaultText={t("leaderboard_page.seasonSelect")}
         />
       </Panel>
 
@@ -68,7 +68,7 @@ export default function LeaderboardPage({
         columns={[
           {
             type: ColumnType.Raw,
-            name: "Ранг",
+            name: t("leaderboard_page.rank"),
             mobileOmit: true,
             format: (d) => (
               <div
@@ -90,44 +90,44 @@ export default function LeaderboardPage({
           },
           {
             type: ColumnType.Player,
-            name: "Игрок",
+            name: t("leaderboard_page.player"),
           },
           {
             type: ColumnType.IntWithBar,
-            name: "Рейтинг",
+            name: t("leaderboard_page.rating"),
             color: colors.gold,
             format: (d) => d || "-",
           },
           {
             type: ColumnType.IntWithBar,
-            name: "Матчи",
+            name: t("leaderboard_page.matches"),
           },
           {
             type: ColumnType.IntWithBar,
-            name: "Победы",
+            name: t("leaderboard_page.wins"),
             color: colors.green,
             mobileOmit: true,
           },
           {
             type: ColumnType.PercentWithBar,
-            name: "% Побед",
+            name: t("leaderboard_page.winRate"),
             color: colors.green,
           },
           {
             type: ColumnType.KDA,
-            name: "KDA",
+            name: t("leaderboard_page.kda"),
             mobileOmit: true,
           },
           {
             type: ColumnType.IntWithBar,
-            name: "Игровое время",
+            name: t("leaderboard_page.playTime"),
             color: colors.grey,
             mobileOmit: true,
             format: (d) => <Duration big duration={d} />,
           },
           {
             type: ColumnType.IntWithBar,
-            name: "Ливов",
+            name: t("leaderboard_page.abandons"),
             mobileOmit: true,
             color: colors.bronze,
           },

@@ -19,62 +19,64 @@ import { ColumnType } from "@/const/tables";
 import { NotoSans } from "@/const/notosans";
 import { TechStaticTabs } from "@/containers";
 import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 
 const _data = [
   [
     {
       link: "https://drive.google.com/file/d/1RKJ3kbTuSzspfZ9N1-RLWrtXw6nXt6FN/view?usp=sharing",
-      label: "Игровой клиент",
+      label: "download_page.gameClient",
     },
     {
       link: "https://disk.yandex.ru/d/e6dil7uN8qTYSQ",
-      label: "Игровой клиент",
+      label: "download_page.gameClient",
     },
     {
       link: "https://host.dotaclassic.ru/Dota6.84.zip",
-      label: "Игровой клиент",
+      label: "download_page.gameClient",
     },
     {
       link: "/torrent/Dota 6.84.zip.torrent",
-      label: "Игровой клиент",
+      label: "download_page.gameClient",
     },
   ],
 
   [
     {
       link: "https://drive.google.com/file/d/1DE0t-R_UDnLnalNz3SmS4fE0-OlhHNB-/view?usp=sharing",
-      label: "Linux библиотеки",
+      label: "download_page.linuxBinaries",
     },
     {
       link: "https://disk.yandex.ru/d/6IFRyqlGS3rqag",
-      label: "Linux библиотеки",
+      label: "download_page.linuxBinaries",
     },
     {
       link: "https://drive.google.com/file/d/1DE0t-R_UDnLnalNz3SmS4fE0-OlhHNB-/view?usp=sharing",
-      label: "Linux библиотеки",
+      label: "download_page.linuxBinaries",
     },
     {
       link: "/torrent/Dota 2 6.84 Source 1 Linux.tar.gz.torrent",
-      label: "Linux библиотеки",
+      label: "download_page.linuxBinaries",
     },
   ],
 
   [
     {
       link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
-      label: "MacOS библиотеки",
+      label: "download_page.macosBinaries",
     },
     {
       link: "https://disk.yandex.ru/d/-52JcDeQONUs0A",
-      label: "MacOS библиотеки",
+      label: "download_page.macosBinaries",
     },
     {
       link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
-      label: "Linux библиотеки",
+      label: "download_page.macosBinaries",
     },
     {
       link: "/torrent/Dota 2 6.84 Source 1 Mac.tar.gz.torrent",
-      label: "MacOS библиотеки",
+      label: "download_page.macosBinaries",
     },
   ],
 ];
@@ -82,107 +84,103 @@ interface Props {
   initialOS: OperatingSystem;
 }
 
-const GuideCompact = () => [
+const GuideCompact = (t: TFunction) => [
   {
-    title: "Запустить игру",
+    title: "download_page.launchGame",
     content: (
       <>
-        Распакуй скачанный архив с игрой, запусти Steam, а затем запусти{" "}
-        <span className="gold">dota.exe</span>
+        {t("download_page.extractGame")}, {t("download_page.startSteam")},{" "}
+        {t("download_page.runDotaExe")} <span className="gold">dota.exe</span>
         <p>
-          Пока скачивается игра, заходи к нам в <TelegramInvite /> и{" "}
-          <DiscordInvite />! Там много интересного, а еще тебе помогут, если
-          возникнут трудности.
+          {t("download_page.downloadingGame")}, {t("download_page.joinUs")}{" "}
+          <TelegramInvite /> и <DiscordInvite />!{" "}
+          {t("download_page.helpWithToughness")}
         </p>
       </>
     ),
   },
   {
-    title: "Авторизоваться на сайте",
+    title: "download_page.authorizeTitle",
     content: (
       <>
         <p>
-          Для игры с людьми был создан этот сайт: ты не можешь просто нажать
-          поиск в самом клиенте, это начнет поиск в актуальной версии игры.
+          {t("download_page.forPlayingWithPeople")}:{" "}
+          {t("download_page.cantJustSearch")}
         </p>
         <p>
-          Поэтому у нас свой матчмейкинг, для которого нужно{" "}
+          {t("download_page.ownMatchmaking")},{" "}
+          {t("download_page.authThroughSteam")}
           <a className="link" href={getAuthUrl()}>
-            авторизоваться через Steam.
-          </a>{" "}
-          Это безопасно и нужно для поиска онлайн игры.
+            {t("download_page.authorize")}
+          </a>
+          .
         </p>
         <p>
-          <span className="gold">ВАЖНО</span>: Steam аккаунт для игры и на сайте
-          должны совпадать.
+          <span className="gold">{t("download_page.important")}</span>:{" "}
+          {t("download_page.steamAccountMustMatch")}
         </p>
       </>
     ),
   },
   {
-    title: "Обучение: игра против ботов",
+    title: "download_page.educationTutorial",
     content: (
       <>
-        <p>
-          Тебе нужно пройти обучение на сайте: это обычная игра против ботов.
-          Так ты привыкнешь к старой доте, познакомишься с оригинальными героями
-          и их способностями, настроишь игру и бинды под свои предпочтения.
-        </p>
-        Тебе предстоит:
+        <p>{t("download_page.passTraining")}</p>
+        {t("download_page.trainingProcess")}
         <ol>
           <li>
-            <span className="gold">ВАЖНО</span>: игровые сервера находятся на
-            территории РФ. Игрокам с Украины может помочь средство обхода
-            блокировок провайдеров.
+            <span className="gold">{t("download_page.important")}</span>:{" "}
+            {t("download_page.serversInRussia")}
           </li>
           <li>
             <PageLink link={AppRouter.queue.link} className="link">
-              Поставить поиск
+              {t("download_page.setupSearch")}
             </PageLink>{" "}
-            на нашем сайте в{" "}
+            {t("download_page.inMode")}
             <span className="gold">{formatGameMode(MatchmakingMode.BOTS)}</span>
           </li>
-          <li>Принять найденную игру</li>
+          <li>{t("download_page.acceptGame")}</li>
           <li>
-            Запустить <span className="shit">Steam</span>, запустить клиент игры
+            {t("download_page.startSteam")},{" "}
+            {t("download_page.startGameClient")}
           </li>
-          <li>
-            Загрузиться по кнопке "подключиться" или вставив команду в консоль
-          </li>
-          <li>Победить ботов</li>
+          <li>{t("download_page.connectButton")}</li>
+          <li>{t("download_page.defeatBots")}</li>
         </ol>
       </>
     ),
   },
   {
-    title: "Пришло время для настоящих игр!",
+    title: "download_page.humanGames",
     content: (
       <>
         <p>
-          Поздравляю, ты завершил свой первый онлайн матч! Мы ждем тебя в{" "}
+          {t("download_page.congratulations")},{" "}
+          {t("download_page.firstOnlineMatch")},{" "}
+          {t("download_page.lookingForIn")}
           <PageLink link={AppRouter.queue.link} className="link">
-            поиске
+            {t("download_page.search")}
           </PageLink>{" "}
-          в режиме {formatGameMode(MatchmakingMode.UNRANKED)}.
+          {t("download_page.mode")}
+          {formatGameMode(MatchmakingMode.UNRANKED)}.
         </p>
-        А пока можешь изучить{" "}
+        {t("download_page.learnAbout")}
         <PageLink className="link" link={AppRouter.matches.index().link}>
-          историю матчей
+          {t("download_page.matchHistory")}
         </PageLink>
-        ,{" "}
+        , {t("download_page.strongestHeroes")},
         <PageLink className="link" link={AppRouter.heroes.index.link}>
-          сильнейших героев
+          {t("download_page.strongestHeroes")}
         </PageLink>{" "}
-        или{" "}
-        <PageLink className="link" link={AppRouter.players.leaderboard().link}>
-          таблицу лидеров.
-        </PageLink>
+        {t("download_page.leaderboardTable")}
       </>
     ),
   },
 ];
 
 export default function DownloadPage({ initialOS }: Props) {
+  const { t } = useTranslation();
   const [OS, setOS] = useState(initialOS);
 
   let filteredData = [..._data];
@@ -199,23 +197,17 @@ export default function DownloadPage({ initialOS }: Props) {
 
   const coolListContent = [
     {
-      title: "Скачать игровой клиент",
+      title: t("download_page.downloadGameClient"),
       content: (
         <>
+          <p>{t("download_page.forOldDota")}</p>
           <p>
-            Для игры в старую доту нужен старый клиент игры. Это не кастомка:
-            это реальная дота из 2015 года.
-          </p>
-          <p>
-            <span className="gold">ВАЖНО:</span> не нажимай поиск матча в самой
-            игре
+            <span className="gold">{t("download_page.important")}</span>:{" "}
+            {t("download_page.dontClickMatchSearch")}
           </p>
           {(OS === OperatingSystem.MAC_OS || OS === OperatingSystem.LINUX) && (
             <>
-              <p className="gold">
-                Также тебе нужно скачать библиотеки для своей системы и извлечь
-                их в папку с игрой
-              </p>
+              <p className="gold">{t("download_page.downloadLibraries")}</p>
             </>
           )}
           <Section>
@@ -241,7 +233,7 @@ export default function DownloadPage({ initialOS }: Props) {
               columns={[
                 {
                   type: ColumnType.Raw,
-                  name: "Google диск",
+                  name: t("download_page.googleDrive"),
                   format: (r) => (
                     <a
                       target="__blank"
@@ -249,13 +241,13 @@ export default function DownloadPage({ initialOS }: Props) {
                       className="link"
                       onClick={() => metrika("reachGoal", "DOWNLOAD_GOOGLE")}
                     >
-                      {r.label}
+                      {t(r.label)}
                     </a>
                   ),
                 },
                 {
                   type: ColumnType.Raw,
-                  name: "Яндекс Диск",
+                  name: t("download_page.yandexDisk"),
                   format: (r) => (
                     <a
                       target="__blank"
@@ -263,13 +255,13 @@ export default function DownloadPage({ initialOS }: Props) {
                       className="link"
                       onClick={() => metrika("reachGoal", "DOWNLOAD_YANDEX")}
                     >
-                      {r.label}
+                      {t(r.label)}
                     </a>
                   ),
                 },
                 {
                   type: ColumnType.Raw,
-                  name: "С нашего сайта",
+                  name: t("download_page.ourWebsite"),
                   format: (r) => (
                     <a
                       target="__blank"
@@ -277,13 +269,13 @@ export default function DownloadPage({ initialOS }: Props) {
                       className="link"
                       onClick={() => metrika("reachGoal", "DOWNLOAD_D2C")}
                     >
-                      {r.label}
+                      {t(r.label)}
                     </a>
                   ),
                 },
                 {
                   type: ColumnType.Raw,
-                  name: "Torrent",
+                  name: t("download_page.torrent"),
                   format: (r) => (
                     <a
                       className="link"
@@ -291,7 +283,7 @@ export default function DownloadPage({ initialOS }: Props) {
                       href={r.link}
                       onClick={() => metrika("reachGoal", "DOWNLOAD_TORRENT")}
                     >
-                      {r.label}
+                      {t(r.label)}
                     </a>
                   ),
                 },
@@ -302,18 +294,18 @@ export default function DownloadPage({ initialOS }: Props) {
         </>
       ),
     },
-    ...GuideCompact(),
+    ...GuideCompact(t),
   ];
   return (
     <div className={NotoSans.className}>
       <EmbedProps
-        title={"Начать играть"}
-        description={
-          "Подробная инструкция для скачивания, установки и поиска игры Dota 2. Скачать старую версию dota 2 здесь"
-        }
+        title={t("download_page.startPlaying")}
+        description={t("download_page.detailedInstructions")}
       />
       <TechStaticTabs />
-      <h1 style={{ textAlign: "center" }}>Как начать играть?</h1>
+      <h1 style={{ textAlign: "center" }}>
+        {t("download_page.howToStartPlaying")}
+      </h1>
       <CoolList items={coolListContent} />
     </div>
   );
@@ -321,11 +313,9 @@ export default function DownloadPage({ initialOS }: Props) {
 
 DownloadPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   if (ctx.req) {
-    // ssr
     const ua = ctx.req.headers["user-agent"];
     return { initialOS: getOSFromHeader(ua || "") };
   } else {
-    // browser
     return {
       initialOS: getOS(),
     };

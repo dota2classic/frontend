@@ -103,3 +103,4 @@ export { PostContainer } from "./PostContainer/PostContainer";
 export { ClientPortal } from "./ClientPortal/ClientPortal";
 export { CopyBlock } from "./CopyBlock/CopyBlock";
 export { UserPicker } from "./UserPicker/UserPicker";
+export { LanguageSwitcher } from "./LanguageSwitcher/LanguageSwitcher";

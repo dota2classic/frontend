@@ -5,16 +5,18 @@ import React from "react";
 import { TwitchStreamDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import { getDomain } from "@/util/domain";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   streamList: TwitchStreamDto[];
 }
 export const StreamCarousel = ({ streamList }: Props) => {
+  const { t } = useTranslation();
   return (
     <div className={cx(c.carouselBlock, c.middleBlock)}>
       <div className={c.newsMore}>
         <PageLink link={AppRouter.streams.link}>
-          <header>Стримы</header>
+          <header>{t("stream_carousel.streams")}</header>
         </PageLink>
       </div>
 
@@ -26,22 +28,6 @@ export const StreamCarousel = ({ streamList }: Props) => {
               allowFullScreen={false}
             />
           </div>
-          // <CarouselItem
-          //   unoptimized
-          //   badge={stream.viewers}
-          //   link={stream.link}
-          //   key={stream.user.steamId}
-          //   image={stream.preview}
-          //   title={
-          //     <UserPreview
-          //       user={{
-          //         ...stream.user,
-          //         name: `Стрим ${stream.user.name}`,
-          //       }}
-          //     />
-          //   }
-          //   description={stream.title}
-          // />
         ))}
       </div>
     </div>

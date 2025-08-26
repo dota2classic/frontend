@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import c from "./ReceiveSubscriptionModal.module.scss";
 import cx from "clsx";
+import { useTranslation } from "react-i18next";
 
 interface IReceiveSubscriptionModalProps {
   onAcknowledge: () => void;
@@ -24,6 +25,7 @@ interface IReceiveSubscriptionModalProps {
 
 export const ReceiveSubscriptionModal: React.FC<IReceiveSubscriptionModalProps> =
   observer(({ onAcknowledge, imageSize, title, item, action, onClose }) => {
+    const { t } = useTranslation();
     const { auth } = useStore();
     const steamId = auth.parsedToken?.sub;
 
@@ -37,16 +39,20 @@ export const ReceiveSubscriptionModal: React.FC<IReceiveSubscriptionModalProps> 
 
     return (
       <GenericModal className={c.modal} title="" onClose={onClose}>
-        <h3 className={"shinyText"}>{title}</h3>
+        <h3 className={"shinyText"}>
+          {t("receive_subscription_modal.title", { title })}
+        </h3>
         <img
           className={cx(imageSize === "small" ? c.small : c.big)}
           src={item.image}
           alt=""
         />
-        <h4 className={item.className}>{item.name}</h4>
+        <h4 className={item.className}>
+          {t("receive_subscription_modal.itemName", { name: item.name })}
+        </h4>
 
         <Button onClick={onClose} pageLink={action.link} mega>
-          {action.label}
+          {t("receive_subscription_modal.actionLabel", { label: action.label })}
         </Button>
       </GenericModal>
     );

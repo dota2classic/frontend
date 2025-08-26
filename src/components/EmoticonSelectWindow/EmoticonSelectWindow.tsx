@@ -15,6 +15,7 @@ import { Input } from "@/components";
 import { useStore } from "@/store";
 import { useKeyDown } from "@/util/keyboard";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
+import { useTranslation } from "react-i18next";
 
 interface IEmoticonSelectWindowProps {
   onClose: () => void;
@@ -60,6 +61,7 @@ const calculateModalPosition = (
 
 export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
   observer(({ onClose, anchor, onSelect }) => {
+    const { t } = useTranslation();
     const [searchValue, setSearchValue] = useState("");
     const { emoticons } = useStore().threads;
 
@@ -109,7 +111,9 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
       >
         <Input
           ref={inputRef}
-          placeholder={`:${hoveredEmoticon.code}:`}
+          placeholder={t("emoticon_select_window.placeholder", {
+            code: hoveredEmoticon.code,
+          })}
           className={c.search}
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -127,7 +131,11 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
         </div>
         <div className={c.reactionPreview}>
           <img src={hoveredEmoticon.src} alt="" />
-          <span>:{hoveredEmoticon.code}:</span>
+          <span>
+            {t("emoticon_select_window.hoveredEmoticon", {
+              code: hoveredEmoticon.code,
+            })}
+          </span>
         </div>
       </div>
     );

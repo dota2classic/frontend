@@ -1,0 +1,5 @@
+{
+  "item_mention_plugin": {
+    "itemName": "Item: {{name}}"
+  }
+}

@@ -5,6 +5,7 @@ import c from "@/pages/lobby/Lobby.module.scss";
 import cx from "clsx";
 import { IconButton, PlayerAvatar, Tooltipable } from "@/components";
 import { IoMdClose, IoMdExit } from "react-icons/io";
+import { useTranslation } from "react-i18next";
 
 interface TeamProps {
   isOwner: boolean;
@@ -25,16 +26,17 @@ export const LobbyTeam = observer(
     onKickPlayer,
   }: TeamProps) => {
     const { auth } = useStore();
+    const { t } = useTranslation();
     const canRemove = (u: UserDTO) =>
       isOwner || auth.parsedToken?.sub === u.steamId;
     return (
       <div className={c.grid4}>
         <h2 className={cx(c.team, team === 2 && "green", team == 3 && "red")}>
           {team === 2
-            ? "Силы света"
+            ? t("lobby_team.lightForces")
             : team === 3
-              ? "Силы тьмы"
-              : "Неопределившиеся"}
+              ? t("lobby_team.darkForces")
+              : t("lobby_team.undefined")}
         </h2>
         <div className={c.slots}>
           {slots
@@ -58,7 +60,9 @@ export const LobbyTeam = observer(
                     <span className={c.username}>{slotHasPlayer.name}</span>
 
                     {canRemove(slotHasPlayer) && (
-                      <Tooltipable tooltip={`Убрать из команды`}>
+                      <Tooltipable
+                        tooltip={t("lobby_team.removeFromTeamTooltip")}
+                      >
                         <IconButton
                           onClick={() =>
                             onRemoveSlot(teamSlot.index, slotHasPlayer!.steamId)
@@ -69,7 +73,9 @@ export const LobbyTeam = observer(
                       </Tooltipable>
                     )}
                     {canRemove(slotHasPlayer) && (
-                      <Tooltipable tooltip={`Выгнать из лобби`}>
+                      <Tooltipable
+                        tooltip={t("lobby_team.kickFromLobbyTooltip")}
+                      >
                         <IconButton
                           onClick={() => onKickPlayer(slotHasPlayer!.steamId)}
                         >
@@ -89,7 +95,7 @@ export const LobbyTeam = observer(
                     className={c.takeSlot}
                     onClick={() => onTakeSlot(teamSlot.index)}
                   >
-                    Занять место
+                    {t("lobby_team.takeSlot")}
                   </span>
                 </div>
               );

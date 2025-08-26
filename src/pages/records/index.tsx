@@ -2,21 +2,21 @@ import { PlayerRecordsResponse } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { EmbedProps } from "@/components";
 import { PlayerRecords } from "@/containers";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   records: PlayerRecordsResponse;
 }
 
 export default function RecordsPage({ records }: Props) {
+  const { t } = useTranslation();
   return (
     <>
       <EmbedProps
-        title={"Рекорды"}
-        description={
-          "Рекорды, поставленные игроками на сайте dotaclassic.ru на старом патче 6.84c"
-        }
+        title={t("records_page.records")}
+        description={t("records_page.recordsDescription")}
       />
-      <h1>Рекорды игроков</h1>
+      <h1>{t("records_page.playerRecords")}</h1>
       <PlayerRecords records={records} />
     </>
   );

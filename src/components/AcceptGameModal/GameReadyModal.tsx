@@ -7,9 +7,11 @@ import { Button, CopySomething, Input } from "@/components";
 import { useLocalStorageBackedParam } from "@/util/useLocalStorageBackedParam";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
 export const GameReadyModal = observer(
   ({ className }: { className?: string }) => {
+    const { t } = useTranslation();
     const q = useStore().queue;
 
     const [fullGuide, setFullGuide] = useLocalStorageBackedParam<boolean>(
@@ -25,22 +27,20 @@ export const GameReadyModal = observer(
 
     return (
       <div className={className} data-testid="game-ready-modal">
-        <h2>Игра готова!</h2>
+        <h2>{t("game_ready_modal.title")}</h2>
         <div className={c.connectInfo}>
           <a
             className={cx(c.button2, c.accept)}
             target={"__blank"}
             href={`steam://connect/${q.gameState?.serverUrl}`}
           >
-            Подключиться к игре
+            {t("game_ready_modal.connectToGame")}
           </a>
           <Button
             mega
             small
             onClick={async () => {
-              const doAbandon = confirm(
-                "Ты действительно хочешь покинуть эту игру?",
-              );
+              const doAbandon = confirm(t("game_ready_modal.confirmExit"));
               if (doAbandon) {
                 await q.abandon();
               }
@@ -60,24 +60,24 @@ export const GameReadyModal = observer(
         />
         <div className={c.fullInstruction}>
           <div className={cx(c.guide, fullGuide && c.guide__visible)}>
-            Порядок действий:
+            {t("game_ready_modal.instructions")}
             <ol>
-              <li>Убедись, что запущен steam.</li>
-              <li>Убедись, что запущен наш клиент игры.</li>
-              <li>
-                Используй консольную команду для подключения к игровому серверу
-              </li>
-              <li>Не получается? Пиши в чат, постараемся помочь</li>
+              <li>{t("game_ready_modal.step1")}</li>
+              <li>{t("game_ready_modal.step2")}</li>
+              <li>{t("game_ready_modal.step3")}</li>
+              <li>{t("game_ready_modal.step4")}</li>
             </ol>
           </div>
           <Button onClick={toggleInfo} className={c.toggleInfo}>
             {fullGuide ? (
               <>
-                Скрыть <FaEyeSlash />
+                {" "}
+                {t("game_ready_modal.hideGuide")} <FaEyeSlash />{" "}
               </>
             ) : (
               <>
-                Гайд для подключения <FaEye />
+                {" "}
+                {t("game_ready_modal.showGuide")} <FaEye />{" "}
               </>
             )}
           </Button>

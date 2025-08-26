@@ -4,6 +4,7 @@ import { TwitchStreamDto } from "@/api/back";
 import React from "react";
 import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
 import { EmbedProps } from "@/components";
+import { useTranslation } from "react-i18next";
 
 interface InitialProps {
   streams: TwitchStreamDto[];
@@ -15,18 +16,19 @@ export default function LiveStreams({ streams }: InitialProps) {
   const fakeData: TwitchStreamDto[] = streams;
 
   const domain = "dotaclassic.ru";
+  const { t } = useTranslation();
 
   return (
     <>
       <EmbedProps
-        title={"Стримы по старой доте"}
-        description={"Трансляции на twitch.tv по классической доте"}
+        title={t("live_streams.streamsTitle")}
+        description={t("live_streams.streamsDescription")}
       />
 
       {fakeData!.length === 0 && (
         <div className={c.queue}>
-          <span>Мы не нашли ни одного стрима по dotaclassic :(</span>
-          <p>Может, ты новая легенда твича?</p>
+          <span>{t("live_streams.noStreamsFound")}</span>
+          <p>{t("live_streams.maybeYouAreALegend")}</p>
         </div>
       )}
 
@@ -38,16 +40,6 @@ export default function LiveStreams({ streams }: InitialProps) {
               allowFullScreen={false}
             />
           </div>
-          // <CarouselItem
-          //   key={it.user.steamId}
-          //   unoptimized
-          //   title={`Стрим ${it.user.name}`}
-          //   image={it.preview}
-          //   link={it.link}
-          //   badge={it.viewers}
-          //   alwaysShowDescription
-          //   description={it.title}
-          // />
         ))}
       </div>
     </>

@@ -3,12 +3,14 @@ import { RuleDto } from "@/api/back";
 import React from "react";
 import c from "./EditRulesContainer.module.scss";
 import cx from "clsx";
+import { useTranslation } from "react-i18next";
 
 export function RuleNode({
   node,
   style,
   dragHandle,
 }: NodeRendererProps<RuleDto>) {
+  const { t } = useTranslation();
   const charLimit = 30;
 
   const displayTitle =
@@ -29,7 +31,8 @@ export function RuleNode({
       )}
       ref={dragHandle as unknown as React.LegacyRef<HTMLDivElement>}
     >
-      <span className="gold">{node.data.index + 1}</span> {displayTitle}
+      <span className="gold">{node.data.index + 1}</span>{" "}
+      {t("rule_node.displayTitle", { title: displayTitle })}
     </div>
   );
 }

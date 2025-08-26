@@ -1,0 +1,8 @@
+{
+  "report_page": {
+    "defaultTitle": "Жалоба",
+    "reportDescription": "Жалоба на сайте dotaclassic.ru",
+    "reports": "Жалобы",
+    "loadError": "Ошибка при загрузке сообщений"
+  }
+}

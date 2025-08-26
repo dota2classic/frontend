@@ -1,0 +1,944 @@
+{
+  "accept_cookies": {
+    "cookiesAgreement": "By using the site and playing on the servers {{site}} you agree to the processing of personal data and the storage and transfer of cookies.",
+    "readMore": "You can read",
+    "here": "here",
+    "agree": "I agree"
+  },
+  "accept_game_modal": {
+    "yourGameReady": "Your game is ready",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "achievement": {
+    "win1hrGameAgainstTechies": {
+      "description": "Win an hour game against Techies",
+      "title": "Tolerator"
+    },
+    "lastHits1000": {
+      "description": "Finish off 1000 enemy creeps",
+      "title": "Creep"
+    },
+    "gpm1000": {
+      "description": "Finish the game with 1000 gold per minute",
+      "title": "Businessman"
+    },
+    "xpm1000": {
+      "description": "Finish the game with 1000 experience per minute",
+      "title": "Experienced"
+    },
+    "allHeroChallenge": {
+      "description": "Win with all heroes",
+      "title": "Universal"
+    },
+    "winBotGame": {
+      "description": "Win against bots",
+      "title": "Classic"
+    },
+    "winSoloMidGame": {
+      "description": "Win in a 1v1",
+      "title": "Solo line abuser"
+    },
+    "gpmXpm1000": {
+      "description": "Finish the game with 1000 gold and 1000 experience per minute",
+      "title": "Booster"
+    },
+    "win1hrGame": {
+      "description": "Win an hour game",
+      "title": "Fast win"
+    },
+    "winStreak10": {
+      "description": "Win 10 games in a row",
+      "title": "Striker"
+    },
+    "hardcore": {
+      "description": "Win the game with level 25 without deaths",
+      "title": "Hardcore"
+    },
+    "denies50": {
+      "description": "Don't give 50 allied creeps to the enemy",
+      "title": "Dendi"
+    }
+  },
+  "achievementStatus": {
+    "defaultTitle": "TODO title",
+    "defaultDescription": "TODO description"
+  },
+  "add_emoticon_button": {
+    "addEmoticon": "Add Emoticon"
+  },
+  "add_reaction_tool": {
+    "addReaction": "Add Reaction"
+  },
+  "admin_navbar": {
+    "servers": "Сервера",
+    "violations": "Нарушения",
+    "settings": "F:Settings",
+    "list": "F:List",
+    "decorations": "Decorations",
+    "rules": "Rules"
+  },
+  "admin_player_ban_settings": {
+    "endTimeLabel": "End Time:",
+    "assignLabel": "Assign",
+    "removeBanLabel": "Remove Ban",
+    "loadingLabel": "Loading"
+  },
+  "admin_rule_tabs": {
+    "rules": "Rules",
+    "punishments": "Punishments"
+  },
+  "big_tabs": {
+    "tabLabel": "Label for tab"
+  },
+  "block_user_tool": {
+    "blockButtonTitle": "Block/Unblock User"
+  },
+  "blocked_message": {
+    "content": "Blocked message"
+  },
+  "blog_edit": {
+    "title": "Article Title",
+    "titlePlaceholder": "Title",
+    "description": "Article Description",
+    "descriptionPlaceholder": "Short Description",
+    "image": "Image",
+    "content": "Article Contents",
+    "publish": "Publish"
+  },
+  "carousel_item": {
+    "date": "Date: {{date}}",
+    "title": "Title: {{title}}",
+    "description": "Description: {{description}}"
+  },
+  "claim_container": {
+    "default_title": "Default Title",
+    "default_action_label": "Default Action Label"
+  },
+  "matchmaking_mode": {
+    "0": "Ranking",
+    "1": "Unranked 5v5",
+    "2": "1v1 Mid",
+    "3": "Diretide",
+    "4": "Greeviling",
+    "5": "Ability Draft",
+    "6": "TOURNAMENT",
+    "7": "VS Bots",
+    "8": "Highroom 5x5",
+    "9": "TOURNAMENT_SOLOMID",
+    "10": "Captains Mode",
+    "11": "Lobby",
+    "12": "2x2 with bots",
+    "13": "Turbo"
+  },
+  "copy_something": {
+    "placeholderText": "{{something}}"
+  },
+  "dev_version_indicator": {
+    "siteUpdating": "The site is updating",
+    "pleaseWait": "You can look at these good guys for now, and the site will open as soon as it is updated.",
+    "dev": "DEV"
+  },
+  "discord_invite": {
+    "joinDiscord": "Discord"
+  },
+  "drop_card": {
+    "discardTooltip": "Refuse reward",
+    "offeredForTrade": "Offered for trade",
+    "expiresIn": "Expires in",
+    "unknown": "Unknown"
+  },
+  "drop_list": {
+    "creatingTradeOffer": "Creating trade offer...\"",
+    "itMayTakeTime": "This may take 5-10 seconds",
+    "rewardsOffered": "Rewards offered for trade!",
+    "goToTrade": "Go to trade",
+    "errorCreatingTrade": "Error creating trade",
+    "errorPurchasingSubscription": "Error purchasing subscription",
+    "settings": "Settings",
+    "tradeLinkHeader": "Steam Trade Link",
+    "tradeLinkInfo": "To receive rewards, you need to make your Steam inventory \"open\" and provide a trade link. You can find it at this link: {{tradeLinkSteam}}",
+    "howToFindTradeLink": "How to find a trade link?",
+    "tradeLinkPlaceholder": "Steam Trade Link",
+    "save": "Save",
+    "invalidLink": "Invalid link",
+    "donateItems": "Donate items",
+    "donationInfo": "Any player can donate items to the project on Steam. The bot will automatically calculate the cost of the items and add them to your internal balance. You can use this balance to pay for a subscription! ",
+    "transferItems": "Transfer items",
+    "yourBalance": "Your balance: {{balance}} rubles",
+    "paySubscription": "Pay for a subscription",
+    "historyOfTrades": "Trade history",
+    "date": "Date",
+    "itemCount": "Number of items",
+    "totalAmount": "Total amount",
+    "tradeType": "Trade type",
+    "donation": "Donation",
+    "rewardGiving": "Issuing a reward",
+    "rewards": "Rewards",
+    "getRewards": "Get rewards",
+    "noRewards": "You don't have any rewards yet! Play to get them."
+  },
+  "duration": {
+    "days": "{{count}} d",
+    "hours": "{{count}} h",
+    "minutes": "{{count}} m"
+  },
+  "edit_feedback_template": {
+    "tagInfo": "Tag(technical info)",
+    "tagPlaceholder": "Tag",
+    "title": "Title",
+    "titlePlaceholder": "Title",
+    "createTicket": "Create ticket",
+    "responseOptions": "Answer options",
+    "optionPlaceholder": "Answer option",
+    "save": "Save",
+    "delete": "Delete",
+    "addResponse": "Add answer option"
+  },
+  "edit_hat_container": {
+    "chatPreviewHeader": "Chat Preview: {{decorationType}}",
+    "settingsHeader": "Settings",
+    "deleteDecorationButton": "DELETE DECORATION",
+    "chooseImageButton": "Choose image",
+    "topTrimHeader": "Crop top",
+    "verticalOffsetHeader": "Vertical offset",
+    "horizontalTrimHeader": "Trim edges horizontally",
+    "hatNamePlaceholder": "Hat name",
+    "saveDecorationButton": "Save",
+    "createDecorationButton": "Create"
+  },
+  "edit_lobby": {
+    "settings": "Lobby settings",
+    "name": "Name",
+    "lobbyName": "Lobby name",
+    "password": "Password",
+    "noPassword": "No password",
+    "map": "Map",
+    "selectMap": "Map",
+    "gameMode": "Game mode",
+    "selectGameMode": "Game mode",
+    "patch": "Patch",
+    "server": "Server",
+    "gamePatch": "Game patch",
+    "serverRegion": "Server region",
+    "settingsHeader": "Settings",
+    "enableCheats": "Enable cheats",
+    "addBots": "Add bots",
+    "saveChanges": "Save changes"
+  },
+  "edit_profile": {
+    "messageContent": "I help the dotaclassic.ru project!",
+    "hatTitle": "Hat",
+    "iconTitle": "Icon",
+    "titleTitle": "Title",
+    "animationTitle": "Animation",
+    "default": "Default",
+    "dotaclassicPlus": "dotaclassic plus"
+  },
+  "edit_punishments": {
+    "newPunishment": "New punishment",
+    "title": "Title",
+    "punishmentPlaceholder": "Punishment",
+    "blockHours": "Block hours",
+    "save": "Save",
+    "delete": "Delete"
+  },
+  "edit_rules": {
+    "createRule": "Create rule",
+    "setIndices": "Set indices",
+    "rule": "Rule",
+    "rulePlaceholder": "Rule",
+    "ruleDescription": "Rule Description",
+    "ruleDescriptionPlaceholder": "Rule Description",
+    "punishment": "Punishment",
+    "punishmentDefaultText": "Punishment",
+    "removePunishment": "Remove Punishment",
+    "ruleType": "Rule Type",
+    "ruleTypeDefaultText": "Rule Type",
+    "communication": "Communication",
+    "gameplay": "Gameplay",
+    "flags": "Flags",
+    "autoProcess": "Processed automatically",
+    "saveRule": "Save Rule",
+    "deleteRule": "Delete Rule from Database",
+    "createChildRule": "Create Child Rule",
+    "createSiblingRule": "Create Sibling Rule"
+  },
+  "emoji_plugin": {
+    "undo": "Undo"
+  },
+  "emoticon_select_window": {
+    "placeholder": ":{code}:",
+    "hoveredEmoticon": ":{{code}}:"
+  },
+  "feedback_modal": {
+    "option": "Option: {{option}}",
+    "yourComment": "Your comment",
+    "submit": "Submit"
+  },
+  "followup_message": {
+    "time": "Time: {{time}}"
+  },
+  "forum_hero_embed": {
+    "hero": "Hero"
+  },
+  "forum_item_embed": {
+    "itemLink": "Link to item {{itemName}}"
+  },
+  "forum_tabs": {
+    "forum": "Forum",
+    "technicalSupport": "Technical Support",
+    "complaints": "Complaints",
+    "allTechnicalSupport": "All Technical Support",
+    "allComplaints": "All Complaints"
+  },
+  "forum_thread": {
+    "beFirstToMessage": "Be the first to leave your message here!"
+  },
+  "forum_user": {
+    "loading": "Loading..."
+  },
+  "game_ready_modal": {
+    "title": "The game is ready!",
+    "connectToGame": "Connect to the game",
+    "confirmExit": "Are you sure you want to leave this game?",
+    "instructions": "How to proceed:",
+    "step1": "Make sure steam is running.",
+    "step2": "Make sure our game client is running.",
+    "step3": "Use the console command to connect to the game server",
+    "step4": "Still having trouble? Write in the chat, we'll try to help",
+    "hideGuide": "Hide",
+    "showGuide": "Connection guide"
+  },
+  "generic_mention_plugin": {
+    "mentionTest": "Mention testing",
+    "noResults": "No results for '{{query}}'."
+  },
+  "generic_modal": {
+    "title": "Modal Title: {{title}}",
+    "close": "Close the modal"
+  },
+  "generic_toast": {
+    "title": "Title: {{title}}",
+    "content": "Content: {{content}}",
+    "acceptText": "Accept: {{acceptText}}",
+    "declineText": "Decline: {{declineText}}"
+  },
+  "giveProduct": {
+    "successMessage": "Subscription successfully issued!",
+    "toastTitle": "Loot here",
+    "errorMessage": "Error issuing subscription!",
+    "loading": "Loading...",
+    "defaultText": "Punishment",
+    "months": "months",
+    "submitButton": "Issue subscription"
+  },
+  "hero_icon": {
+    "iconAlt": "Icon of hero {{heroName}}"
+  },
+  "hero_items_table": {
+    "item": "Item",
+    "matches": "Matches",
+    "wins": "Wins",
+    "winPercentage": "Win share"
+  },
+  "hero_mention": {
+    "localizedName": "localized name of hero {{name}}"
+  },
+  "hero_performance_table": {
+    "hero": "Hero",
+    "matches": "Matches",
+    "winPercentage": "% Wins",
+    "kda": "KDA"
+  },
+  "hero_players_table": {
+    "player": "Player",
+    "matches": "Matches",
+    "winRate": "% Wins",
+    "kda": "KDA"
+  },
+  "hero_stats": {
+    "popularity": "Popularity",
+    "matches": "Matches",
+    "wins": "Wins",
+    "winrate": "Win Rate"
+  },
+  "hero_table": {
+    "player": "Player",
+    "hero": "Hero",
+    "result": "Result",
+    "win": "Win",
+    "lose": "Loss",
+    "mode": "Mode",
+    "duration": "Duration",
+    "kda": "KDA",
+    "items": "Items"
+  },
+  "heroes_meta_table": {
+    "hero": "Hero",
+    "matches": "Matches",
+    "winRate": "Win Rate",
+    "pickRate": "Pick Rate",
+    "kda": "KDA",
+    "gpmXpm": "GPM/XPM",
+    "lhD": "LH/D"
+  },
+  "image_picker": {
+    "uploadIssue": "Issue uploading: {{error}}",
+    "undoLabel": "Undo",
+    "uploadLabel": "Upload image"
+  },
+  "image_upload": {
+    "undo": "Undo",
+    "upload": "Upload"
+  },
+  "insert_link_plugin": {
+    "enterUrl": "Enter URL"
+  },
+  "invite_player_modal": {
+    "selectPlayer": "Select Player",
+    "search": "Search",
+    "playerNickname": "Player Nickname"
+  },
+  "item_breadcrumbs": {
+    "items": "Items"
+  },
+  "item_icon": {
+    "itemAltText": "Item {{fItem}}"
+  },
+  "item_mention_plugin": {
+    "itemName": "Item: {{name}}"
+  },
+  "item_tooltip": {
+    "currency": "Coins"
+  },
+  "items_table": {
+    "popularityTooltip": "Popularity",
+    "item": "Item",
+    "games": "Matches",
+    "winRate": "WinRate"
+  },
+  "join_lobby_modal": {
+    "joinToLobby": "Join lobby",
+    "lobby": "{{ownerName}} lobby",
+    "incorrectPassword": "Incorrect password",
+    "join": "Join"
+  },
+  "landing": {
+    "embed": {
+      "title": "Play old Dota online",
+      "startGame": "Start game",
+      "description": "Dota2Classic is the only way to play the old Dota from 2015. Here you can remember that very game. Old patch, dota old patch."
+    },
+    "oldDota": {
+      "question": "Do you miss the old Dota?",
+      "startPlaying": "Start playing the real {{game}} online"
+    },
+    "playForFree": "Play for free",
+    "originalGame": {
+      "experience": "Get a taste of the original game"
+    },
+    "thousandsPlayers": "Thousands of players prefer to play {{game}} on {{website}}",
+    "startingGame": "The game that started it all",
+    "oldMap": {
+      "originalHeroes": "Old map, original heroes and abilities, adequate amount of health for heroes"
+    }
+  },
+  "game": {
+    "dota2": "Dota 2"
+  },
+  "layout": {
+    "showSideAds": "Show side ads? {{showSideAds}}",
+    "copyright": "© {{min}} - {{max}} dotaclassic.ru",
+    "trademark": "Dota 2 is a registered trademark of Valve Corporation."
+  },
+  "live_match_carousel": {
+    "liveMatches": "LIVE matches",
+    "viewAll": "View all"
+  },
+  "live_match_page": {
+    "noGames": "There are no games going on right now.",
+    "launchSearch": "Great reason to launch a search!",
+    "mode": "Mode"
+  },
+  "live_match": {
+    "liveMatch": "LIVE match {{matchId}}",
+    "matchPreview": "Preview of the active match {{matchId}}, the game map with heroes moving around the map.",
+    "playerAbandoned": "Player {{playerName}} has left the game"
+  },
+  "live_matches": {
+    "viewMatches": "View matches",
+    "viewMatchesDescription": "View matches that are currently being played on the dotaclassic.ru website"
+  },
+  "lobby": {
+    "kickedFromLobby": "You have left the lobby",
+    "kicked": "You have been kicked",
+    "lobbyClosed": "The lobby has been closed",
+    "gameStarted": "Game has started!",
+    "connectionInfo": "Connection information coming soon",
+    "authorizeToView": "Authorize to view this page",
+    "lobbyDoesNotExist": "Lobby does not exist",
+    "hostingLobby": "Host lobby",
+    "shufflePlayers": "Shuffle players",
+    "settings": "Settings",
+    "closeLobby": "Close lobby",
+    "leaveLobby": "Leave lobby",
+    "unassignedPlayers": "Unassigned",
+    "kickFromLobby": "Kick from lobby",
+    "lobbyName": "Lobby name",
+    "password": "Password",
+    "yes": "Yes",
+    "no": "No",
+    "map": "Map",
+    "mode": "Mode",
+    "cheats": "Cheats",
+    "bots": "Bots",
+    "patch": "Patch",
+    "region": "Region"
+  },
+  "lobby_team": {
+    "lightForces": "Forces of light",
+    "darkForces": "Forces of darkness",
+    "undefined": "Undefined",
+    "removeFromTeamTooltip": "Remove from team",
+    "kickFromLobbyTooltip": "Kick from lobby",
+    "takeSlot": "Take a place"
+  },
+  "log_file_history": {
+    "onlyAccusedMessages": "Only messages from the accused",
+    "messageFilter": "Message filter",
+    "allMessages": "All messages",
+    "allChat": "All chat",
+    "teamMessages": "Team messages",
+    "loading": "Loading...",
+    "chat": "Chat",
+    "author": "Author",
+    "message": "Message",
+    "toAll": "To all",
+    "toTeam": "To team",
+    "noMessages": "Player has not sent messages in the chat"
+  },
+  "navbar": {
+    "login": "Login",
+    "matches": "Matches",
+    "heroes": "Heroes",
+    "teammates": "Allies",
+    "records": "Records",
+    "logout": "Logout",
+    "userAvatarAlt": "User avatar",
+    "dota2classic": "DOTA2CLASSIC",
+    "play": "Play",
+    "howToPlay": "How to play",
+    "clientSettings": "Client settings",
+    "fpsPing": "FPS and ping",
+    "commonIssues": "Frequently Asked Questions",
+    "news": "News",
+    "forum": "Forum",
+    "support": "Support",
+    "complaints": "Complaints",
+    "vacancies": "Vacancies",
+    "rules": "Rules",
+    "documents": "Documents",
+    "violationsLog": "Violations Log",
+    "aboutProject": "About the Project",
+    "store": "Shop",
+    "live": "Live",
+    "stream": "Stream",
+    "item": {
+      "tooltip": "Tooltip text",
+      "option": {
+        "label": "{{label}}"
+      }
+    }
+  },
+  "match_download": {
+    "downloadReplayTitle": "Download replay",
+    "downloadReplayButton": "Click here to download the game replay file",
+    "placeFileTitle": "Place the downloaded file in the game folder",
+    "gameFolder": "game folder/dota",
+    "createFolder": "If such folder does not exist, create it.",
+    "finalFile": "Result: you should have a file",
+    "finalFilePath": "dota/{{matchId}}.dem",
+    "startClientTitle": "Start the client and run the console command",
+    "consoleCommandText": "Console command to start viewing a replay"
+  },
+  "matches": {
+    "historyTitle": "Match history",
+    "historyDescription": "History of old Dota 2 matches, list of matches played on the dotaclassic.ru website",
+    "gameMode": "Game mode"
+  },
+  "match_history_table": {
+    "matchNumber": "Match number",
+    "gameMode": "Game mode",
+    "result": "Result",
+    "duration": "Duration",
+    "radiant": "Radiant",
+    "dire": "Dire",
+    "radiantVictory": "Radiant victory",
+    "direVictory": "Dire victory"
+  },
+  "match": {
+    "title": "Match {{matchId}}",
+    "description": "Page of the match with ID {{matchId}}, played on the old Dota 2 client 6.84 on the website dotaclassic.ru",
+    "radiant": "Forces of Light {{winner}}",
+    "dire": "Forces of Darkness {{winner}}"
+  },
+  "match_summary": {
+    "summary": "Summary",
+    "matches": "Matches",
+    "matchNumber": "Match {matchId}",
+    "view": "View",
+    "log": "Log",
+    "download": "Download",
+    "replay": "Game Replay",
+    "mode": "Mode",
+    "lobby": "Lobby",
+    "gameStage": "Game Stage",
+    "duration": "Duration",
+    "matchEnded": "Match Ended",
+    "victoryLight": "Victory of the Forces of Light",
+    "victoryDark": "Victory of the Forces of Darkness"
+  },
+  "farming": {
+    "farming": "Farm"
+  },
+  "damage": {
+    "damage": "Damage"
+  },
+  "items": {
+    "items": "Items"
+  },
+  "other": {
+    "other": "Other"
+  },
+  "matchmaking_mode_list": {
+    "gameMode": "Game mode",
+    "calibrationGamesLeft": "{{count}} more calibration games",
+    "strictPenalties": "Strict penalties for abandoned games"
+  },
+  "matchmaking_option": {
+    "botsFillSlots": "Empty slots are filled with bots",
+    "strictPenalties": "Strict penalties for abandoned games",
+    "noPenalties": "No penalties for abandoned games",
+    "dropRewards": "Rewards are dropped after the match",
+    "inQueue": "in search",
+    "searchForbiddenUntil": "Search forbidden until {{date}}",
+    "needToPlayAgainstBots": "Need to play against ",
+    "bots": "bots",
+    "needToWinAnyMode": "Need to win in any mode",
+    "needToPlayMore": "Need to play {{gamesRequired}} more games in Regular 5x5"
+  },
+  "message_content": {
+    "escape": "Escape",
+    "forCancel": "to cancel",
+    "enter": "Enter",
+    "forSave": "to save",
+    "edited": "edited"
+  },
+  "message": {
+    "avatarAlt": "Avatar of player {{playerName}}"
+  },
+  "message_input": {
+    "tooShortMessage": "Message is too short!",
+    "forbiddenMessage": "You are not allowed to send messages!",
+    "tooFrequentMessages": "Sending messages too frequently!",
+    "replyToMessage": "Reply to message",
+    "enterMessage": "Enter a message",
+    "noPermission": "You do not have permission to send messages"
+  },
+  "message_reactions": {
+    "reactionCount": "{{count}}",
+    "emoticonCode": ":{code}:"
+  },
+  "message_tools": {},
+  "meta_carousel": {
+    "statistics": "Statistics",
+    "bestPlayers": "Best Players",
+    "matchHistory": "Match History",
+    "strongestHeroes": "Strongest Heroes"
+  },
+  "meta_navbar": {
+    "matches": "Matches",
+    "heroes": "Heroes",
+    "items": "Items",
+    "players": "Players",
+    "records": "Records",
+    "meta": "Meta"
+  },
+  "new_landing": {
+    "playOldDota": "Play old dota online",
+    "dota2ClassicDescription": "Dota2Classic is the only way to play old Dota from 2015. Here you can remember that very game."
+  },
+  "noob_friendly_queue": {
+    "howToStartPlaying": "How to start playing?",
+    "login": "Login",
+    "needToAuthorize": "You need to log in to the site via Steam",
+    "downloadAndExtractClient": "I downloaded and unpacked the game client",
+    "downloadAndExtractGameClient": "First you need to download and unpack the client with the game.",
+    "downloadHere": "You can download it here",
+    "possibleDifficulties": "Possible difficulties and their solutions:",
+    "unpackedArchiveIssue": "xiradoh782 huiman - most likely, the archive with the game was not unpacked well. Unpack it again",
+    "downloadIssues": "It takes a long time to download - try downloading via torrent or another cloud",
+    "gameStartsOnMyComputer": "The game starts on my computer",
+    "startTheGame": "Now you need to start the game (dota.exe) in the unpacked archive.",
+    "attentionSteamRequired": "ATTENTION: The game WILL NOT work without Steam running!",
+    "reviews": "Reviews",
+    "startedGameWithoutSteam": "Steam, whatever - you launched the game without steam. Close the client, launch steam, and only then launch the game",
+    "notLaunchingGame": "The game won't launch - unpack the game again",
+    "playedWithBotsReadyToPlayWithPeople": "I was able to play with bots and am ready to play with people",
+    "startSinglePlayerGameWithBots": "Launch a single player game with bots",
+    "advicePlayWithBots": "TIP: play a few games with bots to get used to the old Dota",
+    "lags": "Severe lags - somersault from the spot",
+    "dontWantToSeeCharacter": "I don't want to look at the guy - new to Kosnoli",
+    "quickcast": "Quickcasts: yes",
+    "altClickSelf": "Clicking on yourself via alt - no"
+  },
+  "notification_setting": {
+    "pushTooltip": "Receive push notifications when a game is in progress",
+    "enableNotifications": "Enable notifications",
+    "disableNotifications": "Disable notifications"
+  },
+  "notifications": {
+    "popupNotificationText": "{{text}}"
+  },
+  "paginated_thread": {
+    "loadEmoticons": "Load emoticons",
+    "displayInput": "Display input area"
+  },
+  "pagination": {
+    "pageNumber": "Page {{number}}"
+  },
+  "paid_feature_modal": {
+    "subscriptionTitle": "dotaclassic plus subscription",
+    "subscriptionName": "dotaclassic plus",
+    "profileDecorations": "Profile decorations",
+    "lobbyCreation": "Create lobby",
+    "avoidedPlayersList": "Avoided players list",
+    "recalibration": "Recalibration",
+    "otherFeatures": "...and other new features",
+    "interesting": "This is interesting"
+  },
+  "party_invite": {
+    "groupInvite": "invites you to join the group",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "player_avatar": {
+    "defaultAlt": "Image"
+  },
+  "player_feedback": {
+    "toast": {
+      "reviewSent": "Review sent",
+      "reviewSaved": "Review of player {{playerName}} saved successfully!",
+      "errorOccurred": "An error occurred",
+      "errorSaving": "We were unable to save the review of the player"
+    },
+    "modal": {
+      "title": "Player Review",
+      "reportsLeft": "Reviews remaining: {{reportsAvailable}}"
+    }
+  },
+  "player_pentagon_stats": {
+    "kills": "Kills",
+    "deaths": "Deaths",
+    "assists": "Assists",
+    "seasonStats": "Season Stats",
+    "gamesPlayed": "Games Played",
+    "winRate": "Win Rate",
+    "abandonedGames": "Abandoned Games",
+    "playtime": "Play Time"
+  },
+  "player_records": {
+    "thisSeason": "This Season",
+    "thisMonth": "This Month",
+    "allTime": "All Time"
+  },
+  "player_summary": {
+    "avatarAlt": "Avatar of player {{name}}",
+    "matches": "Matches",
+    "matchPlaying": "Playing in",
+    "lastGame": "last game",
+    "banReason": "Reason: {{reason}}",
+    "ban": "Banned",
+    "subscriberTooltip": "dotaclassic plus subscriber",
+    "winLossTooltip": "Wins - Losses - Abandoned",
+    "winRate": "Win Share",
+    "noRating": "No",
+    "rating": "Rating",
+    "noRank": "No",
+    "rank": "Rank",
+    "menu": {
+      "overall": "Overall",
+      "matches": "Matches",
+      "teammates": "Allies",
+      "heroes": "Heroes",
+      "records": "Records",
+      "drops": "Awards",
+      "settings": "Settings"
+    }
+  },
+  "please_go_queue": {
+    "titlePart1": "Let's play",
+    "queueInfo": "There are already {{inQueue}} in search!",
+    "acceptText": "On my way",
+    "declineText": "Later"
+  },
+  "project_statistics": {
+    "header": "Statistics",
+    "matchesCount": "Over 27,000",
+    "playedMatches": "matches played",
+    "matchesDetails": "Of which more than 15,000 in 5x5 mode, 8,500 games with bots, 3,500 in 1x1 mode",
+    "uniquePlayersCount": "19,000+",
+    "uniquePlayers": "unique players",
+    "contentCreators": "Content makers meeponegeroi, INBossik, Man-Samovar and many others also played in our project",
+    "gameTimeCount": "140,480 hours",
+    "gameTime": "game time",
+    "nostalgiaExperience": "We try to make sure everyone can experience nostalgia or try the original version of the game for the first time"
+  },
+  "receive_subscription_modal": {
+    "title": "Subscription received for {{title}}",
+    "itemName": "Item: {{name}}",
+    "actionLabel": "{{label}}"
+  },
+  "recent_posts": {
+    "news": "News",
+    "viewAll": "View all"
+  },
+  "records": {
+    "KILLS": "Kills",
+    "KDA": "KDA",
+    "ASSISTS": "Assists",
+    "DEATHS": "Deaths",
+    "LASTHITS": "Last hits",
+    "DENIES": "Denies",
+    "GPM": "GPM",
+    "XPM": "XPM",
+    "NETWORTH": "Net worth",
+    "TOWER_DAMAGE": "Tower damage",
+    "HERO_DAMAGE": "Hero damage",
+    "HERO_HEALING": "Hero healing",
+
+    "victory": "won",
+    "loss": "lost"
+  },
+  "report_modal": {
+    "reportPlayer": "Player Complaint",
+    "match": "Match",
+    "matchLabel": "Match",
+    "dodgeListTitle": "Dodge list",
+    "offender": "Offender",
+    "message": "Message",
+    "brokenRule": "Broken rule",
+    "ruleItem": "Rule item",
+    "comment": "Comment",
+    "commentPlaceholder": "If you want the player to actually get punished, specify what exactly happened: behavior, quotes, match moments. Remember: frequent inaccurate or unfounded complaints may result in the ability to send complaints being disabled.",
+    "sendButton": "Send",
+    "errorCreatingReport": "Error creating complaint"
+  },
+  "rich_editor_edit_mode": {
+    "placeholder": "Enter some rich text..."
+  },
+  "rich_message": {
+    "matches": "Matches <ForumUsername steamId={{steamId}} />",
+    "records": "Records <ForumUsername steamId={{steamId}} />",
+    "heroes": "Heroes <ForumUsername steamId={{steamId}} />",
+    "teammates": "Teammates <ForumUsername steamId={{steamId}} />",
+    "match": "Match {{matchId}}"
+  },
+  "rule_node": {
+    "displayTitle": "{{title}}"
+  },
+  "search_game_button": {
+    "searchForbidden": "Search prohibited",
+    "someoneInGame": "Someone in the group is playing",
+    "login": "Login",
+    "connecting": "Connecting...",
+    "returnToLobby": "Return to lobby",
+    "groupInLobby": "Group in lobby",
+    "joinLobby": "Join lobby",
+    "cancelSearch": "Cancel search",
+    "play": "Play",
+    "modeSingular": "mode",
+    "modePluralGenitive": "modes",
+    "modePlural": "modes"
+  },
+  "select_image_decoration": {
+    "title": "Title: {{title}}"
+  },
+  "select_options": {
+    "defaultText": "Select an option"
+  },
+  "server_searching": {
+    "searching": "Searching for a server..."
+  },
+  "store_landing": {
+    "title": "dotaclassic plus",
+    "description": "dotaclassic plus subscription page",
+    "subscriptionTitle": "dotaclassic plus",
+    "subscriptionText": "You help develop old Dota: online grows, matches improve, new functionality appears. And you also get nice privileges and exclusive features - as a token of gratitude for your support.",
+    "profileDecorationTitle": "Profile decorations",
+    "profileDecorationText": "Choose from a variety of styles, frames and effects to emphasize your character and stand out from the crowd. Let your profile speak for you even without words.",
+    "dodgeListText": "Looks like you're back together? Not today. Add a player to the dodge list and you'll never be on the same team again. Tired of the same heroes of the match? Assemble your ideal lineup on at least one side of the screen.",
+    "unbanHeroTitle": "Unbanned a hero",
+    "unbanHeroText": "Banked a hero? That's no reason to give up on your favorite character. Dotaclassic plus subscribers can choose banned heroes.",
+    "inGamePraiseTitle": "In-game praise",
+    "inGamePraiseText": "You can support your teammate for a hard-working game - or subtly tease your opponent for a fail. Everything is like in the current version. We added it so that the classics would have a little more emotion.",
+    "muteTitle": "Block",
+    "muteText": "Don't want to read messages, receive invites or see other people's comments on your profile anymore? Block a player - and it will disappear from your gaming space. Peace of mind guaranteed.",
+    "lobbyTitle": "Lobby",
+    "lobbyText": "Gather your friends, choose a map, turn bots on (or off) and decide for yourself how the match will go. Private game — your rules, your rhythm, your team.",
+    "recalibrationTitle": "Recalibration",
+    "recalibrationText": "Once per season, you can reset your rating to the starting one and play 10 calibration games again. Maybe this time the system will understand who is the real fighter for MMR?",
+    "subscribe": "Subscribe"
+  },
+  "stream_carousel": {
+    "streams": "Streams"
+  },
+  "teammates_table": {
+    "player": "Player",
+    "matches": "Matches",
+    "winrate": "% Wins"
+  },
+  "tech_static_tabs": {
+    "quickStart": "Quick Start",
+    "increaseFPS": "Increase FPS",
+    "clientSetup": "Client Setup",
+    "frequentIssues": "Frequent Issues"
+  },
+  "telegram_invite": {
+    "telegram": "Telegram"
+  },
+  "thread": {},
+  "threads_table": {
+    "avatarAlt": "avatar of user {{name}}"
+  },
+  "threads": {
+    "newMessagesCount": "New messages count: {{count}}"
+  },
+  "toolbar": {
+    "undo": "Undo",
+    "redo": "Redo",
+    "formatBold": "Format Bold",
+    "formatItalics": "Format Italics",
+    "formatHeading": "Format Heading",
+    "formatUnderline": "Format Underline",
+    "formatStrikethrough": "Format Strikethrough",
+    "leftAlign": "Left Align",
+    "centerAlign": "Center Align",
+    "rightAlign": "Right Align",
+    "justifyAlign": "Justify Align"
+  },
+  "username": {
+    "bot": "Bot #{id}",
+    "blank": "<blank>"
+  },
+  "username_roles": {
+    "streaming_now": "Стримит dotaclassic.ru прямо сейчас!",
+    "default_subscriber_title": "Подписчик dotaclassic plus"
+  },
+  "waiting_accept": {
+    "searchingServer": "Searching for a server...",
+    "waitingForPlayers": "Waiting for other players",
+    "avatarAlt": "Avatar of player {{steamId}}"
+  }
+}

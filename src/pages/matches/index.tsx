@@ -14,12 +14,14 @@ import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
 import { MatchComparator } from "@/util/sorts";
 import { GameModeOptions } from "@/const/options";
+import { useTranslation } from "react-i18next";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
 }
 
 export default function MatchHistory({ matches }: MatchHistoryProps) {
+  const { t } = useTranslation();
   const [page, setPage] = useQueryBackedParameter("page");
   const [mode, setMode] = useQueryBackedParameter("mode");
 
@@ -36,10 +38,8 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
   return (
     <>
       <EmbedProps
-        title={"История матчей"}
-        description={
-          "История матчей старой Dota 2, список матчей сыгранных на сайте dotaclassic.ru"
-        }
+        title={t("matches.historyTitle")}
+        description={t("matches.historyDescription")}
       />
       <Panel style={{ flexDirection: "row" }}>
         <SelectOptions
@@ -49,7 +49,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
             if (value === "undefined") setMode(undefined);
             else setMode(value);
           }}
-          defaultText={"Режим игры"}
+          defaultText={t("matches.gameModeDefault")}
         />
       </Panel>
       <div>

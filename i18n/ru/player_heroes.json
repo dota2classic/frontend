@@ -1,0 +1,15 @@
+{
+  "player_heroes": {
+    "playerHeroesTitle": "Герои игрока {{playerName}}",
+    "heroStatsDescription": "Статистика героев в руках игрока {{playerName}}.",
+    "heroesHeader": "Герои",
+    "heroColumn": "Герой",
+    "matchesColumn": "Матчи",
+    "winrateColumn": "% Побед",
+    "kdaColumn": "KDA",
+    "gpmColumn": "ЗВМ",
+    "xpmColumn": "ОВМ",
+    "lastHitsColumn": "Добито",
+    "deniesColumn": "Не отдано"
+  }
+}

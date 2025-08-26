@@ -1,0 +1,9 @@
+{
+  "matchmaking_option": {
+    "botsFillSlots": "Empty slots are filled with bots",
+    "strictPenalties": "Strict penalties for abandoned games",
+    "noPenalties": "No penalties for abandoned games",
+    "dropRewards": "Rewards are dropped after the match",
+    "inQueue": "in search"
+  }
+}

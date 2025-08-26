@@ -11,6 +11,7 @@ import cx from "clsx";
 import { useTransition } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   queueEntries: QueueEntryDTO[];
@@ -25,13 +26,6 @@ const OnlineList = observer(() => {
       style={{ display: "flex", flexDirection: "column" }}
     >
       {queue.online.length}
-      {/*<ul>*/}
-      {/*  /!*{queue.online.map((steamid) => (*!/*/}
-      {/*  /!*  <li key={steamid}>*!/*/}
-      {/*  /!*    <ForumUserEmbed key={steamid} steamId={steamid} />*!/*/}
-      {/*  /!*  </li>*!/*/}
-      {/*  /!*))}*!/*/}
-      {/*</ul>*/}
     </Panel>
   );
 });
@@ -40,6 +34,7 @@ export default function QueuesPage({
   queueEntries: initialQueues,
   modeInfo,
 }: Props) {
+  const { t } = useTranslation();
   const { data } = getApi().adminApi.useServerControllerQueues({
     fallbackData: initialQueues,
     refreshInterval: 5000,
@@ -77,7 +72,7 @@ export default function QueuesPage({
                 })
               }
             >
-              Отправить уведомление о поиске
+              {t("queues.sendNotification")}
               {isPending ? (
                 <AiOutlineLoading3Quarters className="loading" />
               ) : (
@@ -88,21 +83,24 @@ export default function QueuesPage({
               {entries.length > 0 ? (
                 entries.map((entry: QueueEntryDTO) => (
                   <div key={entry.partyId} className={c.withBorder}>
-                    <div>Party {entry.partyId} </div>
+                    <div>
+                      {t("queues.party")}
+                      {entry.partyId}
+                    </div>
                     {entry.players.map((plr: UserDTO) => (
                       <UserPreview roles key={plr.steamId} user={plr} />
                     ))}
                   </div>
                 ))
               ) : (
-                <div>Очередь пуста</div>
+                <div>{t("queues.emptyQueue")}</div>
               )}
             </Panel>
           </div>
         ))}
       </Section>
       <Section className={c.grid4}>
-        <header>Онлайн</header>
+        <header>{t("queues.online")}</header>
         <OnlineList />
       </Section>
     </div>

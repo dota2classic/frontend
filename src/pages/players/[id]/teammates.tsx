@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { PlayerSummaryDto, PlayerTeammatePageDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { maxBy } from "@/util";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -22,6 +23,7 @@ export default function PlayerTeammates({
   playerId,
   summary,
 }: Props) {
+  const { t } = useTranslation();
   const [totalData, setTotalData] = useState<
     Record<number, PlayerTeammatePageDto>
   >({
@@ -59,7 +61,7 @@ export default function PlayerTeammates({
         mmr={summary.seasonStats.mmr}
       />
       <Section>
-        <header>Тиммейты</header>
+        <header>{t("player_teammates.header")}</header>
         <TeammatesTable
           data={Object.values(totalData).flatMap((it) => it.data)}
         />

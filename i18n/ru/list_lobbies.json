@@ -1,0 +1,21 @@
+{
+  "lobby": {
+    "createError": "Ошибка при создании лобби",
+    "listTitle": "Список лобби",
+    "listDescription": "Список игровых лобби",
+    "createLobby": "Создать лобби",
+    "table": {
+      "lobby": "Лобби",
+      "host": "Хост",
+      "mode": "Режим",
+      "map": "Карта",
+      "playerCount": "Количество игроков",
+      "privacy": "Приватность",
+      "actions": "Действия"
+    },
+    "emptyList": "Список лобби пуст",
+    "passwordRequired": "С паролем",
+    "passwordNotRequired": "Без пароля",
+    "join": "Присоединиться"
+  }
+}

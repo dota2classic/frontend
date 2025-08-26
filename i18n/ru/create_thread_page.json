@@ -1,0 +1,12 @@
+{
+  "create_thread": {
+    "errorCreatingPost": "Произошла ошибка при создании поста",
+    "createThread": "Создать тему на форуме",
+    "createNewThreadDesc": "Создать новую тему на форуме. Обсудить насущные вопросы",
+    "topicTitle": "Название топика",
+    "placeholderTopicTitle": "Гена опять запотел в паблике",
+    "message": "Сообщение",
+    "placeholderMessage": "Введите сообщение",
+    "createTopic": "Создать тему"
+  }
+}

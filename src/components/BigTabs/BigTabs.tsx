@@ -5,9 +5,9 @@ import cx from "clsx";
 import { NextLinkProp } from "@/route";
 import { PageLink } from "@/components";
 
-export interface TabItem<T extends string> {
+export interface TabItem<T extends string, L = ReactNode> {
   key: T;
-  label: ReactNode;
+  label: L;
   onSelect: SelectAction<T>;
 }
 
@@ -17,8 +17,8 @@ function isNextLinkProp<T>(u: SelectAction<T>): u is NextLinkProp {
   return "href" in u;
 }
 
-export interface IBigTabsProps<T extends string = string> {
-  items: TabItem<T>[];
+export interface IBigTabsProps<T extends string = string, L = ReactNode> {
+  items: TabItem<T, L>[];
   selected: T;
   className?: string;
   flavor: "small" | "big";

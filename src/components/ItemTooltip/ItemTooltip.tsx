@@ -46,7 +46,7 @@ export const ItemTooltipRaw = ({
         <div>
           <span>{d.name}</span>
           <span>
-            <FaCoins color={"#C9AF1D"} /> {d.cost}{" "}
+            <FaCoins color={"#C9AF1D"} /> {d.cost}
           </span>
         </div>
       </div>

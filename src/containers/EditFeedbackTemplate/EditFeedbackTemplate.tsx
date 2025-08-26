@@ -8,6 +8,7 @@ import { getApi } from "@/api/hooks";
 import { useRouter } from "next/router";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
+import { useTranslation } from "react-i18next";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -19,6 +20,7 @@ interface IEditFeedbackTemplateProps {
 
 export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
   observer(({ template }) => {
+    const { t } = useTranslation();
     const temp = useLocalObservable<{
       template: FeedbackTemplateDto;
       lastReceivedTemplate: FeedbackTemplateDto;
@@ -114,18 +116,18 @@ export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
     }, [router, temp, template]);
     return (
       <Panel className={cx(c.form, threadFont.className)}>
-        <h3>Тег(техническая инфа)</h3>
+        <h3>{t("edit_feedback_template.tagInfo")}</h3>
         <Input
           value={temp.template.tag}
-          placeholder="Тег"
+          placeholder={t("edit_feedback_template.tagPlaceholder")}
           onChange={(e) =>
             runInAction(() => (temp.template.tag = e.target.value))
           }
         />
-        <h3>Заголовок</h3>
+        <h3>{t("edit_feedback_template.title")}</h3>
         <Input
           value={temp.template.title}
-          placeholder="Заголовок"
+          placeholder={t("edit_feedback_template.titlePlaceholder")}
           onChange={(e) =>
             runInAction(() => (temp.template.title = e.target.value))
           }
@@ -137,10 +139,10 @@ export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
             runInAction(() => (temp.template.needsTicket = v));
           }}
         >
-          Создавать тикет
+          {t("edit_feedback_template.createTicket")}
         </Checkbox>
 
-        <h3>Варианты ответа</h3>
+        <h3>{t("edit_feedback_template.responseOptions")}</h3>
         <div className={c.options}>
           {temp.template.options
             .slice()
@@ -157,20 +159,20 @@ export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
                     onChange={(e) => {
                       runInAction(() => (option.option = e.target.value));
                     }}
-                    placeholder="Вариант ответа"
+                    placeholder={t("edit_feedback_template.optionPlaceholder")}
                   />
                   <Button
                     onClick={() => updateOption(option)}
                     className={c.save}
                     disabled={!dirty}
                   >
-                    Сохранить
+                    {t("edit_feedback_template.save")}
                   </Button>
                   <Button
                     onClick={() => removeOption(option.id)}
                     className={c.delete}
                   >
-                    Удалить
+                    {t("edit_feedback_template.delete")}
                   </Button>
                 </div>
               );
@@ -180,11 +182,13 @@ export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
             disabled={!template}
             onClick={addOption}
           >
-            Добавить вариант ответа
+            {t("edit_feedback_template.addResponse")}
           </Button>
         </div>
 
-        <Button onClick={updateTemplate}>Сохранить</Button>
+        <Button onClick={updateTemplate}>
+          {t("edit_feedback_template.save")}
+        </Button>
       </Panel>
     );
   });

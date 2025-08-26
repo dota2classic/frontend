@@ -7,6 +7,7 @@ import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { metrika } from "@/ym";
 import { NextPageContext } from "next";
+import { useTranslation } from "react-i18next";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -16,6 +17,8 @@ interface MatchDownloadPage {
   match?: MatchDto;
 }
 export default function MatchDownloadPage({ match }: MatchDownloadPage) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (!match) {
       notFound();
@@ -41,7 +44,7 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
       <CoolList
         items={[
           {
-            title: <>Скачай реплей</>,
+            title: <> {t("match_download.downloadReplayTitle")} </>,
             content: (
               <>
                 <Button
@@ -50,33 +53,33 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
                   target="__blank"
                   onClick={() => metrika("reachGoal", "DOWNLOAD_REPLAY")}
                 >
-                  Нажми сюда, чтобы скачать файл с реплеем игры
+                  {t("match_download.downloadReplayButton")}
                 </Button>
               </>
             ),
           },
           {
-            title: <>Помести скачанный файл в папку с игрой</>,
+            title: <> {t("match_download.placeFileTitle")} </>,
             content: (
               <>
                 <p className={cx("gold", threadFont.className)}>
-                  папка с игрой/dota
+                  {t("match_download.gameFolder")}
                 </p>
-                Если такой папки нет - создай. <br />
-                Итог: у тебя должен быть файл{" "}
+                {t("match_download.createFolder")}. <br />
+                {t("match_download.finalFile")}
                 <span className={cx("green", threadFont.className)}>
-                  dota/{match.id}.dem
+                  {t("match_download.finalFilePath", { matchId: match.id })}
                 </span>
                 <img src="/guide/replay-folder.png" alt="" />
               </>
             ),
           },
           {
-            title: <>Запусти клиент и выполни коснольную команду</>,
+            title: <> {t("match_download.startClientTitle")} </>,
             content: (
               <>
                 <CopyBlock
-                  text={"Консольная команда для запуска просмотра реплея"}
+                  text={t("match_download.consoleCommandText")}
                   command={`playdemo ${match.id}.dem`}
                 />
                 <img src="/guide/replay-console-command.png" alt="" />

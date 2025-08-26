@@ -3,88 +3,62 @@ import cx from "clsx";
 import c from "@/pages/static/rules/RulesPage.module.scss";
 import { NotoSans } from "@/const/notosans";
 import { TrajanPro } from "@/const/fonts";
+import { useTranslation } from "react-i18next";
 
 export default function VacanciesPage() {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title="Кто нам нужен"
-        description="В каких талантах нуждается проект dotaclassic"
+        title={t("vacancies_page.whoWeNeed")}
+        description={t("vacancies_page.projectNeeds")}
       />
       <div className={cx(c.postContainer, NotoSans.className)}>
         <h1 className={cx(TrajanPro.className, "megaheading")}>
-          Кто нам нужен
+          {t("vacancies_page.whoWeNeed")}
         </h1>
         <p>
-          Проект <span className="red">dotaclassic</span> держится на энтузиазме
-          людей, для которых старая дота больше, чем просто "кастомка". Мы
-          принимаем любую помощь, но, к сожалению, безвозмездно - проект
-          некоммерческий и вся прибыль идет на развитие.
+          {t("vacancies_page.projectIntro", {
+            project: <span className="red">dotaclassic</span>,
+          })}
         </p>
-        <p>
-          Все "вакансии" подразумевают отсутствие денежного вознаграждение, но
-          при этом от кандидата не ожидается запредельного импакта.
-        </p>
+        <p>{t("vacancies_page.volunteerNote")}</p>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Продакт менеджер
+          {t("vacancies_page.productManager")}
         </h2>
-        <p>
-          Нашему проекту очень нужен человек, который будет направлять развитие
-          продукта. У нас есть ресурсы разработки, немного аналитики, но мы
-          слишком мало времени уделяем работе с пользователями и развиваемся в
-          "примерном" направлении.
-        </p>
+        <p>{t("vacancies_page.productManagerDescription")}</p>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Контент менеджер
+          {t("vacancies_page.contentManager")}
         </h2>
-        <p>
-          У нас есть телеграм канал, дискорд сервер, тикток и ютуб - но контента
-          в нем совсем немного и он не поставлен на поток. Разрабатывать
-          контент-план, регулярно постить в каналы - на все это нам просто не
-          хватает рук.
-        </p>
+        <p>{t("vacancies_page.contentManagerDescription")}</p>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Продакт аналитик
+          {t("vacancies_page.productAnalyst")}
         </h2>
-        <p>
-          У нас есть платформа для метрик и постройки аналитики, но не хватает
-          профессионализма. Составление аналитических запросов, построение
-          продуктовых дашбордов в grafana, и самое главное - понимать поведение
-          пользователей и выдвигать гипотезы.
-        </p>
+        <p>{t("vacancies_page.productAnalystDescription")}</p>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Фронтенд разработчик React/Vue
+          {t("vacancies_page.frontendDev")}
         </h2>
-        <p>
-          Основной сайт написан на NextJS, но некоторые компоненты(например,
-          превью предметов) написаны на Vue. Много интересных фичей ждет
-          разработки, а также рефакторинг существующей кодовой базы.
-        </p>
-        <p>Ожидаемые навыки и инструменты:</p>
+        <p>{t("vacancies_page.frontendDevDescription")}</p>
+        <p>{t("vacancies_page.expectedSkills")}</p>
         <ul>
           <li>React, Typescript</li>
           <li>SASS/SCSS</li>
         </ul>
-        <h2 className={cx(TrajanPro.className, "megaheading")}>UI дизайнер</h2>
-        <p>
-          У сайта есть "зародыш" стиля, но не хватает общей дизайн системы и
-          структуры. Опытный дизайнер поможет нам прийти к однообразию,
-          визуальной стабильности и удобству пользования.
-        </p>
-        <p>Ожидаемые навыки и инструменты:</p>
+        <h2 className={cx(TrajanPro.className, "megaheading")}>
+          {t("vacancies_page.uidesigner")}
+        </h2>
+        <p>{t("vacancies_page.uiDesignerDescription")}</p>
+        <p>{t("vacancies_page.expectedSkills")}</p>
         <ul>
-          <li>Построение макетов и систем компонентов</li>
+          <li>{t("vacancies_page.layoutAndComponentSystem")}</li>
           <li>Figma</li>
         </ul>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Devops и системный администратор
+          {t("vacancies_page.devops")}
         </h2>
-        <p>
-          Поддержка и администрация тачек, где у нас в docker-compose крутятся
-          сервисы и nginx. Также у нас есть "игровые" тачки - на них хостятся
-          сервера. Из них нужно уметь выжимать максимум перфоманса.
-        </p>
-        <p>Ожидаемые навыки и инструменты:</p>
+        <p>{t("vacancies_page.devopsDescription")}</p>
+        <p>{t("vacancies_page.expectedSkills")}</p>
         <ul>
           <li>OS Linux, Bash</li>
           <li>Docker, Docker-Compose</li>
@@ -93,15 +67,10 @@ export default function VacanciesPage() {
           <li>Ansible</li>
         </ul>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Бекенд разработчик NodeJS/Typescript
+          {t("vacancies_page.backendDev")}
         </h2>
-        <p>
-          Бекенд в основном состоит из NestJS сервисов, общающихся по Rest,
-          RabbitMQ и Redis. Основные задачи - реализовывать новые фичи в
-          существующих сервисах, реализовывать новые сервисы, написание и
-          поддержка интеграционных и юнит тестов.
-        </p>
-        <p>Ожидаемые навыки и инструменты:</p>
+        <p>{t("vacancies_page.backendDevDescription")}</p>
+        <p>{t("vacancies_page.expectedSkills")}</p>
         <ul>
           <li>NodeJS, Typescript</li>
           <li>NestJS/Express/Koa</li>
@@ -109,14 +78,10 @@ export default function VacanciesPage() {
           <li>Jest</li>
         </ul>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          SRCDS модер/разработчик плагинов
+          {t("vacancies_page.srcdsDev")}
         </h2>
-        <p>
-          Очень специфическая работа - разработка и поддержка существующих
-          sourcemod плагинов, настройка конфигов и работа с другими source
-          инструментами - hammer и прочие
-        </p>
-        <p>Ожидаемые навыки и инструменты:</p>
+        <p>{t("vacancies_page.srcdsDevDescription")}</p>
+        <p>{t("vacancies_page.expectedSkills")}</p>
         <ul>
           <li>Sourcepawn</li>
           <li>Lua</li>
@@ -125,23 +90,17 @@ export default function VacanciesPage() {
           <li>Sourcemod</li>
         </ul>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Discord модератор/настройка сервера
+          {t("vacancies_page.discordModerator")}
         </h2>
-        <p>
-          Мы с радостью примем помощь в настройке дискорд сервера, чтобы им было
-          и удобно пользоваться, новичкам была легко доступна важная информация,
-          а модераторам легко было поддерживать порядок.
-        </p>
+        <p>{t("vacancies_page.discordModeratorDescription")}</p>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          Как с нами связаться
+          {t("vacancies_page.contactUs")}
         </h2>
         <p>
           <a className={"link"} href="https://t.me/enchantinggg4">
             t.me/enchantinggg4
           </a>{" "}
-          - пиши мне в телеграм. Пожалуйста, указывай, что именно тебя
-          заинтересовало, а также расскажи про свой опыт - мне будет очень
-          интересно!
+          - {t("vacancies_page.contactInstruction")}
         </p>
       </div>
     </>

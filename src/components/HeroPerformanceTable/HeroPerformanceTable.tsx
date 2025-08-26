@@ -4,6 +4,7 @@ import { GenericTable } from "..";
 import { colors } from "@/colors";
 import { AppRouter } from "@/route";
 import { ColumnType } from "@/const/tables";
+import { useTranslation } from "react-i18next";
 
 interface DataPoint {
   hero: string;
@@ -24,6 +25,8 @@ export const HeroPerformanceTable: React.FC<IHeroPerformanceTableProps> = ({
   loading,
   steamId,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <GenericTable
       className={className}
@@ -32,23 +35,23 @@ export const HeroPerformanceTable: React.FC<IHeroPerformanceTableProps> = ({
       columns={[
         {
           type: ColumnType.Hero,
-          name: "Герой",
+          name: t("hero_performance_table.hero"),
           noname: false,
           link: (d) => AppRouter.players.playerMatches(steamId, d[0]).link,
         },
         {
           type: ColumnType.IntWithBar,
-          name: "Матчи",
+          name: t("hero_performance_table.matches"),
           color: colors.green,
         },
         {
           type: ColumnType.PercentWithBar,
-          name: "% Побед",
+          name: t("hero_performance_table.winPercentage"),
           color: colors.green,
         },
         {
           type: ColumnType.FloatWithBar,
-          name: "KDA",
+          name: t("hero_performance_table.kda"),
           color: colors.red,
         },
       ]}

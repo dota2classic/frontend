@@ -30,6 +30,7 @@ import {
   DotaMapOptions,
   DotaPatchOptions,
 } from "@/const/options";
+import { useTranslation } from "react-i18next";
 
 interface PageProps {
   initialServerPool: GameServerDto[];
@@ -46,34 +47,35 @@ const SessionList = observer(
     sessions: GameSessionDto[];
   }) => {
     const { isAdmin } = useStore().auth;
+    const { t } = useTranslation();
     return (
       <GenericTable
         keyProvider={(t) => t[1]}
         columns={[
           {
             type: ColumnType.ExternalLink,
-            name: "Ссылка",
+            name: t("admin.servers.sessionList.link"),
           },
           {
             type: ColumnType.Raw,
-            name: "ID Матча",
+            name: t("admin.servers.sessionList.matchId"),
           },
           {
             type: ColumnType.Raw,
-            name: "Режим",
+            name: t("admin.servers.sessionList.mode"),
             format: (t) => formatGameMode(t),
           },
           {
             type: ColumnType.Raw,
-            name: "Команды",
+            name: t("admin.servers.sessionList.teams"),
           },
           {
             type: ColumnType.Raw,
-            name: "Действия",
+            name: t("admin.servers.sessionList.actions"),
             format: (d) => (
               <>
                 <Button disabled={!isAdmin} onClick={() => stopGameSession(d)}>
-                  Остановить
+                  {t("admin.servers.sessionList.stop")}
                 </Button>
               </>
             ),
@@ -101,13 +103,14 @@ const ServerPool = observer(
     onKillServer: (url: string) => void;
   }) => {
     const { isAdmin } = useStore().auth;
+    const { t } = useTranslation();
     return (
       <Table>
         <thead>
           <tr>
-            <th>Ссылка</th>
-            <th>Версия игры</th>
-            <th>Действия</th>
+            <th>{t("admin.servers.serverPool.link")}</th>
+            <th>{t("admin.servers.serverPool.version")}</th>
+            <th>{t("admin.servers.serverPool.actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -121,7 +124,7 @@ const ServerPool = observer(
                   className="small"
                   onClick={() => onKillServer(it.url)}
                 >
-                  Остановить
+                  {t("admin.servers.serverPool.stop")}
                 </button>
               </td>
             </tr>
@@ -137,6 +140,7 @@ export default function AdminServersPage({
   initialGameSessions,
   initialAllowedModes,
 }: PageProps) {
+  const { t } = useTranslation();
   const mounted = useDidMount();
   const { data: serverPool } = getApi().adminApi.useServerControllerServerPool({
     fallbackData: initialServerPool,
@@ -209,73 +213,75 @@ export default function AdminServersPage({
   return (
     <div className={c.gridPanel}>
       <Section className={c.grid12}>
-        <header>Режимы игры</header>
+        <header>{t("admin.servers.gameModes")}</header>
 
         <Table>
           <thead>
             <tr>
-              <th>Режим</th>
-              <th style={{ width: 200 }}>Игровой режим</th>
-              <th>Карта</th>
-              <th>Патч</th>
-              <th>Активен</th>
-              <th>Читы</th>
-              <th>Боты</th>
+              <th>{t("admin.servers.gameModes.mode")}</th>
+              <th style={{ width: 200 }}>
+                {t("admin.servers.gameModes.gameMode")}
+              </th>
+              <th>{t("admin.servers.gameModes.map")}</th>
+              <th>{t("admin.servers.gameModes.patch")}</th>
+              <th>{t("admin.servers.gameModes.active")}</th>
+              <th>{t("admin.servers.gameModes.cheats")}</th>
+              <th>{t("admin.servers.gameModes.bots")}</th>
             </tr>
           </thead>
           <tbody>
-            {modes.map((t) => (
-              <tr key={t.lobbyType.toString()}>
-                <td>{formatGameMode(t.lobbyType)}</td>
+            {modes.map((matchmakingMode) => (
+              <tr key={matchmakingMode.lobbyType.toString()}>
+                <td>{formatGameMode(matchmakingMode.lobbyType)}</td>
                 <td>
                   <SelectOptions
-                    defaultText={"Режим игры"}
+                    defaultText={t("admin.servers.gameModes.selectGameMode")}
                     options={DotaGameModeOptions}
-                    selected={t.gameMode}
+                    selected={matchmakingMode.gameMode}
                     onSelect={(value) =>
                       updateGameMode(
-                        t.lobbyType,
+                        matchmakingMode.lobbyType,
                         value.value,
-                        t.dotaMap,
-                        t.enabled,
-                        t.enableCheats,
-                        t.fillBots,
-                        t.patch,
+                        matchmakingMode.dotaMap,
+                        matchmakingMode.enabled,
+                        matchmakingMode.enableCheats,
+                        matchmakingMode.fillBots,
+                        matchmakingMode.patch,
                       )
                     }
                   />
                 </td>
                 <td>
                   <SelectOptions
-                    defaultText={"Карта"}
+                    defaultText={t("admin.servers.gameModes.selectMap")}
                     options={DotaMapOptions}
-                    selected={t.dotaMap}
+                    selected={matchmakingMode.dotaMap}
                     onSelect={(value) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
                         value.value,
-                        t.enabled,
-                        t.enableCheats,
-                        t.fillBots,
-                        t.patch,
+                        matchmakingMode.enabled,
+                        matchmakingMode.enableCheats,
+                        matchmakingMode.fillBots,
+                        matchmakingMode.patch,
                       )
                     }
                   />
                 </td>
                 <td>
                   <SelectOptions
-                    defaultText={"Патч"}
+                    defaultText={t("admin.servers.gameModes.selectPatch")}
                     options={DotaPatchOptions}
-                    selected={t.patch}
+                    selected={matchmakingMode.patch}
                     onSelect={(value) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
-                        t.dotaMap,
-                        t.enabled,
-                        t.enableCheats,
-                        t.fillBots,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
+                        matchmakingMode.dotaMap,
+                        matchmakingMode.enabled,
+                        matchmakingMode.enableCheats,
+                        matchmakingMode.fillBots,
                         value.value,
                       )
                     }
@@ -285,17 +291,17 @@ export default function AdminServersPage({
                   <input
                     onChange={(e) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
-                        t.dotaMap,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
+                        matchmakingMode.dotaMap,
                         e.target.checked,
-                        t.enableCheats,
-                        t.fillBots,
-                        t.patch,
+                        matchmakingMode.enableCheats,
+                        matchmakingMode.fillBots,
+                        matchmakingMode.patch,
                       )
                     }
                     type="checkbox"
-                    checked={t.enabled}
+                    checked={matchmakingMode.enabled}
                   />
                 </td>
 
@@ -303,34 +309,34 @@ export default function AdminServersPage({
                   <input
                     onChange={(e) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
-                        t.dotaMap,
-                        t.enabled,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
+                        matchmakingMode.dotaMap,
+                        matchmakingMode.enabled,
                         e.target.checked,
-                        t.fillBots,
-                        t.patch,
+                        matchmakingMode.fillBots,
+                        matchmakingMode.patch,
                       )
                     }
                     type="checkbox"
-                    checked={t.enableCheats}
+                    checked={matchmakingMode.enableCheats}
                   />
                 </td>
                 <td>
                   <input
                     onChange={(e) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
-                        t.dotaMap,
-                        t.enabled,
-                        t.enableCheats,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
+                        matchmakingMode.dotaMap,
+                        matchmakingMode.enabled,
+                        matchmakingMode.enableCheats,
                         e.target.checked,
-                        t.patch,
+                        matchmakingMode.patch,
                       )
                     }
                     type="checkbox"
-                    checked={t.fillBots}
+                    checked={matchmakingMode.fillBots}
                   />
                 </td>
               </tr>
@@ -340,7 +346,7 @@ export default function AdminServersPage({
       </Section>
 
       <div className={c.grid12}>
-        <h3>Пул серверов</h3>
+        <h3>{t("admin.servers.serverPool.title")}</h3>
 
         <ServerPool
           serverPool={serverPool!}
@@ -354,7 +360,7 @@ export default function AdminServersPage({
       </div>
 
       <div className={c.grid12}>
-        <h3>Текущие сессии</h3>
+        <h3>{t("admin.servers.currentSessions")}</h3>
         <SessionList sessions={sessions} stopGameSession={stopGameSession} />
       </div>
     </div>

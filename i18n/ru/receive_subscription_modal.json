@@ -1,0 +1,7 @@
+{
+  "receive_subscription_modal": {
+    "title": "Subscription received for {{title}}",
+    "itemName": "Item: {{name}}",
+    "actionLabel": "{{label}}"
+  }
+}

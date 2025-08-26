@@ -1,0 +1,23 @@
+{
+  "match": {
+    "title": "Матч {{matchId}}",
+    "description": "Страница матча с ID {{matchId}}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru",
+    "radiant": "Силы Света {{winner}}",
+    "dire": "Силы Тьмы {{winner}}"
+  },
+  "match_summary": {
+    "summary": "Сводка"
+  },
+  "farming": {
+    "farming": "Фарм"
+  },
+  "damage": {
+    "damage": "Урон"
+  },
+  "items": {
+    "items": "Предметы"
+  },
+  "other": {
+    "other": "Прочее"
+  }
+}

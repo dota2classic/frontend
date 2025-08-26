@@ -7,6 +7,7 @@ import { AppRouter } from "@/route";
 import { colors } from "@/colors";
 import { winrate } from "@/util/math";
 import { ColumnType } from "@/const/tables";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -19,21 +20,20 @@ export default function PlayerHeroes({
   playerId,
   summary,
 }: Props) {
+  const { t } = useTranslation();
   const formattedHeroStats = (preloadedHeroStats || []).toSorted(
     (a, b) => b.games - a.games,
   );
-  // .map((it) => ({
-  //   hero: it.hero,
-  //   kda: it.kda,
-  //   wins: it.wins,
-  //   loss: it.loss,
-  // }));
 
   return (
     <>
       <EmbedProps
-        title={`Герои игрока ${summary.user.name}`}
-        description={`Статистика героев в руках игрока ${summary.user.name}.`}
+        title={t("player_heroes.playerHeroesTitle", {
+          playerName: summary.user.name,
+        })}
+        description={t("player_heroes.heroStatsDescription", {
+          playerName: summary.user.name,
+        })}
       />
       <PlayerSummary
         session={summary.session}
@@ -44,56 +44,56 @@ export default function PlayerHeroes({
         mmr={summary.seasonStats.mmr}
       />
       <Section>
-        <header>Герои</header>
+        <header>{t("player_heroes.heroesHeader")}</header>
         <GenericTable
           columns={[
             {
               type: ColumnType.Hero,
-              name: "Герой",
+              name: t("player_heroes.heroColumn"),
               noname: false,
               link: (d) => AppRouter.players.playerMatches(playerId, d[0]).link,
               sortable: true,
             },
             {
               type: ColumnType.IntWithBar,
-              name: "Матчи",
+              name: t("player_heroes.matchesColumn"),
               color: colors.green,
               sortable: true,
               defaultSort: "desc",
             },
             {
               type: ColumnType.PercentWithBar,
-              name: "% Побед",
+              name: t("player_heroes.winrateColumn"),
               color: colors.green,
               sortable: true,
             },
             {
               type: ColumnType.FloatWithBar,
-              name: "KDA",
+              name: t("player_heroes.kdaColumn"),
               color: colors.red,
               sortable: true,
             },
             {
               type: ColumnType.IntWithBar,
-              name: "ЗВМ",
+              name: t("player_heroes.gpmColumn"),
               color: colors.grey,
               sortable: true,
             },
             {
               type: ColumnType.IntWithBar,
-              name: "ОВМ",
+              name: t("player_heroes.xpmColumn"),
               color: colors.grey,
               sortable: true,
             },
             {
               type: ColumnType.IntWithBar,
-              name: "Добито",
+              name: t("player_heroes.lastHitsColumn"),
               color: colors.grey,
               sortable: true,
             },
             {
               type: ColumnType.IntWithBar,
-              name: "Не отдано",
+              name: t("player_heroes.deniesColumn"),
               color: colors.grey,
               sortable: true,
             },

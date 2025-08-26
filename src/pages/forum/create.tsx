@@ -12,11 +12,13 @@ import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
 import { NextPageContext } from "next";
 import { handleException } from "@/util/handleException";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   threadType: ThreadType;
 }
 export default function CreateThreadPage({ threadType }: Props) {
+  const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const router = useRouter();
@@ -36,26 +38,26 @@ export default function CreateThreadPage({ threadType }: Props) {
         `/forum${forTicket}/${res.externalId}`,
       );
     } catch (e) {
-      await handleException("Произошла ошибка при создании поста", e);
+      await handleException(t("create_thread.errorCreatingPost"), e);
     }
-  }, [content, title, threadType, router]);
+  }, [content, title, threadType, router, t]);
 
   return (
     <Panel className={c.createThread}>
       <EmbedProps
-        title="Создать тему на форуме"
-        description="Создать новую тему на форуме. Обсудить насущные вопросы"
+        title={t("create_thread.createThread")}
+        description={t("create_thread.createNewThreadDesc")}
       />
-      <h2>Название топика</h2>
+      <h2>{t("create_thread.topicTitle")}</h2>
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder={"Гена опять запотел в паблике"}
+        placeholder={t("create_thread.placeholderTopicTitle")}
       />
-      <h2>Сообщение</h2>
+      <h2>{t("create_thread.message")}</h2>
       <MarkdownTextarea
         className={c.text}
-        placeholder={"Введите сообщение"}
+        placeholder={t("create_thread.placeholderMessage")}
         value={content}
         rows={8}
         onChange={(e) => {
@@ -64,11 +66,9 @@ export default function CreateThreadPage({ threadType }: Props) {
       />
       <br />
       <br />
-      {/*<div className={c.createMessage}>*/}
       <Button mega onClick={createThread}>
-        Создать тему
+        {t("create_thread.createTopic")}
       </Button>
-      {/*</div>*/}
     </Panel>
   );
 }

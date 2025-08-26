@@ -7,6 +7,7 @@ import { SubscriptionProductDto } from "@/api/back";
 import { useAsyncButton } from "@/util/use-async-button";
 import { makeSimpleToast } from "@/components/Toast/toasts";
 import { handleException } from "@/util/handleException";
+import { useTranslation } from "react-i18next";
 
 interface IGiveProductContainerProps {
   steamId: string;
@@ -14,6 +15,7 @@ interface IGiveProductContainerProps {
 
 export const GiveProductContainer: React.FC<IGiveProductContainerProps> =
   observer(({ steamId }) => {
+    const { t } = useTranslation();
     const state = useLocalObservable<{
       product?: SubscriptionProductDto;
       transactionId: string;
@@ -31,17 +33,21 @@ export const GiveProductContainer: React.FC<IGiveProductContainerProps> =
           paymentId: state.transactionId,
         });
 
-        makeSimpleToast("Подписка успешно выдана!", "Сюда лут", 5000);
+        makeSimpleToast(
+          t("giveProduct.successMessage"),
+          t("giveProduct.toastTitle"),
+          5000,
+        );
       } catch (e) {
-        await handleException("Ошибка при выдаче подписки!", e);
+        await handleException(t("giveProduct.errorMessage"), e);
       }
     }, [steamId, state]);
 
-    if (!data) return "Загрузка...";
+    if (!data) return t("giveProduct.loading");
     return (
       <Panel>
         <SelectOptions
-          defaultText={"Наказание"}
+          defaultText={t("giveProduct.defaultText")}
           onSelect={(p: { value: number; label: string } | undefined) => {
             runInAction(() => {
               state.product = data!.find((t) => t.id === p?.value);
@@ -51,7 +57,7 @@ export const GiveProductContainer: React.FC<IGiveProductContainerProps> =
           options={data.map((product) => ({
             label: (
               <>
-                {product.months} месяцев, $
+                {product.months} {t("giveProduct.months")}, $
                 {product.months * product.pricePerMonth}
               </>
             ),
@@ -72,7 +78,7 @@ export const GiveProductContainer: React.FC<IGiveProductContainerProps> =
           disabled={isGiving || !state.product || !state.transactionId}
           onClick={giveProduct}
         >
-          Выдать подписку
+          {t("giveProduct.submitButton")}
         </Button>
       </Panel>
     );

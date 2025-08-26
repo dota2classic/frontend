@@ -1,0 +1,5 @@
+{
+  "select_image_decoration": {
+    "title": "Title: {{title}}"
+  }
+}

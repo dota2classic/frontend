@@ -2,6 +2,7 @@ import c from "@/containers/EditProfileDecorations/EditProfileDecorations.module
 import React, { ReactNode } from "react";
 import { ProfileDecorationDto } from "@/api/back";
 import { SelectOptions } from "@/components";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   decorations: ProfileDecorationDto[];
@@ -15,8 +16,9 @@ export const SelectTextDecoration = ({
   title,
   onSelect,
 }: Props) => {
+  const { t } = useTranslation();
   const options = [
-    { label: "По умолчанию", value: undefined },
+    { label: t("edit_profile.default"), value: undefined },
     ...decorations.map((it) => ({ label: it.title, value: it.id })),
   ];
   return (
@@ -25,7 +27,7 @@ export const SelectTextDecoration = ({
         options={options}
         selected={current?.id}
         onSelect={(value) => onSelect(value.value)}
-        defaultText={"dotaclassic plus"}
+        defaultText={t("edit_profile.dotaclassicPlus")}
       />
       <header>{title}</header>
     </div>

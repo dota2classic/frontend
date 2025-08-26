@@ -8,8 +8,10 @@ import cx from "clsx";
 import { threadFont } from "@/const/fonts";
 import { FaCheck } from "react-icons/fa6";
 import dynamic from "next/dynamic";
+import { useTranslation } from "react-i18next";
 
 function AcceptCookiesContainerAll() {
+  const { t } = useTranslation();
   const [cookiesAccepted, setCookiesAccepted] = useLocalStorage(
     "d2c:cookies_accepted",
     false,
@@ -20,17 +22,17 @@ function AcceptCookiesContainerAll() {
   return (
     <div className={cx(c.cookies, threadFont.className)}>
       <p>
-        Пользуясь сайтом и играя на серверах dotaclassic.ru Вы соглашаетесь на
-        обработку персональных данных и хранение и передачу cookies.
-        Ознакомиться можно{" "}
+        {t("accept_cookies.cookiesAgreement", { site: "dotaclassic.ru" })}
+        {t("accept_cookies.readMore")}
         <PageLink className={"link"} link={AppRouter.contact.link}>
-          здесь.
+          {t("accept_cookies.here")}
         </PageLink>
+        .
       </p>
 
       <Button small onClick={() => setCookiesAccepted(true)}>
         <FaCheck />
-        Согласен
+        {t("accept_cookies.agree")}
       </Button>
     </div>
   );

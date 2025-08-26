@@ -1,0 +1,8 @@
+{
+  "forbidden": {
+    "accessDenied": "Access Denied",
+    "noAccessRights": "You do not have permission to access this page",
+    "noViewRights": "You do not have rights to view this page",
+    "returnHome": "Return to the main page"
+  }
+}

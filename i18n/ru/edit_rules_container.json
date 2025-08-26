@@ -1,0 +1,23 @@
+{
+  "edit_rules": {
+    "createRule": "Создать правило",
+    "setIndices": "Задать индексы",
+    "rule": "Правило",
+    "rulePlaceholder": "Правило",
+    "ruleDescription": "Описание правила",
+    "ruleDescriptionPlaceholder": "Описание правила",
+    "punishment": "Наказание",
+    "punishmentDefaultText": "Наказание",
+    "removePunishment": "Убрать наказание",
+    "ruleType": "Тип правила",
+    "ruleTypeDefaultText": "Тип правила",
+    "communication": "Коммуникации",
+    "gameplay": "Геймплей",
+    "flags": "Флаги",
+    "autoProcess": "Обрабатывается автоматически",
+    "saveRule": "Сохранить правило",
+    "deleteRule": "Удалить правило из базы",
+    "createChildRule": "Создать дочернее правило",
+    "createSiblingRule": "Создать соседнее правило"
+  }
+}

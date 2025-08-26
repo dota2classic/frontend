@@ -1,0 +1,8 @@
+{
+  "drop_card": {
+    "discardTooltip": "Отказаться от награды",
+    "offeredForTrade": "Предложена к обмену",
+    "expiresIn": "Истекает через",
+    "unknown": "Unknown"
+  }
+}

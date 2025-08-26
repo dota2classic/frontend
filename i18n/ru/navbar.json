@@ -1,0 +1,23 @@
+{
+  "navbar": {
+    "dota2classic": "DOTA2CLASSIC",
+    "play": "Играть",
+    "howToPlay": "Как играть",
+    "clientSettings": "Настройка клиента",
+    "fpsPing": "FPS и пинг",
+    "commonIssues": "Частые проблемы",
+    "news": "Новости",
+    "forum": "Форум",
+    "lobby": "Лобби",
+    "support": "Поддержка",
+    "complaints": "Жалобы",
+    "vacancies": "Вакансии",
+    "rules": "Правила",
+    "documents": "Документы",
+    "violationsLog": "Журнал нарушений",
+    "aboutProject": "О проекте",
+    "store": "Магазин",
+    "live": "Live",
+    "stream": "Стрим"
+  }
+}

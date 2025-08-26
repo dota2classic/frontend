@@ -12,6 +12,7 @@ import { MessageContent } from "@/components/Message/MessageContent";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { computed } from "mobx";
 import { Username } from "../Username/Username";
+import { useTranslation } from "react-i18next";
 
 interface IMessageProps {
   message: ThreadMessageDTO;
@@ -22,6 +23,7 @@ export const MessageHeader = observer(function MessageHeader({
   message,
   lightweight,
 }: IMessageProps) {
+  const { t } = useTranslation();
   const { queue } = useStore();
 
   const thread = useContext(ThreadContext);
@@ -51,7 +53,7 @@ export const MessageHeader = observer(function MessageHeader({
               width={45}
               height={45}
               user={message.author}
-              alt={`Avatar of player ${message.author.name}`}
+              alt={t("message.avatarAlt", { playerName: message.author.name })}
             />
           )}
         </picture>

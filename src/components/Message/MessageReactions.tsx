@@ -8,6 +8,7 @@ import { AddReactionTool } from "@/components/Message/tools/AddReactionTool";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { createPortal } from "react-dom";
 import { GenericTooltip, MessageReactionsTooltip } from "@/components";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   messageId: string;
@@ -17,6 +18,7 @@ export const MessageReactions = observer(function MessageReactions({
   messageId,
   reactions,
 }: Props) {
+  const { t } = useTranslation();
   const [tooltipReaction, setTooltipReaction] = useState<
     { reaction: ReactionEntry; anchor: HTMLElement } | undefined
   >(undefined);
@@ -52,7 +54,11 @@ export const MessageReactions = observer(function MessageReactions({
           )}
         >
           <img src={reaction.emoticon.src} alt="" />
-          <span>{reaction.reacted.length}</span>
+          <span>
+            {t("message_reactions.reactionCount", {
+              count: reaction.reacted.length,
+            })}
+          </span>
         </div>
       ))}
 

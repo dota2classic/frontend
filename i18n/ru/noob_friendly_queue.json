@@ -1,0 +1,25 @@
+{
+  "noob_friendly_queue": {
+    "howToStartPlaying": "Как начать играть?",
+    "login": "Войти",
+    "needToAuthorize": "Нужно авторизоваться на сайте через Steam",
+    "downloadAndExtractClient": "Я скачал и распаковал клиент игры",
+    "downloadAndExtractGameClient": "Сначала нужно скачать и распаковать клиент с игрой.",
+    "downloadHere": "Скачать его можно тут",
+    "possibleDifficulties": "Возможные трудности и их решения:",
+    "unpackedArchiveIssue": "xiradoh782 huiman - скорее всего, плохо распаковался архив с игрой. Распакуй его заново",
+    "downloadIssues": "Долго скачивается - попробуй скачать через torrent или другое облако",
+    "gameStartsOnMyComputer": "Игра запускается на моем компьютере",
+    "startTheGame": "Теперь тебе нужно запустить игру(dota.exe) в распакованном архиве.",
+    "attentionSteamRequired": "ВНИМАНИЕ: Без запущенного Steam игра работать НЕ БУДЕТ!",
+    "startedGameWithoutSteam": "Steam четотам - ты запустил игру без steam. Закрой клиент, запусти steam, и только после этого запускай игру",
+    "notLaunchingGame": "Не запускается игра - распаковать игру заново",
+    "playedWithBotsReadyToPlayWithPeople": "Я смог поиграть с ботами и готов играть с людьми",
+    "startSinglePlayerGameWithBots": "Запусти одиночную игру с ботами",
+    "advicePlayWithBots": "СОВЕТ: сыграй несколько игр с ботами, чтобы привыкнуть к старой доте",
+    "lags": "Сильные лаги - сальто с места",
+    "dontWantToSeeCharacter": "Не хочу смотреть на мужика - новид в косноли",
+    "quickcast": "Квикасты: есть",
+    "altClickSelf": "Нажатие на себя через альт - нет"
+  }
+}

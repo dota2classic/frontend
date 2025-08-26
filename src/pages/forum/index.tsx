@@ -13,6 +13,7 @@ import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
 import { ForumTabs } from "@/containers";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   threads: ThreadPageDTO;
@@ -20,11 +21,13 @@ interface Props {
 }
 
 export default function ForumIndexPage({ threads, page }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <EmbedProps
-        title="Форум"
-        description="Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов"
+        title={t("forum.pageTitle")}
+        description={t("forum.pageDescription")}
       />
 
       <div className={c.buttons}>
@@ -33,7 +36,7 @@ export default function ForumIndexPage({ threads, page }: Props) {
           link={AppRouter.forum.createThread(ThreadType.FORUM).link}
           className={c.createThread}
         >
-          <Button>Новая тема</Button>
+          <Button>{t("forum.newThread")}</Button>
         </PageLink>
       </div>
       {threads.pages > 1 && (

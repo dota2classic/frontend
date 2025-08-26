@@ -17,8 +17,10 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $insertNodes } from "lexical";
 import { $createImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
 import { useStore } from "@/store";
+import { useTranslation } from "react-i18next";
 
 const ImageUploadPlugin = observer(function ImageUploadPlugin() {
+  const { t } = useTranslation();
   const [editor] = useLexicalComposerContext();
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLButtonElement | null>(null);
@@ -101,7 +103,7 @@ const ImageUploadPlugin = observer(function ImageUploadPlugin() {
         )}
 
       <button
-        aria-label="Undo"
+        aria-label={t("image_upload.undo")}
         className={cx(c.toolbarItem, c.spaced)}
         onClick={() => setVisible((v) => !v)}
         ref={ref}
@@ -111,7 +113,7 @@ const ImageUploadPlugin = observer(function ImageUploadPlugin() {
 
       <button
         disabled={isUploading}
-        aria-label="Undo"
+        aria-label={t("image_upload.upload")}
         className={cx(c.toolbarItem, c.spaced)}
       >
         <label htmlFor="editor-toolbar-upload-file">

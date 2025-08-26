@@ -18,6 +18,7 @@ import {
 import { getApi } from "@/api/hooks";
 import { useFocusLock } from "@/util/useTypingCallback";
 import cx from "clsx";
+import { useTranslation } from "react-i18next";
 
 interface IEditLobbyModalProps {
   onClose: () => void;
@@ -30,6 +31,8 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
   lobby,
   onUpdatedLobby,
 }) => {
+  const { t } = useTranslation();
+
   const [lobbySettings, setLobbySettings] = useState<Partial<UpdateLobbyDto>>({
     ...lobby,
   });
@@ -48,14 +51,14 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
   return (
     <GenericModal
       className={c.modal}
-      title={"Настройки лобби"}
+      title={t("edit_lobby.settings")}
       onClose={onClose}
     >
       <div className={c.settings}>
         <div className={c.formItem}>
-          <header>Название</header>
+          <header>{t("edit_lobby.name")}</header>
           <Input
-            placeholder={"Название лобби"}
+            placeholder={t("edit_lobby.lobbyName")}
             value={lobbySettings.name || ""}
             onChange={(e) =>
               setLobbySettings((r) => ({ ...r, name: e.target.value }))
@@ -64,9 +67,9 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
         </div>
 
         <div className={c.formItem}>
-          <header>Пароль</header>
+          <header>{t("edit_lobby.password")}</header>
           <Input
-            placeholder={"Без пароля"}
+            placeholder={t("edit_lobby.noPassword")}
             value={lobbySettings.password || ""}
             onChange={(e) =>
               setLobbySettings((r) => ({ ...r, password: e.target.value }))
@@ -74,7 +77,7 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
           />
         </div>
         <div className={c.formItem}>
-          <header>Карта</header>
+          <header>{t("edit_lobby.map")}</header>
           <SelectOptions
             options={DotaMapOptions}
             selected={lobbySettings.map || lobby.map}
@@ -83,11 +86,11 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
                 setLobbySettings((r) => ({ ...r, map: value.value }));
               }
             }}
-            defaultText={"Карта"}
+            defaultText={t("edit_lobby.selectMap")}
           />
         </div>
         <div className={c.formItem}>
-          <header>Режим игры</header>
+          <header>{t("edit_lobby.gameMode")}</header>
           <SelectOptions
             options={DotaGameModeOptions}
             selected={lobbySettings.gameMode || lobby.gameMode}
@@ -96,9 +99,9 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
                 setLobbySettings((r) => ({ ...r, gameMode: value.value }));
               }
             }}
-            defaultText={"Режим игры"}
+            defaultText={t("edit_lobby.selectGameMode")}
           />
-          <header>Патч</header>
+          <header>{t("edit_lobby.patch")}</header>
           <SelectOptions
             options={DotaPatchOptions}
             selected={lobbySettings.patch || lobby.patch}
@@ -107,9 +110,9 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
                 setLobbySettings((r) => ({ ...r, patch: value.value }));
               }
             }}
-            defaultText={"Патч игры"}
+            defaultText={t("edit_lobby.gamePatch")}
           />
-          <header>Сервер</header>
+          <header>{t("edit_lobby.server")}</header>
           <SelectOptions
             options={RegionOptions}
             selected={lobbySettings.region || lobby.region}
@@ -118,28 +121,28 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
                 setLobbySettings((r) => ({ ...r, region: value.value }));
               }
             }}
-            defaultText={"Регион сервера"}
+            defaultText={t("edit_lobby.serverRegion")}
           />
         </div>
         <div className={cx(c.formItem)}>
-          <header>Настройки</header>
+          <header>{t("edit_lobby.settingsHeader")}</header>
           <Checkbox
             checked={lobbySettings.enableCheats}
             onChange={(e) =>
               setLobbySettings((r) => ({ ...r, enableCheats: e }))
             }
           >
-            Включить читы
+            {t("edit_lobby.enableCheats")}
           </Checkbox>
           <Checkbox
             checked={lobbySettings.fillBots}
             onChange={(e) => setLobbySettings((r) => ({ ...r, fillBots: e }))}
           >
-            Добавить ботов
+            {t("edit_lobby.addBots")}
           </Checkbox>
         </div>
         <Button className={c.startGame} onClick={updateLobby}>
-          Сохранить изменения
+          {t("edit_lobby.saveChanges")}
         </Button>
       </div>
     </GenericModal>

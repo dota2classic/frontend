@@ -6,27 +6,29 @@ import { useRouter } from "next/router";
 import { TabItem } from "@/components/BigTabs/BigTabs";
 import { useStore } from "@/store";
 import { MdLocalPolice } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 type Keys = "forum" | "ticket" | "report" | "admin-ticket" | "admin-reports";
 
 export const ForumTabs: React.FC = observer(() => {
   const router = useRouter();
   const { auth } = useStore();
+  const { t } = useTranslation();
 
   const Items: TabItem<Keys>[] = [
     {
       key: "forum",
-      label: "Форум",
+      label: t("forum_tabs.forum"),
       onSelect: AppRouter.forum.index().link,
     },
     {
       key: "ticket",
-      label: "Техподдержка",
+      label: t("forum_tabs.technicalSupport"),
       onSelect: AppRouter.forum.ticket.index().link,
     },
     {
       key: "report",
-      label: "Жалобы",
+      label: t("forum_tabs.complaints"),
       onSelect: AppRouter.forum.report.index().link,
     },
     ...(auth.isModerator
@@ -36,7 +38,7 @@ export const ForumTabs: React.FC = observer(() => {
             label: (
               <>
                 <MdLocalPolice />
-                Вся теххподдержка
+                {t("forum_tabs.allTechnicalSupport")}
               </>
             ),
             onSelect: AppRouter.forum.ticket.admin().link,
@@ -46,7 +48,7 @@ export const ForumTabs: React.FC = observer(() => {
             label: (
               <>
                 <MdLocalPolice />
-                Все жалобы
+                {t("forum_tabs.allComplaints")}
               </>
             ),
             onSelect: AppRouter.forum.report.admin().link,

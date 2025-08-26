@@ -27,14 +27,6 @@ export const GenericModal = React.forwardRef<HTMLDivElement, AllProps>(
       onClose();
     }, [onClose]);
 
-    // const mounted = useDidMount();
-    // const closeWhenMounted = useCallback(() => {
-    //   if (mounted) {
-    //     close();
-    //   }
-    // }, [close, mounted]);
-
-    // useOutsideClick(closeWhenMounted, comp);
     return (
       <div {...props} ref={ref} className={cx(className, c.modalWrapper)}>
         <div className="modal" ref={comp}>

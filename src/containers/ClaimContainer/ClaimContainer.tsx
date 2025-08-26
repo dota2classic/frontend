@@ -2,8 +2,10 @@ import React, { useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { ReceiveSubscriptionModal } from "@/containers";
+import { useTranslation } from "react-i18next";
 
 export const ClaimContainer: React.FC = observer(() => {
+  const { t } = useTranslation();
   const { claim, notify } = useStore();
 
   const first = claim.claimQueue[0];
@@ -27,7 +29,7 @@ export const ClaimContainer: React.FC = observer(() => {
         className: first.item.className,
       }}
       action={{
-        label: first.action.label,
+        label: t(first.action.label),
         link: first.action.link,
       }}
     />

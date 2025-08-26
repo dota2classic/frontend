@@ -1,0 +1,12 @@
+{
+  "match_history_table": {
+    "matchNumber": "Номер матча",
+    "gameMode": "Режим игры",
+    "result": "Результат",
+    "duration": "Длительность",
+    "radiant": "Силы Света",
+    "dire": "Силы Тьмы",
+    "radiantVictory": "Победа Сил Света",
+    "direVictory": "Победа Сил Тьмы"
+  }
+}
