@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Logo, NavbarItem } from "..";
+import {LanguageSwitcher, Logo, NavbarItem} from "..";
 
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";
@@ -177,6 +177,7 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
             )}
             {(isAdmin || isModerator) && <AdminNavbarItem />}
             <div className={c.spacer} />
+            <LanguageSwitcher />
             <LoginProfileNavbarItem />
           </div>
 
