@@ -140,6 +140,7 @@ export default function AdminServersPage({
   initialGameSessions,
   initialAllowedModes,
 }: PageProps) {
+  const { t } = useTranslation();
   const mounted = useDidMount();
   const { data: serverPool } = getApi().adminApi.useServerControllerServerPool({
     fallbackData: initialServerPool,
@@ -229,23 +230,23 @@ export default function AdminServersPage({
             </tr>
           </thead>
           <tbody>
-            {modes.map((t) => (
-              <tr key={t.lobbyType.toString()}>
-                <td>{formatGameMode(t.lobbyType)}</td>
+            {modes.map((matchmakingMode) => (
+              <tr key={matchmakingMode.lobbyType.toString()}>
+                <td>{formatGameMode(matchmakingMode.lobbyType)}</td>
                 <td>
                   <SelectOptions
                     defaultText={t("admin.servers.gameModes.selectGameMode")}
                     options={DotaGameModeOptions}
-                    selected={t.gameMode}
+                    selected={matchmakingMode.gameMode}
                     onSelect={(value) =>
                       updateGameMode(
-                        t.lobbyType,
+                        matchmakingMode.lobbyType,
                         value.value,
-                        t.dotaMap,
-                        t.enabled,
-                        t.enableCheats,
-                        t.fillBots,
-                        t.patch,
+                        matchmakingMode.dotaMap,
+                        matchmakingMode.enabled,
+                        matchmakingMode.enableCheats,
+                        matchmakingMode.fillBots,
+                        matchmakingMode.patch,
                       )
                     }
                   />
@@ -254,16 +255,16 @@ export default function AdminServersPage({
                   <SelectOptions
                     defaultText={t("admin.servers.gameModes.selectMap")}
                     options={DotaMapOptions}
-                    selected={t.dotaMap}
+                    selected={matchmakingMode.dotaMap}
                     onSelect={(value) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
                         value.value,
-                        t.enabled,
-                        t.enableCheats,
-                        t.fillBots,
-                        t.patch,
+                        matchmakingMode.enabled,
+                        matchmakingMode.enableCheats,
+                        matchmakingMode.fillBots,
+                        matchmakingMode.patch,
                       )
                     }
                   />
@@ -272,15 +273,15 @@ export default function AdminServersPage({
                   <SelectOptions
                     defaultText={t("admin.servers.gameModes.selectPatch")}
                     options={DotaPatchOptions}
-                    selected={t.patch}
+                    selected={matchmakingMode.patch}
                     onSelect={(value) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
-                        t.dotaMap,
-                        t.enabled,
-                        t.enableCheats,
-                        t.fillBots,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
+                        matchmakingMode.dotaMap,
+                        matchmakingMode.enabled,
+                        matchmakingMode.enableCheats,
+                        matchmakingMode.fillBots,
                         value.value,
                       )
                     }
@@ -290,17 +291,17 @@ export default function AdminServersPage({
                   <input
                     onChange={(e) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
-                        t.dotaMap,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
+                        matchmakingMode.dotaMap,
                         e.target.checked,
-                        t.enableCheats,
-                        t.fillBots,
-                        t.patch,
+                        matchmakingMode.enableCheats,
+                        matchmakingMode.fillBots,
+                        matchmakingMode.patch,
                       )
                     }
                     type="checkbox"
-                    checked={t.enabled}
+                    checked={matchmakingMode.enabled}
                   />
                 </td>
 
@@ -308,34 +309,34 @@ export default function AdminServersPage({
                   <input
                     onChange={(e) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
-                        t.dotaMap,
-                        t.enabled,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
+                        matchmakingMode.dotaMap,
+                        matchmakingMode.enabled,
                         e.target.checked,
-                        t.fillBots,
-                        t.patch,
+                        matchmakingMode.fillBots,
+                        matchmakingMode.patch,
                       )
                     }
                     type="checkbox"
-                    checked={t.enableCheats}
+                    checked={matchmakingMode.enableCheats}
                   />
                 </td>
                 <td>
                   <input
                     onChange={(e) =>
                       updateGameMode(
-                        t.lobbyType,
-                        t.gameMode,
-                        t.dotaMap,
-                        t.enabled,
-                        t.enableCheats,
+                        matchmakingMode.lobbyType,
+                        matchmakingMode.gameMode,
+                        matchmakingMode.dotaMap,
+                        matchmakingMode.enabled,
+                        matchmakingMode.enableCheats,
                         e.target.checked,
-                        t.patch,
+                        matchmakingMode.patch,
                       )
                     }
                     type="checkbox"
-                    checked={t.fillBots}
+                    checked={matchmakingMode.fillBots}
                   />
                 </td>
               </tr>

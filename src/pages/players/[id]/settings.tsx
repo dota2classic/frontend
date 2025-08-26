@@ -35,6 +35,7 @@ import { useAsyncButton } from "@/util/use-async-button";
 import { makeSimpleToast } from "@/components/Toast/toasts";
 import { useRefreshPageProps } from "@/util/usePageProps";
 import { paidAction } from "@/util/subscription";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -43,6 +44,7 @@ interface Props {
 }
 
 export default function PlayerSettings({ summary, decorations }: Props) {
+  const { t } = useTranslation();
   const { data, mutate } = getApi().playerApi.usePlayerControllerGetDodgeList();
   const [dodgeListOpen, setDodgeListOpen] = useState(false);
   const reloadProps = useRefreshPageProps();

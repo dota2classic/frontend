@@ -22,7 +22,6 @@ detector.addDetector({
   lookup() {
     if (typeof window !== "undefined") {
       const hostname = window.location.hostname;
-      console.log("Hostname lookup:", hostname);
       return hostname.endsWith(".com") ? "en" : "ru";
     }
     return undefined;

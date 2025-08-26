@@ -1,6 +1,8 @@
 import { Panel } from "@/components";
+import { useTranslation } from "react-i18next";
 
 export default function SteamAuthError() {
+  const { t } = useTranslation();
   return (
     <Panel style={{ flexDirection: "column", padding: "24px" }}>
       <h1>{t("steam_auth_error.steamNotResponding")}</h1>

@@ -7,6 +7,7 @@ import {
   Button,
   Duration,
   GenericTable,
+  InvitePlayerModalRaw,
   PageLink,
   Pagination,
   Panel,
@@ -15,7 +16,6 @@ import {
 import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
 import { formatBanReason } from "@/util/texts/bans";
-import { InvitePlayerModalRaw } from "@/components";
 import { formatGameMode } from "@/util/gamemode";
 import { ColumnType } from "@/const/tables";
 import c from "./AdminStyles.module.scss";
@@ -125,18 +125,18 @@ export default function CrimesPage({ crime, steamId }: Props) {
             format: (t) => <input type="checkbox" readOnly checked={t} />,
           },
         ]}
-        data={crime.data.map((t) => [
-          t.user,
-          t.matchId,
-          t.lobbyType === MatchmakingMode.BOTS
+        data={crime.data.map((crimeLog) => [
+          crimeLog.user,
+          crimeLog.matchId,
+          crimeLog.lobbyType === MatchmakingMode.BOTS
             ? t("crimes_page.botsGame")
             : t("crimes_page.counted"),
-          t.banDuration / 1000,
-          t.crime,
-          t.lobbyType,
-          t.createdAt,
-          t.handled,
-          t.id,
+          crimeLog.banDuration / 1000,
+          crimeLog.crime,
+          crimeLog.lobbyType,
+          crimeLog.createdAt,
+          crimeLog.handled,
+          crimeLog.id,
         ])}
         placeholderRows={5}
       />
