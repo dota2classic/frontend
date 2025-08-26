@@ -7,8 +7,8 @@ import Image from "next/image";
 import { formatDate } from "@/util/dates";
 import { MatchDto, PlayerRecordDto } from "@/api/back";
 import { AppRouter } from "@/route";
-import { formatGameMode, formatRecordType } from "@/util/gamemode";
 import { getRecordValue } from "@/util";
+import { useTranslation } from "react-i18next";
 
 interface IRecordCardProps {
   record: PlayerRecordDto & { match: MatchDto };
@@ -19,6 +19,7 @@ export const RecordCard: React.FC<IRecordCardProps> = ({
   record,
   noPlayer,
 }) => {
+  const { t } = useTranslation();
   const pim = useMemo(
     () =>
       record.match.radiant
@@ -53,7 +54,7 @@ export const RecordCard: React.FC<IRecordCardProps> = ({
       <div className={c.shadow} />
       <div className={c.contentContainer}>
         <span className={c.recordType}>
-          {formatRecordType(record.recordType)}
+          {t(`records.${record.recordType}`)}
         </span>
         <div className={c.recordValue}>
           <NumberFormat comma number={recordValue} />
@@ -65,10 +66,10 @@ export const RecordCard: React.FC<IRecordCardProps> = ({
         )}
         <time className={c.recordTime}>
           <span className={isWin ? "green" : "red"}>
-            {isWin ? "победа" : "поражение"}
+            {isWin ? t("records.victory") : t("records.loss")}
           </span>{" "}
           {formatDate(new Date(record.match.timestamp))},{" "}
-          {formatGameMode(record.match.mode)}
+          {t(`matchmaking_mode.${record.match.mode}`)}
         </time>
       </div>
     </PageLink>

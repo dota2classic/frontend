@@ -117,13 +117,13 @@
   },
   "matchmaking_mode": {
     "0": "Ranking",
-    "1": "Normal 5v5",
+    "1": "Unranked 5v5",
     "2": "1v1 Mid",
     "3": "Diretide",
-    "4": "Gryavols",
+    "4": "Greeviling",
     "5": "Ability Draft",
     "6": "TOURNAMENT",
-    "7": "Against Bots",
+    "7": "VS Bots",
     "8": "Highroom 5x5",
     "9": "TOURNAMENT_SOLOMID",
     "10": "Captains Mode",
@@ -803,6 +803,23 @@
   "recent_posts": {
     "news": "News",
     "viewAll": "View all"
+  },
+  "records": {
+    "KILLS": "Kills",
+    "KDA": "KDA",
+    "ASSISTS": "Assists",
+    "DEATHS": "Deaths",
+    "LASTHITS": "Last hits",
+    "DENIES": "Denies",
+    "GPM": "GPM",
+    "XPM": "XPM",
+    "NETWORTH": "Net worth",
+    "TOWER_DAMAGE": "Tower damage",
+    "HERO_DAMAGE": "Hero damage",
+    "HERO_HEALING": "Hero healing",
+
+    "victory": "won",
+    "loss": "lost"
   },
   "report_modal": {
     "reportPlayer": "Player Complaint",

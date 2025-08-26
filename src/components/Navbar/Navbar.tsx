@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import {LanguageSwitcher, Logo, NavbarItem} from "..";
+import { LanguageSwitcher, Logo, NavbarItem } from "..";
 
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";
