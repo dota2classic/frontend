@@ -9,10 +9,10 @@ const system2 = `
 {
     "code": "<новый код компонента с примененной локализацией>",
     "i18n": "<json с переводами>",
-    "i18n_filename": "уникальное названия файла для компонента"
+    "i18n_filename": "имя_компонента_в_snake_case"
 }
 
-Если в переданном компоненте уже присутствует интернационализация либо он в нем не нуждается, то необходимо вернуть следующий JSON:
+Если в переданном компоненте уже присутствует интернационализация(вызовы t("...."), хук useTranslation()) либо он в ней не нуждается(нет захардкоженных текстов), то необходимо вернуть следующий JSON:
 {
     "ignore": true
 }
@@ -39,6 +39,7 @@ export default function Error500({ statusCode }: { statusCode: number }) {
       <h1>Возникла ошибка при загрузке страницы {statusCode}</h1>
       <PageLink link={AppRouter.index.link}>
         <h3 className="green">Вернуться на главную</h3>
+        <>code</>
       </PageLink>
     </>
   );
@@ -55,9 +56,10 @@ export default function Error500({ statusCode }: { statusCode: number }) {
 
   return (
     <>
-      <h1>{t('error_page.pageLoadFailed', { statusCode })}</h1>
+      <h1>{t("error_page.pageLoadFailed", { statusCode })}</h1>
       <PageLink link={AppRouter.index.link}>
-        <h3 className="green">{t('error_page.returnHome')}</h3>
+        <h3 className="green">{t("error_page.returnHome")}</h3>
+        <>{t("error_page.code")}</>
       </PageLink>
     </>
   );
@@ -111,7 +113,7 @@ module.exports = async function (fileInfo, api) {
 ${fileInfo.source}`);
 
   if (ignore) {
-    console.warn("Already processed file: ignoring")
+    console.warn("Already processed file: ignoring");
     return fileInfo.source;
   }
 

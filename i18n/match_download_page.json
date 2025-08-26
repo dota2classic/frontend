@@ -1,0 +1,13 @@
+{
+  "match_download": {
+    "downloadReplayTitle": "Скачай реплей",
+    "downloadReplayButton": "Нажми сюда, чтобы скачать файл с реплеем игры",
+    "placeFileTitle": "Помести скачанный файл в папку с игрой",
+    "gameFolder": "папка с игрой/dota",
+    "createFolder": "Если такой папки нет - создай.",
+    "finalFile": "Итог: у тебя должен быть файл",
+    "finalFilePath": "dota/{{matchId}}.dem",
+    "startClientTitle": "Запусти клиент и выполни коснольную команду",
+    "consoleCommandText": "Консольная команда для запуска просмотра реплея"
+  }
+}

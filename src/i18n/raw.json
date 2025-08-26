@@ -4,20 +4,20 @@
     "viewMatchesDescription": "Просмотр матчей, которые прямо сейчас играются на сайте dotaclassic.ru"
   },
   "match_download": {
-    "downloadReplayTitle": "Скачать реплей игры",
-    "downloadReplayButton": "Нажми сюда, чтобы скачать файл с реплеем игры",
-    "placeFileTitle": "Поместите файл в папку",
-    "gameFolder": "Папка для игры",
-    "createFolder": "Создайте папку",
-    "finalFile": "Конечный файл",
-    "finalFilePath": "Путь к файлу: {{matchId}}.dem",
-    "startClientTitle": "Запустите клиент",
-    "consoleCommandText": "Введите команду в консоли"
+    "downloadReplayTitle": "Download Replay",
+    "downloadReplayButton": "Download",
+    "placeFileTitle": "Where to place the file",
+    "gameFolder": "Game folder path",
+    "createFolder": "Create a folder named",
+    "finalFile": "The final file will be named",
+    "finalFilePath": "Demo file path: {{matchId}}.dem",
+    "startClientTitle": "Start the client with the following command",
+    "consoleCommandText": "Use this command to play the demo"
   },
-  "match_history": {
-    "title": "История матчей",
-    "description": "Посмотрите свои предыдущие матчи",
-    "gameMode": "Выберите режим игры"
+  "matches": {
+    "historyTitle": "История матчей",
+    "historyDescription": "История матчей старой Dota 2, список матчей сыгранных на сайте dotaclassic.ru",
+    "gameModeDefault": "Режим игры"
   },
   "match_page": {}
 }
