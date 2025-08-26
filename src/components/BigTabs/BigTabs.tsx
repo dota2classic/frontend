@@ -17,8 +17,8 @@ function isNextLinkProp<T>(u: SelectAction<T>): u is NextLinkProp {
   return "href" in u;
 }
 
-export interface IBigTabsProps<T extends string = string> {
-  items: TabItem<T>[];
+export interface IBigTabsProps<T extends string = string, L = ReactNode> {
+  items: TabItem<T, L>[];
   selected: T;
   className?: string;
   flavor: "small" | "big";

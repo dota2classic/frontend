@@ -448,7 +448,7 @@
   },
   "layout": {
     "showSideAds": "Show side ads? {{showSideAds}}",
-    "copyright": "© 2020 - 2025 dotaclassic.ru",
+    "copyright": "© {{min}} - {{max}} dotaclassic.ru",
     "trademark": "Dota 2 is a registered trademark of Valve Corporation."
   },
   "live_match_carousel": {
@@ -755,26 +755,26 @@
   },
   "player_summary": {
     "avatarAlt": "Avatar of player {{name}}",
-    "matches": "Matches",
-    "matchPlaying": "is playing a match",
-    "lastGame": "last game",
-    "banReason": "Reason: {{reason}}",
-    "ban": "Ban",
-    "subscriberTooltip": "Subscriber of dotaclassic plus",
-    "winLossTooltip": "Wins - Losses - Abandoned games",
-    "winRate": "Win rate",
-    "noRating": "No",
-    "rating": "Rating",
-    "noRank": "No",
-    "rank": "Rank",
+    "matches": "Матчи",
+    "matchPlaying": "Играет в",
+    "lastGame": "последняя игра",
+    "banReason": "Причина: {{reason}}",
+    "ban": "Блокировка",
+    "subscriberTooltip": "Подписчик dotaclassic plus",
+    "winLossTooltip": "Побед - Поражений - Покинуто",
+    "winRate": "Доля побед",
+    "noRating": "Нет",
+    "rating": "Рейтинг",
+    "noRank": "Нет",
+    "rank": "Ранк",
     "menu": {
-      "overall": "Overall",
-      "matches": "Matches",
-      "teammates": "Teammates",
-      "heroes": "Heroes",
-      "records": "Records",
-      "drops": "Drops",
-      "settings": "Settings"
+      "overall": "Общее",
+      "matches": "Матчи",
+      "teammates": "Союзники",
+      "heroes": "Герои",
+      "records": "Рекорды",
+      "drops": "Награды",
+      "settings": "Настройки"
     }
   },
   "please_go_queue": {

@@ -55,7 +55,8 @@ type PlayerPage =
   | "records"
   | "drops"
   | "settings";
-type Items = IBigTabsProps<PlayerPage>["items"];
+
+type Items = IBigTabsProps<PlayerPage, string>["items"];
 
 const getMenuItems = (steamId: string, isMyProfile: boolean): Items => {
   const menuItems: Items = [
@@ -274,7 +275,10 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
         <BigTabs<PlayerPage>
           className={c.tabs}
           flavor="small"
-          items={items}
+          items={items.map((item) => ({
+            ...item,
+            label: t(item.label),
+          }))}
           selected={selected?.key || "overall"}
         />
       </>

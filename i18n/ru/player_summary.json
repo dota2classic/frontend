@@ -1,0 +1,26 @@
+{
+  "player_summary": {
+    "avatarAlt": "Avatar of player {{name}}",
+    "matches": "Матчи",
+    "matchPlaying": "Играет в",
+    "lastGame": "последняя игра",
+    "banReason": "Причина: {{reason}}",
+    "ban": "Блокировка",
+    "subscriberTooltip": "Подписчик dotaclassic plus",
+    "winLossTooltip": "Побед - Поражений - Покинуто",
+    "winRate": "Доля побед",
+    "noRating": "Нет",
+    "rating": "Рейтинг",
+    "noRank": "Нет",
+    "rank": "Ранк",
+    "menu": {
+      "overall": "Общее",
+      "matches": "Матчи",
+      "teammates": "Союзники",
+      "heroes": "Герои",
+      "records": "Рекорды",
+      "drops": "Награды",
+      "settings": "Настройки"
+    }
+  }
+}
