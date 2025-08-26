@@ -1,0 +1,7 @@
+{
+  "duration": {
+    "days": "{{count}} д",
+    "hours": "{{count}} ч",
+    "minutes": "{{count}} м"
+  }
+}

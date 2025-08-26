@@ -5,6 +5,79 @@
     "here": "здесь",
     "agree": "Согласен"
   },
+  "accept_game_modal": {
+    "yourGameReady": "Ваша игра готова",
+    "accept": "Принять",
+    "decline": "Отклонить"
+  },
+  "achievement": {
+    "win1hrGameAgainstTechies": {
+      "description": "Win an hour game against Techies",
+      "title": "Tolerator"
+    },
+    "lastHits1000": {
+      "description": "Finish off 1000 enemy creeps",
+      "title": "Creep"
+    },
+    "gpm1000": {
+      "description": "Finish the game with 1000 gold per minute",
+      "title": "Businessman"
+    },
+    "xpm1000": {
+      "description": "Finish the game with 1000 experience per minute",
+      "title": "Experienced"
+    },
+    "allHeroChallenge": {
+      "description": "Win with all heroes",
+      "title": "Universal"
+    },
+    "winBotGame": {
+      "description": "Win against bots",
+      "title": "Classic"
+    },
+    "winSoloMidGame": {
+      "description": "Win in a 1v1",
+      "title": "Solo line abuser"
+    },
+    "gpmXpm1000": {
+      "description": "Finish the game with 1000 gold and 1000 experience per minute",
+      "title": "Booster"
+    },
+    "win1hrGame": {
+      "description": "Win an hour game",
+      "title": "Fast win"
+    },
+    "winStreak10": {
+      "description": "Win 10 games in a row",
+      "title": "Striker"
+    },
+    "hardcore": {
+      "description": "Win the game with level 25 without deaths",
+      "title": "Hardcore"
+    },
+    "denies50": {
+      "description": "Don't give 50 allied creeps to the enemy",
+      "title": "Dendi"
+    }
+  },
+  "achievementStatus": {
+    "defaultTitle": "TODO title",
+    "defaultDescription": "TODO description"
+  },
+  "add_emoticon_button": {
+    "addEmoticon": "Add Emoticon"
+  },
+  "add_reaction_tool": {
+    "addReaction": "Add Reaction"
+  },
+  "admin_navbar": {
+    "servers": "Сервера",
+    "violations": "Нарушения",
+    "settings": "Ф:Настройки",
+    "list": "Ф:Список",
+    "decorations": "Декорации",
+    "rules": "Правила"
+  },
   "admin_player_ban_settings": {
     "endTimeLabel": "Время окончания:",
     "assignLabel": "Назначить",
@@ -15,6 +88,15 @@
     "rules": "Правила",
     "punishments": "Наказания"
   },
+  "big_tabs": {
+    "tabLabel": "Label for tab"
+  },
+  "block_user_tool": {
+    "blockButtonTitle": "Block/Unblock User"
+  },
+  "blocked_message": {
+    "content": "Blocked message"
+  },
   "blog_edit": {
     "title": "Заголовок статьи",
     "titlePlaceholder": "Заголовок",
@@ -24,14 +106,41 @@
     "content": "Содержимое статьи",
     "publish": "Опубликовать"
   },
+  "carousel_item": {
+    "date": "Date: {{date}}",
+    "title": "Title: {{title}}",
+    "description": "Description: {{description}}"
+  },
   "claim_container": {
     "default_title": "Default Title",
     "default_action_label": "Default Action Label"
+  },
+  "matchmaking_mode": {
+    "0": "Рейтинг",
+    "1": "Обычная 5х5",
+    "2": "1х1 мид",
+    "3": "Diretide",
+    "4": "Гряволы",
+    "5": "Ability Draft",
+    "6": "TOURNAMENT",
+    "7": "Против ботов",
+    "8": "Highroom 5x5",
+    "9": "TOURNAMENT_SOLOMID",
+    "10": "Captains Mode",
+    "11": "Лобби",
+    "12": "2х2 с ботами",
+    "13": "Турбо"
+  },
+  "copy_something": {
+    "placeholderText": "{{something}}"
   },
   "dev_version_indicator": {
     "siteUpdating": "Сайт обновляется",
     "pleaseWait": "Можешь пока посмотреть на этих добряков, а сайт откроется, как только он обновится.",
     "dev": "DEV"
+  },
+  "discord_invite": {
+    "joinDiscord": "Discord"
   },
   "drop_card": {
     "discardTooltip": "Отказаться от награды",
@@ -68,6 +177,11 @@
     "rewards": "Награды",
     "getRewards": "Получить награды",
     "noRewards": "У тебя еще нет наград! Играй, чтобы получить их."
+  },
+  "duration": {
+    "days": "{{count}} д",
+    "hours": "{{count}} ч",
+    "minutes": "{{count}} м"
   },
   "edit_feedback_template": {
     "tagInfo": "Тег(техническая инфа)",
@@ -153,10 +267,23 @@
   "emoji_plugin": {
     "undo": "Undo"
   },
+  "emoticon_select_window": {
+    "placeholder": ":{code}:",
+    "hoveredEmoticon": ":{{code}}:"
+  },
   "feedback_modal": {
     "option": "Опция: {{option}}",
     "yourComment": "Твой комментарий",
     "submit": "Отправить"
+  },
+  "followup_message": {
+    "time": "Time: {{time}}"
+  },
+  "forum_hero_embed": {
+    "hero": "Hero"
+  },
+  "forum_item_embed": {
+    "itemLink": "Link to item {{itemName}}"
   },
   "forum_tabs": {
     "forum": "Форум",
@@ -165,9 +292,37 @@
     "allTechnicalSupport": "Вся теххподдержка",
     "allComplaints": "Все жалобы"
   },
+  "forum_thread": {
+    "beFirstToMessage": "Будь первым, кто оставит здесь свое сообщение!"
+  },
+  "forum_user": {
+    "loading": "Loading..."
+  },
+  "game_ready_modal": {
+    "title": "Игра готова!",
+    "connectToGame": "Подключиться к игре",
+    "confirmExit": "Ты действительно хочешь покинуть эту игру?",
+    "instructions": "Порядок действий:",
+    "step1": "Убедись, что запущен steam.",
+    "step2": "Убедись, что запущен наш клиент игры.",
+    "step3": "Используй консольную команду для подключения к игровому серверу",
+    "step4": "Не получается? Пиши в чат, постараемся помочь",
+    "hideGuide": "Скрыть",
+    "showGuide": "Гайд для подключения"
+  },
   "generic_mention_plugin": {
     "mentionTest": "Тестирование упоминаний",
     "noResults": "Нет результатов для '{{query}}'."
+  },
+  "generic_modal": {
+    "title": "Modal Title: {{title}}",
+    "close": "Close the modal"
+  },
+  "generic_toast": {
+    "title": "Title: {{title}}",
+    "content": "Content: {{content}}",
+    "acceptText": "Accept: {{acceptText}}",
+    "declineText": "Decline: {{declineText}}"
   },
   "giveProduct": {
     "successMessage": "Подписка успешно выдана!",
@@ -178,8 +333,60 @@
     "months": "месяцев",
     "submitButton": "Выдать подписку"
   },
+  "hero_icon": {
+    "iconAlt": "Icon of hero {{heroName}}"
+  },
+  "hero_items_table": {
+    "item": "Предмет",
+    "matches": "Матчи",
+    "wins": "Победы",
+    "winPercentage": "Доля побед"
+  },
   "hero_mention": {
     "localizedName": "localized name of hero {{name}}"
+  },
+  "hero_performance_table": {
+    "hero": "Герой",
+    "matches": "Матчи",
+    "winPercentage": "% Побед",
+    "kda": "KDA"
+  },
+  "hero_players_table": {
+    "player": "Игрок",
+    "matches": "Матчи",
+    "winRate": "% Побед",
+    "kda": "KDA"
+  },
+  "hero_stats": {
+    "popularity": "Популярность",
+    "matches": "Матчи",
+    "wins": "Победы",
+    "winrate": "Доля побед"
+  },
+  "hero_table": {
+    "player": "Игрок",
+    "hero": "Герой",
+    "result": "Результат",
+    "win": "Победа",
+    "lose": "Поражение",
+    "mode": "Режим",
+    "duration": "Длительность",
+    "kda": "KDA",
+    "items": "Предметы"
+  },
+  "heroes_meta_table": {
+    "hero": "Герой",
+    "matches": "Матчи",
+    "winRate": "Доля побед",
+    "pickRate": "Частота выбора",
+    "kda": "KDA",
+    "gpmXpm": "GPM/XPM",
+    "lhD": "LH/D"
+  },
+  "image_picker": {
+    "uploadIssue": "Issue uploading: {{error}}",
+    "undoLabel": "Undo",
+    "uploadLabel": "Upload image"
   },
   "image_upload": {
     "undo": "Undo",
@@ -188,11 +395,28 @@
   "insert_link_plugin": {
     "enterUrl": "Enter URL"
   },
+  "invite_player_modal": {
+    "selectPlayer": "Выбрать игрока",
+    "search": "Искать",
+    "playerNickname": "Никнейм игрока"
+  },
   "item_breadcrumbs": {
     "items": "Items"
   },
+  "item_icon": {
+    "itemAltText": "Item {{fItem}}"
+  },
   "item_mention_plugin": {
     "itemName": "Item: {{name}}"
+  },
+  "item_tooltip": {
+    "currency": "Coins"
+  },
+  "items_table": {
+    "popularityTooltip": "Популярность",
+    "item": "Предмет",
+    "games": "Матчи",
+    "winRate": "Доля побед"
   },
   "join_lobby_modal": {
     "joinToLobby": "Присоединиться к лобби",
@@ -200,10 +424,46 @@
     "incorrectPassword": "Неправильный пароль",
     "join": "Присоединиться"
   },
+  "landing": {
+    "embed": {
+      "title": "Играть в старую доту онлайн",
+      "description": "Dota2Classic это единственный способ поиграть в старую доту из 2015 года. Здесь ты сможешь вспомнить ту самую игру. Старый патч, dota old patch."
+    },
+    "oldDota": {
+      "question": "Скучаешь по старой доте?",
+      "startPlaying": "Начни играть в настоящую {{game}} онлайн"
+    },
+    "playForFree": "Играть бесплатно",
+    "originalGame": {
+      "experience": "Попробуй оригинальную игру на вкус"
+    },
+    "thousandsPlayers": "Тысячи игроков предпочитают играть в {{game}} на сайте {{website}}",
+    "startingGame": "Игра, с которой все начиналось",
+    "oldMap": {
+      "originalHeroes": "Старая карта, оригинальные герои и способности, адекватное количество здоровья у героев"
+    }
+  },
+  "game": {
+    "dota2": "Dota 2"
+  },
+  "layout": {
+    "showSideAds": "Show side ads? {{showSideAds}}",
+    "copyright": "© 2020 - 2025 dotaclassic.ru",
+    "trademark": "Dota 2 is a registered trademark of Valve Corporation."
+  },
+  "live_match_carousel": {
+    "liveMatches": "LIVE матчи",
+    "viewAll": "Посмотреть все"
+  },
   "live_match_page": {
     "noGames": "Сейчас не идет ни одной игры.",
     "launchSearch": "Отличный повод запустить поиск!",
     "mode": "Режим"
+  },
+  "live_match": {
+    "liveMatch": "LIVE матч {{matchId}}",
+    "matchPreview": "Превью активного матча {{matchId}}, игровая карта с героями, которые двигаются по карте.",
+    "playerAbandoned": "Игрок {{playerName}} покинул игру"
   },
   "live_matches": {
     "viewMatches": "Просмотр матчей",
@@ -258,6 +518,39 @@
     "toTeam": "To team",
     "noMessages": "Player has not sent messages in the chat"
   },
+  "navbar": {
+    "login": "Войти",
+    "matches": "Матчи",
+    "heroes": "Герои",
+    "teammates": "Союзники",
+    "records": "Рекорды",
+    "logout": "Выйти",
+    "userAvatarAlt": "User avatar",
+    "dota2classic": "DOTA2CLASSIC",
+    "play": "Играть",
+    "howToPlay": "Как играть",
+    "clientSettings": "Настройка клиента",
+    "fpsPing": "FPS и пинг",
+    "commonIssues": "Частые проблемы",
+    "news": "Новости",
+    "forum": "Форум",
+    "support": "Поддержка",
+    "complaints": "Жалобы",
+    "vacancies": "Вакансии",
+    "rules": "Правила",
+    "documents": "Документы",
+    "violationsLog": "Журнал нарушений",
+    "aboutProject": "О проекте",
+    "store": "Магазин",
+    "live": "Live",
+    "stream": "Стрим",
+    "item": {
+      "tooltip": "Tooltip text",
+      "option": {
+        "label": "{{label}}"
+      }
+    }
+  },
   "match_download": {
     "downloadReplayTitle": "Скачай реплей",
     "downloadReplayButton": "Нажми сюда, чтобы скачать файл с реплеем игры",
@@ -274,6 +567,16 @@
     "historyDescription": "История матчей старой Dota 2, список матчей сыгранных на сайте dotaclassic.ru",
     "gameMode": "Режим игры"
   },
+  "match_history_table": {
+    "matchNumber": "Номер матча",
+    "gameMode": "Режим игры",
+    "result": "Результат",
+    "duration": "Длительность",
+    "radiant": "Силы Света",
+    "dire": "Силы Тьмы",
+    "radiantVictory": "Победа Сил Света",
+    "direVictory": "Победа Сил Тьмы"
+  },
   "match": {
     "title": "Матч {{matchId}}",
     "description": "Страница матча с ID {{matchId}}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru",
@@ -281,7 +584,20 @@
     "dire": "Силы Тьмы {{winner}}"
   },
   "match_summary": {
-    "summary": "Сводка"
+    "summary": "Сводка",
+    "matches": "Matches",
+    "matchNumber": "Match {matchId}",
+    "view": "View",
+    "log": "Log",
+    "download": "Download",
+    "replay": "Game Replay",
+    "mode": "Mode",
+    "lobby": "Lobby",
+    "gameStage": "Game Stage",
+    "duration": "Duration",
+    "matchEnded": "Match Ended",
+    "victoryLight": "Victory of the Forces of Light",
+    "victoryDark": "Victory of the Forces of Darkness"
   },
   "farming": {
     "farming": "Фарм"
@@ -295,9 +611,101 @@
   "other": {
     "other": "Прочее"
   },
+  "matchmaking_mode_list": {
+    "gameMode": "Режим игры",
+    "calibrationGamesLeft": "еще {{count}} калибровочных игр",
+    "strictPenalties": "Строгие наказания за ливы"
+  },
+  "matchmaking_option": {
+    "botsFillSlots": "Empty slots are filled with bots",
+    "strictPenalties": "Strict penalties for abandoned games",
+    "noPenalties": "No penalties for abandoned games",
+    "dropRewards": "Rewards are dropped after the match",
+    "inQueue": "in search",
+    "searchForbiddenUntil": "Search forbidden until {{date}}",
+    "needToPlayAgainstBots": "Need to play against ",
+    "bots": "bots",
+    "needToWinAnyMode": "Need to win in any mode",
+    "needToPlayMore": "Need to play {{gamesRequired}} more games in Regular 5x5"
+  },
+  "message_content": {
+    "escape": "Escape",
+    "forCancel": "to cancel",
+    "enter": "Enter",
+    "forSave": "to save",
+    "edited": "edited"
+  },
+  "message": {
+    "avatarAlt": "Avatar of player {{playerName}}"
+  },
+  "message_input": {
+    "tooShortMessage": "Слишком короткое сообщение!",
+    "forbiddenMessage": "Вам запрещено отправлять сообщения!",
+    "tooFrequentMessages": "Слишком часто отправляете сообщения!",
+    "replyToMessage": "Ответ на сообщение",
+    "enterMessage": "Введите сообщение",
+    "noPermission": "У вас нет прав на отправку сообщений"
+  },
+  "message_reactions": {
+    "reactionCount": "{{count}}",
+    "emoticonCode": ":{code}:"
+  },
+  "message_tools": {},
+  "meta_carousel": {
+    "statistics": "Statistics",
+    "bestPlayers": "Best Players",
+    "matchHistory": "Match History",
+    "strongestHeroes": "Strongest Heroes"
+  },
+  "meta_navbar": {
+    "matches": "Matches",
+    "heroes": "Heroes",
+    "items": "Items",
+    "players": "Players",
+    "records": "Records",
+    "meta": "Meta"
+  },
+  "new_landing": {
+    "playOldDota": "Играть в старую доту онлайн",
+    "dota2ClassicDescription": "Dota2Classic это единственный способ поиграть в старую доту из 2015 года. Здесь ты сможешь вспомнить ту самую игру."
+  },
+  "noob_friendly_queue": {
+    "howToStartPlaying": "Как начать играть?",
+    "login": "Войти",
+    "needToAuthorize": "Нужно авторизоваться на сайте через Steam",
+    "downloadAndExtractClient": "Я скачал и распаковал клиент игры",
+    "downloadAndExtractGameClient": "Сначала нужно скачать и распаковать клиент с игрой.",
+    "downloadHere": "Скачать его можно тут",
+    "possibleDifficulties": "Возможные трудности и их решения:",
+    "unpackedArchiveIssue": "xiradoh782 huiman - скорее всего, плохо распаковался архив с игрой. Распакуй его заново",
+    "downloadIssues": "Долго скачивается - попробуй скачать через torrent или другое облако",
+    "gameStartsOnMyComputer": "Игра запускается на моем компьютере",
+    "startTheGame": "Теперь тебе нужно запустить игру(dota.exe) в распакованном архиве.",
+    "attentionSteamRequired": "ВНИМАНИЕ: Без запущенного Steam игра работать НЕ БУДЕТ!",
+    "startedGameWithoutSteam": "Steam четотам - ты запустил игру без steam. Закрой клиент, запусти steam, и только после этого запускай игру",
+    "notLaunchingGame": "Не запускается игра - распаковать игру заново",
+    "playedWithBotsReadyToPlayWithPeople": "Я смог поиграть с ботами и готов играть с людьми",
+    "startSinglePlayerGameWithBots": "Запусти одиночную игру с ботами",
+    "advicePlayWithBots": "СОВЕТ: сыграй несколько игр с ботами, чтобы привыкнуть к старой доте",
+    "lags": "Сильные лаги - сальто с места",
+    "dontWantToSeeCharacter": "Не хочу смотреть на мужика - новид в косноли",
+    "quickcast": "Квикасты: есть",
+    "altClickSelf": "Нажатие на себя через альт - нет"
+  },
+  "notification_setting": {
+    "pushTooltip": "Получать push уведомления, когда находится игра",
+    "enableNotifications": "Включить уведомления",
+    "disableNotifications": "Отключить уведомления"
+  },
+  "notifications": {
+    "popupNotificationText": "{{text}}"
+  },
   "paginated_thread": {
     "loadEmoticons": "Load emoticons",
     "displayInput": "Display input area"
+  },
+  "pagination": {
+    "pageNumber": "Page {{number}}"
   },
   "paid_feature_modal": {
     "subscriptionTitle": "Подписка dotaclassic plus",
@@ -308,6 +716,14 @@
     "recalibration": "Перекалибровка",
     "otherFeatures": "...и другие новые функции",
     "interesting": "Это интересно"
+  },
+  "party_invite": {
+    "groupInvite": "invites you to join the group",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "player_avatar": {
+    "defaultAlt": "Image"
   },
   "player_feedback": {
     "toast": {
@@ -321,15 +737,72 @@
       "reportsLeft": "Осталось отзывов: {{reportsAvailable}}"
     }
   },
+  "player_pentagon_stats": {
+    "reviews": "Отзывы",
+    "kills": "Убийств",
+    "deaths": "Смертей",
+    "assists": "Помощи",
+    "seasonStats": "Статистика за сезон",
+    "gamesPlayed": "Игр сыграно",
+    "winRate": "Доля побед",
+    "abandonedGames": "Покинутых игр",
+    "playtime": "Времени в игре"
+  },
   "player_records": {
     "thisSeason": "В этом сезоне",
     "thisMonth": "В этом месяце",
     "allTime": "За все время"
   },
+  "player_summary": {
+    "avatarAlt": "Avatar of player {{name}}",
+    "matches": "Matches",
+    "matchPlaying": "is playing a match",
+    "lastGame": "last game",
+    "banReason": "Reason: {{reason}}",
+    "ban": "Ban",
+    "subscriberTooltip": "Subscriber of dotaclassic plus",
+    "winLossTooltip": "Wins - Losses - Abandoned games",
+    "winRate": "Win rate",
+    "noRating": "No",
+    "rating": "Rating",
+    "noRank": "No",
+    "rank": "Rank",
+    "menu": {
+      "overall": "Overall",
+      "matches": "Matches",
+      "teammates": "Teammates",
+      "heroes": "Heroes",
+      "records": "Records",
+      "drops": "Drops",
+      "settings": "Settings"
+    }
+  },
+  "please_go_queue": {
+    "titlePart1": "Давай поиграем в",
+    "queueInfo": "Там уже {{inQueue}} в поиске!",
+    "acceptText": "Уже иду",
+    "declineText": "Потом"
+  },
+  "project_statistics": {
+    "header": "Статистика",
+    "matchesCount": "Более 27,000",
+    "playedMatches": "сыгранных матчей",
+    "matchesDetails": "Из них более 15000 в режиме 5х5, 8500 игр в с ботами, 3500 в режиме 1х1",
+    "uniquePlayersCount": "19,000+",
+    "uniquePlayers": "уникальных игроков",
+    "contentCreators": "В наш проект так же играли контент мейкеры meeponegeroi, INBossik, Человек-Самовар и многие другие",
+    "gameTimeCount": "140,480 часов",
+    "gameTime": "игрового времени",
+    "nostalgiaExperience": "Мы стараемся, чтобы каждый мог окунуться в ностальгию, либо же попробовать впервые оригинальную версию игры"
+  },
   "receive_subscription_modal": {
     "title": "Subscription received for {{title}}",
     "itemName": "Item: {{name}}",
     "actionLabel": "{{label}}"
+  },
+  "recent_posts": {
+    "news": "Новости",
+    "viewAll": "Посмотреть все"
   },
   "report_modal": {
     "reportPlayer": "Жалоба на игрока",
@@ -347,11 +820,38 @@
   "rich_editor_edit_mode": {
     "placeholder": "Enter some rich text..."
   },
+  "rich_message": {
+    "matches": "Matches <ForumUsername steamId={{steamId}} />",
+    "records": "Records <ForumUsername steamId={{steamId}} />",
+    "heroes": "Heroes <ForumUsername steamId={{steamId}} />",
+    "teammates": "Teammates <ForumUsername steamId={{steamId}} />",
+    "match": "Match {{matchId}}"
+  },
   "rule_node": {
     "displayTitle": "{{title}}"
   },
+  "search_game_button": {
+    "searchForbidden": "Поиск запрещен",
+    "someoneInGame": "Кто-то в группе играет",
+    "login": "Войти",
+    "connecting": "Подключаемся...",
+    "returnToLobby": "Вернуться в лобби",
+    "groupInLobby": "Группа в лобби",
+    "joinLobby": "Присоединиться к лобби",
+    "cancelSearch": "Отменить поиск",
+    "play": "Играть",
+    "modeSingular": "режим",
+    "modePluralGenitive": "режима",
+    "modePlural": "режимов"
+  },
   "select_image_decoration": {
     "title": "Title: {{title}}"
+  },
+  "select_options": {
+    "defaultText": "Выберите опцию"
+  },
+  "server_searching": {
+    "searching": "Searching for a server..."
   },
   "store_landing": {
     "title": "dotaclassic plus",
@@ -374,13 +874,30 @@
     "recalibrationText": "Один раз за сезон можно сбросить рейтинг до стартового и пройти 10 калибровочных игр заново. Вдруг на этот раз система поймёт, кто тут настоящий боец за MMR?",
     "subscribe": "Subscribe"
   },
+  "stream_carousel": {
+    "streams": "Стримы"
+  },
+  "teammates_table": {
+    "player": "Игрок",
+    "matches": "Матчи",
+    "winrate": "% Побед"
+  },
   "tech_static_tabs": {
     "quickStart": "Быстрый старт",
     "increaseFPS": "Повысить FPS",
     "clientSetup": "Настройка клиента",
     "frequentIssues": "Частые проблемы"
   },
+  "telegram_invite": {
+    "telegram": "Telegram"
+  },
   "thread": {},
+  "threads_table": {
+    "avatarAlt": "аватар пользователя {{name}}"
+  },
+  "threads": {
+    "newMessagesCount": "New messages count: {{count}}"
+  },
   "toolbar": {
     "undo": "Undo",
     "redo": "Redo",
@@ -393,5 +910,18 @@
     "centerAlign": "Center Align",
     "rightAlign": "Right Align",
     "justifyAlign": "Justify Align"
+  },
+  "username": {
+    "bot": "Bot #{id}",
+    "blank": "<blank>"
+  },
+  "username_roles": {
+    "streaming_now": "Стримит dotaclassic.ru прямо сейчас!",
+    "default_subscriber_title": "Подписчик dotaclassic plus"
+  },
+  "waiting_accept": {
+    "searchingServer": "Searching for a server...",
+    "waitingForPlayers": "Waiting for other players",
+    "avatarAlt": "Avatar of player {{steamId}}"
   }
 }

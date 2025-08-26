@@ -5,18 +5,18 @@ export const AchievementMapping: Partial<
 > = {
   [AchievementKey.WIN_1HR_GAME_AGAINST_TECHIES]: {
     img: "/achievement/Proximity_Mines_icon.webp",
-    description: "Выиграть часовую игру против Techies",
-    title: "Терпила",
+    description: "achievement.win1hrGameAgainstTechies.description",
+    title: "achievement.win1hrGameAgainstTechies.description",
   },
   [AchievementKey.LAST_HITS_1000]: {
     img: "/achievement/furion.jpg",
-    description: "Добить 1000 вражеских крипов",
-    title: "Крипочек",
+    description: "achievement.lastHits1000.description",
+    title: "achievement.lastHits1000.description",
   },
   [AchievementKey.GPM_1000]: {
     img: "/achievement/greed.webp",
-    description: "Закончить игру с 1000 золота в минуту",
-    title: "Бизнесмен",
+    description: "achievement.gpm1000.description",
+    title: "achievement.gpm1000.description",
   },
   [AchievementKey.XPM_1000]: {
     img: "/achievement/tome.jpeg",

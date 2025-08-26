@@ -1,0 +1,17 @@
+{
+  "match_summary": {
+    "matches": "Matches",
+    "matchNumber": "Match {matchId}",
+    "view": "View",
+    "log": "Log",
+    "download": "Download",
+    "replay": "Game Replay",
+    "mode": "Mode",
+    "lobby": "Lobby",
+    "gameStage": "Game Stage",
+    "duration": "Duration",
+    "matchEnded": "Match Ended",
+    "victoryLight": "Victory of the Forces of Light",
+    "victoryDark": "Victory of the Forces of Darkness"
+  }
+}

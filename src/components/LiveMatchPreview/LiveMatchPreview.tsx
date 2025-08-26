@@ -20,11 +20,12 @@ import { AppRouter } from "@/route";
 import { KDATableData } from "@/components/GenericTable/GenericTable";
 import cx from "clsx";
 import heroName, { shortName } from "@/util/heroName";
-import { watchCmd } from "@/util/urls";
 import { TbGrave2 } from "react-icons/tb";
 import { remapNumber } from "@/util/math";
 import { iterateItems } from "@/util";
 import { Username } from "../Username/Username";
+import { useTranslation } from "react-i18next";
+import { watchCmd } from "@/util/urls";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -41,6 +42,7 @@ const allEmptyItems = {
 
 const TeamListTableEntry = (slot: MatchSlotInfo) => {
   const hero = slot.heroData;
+  const { t } = useTranslation();
 
   if (!hero) {
     return (
@@ -55,7 +57,9 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
                   DotaConnectionState.DOTA_CONNECTION_STATE_NOT_YET_CONNECTED &&
                   c.abandon__visible,
               )}
-              alt={`Player ${slot.user.name} abandoned`}
+              alt={t("live_match.playerAbandoned", {
+                playerName: slot.user.name,
+              })}
               src="/abandon.png"
             />
           </div>
@@ -93,7 +97,9 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
                     DotaConnectionState.DOTA_CONNECTION_STATE_ABANDONED) &&
                   c.abandon__visible,
               )}
-              alt={`Player ${slot.user.name} abandoned`}
+              alt={t("live_match.playerAbandoned", {
+                playerName: slot.user.name,
+              })}
               src="/abandon.png"
             />
           </div>
@@ -134,7 +140,6 @@ const MinimapHero = ({ hero, team }: MinimapHeroProps) => {
   const { posX, posY, respawnTime } = hero;
   const dead = respawnTime > 0;
 
-  // const remappedX = 5 + posX * 90;
   const remappedX = remapNumber(posX, 0, 1, 0.02, 0.96) * 100;
   const remappedY = remapNumber(posY, 0, 1, 0.02, 0.96) * 100;
 
@@ -149,17 +154,14 @@ const MinimapHero = ({ hero, team }: MinimapHeroProps) => {
         left: `${remappedX}%`,
         bottom: `${remappedY}%`,
       }}
-    >
-      {/*<FaSkull*/}
-      {/*  className={cx(c.deadIndicator, dead && c.deadIndicator__visible)}*/}
-      {/*/>*/}
-    </div>
+    ></div>
   );
 };
 
 export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
   match,
 }) => {
+  const { t } = useTranslation();
   const renderHeroPool =
     match.gameState >= DotaGameRulesState.PRE_GAME ? match.heroes : [];
 
@@ -168,8 +170,8 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
   return (
     <>
       <EmbedProps
-        title={`LIVE матч ${match.matchId}`}
-        description={`Превью активного матча ${match.matchId}, игровая карта с героями, которые двигаются по карте.`}
+        title={t("live_match.liveMatch", { matchId: match.matchId })}
+        description={t("live_match.matchPreview", { matchId: match.matchId })}
       />
       <div className={c.liveMatch}>
         <TeamListTable players={radiant} />

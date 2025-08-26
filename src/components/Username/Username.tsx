@@ -6,6 +6,7 @@ import c from "./Username.module.scss";
 import { UserDTO } from "@/api/back";
 import { observer } from "mobx-react-lite";
 import { UsernameRoles } from "@/components/Username/UsernameRoles";
+import { useTranslation } from "react-i18next";
 
 interface UsernameProps {
   user: UserDTO;
@@ -24,21 +25,22 @@ export const Username: React.FC<UsernameProps> = observer(function Username({
   testId,
   roles,
 }) {
+  const { t } = useTranslation();
   const targetLink = link ?? AppRouter.players.player.index(user.steamId).link;
 
   const displayName = useMemo(() => {
     if (Number(user.steamId) < 10) {
-      return `Бот #${user.steamId}`;
+      return t("username.bot", { id: user.steamId });
     }
 
     const trimmedNickname = user.name?.trim();
     const isEmptyNickname = !trimmedNickname || trimmedNickname === " ุ";
 
     if (isEmptyNickname) {
-      return "<blank>";
+      return t("username.blank");
     }
     return trimmedNickname;
-  }, [user]);
+  }, [user, t]);
 
   if (nolink) {
     return (

@@ -19,6 +19,7 @@ import { MatchSummaryScore } from "@/components/MatchSummary/MatchSummaryScore";
 import { observer } from "mobx-react-lite";
 import { useIsModerator } from "@/util";
 import { getApi } from "@/api/hooks";
+import { useTranslation } from "react-i18next";
 
 interface IMatchSummaryProps {
   matchId: number;
@@ -47,6 +48,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
     gameState,
     replay,
   }) => {
+    const { t } = useTranslation();
     const isMod = useIsModerator();
 
     return (
@@ -54,8 +56,10 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
         <Panel style={{ flexDirection: "row" }}>
           <div className="left">
             <Breadcrumbs>
-              <PageLink link={AppRouter.matches.index().link}>Матчи</PageLink>
-              <span>Матч {matchId}</span>
+              <PageLink link={AppRouter.matches.index().link}>
+                {t("match_summary.matches")}
+              </PageLink>
+              <span>{t("match_summary.matchNumber", { matchId })}</span>
             </Breadcrumbs>
           </div>
           <div className="right">
@@ -75,48 +79,48 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
                         });
                     }}
                   >
-                    Просмотреть
+                    {t("match_summary.view")}
                   </a>
                 </dd>
-                <dt>Лог</dt>
+                <dt>{t("match_summary.log")}</dt>
               </dl>
             )}
             {replay && (
               <dl>
                 <dd>
                   <PageLink link={AppRouter.matches.download(matchId).link}>
-                    Скачать
+                    {t("match_summary.download")}
                   </PageLink>
                 </dd>
-                <dt>Реплей игры</dt>
+                <dt>{t("match_summary.replay")}</dt>
               </dl>
             )}
             <dl>
               <dd>{formatDotaMode(gameMode)}</dd>
-              <dt>Режим</dt>
+              <dt>{t("match_summary.mode")}</dt>
             </dl>
             <dl>
               <dd>{formatGameMode(mode)}</dd>
-              <dt>Лобби</dt>
+              <dt>{t("match_summary.lobby")}</dt>
             </dl>
             {gameState !== undefined && (
               <dl>
                 <dd className="gold">{formatGameState(gameState)}</dd>
-                <dt>Этап игры</dt>
+                <dt>{t("match_summary.gameStage")}</dt>
               </dl>
             )}
             <dl>
               <dd>
                 <Duration duration={duration} />
               </dd>
-              <dt>Длительность</dt>
+              <dt>{t("match_summary.duration")}</dt>
             </dl>
             {timestamp && (
               <dl>
                 <dd>
                   <TimeAgo date={timestamp} />
                 </dd>
-                <dt>Матч завершен</dt>
+                <dt>{t("match_summary.matchEnded")}</dt>
               </dl>
             )}
           </div>
@@ -129,7 +133,9 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
                 winner === 2 ? "green" : "red",
               )}
             >
-              {winner === 2 ? "Победа Сил Света" : "Победа Сил Тьмы"}
+              {winner === 2
+                ? t("match_summary.victoryLight")
+                : t("match_summary.victoryDark")}
             </div>
           )}
           <MatchSummaryScore

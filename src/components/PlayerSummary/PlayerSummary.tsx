@@ -31,6 +31,7 @@ import { formatBanReason } from "@/util/texts/bans";
 import { hasSubscription } from "@/util/subscription";
 import { formatGameMode } from "@/util/gamemode";
 import { Username } from "../Username/Username";
+import { useTranslation } from "react-i18next";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -60,27 +61,27 @@ const getMenuItems = (steamId: string, isMyProfile: boolean): Items => {
   const menuItems: Items = [
     {
       key: "overall",
-      label: "Общее",
+      label: "player_summary.menu.overall",
       onSelect: AppRouter.players.player.index(steamId).link,
     },
     {
       key: "matches",
-      label: "Матчи",
+      label: "player_summary.menu.matches",
       onSelect: AppRouter.players.playerMatches(steamId).link,
     },
     {
       key: "teammates",
-      label: "Союзники",
+      label: "player_summary.menu.teammates",
       onSelect: AppRouter.players.player.teammates(steamId).link,
     },
     {
       key: "heroes",
-      label: "Герои",
+      label: "player_summary.menu.heroes",
       onSelect: AppRouter.players.player.heroes(steamId).link,
     },
     {
       key: "records",
-      label: "Рекорды",
+      label: "player_summary.menu.records",
       onSelect: AppRouter.players.player.records(steamId).link,
     },
   ];
@@ -88,12 +89,12 @@ const getMenuItems = (steamId: string, isMyProfile: boolean): Items => {
   if (isMyProfile) {
     menuItems.push({
       key: "drops",
-      label: "Награды",
+      label: "player_summary.menu.drops",
       onSelect: AppRouter.players.player.drops(steamId).link,
     });
     menuItems.push({
       key: "settings",
-      label: "Настройки",
+      label: "player_summary.menu.settings",
       onSelect: AppRouter.players.player.settings(steamId).link,
     });
   }
@@ -112,6 +113,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     rank,
     mmr,
   }) => {
+    const { t } = useTranslation();
     const { wins, abandons, loss } = stats;
     const isModerator = useIsModerator();
 
@@ -151,7 +153,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 width={65}
                 height={65}
                 user={user}
-                alt={`Avatar of player ${name}`}
+                alt={t("player_summary.avatarAlt", { name })}
               />
               <div className={c.playerAndRoles}>
                 <Username
@@ -175,7 +177,9 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                     <FaSteam className={c.icon_svg} />
                   </a>
                   {isOld && (
-                    <Tooltipable tooltip="Подписчик dotaclassic plus">
+                    <Tooltipable
+                      tooltip={t("player_summary.subscriberTooltip")}
+                    >
                       <img width={20} height={20} src="/logo/128.png" />
                     </Tooltipable>
                   )}
@@ -212,50 +216,58 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                     {formatGameMode(session.lobbyType)}
                   </PageLink>
                 </dd>
-                <dt>играет матч</dt>
+                <dt>{t("player_summary.matchPlaying")}</dt>
               </dl>
             )}
             {lastGameTimestamp && (
               <dl data-testid="player-summary-last-game">
                 <dd>{formatShortTime(new Date(lastGameTimestamp))}</dd>
-                <dt>последняя игра</dt>
+                <dt>{t("player_summary.lastGame")}</dt>
               </dl>
             )}
             {banStatus.isBanned && (
               <dl data-testid="player-summary-win-loss">
                 <Tooltipable
-                  tooltip={`Причина: ${formatBanReason(banStatus.status)}`}
+                  tooltip={t("player_summary.banReason", {
+                    reason: formatBanReason(banStatus.status),
+                  })}
                 >
                   <dd>
                     <TimeAgo date={banStatus.bannedUntil} />
                   </dd>
                 </Tooltipable>
-                <dt>Блокировка</dt>
+                <dt>{t("player_summary.ban")}</dt>
               </dl>
             )}
             <dl className={c.games} data-testid="player-summary-win-loss">
-              <Tooltipable tooltip={"Побед - Поражений - Покинутых игр"}>
+              <Tooltipable tooltip={t("player_summary.winLossTooltip")}>
                 <dd>
                   <span className="green">{wins}</span>
                   <span className="red">{loss}</span>
                   <span className="grey">{abandons}</span>
                 </dd>
               </Tooltipable>
-              <dt>Матчи</dt>
+              <dt>{t("player_summary.matches")}</dt>
             </dl>
             <dl data-testid="player-summary-winrate">
               <dd className={wins > loss ? "green" : "red"}>
                 {formatWinrate(wins, loss)}
               </dd>
-              <dt>Доля побед</dt>
+              <dt>{t("player_summary.winRate")}</dt>
             </dl>
             <dl data-testid="player-summary-rating">
-              <dd>{mmr ? <span>{mmr}</span> : "Нет"}</dd>
-              <dt>Рейтинг</dt>
+              <dd>{mmr ? <span>{mmr}</span> : t("player_summary.noRating")}</dd>
+              <dt>{t("player_summary.rating")}</dt>
             </dl>
             <dl data-testid="player-summary-rank">
-              <dd>{rank && rank > 0 ? <span>{rank}</span> : "Нет"}</dd>
-              <dt>Ранг</dt>
+              <dd>
+                {rank && rank > 0 ? (
+                  <span>{rank}</span>
+                ) : (
+                  t("player_summary.noRank")
+                )}
+              </dd>
+              <dt>{t("player_summary.rank")}</dt>
             </dl>
           </div>
         </Panel>

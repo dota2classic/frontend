@@ -1,0 +1,10 @@
+{
+  "message_input": {
+    "tooShortMessage": "Слишком короткое сообщение!",
+    "forbiddenMessage": "Вам запрещено отправлять сообщения!",
+    "tooFrequentMessages": "Слишком часто отправляете сообщения!",
+    "replyToMessage": "Ответ на сообщение",
+    "enterMessage": "Введите сообщение",
+    "noPermission": "У вас нет прав на отправку сообщений"
+  }
+}

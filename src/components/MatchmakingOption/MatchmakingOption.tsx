@@ -16,6 +16,7 @@ import { QueueDurationDto } from "@/api/back";
 import { GiJeweledChalice } from "react-icons/gi";
 import { MdSecurity } from "react-icons/md";
 import { BiDoorOpen } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 interface MatchmakingOptionProps {
   mode: MatchmakingMode;
@@ -63,16 +64,8 @@ export const MatchmakingOption = observer(
     testId,
     // queueTime,
   }: MatchmakingOptionProps) => {
+    const { t } = useTranslation();
     const { queue } = useStore();
-
-    // const currentQueueTime = queueTime.find(
-    //   (t) => t.utcHour === new Date().getUTCHours(),
-    // )!;
-    //
-    // const nextDefinedQueueTime = findNextDefinedUtcHourQueueTime(
-    //   new Date().getUTCHours(),
-    //   queueTime,
-    // );
 
     return (
       <div
@@ -109,7 +102,7 @@ export const MatchmakingOption = observer(
               <div className={c.modeAdditional}>
                 {HasBotsModes.includes(mode) && (
                   <Tooltipable
-                    tooltip={"Пустые слоты заполняются ботами"}
+                    tooltip={t("matchmaking_option.botsFillSlots")}
                     className={c.modeAdditional__neutral}
                   >
                     <FaRobot />
@@ -117,7 +110,7 @@ export const MatchmakingOption = observer(
                 )}
                 {AbandonRestrictModes.includes(mode) && (
                   <Tooltipable
-                    tooltip={"Строгие наказания за покинутые игры"}
+                    tooltip={t("matchmaking_option.strictPenalties")}
                     className={c.modeAdditional__bad}
                   >
                     <MdSecurity />
@@ -125,7 +118,7 @@ export const MatchmakingOption = observer(
                 )}
                 {!AbandonRestrictModes.includes(mode) && (
                   <Tooltipable
-                    tooltip={"Нет наказаний за покинутые игры"}
+                    tooltip={t("matchmaking_option.noPenalties")}
                     className={c.modeAdditional__neutral}
                   >
                     <BiDoorOpen />
@@ -133,7 +126,7 @@ export const MatchmakingOption = observer(
                 )}
                 {DropModes.includes(mode) && (
                   <Tooltipable
-                    tooltip={"После матча выпадают награды"}
+                    tooltip={t("matchmaking_option.dropRewards")}
                     className={c.modeAdditional__good}
                   >
                     <GiJeweledChalice />
@@ -149,7 +142,7 @@ export const MatchmakingOption = observer(
           </div>
         </div>
         <span className={c.mode__inQueue}>
-          {queue.inQueueCount(mode, version)} в поиске
+          {queue.inQueueCount(mode, version)} {t("matchmaking_option.inQueue")}
         </span>
       </div>
     );

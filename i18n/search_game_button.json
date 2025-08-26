@@ -1,0 +1,16 @@
+{
+  "search_game_button": {
+    "searchForbidden": "Поиск запрещен",
+    "someoneInGame": "Кто-то в группе играет",
+    "login": "Войти",
+    "connecting": "Подключаемся...",
+    "returnToLobby": "Вернуться в лобби",
+    "groupInLobby": "Группа в лобби",
+    "joinLobby": "Присоединиться к лобби",
+    "cancelSearch": "Отменить поиск",
+    "play": "Играть",
+    "modeSingular": "режим",
+    "modePluralGenitive": "режима",
+    "modePlural": "режимов"
+  }
+}

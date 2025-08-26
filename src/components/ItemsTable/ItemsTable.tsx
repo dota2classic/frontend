@@ -6,19 +6,22 @@ import { colors } from "@/colors";
 import { itemName } from "@/util/heroName";
 import { ItemDto } from "@/api/back";
 import { FaCrown } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 interface IItemsTableProps {
   items: ItemDto[];
 }
 
 export const ItemsTable: React.FC<IItemsTableProps> = ({ items }) => {
+  const { t } = useTranslation();
+
   return (
     <GenericTable
       columns={[
         {
           type: ColumnType.Raw,
           name: (
-            <Tooltipable tooltip={"Популярность"}>
+            <Tooltipable tooltip={t("items_table.popularityTooltip")}>
               <FaCrown />
             </Tooltipable>
           ),
@@ -26,18 +29,18 @@ export const ItemsTable: React.FC<IItemsTableProps> = ({ items }) => {
         },
         {
           type: ColumnType.Item,
-          name: "Предмет",
+          name: t("items_table.item"),
         },
         {
           type: ColumnType.IntWithBar,
-          name: "Матчи",
+          name: t("items_table.games"),
           sortable: true,
           defaultSort: "desc",
           color: colors.green,
         },
         {
           type: ColumnType.PercentWithBar,
-          name: "Доля побед",
+          name: t("items_table.winRate"),
           sortable: true,
         },
       ]}

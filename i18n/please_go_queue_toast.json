@@ -1,0 +1,8 @@
+{
+  "please_go_queue": {
+    "titlePart1": "Давай поиграем в",
+    "queueInfo": "Там уже {{inQueue}} в поиске!",
+    "acceptText": "Уже иду",
+    "declineText": "Потом"
+  }
+}

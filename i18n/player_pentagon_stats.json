@@ -1,0 +1,13 @@
+{
+  "player_pentagon_stats": {
+    "reviews": "Отзывы",
+    "kills": "Убийств",
+    "deaths": "Смертей",
+    "assists": "Помощи",
+    "seasonStats": "Статистика за сезон",
+    "gamesPlayed": "Игр сыграно",
+    "winRate": "Доля побед",
+    "abandonedGames": "Покинутых игр",
+    "playtime": "Времени в игре"
+  }
+}

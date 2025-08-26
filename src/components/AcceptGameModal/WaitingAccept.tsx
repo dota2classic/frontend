@@ -6,11 +6,13 @@ import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import { formatGameMode } from "@/util/gamemode";
 import { ReadyState } from "@/store/queue/messages/s2c/player-room-state-message.s2c";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   className?: string;
 }
 export const WaitingAccept = observer((p: Props) => {
+  const { t } = useTranslation();
   const { queue, user } = useStore();
 
   if (!queue.roomState) return null;
@@ -35,8 +37,8 @@ export const WaitingAccept = observer((p: Props) => {
         <h3>{formatGameMode(queue.roomState.mode)}</h3>
         <h4 style={{ marginTop: 12 }}>
           {queue.serverSearching
-            ? "Поиск сервера..."
-            : "Ожидаем других игроков"}
+            ? t("waiting_accept.searchingServer")
+            : t("waiting_accept.waitingForPlayers")}
         </h4>
       </div>
       <div className={c.dots}>
@@ -59,7 +61,9 @@ export const WaitingAccept = observer((p: Props) => {
                     user.tryGetUser(entry.steamId)?.entry?.user?.avatar ||
                     "/avatar.png"
                   }
-                  alt={`Avatar of player ${entry.steamId}`}
+                  alt={t("waiting_accept.avatarAlt", {
+                    steamId: entry.steamId,
+                  })}
                 />
               </picture>
             </PageLink>

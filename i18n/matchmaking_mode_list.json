@@ -1,0 +1,7 @@
+{
+  "matchmaking_mode_list": {
+    "gameMode": "Режим игры",
+    "calibrationGamesLeft": "еще {{count}} калибровочных игр",
+    "strictPenalties": "Строгие наказания за ливы"
+  }
+}

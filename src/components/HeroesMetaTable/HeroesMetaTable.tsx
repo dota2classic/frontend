@@ -4,18 +4,18 @@ import { GenericTable } from "..";
 import { HeroSummaryDto } from "@/api/back";
 import { colors } from "@/colors";
 import { ColumnType } from "@/const/tables";
+import { useTranslation } from "react-i18next";
 
 interface IHeroesMetaTableProps {
   loading: boolean;
   data: HeroSummaryDto[];
 }
 
-// const heroTiers = ["S", "A", "B", "C", "D"];
-
 export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
   loading,
   data,
 }) => {
+  const { t } = useTranslation();
   const sortedByMatch = data.toSorted((a, b) => b.games - a.games);
 
   return (
@@ -35,37 +35,37 @@ export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
       columns={[
         {
           type: ColumnType.Hero,
-          name: "Герой",
+          name: t("heroes_meta_table.hero"),
           sortable: true,
         },
         {
           type: ColumnType.IntWithBar,
-          name: "Матчи",
+          name: t("heroes_meta_table.matches"),
           sortable: true,
           defaultSort: "desc",
         },
         {
           type: ColumnType.PercentWithBar,
-          name: "Доля побед",
+          name: t("heroes_meta_table.winRate"),
           color: colors.green,
           sortable: true,
         },
         {
           type: ColumnType.PercentWithBar,
-          name: "Частота выбора",
+          name: t("heroes_meta_table.pickRate"),
           color: colors.grey,
           mobileOmit: true,
           sortable: true,
         },
         {
           type: ColumnType.FloatWithBar,
-          name: "KDA",
+          name: t("heroes_meta_table.kda"),
           mobileOmit: true,
           sortable: true,
         },
         {
           type: ColumnType.PM_PAIR,
-          name: "GPM/XPM",
+          name: t("heroes_meta_table.gpmXpm"),
           sortable: true,
           mobileOmit: true,
           sortKey(d) {
@@ -74,7 +74,7 @@ export const HeroesMetaTable: React.FC<IHeroesMetaTableProps> = ({
         },
         {
           type: ColumnType.PM_PAIR,
-          name: "LH/D",
+          name: t("heroes_meta_table.lhD"),
           sortable: true,
           mobileOmit: true,
           sortKey(d) {

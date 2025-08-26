@@ -4,6 +4,7 @@ import { GenericTable } from "..";
 import { HeroItemDto } from "@/api/back";
 import { colors } from "@/colors";
 import { ColumnType } from "@/const/tables";
+import { useTranslation } from "react-i18next";
 
 interface IHeroItemsTableProps {
   data: HeroItemDto[];
@@ -16,6 +17,8 @@ export const HeroItemsTable: React.FC<IHeroItemsTableProps> = ({
   className,
   loading,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <GenericTable
       className={className}
@@ -25,25 +28,25 @@ export const HeroItemsTable: React.FC<IHeroItemsTableProps> = ({
       columns={[
         {
           type: ColumnType.Item,
-          name: "Предмет",
+          name: t("hero_items_table.item"),
           maxWidth: 120,
         },
         {
           type: ColumnType.IntWithBar,
-          name: "Матчи",
+          name: t("hero_items_table.matches"),
           color: colors.green,
           sortable: true,
           defaultSort: "desc",
         },
         {
           type: ColumnType.IntWithBar,
-          name: "Победы",
+          name: t("hero_items_table.wins"),
           color: colors.green,
           sortable: true,
         },
         {
           type: ColumnType.PercentWithBar,
-          name: "Доля побед",
+          name: t("hero_items_table.winPercentage"),
           sortable: true,
         },
       ]}

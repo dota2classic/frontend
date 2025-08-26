@@ -16,6 +16,7 @@ import cx from "clsx";
 import { colors } from "@/colors";
 import { maxBy } from "@/util";
 import { SingleWeightedBarChart } from "@/components/BarChart/SingleWeightedBarChart";
+import { useTranslation } from "react-i18next";
 
 interface IMatchHistoryTableProps {
   data: MatchDto[];
@@ -30,17 +31,18 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
   perPage,
   className,
 }) => {
+  const { t } = useTranslation();
   const maxDuration = maxBy(data, (it) => it.duration)?.duration || 1;
   return (
     <Table className={cx("compact", className)}>
       <thead>
         <tr>
-          <th>Номер матча</th>
-          <th>Режим игры</th>
-          <th>Результат</th>
-          <th>Длительность</th>
-          <th className="omit">Силы Света</th>
-          <th className="omit">Силы Тьмы</th>
+          <th>{t("match_history_table.matchNumber")}</th>
+          <th>{t("match_history_table.gameMode")}</th>
+          <th>{t("match_history_table.result")}</th>
+          <th>{t("match_history_table.duration")}</th>
+          <th className="omit">{t("match_history_table.radiant")}</th>
+          <th className="omit">{t("match_history_table.dire")}</th>
         </tr>
       </thead>
       <tbody>
@@ -75,7 +77,9 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
                   className={it.winner === 2 ? "green" : "red"}
                   link={AppRouter.matches.match(it.id).link}
                 >
-                  {it.winner === 2 ? "Победа Сил Света" : "Победа Сил Тьмы"}
+                  {it.winner === 2
+                    ? t("match_history_table.radiantVictory")
+                    : t("match_history_table.direVictory")}
                 </PageLink>
               </td>
               <td>

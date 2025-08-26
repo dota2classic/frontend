@@ -1,0 +1,11 @@
+{
+  "heroes_meta_table": {
+    "hero": "Герой",
+    "matches": "Матчи",
+    "winRate": "Доля побед",
+    "pickRate": "Частота выбора",
+    "kda": "KDA",
+    "gpmXpm": "GPM/XPM",
+    "lhD": "LH/D"
+  }
+}

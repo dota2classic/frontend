@@ -9,6 +9,7 @@ import cx from "clsx";
 import { KDABarChart } from "@/components/BarChart/KDABarChart";
 import { ColumnType } from "@/const/tables";
 import { UserDTO } from "@/api/back";
+import { useTranslation } from "react-i18next";
 
 export interface PlayerMatchItem {
   hero: string;
@@ -48,6 +49,8 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
   withItems,
   showUser,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <GenericTable
       placeholderRows={25}
@@ -55,20 +58,20 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
       columns={[
         {
           type: showUser ? ColumnType.Player : ColumnType.Hero,
-          name: showUser ? "Игрок" : "Герой",
+          name: showUser ? t("hero_table.player") : t("hero_table.hero"),
           link: (d) => AppRouter.matches.match(d[6]).link,
           maxWidth: showUser ? 180 : 150,
         },
         {
           type: ColumnType.Raw,
-          name: "Результат",
+          name: t("hero_table.result"),
           format: ({ won, matchId, timestamp }) => (
             <div className={cx(c.twoRows)}>
               <PageLink
                 link={AppRouter.matches.match(matchId).link}
                 className={won ? c.result__win : c.result__lose}
               >
-                {won ? "Победа" : "Поражение"}
+                {won ? t("hero_table.win") : t("hero_table.lose")}
               </PageLink>
               <span className={c.timestamp} suppressHydrationWarning>
                 <TimeAgo date={timestamp} />
@@ -78,7 +81,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
         },
         {
           type: ColumnType.Raw,
-          name: "Режим",
+          name: t("hero_table.mode"),
           format: ([lobby, mode]) => (
             <div className={c.twoRows}>
               <span>{formatGameMode(lobby)}</span>
@@ -90,14 +93,14 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
 
         {
           type: ColumnType.IntWithBar,
-          name: "Длительность",
+          name: t("hero_table.duration"),
           format: (dur) => <Duration duration={dur} />,
           color: colors.grey,
           mobileOmit: true,
         },
         {
           type: ColumnType.Raw,
-          name: "KDA",
+          name: t("hero_table.kda"),
           format: (item) => (
             <div className={c.kda}>
               <span>
@@ -115,7 +118,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           ? [
               {
                 type: ColumnType.Items,
-                name: "Предметы",
+                name: t("hero_table.items"),
                 mobileOmit: true,
               },
             ]

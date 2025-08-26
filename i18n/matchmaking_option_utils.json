@@ -1,0 +1,9 @@
+{
+  "matchmaking_option": {
+    "searchForbiddenUntil": "Search forbidden until {{date}}",
+    "needToPlayAgainstBots": "Need to play against ",
+    "bots": "bots",
+    "needToWinAnyMode": "Need to win in any mode",
+    "needToPlayMore": "Need to play {{gamesRequired}} more games in Regular 5x5"
+  }
+}

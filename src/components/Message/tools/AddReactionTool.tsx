@@ -4,6 +4,7 @@ import { EmoticonSelectWindow } from "@/components";
 import { createPortal } from "react-dom";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { FaGrinTongueSquint } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   messageId: string;
@@ -12,6 +13,7 @@ interface Props {
 export const AddReactionTool = React.memo(function AddReactionTool({
   messageId,
 }: Props) {
+  const { t } = useTranslation();
   const thread = useContext(ThreadContext);
 
   const emoticonAnchorRef = useRef<HTMLElement | null>(null);
@@ -34,7 +36,10 @@ export const AddReactionTool = React.memo(function AddReactionTool({
   return (
     <>
       <span ref={emoticonAnchorRef}>
-        <FaGrinTongueSquint onClick={showEmoticonWindow} />
+        <FaGrinTongueSquint
+          onClick={showEmoticonWindow}
+          title={t("add_reaction_tool.addReaction")}
+        />
       </span>
       {visible &&
         createPortal(

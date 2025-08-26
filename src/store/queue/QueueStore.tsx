@@ -59,6 +59,9 @@ import {
 } from "@/components/Toast/toasts";
 import { toast } from "react-toastify";
 
+// TODO: maybe very bad
+import { t } from "i18next";
+
 export type QueueHolder = {
   [key: string]: number;
 };
@@ -247,7 +250,9 @@ export class QueueStore
 
   @computed
   public get allowedSelectedModes(): MatchmakingMode[] {
-    return this.selectedModes.filter((mode) => !modEnableCondition(this, mode));
+    return this.selectedModes.filter(
+      (mode) => !modEnableCondition(this, mode, t),
+    );
   }
 
   @computed

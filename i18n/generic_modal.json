@@ -1,0 +1,6 @@
+{
+  "generic_modal": {
+    "title": "Modal Title: {{title}}",
+    "close": "Close the modal"
+  }
+}

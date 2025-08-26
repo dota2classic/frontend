@@ -1,0 +1,10 @@
+{
+  "meta_navbar": {
+    "matches": "Matches",
+    "heroes": "Heroes",
+    "items": "Items",
+    "players": "Players",
+    "records": "Records",
+    "meta": "Meta"
+  }
+}

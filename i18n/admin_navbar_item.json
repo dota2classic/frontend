@@ -1,0 +1,10 @@
+{
+  "admin_navbar": {
+    "servers": "Сервера",
+    "violations": "Нарушения",
+    "settings": "Ф:Настройки",
+    "list": "Ф:Список",
+    "decorations": "Декорации",
+    "rules": "Правила"
+  }
+}

@@ -13,15 +13,17 @@ import { IoMdExit, IoMdTrophy } from "react-icons/io";
 import { GiFeatheredWing } from "react-icons/gi";
 import { MdViewList } from "react-icons/md";
 import cx from "clsx";
+import { useTranslation } from "react-i18next";
 
 export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   const { parsedToken, smallAvatar, logout } = useStore().auth;
+  const { t } = useTranslation();
 
   if (!parsedToken)
     return (
       <NavbarItem ignoreActive action={getAuthUrl()} testId="navbar-login">
         <FaSteam style={{ marginRight: 4, marginTop: "-3px" }} />
-        Войти
+        {t("navbar.login")}
       </NavbarItem>
     );
 
@@ -34,28 +36,28 @@ export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
       options={[
         {
           Icon: MdViewList,
-          label: "Матчи",
+          label: t("navbar.matches"),
           action: AppRouter.players.playerMatches(parsedToken.sub).link,
         },
         {
           Icon: GiFeatheredWing,
-          label: "Герои",
+          label: t("navbar.heroes"),
           action: AppRouter.players.player.heroes(parsedToken.sub).link,
         },
         {
           Icon: FaUserFriends,
-          label: "Союзники",
+          label: t("navbar.teammates"),
           action: AppRouter.players.player.teammates(parsedToken.sub).link,
         },
         {
           Icon: IoMdTrophy,
-          label: "Рекорды",
+          label: t("navbar.records"),
           action: AppRouter.players.player.records(parsedToken.sub).link,
         },
         {
           newCategory: true,
           Icon: IoMdExit,
-          label: "Выйти",
+          label: t("navbar.logout"),
           action: logout,
         },
       ]}
@@ -68,7 +70,7 @@ export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
         height={30}
         className={c.playerAvatar}
         src={smallAvatar || "/avatar.png"}
-        alt="User avatar"
+        alt={t("navbar.userAvatarAlt")}
       />
     </NavbarItem>
   );

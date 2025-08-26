@@ -1,0 +1,8 @@
+{
+  "generic_toast": {
+    "title": "Title: {{title}}",
+    "content": "Content: {{content}}",
+    "acceptText": "Accept: {{acceptText}}",
+    "declineText": "Decline: {{declineText}}"
+  }
+}

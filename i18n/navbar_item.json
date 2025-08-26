@@ -1,0 +1,10 @@
+{
+  "navbar": {
+    "item": {
+      "tooltip": "Tooltip text",
+      "option": {
+        "label": "{{label}}"
+      }
+    }
+  }
+}

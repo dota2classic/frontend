@@ -14,6 +14,7 @@ import cx from "clsx";
 import { useStore } from "@/store";
 import { FaSteam } from "react-icons/fa";
 import { getAuthUrl } from "@/util/getAuthUrl";
+import { useTranslation } from "react-i18next";
 
 interface RequiredStepProps {
   onComplete: () => void;
@@ -48,9 +49,10 @@ export const NoobFriendlyQueue = () => {
     () => setCompleteStep((t) => t + 1),
     [setCompleteStep],
   );
+  const { t } = useTranslation();
   return (
     <div className={c.noobQueue}>
-      <h1>Как начать играть?</h1>
+      <h1>{t("noob_friendly_queue.howToStartPlaying")}</h1>
 
       <RequiredStep
         onComplete={markStepComplete}
@@ -61,34 +63,29 @@ export const NoobFriendlyQueue = () => {
             style={{ display: "flex", alignItems: "center" }}
           >
             <FaSteam style={{ marginRight: 4 }} />
-            Войти
+            {t("noob_friendly_queue.login")}
           </a>
         }
         step={0}
       >
-        <h2>1) Нужно авторизоваться на сайте через Steam</h2>
+        <h2>1) {t("noob_friendly_queue.needToAuthorize")}</h2>
         <br />
       </RequiredStep>
 
       <RequiredStep
         onComplete={markStepComplete}
         currentStep={completeStep}
-        action="Я скачал и распаковал клиент игры"
+        action={t("noob_friendly_queue.downloadAndExtractClient")}
         step={1}
       >
-        <h2>2) Сначала нужно скачать и распаковать клиент с игрой.</h2>
+        <h2>2) {t("noob_friendly_queue.downloadAndExtractGameClient")}</h2>
         <PageLink link={AppRouter.download.link}>
-          Скачать его можно тут
+          {t("noob_friendly_queue.downloadHere")}
         </PageLink>
-        <h3>Возможные трудности и их решения:</h3>
+        <h3>{t("noob_friendly_queue.possibleDifficulties")}</h3>
         <ul>
-          <li>
-            xiradoh782 huiman - скорее всего, плохо распаковался архив с игрой.
-            Распакуй его заново
-          </li>
-          <li>
-            Долго скачивается - попробуй скачать через torrent или другое облако
-          </li>
+          <li>{t("noob_friendly_queue.unpackedArchiveIssue")}</li>
+          <li>{t("noob_friendly_queue.downloadIssues")}</li>
         </ul>
         <br />
       </RequiredStep>
@@ -97,20 +94,14 @@ export const NoobFriendlyQueue = () => {
         onComplete={markStepComplete}
         step={2}
         currentStep={completeStep}
-        action="Игра запускается на моем компьютере"
+        action={t("noob_friendly_queue.gameStartsOnMyComputer")}
       >
-        <h2>
-          3) Теперь тебе нужно запустить игру(dota.exe) в распакованном
-          архиве.{" "}
-        </h2>
-        <h3>ВНИМАНИЕ: Без запущенного Steam игра работать НЕ БУДЕТ!</h3>
-        <h3>Возможные трудности и их решения:</h3>
+        <h2>3) {t("noob_friendly_queue.startTheGame")}</h2>
+        <h3>{t("noob_friendly_queue.attentionSteamRequired")}</h3>
+        <h3>{t("noob_friendly_queue.possibleDifficulties")}</h3>
         <ul>
-          <li>
-            Steam четотам - ты запустил игру без steam. Закрой клиент, запусти
-            steam, и только после этого запускай игру
-          </li>
-          <li>Не запускается игра - распаковать игру заново</li>
+          <li>{t("noob_friendly_queue.startedGameWithoutSteam")}</li>
+          <li>{t("noob_friendly_queue.notLaunchingGame")}</li>
         </ul>
         <br />
       </RequiredStep>
@@ -119,18 +110,16 @@ export const NoobFriendlyQueue = () => {
         onComplete={markStepComplete}
         currentStep={completeStep}
         step={3}
-        action="Я смог поиграть с ботами и готов играть с людьми"
+        action={t("noob_friendly_queue.playedWithBotsReadyToPlayWithPeople")}
       >
-        <h2>4) Запусти одиночную игру с ботами</h2>
-        <h3>
-          СОВЕТ: сыграй несколько игр с ботами, чтобы привыкнуть к старой доте
-        </h3>
-        <h3>Возможные трудности и их решения:</h3>
+        <h2>4) {t("noob_friendly_queue.startSinglePlayerGameWithBots")}</h2>
+        <h3>{t("noob_friendly_queue.advicePlayWithBots")}</h3>
+        <h3>{t("noob_friendly_queue.possibleDifficulties")}</h3>
         <ul>
-          <li>Сильные лаги - сальто с места</li>
-          <li>Не хочу смотреть на мужика - новид в косноли</li>
-          <li>Квикасты: есть</li>
-          <li>Нажатие на себя через альт - нет</li>
+          <li>{t("noob_friendly_queue.lags")}</li>
+          <li>{t("noob_friendly_queue.dontWantToSeeCharacter")}</li>
+          <li>{t("noob_friendly_queue.quickcast")}</li>
+          <li>{t("noob_friendly_queue.altClickSelf")}</li>
         </ul>
         <br />
       </RequiredStep>

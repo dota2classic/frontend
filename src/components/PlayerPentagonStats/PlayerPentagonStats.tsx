@@ -6,6 +6,7 @@ import { PlayerAspect } from "@/api/mapped-models";
 import { formatPlayerAspect } from "@/util/gamemode";
 import { formatWinrate } from "@/util/math";
 import { PlayerAspectIcons } from "@/containers/PlayerFeedbackModal/PlayerAspectIcons";
+import { useTranslation } from "react-i18next";
 
 interface IPlayerPentagonStatsProps {
   aspects: {
@@ -33,6 +34,7 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
   games,
   wins,
 }) => {
+  const { t } = useTranslation();
   const [side, setSide] = useState(-1);
   const outerPentaSize = 0.36;
 
@@ -60,7 +62,7 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
   return (
     <div className={c.stats}>
       <div className={c.pentagon}>
-        <header>Отзывы</header>
+        <header>{t("player_pentagon_stats.reviews")}</header>
         <div
           className={c.pentagon__visual}
           ref={(e) => {
@@ -146,39 +148,39 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
       </div>
 
       <div className={c.statsContainer}>
-        <header>Статистика за сезон</header>
+        <header>{t("player_pentagon_stats.seasonStats")}</header>
         <div className={c.numericalStats}>
           <dl>
             <dd>{kills.toFixed(2)}</dd>
-            <dt>Убийств</dt>
+            <dt>{t("player_pentagon_stats.kills")}</dt>
           </dl>
           <dl>
             <dd>{deaths.toFixed(2)}</dd>
-            <dt>Смертей</dt>
+            <dt>{t("player_pentagon_stats.deaths")}</dt>
           </dl>
           <dl>
             <dd>{assists.toFixed(2)}</dd>
-            <dt>Помощи</dt>
+            <dt>{t("player_pentagon_stats.assists")}</dt>
           </dl>
           <span className={c.delimiter} />
 
           <dl>
             <dd>{games}</dd>
-            <dt>Игр сыграно</dt>
+            <dt>{t("player_pentagon_stats.gamesPlayed")}</dt>
           </dl>
           <dl>
             <dd>{formatWinrate(wins, games - wins)}</dd>
-            <dt>Доля побед</dt>
+            <dt>{t("player_pentagon_stats.winRate")}</dt>
           </dl>
           <dl>
             <dd>{(abandonRate * 100).toFixed(1)}%</dd>
-            <dt>Покинутых игр</dt>
+            <dt>{t("player_pentagon_stats.abandonedGames")}</dt>
           </dl>
           <dl>
             <dd>
               <Duration big duration={playtime} />
             </dd>
-            <dt>Времени в игре</dt>
+            <dt>{t("player_pentagon_stats.playtime")}</dt>
           </dl>
         </div>
       </div>

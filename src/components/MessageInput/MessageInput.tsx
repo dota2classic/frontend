@@ -8,6 +8,7 @@ import { AddEmoticonButton } from "./AddEmoticonButton";
 import { MdClose } from "react-icons/md";
 import { ThreadMessageDTO } from "@/api/back";
 import { useGreedyFocus } from "@/util/useTypingCallback";
+import { useTranslation } from "react-i18next";
 
 export const MessageInput = observer(function MessageInput(p: {
   canMessage: boolean;
@@ -22,6 +23,7 @@ export const MessageInput = observer(function MessageInput(p: {
   cancelReply?: () => void;
   greedyFocus?: number;
 }) {
+  const { t } = useTranslation();
   const { value, setValue } = p;
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +44,7 @@ export const MessageInput = observer(function MessageInput(p: {
 
   const submit = useCallback(() => {
     if (!isValid) {
-      setError("Слишком короткое сообщение!");
+      setError(t("message_input.tooShortMessage"));
       return;
     }
     // Do it optimistically, first
@@ -51,13 +53,13 @@ export const MessageInput = observer(function MessageInput(p: {
 
     p.onMessage(msg).catch((err) => {
       if (err.status === 403) {
-        setError("Вам запрещено отправлять сообщения!");
+        setError(t("message_input.forbiddenMessage"));
       } else {
-        setError("Слишком часто отправляете сообщения!");
+        setError(t("message_input.tooFrequentMessages"));
       }
       setValue(msg);
     });
-  }, [isValid, p, value]);
+  }, [isValid, p, t, value]);
 
   const onEnterKeyPressed = useCallback(
     (e: React.KeyboardEvent) => {
@@ -90,7 +92,7 @@ export const MessageInput = observer(function MessageInput(p: {
     <Panel className={cx(c.createMessageContainer, p.className)}>
       {p.replyMessage && (
         <div className={c.replyMessage}>
-          Ответ на сообщение{" "}
+          {t("message_input.replyToMessage")}
           <PlayerAvatar
             user={p.replyMessage.author}
             width={20}
@@ -113,8 +115,8 @@ export const MessageInput = observer(function MessageInput(p: {
           className={c.text}
           placeholder={
             p.canMessage
-              ? "Введите сообщение"
-              : "У вас нет прав на отправку сообщений"
+              ? t("message_input.enterMessage")
+              : t("message_input.noPermission")
           }
           value={value}
           onChange={(e) => {

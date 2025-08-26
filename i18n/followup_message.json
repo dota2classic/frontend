@@ -1,0 +1,5 @@
+{
+  "followup_message": {
+    "time": "Time: {{time}}"
+  }
+}

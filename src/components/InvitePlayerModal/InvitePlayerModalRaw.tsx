@@ -6,6 +6,7 @@ import c from "./InvitePlayerModal.module.scss";
 import { getApi } from "@/api/hooks";
 import { UserDTO } from "@/api/back";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
+import { useTranslation } from "react-i18next";
 
 interface IInvitePlayerModalProps {
   onSelect: (user: UserDTO) => void;
@@ -23,16 +24,16 @@ export const InvitePlayerModalRaw: React.FC<IInvitePlayerModalProps> = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useGreedyFocus(GreedyFocusPriority.INVITE_PLAYER_MODAL, inputRef);
+  const { t } = useTranslation();
   return (
     <GenericModal
       className={c.invitePlayerModal}
       onClose={close}
-      title="Выбрать игрока"
+      title={t("invite_player_modal.selectPlayer")}
     >
-      {/*<h2>Искать</h2>*/}
       <Input
         ref={inputRef}
-        placeholder={"Никнейм игрока"}
+        placeholder={t("invite_player_modal.playerNickname")}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />

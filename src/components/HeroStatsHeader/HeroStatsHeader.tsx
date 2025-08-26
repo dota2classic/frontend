@@ -5,6 +5,7 @@ import { HeroIcon, Panel } from "..";
 import c from "./HeroStatsHeader.module.scss";
 import heroName from "@/util/heroName";
 import { formatWinrate } from "@/util/math";
+import { useTranslation } from "react-i18next";
 
 interface IHeroStatsHeaderProps {
   hero: string;
@@ -19,6 +20,7 @@ export const HeroStatsHeader: React.FC<IHeroStatsHeaderProps> = ({
   wins,
   games,
 }) => {
+  const { t } = useTranslation();
   const isWinrateNonNegative = wins / Math.max(1, games) >= 0.5;
   return (
     <Panel className={c.heroSummary}>
@@ -29,23 +31,23 @@ export const HeroStatsHeader: React.FC<IHeroStatsHeaderProps> = ({
       <div className="right">
         <dl>
           <dd>{popularity}</dd>
-          <dt>Популярность</dt>
+          <dt>{t("hero_stats.popularity")}</dt>
         </dl>
 
         <dl>
           <dd className="green">{games}</dd>
-          <dt>Матчи</dt>
+          <dt>{t("hero_stats.matches")}</dt>
         </dl>
         <dl>
           <dd className="green">{wins}</dd>
-          <dt>Победы</dt>
+          <dt>{t("hero_stats.wins")}</dt>
         </dl>
 
         <dl>
           <dd className={isWinrateNonNegative ? "green" : "red"}>
             {formatWinrate(wins, games - wins)}
           </dd>
-          <dt>Доля побед</dt>
+          <dt>{t("hero_stats.winrate")}</dt>
         </dl>
       </div>
     </Panel>

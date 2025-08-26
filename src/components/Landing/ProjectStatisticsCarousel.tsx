@@ -2,12 +2,15 @@ import { Carousel, CarouselItem } from "@/components";
 import cx from "clsx";
 import c from "@/components/Landing/Landing.module.scss";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export const ProjectStatisticsCarousel = () => {
+  const { t } = useTranslation();
+
   return (
     <div className={cx(c.carouselBlock, c.middleBlock)}>
       <div className={c.newsMore}>
-        <header>Статистика</header>
+        <header>{t("project_statistics.header")}</header>
       </div>
 
       <Carousel>
@@ -15,44 +18,38 @@ export const ProjectStatisticsCarousel = () => {
           image="/landing/leaderboard.webp"
           title={
             <>
-              <span className="gold">Более 27,000</span> сыгранных матчей
+              <span className="gold">
+                {t("project_statistics.matchesCount")}
+              </span>{" "}
+              {t("project_statistics.playedMatches")}
             </>
           }
-          description={
-            <>
-              Из них более 15000 в режиме 5х5, 8500 игр в с ботами, 3500 в
-              режиме 1х1
-            </>
-          }
+          description={<>{t("project_statistics.matchesDetails")}</>}
         />
         <CarouselItem
           image="/landing/meeponegeroi.webp"
           title={
             <>
-              <span className="gold">19,000+</span> уникальных игроков
+              <span className="gold">
+                {t("project_statistics.uniquePlayersCount")}
+              </span>{" "}
+              {t("project_statistics.uniquePlayers")}
             </>
           }
-          description={
-            <>
-              В наш проект так же играли контент мейкеры meeponegeroi, INBossik,
-              Человек-Самовар и многие другие
-            </>
-          }
+          description={<>{t("project_statistics.contentCreators")}</>}
         />
 
         <CarouselItem
           image="/landing/profile.jpeg"
           title={
             <>
-              <span className="gold">140,480 часов</span> игрового времени
+              <span className="gold">
+                {t("project_statistics.gameTimeCount")}
+              </span>{" "}
+              {t("project_statistics.gameTime")}
             </>
           }
-          description={
-            <>
-              Мы стараемся, чтобы каждый мог окунуться в ностальгию, либо же
-              попробовать впервые оригинальную версию игры
-            </>
-          }
+          description={<>{t("project_statistics.nostalgiaExperience")}</>}
         />
       </Carousel>
     </div>

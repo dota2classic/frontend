@@ -12,12 +12,14 @@ import { getAuthUrl } from "@/util/getAuthUrl";
 import { formatGameMode } from "@/util/gamemode";
 import { PeriodicDurationTimerClient } from "@/components/PeriodicTimer/PeriodicDurationTimerClient";
 import { pluralize } from "@/util/pluralize";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   visible: boolean;
   customContent?: ReactNode;
 }
 export const SearchGameButton = observer((p: Props) => {
+  const { t } = useTranslation();
   const { queue } = useStore();
   const router = useRouter();
 
@@ -33,16 +35,10 @@ export const SearchGameButton = observer((p: Props) => {
 
   if (queue.needAuth) return null;
 
-  // const requiredAccessLevel = queue.selectedMode
-  //   ? getRequiredAccessLevel(queue.selectedMode.mode)
-  //   : GameModeAccessLevel.EDUCATION;
-
-  // const partyAccessLevel = queue.partyAccessLevel;
-
   if (queue.partyBanStatus?.isBanned) {
     content = (
       <>
-        Поиск запрещен:
+        {t("search_game_button.searchForbidden")}:
         <div className={c.disableReason}>
           {formatBanReason(queue.partyBanStatus!.status)}
         </div>
@@ -51,8 +47,10 @@ export const SearchGameButton = observer((p: Props) => {
   } else if (queue.isPartyInGame) {
     content = (
       <>
-        Поиск запрещен:
-        <div className={c.disableReason}>Кто-то в группе играет</div>
+        {t("search_game_button.searchForbidden")}:
+        <div className={c.disableReason}>
+          {t("search_game_button.someoneInGame")}
+        </div>
       </>
     );
   }
@@ -67,7 +65,7 @@ export const SearchGameButton = observer((p: Props) => {
         data-testid="floater-play-button-steam-login"
       >
         <FaSteam />
-        Войти
+        {t("search_game_button.login")}
       </Button>
     );
 
@@ -78,7 +76,7 @@ export const SearchGameButton = observer((p: Props) => {
         mega
         data-testid="floater-play-button-loading"
       >
-        Подключаемся...
+        {t("search_game_button.connecting")}
       </Button>
     );
 
@@ -104,11 +102,10 @@ export const SearchGameButton = observer((p: Props) => {
             "onboarding-queue-button",
           )}
         >
-          Вернуться в лобби
+          {t("search_game_button.returnToLobby")}
         </Button>
       );
     } else {
-      // someone else in party in lobby
       const anyLobby = queue.party
         ? queue.party.players.find((t) => t.lobbyId)?.lobbyId
         : undefined;
@@ -128,10 +125,10 @@ export const SearchGameButton = observer((p: Props) => {
             "onboarding-queue-button",
           )}
         >
-          Группа в лобби
+          {t("search_game_button.groupInLobby")}
           <div className={c.searchAdditional}>
             <span className={c.searchAdditional__modes}>
-              Присоединиться к лобби
+              {t("search_game_button.joinLobby")}
             </span>
           </div>
         </Button>
@@ -143,7 +140,7 @@ export const SearchGameButton = observer((p: Props) => {
     const searchedModes = queue.queueState?.modes || [];
     const searchGameInfo =
       searchedModes.length > 1
-        ? `${searchedModes.length} ${pluralize(searchedModes.length, "режим", "режима", "режимов")}`
+        ? `${searchedModes.length} ${pluralize(searchedModes.length, t("search_game_button.modeSingular"), t("search_game_button.modePluralGenitive"), t("search_game_button.modePlural"))}`
         : searchedModes.map(formatGameMode).join(", ");
     return (
       <Button
@@ -158,7 +155,7 @@ export const SearchGameButton = observer((p: Props) => {
           c.button,
         )}
       >
-        <div>Отменить поиск</div>
+        <div>{t("search_game_button.cancelSearch")}</div>
 
         <div className={c.searchAdditional}>
           <span className={c.searchAdditional__modes}>{searchGameInfo}</span>
@@ -197,7 +194,7 @@ export const SearchGameButton = observer((p: Props) => {
           "onboarding-queue-button",
         )}
       >
-        {content || "Играть"}
+        {content || t("search_game_button.play")}
       </Button>
     );
   }
