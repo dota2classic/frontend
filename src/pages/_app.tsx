@@ -26,6 +26,7 @@ import { TrajanPro } from "@/const/fonts";
 import { ReportModalContainer } from "@/containers/ReportModal/ReportModalContainer";
 import { getApi } from "@/api/hooks";
 import { MaintenanceDto } from "@/api/back";
+import "../i18n/i18n";
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
