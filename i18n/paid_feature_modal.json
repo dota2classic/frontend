@@ -1,0 +1,12 @@
+{
+  "paid_feature_modal": {
+    "subscriptionTitle": "Подписка dotaclassic plus",
+    "subscriptionName": "dotaclassic plus",
+    "profileDecorations": "Декорации для профиля",
+    "lobbyCreation": "Создание лобби",
+    "avoidedPlayersList": "Список избегаемых игроков",
+    "recalibration": "Перекалибровка",
+    "otherFeatures": "...и другие новые функции",
+    "interesting": "Это интересно"
+  }
+}

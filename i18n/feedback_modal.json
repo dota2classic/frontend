@@ -1,0 +1,7 @@
+{
+  "feedback_modal": {
+    "option": "Опция: {{option}}",
+    "yourComment": "Твой комментарий",
+    "submit": "Отправить"
+  }
+}

@@ -6,15 +6,21 @@ import { threadFont } from "@/const/fonts";
 import { CountdownClient } from "@/components/PeriodicTimer/CountdownClient";
 import { DroppedItemDto } from "@/api/back";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   drop: DroppedItemDto;
   onDiscard: (item: DroppedItemDto) => Promise<void>;
 }
 export const DropCard = ({ drop, onDiscard }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <Panel className={c.card} key={drop.assetId}>
-      <Tooltipable className={c.discard} tooltip="Отказаться от награды">
+      <Tooltipable
+        className={c.discard}
+        tooltip={t("drop_card.discardTooltip")}
+      >
         <IconButton onClick={() => onDiscard(drop)}>
           <FaTrashCan />
         </IconButton>
@@ -26,11 +32,11 @@ export const DropCard = ({ drop, onDiscard }: Props) => {
             target="__blank"
             href={`https://steamcommunity.com/tradeoffer/${drop.activeTradeId}/`}
           >
-            Предложена к обмену
+            {t("drop_card.offeredForTrade")}
           </a>
         ) : (
           <>
-            Истекает через <CountdownClient until={drop.expires} />
+            {t("drop_card.expiresIn")}: <CountdownClient until={drop.expires} />
           </>
         )}
       </span>
@@ -47,7 +53,7 @@ export const DropCard = ({ drop, onDiscard }: Props) => {
         {drop.item.marketHashName}
       </span>
       <span className={cx(c.type, drop.item.rarity, threadFont.className)}>
-        {drop.item.rarity || "Unknown"}
+        {drop.item.rarity || t("drop_card.unknown")}
       </span>
     </Panel>
   );

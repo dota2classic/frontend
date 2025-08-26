@@ -1,0 +1,10 @@
+{
+  "lobby_team": {
+    "lightForces": "Силы света",
+    "darkForces": "Силы тьмы",
+    "undefined": "Неопределившиеся",
+    "removeFromTeamTooltip": "Убрать из команды",
+    "kickFromLobbyTooltip": "Выгнать из лобби",
+    "takeSlot": "Занять место"
+  }
+}

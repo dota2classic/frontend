@@ -4,6 +4,7 @@ import { LobbyDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { AppRouter } from "@/route";
 import c from "./JoinLobbyModal.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface IJoinLobbyModalProps {
   onClose: () => void;
@@ -14,6 +15,7 @@ export const JoinLobbyModal: React.FC<IJoinLobbyModalProps> = ({
   onClose,
   lobby,
 }) => {
+  const { t } = useTranslation();
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | undefined>(undefined);
   const canJoin = lobby.requiresPassword ? password.length > 0 : true;
@@ -27,7 +29,7 @@ export const JoinLobbyModal: React.FC<IJoinLobbyModalProps> = ({
     } catch (err: unknown) {
       const e = err as Response;
       if (e.status === 403) {
-        setError("Неправильный пароль");
+        setError(t("join_lobby_modal.incorrectPassword"));
       } else {
         setError(e.statusText);
       }
@@ -36,17 +38,19 @@ export const JoinLobbyModal: React.FC<IJoinLobbyModalProps> = ({
   return (
     <GenericModal
       onClose={onClose}
-      title={"Присоединиться к лобби"}
+      title={t("join_lobby_modal.joinToLobby")}
       className={c.modal}
     >
-      <header>Лобби {lobby.owner.name}</header>
+      <header>
+        {t("join_lobby_modal.lobby", { ownerName: lobby.owner.name })}
+      </header>
       {lobby.requiresPassword && (
         <Input onChange={(e) => setPassword(e.target.value)} value={password} />
       )}
 
       {error && <span>{error}</span>}
       <Button disabled={!canJoin} onClick={join}>
-        Присоединиться
+        {t("join_lobby_modal.join")}
       </Button>
     </GenericModal>
   );

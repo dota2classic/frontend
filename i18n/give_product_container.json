@@ -1,0 +1,11 @@
+{
+  "giveProduct": {
+    "successMessage": "Подписка успешно выдана!",
+    "toastTitle": "Сюда лут",
+    "errorMessage": "Ошибка при выдаче подписки!",
+    "loading": "Загрузка...",
+    "defaultText": "Наказание",
+    "months": "месяцев",
+    "submitButton": "Выдать подписку"
+  }
+}

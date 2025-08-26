@@ -77,11 +77,6 @@ export const PaginatedThread: React.FC<PaginatedThreadProps> = observer(
           >
             <ForumThread />
           </div>
-          {/*<Pagination*/}
-          {/*  page={pagination.page}*/}
-          {/*  maxPage={thread.pg?.pages || 0}*/}
-          {/*  linkProducer={(page) => pagination!.pageProvider(page)}*/}
-          {/*/>*/}
           {displayInput && (
             <MessageInput
               value={value}

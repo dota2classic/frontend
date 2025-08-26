@@ -3,6 +3,7 @@ import cx from "clsx";
 import c from "@/containers/StoreLanding/StoreLanding.module.scss";
 import { threadFont, TrajanPro } from "@/const/fonts";
 import { Button } from "@/components";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   image: string;
@@ -21,6 +22,7 @@ export const StoreLandingSlide: React.FC<Props> = ({
   light,
   onPurchase,
 }) => {
+  const { t } = useTranslation();
   const headingElement = createElement(
     heading,
     {
@@ -36,7 +38,7 @@ export const StoreLandingSlide: React.FC<Props> = ({
       {onPurchase && (
         <div className={c.payButton}>
           <Button onClick={onPurchase} className={cx(TrajanPro.className)} mega>
-            Оформить подписку
+            {t("store_landing.subscribe")}
           </Button>
         </div>
       )}

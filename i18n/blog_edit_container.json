@@ -1,0 +1,11 @@
+{
+  "blog_edit": {
+    "title": "Заголовок статьи",
+    "titlePlaceholder": "Заголовок",
+    "description": "Описание статьи",
+    "descriptionPlaceholder": "Краткое описание",
+    "image": "Изображение",
+    "content": "Содержимое статьи",
+    "publish": "Опубликовать"
+  }
+}

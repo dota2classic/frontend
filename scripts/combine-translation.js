@@ -13,6 +13,29 @@ const jsonFiles = files.filter(
 
 let combinedData = {};
 
+// Простая функция глубокого слияния с предупреждениями
+function deepMerge(target, source, pathStack = []) {
+  for (const key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      const currentPath = [...pathStack, key];
+      if (
+        typeof target[key] === "object" &&
+        target[key] !== null &&
+        typeof source[key] === "object" &&
+        source[key] !== null
+      ) {
+        // Рекурсивное слияние вложенных объектов
+        deepMerge(target[key], source[key], currentPath);
+      } else {
+        if (key in target) {
+          console.warn(`Перезапись ключа: ${currentPath.join(".")}`);
+        }
+        target[key] = source[key];
+      }
+    }
+  }
+}
+
 // Проходим по каждому JSON-файлу и объединяем содержимое
 jsonFiles.forEach((file) => {
   const filePath = path.join(folderPath, file);
@@ -20,7 +43,8 @@ jsonFiles.forEach((file) => {
   try {
     const jsonData = JSON.parse(fileContent);
     // Объединяем объекты (можно изменить стратегию объединения по необходимости)
-    combinedData = { ...combinedData, ...jsonData };
+
+    deepMerge(combinedData, jsonData, [file]);
   } catch (err) {
     console.error(`Ошибка парсинга файла ${file}:`, err);
   }

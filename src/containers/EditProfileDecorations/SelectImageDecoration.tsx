@@ -4,6 +4,7 @@ import React, { ReactNode, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { GenericTooltip } from "@/components";
 import cx from "clsx";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   decorations: ProfileDecorationDto[];
@@ -19,6 +20,7 @@ export const SelectImageDecoration = ({
   onSelect,
   small,
 }: Props) => {
+  const { t } = useTranslation();
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   return (
@@ -38,7 +40,7 @@ export const SelectImageDecoration = ({
                   setIsSelectOpen(false);
                   onSelect(undefined);
                 }}
-                src={"/avatar.png"}
+                src="/avatar.png"
                 alt=""
               />
 
@@ -64,7 +66,7 @@ export const SelectImageDecoration = ({
         onClick={() => setIsSelectOpen(true)}
       >
         <img src={current?.image?.url || "/avatar.png"} alt="" />
-        <header>{title}</header>
+        <header>{t("select_image_decoration.title", { title })}</header>
       </div>
     </>
   );

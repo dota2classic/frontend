@@ -8,6 +8,7 @@ import cx from "clsx";
 import DatePicker from "react-datepicker";
 import { isInFuture } from "@/util/time";
 import { useAsyncButton } from "@/util/use-async-button";
+import { useTranslation } from "react-i18next";
 
 interface IAdminPlayerBanSettingsProps {
   steamId: string;
@@ -31,12 +32,14 @@ export const AdminPlayerBanSettings: React.FC<IAdminPlayerBanSettingsProps> = ({
     [data, mutate],
   );
 
+  const { t } = useTranslation();
+
   return (
     <Panel className={c.container}>
       {data ? (
         <>
           <div className={"nicerow"}>
-            <p>Время окончания:</p>
+            <p>{t("admin_player_ban_settings.endTimeLabel")}</p>
             <DatePicker
               disabled={isSettingDate}
               customInputRef={""}
@@ -45,7 +48,7 @@ export const AdminPlayerBanSettings: React.FC<IAdminPlayerBanSettingsProps> = ({
               dateFormat={"dd MMMM yyyy HH:mm"}
               customInput={
                 <Input
-                  placeholder={"Назначить"}
+                  placeholder={t("admin_player_ban_settings.assignLabel")}
                   className={cx(
                     "iso",
                     isInFuture(data.banStatus.bannedUntil)
@@ -58,7 +61,7 @@ export const AdminPlayerBanSettings: React.FC<IAdminPlayerBanSettingsProps> = ({
               onChange={setBanDate}
             />
             <Button small onClick={() => setBanDate(null)}>
-              Снять бан
+              {t("admin_player_ban_settings.removeBanLabel")}
             </Button>
           </div>
           <br />
@@ -68,7 +71,7 @@ export const AdminPlayerBanSettings: React.FC<IAdminPlayerBanSettingsProps> = ({
           />
         </>
       ) : (
-        <h2>Загрузка</h2>
+        <h2>{t("admin_player_ban_settings.loadingLabel")}</h2>
       )}
     </Panel>
   );

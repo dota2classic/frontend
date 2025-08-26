@@ -1,0 +1,16 @@
+{
+  "log_file_history": {
+    "onlyAccusedMessages": "Only messages from the accused",
+    "messageFilter": "Message filter",
+    "allMessages": "All messages",
+    "allChat": "All chat",
+    "teamMessages": "Team messages",
+    "loading": "Loading...",
+    "chat": "Chat",
+    "author": "Author",
+    "message": "Message",
+    "toAll": "To all",
+    "toTeam": "To team",
+    "noMessages": "Player has not sent messages in the chat"
+  }
+}

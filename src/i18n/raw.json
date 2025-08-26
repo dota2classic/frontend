@@ -1,23 +1,397 @@
 {
+  "accept_cookies": {
+    "cookiesAgreement": "Пользуясь сайтом и играя на серверах {{site}} Вы соглашаетесь на обработку персональных данных и хранение и передачу cookies.",
+    "readMore": "Ознакомиться можно",
+    "here": "здесь",
+    "agree": "Согласен"
+  },
+  "admin_player_ban_settings": {
+    "endTimeLabel": "Время окончания:",
+    "assignLabel": "Назначить",
+    "removeBanLabel": "Снять бан",
+    "loadingLabel": "Загрузка"
+  },
+  "admin_rule_tabs": {
+    "rules": "Правила",
+    "punishments": "Наказания"
+  },
+  "blog_edit": {
+    "title": "Заголовок статьи",
+    "titlePlaceholder": "Заголовок",
+    "description": "Описание статьи",
+    "descriptionPlaceholder": "Краткое описание",
+    "image": "Изображение",
+    "content": "Содержимое статьи",
+    "publish": "Опубликовать"
+  },
+  "claim_container": {
+    "default_title": "Default Title",
+    "default_action_label": "Default Action Label"
+  },
+  "dev_version_indicator": {
+    "siteUpdating": "Сайт обновляется",
+    "pleaseWait": "Можешь пока посмотреть на этих добряков, а сайт откроется, как только он обновится.",
+    "dev": "DEV"
+  },
+  "drop_card": {
+    "discardTooltip": "Отказаться от награды",
+    "offeredForTrade": "Предложена к обмену",
+    "expiresIn": "Истекает через",
+    "unknown": "Unknown"
+  },
+  "drop_list": {
+    "creatingTradeOffer": "Создаем предложение к обмену...\"",
+    "itMayTakeTime": "Это может занять 5-10 секунд",
+    "rewardsOffered": "Награды предложены к обмену!",
+    "goToTrade": "Перейти к обмену",
+    "errorCreatingTrade": "Ошибка при создании обмена",
+    "errorPurchasingSubscription": "Ошибка при оплате подписки",
+    "settings": "Настройки",
+    "tradeLinkHeader": "Ссылка на обмен Steam",
+    "tradeLinkInfo": "Чтобы получить награды, нужно сделать инвентарь в Steam \"открытым\", а также предоставить ссылку на обмен. Узнать ее можно по этой ссылке: {{tradeLinkSteam}}",
+    "howToFindTradeLink": "Как найти ссылку на обмен?",
+    "tradeLinkPlaceholder": "Ссылка на обмен Steam",
+    "save": "Сохранить",
+    "invalidLink": "Неверная ссылка",
+    "donateItems": "Пожертвовать предметы",
+    "donationInfo": "Любой игрок может пожертвовать проекту вещи в Steam. Бот автоматически расчитает стоимость предметов и добавит их к твоему внутреннему балансу. Этим балансом можно оплатить подписку!",
+    "transferItems": "Передать предметы",
+    "yourBalance": "Твой баланс: {{balance}} рублей",
+    "paySubscription": "Оплатить подписку",
+    "historyOfTrades": "История обменов",
+    "date": "Дата",
+    "itemCount": "Количество предметов",
+    "totalAmount": "Общая сумма",
+    "tradeType": "Тип обмена",
+    "donation": "Пожертвование",
+    "rewardGiving": "Выдача награды",
+    "rewards": "Награды",
+    "getRewards": "Получить награды",
+    "noRewards": "У тебя еще нет наград! Играй, чтобы получить их."
+  },
+  "edit_feedback_template": {
+    "tagInfo": "Тег(техническая инфа)",
+    "tagPlaceholder": "Тег",
+    "title": "Заголовок",
+    "titlePlaceholder": "Заголовок",
+    "createTicket": "Создавать тикет",
+    "responseOptions": "Варианты ответа",
+    "optionPlaceholder": "Вариант ответа",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "addResponse": "Добавить вариант ответа"
+  },
+  "edit_hat_container": {
+    "chatPreviewHeader": "Превью в чате: {{decorationType}}",
+    "settingsHeader": "Настройки",
+    "deleteDecorationButton": "УДАЛИТЬ ДЕКОРАЦИЮ",
+    "chooseImageButton": "Выбрать картинку",
+    "verticalOffsetHeader": "Отступ по вертикали",
+    "horizontalTrimHeader": "Обрезать края по горизонтали",
+    "topTrimHeader": "Обрезать сверху",
+    "hatNamePlaceholder": "Название шапки",
+    "saveDecorationButton": "Сохранить",
+    "createDecorationButton": "Создать"
+  },
+  "edit_lobby": {
+    "settings": "Настройки лобби",
+    "name": "Название",
+    "lobbyName": "Название лобби",
+    "password": "Пароль",
+    "noPassword": "Без пароля",
+    "map": "Карта",
+    "selectMap": "Карта",
+    "gameMode": "Режим игры",
+    "selectGameMode": "Режим игры",
+    "patch": "Патч",
+    "server": "Сервер",
+    "gamePatch": "Патч игры",
+    "serverRegion": "Регион сервера",
+    "settingsHeader": "Настройки",
+    "enableCheats": "Включить читы",
+    "addBots": "Добавить ботов",
+    "saveChanges": "Сохранить изменения"
+  },
+  "edit_profile": {
+    "messageContent": "Я помогаю проекту dotaclassic.ru!",
+    "hatTitle": "Шапка",
+    "iconTitle": "Иконка",
+    "titleTitle": "Титул",
+    "animationTitle": "Анимация",
+    "default": "По умолчанию",
+    "dotaclassicPlus": "dotaclassic plus"
+  },
+  "edit_punishments": {
+    "newPunishment": "Новое наказание",
+    "title": "Название",
+    "punishmentPlaceholder": "Наказание",
+    "blockHours": "Часов блокировки",
+    "save": "Сохранить",
+    "delete": "Удалить"
+  },
+  "edit_rules": {
+    "createRule": "Создать правило",
+    "setIndices": "Задать индексы",
+    "rule": "Правило",
+    "rulePlaceholder": "Правило",
+    "ruleDescription": "Описание правила",
+    "ruleDescriptionPlaceholder": "Описание правила",
+    "punishment": "Наказание",
+    "punishmentDefaultText": "Наказание",
+    "removePunishment": "Убрать наказание",
+    "ruleType": "Тип правила",
+    "ruleTypeDefaultText": "Тип правила",
+    "communication": "Коммуникации",
+    "gameplay": "Геймплей",
+    "flags": "Флаги",
+    "autoProcess": "Обрабатывается автоматически",
+    "saveRule": "Сохранить правило",
+    "deleteRule": "Удалить правило из базы",
+    "createChildRule": "Создать дочернее правило",
+    "createSiblingRule": "Создать соседнее правило"
+  },
+  "emoji_plugin": {
+    "undo": "Undo"
+  },
+  "feedback_modal": {
+    "option": "Опция: {{option}}",
+    "yourComment": "Твой комментарий",
+    "submit": "Отправить"
+  },
+  "forum_tabs": {
+    "forum": "Форум",
+    "technicalSupport": "Техподдержка",
+    "complaints": "Жалобы",
+    "allTechnicalSupport": "Вся теххподдержка",
+    "allComplaints": "Все жалобы"
+  },
+  "generic_mention_plugin": {
+    "mentionTest": "Тестирование упоминаний",
+    "noResults": "Нет результатов для '{{query}}'."
+  },
+  "giveProduct": {
+    "successMessage": "Подписка успешно выдана!",
+    "toastTitle": "Сюда лут",
+    "errorMessage": "Ошибка при выдаче подписки!",
+    "loading": "Загрузка...",
+    "defaultText": "Наказание",
+    "months": "месяцев",
+    "submitButton": "Выдать подписку"
+  },
+  "hero_mention": {
+    "localizedName": "localized name of hero {{name}}"
+  },
+  "image_upload": {
+    "undo": "Undo",
+    "upload": "Upload"
+  },
+  "insert_link_plugin": {
+    "enterUrl": "Enter URL"
+  },
+  "item_breadcrumbs": {
+    "items": "Items"
+  },
+  "item_mention_plugin": {
+    "itemName": "Item: {{name}}"
+  },
+  "join_lobby_modal": {
+    "joinToLobby": "Присоединиться к лобби",
+    "lobby": "Лобби {{ownerName}}",
+    "incorrectPassword": "Неправильный пароль",
+    "join": "Присоединиться"
+  },
+  "live_match_page": {
+    "noGames": "Сейчас не идет ни одной игры.",
+    "launchSearch": "Отличный повод запустить поиск!",
+    "mode": "Режим"
+  },
   "live_matches": {
     "viewMatches": "Просмотр матчей",
     "viewMatchesDescription": "Просмотр матчей, которые прямо сейчас играются на сайте dotaclassic.ru"
   },
+  "lobby": {
+    "kickedFromLobby": "Ты покинул лобби",
+    "kicked": "Тебя выгнали",
+    "lobbyClosed": "Лобби было распущено",
+    "gameStarted": "Игра запущена!",
+    "connectionInfo": "Скоро появится информация по подключению",
+    "authorizeToView": "Авторизуйся, чтобы смотреть эту страницу",
+    "lobbyDoesNotExist": "Лобби не существует",
+    "hostingLobby": "Хост лобби",
+    "shufflePlayers": "Перемешать игроков",
+    "settings": "Настройки",
+    "closeLobby": "Закрыть лобби",
+    "leaveLobby": "Покинуть лобби",
+    "startGame": "Запустить игру",
+    "kickFromLobby": "Выгнать из лобби",
+    "unassignedPlayers": "Неопределившиеся",
+    "lobbyName": "Имя лобби",
+    "password": "Пароль",
+    "yes": "Да",
+    "no": "Нет",
+    "map": "Карта",
+    "mode": "Режим",
+    "cheats": "Читы",
+    "bots": "Боты",
+    "patch": "Патч",
+    "region": "Регион"
+  },
+  "lobby_team": {
+    "lightForces": "Силы света",
+    "darkForces": "Силы тьмы",
+    "undefined": "Неопределившиеся",
+    "removeFromTeamTooltip": "Убрать из команды",
+    "kickFromLobbyTooltip": "Выгнать из лобби",
+    "takeSlot": "Занять место"
+  },
+  "log_file_history": {
+    "onlyAccusedMessages": "Only messages from the accused",
+    "messageFilter": "Message filter",
+    "allMessages": "All messages",
+    "allChat": "All chat",
+    "teamMessages": "Team messages",
+    "loading": "Loading...",
+    "chat": "Chat",
+    "author": "Author",
+    "message": "Message",
+    "toAll": "To all",
+    "toTeam": "To team",
+    "noMessages": "Player has not sent messages in the chat"
+  },
   "match_download": {
-    "downloadReplayTitle": "Download Replay",
-    "downloadReplayButton": "Download",
-    "placeFileTitle": "Where to place the file",
-    "gameFolder": "Game folder path",
-    "createFolder": "Create a folder named",
-    "finalFile": "The final file will be named",
-    "finalFilePath": "Demo file path: {{matchId}}.dem",
-    "startClientTitle": "Start the client with the following command",
-    "consoleCommandText": "Use this command to play the demo"
+    "downloadReplayTitle": "Скачай реплей",
+    "downloadReplayButton": "Нажми сюда, чтобы скачать файл с реплеем игры",
+    "placeFileTitle": "Помести скачанный файл в папку с игрой",
+    "gameFolder": "папка с игрой/dota",
+    "createFolder": "Если такой папки нет - создай.",
+    "finalFile": "Итог: у тебя должен быть файл",
+    "finalFilePath": "dota/{{matchId}}.dem",
+    "startClientTitle": "Запусти клиент и выполни коснольную команду",
+    "consoleCommandText": "Консольная команда для запуска просмотра реплея"
   },
   "matches": {
     "historyTitle": "История матчей",
     "historyDescription": "История матчей старой Dota 2, список матчей сыгранных на сайте dotaclassic.ru",
-    "gameModeDefault": "Режим игры"
+    "gameMode": "Режим игры"
   },
-  "match_page": {}
+  "match": {
+    "title": "Матч {{matchId}}",
+    "description": "Страница матча с ID {{matchId}}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru",
+    "radiant": "Силы Света {{winner}}",
+    "dire": "Силы Тьмы {{winner}}"
+  },
+  "match_summary": {
+    "summary": "Сводка"
+  },
+  "farming": {
+    "farming": "Фарм"
+  },
+  "damage": {
+    "damage": "Урон"
+  },
+  "items": {
+    "items": "Предметы"
+  },
+  "other": {
+    "other": "Прочее"
+  },
+  "paginated_thread": {
+    "loadEmoticons": "Load emoticons",
+    "displayInput": "Display input area"
+  },
+  "paid_feature_modal": {
+    "subscriptionTitle": "Подписка dotaclassic plus",
+    "subscriptionName": "dotaclassic plus",
+    "profileDecorations": "Декорации для профиля",
+    "lobbyCreation": "Создание лобби",
+    "avoidedPlayersList": "Список избегаемых игроков",
+    "recalibration": "Перекалибровка",
+    "otherFeatures": "...и другие новые функции",
+    "interesting": "Это интересно"
+  },
+  "player_feedback": {
+    "toast": {
+      "reviewSent": "Отзыв отправлен",
+      "reviewSaved": "Отзыв об игроке {{playerName}} успешно сохранен!",
+      "errorOccurred": "Произошла ошибка",
+      "errorSaving": "Мы не смогли сохранить отзыв об игроке"
+    },
+    "modal": {
+      "title": "Отзыв игроку",
+      "reportsLeft": "Осталось отзывов: {{reportsAvailable}}"
+    }
+  },
+  "player_records": {
+    "thisSeason": "В этом сезоне",
+    "thisMonth": "В этом месяце",
+    "allTime": "За все время"
+  },
+  "receive_subscription_modal": {
+    "title": "Subscription received for {{title}}",
+    "itemName": "Item: {{name}}",
+    "actionLabel": "{{label}}"
+  },
+  "report_modal": {
+    "reportPlayer": "Жалоба на игрока",
+    "match": "Матч",
+    "matchLabel": "Матч",
+    "offender": "Нарушитель",
+    "message": "Сообщение",
+    "brokenRule": "Нарушенный пункт правил",
+    "ruleItem": "Пункт правил",
+    "comment": "Комментарий",
+    "commentPlaceholder": "Если хочешь, чтобы игрок действительно получил наказание, укажи, что именно произошло: поведение, цитаты, моменты матча. Помни: за частые неточные или необоснованные жалобы возможность отправки жалоб может быть отключена.",
+    "sendButton": "Отправить",
+    "errorCreatingReport": "Ошибка при создании жалобы"
+  },
+  "rich_editor_edit_mode": {
+    "placeholder": "Enter some rich text..."
+  },
+  "rule_node": {
+    "displayTitle": "{{title}}"
+  },
+  "select_image_decoration": {
+    "title": "Title: {{title}}"
+  },
+  "store_landing": {
+    "title": "dotaclassic plus",
+    "description": "Страница подписки dotaclassic plus",
+    "subscriptionTitle": "dotaclassic plus",
+    "subscriptionText": "Ты помогаешь развивать старую доту: растёт онлайн, улучшаются матчи, появляется новый функционал. А ещё получаешь приятные привилегии и эксклюзивные фичи — в знак благодарности за поддержку.",
+    "profileDecorationTitle": "Декорации профиля",
+    "profileDecorationText": "Выбирай из множества стилей, рамок и эффектов, чтобы подчеркнуть свой характер и выделиться среди других. Пусть твой профиль говорит за тебя даже без слов.",
+    "dodgeListTitle": "Додж лист",
+    "dodgeListText": "Кажется, вы снова вместе? Не сегодня. Добавь игрока в додж-лист — и больше не окажетесь в одной команде. Устал от одних и тех же «героев матча»? Собери свой идеальный состав хотя бы с одной стороны экрана.",
+    "unbanHeroTitle": "Разбан героя",
+    "unbanHeroText": "Забанили героя? Это не повод отказываться от любимого персонажа. Подписчики dotaclassic plus могут выбирать запрещенных героев.",
+    "inGamePraiseTitle": "Похвалы в игре",
+    "inGamePraiseText": "Можно поддержать тиммейта за старательную игру — или тонко подколоть соперника за фейл. Всё как в актуальной версии. Добавили, чтобы и в классике было чуть больше эмоций.",
+    "muteTitle": "Блокировка",
+    "muteText": "Больше не хочешь читать сообщения, получать инвайты или видеть чужие комменты в своём профиле? Блокируй игрока — и он исчезнет из твоего игрового пространства. Спокойствие гарантировано.",
+    "lobbyTitle": "Лобби",
+    "lobbyText": "Собери друзей, выбери карту, включи (или выключи) ботов и решай сам, как будет проходить матч. Приватная игра — твои правила, твой ритм, твоя команда.",
+    "recalibrationTitle": "Перекалибровка",
+    "recalibrationText": "Один раз за сезон можно сбросить рейтинг до стартового и пройти 10 калибровочных игр заново. Вдруг на этот раз система поймёт, кто тут настоящий боец за MMR?",
+    "subscribe": "Subscribe"
+  },
+  "tech_static_tabs": {
+    "quickStart": "Быстрый старт",
+    "increaseFPS": "Повысить FPS",
+    "clientSetup": "Настройка клиента",
+    "frequentIssues": "Частые проблемы"
+  },
+  "thread": {},
+  "toolbar": {
+    "undo": "Undo",
+    "redo": "Redo",
+    "formatBold": "Format Bold",
+    "formatItalics": "Format Italics",
+    "formatHeading": "Format Heading",
+    "formatUnderline": "Format Underline",
+    "formatStrikethrough": "Format Strikethrough",
+    "leftAlign": "Left Align",
+    "centerAlign": "Center Align",
+    "rightAlign": "Right Align",
+    "justifyAlign": "Justify Align"
+  }
 }

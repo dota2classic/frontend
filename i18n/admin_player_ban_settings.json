@@ -1,0 +1,8 @@
+{
+  "admin_player_ban_settings": {
+    "endTimeLabel": "Время окончания:",
+    "assignLabel": "Назначить",
+    "removeBanLabel": "Снять бан",
+    "loadingLabel": "Загрузка"
+  }
+}

@@ -2,10 +2,12 @@ import React from "react";
 import { BigTabs } from "@/components";
 import { AppRouter } from "@/route";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 type RuleEnum = "rules" | "punishments";
 
 export const AdminRuleTabs: React.FC = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   return (
@@ -13,12 +15,12 @@ export const AdminRuleTabs: React.FC = () => {
       items={[
         {
           key: "rules",
-          label: "Правила",
+          label: t("admin_rule_tabs.rules"),
           onSelect: AppRouter.admin.rules.editRules.link,
         },
         {
           key: "punishments",
-          label: "Наказания",
+          label: t("admin_rule_tabs.punishments"),
           onSelect: AppRouter.admin.rules.editPunishments.link,
         },
       ]}

@@ -29,6 +29,7 @@ import { IoMdCreate, IoMdSave } from "react-icons/io";
 import { BsList, BsListNested } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { GoListOrdered } from "react-icons/go";
+import { useTranslation } from "react-i18next";
 
 interface IEditRulesContainerProps {
   rules?: RuleDto[];
@@ -90,7 +91,7 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
       const response = await getApi().rules.ruleControllerDeleteRule(
         Number(state.editedRule.id),
       );
-      makeSimpleToast("Удаление правила", response.message, 5000);
+      makeSimpleToast(t("edit_rules.deleteRule"), response.message, 5000);
       const rules = await getApi().rules.ruleControllerGetAllRules();
       runInAction(() => {
         state.rules = rules;
@@ -158,16 +159,18 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
       [state.editedRule],
     );
 
+    const { t } = useTranslation();
+
     return (
       <div className={cx(c.container, NotoSans.className)}>
         <div className={c.tree}>
           <Button onClick={() => onCreate()} disabled={creating}>
             <IoMdCreate />
-            Создать правило
+            {t("edit_rules.createRule")}
           </Button>
           <Button onClick={updateIndices} disabled={settingIndices}>
             <GoListOrdered />
-            Задать индексы
+            {t("edit_rules.setIndices")}
           </Button>
           <div ref={ref}>
             <Tree<RuleDto>
@@ -193,28 +196,28 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
         <div className={c.edit}>
           {state.editedRule && (
             <>
-              <header>Правило</header>
+              <header>{t("edit_rules.rule")}</header>
               <Input
-                placeholder={"Правило"}
+                placeholder={t("edit_rules.rulePlaceholder")}
                 value={state.editedRule.title}
                 onChange={(e) => updateEditedRule({ title: e.target.value })}
               />
-              <header>Описание правила</header>
+              <header>{t("edit_rules.ruleDescription")}</header>
               <MarkdownTextarea
                 rows={12}
                 value={state.editedRule.description}
                 onChange={(e) =>
                   updateEditedRule({ description: e.target.value })
                 }
-                placeholder={"Описание правила"}
+                placeholder={t("edit_rules.ruleDescriptionPlaceholder")}
               />
 
-              <header>Наказание</header>
+              <header>{t("edit_rules.punishment")}</header>
               <SelectOptions
-                defaultText={"Наказание"}
+                defaultText={t("edit_rules.punishmentDefaultText")}
                 options={[
                   {
-                    label: "Убрать наказание",
+                    label: t("edit_rules.removePunishment"),
                     value: undefined,
                   },
                   ...state.punishments.map((punishment) => ({
@@ -240,17 +243,17 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
                 }}
               />
 
-              <header>Тип правила</header>
+              <header>{t("edit_rules.ruleType")}</header>
               <SelectOptions
-                defaultText={"Тип правила"}
+                defaultText={t("edit_rules.ruleTypeDefaultText")}
                 options={[
                   {
                     value: RuleType.COMMUNICATION,
-                    label: "Коммуникации",
+                    label: t("edit_rules.communication"),
                   },
                   {
                     value: RuleType.GAMEPLAY,
-                    label: "Геймплей",
+                    label: t("edit_rules.gameplay"),
                   },
                 ]}
                 selected={state.editedRule.ruleType}
@@ -263,12 +266,12 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
                 }}
               />
 
-              <header>Флаги</header>
+              <header>{t("edit_rules.flags")}</header>
               <Checkbox
                 onChange={(e) => updateEditedRule({ automatic: e })}
                 checked={state.editedRule.automatic}
               >
-                Обрабатывается автоматически
+                {t("edit_rules.autoProcess")}
               </Checkbox>
 
               <div className={c.buttons}>
@@ -285,11 +288,11 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
                   }}
                 >
                   {state.editedRule.dirty && <IoMdSave className="gold" />}{" "}
-                  Сохранить правило
+                  {t("edit_rules.saveRule")}
                 </Button>
                 <Button disabled={deleting} onClick={() => onDelete()}>
                   <MdDelete />
-                  Удалить правило из базы
+                  {t("edit_rules.deleteRuleDatabase")}
                 </Button>
 
                 <Button
@@ -297,14 +300,14 @@ export const EditRulesContainer: React.FC<IEditRulesContainerProps> = observer(
                   onClick={() => onCreate(Number(state.editedRule!.id))}
                 >
                   <BsListNested />
-                  Создать дочернее правило
+                  {t("edit_rules.createChildRule")}
                 </Button>
                 <Button
                   disabled={creating}
                   onClick={() => onCreate(Number(state.editedRule!.parentId))}
                 >
                   <BsList />
-                  Создать соседнее правило
+                  {t("edit_rules.createSiblingRule")}
                 </Button>
               </div>
             </>

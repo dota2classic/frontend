@@ -15,8 +15,7 @@ import { getApi } from "@/api/hooks";
 import { SelectImageDecoration } from "@/containers/EditProfileDecorations/SelectImageDecoration";
 import { SelectTextDecoration } from "@/containers/EditProfileDecorations/SelectTextDecoration";
 import { paidAction } from "@/util/subscription";
-
-// import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 interface IEditProfileDecorationsProps {
   user: UserDTO;
@@ -25,6 +24,7 @@ interface IEditProfileDecorationsProps {
 
 export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
   observer(({ user: _user, decorations }) => {
+    const { t } = useTranslation();
     const { me, fetchMe } = useStore().auth;
 
     const user = me?.user || _user;
@@ -66,7 +66,7 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
               blocked: false,
               messageId: "123",
               threadId: "123",
-              content: "Я помогаю проекту dotaclassic.ru!",
+              content: t("edit_profile.messageContent"),
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
               deleted: false,
@@ -82,7 +82,7 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
               onSelect={(it) =>
                 updateChatIcon(UserProfileDecorationType.HAT, it)
               }
-              title={"Шапка"}
+              title={t("edit_profile.hatTitle")}
             />
             <SelectImageDecoration
               decorations={icons}
@@ -91,7 +91,7 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
               onSelect={(it) =>
                 updateChatIcon(UserProfileDecorationType.CHATICON, it)
               }
-              title={"Иконка"}
+              title={t("edit_profile.iconTitle")}
             />
             <div className={c.stackedTextSelect}>
               <SelectTextDecoration
@@ -100,7 +100,7 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
                 onSelect={(it) =>
                   updateChatIcon(UserProfileDecorationType.TITLE, it)
                 }
-                title={"Титул"}
+                title={t("edit_profile.titleTitle")}
               />
               <SelectTextDecoration
                 current={user.chatIconAnimation}
@@ -111,16 +111,11 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
                     it,
                   )
                 }
-                title={"Анимация"}
+                title={t("edit_profile.animationTitle")}
               />
             </div>
           </div>
         </Panel>
-
-        {/*<Panel className={cx(c.panel, c.icons, NotoSans.className)}>*/}
-        {/*  <header>Титул</header>*/}
-        {/*  */}
-        {/*</Panel>*/}
       </>
     );
   });

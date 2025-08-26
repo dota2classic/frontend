@@ -113,7 +113,7 @@ module.exports = async function (fileInfo, api) {
 ${fileInfo.source}`);
 
   if (ignore) {
-    console.warn("Already processed file: ignoring");
+    console.warn(`Ignoring Already processed file : ${fileInfo.path}`);
     return fileInfo.source;
   }
 

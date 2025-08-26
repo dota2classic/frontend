@@ -29,6 +29,7 @@ import { IoMdExit } from "react-icons/io";
 import { makeSimpleToast } from "@/components/Toast/toasts";
 import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
+import { useTranslation } from "react-i18next";
 
 interface ILobbyScreenProps {
   lobby: LobbyDto;
@@ -36,6 +37,7 @@ interface ILobbyScreenProps {
 
 export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
   ({ lobby }) => {
+    const { t } = useTranslation();
     const evt = useEventSource<LobbyUpdateType>(
       getApi().lobby.lobbyControllerLobbyUpdatesContext({ id: lobby.id }),
       LobbyUpdateTypeFromJSON.bind(null),
@@ -86,15 +88,19 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
       if (evt.kickedSteamIds.includes(mySteamId || "-1")) {
         // We got kicked!
         router.push("/lobby");
-        makeSimpleToast("Ты покинул лобби", "Тебя выгнали", 5000);
+        makeSimpleToast(t("lobby.kickedFromLobby"), t("lobby.kicked"), 5000);
       } else if (evt.action === "close") {
         router.push("/lobby");
-        makeSimpleToast("Ты покинул лобби", "Лобби было распущено", 5000);
+        makeSimpleToast(
+          t("lobby.kickedFromLobby"),
+          t("lobby.lobbyClosed"),
+          5000,
+        );
       } else if (evt.action === "start") {
         router.push("/queue");
         makeSimpleToast(
-          "Игра запущена!",
-          "Скоро появится информация по подключению",
+          t("lobby.gameStarted"),
+          t("lobby.connectionInfo"),
           5000,
         );
       }
@@ -105,14 +111,12 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
       getApi().lobby.lobbyControllerShuffleLobby(data.id).catch();
     }, [data, mySteamId]);
 
-    // AMGOUS
-
     if (!auth.isAuthorized) {
-      return <h2>Авторизуйся, чтобы смотреть эту страницу</h2>;
+      return <h2>{t("lobby.authorizeToView")}</h2>;
     }
 
     if (!data) {
-      return <h2>Лобби не существует</h2>;
+      return <h2>{t("lobby.lobbyDoesNotExist")}</h2>;
     }
 
     const isOwner = data.owner?.steamId === mySteamId;
@@ -122,7 +126,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
     const launchGame = () => {
       getApi()
         .lobby.lobbyControllerStartLobby(data.id)
-        .catch((e) => handleException("Ошибка при запуске лобби", e));
+        .catch((e) => handleException(t("lobby.errorWhileStartingLobby"), e));
     };
 
     const leaveLobby = () => {
@@ -151,18 +155,8 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           <div className="right">
             <dl>
               <dd>{data.owner.name}</dd>
-              <dt>Хост лобби</dt>
+              <dt>{t("lobby.hostingLobby")}</dt>
             </dl>
-            {/*<dl>*/}
-            {/*  <dd>*/}
-            {/*    <CopySomething*/}
-            {/*      className={c.padded}*/}
-            {/*      something={`${host}/lobby?join=${data.id}`}*/}
-            {/*      placeholder={"Нажми для копирования"}*/}
-            {/*    />*/}
-            {/*  </dd>*/}
-            {/*  <dt>Ссылка на приглашение</dt>*/}
-            {/*</dl>*/}
           </div>
         </Panel>
 
@@ -185,13 +179,13 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           />
           <div className={cx(c.grid4, c.settings)}>
             <Button disabled={!isOwner || $shuffleLobby} onClick={shuffleLobby}>
-              Перемешать игроков
+              {t("lobby.shufflePlayers")}
             </Button>
             <Button disabled={!isOwner} onClick={() => setIsEditing(true)}>
-              Настройки
+              {t("lobby.settings")}
             </Button>
             <Button className={c.leaveLobby} onClick={leaveLobby}>
-              {isOwner ? "Закрыть лобби" : "Покинуть лобби"}
+              {isOwner ? t("lobby.closeLobby") : t("lobby.leaveLobby")}
             </Button>
             <Button
               mega
@@ -199,7 +193,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
               className={c.startGame}
               onClick={launchGame}
             >
-              Запустить игру
+              {t("lobby.startGame")}
             </Button>
           </div>
         </Panel>
@@ -220,7 +214,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
                   />
                   <span className={c.username}>{slot.user!.name}</span>
                   {isOwner && (
-                    <Tooltipable tooltip={`Выгнать из лобби`}>
+                    <Tooltipable tooltip={t("lobby.kickFromLobby")}>
                       <IconButton
                         onClick={() => kickPlayer(slot.user!.steamId)}
                       >
@@ -232,7 +226,9 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
               ))}
             </>
           ) : (
-            <div className={c.unassignedHint}>Неопределившиеся</div>
+            <div className={c.unassignedHint}>
+              {t("lobby.unassignedPlayers")}
+            </div>
           )}
         </Panel>
         <Thread
@@ -242,35 +238,35 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
         />
         <Panel className={cx(c.grid12, c.options)}>
           <dl>
-            <dt>Имя лобби</dt>
+            <dt>{t("lobby.lobbyName")}</dt>
             <dd>{data.name}</dd>
           </dl>
           <dl>
-            <dt>Пароль</dt>
-            <dd>{data.requiresPassword ? "Да" : "Нет"}</dd>
+            <dt>{t("lobby.password")}</dt>
+            <dd>{data.requiresPassword ? t("lobby.yes") : t("lobby.no")}</dd>
           </dl>
           <dl>
-            <dt>Карта</dt>
+            <dt>{t("lobby.map")}</dt>
             <dd>{formatDotaMap(data.map)}</dd>
           </dl>
           <dl>
-            <dt>Режим</dt>
+            <dt>{t("lobby.mode")}</dt>
             <dd>{formatDotaMode(data.gameMode)}</dd>
           </dl>
           <dl>
-            <dt>Читы</dt>
-            <dd>{data.enableCheats ? "Да" : "Нет"}</dd>
+            <dt>{t("lobby.cheats")}</dt>
+            <dd>{data.enableCheats ? t("lobby.yes") : t("lobby.no")}</dd>
           </dl>
           <dl>
-            <dt>Боты</dt>
-            <dd>{data.fillBots ? "Да" : "Нет"}</dd>
+            <dt>{t("lobby.bots")}</dt>
+            <dd>{data.fillBots ? t("lobby.yes") : t("lobby.no")}</dd>
           </dl>
           <dl>
-            <dt>Патч</dt>
+            <dt>{t("lobby.patch")}</dt>
             <dd>{data.patch}</dd>
           </dl>
           <dl>
-            <dt>Регион</dt>
+            <dt>{t("lobby.region")}</dt>
             <dd>{data.region}</dd>
           </dl>
         </Panel>

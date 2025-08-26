@@ -10,6 +10,7 @@ import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { makeSimpleToast } from "@/components/Toast/toasts";
 import { PlayerAspectIcons } from "@/containers/PlayerFeedbackModal/PlayerAspectIcons";
+import { useTranslation } from "react-i18next";
 
 interface IPlayerReportModalProps {
   player: PlayerInMatchDto;
@@ -21,6 +22,7 @@ interface IPlayerReportModalProps {
 export const PlayerFeedbackModal: React.FC<IPlayerReportModalProps> = observer(
   ({ player, matchId, onClose, onReport }) => {
     const { auth } = useStore();
+    const { t } = useTranslation();
 
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     useGreedyFocus(GreedyFocusPriority.REPORT_MODAL, textareaRef);
@@ -38,15 +40,17 @@ export const PlayerFeedbackModal: React.FC<IPlayerReportModalProps> = observer(
           await auth.fetchMe();
           onClose();
           makeSimpleToast(
-            "Отзыв отправлен",
-            `Отзыв об игроке ${player.user.name} успешно сохранен!`,
+            t("player_feedback.toast.reviewSent"),
+            t("player_feedback.toast.reviewSaved", {
+              playerName: player.user.name,
+            }),
             5000,
           );
         } catch (e) {
           console.warn(e);
           makeSimpleToast(
-            "Произошла ошибка",
-            "Мы не смогли сохранить отзыв об игроке",
+            t("player_feedback.toast.errorOccurred"),
+            t("player_feedback.toast.errorSaving"),
             5000,
           );
           await auth.fetchMe();
@@ -60,12 +64,16 @@ export const PlayerFeedbackModal: React.FC<IPlayerReportModalProps> = observer(
     return (
       <GenericModal
         className={c.modal}
-        title={"Отзыв игроку"}
+        title={t("player_feedback.modal.title")}
         onClose={onClose}
       >
         <div className={c.user}>
           <UserPreview roles user={player.user} />
-          <span>Осталось отзывов: {auth.me.reportsAvailable}</span>
+          <span>
+            {t("player_feedback.modal.reportsLeft", {
+              reportsAvailable: auth.me.reportsAvailable,
+            })}
+          </span>
         </div>
         <div className={c.categories}>
           {PlayerAspectIcons.map(({ aspect, Icon }) => (

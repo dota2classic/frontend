@@ -6,6 +6,7 @@ import { FeedbackDto } from "@/api/back";
 import { runInAction } from "mobx";
 import c from "./FeedbackModal.module.scss";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
+import { useTranslation } from "react-i18next";
 
 interface IFeedbackModalProps {
   feedback: FeedbackDto;
@@ -18,6 +19,7 @@ export const FeedbackModal: React.FC<IFeedbackModalProps> = observer(
     useGreedyFocus(GreedyFocusPriority.FEEDBACK_MODAL, textareaRef);
 
     const feedback = useLocalObservable(() => _feedbackInitial);
+    const { t } = useTranslation();
 
     return (
       <GenericModal title={feedback.title} onClose={notify.finishFeedback}>
@@ -28,14 +30,16 @@ export const FeedbackModal: React.FC<IFeedbackModalProps> = observer(
                 checked={option.checked}
                 onChange={(e) => runInAction(() => (option.checked = e))}
               >
-                <span>{option.option}</span>
+                <span>
+                  {t("feedback_modal.option", { option: option.option })}
+                </span>
               </Checkbox>
             </div>
           ))}
           <MarkdownTextarea
             onChange={(e) => (feedback.comment = e.target.value)}
             ref={textareaRef}
-            placeholder={"Твой комментарий"}
+            placeholder={t("feedback_modal.yourComment")}
             className={c.comment}
           />
         </div>
@@ -44,7 +48,7 @@ export const FeedbackModal: React.FC<IFeedbackModalProps> = observer(
           mega
           onClick={() => notify.finishFeedback(feedback)}
         >
-          Отправить
+          {t("feedback_modal.submit")}
         </Button>
       </GenericModal>
     );

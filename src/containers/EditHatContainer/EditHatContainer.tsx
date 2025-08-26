@@ -25,6 +25,7 @@ import { NotoSans } from "@/const/notosans";
 import { AppRouter } from "@/route";
 import c from "./EditHatContainer.module.scss";
 import { useAsyncButton } from "@/util/use-async-button";
+import { useTranslation } from "react-i18next";
 
 interface IEditHatContainerProps {
   decoration?: ProfileDecorationDto;
@@ -40,6 +41,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
   decoration,
   decorationType,
 }) => {
+  const { t } = useTranslation();
   const [file, setFile] = useState<File | undefined>(undefined);
   const [offset, setOffset] = useState(0);
   const [sideTrim, setSideTrim] = useState(0);
@@ -204,7 +206,9 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
       />
 
       <Section>
-        <header>Превью в чате: {decorationType}</header>
+        <header>
+          {t("edit_hat_container.chatPreviewHeader", { decorationType })}
+        </header>
         <Panel
           style={{ flexDirection: "column", alignItems: "flex-start" }}
           className={threadFont.className}
@@ -224,10 +228,10 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
       </Section>
 
       <Section>
-        <header>Настройки</header>
+        <header>{t("edit_hat_container.settingsHeader")}</header>
         {decoration && (
           <Button mega onClick={deleteDecoration}>
-            УДАЛИТЬ ДЕКОРАЦИЮ
+            {t("edit_hat_container.deleteDecorationButton")}
           </Button>
         )}
         <Panel
@@ -251,7 +255,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
                 />
                 <button>
                   <label htmlFor="editor-toolbar-upload-file">
-                    Выбрать картинку
+                    {t("edit_hat_container.chooseImageButton")}
                   </label>
                 </button>
                 <img
@@ -262,7 +266,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
               </div>
 
               <div className={c.row}>
-                <header>Отступ по вертикали</header>
+                <header>{t("edit_hat_container.verticalOffsetHeader")}</header>
                 <input
                   type="range"
                   id="cowbell"
@@ -275,7 +279,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
                 />
               </div>
               <div className={c.row}>
-                <header>Обрезать края по горизонтали</header>
+                <header>{t("edit_hat_container.horizontalTrimHeader")}</header>
                 <input
                   type="range"
                   id="cowbell"
@@ -289,7 +293,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
               </div>
 
               <div className={c.row}>
-                <header>Обрезать сверху</header>
+                <header>{t("edit_hat_container.topTrimHeader")}</header>
                 <input
                   type="range"
                   id="cowbell"
@@ -304,7 +308,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
             </>
           )}
           <Input
-            placeholder={"Название шапки"}
+            placeholder={t("edit_hat_container.hatNamePlaceholder")}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -314,7 +318,9 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
             onClick={createDecoration}
             mega
           >
-            {decoration ? "Сохранить" : "Создать"} декорацию
+            {decoration
+              ? t("edit_hat_container.saveDecorationButton")
+              : t("edit_hat_container.createDecorationButton")}
           </Button>
         </Panel>
       </Section>

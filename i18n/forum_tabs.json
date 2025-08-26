@@ -1,0 +1,9 @@
+{
+  "forum_tabs": {
+    "forum": "Форум",
+    "technicalSupport": "Техподдержка",
+    "complaints": "Жалобы",
+    "allTechnicalSupport": "Вся теххподдержка",
+    "allComplaints": "Все жалобы"
+  }
+}

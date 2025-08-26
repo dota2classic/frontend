@@ -13,6 +13,7 @@ import {
   Table,
 } from "@/components";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "react-i18next";
 
 interface ILogFileHistoryProps {
   matchId: number;
@@ -23,6 +24,7 @@ type Messages = "all_chat" | "team" | "all";
 
 export const LogFileHistory: React.FC<ILogFileHistoryProps> = observer(
   ({ matchId, steamId }) => {
+    const { t } = useTranslation();
     const { data, isLoading } =
       getApi().storageApi.useStorageControllerGetLogMessages(matchId);
 
@@ -52,23 +54,23 @@ export const LogFileHistory: React.FC<ILogFileHistoryProps> = observer(
       <Panel className={cx(c.log, NotoSans.className, isEmpty && c.empty)}>
         <div className={c.settings}>
           <Checkbox onChange={(e) => setAuthorOnly(e)}>
-            Только сообщения обвиняемого
+            {t("log_file_history.onlyAccusedMessages")}
           </Checkbox>
           <SelectOptions
-            defaultText={"Фильтр сообщений"}
+            defaultText={t("log_file_history.messageFilter")}
             onSelect={(e) => setMessageFilter(e.value)}
             selected={messageFilter}
             options={[
               {
-                label: "Все сообщения",
+                label: t("log_file_history.allMessages"),
                 value: "all",
               },
               {
-                label: "Общий чат",
+                label: t("log_file_history.allChat"),
                 value: "all_chat",
               },
               {
-                label: "Командные сообщения",
+                label: t("log_file_history.teamMessages"),
                 value: "team",
               },
             ]}
@@ -76,21 +78,23 @@ export const LogFileHistory: React.FC<ILogFileHistoryProps> = observer(
         </div>
         <div className={c.logList}>
           {isLoading ? (
-            "Загрузка..."
+            t("log_file_history.loading")
           ) : msgs.length > 0 ? (
             <Table>
               <thead>
                 <tr>
-                  <th>Чат</th>
-                  <th>Автор</th>
-                  <th>Сообщение</th>
+                  <th>{t("log_file_history.chat")}</th>
+                  <th>{t("log_file_history.author")}</th>
+                  <th>{t("log_file_history.message")}</th>
                 </tr>
               </thead>
               <tbody>
                 {msgs.map((msg, idx) => (
                   <tr key={idx}>
                     <td className={msg.allChat ? "bronze" : "green"}>
-                      {msg.allChat ? "Всем" : "Команде"}
+                      {msg.allChat
+                        ? t("log_file_history.toAll")
+                        : t("log_file_history.toTeam")}
                     </td>
                     <td>
                       <ForumUserEmbed steamId={msg.author} />
@@ -101,7 +105,7 @@ export const LogFileHistory: React.FC<ILogFileHistoryProps> = observer(
               </tbody>
             </Table>
           ) : (
-            "Игрок не писал сообщений в чат"
+            t("log_file_history.noMessages")
           )}
         </div>
       </Panel>

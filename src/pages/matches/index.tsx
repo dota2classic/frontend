@@ -14,7 +14,7 @@ import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
 import { MatchComparator } from "@/util/sorts";
 import { GameModeOptions } from "@/const/options";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
@@ -36,7 +36,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
   }, [data, data.pages, page, setPage]);
 
   return (
-    <>  
+    <>
       <EmbedProps
         title={t("matches.historyTitle")}
         description={t("matches.historyDescription")}

@@ -7,7 +7,7 @@ import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { metrika } from "@/ym";
 import { NextPageContext } from "next";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -46,7 +46,7 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
           {
             title: <> {t("match_download.downloadReplayTitle")} </>,
             content: (
-              <> 
+              <>
                 <Button
                   link
                   href={match.replayUrl}
@@ -61,7 +61,7 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
           {
             title: <> {t("match_download.placeFileTitle")} </>,
             content: (
-              <> 
+              <>
                 <p className={cx("gold", threadFont.className)}>
                   {t("match_download.gameFolder")}
                 </p>
@@ -77,7 +77,7 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
           {
             title: <> {t("match_download.startClientTitle")} </>,
             content: (
-              <> 
+              <>
                 <CopyBlock
                   text={t("match_download.consoleCommandText")}
                   command={`playdemo ${match.id}.dem`}

@@ -8,8 +8,10 @@ import { EmoticonDto } from "@/api/back";
 import { $createEmojiNode } from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiNode";
 import { $insertNodes } from "lexical";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { useTranslation } from "react-i18next";
 
 export default function EmojiPlugin() {
+  const { t } = useTranslation();
   const [editor] = useLexicalComposerContext();
   const emojiRef = useRef<HTMLButtonElement | null>(null);
 
@@ -42,7 +44,7 @@ export default function EmojiPlugin() {
       <button
         onClick={() => setVisible((vis) => !vis)}
         className={cx(c.toolbarItem, c.spaced)}
-        aria-label="Undo"
+        aria-label={t("emoji_plugin.undo")}
         ref={emojiRef}
       >
         <FaGrinTongueSquint />

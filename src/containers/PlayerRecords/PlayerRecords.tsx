@@ -5,6 +5,7 @@ import { PlayerRecordsResponse } from "@/api/back";
 import { useQueryBackedParameter } from "@/util";
 import c from "./PlayerRecords.module.scss";
 import { RecordCardPlaceholder } from "@/components/RecordCard/RecordCardPlaceholder";
+import { useTranslation } from "react-i18next";
 
 interface IPlayerRecordsProps {
   records: PlayerRecordsResponse;
@@ -17,6 +18,7 @@ export const PlayerRecords: React.FC<IPlayerRecordsProps> = ({
   records,
   noPlayer,
 }) => {
+  const { t } = useTranslation();
   const [span, setSpan] = useQueryBackedParameter<Span>("span", true);
   const selectedSpan = useMemo<Span>(() => span || "season", [span]);
 
@@ -30,9 +32,21 @@ export const PlayerRecords: React.FC<IPlayerRecordsProps> = ({
       <BigTabs<Span>
         flavor="small"
         items={[
-          { key: "season", label: "В этом сезоне", onSelect: setSpan },
-          { key: "month", label: "В этом месяце", onSelect: setSpan },
-          { key: "overall", label: "За все время", onSelect: setSpan },
+          {
+            key: "season",
+            label: t("player_records.thisSeason"),
+            onSelect: setSpan,
+          },
+          {
+            key: "month",
+            label: t("player_records.thisMonth"),
+            onSelect: setSpan,
+          },
+          {
+            key: "overall",
+            label: t("player_records.allTime"),
+            onSelect: setSpan,
+          },
         ]}
         selected={selectedSpan}
       />

@@ -1,0 +1,14 @@
+{
+  "edit_hat_container": {
+    "chatPreviewHeader": "Превью в чате: {{decorationType}}",
+    "settingsHeader": "Настройки",
+    "deleteDecorationButton": "УДАЛИТЬ ДЕКОРАЦИЮ",
+    "chooseImageButton": "Выбрать картинку",
+    "verticalOffsetHeader": "Отступ по вертикали",
+    "horizontalTrimHeader": "Обрезать края по горизонтали",
+    "topTrimHeader": "Обрезать сверху",
+    "hatNamePlaceholder": "Название шапки",
+    "saveDecorationButton": "Сохранить",
+    "createDecorationButton": "Создать"
+  }
+}

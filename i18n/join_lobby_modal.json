@@ -1,0 +1,8 @@
+{
+  "join_lobby_modal": {
+    "joinToLobby": "Присоединиться к лобби",
+    "lobby": "Лобби {{ownerName}}",
+    "incorrectPassword": "Неправильный пароль",
+    "join": "Присоединиться"
+  }
+}

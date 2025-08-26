@@ -4,6 +4,7 @@ import React, { useCallback } from "react";
 import c from "./HeroMentionPlugin.module.scss";
 import { HeroIcon } from "@/components";
 import { $createHeroMentionNode } from "@/containers/RichEditor/plugins/HeroMentionPlugin/HeroMentionNode";
+import { useTranslation } from "react-i18next";
 
 const HeroRender = ({ hero, localizedName }: HeroName) => {
   return (
@@ -15,6 +16,7 @@ const HeroRender = ({ hero, localizedName }: HeroName) => {
 };
 
 export default function HeroMentionPlugin() {
+  const { t } = useTranslation();
   const searchHero = useCallback(async (s: string) => {
     return HeroNames.filter(
       ({ hero, localizedName }) =>
@@ -29,7 +31,12 @@ export default function HeroMentionPlugin() {
       searchProvider={searchHero}
       keyProvider={(t) => t.hero}
       RenderListItem={({ option }) => (
-        <HeroRender hero={option.hero} localizedName={option.localizedName} />
+        <HeroRender
+          hero={option.hero}
+          localizedName={t("hero_mention.localizedName", {
+            name: option.localizedName,
+          })}
+        />
       )}
       $createNode={(t) => $createHeroMentionNode(t.hero)}
     />

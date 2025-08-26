@@ -25,6 +25,7 @@ import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
 import { makeLinkToast, makeSimpleToast } from "@/components/Toast/toasts";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 interface IDropListProps {
   drops: DroppedItemDto[];
@@ -40,6 +41,7 @@ export const DropList: React.FC<IDropListProps> = ({
   user,
   products,
 }) => {
+  const { t } = useTranslation();
   const [tradeLink, setTradeLink] = useState(user.tradeUrl || "");
   const [spoiler, setSpoiler] = useState(false);
 
@@ -82,7 +84,7 @@ export const DropList: React.FC<IDropListProps> = ({
     });
 
   const tradeUrlRegex = useMemo(() => {
-    const r = `https:\\/\\/steamcommunity\\.com\\/tradeoffer\\/new\\/\\?partner=${user.steamId}&token=(.+)`;
+    const r = `https:\/\/steamcommunity\.com\/tradeoffer\/new\/\?partner=${user.steamId}&token=(.+)`;
     return new RegExp(r);
   }, [user]);
 
@@ -106,31 +108,29 @@ export const DropList: React.FC<IDropListProps> = ({
       await refreshDrops(undefined, { revalidate: true });
 
       makeSimpleToast(
-        "Создаем предложение к обмену...",
-        "Это может занять 5-10 секунд",
+        t("drop_list.creatingTradeOffer"),
+        t("drop_list.itMayTakeTime"),
         5000,
       );
 
       await new Promise((resolve) => setTimeout(resolve, 5000));
       makeLinkToast(
-        "Награды предложены к обмену!",
+        t("drop_list.rewardsOffered"),
         <>
           <a target="__blank" className="link" href={offerUrl}>
-            Перейти к обмену
+            {t("drop_list.goToTrade")}
           </a>
         </>,
         5000,
       );
     } catch (e) {
-      await handleException("Ошибка при создании обмена", e);
+      await handleException(t("drop_list.errorCreatingTrade"), e);
     }
   }, [refreshDrops]);
 
   const discard = useCallback(
     async (item: DroppedItemDto) => {
-      const doDiscard = confirm(
-        "Ты действительно хочешь отказаться от этого предмета?",
-      );
+      const doDiscard = confirm(t("drop_list.confirmDiscard"));
 
       if (!doDiscard) return;
 
@@ -155,31 +155,25 @@ export const DropList: React.FC<IDropListProps> = ({
                 await refreshDrops();
                 await endPayment();
               })
-              .catch((e) => handleException("Ошибка при оплате подписки", e));
+              .catch((e) =>
+                handleException(t("drop_list.errorPurchasingSubscription"), e),
+              );
           }}
         />
       </ClientPortal>
       <Section>
-        <header>Настройки</header>
+        <header>{t("drop_list.settings")}</header>
 
         <Form>
           <div>
-            <header>Ссылка на обмен Steam</header>
-            <p>
-              Чтобы получить награды, нужно сделать инвентарь в Steam
-              "открытым", а также предоставить ссылку на обмен. Узнать ее можно{" "}
-              <a className="link" target="__blank" href={tradeLinkSteam}>
-                по этой ссылке.
-              </a>
-              Любой игрок может получить случайную награду после матча в режиме
-              Обычная 5х5. Достаточно просто играть!
-            </p>
+            <header>{t("drop_list.tradeLinkHeader")}</header>
+            <p>{t("drop_list.tradeLinkInfo", { tradeLinkSteam })}</p>
             <a
               className="link"
               style={{ width: "fit-content" }}
               onClick={() => setSpoiler(!spoiler)}
             >
-              Как найти ссылку на обмен?
+              {t("drop_list.howToFindTradeLink")}
             </a>
             {spoiler && <img src="/guide/trade.webp" alt="" />}
             <div className="nicerow">
@@ -187,53 +181,53 @@ export const DropList: React.FC<IDropListProps> = ({
                 style={{ flex: 1 }}
                 onChange={(e) => setTradeLink(e.target.value)}
                 value={tradeLink}
-                placeholder={"Ссылка на обмен Steam"}
+                placeholder={t("drop_list.tradeLinkPlaceholder")}
               />
 
               <Button
                 disabled={isUpdating || !isValidTradeLink}
                 onClick={updateTradeLink}
               >
-                Сохранить
+                {t("drop_list.save")}
               </Button>
             </div>
             <span className="red">
-              {tradeLink && isValidTradeLink ? "" : "Неверная ссылка"}
+              {tradeLink && isValidTradeLink ? "" : t("drop_list.invalidLink")}
             </span>
           </div>
         </Form>
       </Section>
 
       <Section>
-        <header>Пожертвовать предметы</header>
+        <header>{t("drop_list.donateItems")}</header>
         <Form>
           <div>
-            <p>
-              Любой игрок может пожертвовать проекту вещи в Steam. Бот
-              автоматически расчитает стоимость предметов и добавит их к твоему
-              внутреннему балансу. Этим балансом можно оплатить подписку!
-            </p>
+            <p>{t("drop_list.donationInfo")}</p>
             <a
               style={{ width: "fit-content" }}
               className="link"
               target="__blank"
               href="https://steamcommunity.com/tradeoffer/new/?partner=159907143&token=xczBRmXj"
             >
-              Передать предметы
+              {t("drop_list.transferItems")}
             </a>
             <header>
-              Твой баланс: {(user.balance / 100).toFixed(2)} рублей
+              {t("drop_list.yourBalance", {
+                balance: (user.balance / 100).toFixed(2),
+              })}
             </header>
-            <Button onClick={startPayment}>Оплатить подписку</Button>
+            <Button onClick={startPayment}>
+              {t("drop_list.paySubscription")}
+            </Button>
 
-            <header>История обменов</header>
+            <header>{t("drop_list.historyOfTrades")}</header>
             <Table>
               <thead>
                 <tr>
-                  <th>Дата</th>
-                  <th>Количество предметов</th>
-                  <th>Общая сумма</th>
-                  <th>Тип обмена</th>
+                  <th>{t("drop_list.date")}</th>
+                  <th>{t("drop_list.itemCount")}</th>
+                  <th>{t("drop_list.totalAmount")}</th>
+                  <th>{t("drop_list.tradeType")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -245,7 +239,9 @@ export const DropList: React.FC<IDropListProps> = ({
                     <td>{trade.itemCount}</td>
                     <td>{(trade.amount / 100).toFixed(2)}₽</td>
                     <td>
-                      {trade.incoming ? "Пожертвование" : "Выдача награды"}
+                      {trade.incoming
+                        ? t("drop_list.donation")
+                        : t("drop_list.rewardGiving")}
                     </td>
                   </tr>
                 ))}
@@ -256,13 +252,13 @@ export const DropList: React.FC<IDropListProps> = ({
       </Section>
 
       <Section>
-        <header>Награды</header>
+        <header>{t("drop_list.rewards")}</header>
         <Button
           disabled={isClaiming || !user.tradeUrl || drops.length === 0}
           mega
           onClick={claimDrops}
         >
-          Получить награды
+          {t("drop_list.getRewards")}
         </Button>
         <br />
         <br />
@@ -272,9 +268,7 @@ export const DropList: React.FC<IDropListProps> = ({
             <DropCard onDiscard={discard} drop={drop} key={drop.assetId} />
           ))}
           {dropList!.length && (
-            <h2 className={c.centerHeader}>
-              У тебя еще нет наград! Играй, чтобы получить их.
-            </h2>
+            <h2 className={c.centerHeader}>{t("drop_list.noRewards")}</h2>
           )}
         </div>
       </Section>

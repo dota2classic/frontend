@@ -1,10 +1,3 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 import {
@@ -40,6 +33,7 @@ import findEmoji from "@/containers/RichEditor/plugins/EmojiPlugin/findEmoji";
 import { $setBlocksType } from "@lexical/selection";
 import { $createHeadingNode } from "@lexical/rich-text";
 import { InsertLinkButton } from "@/containers/RichEditor/plugins/InsertLinkPlugin";
+import { useTranslation } from "react-i18next";
 
 function $textNodeTransform(node: TextNode): void {
   if (!node.isSimpleText() || node.hasFormat("code")) {
@@ -48,8 +42,6 @@ function $textNodeTransform(node: TextNode): void {
 
   const text = node.getTextContent();
 
-  // Find only 1st occurrence as transform will be re-run anyway for the rest
-  // because newly inserted nodes are considered to be dirty
   const emojiMatch = findEmoji(text);
   if (emojiMatch === null) {
     return;
@@ -57,15 +49,13 @@ function $textNodeTransform(node: TextNode): void {
 
   let targetNode;
   if (emojiMatch.position === 0) {
-    // First text chunk within string, splitting into 2 parts
     [targetNode] = node.splitText(
-      emojiMatch.position + emojiMatch.code.length + 2, // 2 = : + :
+      emojiMatch.position + emojiMatch.code.length + 2,
     );
   } else {
-    // In the middle of a string
     [, targetNode] = node.splitText(
       emojiMatch.position,
-      emojiMatch.position + emojiMatch.code.length + 2, // 2 = : + :
+      emojiMatch.position + emojiMatch.code.length + 2,
     );
   }
 
@@ -79,6 +69,7 @@ function Divider() {
   return <div className={c.divider} />;
 }
 export default function ToolbarPlugin() {
+  const { t } = useTranslation();
   const [editor] = useLexicalComposerContext();
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
@@ -90,7 +81,6 @@ export default function ToolbarPlugin() {
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
-      // Update text format
       setIsBold(selection.hasFormat("bold"));
       setIsItalic(selection.hasFormat("italic"));
       setIsUnderline(selection.hasFormat("underline"));
@@ -150,7 +140,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(UNDO_COMMAND, undefined);
         }}
         className={cx(c.toolbarItem, c.spaced)}
-        aria-label="Undo"
+        aria-label={t("toolbar.undo")}
       >
         <FaUndo />
       </button>
@@ -160,7 +150,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(REDO_COMMAND, undefined);
         }}
         className={c.toolbarItem}
-        aria-label="Redo"
+        aria-label={t("toolbar.redo")}
       >
         <FaRedo />
       </button>
@@ -170,7 +160,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
         }}
         className={cx(c.toolbarItem, c.spaced, isBold && c.active)}
-        aria-label="Format Bold"
+        aria-label={t("toolbar.formatBold")}
       >
         <FaBold />
       </button>
@@ -179,14 +169,14 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
         }}
         className={cx(c.toolbarItem, c.spaced, isItalic && c.active)}
-        aria-label="Format Italics"
+        aria-label={t("toolbar.formatItalics")}
       >
         <FaItalic />
       </button>
       <button
         onClick={makeHeading}
         className={cx(c.toolbarItem, c.spaced, c.active)}
-        aria-label="Format Heading"
+        aria-label={t("toolbar.formatHeading")}
       >
         <FaHeading />
       </button>
@@ -195,7 +185,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
         }}
         className={cx(c.toolbarItem, c.spaced, isUnderline && c.active)}
-        aria-label="Format Underline"
+        aria-label={t("toolbar.formatUnderline")}
       >
         <FaUnderline />
       </button>
@@ -204,7 +194,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough");
         }}
         className={cx(c.toolbarItem, c.spaced, isStrikethrough && c.active)}
-        aria-label="Format Strikethrough"
+        aria-label={t("toolbar.formatStrikethrough")}
       >
         <FaStrikethrough />
       </button>
@@ -214,7 +204,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");
         }}
         className={cx(c.toolbarItem, c.spaced)}
-        aria-label="Left Align"
+        aria-label={t("toolbar.leftAlign")}
       >
         <FaAlignLeft />
       </button>
@@ -223,7 +213,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center");
         }}
         className={cx(c.toolbarItem, c.spaced)}
-        aria-label="Center Align"
+        aria-label={t("toolbar.centerAlign")}
       >
         <FaAlignCenter />
       </button>
@@ -232,7 +222,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
         }}
         className={cx(c.toolbarItem, c.spaced)}
-        aria-label="Right Align"
+        aria-label={t("toolbar.rightAlign")}
       >
         <FaAlignRight />
       </button>
@@ -241,7 +231,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
         }}
         className={c.toolbarItem}
-        aria-label="Justify Align"
+        aria-label={t("toolbar.justifyAlign")}
       >
         <FaAlignJustify />
       </button>
