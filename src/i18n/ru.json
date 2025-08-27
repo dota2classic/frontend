@@ -1028,7 +1028,10 @@
     "aboutProject": "О проекте",
     "store": "Магазин",
     "live": "Live",
-    "stream": "Стрим"
+    "stream": "Стрим",
+    "items": "Предметы",
+    "players": "Игроки",
+    "meta": "Мета"
   },
   "match_download": {
     "downloadReplayTitle": "Скачай реплей",
@@ -1126,14 +1129,6 @@
     "bestPlayers": "Best Players",
     "matchHistory": "Match History",
     "strongestHeroes": "Strongest Heroes"
-  },
-  "meta_navbar": {
-    "matches": "Matches",
-    "heroes": "Heroes",
-    "items": "Items",
-    "players": "Players",
-    "records": "Records",
-    "meta": "Meta"
   },
   "meta_page": {
     "statistics": "Статистика",

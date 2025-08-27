@@ -18,6 +18,14 @@
     "aboutProject": "О проекте",
     "store": "Магазин",
     "live": "Live",
-    "stream": "Стрим"
+    "stream": "Стрим",
+
+
+    "matches": "Матчи",
+    "heroes": "Герои",
+    "items": "Предметы",
+    "players": "Игроки",
+    "records": "Рекорды",
+    "meta": "Мета"
   }
 }

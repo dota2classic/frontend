@@ -19,33 +19,33 @@ export const MetaNavbarItem = () => {
       options={[
         {
           Icon: MdViewList,
-          label: t("meta_navbar.matches"),
+          label: t("navbar.matches"),
           action: AppRouter.matches.index(0, MatchmakingMode.UNRANKED).link,
         },
         {
           Icon: GiFeatheredWing,
-          label: t("meta_navbar.heroes"),
+          label: t("navbar.heroes"),
           action: AppRouter.heroes.index.link,
         },
         {
           Icon: GiBattleAxe,
-          label: t("meta_navbar.items"),
+          label: t("navbar.items"),
           action: AppRouter.wiki.index.link,
         },
         {
           newCategory: true,
           Icon: MdLeaderboard,
-          label: t("meta_navbar.players"),
+          label: t("navbar.players"),
           action: AppRouter.players.leaderboard().link,
         },
         {
           Icon: IoMdTrophy,
-          label: t("meta_navbar.records"),
+          label: t("navbar.records"),
           action: AppRouter.records.index.link,
         },
       ]}
     >
-      {t("meta_navbar.meta")}
+      {t("navbar.meta")}
     </NavbarItem>
   );
 };
