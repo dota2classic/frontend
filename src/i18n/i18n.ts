@@ -24,8 +24,12 @@ detector.addDetector({
   lookup() {
     if (typeof window !== "undefined") {
       const hostname = window.location.hostname;
+      const hosts = hostname.split(".");
+      const baseHostname =
+        hosts[0] === "en" ? hosts.slice(1).join(".") : hosts.join(".");
       setCookie("d2c:domain", window.location.hostname, {
         maxAge: 60 * 60 * 24 * 90, // 5 minutes
+        domain: `.${baseHostname}`,
       });
       return detectLocale(hostname);
     }
