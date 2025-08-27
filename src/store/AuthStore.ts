@@ -134,6 +134,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     appApi.apiParams.accessToken = undefined;
     BrowserCookies.erase(AuthStore.cookieTokenKey, {
       domain: getBaseCookieDomain(),
+      path: "/",
     });
     if (typeof window !== "undefined") {
       window.location.reload();

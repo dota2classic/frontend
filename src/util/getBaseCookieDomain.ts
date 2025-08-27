@@ -4,9 +4,9 @@ export function getBaseCookieDomain() {
 
     if (hostname.startsWith("en.")) {
       // we want prepend en to domain
-      return "." + hostname.replace(hostname, `en.${hostname}`);
+      return hostname.replace(hostname, `en.${hostname}`);
     } else {
-      return "." + hostname;
+      return hostname;
     }
   }
 }
