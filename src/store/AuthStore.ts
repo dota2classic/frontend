@@ -12,6 +12,7 @@ import BrowserCookies from "browser-cookies";
 import { appApi, getApi } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
 import { metrika } from "@/ym";
+import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
 
 export interface JwtAuthToken {
   sub: string;
@@ -131,7 +132,9 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     console.trace("Logout called");
     this.token = undefined;
     appApi.apiParams.accessToken = undefined;
-    BrowserCookies.erase(AuthStore.cookieTokenKey);
+    BrowserCookies.erase(AuthStore.cookieTokenKey, {
+      domain: getBaseCookieDomain(),
+    });
     if (typeof window !== "undefined") {
       window.location.reload();
     }

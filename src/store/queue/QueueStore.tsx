@@ -61,6 +61,7 @@ import { toast } from "react-toastify";
 
 // TODO: maybe very bad
 import { t } from "i18next";
+import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
 
 export type QueueHolder = {
   [key: string]: number;
@@ -502,6 +503,7 @@ export class QueueStore
         {
           path: "/",
           expires: new Date().getTime() + 1000 * 60 * 60 * 24 * 10000,
+          domain: getBaseCookieDomain(),
         },
       );
     }

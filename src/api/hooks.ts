@@ -32,6 +32,7 @@ import { getCache } from "@/api/api-cache";
 import BrowserCookies from "browser-cookies";
 import { __unsafeGetClientStore } from "@/store";
 import { parseJwt } from "@/util";
+import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
@@ -116,6 +117,7 @@ export class AppApi {
     BrowserCookies.set("dota2classic_auth_token", newToken, {
       expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30),
       path: "/",
+      domain: getBaseCookieDomain(),
     });
     this.apiParams.accessToken = newToken;
   };
