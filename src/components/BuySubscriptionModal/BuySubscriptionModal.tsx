@@ -11,13 +11,13 @@ import {
 } from "react-icons/ri";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { setCookie } from "cookies-next";
 import { getAuthUrl } from "@/util/getAuthUrl";
 import { SubscriptionProductDto } from "@/api/back";
 import { FaRubleSign } from "react-icons/fa";
 import { FaRegCalendarDays } from "react-icons/fa6";
 import { MdDiscount } from "react-icons/md";
 import { useAsyncButton } from "@/util/use-async-button";
+import { prepareAuth } from "@/util/prepareAuth";
 
 interface IBuySubscriptionModalProps {
   onClose: () => void;
@@ -47,9 +47,7 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
 
       if (!isAuthorized || !parsedToken) {
         // Authorize
-        setCookie("d2c:auth_redirect", "store", {
-          maxAge: 60 * 5 * 24 * 90, // 5 minutes
-        });
+        prepareAuth();
         window.location.href = getAuthUrl();
         return;
       }

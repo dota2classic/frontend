@@ -4,6 +4,7 @@ import translation_ru from "./ru.json";
 import translation_en from "./en.json";
 import I18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
 import { detectLocale } from "@/util/detectLocale";
+import { setCookie } from "cookies-next";
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -23,7 +24,9 @@ detector.addDetector({
   lookup() {
     if (typeof window !== "undefined") {
       const hostname = window.location.hostname;
-      console.log(`Detected locale: ${detectLocale(hostname)}`);
+      setCookie("d2c:domain", window.location.hostname, {
+        maxAge: 60 * 60 * 24 * 90, // 5 minutes
+      });
       return detectLocale(hostname);
     }
     return undefined;

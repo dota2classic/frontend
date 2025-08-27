@@ -8,12 +8,15 @@ function redirectToLocaleDomain(locale: "ru" | "en") {
   const currentUrl = window.location.href;
   const hostname = window.location.hostname;
 
+  let newHref: string = currentUrl;
   if (locale === "en" && !hostname.startsWith("en.")) {
     // we want prepend en to domain
-    window.location.href = currentUrl.replace(hostname, `en.${hostname}`);
+    newHref = currentUrl.replace(hostname, `en.${hostname}`);
   } else if (locale === "ru" && hostname.startsWith("en.")) {
-    window.location.href = currentUrl.replace(`en.`, "");
+    newHref = currentUrl.replace(`en.`, "");
   }
+  console.log(`Redirecting to ${newHref}`);
+  window.location.href = newHref;
 }
 
 export const LanguageSwitcher: React.FC = () => {

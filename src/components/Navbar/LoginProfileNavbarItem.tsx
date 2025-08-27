@@ -14,6 +14,7 @@ import { GiFeatheredWing } from "react-icons/gi";
 import { MdViewList } from "react-icons/md";
 import cx from "clsx";
 import { useTranslation } from "react-i18next";
+import { prepareAuth } from "@/util/prepareAuth";
 
 export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
   const { parsedToken, smallAvatar, logout } = useStore().auth;
@@ -21,7 +22,14 @@ export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
 
   if (!parsedToken)
     return (
-      <NavbarItem ignoreActive action={getAuthUrl()} testId="navbar-login">
+      <NavbarItem
+        ignoreActive
+        action={() => {
+          prepareAuth();
+          window.location.href = getAuthUrl();
+        }}
+        testId="navbar-login"
+      >
         <FaSteam style={{ marginRight: 4, marginTop: "-3px" }} />
         {t("navbar.login")}
       </NavbarItem>
