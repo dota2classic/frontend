@@ -158,7 +158,7 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
           />
 
           <Typography.Header radiant>
-            {t("match.radiant", { winner: match.winner })}{" "}
+            {t("match.radiant")}{" "}
             {match.winner === 2 && <FaTrophy color={"white"} />}
           </Typography.Header>
           <Tabs
@@ -179,7 +179,7 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
           <br />
 
           <Typography.Header dire>
-            {t("match.dire", { winner: match.winner })}{" "}
+            {t("match.dire")}{" "}
             {match.winner === 3 && <FaTrophy color={"white"} />}
           </Typography.Header>
           <Tabs

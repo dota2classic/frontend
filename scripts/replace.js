@@ -87,7 +87,7 @@ module.exports = async function (fileInfo, api) {
 
   async function generateKey(text) {
     const request = {
-      model: "gpt-4o-mini",
+      model: "gpt-4.1-nano",
       response_format: { type: "json_object" },
       messages: [
         {
@@ -106,6 +106,8 @@ module.exports = async function (fileInfo, api) {
     if (res.ok) {
       return JSON.parse(res.data.choices[0].message.content);
     }
+    console.error("There was an issue getting GPT answer!", res.originalError);
+    console.error(res.data);
   }
 
   const { code, i18n, i18n_filename, ignore } =
