@@ -3,6 +3,7 @@
 import { NextPageContext } from "next";
 import { RootStore } from "@/store";
 import { AppApi } from "@/api/hooks";
+import BrowserCookies from "browser-cookies";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -14,6 +15,7 @@ declare global {
     store: RootStore;
     registration?: ServiceWorkerRegistration;
     api: AppApi;
+    cook: BrowserCookies;
     ym: (key: number, fun: string, value: unknown) => void;
     yaContextCb: any;
     Ya: any;

@@ -15,6 +15,7 @@ import { LiveStore } from "@/store/LiveStore";
 import { ReportStore } from "@/store/ReportStore";
 import { ClaimItemStore } from "@/store/ClaimItemStore";
 import { SubStore } from "@/store/SubStore";
+import BrowserCookies from "browser-cookies";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -71,6 +72,7 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
 
   window.store = clientStore;
   window.api = getApi();
+  window.cook = BrowserCookies;
   return store;
 };
 
