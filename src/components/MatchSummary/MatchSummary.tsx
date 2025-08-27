@@ -134,8 +134,8 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
               )}
             >
               {winner === 2
-                ? t("match_summary.victoryLight")
-                : t("match_summary.victoryDark")}
+                ? t("match_summary.victoryRadiant")
+                : t("match_summary.victoryDire")}
             </div>
           )}
           <MatchSummaryScore

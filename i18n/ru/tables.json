@@ -1,0 +1,28 @@
+{
+  "tables": {
+    "player": "Игрок",
+    "matches": "Матчи",
+    "winrate": "% Побед",
+    "hero": "Герой",
+    "result": "Результат",
+    "win": "Победа",
+    "wins": "Побед",
+    "lose": "Поражение",
+    "mode": "Режим",
+    "duration": "Длительность",
+    "kda": "KDA",
+    "items": "Предметы",
+    "item": "Предмет",
+
+
+    "popularityTooltip": "Популярность",
+
+
+    "matchNumber": "Номер матча",
+    "gameMode": "Режим игры",
+    "radiant": "Силы Света",
+    "dire": "Силы Тьмы",
+    "radiantVictory": "Победа Сил Света",
+    "direVictory": "Победа Сил Тьмы"
+  }
+}

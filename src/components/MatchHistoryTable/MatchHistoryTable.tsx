@@ -37,12 +37,12 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
     <Table className={cx("compact", className)}>
       <thead>
         <tr>
-          <th>{t("match_history_table.matchNumber")}</th>
-          <th>{t("match_history_table.gameMode")}</th>
-          <th>{t("match_history_table.result")}</th>
-          <th>{t("match_history_table.duration")}</th>
-          <th className="omit">{t("match_history_table.radiant")}</th>
-          <th className="omit">{t("match_history_table.dire")}</th>
+          <th>{t("tables.matchNumber")}</th>
+          <th>{t("tables.gameMode")}</th>
+          <th>{t("tables.result")}</th>
+          <th>{t("tables.duration")}</th>
+          <th className="omit">{t("tables.radiant")}</th>
+          <th className="omit">{t("tables.dire")}</th>
         </tr>
       </thead>
       <tbody>
@@ -78,8 +78,8 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
                   link={AppRouter.matches.match(it.id).link}
                 >
                   {it.winner === 2
-                    ? t("match_history_table.radiantVictory")
-                    : t("match_history_table.direVictory")}
+                    ? t("tables.radiantVictory")
+                    : t("tables.direVictory")}
                 </PageLink>
               </td>
               <td>

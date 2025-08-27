@@ -57,20 +57,20 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
       columns={[
         {
           type: showUser ? ColumnType.Player : ColumnType.Hero,
-          name: showUser ? t("hero_table.player") : t("hero_table.hero"),
+          name: showUser ? t("tables.player") : t("tables.hero"),
           link: (d) => AppRouter.matches.match(d[6]).link,
           maxWidth: showUser ? 180 : 150,
         },
         {
           type: ColumnType.Raw,
-          name: t("hero_table.result"),
+          name: t("tables.result"),
           format: ({ won, matchId, timestamp }) => (
             <div className={cx(c.twoRows)}>
               <PageLink
                 link={AppRouter.matches.match(matchId).link}
                 className={won ? c.result__win : c.result__lose}
               >
-                {won ? t("hero_table.win") : t("hero_table.lose")}
+                {won ? t("tables.win") : t("tables.lose")}
               </PageLink>
               <span className={c.timestamp} suppressHydrationWarning>
                 <TimeAgo date={timestamp} />
@@ -80,7 +80,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
         },
         {
           type: ColumnType.Raw,
-          name: t("hero_table.mode"),
+          name: t("tables.mode"),
           format: ([lobby, mode]) => (
             <div className={c.twoRows}>
               <span>{t(`matchmaking_mode.${lobby}`)}</span>
@@ -92,14 +92,14 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
 
         {
           type: ColumnType.IntWithBar,
-          name: t("hero_table.duration"),
+          name: t("tables.duration"),
           format: (dur) => <Duration duration={dur} />,
           color: colors.grey,
           mobileOmit: true,
         },
         {
           type: ColumnType.Raw,
-          name: t("hero_table.kda"),
+          name: t("tables.kda"),
           format: (item) => (
             <div className={c.kda}>
               <span>
@@ -117,7 +117,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           ? [
               {
                 type: ColumnType.Items,
-                name: t("hero_table.items"),
+                name: t("tables.items"),
                 mobileOmit: true,
               },
             ]

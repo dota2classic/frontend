@@ -26,23 +26,23 @@ export const HeroPlayersTable: React.FC<IHeroPlayersTableProps> = ({
       keyProvider={(d) => d[0].steam_id}
       columns={[
         {
-          name: t("hero_players_table.player"),
+          name: t("tables.player"),
           type: ColumnType.Player,
           maxWidth: 160,
           link: (d) => AppRouter.players.playerMatches(d[0].steamId, hero).link,
         },
         {
-          name: t("hero_players_table.matches"),
+          name: t("tables.matches"),
           type: ColumnType.IntWithBar,
           color: colors.green,
         },
         {
-          name: t("hero_players_table.winRate"),
+          name: t("tables.winRate"),
           type: ColumnType.PercentWithBar,
           color: colors.red,
         },
         {
-          name: t("hero_players_table.kda"),
+          name: t("tables.kda"),
           type: ColumnType.KDA,
         },
       ]}

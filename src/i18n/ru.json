@@ -757,12 +757,6 @@
   "hero_icon": {
     "iconAlt": "Icon of hero {{heroName}}"
   },
-  "hero_items_table": {
-    "item": "Предмет",
-    "matches": "Матчи",
-    "wins": "Победы",
-    "winPercentage": "Доля побед"
-  },
   "hero_matches": {
     "loading": "Loading...",
     "matches": "Matches for {{hero}}"
@@ -770,34 +764,11 @@
   "hero_mention": {
     "localizedName": "localized name of hero {{name}}"
   },
-  "hero_performance_table": {
-    "hero": "Герой",
-    "matches": "Матчи",
-    "winPercentage": "% Побед",
-    "kda": "KDA"
-  },
-  "hero_players_table": {
-    "player": "Игрок",
-    "matches": "Матчи",
-    "winRate": "% Побед",
-    "kda": "KDA"
-  },
   "hero_stats": {
     "popularity": "Популярность",
     "matches": "Матчи",
     "wins": "Победы",
     "winrate": "Доля побед"
-  },
-  "hero_table": {
-    "player": "Игрок",
-    "hero": "Герой",
-    "result": "Результат",
-    "win": "Победа",
-    "lose": "Поражение",
-    "mode": "Режим",
-    "duration": "Длительность",
-    "kda": "KDA",
-    "items": "Предметы"
   },
   "heroes": {
     "title": "Герои",
@@ -886,12 +857,6 @@
   "items_page": {
     "title": "Предметы",
     "description": "Интерактивная энциклопедия предметов Dota 2 6.84c, цена, сборки и магазины в старой доте."
-  },
-  "items_table": {
-    "popularityTooltip": "Популярность",
-    "item": "Предмет",
-    "games": "Матчи",
-    "winRate": "Доля побед"
   },
   "join_lobby_modal": {
     "joinToLobby": "Присоединиться к лобби",
@@ -1053,6 +1018,7 @@
     "commonIssues": "Частые проблемы",
     "news": "Новости",
     "forum": "Форум",
+    "lobby": "Лобби",
     "support": "Поддержка",
     "complaints": "Жалобы",
     "vacancies": "Вакансии",
@@ -1062,13 +1028,7 @@
     "aboutProject": "О проекте",
     "store": "Магазин",
     "live": "Live",
-    "stream": "Стрим",
-    "item": {
-      "tooltip": "Tooltip text",
-      "option": {
-        "label": "{{label}}"
-      }
-    }
+    "stream": "Стрим"
   },
   "match_download": {
     "downloadReplayTitle": "Скачай реплей",
@@ -1087,16 +1047,6 @@
     "gameMode": "Режим игры",
     "gameModeDefault": "Выберите режим игры"
   },
-  "match_history_table": {
-    "matchNumber": "Номер матча",
-    "gameMode": "Режим игры",
-    "result": "Результат",
-    "duration": "Длительность",
-    "radiant": "Силы Света",
-    "dire": "Силы Тьмы",
-    "radiantVictory": "Победа Сил Света",
-    "direVictory": "Победа Сил Тьмы"
-  },
   "match": {
     "title": "Матч {{matchId}}",
     "description": "Страница матча с ID {{matchId}}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru",
@@ -1105,19 +1055,19 @@
   },
   "match_summary": {
     "summary": "Сводка",
-    "matches": "Matches",
-    "matchNumber": "Match {matchId}",
-    "view": "View",
-    "log": "Log",
-    "download": "Download",
-    "replay": "Game Replay",
-    "mode": "Mode",
-    "lobby": "Lobby",
-    "gameStage": "Game Stage",
-    "duration": "Duration",
-    "matchEnded": "Match Ended",
-    "victoryLight": "Victory of the Forces of Light",
-    "victoryDark": "Victory of the Forces of Darkness"
+    "matches": "Матчи",
+    "matchNumber": "Матч {{matchId}}",
+    "view": "Посмотреть",
+    "log": "Лог",
+    "download": "Скачать",
+    "replay": "Реплей",
+    "mode": "Режим",
+    "lobby": "Лобби",
+    "gameStage": "Стадия игры",
+    "duration": "Продолжительность",
+    "matchEnded": "Матч завершен",
+    "victoryRadiant": "Победа сил Света",
+    "victoryDire": "Победа сил Тьмы"
   },
   "farming": {
     "farming": "Фарм"
@@ -1648,10 +1598,27 @@
   "stream_carousel": {
     "streams": "Стримы"
   },
-  "teammates_table": {
+  "tables": {
     "player": "Игрок",
     "matches": "Матчи",
-    "winrate": "% Побед"
+    "winrate": "% Побед",
+    "hero": "Герой",
+    "result": "Результат",
+    "win": "Победа",
+    "wins": "Побед",
+    "lose": "Поражение",
+    "mode": "Режим",
+    "duration": "Длительность",
+    "kda": "KDA",
+    "items": "Предметы",
+    "item": "Предмет",
+    "popularityTooltip": "Популярность",
+    "matchNumber": "Номер матча",
+    "gameMode": "Режим игры",
+    "radiant": "Силы Света",
+    "dire": "Силы Тьмы",
+    "radiantVictory": "Победа Сил Света",
+    "direVictory": "Победа Сил Тьмы"
   },
   "tech_static_tabs": {
     "quickStart": "Быстрый старт",

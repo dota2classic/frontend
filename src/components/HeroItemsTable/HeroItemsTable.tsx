@@ -28,25 +28,25 @@ export const HeroItemsTable: React.FC<IHeroItemsTableProps> = ({
       columns={[
         {
           type: ColumnType.Item,
-          name: t("hero_items_table.item"),
+          name: t("tables.item"),
           maxWidth: 120,
         },
         {
           type: ColumnType.IntWithBar,
-          name: t("hero_items_table.matches"),
+          name: t("tables.matches"),
           color: colors.green,
           sortable: true,
           defaultSort: "desc",
         },
         {
           type: ColumnType.IntWithBar,
-          name: t("hero_items_table.wins"),
+          name: t("tables.wins"),
           color: colors.green,
           sortable: true,
         },
         {
           type: ColumnType.PercentWithBar,
-          name: t("hero_items_table.winPercentage"),
+          name: t("tables.winrate"),
           sortable: true,
         },
       ]}

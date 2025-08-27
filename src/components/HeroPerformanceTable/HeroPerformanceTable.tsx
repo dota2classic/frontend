@@ -35,23 +35,23 @@ export const HeroPerformanceTable: React.FC<IHeroPerformanceTableProps> = ({
       columns={[
         {
           type: ColumnType.Hero,
-          name: t("hero_performance_table.hero"),
+          name: t("tables.hero"),
           noname: false,
           link: (d) => AppRouter.players.playerMatches(steamId, d[0]).link,
         },
         {
           type: ColumnType.IntWithBar,
-          name: t("hero_performance_table.matches"),
+          name: t("tables.matches"),
           color: colors.green,
         },
         {
           type: ColumnType.PercentWithBar,
-          name: t("hero_performance_table.winPercentage"),
+          name: t("tables.winrate"),
           color: colors.green,
         },
         {
           type: ColumnType.FloatWithBar,
-          name: t("hero_performance_table.kda"),
+          name: t("tables.kda"),
           color: colors.red,
         },
       ]}

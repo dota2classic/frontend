@@ -21,7 +21,7 @@ export const ItemsTable: React.FC<IItemsTableProps> = ({ items }) => {
         {
           type: ColumnType.Raw,
           name: (
-            <Tooltipable tooltip={t("items_table.popularityTooltip")}>
+            <Tooltipable tooltip={t("tables.popularityTooltip")}>
               <FaCrown />
             </Tooltipable>
           ),
@@ -29,18 +29,18 @@ export const ItemsTable: React.FC<IItemsTableProps> = ({ items }) => {
         },
         {
           type: ColumnType.Item,
-          name: t("items_table.item"),
+          name: t("tables.item"),
         },
         {
           type: ColumnType.IntWithBar,
-          name: t("items_table.games"),
+          name: t("tables.matches"),
           sortable: true,
           defaultSort: "desc",
           color: colors.green,
         },
         {
           type: ColumnType.PercentWithBar,
-          name: t("items_table.winRate"),
+          name: t("tables.winrate"),
           sortable: true,
         },
       ]}

@@ -19,16 +19,16 @@ export const TeammatesTable: React.FC<ITeammatesTableProps> = ({ data }) => {
       columns={[
         {
           type: ColumnType.Player,
-          name: t("teammates_table.player"),
+          name: t("tables.player"),
         },
         {
           type: ColumnType.IntWithBar,
-          name: t("teammates_table.matches"),
+          name: t("tables.matches"),
           color: colors.green,
         },
         {
           type: ColumnType.PercentWithBar,
-          name: t("teammates_table.winrate"),
+          name: t("tables.winrate"),
         },
       ]}
       data={data.map((it) => [it.user, it.games, it.winrate * 100])}

@@ -1,8 +1,0 @@
-{
-  "hero_players_table": {
-    "player": "Игрок",
-    "matches": "Матчи",
-    "winRate": "% Побед",
-    "kda": "KDA"
-  }
-}
