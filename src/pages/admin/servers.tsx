@@ -26,9 +26,9 @@ import { NextPageContext } from "next";
 import { MatchmakingModes } from "@/store/queue/mock";
 import { ColumnType } from "@/const/tables";
 import {
-  DotaGameModeOptions,
-  DotaMapOptions,
   DotaPatchOptions,
+  useDotaGameModeOptions,
+  useDotaMapOptions,
 } from "@/const/options";
 import { useTranslation } from "react-i18next";
 
@@ -142,6 +142,9 @@ export default function AdminServersPage({
 }: PageProps) {
   const { t } = useTranslation();
   const mounted = useDidMount();
+
+  const dotaGameModeOptions = useDotaGameModeOptions();
+  const dotaMapOptions = useDotaMapOptions();
   const { data: serverPool } = getApi().adminApi.useServerControllerServerPool({
     fallbackData: initialServerPool,
     isPaused() {
@@ -236,7 +239,7 @@ export default function AdminServersPage({
                 <td>
                   <SelectOptions
                     defaultText={t("admin.servers.gameModes.selectGameMode")}
-                    options={DotaGameModeOptions}
+                    options={dotaGameModeOptions}
                     selected={matchmakingMode.gameMode}
                     onSelect={(value) =>
                       updateGameMode(
@@ -254,7 +257,7 @@ export default function AdminServersPage({
                 <td>
                   <SelectOptions
                     defaultText={t("admin.servers.gameModes.selectMap")}
-                    options={DotaMapOptions}
+                    options={dotaMapOptions}
                     selected={matchmakingMode.dotaMap}
                     onSelect={(value) =>
                       updateGameMode(

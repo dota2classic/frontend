@@ -10,11 +10,6 @@ import {
   SmallLiveMatch,
 } from "@/components";
 import { AppRouter } from "@/route";
-import {
-  formatDotaMode,
-  formatGameMode,
-  formatGameState,
-} from "@/util/gamemode";
 import { watchCmd } from "@/util/urls";
 import { observer } from "mobx-react-lite";
 import { LiveMatchDto } from "@/api/back";
@@ -67,29 +62,25 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
                     link={AppRouter.matches.match(liveMatch.matchId).link}
                     className="link"
                   >
-                    Матч {liveMatch.matchId} -{" "}
-                    {formatGameState(liveMatch.gameState)}
-                  </PageLink>
-                </h3>
-                <h3>
-                  <PageLink
-                    link={AppRouter.matches.match(liveMatch.matchId).link}
-                    className="link"
-                  >
-                    Матч {liveMatch.matchId} -{" "}
-                    {formatGameState(liveMatch.gameState)}
+                    {t("live_match_page.matchId", {
+                      matchId: liveMatch.matchId,
+                    })}
+                    {" - "}
+                    {t(`game_state.${liveMatch.gameState}`)}
                   </PageLink>
                 </h3>
                 <div className={c.info}>
-                  Режим: {formatGameMode(liveMatch.matchmakingMode)},{" "}
-                  {formatDotaMode(liveMatch.gameMode)}
+                  Режим: {t(`matchmaking_mode.${liveMatch.matchmakingMode}`)},{" "}
+                  {t(`game_mode.${liveMatch.gameMode}`)}
                 </div>
                 <div className={c.info}>
-                  Счет: <span className="green">{rScore}</span> :{" "}
+                  {t("live_match_page.score")}{" "}
+                  <span className="green">{rScore}</span> :{" "}
                   <span className="red">{dScore}</span>
                 </div>
                 <div className={c.info}>
-                  Время: <Duration duration={liveMatch.duration} />
+                  {t("live_match_page.duration")}{" "}
+                  <Duration duration={liveMatch.duration} />
                 </div>
                 <div className={c.info}>
                   <CopySomething

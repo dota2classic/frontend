@@ -4,11 +4,7 @@ import { Breadcrumbs, Duration, PageLink, Panel, TimeAgo } from "..";
 
 import c from "./MatchSummary.module.scss";
 import cx from "clsx";
-import {
-  formatDotaMode,
-  formatGameMode,
-  formatGameState,
-} from "@/util/gamemode";
+import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import {
   DotaGameMode,
   DotaGameRulesState,
@@ -105,7 +101,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
             </dl>
             {gameState !== undefined && (
               <dl>
-                <dd className="gold">{formatGameState(gameState)}</dd>
+                <dd className="gold">{t(`game_state.${gameState}`)}</dd>
                 <dt>{t("match_summary.gameStage")}</dt>
               </dl>
             )}

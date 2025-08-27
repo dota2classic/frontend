@@ -1,0 +1,37 @@
+{
+  "match_team_table": {
+    "header": {
+      "hero": "Герой",
+      "player": "Игрок",
+      "gpm_xpm": "ЗВМ/ОВМ",
+      "lastHitsDenies": "Д/НО",
+      "kills": "Убийств",
+      "deaths": "Смертей",
+      "assists": "Помощи",
+      "heroDamage": "Урон по героям",
+      "heroHealing": "Лечение",
+      "towerDamage": "Урон по строениям",
+      "gold": "Общая стоимость",
+      "items": "Предметы",
+      "mmr": "ММР",
+      "actions": "Действия"
+    },
+    "tooltip": {
+      "gpmXpm": "Золото в минуту / Опыт в минуту",
+      "lastHitsDenies": "Добито / Не отдано",
+      "kills": "Убийств",
+      "deaths": "Смертей",
+      "assists": "Помощи в убийствах",
+      "heroDamage": "Урон по героям",
+      "heroHealing": "Лечение",
+      "towerDamage": "Урон по строениям",
+      "gold": "Общая стоимость",
+      "actions": "Действия",
+      "report": "Жалоба",
+      "feedback": "Отзыв"
+    },
+    "hero": {
+      "abandoned": "Игрок {{name}} вышел из игры"
+    }
+  }
+}

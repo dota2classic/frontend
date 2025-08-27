@@ -24,12 +24,12 @@ export default function ThreadPage({ messages, thread, page }: Props) {
     <>
       <EmbedProps
         title={thread.title}
-        description={t("forum.pageDescription", { title: thread.title })}
+        description={t("forum_thread.pageDescription", { title: thread.title })}
       />
       <Panel>
         <Breadcrumbs>
           <PageLink link={AppRouter.forum.index().link}>
-            {t("forum.forum")}
+            {t("forum_thread.forum")}
           </PageLink>
           <span>{thread.title}</span>
         </Breadcrumbs>

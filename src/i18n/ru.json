@@ -257,6 +257,28 @@
     "21": "Solomid",
     "22": "Ranked All Pick"
   },
+  "game_state": {
+    "0": "Инициализация",
+    "1": "Загрузка игроков",
+    "2": "Выбор героев",
+    "3": "Выбор героев",
+    "4": "Начало игры",
+    "5": "Игра идет",
+    "6": "Игра завершена",
+    "7": "Ошибка загрузки",
+    "8": "Неизвестный",
+    "9": "Неизвестный",
+    "10": "Неизвестный",
+    "11": "Неизвестный",
+    "12": "Неизвестный"
+  },
+  "dota_map": {
+    "dota_training": "6.81(старый рошан)",
+    "dota": "Обычная 6.84",
+    "dota_winter": "Зимняя",
+    "dota_autumn": "Осенняя",
+    "dota_diretide_12": "Diretide"
+  },
   "copy_something": {
     "placeholderText": "{{something}}"
   },
@@ -689,9 +711,8 @@
   },
   "forum": {
     "pageTitle": "Форум",
-    "pageDescription": "Форум на сайте dotaclassic.ru: {{title}}",
+    "pageDescription": "Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов",
     "newThread": "Новая тема",
-    "forum": "Форум",
     "support": "Support",
     "description": "Dota2Classic forum - a place for discussing matches, players, heroes, and other important questions",
     "newTicket": "New Ticket"
@@ -707,7 +728,9 @@
     "allComplaints": "Все жалобы"
   },
   "forum_thread": {
-    "beFirstToMessage": "Будь первым, кто оставит здесь свое сообщение!"
+    "beFirstToMessage": "Будь первым, кто оставит здесь свое сообщение!",
+    "pageDescription": "Форум на сайте dotaclassic.ru: {{title}}",
+    "forum": "Форум"
   },
   "forum_user": {
     "loading": "Loading..."
@@ -957,7 +980,10 @@
   "live_match_page": {
     "noGames": "Сейчас не идет ни одной игры.",
     "launchSearch": "Отличный повод запустить поиск!",
-    "mode": "Режим"
+    "mode": "Режим",
+    "matchId": "Матч {{matchId}}",
+    "score": "Счет:",
+    "duration": "Время:"
   },
   "live_match": {
     "liveMatch": "LIVE матч {{matchId}}",
@@ -1002,36 +1028,14 @@
     "toTeam": "To team",
     "noMessages": "Player has not sent messages in the chat"
   },
-  "navbar": {
+  "profile_navbar": {
     "login": "Войти",
     "matches": "Матчи",
     "heroes": "Герои",
     "teammates": "Союзники",
     "records": "Рекорды",
     "logout": "Выйти",
-    "userAvatarAlt": "User avatar",
-    "dota2classic": "DOTA2CLASSIC",
-    "play": "Играть",
-    "howToPlay": "Как играть",
-    "clientSettings": "Настройка клиента",
-    "fpsPing": "FPS и пинг",
-    "commonIssues": "Частые проблемы",
-    "news": "Новости",
-    "forum": "Форум",
-    "lobby": "Лобби",
-    "support": "Поддержка",
-    "complaints": "Жалобы",
-    "vacancies": "Вакансии",
-    "rules": "Правила",
-    "documents": "Документы",
-    "violationsLog": "Журнал нарушений",
-    "aboutProject": "О проекте",
-    "store": "Магазин",
-    "live": "Live",
-    "stream": "Стрим",
-    "items": "Предметы",
-    "players": "Игроки",
-    "meta": "Мета"
+    "userAvatarAlt": "User avatar"
   },
   "match_download": {
     "downloadReplayTitle": "Скачай реплей",
@@ -1044,11 +1048,10 @@
     "startClientTitle": "Запусти клиент и выполни коснольную команду",
     "consoleCommandText": "Консольная команда для запуска просмотра реплея"
   },
-  "matches": {
+  "match_history": {
     "historyTitle": "История матчей",
-    "historyDescription": "Просмотрите историю ваших матчей.",
-    "gameMode": "Режим игры",
-    "gameModeDefault": "Выберите режим игры"
+    "historyDescription": "История матчей старой Dota 2, список матчей сыгранных на сайте dotaclassic.ru",
+    "gameMode": "Режим игры"
   },
   "match": {
     "title": "Матч {{matchId}}",
@@ -1083,6 +1086,41 @@
   },
   "other": {
     "other": "Прочее"
+  },
+  "match_team_table": {
+    "header": {
+      "hero": "Герой",
+      "player": "Игрок",
+      "gpm_xpm": "ЗВМ/ОВМ",
+      "lastHitsDenies": "Д/НО",
+      "kills": "Убийств",
+      "deaths": "Смертей",
+      "assists": "Помощи",
+      "heroDamage": "Урон по героям",
+      "heroHealing": "Лечение",
+      "towerDamage": "Урон по строениям",
+      "gold": "Общая стоимость",
+      "items": "Предметы",
+      "mmr": "ММР",
+      "actions": "Действия"
+    },
+    "tooltip": {
+      "gpmXpm": "Золото в минуту / Опыт в минуту",
+      "lastHitsDenies": "Добито / Не отдано",
+      "kills": "Убийств",
+      "deaths": "Смертей",
+      "assists": "Помощи в убийствах",
+      "heroDamage": "Урон по героям",
+      "heroHealing": "Лечение",
+      "towerDamage": "Урон по строениям",
+      "gold": "Общая стоимость",
+      "actions": "Действия",
+      "report": "Жалоба",
+      "feedback": "Отзыв"
+    },
+    "hero": {
+      "abandoned": "Игрок {{name}} вышел из игры"
+    }
   },
   "matchmaking_mode_list": {
     "gameMode": "Режим игры",
@@ -1145,6 +1183,33 @@
     "recordsDescription": "Поставленнные рекорды за месяц, сезон и все время",
     "lastMatches": "Последние матчи",
     "goToGameHistory": "Перейти к истории игр"
+  },
+  "navbar": {
+    "dota2classic": "DOTA2CLASSIC",
+    "play": "Играть",
+    "howToPlay": "Как играть",
+    "clientSettings": "Настройка клиента",
+    "fpsPing": "FPS и пинг",
+    "commonIssues": "Частые проблемы",
+    "news": "Новости",
+    "forum": "Форум",
+    "lobby": "Лобби",
+    "support": "Поддержка",
+    "complaints": "Жалобы",
+    "vacancies": "Вакансии",
+    "rules": "Правила",
+    "documents": "Документы",
+    "violationsLog": "Журнал нарушений",
+    "aboutProject": "О проекте",
+    "store": "Магазин",
+    "live": "Live",
+    "stream": "Стрим",
+    "matches": "Матчи",
+    "heroes": "Герои",
+    "items": "Предметы",
+    "players": "Игроки",
+    "records": "Рекорды",
+    "meta": "Мета"
   },
   "new_landing": {
     "playOldDota": "Играть в старую доту онлайн",

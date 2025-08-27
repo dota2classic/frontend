@@ -69,20 +69,6 @@ export function formatDotaMode(mode: DotaGameMode) {
   return dotaMessages[mode];
 }
 
-const gameState: Partial<Record<DotaGameRulesState, ReactNode>> = {
-  // MatchmakingMode.TOURNAMENT
-  [DotaGameRulesState.WAIT_FOR_PLAYERS_TO_LOAD]: "Загрузка игроков",
-  [DotaGameRulesState.HERO_SELECTION]: "Выбор героев",
-  [DotaGameRulesState.STRATEGY_TIME]: "Выбор героев",
-  [DotaGameRulesState.PRE_GAME]: "Начало игры",
-  [DotaGameRulesState.GAME_IN_PROGRESS]: "Игра идет",
-  [DotaGameRulesState.POST_GAME]: "Игра завершена",
-  [DotaGameRulesState.DISCONNECT]: "Ошибка загрузки",
-};
-export function formatGameState(state: DotaGameRulesState) {
-  return gameState[state] || "Неизвестное состояние";
-}
-
 const mapName: Partial<Record<DotaMap, ReactNode>> = {
   [DotaMap.DOTA]: "Обычная 6.84",
   [DotaMap.DOTA_WINTER]: "Зимняя",

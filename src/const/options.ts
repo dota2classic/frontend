@@ -4,20 +4,28 @@ import {
   DotaPatch,
   MatchmakingMode,
 } from "@/api/mapped-models";
-import { formatDotaMap, formatDotaMode, formatGameMode } from "@/util/gamemode";
 import heroes from "@/util/texts/heroes";
 import { Region } from "@/api/back";
+import { useTranslation } from "react-i18next";
 
-export const DotaMapOptions = [
+const DotaMapOptions = [
   DotaMap.DOTA,
   DotaMap.DOTA681,
   DotaMap.DIRETIDE,
   DotaMap.DOTA_AUTUMN,
   DotaMap.DOTA_WINTER,
 ].map((dm) => ({
-  label: formatDotaMap(dm),
+  label: `dota_map.${dm}`,
   value: dm,
 }));
+
+export const useDotaMapOptions = () => {
+  const { t } = useTranslation();
+  return DotaMapOptions.map((option) => ({
+    value: option.value,
+    label: t(option.label),
+  }));
+};
 
 export const DotaPatchOptions = [
   DotaPatch.DOTA_684,
@@ -32,7 +40,7 @@ export const RegionOptions = [Region.RuMoscow, Region.EuCzech].map((dm) => ({
   value: dm,
 }));
 
-export const DotaGameModeOptions = [
+const DotaGameModeOptions = [
   DotaGameMode.ALLPICK,
   DotaGameMode.RANKED_AP,
   DotaGameMode.ALL_RANDOM,
@@ -46,10 +54,19 @@ export const DotaGameModeOptions = [
   DotaGameMode.DIRETIDE,
   DotaGameMode.ARDM,
 ].map((gm) => ({
-  label: formatDotaMode(gm),
+  label: `game_mode.${gm}`,
   value: gm,
 }));
-export const GameModeOptions = [
+
+export const useDotaGameModeOptions = () => {
+  const { t } = useTranslation();
+  return DotaGameModeOptions.map((option) => ({
+    value: option.value,
+    label: t(option.label),
+  }));
+};
+
+const GameModeOptions = [
   { value: "undefined", label: "Все режимы" },
   ...[
     // MatchmakingMode.RANKED,
@@ -61,9 +78,17 @@ export const GameModeOptions = [
     MatchmakingMode.HIGHROOM,
   ].map((it) => ({
     value: it.toString(),
-    label: formatGameMode(it),
+    label: `matchmaking_mode.${it}`,
   })),
 ];
+
+export const useGameModeOptions = () => {
+  const { t } = useTranslation();
+  return GameModeOptions.map((option) => ({
+    value: option.value,
+    label: t(option.label),
+  }));
+};
 
 export const HeroOptions = [
   { value: "undefined", label: "Все герои" },

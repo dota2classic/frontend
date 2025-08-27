@@ -13,7 +13,7 @@ import { useQueryBackedParameter, useRouterChanging } from "@/util";
 import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
 import { MatchComparator } from "@/util/sorts";
-import { GameModeOptions } from "@/const/options";
+import { useGameModeOptions } from "@/const/options";
 import { useTranslation } from "react-i18next";
 
 interface MatchHistoryProps {
@@ -24,6 +24,8 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
   const { t } = useTranslation();
   const [page, setPage] = useQueryBackedParameter("page");
   const [mode, setMode] = useQueryBackedParameter("mode");
+
+  const gameModeOptions = useGameModeOptions();
 
   const [isLoading] = useRouterChanging();
 
@@ -38,18 +40,18 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
   return (
     <>
       <EmbedProps
-        title={t("matches.historyTitle")}
-        description={t("matches.historyDescription")}
+        title={t("match_history.historyTitle")}
+        description={t("match_history.historyDescription")}
       />
       <Panel style={{ flexDirection: "row" }}>
         <SelectOptions
-          options={GameModeOptions}
+          options={gameModeOptions}
           selected={mode === undefined ? "undefined" : mode}
           onSelect={({ value }) => {
             if (value === "undefined") setMode(undefined);
             else setMode(value);
           }}
-          defaultText={t("matches.gameModeDefault")}
+          defaultText={t("match_history.gameMode")}
         />
       </Panel>
       <div>

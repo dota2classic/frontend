@@ -10,10 +10,10 @@ import {
   SelectOptions,
 } from "@/components";
 import {
-  DotaGameModeOptions,
-  DotaMapOptions,
   DotaPatchOptions,
   RegionOptions,
+  useDotaGameModeOptions,
+  useDotaMapOptions,
 } from "@/const/options";
 import { getApi } from "@/api/hooks";
 import { useFocusLock } from "@/util/useTypingCallback";
@@ -32,6 +32,9 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
   onUpdatedLobby,
 }) => {
   const { t } = useTranslation();
+
+  const dotaGameModeOptions = useDotaGameModeOptions();
+  const dotaMapOptions = useDotaMapOptions();
 
   const [lobbySettings, setLobbySettings] = useState<Partial<UpdateLobbyDto>>({
     ...lobby,
@@ -79,7 +82,7 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
         <div className={c.formItem}>
           <header>{t("edit_lobby.map")}</header>
           <SelectOptions
-            options={DotaMapOptions}
+            options={dotaMapOptions}
             selected={lobbySettings.map || lobby.map}
             onSelect={(value, meta) => {
               if (meta.action === "select-option") {
@@ -92,7 +95,7 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
         <div className={c.formItem}>
           <header>{t("edit_lobby.gameMode")}</header>
           <SelectOptions
-            options={DotaGameModeOptions}
+            options={dotaGameModeOptions}
             selected={lobbySettings.gameMode || lobby.gameMode}
             onSelect={(value, meta) => {
               if (meta.action === "select-option") {

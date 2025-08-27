@@ -44,28 +44,28 @@ export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
       options={[
         {
           Icon: MdViewList,
-          label: t("navbar.matches"),
+          label: t("profile_navbar.matches"),
           action: AppRouter.players.playerMatches(parsedToken.sub).link,
         },
         {
           Icon: GiFeatheredWing,
-          label: t("navbar.heroes"),
+          label: t("profile_navbar.heroes"),
           action: AppRouter.players.player.heroes(parsedToken.sub).link,
         },
         {
           Icon: FaUserFriends,
-          label: t("navbar.teammates"),
+          label: t("profile_navbar.teammates"),
           action: AppRouter.players.player.teammates(parsedToken.sub).link,
         },
         {
           Icon: IoMdTrophy,
-          label: t("navbar.records"),
+          label: t("profile_navbar.records"),
           action: AppRouter.players.player.records(parsedToken.sub).link,
         },
         {
           newCategory: true,
           Icon: IoMdExit,
-          label: t("navbar.logout"),
+          label: t("profile_navbar.logout"),
           action: logout,
         },
       ]}

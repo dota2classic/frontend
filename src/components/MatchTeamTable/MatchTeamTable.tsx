@@ -1,29 +1,22 @@
-import React, { useMemo } from "react";
-
-import {
-  HeroIcon,
-  ItemIcon,
-  NumberFormat,
-  PageLink,
-  Table,
-  Tooltipable,
-} from "..";
-import { PlayerInMatchDto } from "@/api/back";
-import { AppRouter } from "@/route";
-import c from "./MatchTeamTable.module.scss";
-import { FaCoins } from "react-icons/fa";
-import { signedNumber } from "@/util/time";
-import cx from "clsx";
-import { AllColumns, Columns } from "./columns";
-import { MdRecommend } from "react-icons/md";
-import { observer } from "mobx-react-lite";
-import { useStore } from "@/store";
-import { GiFist } from "react-icons/gi";
-import { GrActions } from "react-icons/gr";
-import { Username } from "../Username/Username";
-import heroName from "@/util/heroName";
-import { getMaxMatchValues } from "@/util/useMaxMatchValues";
-import { pluralize } from "@/util/pluralize";
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { HeroIcon, ItemIcon, NumberFormat, PageLink, Table, Tooltipable } from '..';
+import { PlayerInMatchDto } from '@/api/back';
+import { AppRouter } from '@/route';
+import c from './MatchTeamTable.module.scss';
+import { FaCoins } from 'react-icons/fa';
+import { signedNumber } from '@/util/time';
+import cx from 'clsx';
+import { AllColumns, Columns } from './columns';
+import { MdRecommend } from 'react-icons/md';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/store';
+import { GiFist } from 'react-icons/gi';
+import { GrActions } from 'react-icons/gr';
+import { Username } from '../Username/Username';
+import heroName from '@/util/heroName';
+import { getMaxMatchValues } from '@/util/useMaxMatchValues';
+import { pluralize } from '@/util/pluralize';
 
 interface IMatchTeamTableProps {
   players: PlayerInMatchDto[];
@@ -46,6 +39,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
     globalMaxValues,
   }) => {
     const { hasReports, parsedToken } = useStore().auth;
+    const { t } = useTranslation();
 
     const maxValues = useMemo(
       () => globalMaxValues ?? getMaxMatchValues(players, duration),
@@ -61,118 +55,113 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
       ? AllColumns.filter((t) => !filterColumns.includes(t))
       : [];
     return (
-      <Table className={"compact"}>
+      <Table className="compact">
         <thead>
           <tr>
-            <th>Герой</th>
-            <th className={c.fixedWidth}>Игрок</th>
+            <th>{t('match_team_table.header.hero')}</th>
+            <th className={c.fixedWidth}>{t('match_team_table.header.player')}</th>
             <Tooltipable
-              tooltip="Золото в минуту / Опыт в минуту"
+              tooltip={t('match_team_table.tooltip.gpmXpm')}
               className={cx(
-                "middle",
-                hc.includes("GPM") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('GPM') ? c.mobileHidden : undefined,
               )}
             >
-              <th>ЗВМ/ОВМ</th>
+              <th>{t('match_team_table.header.gpm_xpm')}</th>
             </Tooltipable>
             <Tooltipable
-              tooltip="Добито / Не отдано"
+              tooltip={t('match_team_table.tooltip.lastHitsDenies')}
               className={cx(
-                "middle",
-                hc.includes("LH") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('LH') ? c.mobileHidden : undefined,
               )}
             >
-              <th>Д/НО</th>
+              <th>{t('match_team_table.header.lastHitsDenies')}</th>
             </Tooltipable>
             <Tooltipable
-              tooltip="Убийств"
+              tooltip={t('match_team_table.tooltip.kills')}
               className={cx(
-                "middle",
-                hc.includes("K") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('K') ? c.mobileHidden : undefined,
               )}
             >
-              <th>У</th>
+              <th>{t('match_team_table.header.kills')}</th>
             </Tooltipable>
             <Tooltipable
-              tooltip="Смертей"
+              tooltip={t('match_team_table.tooltip.deaths')}
               className={cx(
-                "middle",
-                hc.includes("D") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('D') ? c.mobileHidden : undefined,
               )}
             >
-              <th>С</th>
+              <th>{t('match_team_table.header.deaths')}</th>
             </Tooltipable>
             <Tooltipable
-              tooltip="Помощи в убийствах"
+              tooltip={t('match_team_table.tooltip.assists')}
               className={cx(
-                "middle",
-                hc.includes("A") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('A') ? c.mobileHidden : undefined,
               )}
             >
-              <th>П</th>
+              <th>{t('match_team_table.header.assists')}</th>
             </Tooltipable>
 
             <Tooltipable
-              tooltip="Урон по героям"
+              tooltip={t('match_team_table.tooltip.heroDamage')}
               className={cx(
-                "middle",
-                hc.includes("HD") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('HD') ? c.mobileHidden : undefined,
               )}
             >
-              <th>УГ</th>
+              <th>{t('match_team_table.header.heroDamage')}</th>
             </Tooltipable>
             <Tooltipable
-              tooltip="Лечение"
+              tooltip={t('match_team_table.tooltip.heroHealing')}
               className={cx(
-                "middle",
-                hc.includes("HH") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('HH') ? c.mobileHidden : undefined,
               )}
             >
-              <th>Л</th>
+              <th>{t('match_team_table.header.heroHealing')}</th>
             </Tooltipable>
             <Tooltipable
-              tooltip="Урон по строениям"
+              tooltip={t('match_team_table.tooltip.towerDamage')}
               className={cx(
-                "middle",
-                hc.includes("TD") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('TD') ? c.mobileHidden : undefined,
               )}
             >
-              <th>УС</th>
+              <th>{t('match_team_table.header.towerDamage')}</th>
             </Tooltipable>
             <Tooltipable
-              tooltip={"Общая стоимость"}
+              tooltip={t('match_team_table.tooltip.gold')}
               className={cx(
-                "middle",
-                hc.includes("NW") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('NW') ? c.mobileHidden : undefined,
               )}
             >
               <th>
-                <FaCoins color={"#C9AF1D"} />
+                <FaCoins color="#C9AF1D" />
               </th>
             </Tooltipable>
             <th
               className={cx(
                 c.items,
-                hc.includes("Items") ? c.mobileHidden : undefined,
+                hc.includes('Items') ? c.mobileHidden : undefined,
               )}
             >
-              Предметы
+              {t('match_team_table.header.items')}
+            </th>
+            <th className={hc.includes('MMR') ? c.mobileHidden : undefined}>
+              {t('match_team_table.header.mmr')}
             </th>
             <th
               className={cx(
-                "middle",
-                hc.includes("MMR") ? c.mobileHidden : undefined,
+                'middle',
+                hc.includes('Actions') ? c.mobileHidden : undefined,
               )}
             >
-              ММР
-            </th>
-            <th
-              className={cx(
-                "middle",
-                hc.includes("Actions") ? c.mobileHidden : undefined,
-              )}
-            >
-              <Tooltipable tooltip="Действия">
+              <Tooltipable tooltip={t('match_team_table.tooltip.actions')}>
                 <GrActions />
               </Tooltipable>
             </th>
@@ -193,7 +182,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
               (iFirstPartyPlayer !== idx || idx !== iLastPartyPlayer);
 
             const shouldDisplay =
-              !filterColumns || !filterColumns.includes("Items");
+              !filterColumns || !filterColumns.includes('Items');
 
             const shouldDisplayStart =
               iFirstPartyPlayer === idx && idx !== iLastPartyPlayer;
@@ -239,7 +228,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                         c.abandon,
                         player.abandoned && c.abandon__visible,
                       )}
-                      alt={`Player ${player.user.name} abandoned`}
+                      alt={t('match_team_table.hero.abandoned', { name: player.user.name })}
                       src="/abandon.png"
                     />
                     <span className={c.level}>{player.level}</span>
@@ -252,8 +241,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 </td>
                 <td
                   className={cx(
-                    "middle",
-                    hc.includes("GPM") ? c.mobileHidden : undefined,
+                    'middle',
+                    hc.includes('GPM') ? c.mobileHidden : undefined,
                   )}
                 >
                   <span
@@ -278,8 +267,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 </td>
                 <td
                   className={cx(
-                    "middle",
-                    hc.includes("LH") ? c.mobileHidden : undefined,
+                    'middle',
+                    hc.includes('LH') ? c.mobileHidden : undefined,
                   )}
                 >
                   <span
@@ -305,8 +294,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
 
                 <td
                   className={cx(
-                    "middle",
-                    hc.includes("K") ? c.mobileHidden : undefined,
+                    'middle',
+                    hc.includes('K') ? c.mobileHidden : undefined,
                     player.kills > 0 &&
                       player.kills === maxValues.kills &&
                       c.underline,
@@ -316,8 +305,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 </td>
                 <td
                   className={cx(
-                    "middle",
-                    hc.includes("D") ? c.mobileHidden : undefined,
+                    'middle',
+                    hc.includes('D') ? c.mobileHidden : undefined,
                     player.deaths === maxValues.deaths && c.underline,
                   )}
                 >
@@ -325,8 +314,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 </td>
                 <td
                   className={cx(
-                    "middle",
-                    hc.includes("A") ? c.mobileHidden : undefined,
+                    'middle',
+                    hc.includes('A') ? c.mobileHidden : undefined,
                     player.assists > 0 &&
                       player.assists === maxValues.assists &&
                       c.underline,
@@ -337,8 +326,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
 
                 <td
                   className={cx(
-                    "middle",
-                    hc.includes("HD") ? c.mobileHidden : undefined,
+                    'middle',
+                    hc.includes('HD') ? c.mobileHidden : undefined,
                     player.heroDamage > 0 &&
                       player.heroDamage === maxValues.heroDamage &&
                       c.underline,
@@ -348,8 +337,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 </td>
                 <td
                   className={cx(
-                    "middle",
-                    hc.includes("HH") ? c.mobileHidden : undefined,
+                    'middle',
+                    hc.includes('HH') ? c.mobileHidden : undefined,
                     player.heroHealing > 0 &&
                       player.heroHealing === maxValues.heroHealing &&
                       c.underline,
@@ -359,8 +348,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 </td>
                 <td
                   className={cx(
-                    "middle",
-                    hc.includes("TD") ? c.mobileHidden : undefined,
+                    'middle',
+                    hc.includes('TD') ? c.mobileHidden : undefined,
                     player.towerDamage > 0 &&
                       player.towerDamage === maxValues.towerDamage &&
                       c.underline,
@@ -371,7 +360,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 <td
                   className={cx(
                     c.gold,
-                    hc.includes("NW") ? c.mobileHidden : undefined,
+                    hc.includes('NW') ? c.mobileHidden : undefined,
                     player.gold > 0 &&
                       player.gold === maxValues.gold &&
                       c.underline,
@@ -387,7 +376,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 <td
                   className={cx(
                     c.items,
-                    hc.includes("Items") ? c.mobileHidden : undefined,
+                    hc.includes('Items') ? c.mobileHidden : undefined,
                   )}
                 >
                   <div className={c.itemsWrapper}>
@@ -399,21 +388,21 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     <ItemIcon item={player.item5} />
                   </div>
                 </td>
-                <td className={hc.includes("MMR") ? c.mobileHidden : undefined}>
+                <td className={hc.includes('MMR') ? c.mobileHidden : undefined}>
                   {(player.mmr?.change && (
                     <Tooltipable
                       tooltip={
                         <div className={c.mmrTooltip}>
                           <span>
                             {player.mmr.calibration
-                              ? "Калибровочная игра"
-                              : "Обычная игра "}
+                              ? 'Калибровочная игра'
+                              : 'Обычная игра '}
                           </span>
                           {isStreak && (
                             <span>
                               {player.mmr.streak > 0
-                                ? `${absStreak} ${pluralize(absStreak, "победа", "победы", "побед")} подряд!`
-                                : `${absStreak} ${pluralize(absStreak, "поражение", "поражения", "поражений")} подряд!`}
+                                ? `${absStreak} ${pluralize(absStreak, 'победа', 'победы', 'побед')} подряд!`
+                                : `${absStreak} ${pluralize(absStreak, 'поражение', 'поражения', 'поражений')} подряд!`}
                             </span>
                           )}
                         </div>
@@ -421,18 +410,18 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     >
                       <span
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: "4px",
+                          display: 'flex',
+                          flexDirection: 'row',
+                          gap: '4px',
                         }}
                       >
-                        {player.mmr?.mmrBefore}{" "}
+                        {player.mmr?.mmrBefore}{' '}
                         <span
                           className={cx(
                             Math.sign(player.mmr?.change || 0) > 0
-                              ? "green"
-                              : "red",
-                            player.mmr.calibration && "gold",
+                              ? 'green'
+                              : 'red',
+                            player.mmr.calibration && 'gold',
                             isStreak && c.streak,
                           )}
                         >
@@ -440,20 +429,17 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                         </span>
                       </span>
                     </Tooltipable>
-                  )) ||
-                    "-"}
+                  )) || '-'}
                 </td>
-                <td
-                  className={
-                    hc.includes("Actions") ? c.mobileHidden : undefined
-                  }
-                >
+                <td className={
+                    hc.includes('Actions') ? c.mobileHidden : undefined
+                  }>
                   <div className={c.actions}>
                     {player.user.steamId.length > 2 &&
                       parsedToken?.sub !== player.user.steamId && (
                         <Tooltipable
-                          className={cx(c.commend, "adminicon")}
-                          tooltip={"Жалоба"}
+                          className={cx(c.commend, 'adminicon')}
+                          tooltip={t('match_team_table.tooltip.report')}
                         >
                           <GiFist onClick={() => onReport(player)} />
                         </Tooltipable>
@@ -461,8 +447,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     {hasReports &&
                       reportableSteamIds.includes(player.user.steamId) && (
                         <Tooltipable
-                          className={cx(c.commend, "adminicon")}
-                          tooltip={"Отзыв"}
+                          className={cx(c.commend, 'adminicon')}
+                          tooltip={t('match_team_table.tooltip.feedback')}
                         >
                           <MdRecommend onClick={() => onFeedback(player)} />
                         </Tooltipable>

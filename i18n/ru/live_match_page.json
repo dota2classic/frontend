@@ -2,6 +2,9 @@
   "live_match_page": {
     "noGames": "Сейчас не идет ни одной игры.",
     "launchSearch": "Отличный повод запустить поиск!",
-    "mode": "Режим"
+    "mode": "Режим",
+    "matchId": "Матч {{matchId}}",
+    "score": "Счет:",
+    "duration": "Время:"
   }
 }

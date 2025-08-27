@@ -22,7 +22,7 @@ import { fullName, shortName } from "@/util/heroName";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import { NextPageContext } from "next";
 import { MatchComparator } from "@/util/sorts";
-import { GameModeOptions, HeroOptions } from "@/const/options";
+import { HeroOptions, useGameModeOptions } from "@/const/options";
 import { useTranslation } from "react-i18next";
 
 interface Props {
@@ -40,6 +40,8 @@ export default function PlayerMatches({
   const [page, setPage] = useQueryBackedParameter("page");
   const [hero, setHero] = useQueryBackedParameter("hero");
   const [mode, setMode] = useQueryBackedParameter("mode");
+
+  const gameModeOptions = useGameModeOptions();
 
   const [isLoading] = useRouterChanging();
 
@@ -76,7 +78,7 @@ export default function PlayerMatches({
       <Section>
         <Panel className={c.filters}>
           <SelectOptions
-            options={GameModeOptions}
+            options={gameModeOptions}
             selected={mode}
             onSelect={({ value }) => {
               if (value === "undefined") setMode(undefined);
