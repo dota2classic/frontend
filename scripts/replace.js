@@ -87,7 +87,9 @@ module.exports = async function (fileInfo, api) {
 
   async function generateKey(text) {
     const request = {
-      model: "gpt-4.1-nano",
+      // model: "gpt-4.1-nano",
+      // model: "gpt-4o-mini",
+      model: "gpt-5-nano",
       response_format: { type: "json_object" },
       messages: [
         {
@@ -104,6 +106,7 @@ module.exports = async function (fileInfo, api) {
     const res = await _api.post(`/v1/chat/completions`, request);
 
     if (res.ok) {
+      console.log(res.data)
       return JSON.parse(res.data.choices[0].message.content);
     }
     console.error("There was an issue getting GPT answer!", res.originalError);

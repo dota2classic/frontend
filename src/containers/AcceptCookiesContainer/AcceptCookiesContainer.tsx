@@ -23,7 +23,7 @@ function AcceptCookiesContainerAll() {
     <div className={cx(c.cookies, threadFont.className)}>
       <p>
         {t("accept_cookies.cookiesAgreement", { site: "dotaclassic.ru" })}
-        {t("accept_cookies.readMore")}
+        {t("accept_cookies.readMore")}{" "}
         <PageLink className={"link"} link={AppRouter.contact.link}>
           {t("accept_cookies.here")}
         </PageLink>

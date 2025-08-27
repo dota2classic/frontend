@@ -12,51 +12,51 @@
   },
   "achievement": {
     "win1hrGameAgainstTechies": {
-      "description": "Win an hour game against Techies",
-      "title": "Tolerator"
+      "description": "Выиграть часовую игру против Techies",
+      "title": "Терпила"
     },
     "lastHits1000": {
-      "description": "Finish off 1000 enemy creeps",
-      "title": "Creep"
+      "description": "Добить 1000 вражеских крипов",
+      "title": "Крипочек"
     },
     "gpm1000": {
-      "description": "Finish the game with 1000 gold per minute",
-      "title": "Businessman"
+      "description": "Закончить игру с 1000 золота в минуту",
+      "title": "Бизнесмен"
     },
     "xpm1000": {
-      "description": "Finish the game with 1000 experience per minute",
-      "title": "Experienced"
+      "description": "Закончить игру с 1000 опыта в минуту",
+      "title": "На опыте"
     },
     "allHeroChallenge": {
-      "description": "Win with all heroes",
-      "title": "Universal"
+      "description": "Выиграть на каждом герое",
+      "title": "Универсал"
     },
     "winBotGame": {
-      "description": "Win against bots",
-      "title": "Classic"
+      "description": "Пройти обучение",
+      "title": "Классиковец"
     },
     "winSoloMidGame": {
-      "description": "Win in a 1v1",
-      "title": "Solo line abuser"
+      "description": "Победить в 1х1",
+      "title": "sololineabuse"
     },
     "gpmXpm1000": {
-      "description": "Finish the game with 1000 gold and 1000 experience per minute",
-      "title": "Booster"
+      "description": "Закончить матч с 1000 опыта в минуту и 1000 золота в минуту",
+      "title": "Бустер"
     },
     "win1hrGame": {
-      "description": "Win an hour game",
-      "title": "Fast win"
+      "description": "Выиграть часовую игру",
+      "title": "По фасту"
     },
     "winStreak10": {
-      "description": "Win 10 games in a row",
-      "title": "Striker"
+      "description": "Победить 10 игр подряд",
+      "title": "Стрикер"
     },
     "hardcore": {
-      "description": "Win the game with level 25 without deaths",
-      "title": "Hardcore"
+      "description": "Победить игру с 25 уровнем без смертей",
+      "title": "Хардкор"
     },
     "denies50": {
-      "description": "Don't give 50 allied creeps to the enemy",
+      "description": "Не отдать 50 союзных крипов врагу",
       "title": "Dendi"
     }
   },
@@ -106,29 +106,29 @@
   "admin": {
     "servers": {
       "sessionList": {
-        "link": "Link",
-        "matchId": "Match ID",
-        "mode": "Mode",
-        "teams": "Teams",
-        "actions": "Actions",
-        "stop": "Stop"
+        "link": "Коннект",
+        "matchId": "Матч",
+        "mode": "Режим",
+        "teams": "Команды",
+        "actions": "Действия",
+        "stop": "Остановить"
       },
       "serverPool": {
-        "title": "Server Pool"
+        "title": "Пул серверов"
       },
       "gameModes": {
-        "mode": "Mode",
-        "gameMode": "Game Mode",
-        "map": "Map",
-        "patch": "Patch",
-        "active": "Active",
-        "cheats": "Cheats",
-        "bots": "Bots",
-        "selectGameMode": "Select Game Mode",
-        "selectMap": "Select Map",
-        "selectPatch": "Select Patch"
+        "mode": "Лобби",
+        "gameMode": "Игровой режим",
+        "map": "Карта",
+        "patch": "Патч",
+        "active": "Активен",
+        "cheats": "Читы",
+        "bots": "Боты",
+        "selectGameMode": "Выбрать режим",
+        "selectMap": "Выбрать карту",
+        "selectPatch": "Выбрать патч"
       },
-      "currentSessions": "Current Sessions"
+      "currentSessions": "Игровые сессии"
     }
   },
   "admin_tickets": {

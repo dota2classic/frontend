@@ -2,29 +2,29 @@
   "admin": {
     "servers": {
       "sessionList": {
-        "link": "Link",
-        "matchId": "Match ID",
-        "mode": "Mode",
-        "teams": "Teams",
-        "actions": "Actions",
-        "stop": "Stop"
+        "link": "Коннект",
+        "matchId": "Матч",
+        "mode": "Режим",
+        "teams": "Команды",
+        "actions": "Действия",
+        "stop": "Остановить"
       },
       "serverPool": {
-        "title": "Server Pool"
+        "title": "Пул серверов"
       },
       "gameModes": {
-        "mode": "Mode",
-        "gameMode": "Game Mode",
-        "map": "Map",
-        "patch": "Patch",
-        "active": "Active",
-        "cheats": "Cheats",
-        "bots": "Bots",
-        "selectGameMode": "Select Game Mode",
-        "selectMap": "Select Map",
-        "selectPatch": "Select Patch"
+        "mode": "Лобби",
+        "gameMode": "Игровой режим",
+        "map": "Карта",
+        "patch": "Патч",
+        "active": "Активен",
+        "cheats": "Читы",
+        "bots": "Боты",
+        "selectGameMode": "Выбрать режим",
+        "selectMap": "Выбрать карту",
+        "selectPatch": "Выбрать патч"
       },
-      "currentSessions": "Current Sessions"
+      "currentSessions": "Игровые сессии"
     }
   }
 }
