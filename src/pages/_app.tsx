@@ -28,6 +28,7 @@ import { getApi } from "@/api/hooks";
 import { MaintenanceDto } from "@/api/back";
 import "../i18n/i18n";
 import i18n from "@/i18n/i18n";
+import { detectLocale } from "@/util/detectLocale";
 
 export const MobxContext = createContext<RootStore>({} as RootStore);
 
@@ -84,13 +85,7 @@ export default class MyApp extends App<{
       hostname = hostname.split(":")[0];
     }
 
-    let locale = "en";
-
-    if (hostname && hostname.endsWith(".ru")) {
-      locale = "ru";
-    } else if (hostname && hostname.endsWith(".com")) {
-      locale = "en";
-    }
+    const locale = detectLocale(hostname || "");
 
     await i18n.changeLanguage(locale);
 

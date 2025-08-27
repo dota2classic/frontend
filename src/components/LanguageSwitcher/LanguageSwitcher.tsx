@@ -6,12 +6,14 @@ import c from "./LanguageSwitcher.module.scss";
 
 function redirectToLocaleDomain(locale: "ru" | "en") {
   const currentUrl = window.location.href;
+  const hostname = window.location.hostname;
 
-  // Redirect to the new URL
-  window.location.href =
-    locale === "en"
-      ? currentUrl.replace(".ru", ".com")
-      : currentUrl.replace(".com", ".ru");
+  if (locale === "en" && !hostname.startsWith("en.")) {
+    // we want prepend en to domain
+    window.location.href = currentUrl.replace(hostname, `en.${hostname}`);
+  } else if (locale === "ru" && hostname.startsWith("en.")) {
+    window.location.href = currentUrl.replace(`en.`, "");
+  }
 }
 
 export const LanguageSwitcher: React.FC = () => {
@@ -20,9 +22,7 @@ export const LanguageSwitcher: React.FC = () => {
   return (
     <NavbarItem
       className={c.languageSwitcher}
-      action={() =>
-        redirectToLocaleDomain(i18n.language === "ru" ? "en" : "ru")
-      }
+      action={() => {}}
       options={[
         i18n.language === "en"
           ? {

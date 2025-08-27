@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import translation_ru from "./ru.json";
 import translation_en from "./en.json";
 import I18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
+import { detectLocale } from "@/util/detectLocale";
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -22,7 +23,8 @@ detector.addDetector({
   lookup() {
     if (typeof window !== "undefined") {
       const hostname = window.location.hostname;
-      return hostname.endsWith(".com") ? "en" : "ru";
+      console.log(`Detected locale: ${detectLocale(hostname)}`);
+      return detectLocale(hostname);
     }
     return undefined;
   },
