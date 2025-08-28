@@ -4,7 +4,7 @@ import c from "@/pages/static/Static.module.scss";
 import React from "react";
 import { TechStaticTabs } from "@/containers";
 import { CopyBlock, EmbedProps } from "@/components";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 export default function CommandsTechTab() {
   const { t } = useTranslation();
@@ -113,17 +113,20 @@ export default function CommandsTechTab() {
           <li>{t("commands_tech_tab.copyFileWarning")}</li>
           <li>{t("commands_tech_tab.openFile")}</li>
           <li>
-            {t("commands_tech_tab.searchStandardCameraHeight")}
-            <span className="gold">1134</span>
-            {t("commands_tech_tab.importanceValueInSearch")}
-            <span className="gold">ВАЖНО!</span>
+            <Trans
+              i18nKey="commands_tech_tab.searchStandardCameraHeight"
+              values={{
+                distance: 1134,
+              }}
+              components={{
+                distance: <span className="gold" />,
+              }}
+            ></Trans>
+            <span className="gold"> ВАЖНО! </span>
             {t("commands_tech_tab.needsValueNearSearch")}
-            <span className="shit">dota_camera_pitch_max</span>
+            <span className="shit"> dota_camera_pitch_max</span>
           </li>
-          <li>
-            {t("commands_tech_tab.changeToRequiredDistance")}
-            {t("commands_tech_tab.recommendHeight")}
-          </li>
+          <li>{t("commands_tech_tab.changeToRequiredDistance")}</li>
           <li>{t("commands_tech_tab.saveFileRestartClient")}</li>
           <li>
             {t("commands_tech_tab.readyFileDescription")}
@@ -160,7 +163,10 @@ export default function CommandsTechTab() {
       <div className={c.block}>
         <p>
           {t("commands_tech_tab.colorSelectionAdvice")}
-          <a href="https://rgbcolorpicker.com/0-1">rgbcolorpicker.com</a>
+          <a className="link" href="https://rgbcolorpicker.com/0-1">
+            {" "}
+            rgbcolorpicker.com
+          </a>
         </p>
         <h3>{t("commands_tech_tab.forOwnTeam")}</h3>
         <ol>

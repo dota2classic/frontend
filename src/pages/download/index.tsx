@@ -22,71 +22,76 @@ import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 
-const _data = [
-  [
-    {
-      link: "https://drive.google.com/file/d/1RKJ3kbTuSzspfZ9N1-RLWrtXw6nXt6FN/view?usp=sharing",
-      label: "download_page.gameClient",
-    },
-    {
-      link: "https://disk.yandex.ru/d/e6dil7uN8qTYSQ",
-      label: "download_page.gameClient",
-    },
-    {
-      link: "https://host.dotaclassic.ru/Dota6.84.zip",
-      label: "download_page.gameClient",
-    },
-    {
-      link: "/torrent/Dota 6.84.zip.torrent",
-      label: "download_page.gameClient",
-    },
-  ],
+const useDownloadData = () => {
+  const { t } = useTranslation();
 
-  [
-    {
-      link: "https://drive.google.com/file/d/1DE0t-R_UDnLnalNz3SmS4fE0-OlhHNB-/view?usp=sharing",
-      label: "download_page.linuxBinaries",
-    },
-    {
-      link: "https://disk.yandex.ru/d/6IFRyqlGS3rqag",
-      label: "download_page.linuxBinaries",
-    },
-    {
-      link: "https://drive.google.com/file/d/1DE0t-R_UDnLnalNz3SmS4fE0-OlhHNB-/view?usp=sharing",
-      label: "download_page.linuxBinaries",
-    },
-    {
-      link: "/torrent/Dota 2 6.84 Source 1 Linux.tar.gz.torrent",
-      label: "download_page.linuxBinaries",
-    },
-  ],
+  return [
+    [
+      {
+        link: "https://drive.google.com/file/d/1RKJ3kbTuSzspfZ9N1-RLWrtXw6nXt6FN/view?usp=sharing",
+        label: t("download_page.gameClient"),
+      },
+      {
+        link: "https://disk.yandex.ru/d/e6dil7uN8qTYSQ",
+        label: t("download_page.gameClient"),
+      },
+      {
+        link: "https://host.dotaclassic.ru/Dota6.84.zip",
+        label: t("download_page.gameClient"),
+      },
+      {
+        link: "/torrent/Dota 6.84.zip.torrent",
+        label: t("download_page.gameClient"),
+      },
+    ],
 
-  [
-    {
-      link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
-      label: "download_page.macosBinaries",
-    },
-    {
-      link: "https://disk.yandex.ru/d/-52JcDeQONUs0A",
-      label: "download_page.macosBinaries",
-    },
-    {
-      link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
-      label: "download_page.macosBinaries",
-    },
-    {
-      link: "/torrent/Dota 2 6.84 Source 1 Mac.tar.gz.torrent",
-      label: "download_page.macosBinaries",
-    },
-  ],
-];
+    [
+      {
+        link: "https://drive.google.com/file/d/1DE0t-R_UDnLnalNz3SmS4fE0-OlhHNB-/view?usp=sharing",
+        label: t("download_page.linuxBinaries"),
+      },
+      {
+        link: "https://disk.yandex.ru/d/6IFRyqlGS3rqag",
+        label: t("download_page.linuxBinaries"),
+      },
+      {
+        link: "https://drive.google.com/file/d/1DE0t-R_UDnLnalNz3SmS4fE0-OlhHNB-/view?usp=sharing",
+        label: t("download_page.linuxBinaries"),
+      },
+      {
+        link: "/torrent/Dota 2 6.84 Source 1 Linux.tar.gz.torrent",
+        label: t("download_page.linuxBinaries"),
+      },
+    ],
+
+    [
+      {
+        link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
+        label: t("download_page.macosBinaries"),
+      },
+      {
+        link: "https://disk.yandex.ru/d/-52JcDeQONUs0A",
+        label: t("download_page.macosBinaries"),
+      },
+      {
+        link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
+        label: t("download_page.macosBinaries"),
+      },
+      {
+        link: "/torrent/Dota 2 6.84 Source 1 Mac.tar.gz.torrent",
+        label: t("download_page.macosBinaries"),
+      },
+    ],
+  ];
+};
+
 interface Props {
   initialOS: OperatingSystem;
 }
 
 const GuideCompact = (t: TFunction) => [
   {
-    title: "download_page.launchGame",
+    title: t("download_page.launchGame"),
     content: (
       <>
         {t("download_page.extractGame")}, {t("download_page.startSteam")},{" "}
@@ -100,7 +105,7 @@ const GuideCompact = (t: TFunction) => [
     ),
   },
   {
-    title: "download_page.authorizeTitle",
+    title: t("download_page.authorizeTitle"),
     content: (
       <>
         <p>
@@ -123,7 +128,7 @@ const GuideCompact = (t: TFunction) => [
     ),
   },
   {
-    title: "download_page.educationTutorial",
+    title: t("download_page.educationTutorial"),
     content: (
       <>
         <p>{t("download_page.passTraining")}</p>
@@ -152,7 +157,7 @@ const GuideCompact = (t: TFunction) => [
     ),
   },
   {
-    title: "download_page.humanGames",
+    title: t("download_page.humanGames"),
     content: (
       <>
         <p>
@@ -182,8 +187,10 @@ const GuideCompact = (t: TFunction) => [
 export default function DownloadPage({ initialOS }: Props) {
   const { t } = useTranslation();
   const [OS, setOS] = useState(initialOS);
+  const _data = useDownloadData();
 
   let filteredData = [..._data];
+
   switch (OS) {
     case OperatingSystem.LINUX:
       filteredData = [_data[0], _data[1]];
@@ -222,7 +229,7 @@ export default function DownloadPage({ initialOS }: Props) {
                 onSelect: setOS,
               }))}
               selected={OS}
-              flavor={"small"}
+              flavor={"big"}
             />
 
             <GenericTable
@@ -299,8 +306,8 @@ export default function DownloadPage({ initialOS }: Props) {
   return (
     <div className={NotoSans.className}>
       <EmbedProps
-        title={t("download_page.startPlaying")}
-        description={t("download_page.detailedInstructions")}
+        title={t("download_page.seo.title")}
+        description={t("download_page.seo.description")}
       />
       <TechStaticTabs />
       <h1 style={{ textAlign: "center" }}>

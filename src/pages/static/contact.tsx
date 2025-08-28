@@ -1,4 +1,5 @@
 import { EmbedProps } from "@/components";
+import { useTranslation } from 'react-i18next';
 import cx from "clsx";
 import c from "@/pages/static/rules/RulesPage.module.scss";
 import { NotoSans } from "@/const/notosans";
@@ -6,42 +7,44 @@ import { IoDocument } from "react-icons/io5";
 import { CiMail } from "react-icons/ci";
 
 export default function ContactPage() {
+  const { t } = useTranslation();
+
   return (
     <>
-      <EmbedProps title="Оферта dotaclassic.ru" description="Предложение" />
+      <EmbedProps title={t("contact_page.embedTitle")} description={t("contact_page.embedDescription")} />
       <div className={cx(c.postContainer, NotoSans.className)}>
         <h2>
-          <strong className="editor-text-bold">Контакты</strong>
+          <strong className="editor-text-bold">{t("contact_page.contactsTitle")}</strong>
         </h2>
-        <p>Степин Юрий Андреевич</p>
+        <p>{t("contact_page.personName")}</p>
         <p>
           <strong>
-            <IoDocument /> ИНН:
+            <IoDocument /> {t("contact_page.innLabel")}
           </strong>{" "}
           780220038930
         </p>
         <p>
           <strong>
-            <CiMail /> Почта:
+            <CiMail /> {t("contact_page.emailLabel")}
           </strong>{" "}
         </p>
         <ul>
-          <li>enchantinggg4@gmail.com</li>
-          <li>adv@dotaclassic.ru</li>
+          <li>{t("contact_page.email1")}</li>
+          <li>{t("contact_page.email2")}</li>
         </ul>
 
         <h2>
-          <strong className="editor-text-bold">Документы</strong>
+          <strong className="editor-text-bold">{t("contact_page.documentsTitle")}</strong>
         </h2>
         <br />
         <p>
           <a className="link" target="__blank" href="/privacy.pdf">
-            Политика обработки персональных данных
+            {t("contact_page.policyText")}
           </a>
         </p>
         <p>
           <a className="link" target="__blank" href="/offer.pdf">
-            Публичная оферта
+            {t("contact_page.offerText")}
           </a>
         </p>
       </div>

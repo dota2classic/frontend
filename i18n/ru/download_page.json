@@ -11,7 +11,7 @@
     "ownMatchmaking": "Therefore, we have our own matchmaking, for which you need to",
     "authThroughSteam": "authorize through Steam.",
     "authorize": "Authorize",
-    "important": "IMPORTANT",
+    "important": "ВАЖНО",
     "steamAccountMustMatch": "Your Steam account for the game and on the site must match.",
     "passTraining": "You need to undergo training on the site: this is a regular game against bots.",
     "trainingProcess": "You will get used to the old Dota, get acquainted with the original heroes and their abilities, adjust the game and bindings to your preferences.",
@@ -31,14 +31,25 @@
     "matchHistory": "match history",
     "strongestHeroes": "the strongest heroes",
     "leaderboardTable": "or the leaderboard table.",
-
+    "downloadLibraries": "Также тебе нужно скачать библиотеки для своей системы и извлечь их в папку с игрой",
     "gameClient": "Игровой клиент",
     "linuxBinaries": "Linux библиотеки",
     "macosBinaries": "MacOS библиотеки",
-
+    "forOldDota": "Для игры в старую доту нужен старый клиент игры. Это не кастомка: это реальная дота из 2015 года.",
+    "dontClickMatchSearch": "не нажимай поиск матча в самой игре",
+    "howToStartPlaying": "Как начать играть?",
+    "downloadGameClient": "Скачать игровой клиент",
     "launchGame": "Запустить игру",
     "authorizeTitle": "Авторизоваться на сайте",
     "educationTutorial": "Обучение: игра против ботов",
-    "humanGames": "Пришло время для настоящих игр!"
+    "humanGames": "Пришло время для настоящих игр!",
+    "googleDrive": "Google Drive",
+    "yandexDisk": "Яндекс Диск",
+    "ourWebsite": "Наш сайт",
+    "torrent": "Торрент",
+    "seo": {
+      "title": "Начать играть",
+      "description": "Подробная инструкция для скачивания, установки и поиска игры Dota 2. Скачать старую версию dota 2 здесь"
+    }
   }
 }
