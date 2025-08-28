@@ -11,7 +11,6 @@ import {
 import { MatchDto } from "@/api/back";
 import c from "./MatchHistoryTable.module.scss";
 import { AppRouter } from "@/route";
-import { formatDotaMode, formatGameMode } from "@/util/gamemode";
 import cx from "clsx";
 import { colors } from "@/colors";
 import { maxBy } from "@/util";
@@ -66,9 +65,9 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
               </td>
               <td>
                 <div className={cx(c.twoRows)}>
-                  <span>{formatGameMode(it.mode)}</span>
+                  <span>{t(`matchmaking_mode.${it.mode}`)}</span>
                   <span className={c.secondary}>
-                    {formatDotaMode(it.gameMode)}
+                    {t(`game_mode.${it.gameMode}`)}
                   </span>
                 </div>
               </td>

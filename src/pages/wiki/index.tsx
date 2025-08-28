@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import c from "./Wiki.module.scss";
+import { EmbedProps } from "@/components";
+import { useTranslation } from "react-i18next";
 
 //ни в коем случае не ставить в конце слэш
 const CHILD_ORIGIN = "https://wiki.dotaclassic.ru";
@@ -8,6 +10,8 @@ interface WikiMsg {
   height: number | string;
 }
 export default function WikiEmbed() {
+  const { t } = useTranslation();
+
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
@@ -34,5 +38,13 @@ export default function WikiEmbed() {
     return () => window.removeEventListener("message", handleMessage);
   }, []);
 
-  return <iframe ref={iframeRef} src={CHILD_ORIGIN} className={c.iframe} />;
+  return (
+    <>
+      <EmbedProps
+        title={t("items_wiki.title")}
+        description={t("items_wiki.description")}
+      />
+      <iframe ref={iframeRef} src={CHILD_ORIGIN} className={c.iframe} />
+    </>
+  );
 }

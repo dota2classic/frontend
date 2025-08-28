@@ -42,7 +42,7 @@ export default function LeaderboardPage({
         description={t("leaderboard_page.leaderboardDescription")}
       />
 
-      <Panel>
+      <Panel className="horizontal">
         <SelectOptions
           options={seasonOptions}
           selected={selectedSeasonId}

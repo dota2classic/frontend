@@ -2,12 +2,17 @@ import { Rubik } from "next/font/google";
 import { BlogPageDto } from "@/api/back";
 import c from "./Blog.module.scss";
 import cx from "clsx";
-import { CarouselItem, EmbedProps } from "@/components";
+import {
+  Breadcrumbs,
+  CarouselItem,
+  EmbedProps,
+  PageLink,
+  Panel,
+} from "@/components";
 import { AppRouter } from "@/route";
 import { NextPageContext } from "next";
 import { numberOrDefault } from "@/util/urls";
 import { getApi } from "@/api/hooks";
-import { Breadcrumbs, PageLink, Panel } from "@/components";
 import React from "react";
 import { useIsModerator } from "@/util";
 import { useTranslation } from "react-i18next";
@@ -32,7 +37,7 @@ export default function NewsList({ page }: Props) {
       <Panel className="horizontal">
         <div className="left">
           <Breadcrumbs>
-            <PageLink link={AppRouter.blog.index.link}>
+            <PageLink className="link" link={AppRouter.blog.index.link}>
               {t("news_list.news")}
             </PageLink>
           </Breadcrumbs>

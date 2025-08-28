@@ -43,7 +43,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
         title={t("match_history.historyTitle")}
         description={t("match_history.historyDescription")}
       />
-      <Panel style={{ flexDirection: "row" }}>
+      <Panel className="horizontal">
         <SelectOptions
           options={gameModeOptions}
           selected={mode === undefined ? "undefined" : mode}

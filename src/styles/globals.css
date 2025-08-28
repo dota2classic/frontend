@@ -190,7 +190,7 @@ iframe {
 
 
 .horizontal {
-  flex-direction: row;
+  flex-direction: row !important;
 }
 
 
