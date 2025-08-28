@@ -24,11 +24,11 @@ export default function ContactPage() {
           <strong>
             <CiMail /> Почта:
           </strong>{" "}
-          <ul>
-            <li>enchantinggg4@gmail.com</li>
-            <li>adv@dotaclassic.ru</li>
-          </ul>
         </p>
+        <ul>
+          <li>enchantinggg4@gmail.com</li>
+          <li>adv@dotaclassic.ru</li>
+        </ul>
 
         <h2>
           <strong className="editor-text-bold">Документы</strong>

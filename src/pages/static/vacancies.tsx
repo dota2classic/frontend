@@ -3,7 +3,7 @@ import cx from "clsx";
 import c from "@/pages/static/rules/RulesPage.module.scss";
 import { NotoSans } from "@/const/notosans";
 import { TrajanPro } from "@/const/fonts";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 export default function VacanciesPage() {
   const { t } = useTranslation();
@@ -19,9 +19,15 @@ export default function VacanciesPage() {
           {t("vacancies_page.whoWeNeed")}
         </h1>
         <p>
-          {t("vacancies_page.projectIntro", {
-            project: <span className="red">dotaclassic</span>,
-          })}
+          <Trans
+            i18nKey="vacancies_page.projectIntro"
+            values={{
+              project: "dotaclassic",
+            }}
+            components={{
+              project: <span className="red" />,
+            }}
+          ></Trans>
         </p>
         <p>{t("vacancies_page.volunteerNote")}</p>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
@@ -46,7 +52,7 @@ export default function VacanciesPage() {
           <li>SASS/SCSS</li>
         </ul>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
-          {t("vacancies_page.uidesigner")}
+          {t("vacancies_page.uiDesigner")}
         </h2>
         <p>{t("vacancies_page.uiDesignerDescription")}</p>
         <p>{t("vacancies_page.expectedSkills")}</p>

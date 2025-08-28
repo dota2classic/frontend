@@ -1691,7 +1691,11 @@
   },
   "thread": {},
   "threads_table": {
-    "avatarAlt": "avatar of user {{name}}"
+    "topic": "Topic",
+    "messages": "Messages",
+    "views": "Views",
+    "author": "Author",
+    "lastMessage": "Last message"
   },
   "threads": {
     "newMessagesCount": "New messages count: {{count}}"

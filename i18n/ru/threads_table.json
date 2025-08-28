@@ -1,0 +1,9 @@
+{
+  "threads_table": {
+    "topic": "Топик",
+    "messages": "Сообщений",
+    "views": "Просмотров",
+    "author": "Автор",
+    "lastMessage": "Последнее сообщение"
+  }
+}

@@ -22,7 +22,7 @@
     "docker": "docker build . --build-arg API_URL=https://dotaclassic.ru/api -t dota2classic/matchmaking:dotabuff && docker push dota2classic/matchmaking:dotabuff",
     "dockertest": "docker build . --build-arg API_URL=https://dotaclassic.ru/api --build-arg SOCKET_URL=wss://dotaclassic.ru/newsocket -t dota2classic/matchmaking:dotabuff",
     "knip": "knip",
-    "i18n-replace": "npx jscodeshift -t scripts/replace.js src/components/ThreadsTable/ThreadsTable.tsx --parser=tsx && node scripts/combine-translation.js"
+    "i18n-replace": "npx jscodeshift -t scripts/replace.js src/pages/static/contact.tsx --parser=tsx && node scripts/combine-translation.js"
   },
   "dependencies": {
     "@dota2classic/react-arborist": "^1.0.1",
