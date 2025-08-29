@@ -4,7 +4,6 @@ import { observer } from "mobx-react-lite";
 import cx from "clsx";
 import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
-import { formatGameMode } from "@/util/gamemode";
 import { ReadyState } from "@/store/queue/messages/s2c/player-room-state-message.s2c";
 import { useTranslation } from "react-i18next";
 

@@ -3,7 +3,7 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { NextPageContext } from "next";
 import { LobbyDto } from "@/api/back";
 import { Button, EmbedProps, Table, UserPreview } from "@/components";
-import { formatDotaMap, formatDotaMode } from "@/util/gamemode";
+import { formatDotaMap } from "@/util/gamemode";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import c from "./Lobby.module.scss";
@@ -85,7 +85,9 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
                 <td>
                   <UserPreview avatarSize={30} user={lobby.owner} />
                 </td>
-                <td>{formatDotaMode(lobby.gameMode)}</td>
+                <td>
+                  <dd>{t(`game_mode.${lobby.gameMode}`)}</dd>
+                </td>
                 <td>{formatDotaMap(lobby.map)}</td>
                 <td>{lobby.slots.length}</td>
                 <td>

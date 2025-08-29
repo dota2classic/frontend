@@ -1,72 +1,10 @@
 import {
-  DotaGameMode,
   DotaMap,
   MatchmakingMode,
   PlayerAspect,
   Role,
 } from "@/api/mapped-models";
 import { ReactNode } from "react";
-import { RecordType } from "@/api/back";
-
-const messages = {
-  // MatchmakingMode.TOURNAMENT
-  [MatchmakingMode.TOURNAMENT]: "Турнир 5х5",
-  // MatchmakingMode.TOURNAMENT_SOLOMID
-  [MatchmakingMode.TOURNAMENT_SOLOMID]: "Турнир 1x1",
-  // MatchmakingMode.RANKED
-  [MatchmakingMode.RANKED]: "Рейтинг",
-  // MatchmakingMode.UNRANKED
-  [MatchmakingMode.UNRANKED]: "Обычная 5x5",
-  // MatchmakingMode.SOLOMID
-  [MatchmakingMode.SOLOMID]: "1x1 мид",
-  // MatchmakingMode.ABILITY_DRAFT
-  [MatchmakingMode.ABILITY_DRAFT]: "Ability draft",
-  // MatchmakingMode.DIRETIDE
-  [MatchmakingMode.DIRETIDE]: "Diretide",
-  // MatchmakingMode.HIGHROOM
-  [MatchmakingMode.HIGHROOM]: "Highroom 5х5",
-  // MatchmakingMode.BOTS
-  [MatchmakingMode.BOTS]: "Против ботов",
-  // MatchmakingMode.GREEVILING
-  [MatchmakingMode.GREEVILING]: "Гряволы",
-  // MatchmakingMode.CAPTAINS_MODE
-  [MatchmakingMode.CAPTAINS_MODE]: "Captains Mode",
-  [MatchmakingMode.LOBBY]: "Лобби",
-  [MatchmakingMode.BOTS2X2]: "2х2 с ботами",
-  [MatchmakingMode.TURBO]: "Турбо",
-};
-
-export function formatGameMode(mode: MatchmakingMode) {
-  return messages[mode];
-}
-
-const dotaMessages = {
-  [DotaGameMode.ALLPICK]: "All Pick",
-  [DotaGameMode.CAPTAINS_MODE]: "Captains Mode",
-  [DotaGameMode.RANDOM_DRAFT]: "Random Draft",
-  [DotaGameMode.SINGLE_DRAFT]: "Single Draft",
-  [DotaGameMode.ALL_RANDOM]: "All Random",
-  // ? intro
-  [DotaGameMode.INTRO]: "INTRO",
-
-  [DotaGameMode.DIRETIDE]: "Diretide",
-  [DotaGameMode.REVERSE_CAPTAINS_MODE]: "Reverse Captains Mode",
-  [DotaGameMode.GREEVILING]: "Гряволы",
-  [DotaGameMode.TUTORIAL]: "TUTORIAL",
-  [DotaGameMode.MID_ONLY]: "Mid only",
-  [DotaGameMode.LEAST_PLAYED]: "LEAST_PLAYED",
-  [DotaGameMode.LIMITED_HEROES]: "LIMITED_HEROES",
-  [DotaGameMode.BALANCED_DRAFT]: "BALANCED_DRAFT",
-  [DotaGameMode.ABILITY_DRAFT]: "Ability Draft",
-  [DotaGameMode.ARDM]: "ARDM",
-
-  [DotaGameMode.SOLOMID]: "Solomid",
-  [DotaGameMode.RANKED_AP]: "Рейт. All Pick",
-};
-
-export function formatDotaMode(mode: DotaGameMode) {
-  return dotaMessages[mode];
-}
 
 const mapName: Partial<Record<DotaMap, ReactNode>> = {
   [DotaMap.DOTA]: "Обычная 6.84",
@@ -77,25 +15,6 @@ const mapName: Partial<Record<DotaMap, ReactNode>> = {
 };
 export function formatDotaMap(state: DotaMap) {
   return mapName[state] || "Неизвестная карта";
-}
-
-const recordMessages = {
-  [RecordType.KILLS]: "Убийств",
-  [RecordType.KDA]: "Лучшее KDA",
-  [RecordType.ASSISTS]: "Помощи",
-  [RecordType.DEATHS]: "Смертей",
-  [RecordType.LASTHITS]: "Добитых крипов",
-  [RecordType.DENIES]: "Не отданных крипов",
-  [RecordType.GPM]: "Золото в минуту",
-  [RecordType.XPM]: "Опыт в минуту",
-  [RecordType.NETWORTH]: "Общая стоимость",
-  [RecordType.TOWERDAMAGE]: "Урон по строениям",
-  [RecordType.HERODAMAGE]: "Урон по героям",
-  [RecordType.HEROHEALING]: "Лечение",
-};
-
-export function formatRecordType(type: RecordType) {
-  return recordMessages[type];
 }
 
 const aspectMessages = {

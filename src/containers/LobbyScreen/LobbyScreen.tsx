@@ -24,7 +24,7 @@ import {
 import cx from "clsx";
 import { LobbyTeam } from "@/containers/LobbyScreen/LobbyTeam";
 import { observer } from "mobx-react-lite";
-import { formatDotaMap, formatDotaMode } from "@/util/gamemode";
+import { formatDotaMap } from "@/util/gamemode";
 import { IoMdExit } from "react-icons/io";
 import { makeSimpleToast } from "@/components/Toast/toasts";
 import { useAsyncButton } from "@/util/use-async-button";
@@ -251,7 +251,9 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           </dl>
           <dl>
             <dt>{t("lobby.mode")}</dt>
-            <dd>{formatDotaMode(data.gameMode)}</dd>
+            <dd>
+              <dd>{t(`game_mode.${data.gameMode}`)}</dd>
+            </dd>
           </dl>
           <dl>
             <dt>{t("lobby.cheats")}</dt>
