@@ -5,7 +5,7 @@ import React from "react";
 import c from "./OnboardingTooltip.module.scss";
 
 import { TooltipRenderProps } from "react-joyride";
-import { threadFont } from "@/const/fonts";
+import { threadFont, TrajanPro } from "@/const/fonts";
 import cx from "clsx";
 import { Button } from "@/components";
 import { IoMdClose } from "react-icons/io";
@@ -25,7 +25,11 @@ export const OnboardingTooltip: React.FC<TooltipRenderProps> = (
 
   return (
     <div
-      className={cx(c.tooltip, step.title && c.tooltip_title, threadFont)}
+      className={cx(
+        c.tooltip,
+        step.title && c.tooltip_title,
+        threadFont.className,
+      )}
       {...tooltipProps}
     >
       <IoMdClose
@@ -34,8 +38,12 @@ export const OnboardingTooltip: React.FC<TooltipRenderProps> = (
         onClick={closeProps.onClick as unknown as any}
         role={closeProps.role}
       />
-      {step.title && <h4 className="tooltip__title">{step.title}</h4>}
-      <div className={c.tooltip__content}>{step.content}</div>
+      {step.title && (
+        <h4 className={cx("tooltip__title", TrajanPro.className)}>
+          {step.title}
+        </h4>
+      )}
+      <div className={cx(c.tooltip__content)}>{step.content}</div>
       <div className={c.tooltip__footer}>
         <div className={c.tooltip__spacer}>
           {(index > 0 && (

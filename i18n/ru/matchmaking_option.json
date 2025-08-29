@@ -1,9 +1,9 @@
 {
   "matchmaking_option": {
-    "botsFillSlots": "Empty slots are filled with bots",
-    "strictPenalties": "Strict penalties for abandoned games",
-    "noPenalties": "No penalties for abandoned games",
-    "dropRewards": "Rewards are dropped after the match",
-    "inQueue": "in search"
+    "botsFillSlots": "Пустые слоты заполняются ботами",
+    "strictPenalties": "Строгие наказания за покинутые игры",
+    "noPenalties": "Нет наказаний за покинутые игры",
+    "dropRewards": "После матча выпадают награды",
+    "inQueue": "в поиске"
   }
 }
