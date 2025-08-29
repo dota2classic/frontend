@@ -18,7 +18,7 @@ import { ColumnType } from "@/const/tables";
 import { NotoSans } from "@/const/notosans";
 import { TechStaticTabs } from "@/containers";
 import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 
 const useDownloadData = () => {
@@ -93,12 +93,18 @@ const GuideCompact = (t: TFunction) => [
     title: t("download_page.launchGame"),
     content: (
       <>
-        {t("download_page.extractGame")}, {t("download_page.startSteam")},{" "}
-        {t("download_page.runDotaExe")} <span className="gold">dota.exe</span>
+        <Trans
+          i18nKey="download_page.extractGame"
+          components={{ dota: <span className="red" /> }}
+        />
         <p>
-          {t("download_page.downloadingGame")}, {t("download_page.joinUs")}{" "}
-          <TelegramInvite /> и <DiscordInvite />!{" "}
-          {t("download_page.helpWithToughness")}
+          <Trans
+            i18nKey="download_page.downloadingGame"
+            components={{
+              telegram: <TelegramInvite />,
+              discord: <DiscordInvite />,
+            }}
+          />
         </p>
       </>
     ),
@@ -107,21 +113,22 @@ const GuideCompact = (t: TFunction) => [
     title: t("download_page.authorizeTitle"),
     content: (
       <>
+        <p>{t("download_page.forPlayingWithPeople")}</p>
         <p>
-          {t("download_page.forPlayingWithPeople")}:{" "}
-          {t("download_page.cantJustSearch")}
+          <Trans
+            i18nKey="download_page.cantJustSearch"
+            components={{
+              steamauth: <a className="link" href={getAuthUrl()} />,
+            }}
+          />
         </p>
         <p>
-          {t("download_page.ownMatchmaking")},{" "}
-          {t("download_page.authThroughSteam")}
-          <a className="link" href={getAuthUrl()}>
-            {t("download_page.authorize")}
-          </a>
-          .
-        </p>
-        <p>
-          <span className="gold">{t("download_page.important")}</span>:{" "}
-          {t("download_page.steamAccountMustMatch")}
+          <Trans
+            i18nKey="download_page.steamAccountMustMatch"
+            components={{
+              attention: <span className="gold" />,
+            }}
+          />
         </p>
       </>
     ),
@@ -131,26 +138,30 @@ const GuideCompact = (t: TFunction) => [
     content: (
       <>
         <p>{t("download_page.passTraining")}</p>
-        {t("download_page.trainingProcess")}
+        <p>{t("download_page.trainingProcess")}</p>
         <ol>
           <li>
-            <span className="gold">{t("download_page.important")}</span>:{" "}
-            {t("download_page.serversInRussia")}
+            <Trans
+              i18nKey="download_page.serversInRussia"
+              components={{ attention: <span className="gold" /> }}
+            />
           </li>
           <li>
-            <PageLink link={AppRouter.queue.link} className="link">
-              {t("download_page.setupSearch")}
-            </PageLink>{" "}
-            {t("download_page.inMode")}
-            <span className="gold">
-              {t(`matchmaking_mode.${MatchmakingMode.BOTS}`)}
-            </span>
+            <Trans
+              i18nKey="download_page.setupSearch"
+              values={{
+                mode: t(`matchmaking_mode.${MatchmakingMode.BOTS}`),
+              }}
+              components={{
+                queue: (
+                  <PageLink link={AppRouter.queue.link} className="link" />
+                ),
+                mode: <span className="gold" />,
+              }}
+            />
           </li>
           <li>{t("download_page.acceptGame")}</li>
-          <li>
-            {t("download_page.startSteam")},{" "}
-            {t("download_page.startGameClient")}
-          </li>
+          <li>{t("download_page.startGameClient")}</li>
           <li>{t("download_page.connectButton")}</li>
           <li>{t("download_page.defeatBots")}</li>
         </ol>
@@ -162,24 +173,37 @@ const GuideCompact = (t: TFunction) => [
     content: (
       <>
         <p>
-          {t("download_page.congratulations")},{" "}
-          {t("download_page.firstOnlineMatch")},{" "}
-          {t("download_page.lookingForIn")}
-          <PageLink link={AppRouter.queue.link} className="link">
-            {t("download_page.search")}
-          </PageLink>{" "}
-          {t("download_page.mode")}
-          {t(`matchmaking_mode.${MatchmakingMode.UNRANKED}`)}.
+          <Trans
+            i18nKey="download_page.congratulations"
+            components={{
+              mode: <span className="gold" />,
+              queue: <PageLink link={AppRouter.queue.link} className="link" />,
+            }}
+            values={{
+              mode: t(`matchmaking_mode.${MatchmakingMode.UNRANKED}`),
+            }}
+          />
         </p>
-        {t("download_page.learnAbout")}
-        <PageLink className="link" link={AppRouter.matches.index().link}>
-          {t("download_page.matchHistory")}
-        </PageLink>
-        , {t("download_page.strongestHeroes")},
-        <PageLink className="link" link={AppRouter.heroes.index.link}>
-          {t("download_page.strongestHeroes")}
-        </PageLink>{" "}
-        {t("download_page.leaderboardTable")}
+        <Trans
+          i18nKey="download_page.learnAbout"
+          components={{
+            history: (
+              <PageLink
+                className="link"
+                link={AppRouter.matches.index().link}
+              />
+            ),
+            leaderboard: (
+              <PageLink
+                className="link"
+                link={AppRouter.players.leaderboard().link}
+              />
+            ),
+            heroes: (
+              <PageLink className="link" link={AppRouter.heroes.index.link} />
+            ),
+          }}
+        />
       </>
     ),
   },
@@ -210,8 +234,12 @@ export default function DownloadPage({ initialOS }: Props) {
         <>
           <p>{t("download_page.forOldDota")}</p>
           <p>
-            <span className="gold">{t("download_page.important")}</span>:{" "}
-            {t("download_page.dontClickMatchSearch")}
+            <Trans
+              i18nKey="download_page.dontClickMatchSearch"
+              components={{
+                attention: <span className="gold" />,
+              }}
+            />
           </p>
           {(OS === OperatingSystem.MAC_OS || OS === OperatingSystem.LINUX) && (
             <>
