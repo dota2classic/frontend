@@ -20,8 +20,9 @@ export default function AdminTicketsPage({ threads, page }: Props) {
   return (
     <>
       <EmbedProps
-        title={t("admin_tickets.forum")}
-        description={t("admin_tickets.forumDescription")}
+        title={t("admin_tickets.seo.title")}
+        description={t("admin_tickets.seo.description")}
+        noindex
       />
       <div className={c.buttons}>
         <ForumTabs />

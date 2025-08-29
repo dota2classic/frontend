@@ -13,8 +13,8 @@ export default function RecordsPage({ records }: Props) {
   return (
     <>
       <EmbedProps
-        title={t("records_page.records")}
-        description={t("records_page.recordsDescription")}
+        title={t("records_page.seo.title")}
+        description={t("records_page.seo.description")}
       />
       <h1>{t("records_page.playerRecords")}</h1>
       <PlayerRecords records={records} />

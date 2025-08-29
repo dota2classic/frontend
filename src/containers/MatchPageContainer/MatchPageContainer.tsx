@@ -142,8 +142,8 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
             />
           )}
           <EmbedProps
-            title={t("match.title", { matchId })}
-            description={t("match.description", { matchId })}
+            title={t("match.seo.title", { matchId })}
+            description={t("match.seo.description", { matchId })}
           />
           <MatchSummary
             radiantKills={match.radiant.reduce((a, b) => a + b.kills, 0)}

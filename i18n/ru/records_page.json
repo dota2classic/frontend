@@ -1,7 +1,9 @@
 {
   "records_page": {
-    "records": "Рекорды",
-    "recordsDescription": "Рекорды, поставленные игроками на сайте dotaclassic.ru на старом патче 6.84c",
+    "seo": {
+      "title": "Рекорды сервера",
+      "description": "Рекорды, поставленные игроками на сайте dotaclassic.ru на старом патче 6.84c"
+    },
     "playerRecords": "Рекорды игроков"
   }
 }

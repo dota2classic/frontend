@@ -11,8 +11,8 @@ export default function VacanciesPage() {
   return (
     <>
       <EmbedProps
-        title={t("vacancies_page.whoWeNeed")}
-        description={t("vacancies_page.projectNeeds")}
+        title={t("vacancies_page.seo.title")}
+        description={t("vacancies_page.seo.description")}
       />
       <div className={cx(c.postContainer, NotoSans.className)}>
         <h1 className={cx(TrajanPro.className, "megaheading")}>

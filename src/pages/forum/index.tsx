@@ -26,8 +26,8 @@ export default function ForumIndexPage({ threads, page }: Props) {
   return (
     <>
       <EmbedProps
-        title={t("forum.pageTitle")}
-        description={t("forum.pageDescription")}
+        title={t("forum.seo.title")}
+        description={t("forum.seo.description")}
       />
 
       <div className={c.buttons}>

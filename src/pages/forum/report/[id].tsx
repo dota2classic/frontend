@@ -37,8 +37,10 @@ export default function ReportPage({
   return (
     <>
       <EmbedProps
-        title={thread?.title || t("report_page.defaultTitle")}
-        description={`${t("report_page.reportDescription")}: ${thread?.title || ""}`}
+        title={t("report_page.seo.title", { title: thread?.title || "" })}
+        description={t("report_page.seo.description", {
+          title: thread?.title || "",
+        })}
       />
       <Panel>
         <Breadcrumbs>

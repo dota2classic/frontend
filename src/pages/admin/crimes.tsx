@@ -6,6 +6,7 @@ import { numberOrDefault } from "@/util/urls";
 import {
   Button,
   Duration,
+  EmbedProps,
   GenericTable,
   InvitePlayerModalRaw,
   PageLink,
@@ -39,6 +40,11 @@ export default function CrimesPage({ crime, steamId }: Props) {
   }, [setModalOpen]);
   return (
     <>
+      <EmbedProps
+        title={t("crimes_page.seo.title")}
+        description={t("crimes_page.seo.description")}
+        noindex
+      />
       {modalOpen &&
         createPortal(
           <InvitePlayerModalRaw

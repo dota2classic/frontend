@@ -62,8 +62,10 @@ export default function PlayerPage({
   return (
     <div className={c.playerPage}>
       <EmbedProps
-        title={`${summary.user.name} - ${t("player_page.stats")}`}
-        description={`${t("player_page.profileAndStats")} ${summary.user.name}`}
+        title={t("player_page.seo.title", { username: summary.user.name })}
+        description={t("player_page.seo.description", {
+          username: summary.user.name,
+        })}
         image={summary.user.avatar}
       />
       <PlayerSummary
@@ -104,7 +106,7 @@ export default function PlayerPage({
         <header data-testid="player-hero-performance-header">
           <span>{t("player_page.topHeroes")}</span>
           <PageLink link={AppRouter.players.player.heroes(playerId).link}>
-            {t("player_page.showAll")}
+            {t("tables.showAll")}
           </PageLink>
         </header>
         <HeroPerformanceTable

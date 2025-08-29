@@ -1,6 +1,9 @@
 {
   "forum_thread": {
-    "pageDescription": "Форум на сайте dotaclassic.ru: {{title}}",
+    "seo": {
+      "title": "{{title}}",
+      "description": "Форум на сайте dotaclassic.ru: {{title}}"
+    },
     "forum": "Форум"
   }
 }

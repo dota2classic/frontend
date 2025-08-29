@@ -31,8 +31,8 @@ export default function LobbyPage({ lobby }: Props) {
   return (
     <>
       <EmbedProps
-        title={t("lobby_page.lobbyTitle", { lobbyName: lobby.name })}
-        description={t("lobby_page.lobbyDescription")}
+        title={t("lobby_page.seo.title", { lobbyName: lobby.name })}
+        description={t("lobby_page.seo.description")}
       />
       <LobbyScreen lobby={lobby} />
     </>

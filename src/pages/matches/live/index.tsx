@@ -15,8 +15,8 @@ export default function LiveMatches({ data }: InitialProps) {
   return (
     <>
       <EmbedProps
-        title={t("live_matches.viewMatches")}
-        description={t("live_matches.viewMatchesDescription")}
+        title={t("live_matches.seo.title")}
+        description={t("live_matches.seo.description")}
       />
 
       <LiveMatchPage games={data} />

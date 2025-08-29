@@ -129,8 +129,8 @@ export default function QueuePage(props: Props) {
       />
       <div className={c.queue}>
         <EmbedProps
-          title={t("queue_page.embedProps.title")}
-          description={t("queue_page.embedProps.description")}
+          title={t("queue_page.seo.title")}
+          description={t("queue_page.seo.description")}
         />
         <BigTabs<Tabs>
           className={c.mobile__tabs}

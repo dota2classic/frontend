@@ -1,7 +1,9 @@
 {
   "match": {
-    "title": "Матч {{matchId}}",
-    "description": "Страница матча с ID {{matchId}}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru",
+    "seo": {
+      "title": "Матч {{matchId}}",
+      "description": "Страница матча с ID {{matchId}}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru"
+    },
     "radiant": "Силы Света",
     "dire": "Силы Тьмы"
   },

@@ -1,7 +1,9 @@
 {
   "leaderboard_page": {
-    "players": "Игроки",
-    "leaderboardDescription": "Таблица лидеров игроков сайта dotaclassic.ru, лучшие игроки и их статистика",
+    "seo": {
+      "title": "Таблица лидеров",
+      "description": "Таблица лидеров игроков сайта dotaclassic.ru, лучшие игроки и их статистика"
+    },
     "season": "Сезон",
     "seasonSelect": "Сезон",
     "rank": "Ранг",

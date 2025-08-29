@@ -4,7 +4,7 @@ import { getApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { PlayerFeedbackPageDto } from "@/api/back";
 import c from "../AdminStyles.module.scss";
-import { Pagination, Panel, UserPreview } from "@/components";
+import { EmbedProps, Pagination, Panel, UserPreview } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
 import { useTranslation } from "react-i18next";
@@ -17,6 +17,11 @@ export default function PlayerFeedbackPage({ page }: Props) {
 
   return (
     <div className={c.gridPanel}>
+      <EmbedProps
+        noindex
+        title={t(`player_feedback.seo.title`)}
+        description={t(`player_feedback.seo.description`)}
+      />
       <Pagination
         page={page.page}
         maxPage={page.pages}

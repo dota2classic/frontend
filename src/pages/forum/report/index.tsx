@@ -19,8 +19,8 @@ export default function ReportsPage({ threads, page }: Props) {
   return (
     <>
       <EmbedProps
-        title={t("forum_reports.title")}
-        description={t("forum_reports.description")}
+        title={t("forum_reports.seo.title")}
+        description={t("forum_reports.seo.description")}
       />
       <div className={c.buttons}>
         <ForumTabs />

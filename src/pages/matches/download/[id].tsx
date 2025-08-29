@@ -2,7 +2,13 @@ import { MatchDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { useEffect } from "react";
 import { notFound } from "next/navigation";
-import { Button, CoolList, CopyBlock, MatchSummary } from "@/components";
+import {
+  Button,
+  CoolList,
+  CopyBlock,
+  EmbedProps,
+  MatchSummary,
+} from "@/components";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { metrika } from "@/ym";
@@ -29,6 +35,10 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
 
   return (
     <div>
+      <EmbedProps
+        title={t("match_download.seo.title", { matchId: match.id })}
+        description={t("match_download.seo.description", { matchId: match.id })}
+      />
       <MatchSummary
         radiantKills={match.radiant.reduce((a, b) => a + b.kills, 0)}
         direKills={match.dire.reduce((a, b) => a + b.kills, 0)}

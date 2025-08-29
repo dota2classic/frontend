@@ -1,7 +1,9 @@
 {
-  "forum": {
-    "support": "Support",
-    "description": "Dota2Classic forum - a place for discussing matches, players, heroes, and other important questions",
-    "newTicket": "New Ticket"
+  "tickets_page": {
+    "seo": {
+      "title": "Поддержка",
+      "description": "Поддержка игроков"
+    },
+    "newTicket": "Новое обращение"
   }
 }

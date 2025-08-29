@@ -12,8 +12,8 @@ export default function ContactPage() {
   return (
     <>
       <EmbedProps
-        title={t("contact_page.embedTitle")}
-        description={t("contact_page.embedDescription")}
+        title={t("contact_page.title")}
+        description={t("contact_page.description")}
       />
       <div className={cx(c.postContainer, NotoSans.className)}>
         <h2>

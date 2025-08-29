@@ -8,6 +8,10 @@
     "finalFile": "Итог: у тебя должен быть файл",
     "finalFilePath": "dota/{{matchId}}.dem",
     "startClientTitle": "Запусти клиент и выполни коснольную команду",
-    "consoleCommandText": "Консольная команда для запуска просмотра реплея"
+    "consoleCommandText": "Консольная команда для запуска просмотра реплея",
+    "seo": {
+      "title": "Скачать реплей матча {{matchId}}",
+      "description": "Скачать реплей матча {{matchId}}, сыгранного на сайте dotaclassic.ru"
+    }
   }
 }

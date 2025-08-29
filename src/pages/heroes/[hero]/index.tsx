@@ -54,8 +54,8 @@ export default function HeroHistoryPage({
   return (
     <div className={c.page}>
       <EmbedProps
-        title={heroName(hero)}
-        description={t("hero_page.statisticsAndHistory", {
+        title={t("hero_page.seo.title", { hero: heroName(hero) })}
+        description={t("hero_page.seo.description", {
           hero: heroName(hero),
           rank: sortedSummaries.indexOf(summary) + 1,
         })}

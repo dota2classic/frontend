@@ -11,8 +11,8 @@ export default function OfferPage() {
   return (
     <>
       <EmbedProps
-        title={t("offer_page.offerTitle")}
-        description={t("offer_page.offerDescription")}
+        title={t("offer_page.seo.title")}
+        description={t("offer_page.seo.description")}
       />
       <div className={cx(c.postContainer, NotoSans.className)}>
         <h1 id="-">

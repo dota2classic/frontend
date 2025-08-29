@@ -23,7 +23,7 @@ export default function ThreadPage({ messages, thread, page }: Props) {
   return (
     <>
       <EmbedProps
-        title={thread.title}
+        title={t("forum_thread.seo.title", { title: thread.title })}
         description={t("forum_thread.pageDescription", { title: thread.title })}
       />
       <Panel>

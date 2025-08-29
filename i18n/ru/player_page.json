@@ -1,10 +1,11 @@
 {
   "player_page": {
-    "stats": "Statistics",
-    "profileAndStats": "Profile and Statistics of player",
-    "achievements": "Achievements",
-    "summary": "Summary",
-    "topHeroes": "Top Heroes",
-    "showAll": "Show All"
+    "seo": {
+      "title": "Профиль {{username}}",
+      "description": "Профиль и игровая статистика игрока {{username}}"
+    },
+    "achievements": "Достижения",
+    "summary": "Сводка",
+    "topHeroes": "Лучшие герои"
   }
 }

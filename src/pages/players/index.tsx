@@ -38,8 +38,8 @@ export default function LeaderboardPage({
   return (
     <>
       <EmbedProps
-        title={t("leaderboard_page.players")}
-        description={t("leaderboard_page.leaderboardDescription")}
+        title={t("leaderboard_page.seo.title")}
+        description={t("leaderboard_page.seo.description")}
       />
 
       <Panel className="horizontal">

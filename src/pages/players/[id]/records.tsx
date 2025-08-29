@@ -20,10 +20,10 @@ export default function PlayerRecordsPage({
   return (
     <>
       <EmbedProps
-        title={t("player_records.history", {
+        title={t("player_records.seo.title", {
           name: preloadedSummary.user.name,
         })}
-        description={t("player_records.historyDescription", {
+        description={t("player_records.seo.description", {
           name: preloadedSummary.user.name,
         })}
       />

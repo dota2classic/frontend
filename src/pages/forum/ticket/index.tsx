@@ -26,8 +26,8 @@ export default function TicketsPage({ threads, page }: Props) {
   return (
     <>
       <EmbedProps
-        title={t("forum.support")}
-        description={t("forum.description")}
+        title={t("tickets_page.seo.title")}
+        description={t("tickets_page.seo.description")}
       />
       <div className={c.buttons}>
         <ForumTabs />
@@ -35,7 +35,7 @@ export default function TicketsPage({ threads, page }: Props) {
           link={AppRouter.forum.createThread(ThreadType.TICKET).link}
           className={c.createThread}
         >
-          <Button>{t("forum.newTicket")}</Button>
+          <Button>{t("tickets_page.newTicket")}</Button>
         </PageLink>
       </div>
       {threads.pages > 1 && (

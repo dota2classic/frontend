@@ -2,7 +2,10 @@
   "lobby_page": {
     "lobbyDoesNotExist": "Лобби не существует!",
     "returnToLobbyList": "Вернуться к списку лобби",
-    "lobbyTitle": "Лобби {{lobbyName}}",
-    "lobbyDescription": "Лобби"
+
+    "seo": {
+      "title": "Лобби {{lobbyName}}",
+      "description": "Лобби"
+    }
   }
 }

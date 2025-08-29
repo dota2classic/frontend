@@ -15,8 +15,8 @@ export default function ItemsPage({ items }: Props) {
     <>
       <ItemBreadcrumbs itemId={undefined} />
       <EmbedProps
-        title={t("items_page.title")}
-        description={t("items_page.description")}
+        title={t("items_page.seo.title")}
+        description={t("items_page.seo.description")}
       />
       <br />
       <ItemsTable items={items} />

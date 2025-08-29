@@ -1,9 +1,12 @@
 {
   "hero_page": {
-    "statisticsAndHistory": "Statistics and match history of hero {{hero}} on dotaclassic.ru, matches played on the old Dota 2 client, {{rank}} in popularity.",
-    "matchHistory": "Match History",
-    "showMore": "Show more",
-    "topPlayers": "Top Players",
-    "items": "Items"
+    "matchHistory": "История матчей",
+    "showMore": "Показать еще",
+    "topPlayers": "Лучшие игроки",
+    "items": "Предметы",
+    "seo": {
+      "title": "{{hero}}",
+      "description": "Статистика и история матчей героя {{hero}} на сайте dotaclassic.ru, сыгранные матчи на старом клиенте Dota 2 6.84, {{rank}} по популярности герой"
+    }
   }
 }

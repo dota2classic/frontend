@@ -17,7 +17,12 @@ export default function BlogpostPage({ post }: Props) {
   const { t } = useTranslation();
   return (
     <>
-      <EmbedProps title={post.title} description={post.shortDescription} />
+      <EmbedProps
+        title={t("blogpostPage.seo.title", { title: post.title })}
+        description={t("blogpostPage.seo.description", {
+          description: post.shortDescription,
+        })}
+      />
       <div className={c.postContainer}>
         <PageLink link={AppRouter.blog.index.link} className={c.newsLink}>
           <FaArrowLeft /> {t("blogpostPage.allNews")}

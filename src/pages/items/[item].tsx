@@ -70,8 +70,8 @@ export default function ItemPage({ data, item }: Props) {
     <>
       <ItemBreadcrumbs itemId={item} />
       <EmbedProps
-        title={itemData?.name || t("item_page.defaultTitle")}
-        description={`${itemData?.name} ${t("item_page.descriptionPatch", { patch: "6.84c", game: "Dota 2" })} ${itemData?.description || ""}`}
+        title={itemData?.name || t("item_page.seo.title")}
+        description={`${t("item_page.seo.description", { item: itemData?.name, patch: "6.84c", game: "Dota 2" })} ${itemData?.description || ""}`}
       />
       <div className={c.itemPage}>
         <Section className={c.heroes}>

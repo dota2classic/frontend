@@ -23,8 +23,8 @@ export default function TicketPage({ messages, thread, page }: Props) {
   return (
     <>
       <EmbedProps
-        title={thread.title}
-        description={`${t("ticket_page.description", { title: thread.title })}`}
+        title={t("ticket_page.seo.title", { title: thread.title })}
+        description={`${t("ticket_page.seo.description", { title: thread.title })}`}
       />
       <Panel>
         <Breadcrumbs>

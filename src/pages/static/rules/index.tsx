@@ -17,8 +17,8 @@ export default function NewRulesPage({ rules }: Props) {
   return (
     <>
       <EmbedProps
-        title={t("rules_page.usageRules")}
-        description={t("rules_page.rulesDescription")}
+        title={t("rules_page.seo.title")}
+        description={t("rules_page.seo.description")}
       />
       <div className={cx(c.postContainer, NotoSans.className)}>
         {rules.map((rule) => (

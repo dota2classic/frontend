@@ -1,6 +1,9 @@
 {
   "ticket_page": {
-    "description": "Ticket on the site dotaclassic.ru: {{title}}",
-    "tickets": "Tickets"
+    "seo": {
+      "title": "{{title}}",
+      "description": "Обращение на сайте dotaclassic.ru: {{title}}"
+    },
+    "tickets": "Обращения"
   }
 }

@@ -2,6 +2,10 @@
   "player_feedback": {
     "title": "{{title}}",
     "comment": "{{comment}}",
-    "option": "{{option}}"
+    "option": "{{option}}",
+    "seo": {
+      "title": "Отзыв игрока",
+      "description": "Отзыв игрока"
+    }
   }
 }

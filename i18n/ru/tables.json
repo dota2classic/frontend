@@ -23,6 +23,9 @@
     "radiant": "Силы Света",
     "dire": "Силы Тьмы",
     "radiantVictory": "Победа Сил Света",
-    "direVictory": "Победа Сил Тьмы"
+    "direVictory": "Победа Сил Тьмы",
+
+
+    "showAll": "Показать все"
   }
 }

@@ -45,8 +45,8 @@ export default function CreateThreadPage({ threadType }: Props) {
   return (
     <Panel className={c.createThread}>
       <EmbedProps
-        title={t("create_thread.createThread")}
-        description={t("create_thread.createNewThreadDesc")}
+        title={t("create_thread.seo.title")}
+        description={t("create_thread.seo.description")}
       />
       <h2>{t("create_thread.topicTitle")}</h2>
       <Input

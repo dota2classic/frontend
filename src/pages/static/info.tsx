@@ -11,8 +11,8 @@ export default function InfoPage() {
   return (
     <>
       <EmbedProps
-        title={t("info_page.projectTitle")}
-        description={t("info_page.projectDescription")}
+        title={t("info_page.seo.title")}
+        description={t("info_page.seo.description")}
       />
       <div className={cx(c.postContainer, NotoSans.className)}>
         <h2 className={cx(TrajanPro.className, "megaheading")}>

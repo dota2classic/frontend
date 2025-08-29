@@ -25,8 +25,8 @@ export default function MetaPage({ matches }: Props) {
   return (
     <div className={cx("grid", c.grid)}>
       <EmbedProps
-        title={t("meta_page.statistics")}
-        description={t("meta_page.statisticsDescription")}
+        title={t("meta_page.seo.title")}
+        description={t("meta_page.seo.description")}
       />
       <h2 className="grid6">{t("meta_page.meta")}</h2>
       <Section className={"grid12"}>
