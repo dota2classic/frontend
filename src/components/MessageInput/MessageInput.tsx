@@ -13,6 +13,8 @@ import { Mention, MentionsInput, SuggestionDataItem } from "react-mentions";
 import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 
+type ExtendedSuggestionDataItem = SuggestionDataItem & { user: UserDTO };
+
 const regex = /https?:\/\/dotaclassic\.ru\/players\/(\d+)(?:\/)?/;
 
 const useSearchUsers = () => {
@@ -173,7 +175,7 @@ export const MessageInput = observer(function MessageInput(p: {
             data={searchUsers}
             appendSpaceOnAdd
             renderSuggestion={(
-              entry: SuggestionDataItem & { user: UserDTO },
+              entry: SuggestionDataItem,
               _search,
               _highlight,
               _index,
@@ -182,7 +184,7 @@ export const MessageInput = observer(function MessageInput(p: {
               <UserPreview
                 className={cx(c.suggestion, focus && c.focused)}
                 avatarSize={20}
-                user={entry.user}
+                user={(entry as unknown as ExtendedSuggestionDataItem).user}
                 nolink
               />
             )}
