@@ -18,18 +18,25 @@
   & .text {
     width: 100%;
     flex: 1;
-    font-size: 1rem;
-    padding: 12px;
-    border-radius: 8px;
-    transition: 0.3s ease;
-    color: $primaryText;
-    border: none;
-    outline: none;
-    background-color: transparent;
 
-    resize: none;
+    & > div:nth-child(2) {
+      z-index: 50 !important;
+    }
 
-    cursor: pointer;
+    & textarea {
+      //font-size: 1rem;
+      //padding: 12px;
+      //border-radius: 8px;
+      //transition: 0.3s ease;
+      color: $primaryText !important;
+      border: none;
+      outline: none;
+      background-color: transparent !important;
+      //
+      //resize: none;
+      //
+      //cursor: pointer;
+    }
   }
   & .markdown {
     display: inline-block;
@@ -118,4 +125,24 @@
       color: $red;
     }
   }
+}
+
+.suggestion_list {
+  background-color: $bg2;
+  @include box();
+  width: 400px;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  gap: 6px;
+  z-index: 500 !important;
+}
+
+.suggestion {
+  padding: 4px 8px !important;
+}
+
+.focused {
+  background-color: $blueHighlight3;
 }

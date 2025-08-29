@@ -1,4 +1,4 @@
-import { makeObservable, observable, runInAction } from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import { HydratableStore } from "@/store/HydratableStore";
 import { getApi } from "@/api/hooks";
 import { UserDTO } from "@/api/back";
@@ -65,4 +65,15 @@ export class UserCacheStore implements HydratableStore<unknown> {
   }
 
   hydrate(): void {}
+
+  @action populate(users: UserDTO[]) {
+    users.forEach((user) => {
+      this.userMap[user.steamId] = {
+        resolver: undefined,
+        entry: {
+          user,
+        },
+      };
+    });
+  }
 }
