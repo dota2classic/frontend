@@ -2,7 +2,7 @@
   "player_summary": {
     "avatarAlt": "Avatar of player {{name}}",
     "matches": "Матчи",
-    "matchPlaying": "Играет в",
+    "matchPlaying": "Играет матч",
     "lastGame": "последняя игра",
     "banReason": "Причина: {{reason}}",
     "ban": "Блокировка",

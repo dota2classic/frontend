@@ -1,0 +1,14 @@
+{
+  "queue_party_info": {
+    "disconnected": "Подключаемся к координатору...",
+    "authorizing": "Авторизуемся...",
+    "invitationSent": "Приглашение отправлено {{name}}",
+    "inviteToGroup": "Пригласить в группу",
+    "leaveGroup": "Покинуть группу",
+    "onlineStatus": "{{count}} играют, у {{onlineCount}} открыта вкладка в браузере",
+    "onlineStatusMain": "{{count}} играют, {{onlineCount}} на сайте",
+    "gamesInProgress": "Games in progress: {{sessions}}",
+    "onlineStatusShort": "{{inGame}} в игре, {{online}} на сайте",
+    "currentGames": "Игр идет: {{games}}"
+  }
+}

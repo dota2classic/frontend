@@ -10,26 +10,31 @@ import { AppRouter } from "@/route";
 import cx from "clsx";
 import { createPortal } from "react-dom";
 import { makeSimpleToast } from "@/components/Toast/toasts";
-import { pluralize } from "@/util/pluralize";
+import { useTranslation } from "react-i18next";
 
 const GameCoordinatorConnection = ({
   readyState,
 }: {
   readyState: GameCoordinatorState;
 }) => {
+  const { t } = useTranslation();
   return (
     <div className={c.info}>
       {readyState === GameCoordinatorState.DISCONNECTED ? (
-        <div className={c.searchGameBar}>Подключение к координатору...</div>
+        <div className={c.searchGameBar}>
+          {t("queue_party_info.disconnected")}
+        </div>
       ) : (
-        <div className={c.searchGameBar}>Авторизуемся...</div>
+        <div className={c.searchGameBar}>
+          {t("queue_party_info.authorizing")}
+        </div>
       )}
     </div>
   );
 };
 
 export const QueuePartyInfo = observer(function QueuePartyInfo() {
-  const { queue, notify } = useStore();
+  const { queue } = useStore();
 
   const party = queue.party;
 
@@ -39,13 +44,19 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
 
   const close = useCallback(() => setInviteOpen(false), []);
 
+  const { t } = useTranslation();
+
   const invite = useCallback(
     async (it: UserDTO) => {
       queue.inviteToParty(it.steamId);
-      makeSimpleToast(`Приглашение отправлено ${it.name}`, "", 5000);
+      makeSimpleToast(
+        t("queue_party_info.invitationSent", { name: it.name }),
+        "",
+        5000,
+      );
       close();
     },
-    [close, notify, queue],
+    [close, queue, t],
   );
 
   if (!queue.ready) {
@@ -87,7 +98,7 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
         ))}
 
         <Tooltipable
-          tooltip={"Пригласить в группу"}
+          tooltip={t("queue_party_info.inviteToGroup")}
           className={cx(c.partyItem, c.invite)}
         >
           <div
@@ -104,20 +115,30 @@ export const QueuePartyInfo = observer(function QueuePartyInfo() {
 
       {!isSoloParty && (
         <div className={c.cancelSearch} onClick={() => queue.leaveParty()}>
-          Покинуть группу
+          {t("queue_party_info.leaveGroup")}
         </div>
       )}
 
       {onlineData ? (
         <Tooltipable
           className={cx(c.searchGameBar, "onboarding-online-stats")}
-          tooltip={`${onlineData.inGame} сейчас ${pluralize(onlineData.inGame, "играет", "играет", "играют")}, у ${queue.online.length} открыта вкладка в браузере`}
+          tooltip={t("queue_party_info.onlineStatus", {
+            count: onlineData.inGame,
+            onlineCount: queue.online.length,
+          })}
         >
           <div>
             <span>
-              {onlineData.inGame} в игре, {queue.online.length} на сайте
+              {t(`queue_party_info.onlineStatusShort`, {
+                inGame: onlineData.inGame,
+                online: queue.online.length,
+              })}
             </span>
-            <span>Игр идет: {onlineData.sessions}</span>
+            <span>
+              {t(`queue_party_info.currentGames`, {
+                games: onlineData.sessions,
+              })}
+            </span>
           </div>
         </Tooltipable>
       ) : null}
