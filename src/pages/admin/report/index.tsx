@@ -27,8 +27,8 @@ export default function AdminReportsPage({ reports, page }: Props) {
   return (
     <>
       <EmbedProps
-        title={t("admin_reports.forum")}
-        description={t("admin_reports.forumDescription")}
+        title={t("admin_reports.seo.title")}
+        description={t("admin_reports.seo.description")}
       />
       <div className={c.buttons}>
         <ForumTabs />

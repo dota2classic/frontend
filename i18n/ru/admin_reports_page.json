@@ -1,7 +1,5 @@
 {
   "admin_reports": {
-    "forum": "Форум",
-    "forumDescription": "Dota2Classic форум - место для обсуждения матчей, игроков, героев и прочих важных вопросов",
     "complaintLink": "Ссылка на жалобу",
     "rule": "Правило",
     "accused": "Обвиняемый",
@@ -12,6 +10,10 @@
     "message": "Сообщение",
     "match": "Матч",
     "processedYes": "Обработана",
-    "processedNo": "Требует обработки"
+    "processedNo": "Требует обработки",
+    "seo": {
+      "title": "Жалобы",
+      "description": "noindex"
+    }
   }
 }

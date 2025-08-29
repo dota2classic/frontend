@@ -106,7 +106,6 @@ module.exports = async function (fileInfo, api) {
     const res = await _api.post(`/v1/chat/completions`, request);
 
     if (res.ok) {
-      console.log(res.data);
       return JSON.parse(res.data.choices[0].message.content);
     }
     console.error("There was an issue getting GPT answer!", res.originalError);
