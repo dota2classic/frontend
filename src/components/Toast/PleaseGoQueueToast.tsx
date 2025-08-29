@@ -3,7 +3,6 @@ import { ToastContentProps } from "react-toastify";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { useRouter } from "next/router";
 import { GenericToast } from "@/components";
-import { formatGameMode } from "@/util/gamemode";
 import { AppRouter } from "@/route";
 import { useTranslation } from "react-i18next";
 
@@ -23,7 +22,8 @@ export const PleaseGoQueueToast: React.FC<
         <>
           {" "}
           {t("please_go_queue.titlePart1")} <br />
-          <span className="gold">{formatGameMode(props.mode)}</span>?{" "}
+          <span className="gold">{t(`matchmaking_mode.${props.mode}`)}</span>
+          ?{" "}
         </>
       }
       content={

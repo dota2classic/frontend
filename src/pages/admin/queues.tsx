@@ -3,7 +3,6 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { MatchmakingInfo, QueueEntryDTO, UserDTO } from "@/api/back";
 import { Button, Panel, Section, UserPreview } from "@/components";
-import { formatGameMode } from "@/util/gamemode";
 import c from "./AdminStyles.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
@@ -60,7 +59,7 @@ export default function QueuesPage({
         {groupedParties.map(({ mode, entries }) => (
           <div key={mode.toString()}>
             <header>
-              {formatGameMode(mode)} (
+              {t(`matchmaking_mode.${mode}`)} (
               {entries.map((t) => t.players.length).reduce((a, b) => a + b, 0)})
             </header>
             <Button

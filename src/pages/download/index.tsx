@@ -10,7 +10,6 @@ import {
 import React, { useState } from "react";
 import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
-import { formatGameMode } from "@/util/gamemode";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 import { metrika } from "@/ym";
@@ -143,7 +142,9 @@ const GuideCompact = (t: TFunction) => [
               {t("download_page.setupSearch")}
             </PageLink>{" "}
             {t("download_page.inMode")}
-            <span className="gold">{formatGameMode(MatchmakingMode.BOTS)}</span>
+            <span className="gold">
+              {t(`matchmaking_mode.${MatchmakingMode.BOTS}`)}
+            </span>
           </li>
           <li>{t("download_page.acceptGame")}</li>
           <li>
@@ -168,7 +169,7 @@ const GuideCompact = (t: TFunction) => [
             {t("download_page.search")}
           </PageLink>{" "}
           {t("download_page.mode")}
-          {formatGameMode(MatchmakingMode.UNRANKED)}.
+          {t(`matchmaking_mode.${MatchmakingMode.UNRANKED}`)}.
         </p>
         {t("download_page.learnAbout")}
         <PageLink className="link" link={AppRouter.matches.index().link}>

@@ -11,7 +11,7 @@ import { useStore } from "@/store";
 import cx from "clsx";
 import { FaLock, FaRobot } from "react-icons/fa";
 import { Checkbox, Tooltipable } from "@/components";
-import { formatGameMode, formatGameModeDescription } from "@/util/gamemode";
+import { formatGameModeDescription } from "@/util/gamemode";
 import { QueueDurationDto } from "@/api/back";
 import { GiJeweledChalice } from "react-icons/gi";
 import { MdSecurity } from "react-icons/md";
@@ -96,7 +96,7 @@ export const MatchmakingOption = observer(
                 className={c.mode__name}
               >
                 <span>
-                  {disabled ? <FaLock /> : null} {formatGameMode(mode)}
+                  {disabled ? <FaLock /> : null} {t(`matchmaking_mode.${mode}`)}
                 </span>
               </Tooltipable>
               <div className={c.modeAdditional}>

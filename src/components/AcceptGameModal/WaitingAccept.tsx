@@ -34,7 +34,7 @@ export const WaitingAccept = observer((p: Props) => {
   return (
     <div className={cx(p.className)} data-testid="accept-modal-waiting-others">
       <div className={c.header}>
-        <h3>{formatGameMode(queue.roomState.mode)}</h3>
+        <h3>{t(`matchmaking_mode.${queue.roomState!.mode}`)}</h3>
         <h4 style={{ marginTop: 12 }}>
           {queue.serverSearching
             ? t("waiting_accept.searchingServer")

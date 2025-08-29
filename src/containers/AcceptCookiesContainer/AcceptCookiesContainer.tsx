@@ -3,12 +3,12 @@ import React from "react";
 import c from "./AcceptCookiesContainer.module.scss";
 import { useLocalStorage } from "react-use";
 import { Button, PageLink } from "@/components";
-import { AppRouter } from "@/route";
 import cx from "clsx";
 import { threadFont } from "@/const/fonts";
 import { FaCheck } from "react-icons/fa6";
 import dynamic from "next/dynamic";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
+import { AppRouter } from "@/route";
 
 function AcceptCookiesContainerAll() {
   const { t } = useTranslation();
@@ -22,12 +22,15 @@ function AcceptCookiesContainerAll() {
   return (
     <div className={cx(c.cookies, threadFont.className)}>
       <p>
-        {t("accept_cookies.cookiesAgreement", { site: "dotaclassic.ru" })}
-        {t("accept_cookies.readMore")}{" "}
-        <PageLink className={"link"} link={AppRouter.contact.link}>
-          {t("accept_cookies.here")}
-        </PageLink>
-        .
+        <Trans
+          i18nKey="accept_cookies.cookiesAgreement"
+          values={{ site: "dotaclassic.ru" }}
+          components={{
+            pglink: (
+              <PageLink className={"link"} link={AppRouter.contact.link} />
+            ),
+          }}
+        ></Trans>
       </p>
 
       <Button small onClick={() => setCookiesAccepted(true)}>

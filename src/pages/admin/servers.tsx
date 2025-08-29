@@ -6,7 +6,6 @@ import {
   SelectOptions,
   Table,
 } from "@/components";
-import { formatGameMode } from "@/util/gamemode";
 import {
   DotaGameMode,
   DotaMap,
@@ -63,7 +62,7 @@ const SessionList = observer(
           {
             type: ColumnType.Raw,
             name: t("admin.servers.sessionList.mode"),
-            format: (t) => formatGameMode(t),
+            format: (gm) => t(`matchmaking_mode.${gm}`),
           },
           {
             type: ColumnType.Raw,
@@ -235,7 +234,7 @@ export default function AdminServersPage({
           <tbody>
             {modes.map((matchmakingMode) => (
               <tr key={matchmakingMode.lobbyType.toString()}>
-                <td>{formatGameMode(matchmakingMode.lobbyType)}</td>
+                <td>{t(`matchmaking_mode.${matchmakingMode.lobbyType}`)}</td>
                 <td>
                   <SelectOptions
                     defaultText={t("admin.servers.gameModes.selectGameMode")}

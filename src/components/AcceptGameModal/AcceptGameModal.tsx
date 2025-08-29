@@ -4,7 +4,6 @@ import c from "./AcceptGameModal.module.scss";
 import cx from "clsx";
 import { GameReadyModal } from "@/components";
 import { useStore } from "@/store";
-import { formatGameMode } from "@/util/gamemode";
 import { useRouter } from "next/router";
 import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
 import { QueueGameState, useQueueState } from "@/util/useQueueState";
@@ -28,7 +27,7 @@ export const AcceptGameModal = observer(() => {
         <div className={c.modal}>
           <div className={c.header}>
             <h4>{t("accept_game_modal.yourGameReady")}</h4>
-            <h3>{formatGameMode(queue.roomState!.mode)}</h3>
+            <h3>{t(`matchmaking_mode.${queue.roomState!.mode}`)}</h3>
           </div>
           <div className={c.buttons}>
             <button

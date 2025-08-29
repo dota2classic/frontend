@@ -7,6 +7,7 @@ import { ThreadContext } from "@/containers/Thread/threadContext";
 import c from "../Message.module.scss";
 import { paidAction } from "@/util/subscription";
 import { useTranslation } from "react-i18next";
+import { Tooltipable } from "@/components";
 
 interface Props {
   relatedSteamId: string;
@@ -37,11 +38,12 @@ export const BlockUserTool = observer(function BlockUserTool({
 
   return (
     <>
-      <MdBlock
+      <Tooltipable
         className={blockStatus ? c.hover_green : c.hover_red}
-        onClick={block}
-        title={t("block_user_tool.blockButtonTitle")}
-      />
+        tooltip={t("block_user_tool.tooltip")}
+      >
+        <MdBlock onClick={block} title={t("block_user_tool.tooltip")} />
+      </Tooltipable>
     </>
   );
 });

@@ -1,5 +1,5 @@
 {
   "block_user_tool": {
-    "blockButtonTitle": "Block/Unblock User"
+    "tooltip": "Заблокировать/Разблокировать"
   }
 }

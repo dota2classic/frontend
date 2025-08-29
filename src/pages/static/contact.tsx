@@ -1,5 +1,5 @@
 import { EmbedProps } from "@/components";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import cx from "clsx";
 import c from "@/pages/static/rules/RulesPage.module.scss";
 import { NotoSans } from "@/const/notosans";
@@ -11,10 +11,15 @@ export default function ContactPage() {
 
   return (
     <>
-      <EmbedProps title={t("contact_page.embedTitle")} description={t("contact_page.embedDescription")} />
+      <EmbedProps
+        title={t("contact_page.embedTitle")}
+        description={t("contact_page.embedDescription")}
+      />
       <div className={cx(c.postContainer, NotoSans.className)}>
         <h2>
-          <strong className="editor-text-bold">{t("contact_page.contactsTitle")}</strong>
+          <strong className="editor-text-bold">
+            {t("contact_page.contactsTitle")}
+          </strong>
         </h2>
         <p>{t("contact_page.personName")}</p>
         <p>
@@ -34,7 +39,9 @@ export default function ContactPage() {
         </ul>
 
         <h2>
-          <strong className="editor-text-bold">{t("contact_page.documentsTitle")}</strong>
+          <strong className="editor-text-bold">
+            {t("contact_page.documentsTitle")}
+          </strong>
         </h2>
         <br />
         <p>

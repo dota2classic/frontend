@@ -32,8 +32,8 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
   return (
     <>
       <EmbedProps
-        title={t("banlog.title")}
-        description={t("banlog.description")}
+        title={t("banlog_page.seo.title")}
+        description={t("banlog_page.seo.description")}
       />
       <Panel
         style={{ flexDirection: "row", alignItems: "center" }}
@@ -60,7 +60,7 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
                 }
               }}
             >
-              {t("banlog.onlyMine")}
+              {t("banlog_page.onlyMine")}
             </Checkbox>
           )
         )}
@@ -73,12 +73,12 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
       <Table>
         <thead>
           <tr>
-            <th>{t("banlog.dateOfPunishment")}</th>
-            <th>{t("banlog.durationOfBan")}</th>
-            <th>{t("banlog.rule")}</th>
-            <th>{t("banlog.complaint")}</th>
-            <th>{t("banlog.violator")}</th>
-            <th>{t("banlog.executor")}</th>
+            <th>{t("banlog_page.dateOfPunishment")}</th>
+            <th>{t("banlog_page.durationOfBan")}</th>
+            <th>{t("banlog_page.rule")}</th>
+            <th>{t("banlog_page.complaint")}</th>
+            <th>{t("banlog_page.violator")}</th>
+            <th>{t("banlog_page.executor")}</th>
           </tr>
         </thead>
         <tbody>
@@ -90,14 +90,14 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
               <td>
                 <div>
                   {log.rule.ruleType === RuleType.GAMEPLAY
-                    ? t("banlog.gameplayBan")
-                    : t("banlog.communicationBan")}
+                    ? t("banlog_page.gameplayBan")
+                    : t("banlog_page.communicationBan")}
                   {": "}
                 </div>
 
                 <div className="red">
                   {log.duration > 60 * 60 * 24 * 1000 ? (
-                    t("banlog.permaBan")
+                    t("banlog_page.permaBan")
                   ) : (
                     <Duration duration={log.duration} long />
                   )}
@@ -113,10 +113,10 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
                   <PageLink
                     link={AppRouter.forum.report.report(log.reportId).link}
                   >
-                    {t("banlog.withComplaint")}
+                    {t("banlog_page.withComplaint")}
                   </PageLink>
                 ) : (
-                  <span>{t("banlog.withoutComplaint")}</span>
+                  <span>{t("banlog_page.withoutComplaint")}</span>
                 )}
               </td>
               <td>

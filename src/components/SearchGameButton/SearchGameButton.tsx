@@ -9,7 +9,6 @@ import cx from "clsx";
 import { formatBanReason } from "@/util/texts/bans";
 import { Button } from "@/components";
 import { getAuthUrl } from "@/util/getAuthUrl";
-import { formatGameMode } from "@/util/gamemode";
 import { PeriodicDurationTimerClient } from "@/components/PeriodicTimer/PeriodicDurationTimerClient";
 import { pluralize } from "@/util/pluralize";
 import { useTranslation } from "react-i18next";
@@ -141,7 +140,11 @@ export const SearchGameButton = observer((p: Props) => {
     const searchGameInfo =
       searchedModes.length > 1
         ? `${searchedModes.length} ${pluralize(searchedModes.length, t("search_game_button.modeSingular"), t("search_game_button.modePluralGenitive"), t("search_game_button.modePlural"))}`
-        : searchedModes.map(formatGameMode).join(", ");
+        : searchedModes
+            .map((mode) => {
+              t(`matchmaking_mode.${mode}`);
+            })
+            .join(", ");
     return (
       <Button
         mega

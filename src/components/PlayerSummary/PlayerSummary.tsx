@@ -29,7 +29,6 @@ import {
 import { useStore } from "@/store";
 import { formatBanReason } from "@/util/texts/bans";
 import { hasSubscription } from "@/util/subscription";
-import { formatGameMode } from "@/util/gamemode";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
 
@@ -214,7 +213,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                   <PageLink
                     link={AppRouter.matches.match(session.matchId).link}
                   >
-                    {formatGameMode(session.lobbyType)}
+                    {t(`matchmaking_mode.${session.lobbyType}`)}
                   </PageLink>
                 </dd>
                 <dt>{t("player_summary.matchPlaying")}</dt>

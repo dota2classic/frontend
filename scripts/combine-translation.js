@@ -29,6 +29,24 @@ function deepMerge(target, source, pathStack = []) {
   }
 }
 
+function flattenObject(obj, parentKey = "", result = {}) {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+      const newKey = parentKey ? `${parentKey}.${key}` : key;
+
+      if (value && typeof value === "object" && !Array.isArray(value)) {
+        // Recursively flatten nested objects
+        flattenObject(value, newKey, result);
+      } else {
+        // Assign value to the flattened key
+        result[newKey] = value;
+      }
+    }
+  }
+  return result;
+}
+
 locales.forEach((locale) => {
   const localePath = path.join(folderPath, locale);
   const files = fs.readdirSync(localePath);
@@ -56,6 +74,6 @@ locales.forEach((locale) => {
 
   fs.writeFileSync(
     `src/i18n/${locale}.json`,
-    JSON.stringify(combinedData, null, 2),
+    JSON.stringify(flattenObject(combinedData), null, 2),
   );
 });

@@ -16,7 +16,6 @@ import {
 import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
 import { formatBanReason } from "@/util/texts/bans";
-import { formatGameMode } from "@/util/gamemode";
 import { ColumnType } from "@/const/tables";
 import c from "./AdminStyles.module.scss";
 import { createPortal } from "react-dom";
@@ -106,8 +105,8 @@ export default function CrimesPage({ crime, steamId }: Props) {
           {
             type: ColumnType.Raw,
             name: t("crimes_page.gameMode"),
-            format: (t: MatchmakingMode) => (
-              <span className={c.nowrap}>{formatGameMode(t)}</span>
+            format: (mode: MatchmakingMode) => (
+              <span className={c.nowrap}>{t(`matchmaking_mode.${mode}`)}</span>
             ),
           },
           {

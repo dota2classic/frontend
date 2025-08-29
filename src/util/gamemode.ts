@@ -1,6 +1,5 @@
 import {
   DotaGameMode,
-  DotaGameRulesState,
   DotaMap,
   MatchmakingMode,
   PlayerAspect,
