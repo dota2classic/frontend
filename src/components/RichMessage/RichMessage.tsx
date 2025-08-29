@@ -4,6 +4,7 @@ import { AppRouter } from "@/route";
 import { ForumUsername } from "@/components/ForumUserEmbed/ForumUsername";
 import c from "./RichMessage.module.scss";
 import cx from "clsx";
+import { Trans } from "react-i18next";
 
 interface IRichMessageProps {
   rawMsg: string;
@@ -26,7 +27,12 @@ const rules: Rule[] = [
           link={AppRouter.players.playerMatches(steamId!).link}
           key={`matches-${i}`}
         >
-          Матчи <ForumUsername steamId={steamId!} />
+          <Trans
+            i18nKey="rich_message.player_matches"
+            components={{
+              username: <ForumUsername steamId={steamId!} />,
+            }}
+          />
         </PageLink>
       );
     },
@@ -42,7 +48,12 @@ const rules: Rule[] = [
           link={AppRouter.players.player.records(steamId!).link}
           key={`records-${i}`}
         >
-          Рекорды <ForumUsername steamId={steamId!} />
+          <Trans
+            i18nKey="rich_message.player_records"
+            components={{
+              username: <ForumUsername steamId={steamId!} />,
+            }}
+          />
         </PageLink>
       );
     },
@@ -58,7 +69,12 @@ const rules: Rule[] = [
           link={AppRouter.players.player.heroes(steamId!).link}
           key={`heroes-${i}`}
         >
-          Герои <ForumUsername steamId={steamId!} />
+          <Trans
+            i18nKey="rich_message.player_heroes"
+            components={{
+              username: <ForumUsername steamId={steamId!} />,
+            }}
+          />
         </PageLink>
       );
     },
@@ -74,7 +90,12 @@ const rules: Rule[] = [
           link={AppRouter.players.player.teammates(steamId!).link}
           key={`teammates-${i}`}
         >
-          Тиммейты <ForumUsername steamId={steamId!} />
+          <Trans
+            i18nKey="rich_message.player_teammates"
+            components={{
+              username: <ForumUsername steamId={steamId!} />,
+            }}
+          />
         </PageLink>
       );
     },
@@ -90,7 +111,12 @@ const rules: Rule[] = [
           key={`match-${i}`}
           link={AppRouter.matches.match(matchId).link}
         >
-          Матч {matchId}
+          <Trans
+            i18nKey="rich_message.match"
+            values={{
+              matchId,
+            }}
+          />
         </PageLink>
       );
     },

@@ -5,7 +5,7 @@ import { ThreadContext } from "@/containers/Thread/threadContext";
 import { ThreadMessageDTO } from "@/api/back";
 import { observer } from "mobx-react-lite";
 import { GreedyFocusPriority } from "@/util/useTypingCallback";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 interface Props {
   message: ThreadMessageDTO;
@@ -44,10 +44,12 @@ export const MessageContent = observer(({ message }: Props) => {
         setValue={setValue}
       />
       <span className={c.edited}>
-        <span className="gold">{t("message_content.escape")}</span>{" "}
-        {t("message_content.forCancel")},
-        <span className="gold">{t("message_content.enter")}</span>{" "}
-        {t("message_content.forSave")}
+        <Trans
+          i18nKey="message_content.edit"
+          components={{
+            key: <span className="gold" />,
+          }}
+        />
       </span>
     </>
   ) : (

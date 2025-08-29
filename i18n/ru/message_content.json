@@ -1,9 +1,6 @@
 {
   "message_content": {
-    "escape": "Escape",
-    "forCancel": "to cancel",
-    "enter": "Enter",
-    "forSave": "to save",
-    "edited": "edited"
+    "edit": "<key>escape</key> для отмены, <key>enter</key> сохранить",
+    "edited": "редактировано"
   }
 }

@@ -1,16 +1,16 @@
 {
   "log_file_history": {
-    "onlyAccusedMessages": "Only messages from the accused",
-    "messageFilter": "Message filter",
-    "allMessages": "All messages",
-    "allChat": "All chat",
-    "teamMessages": "Team messages",
-    "loading": "Loading...",
-    "chat": "Chat",
-    "author": "Author",
-    "message": "Message",
-    "toAll": "To all",
-    "toTeam": "To team",
-    "noMessages": "Player has not sent messages in the chat"
+    "onlyAccusedMessages": "Только сообщения обвиняемого",
+    "messageFilter": "Фильтр сообщений",
+    "allMessages": "Все сообщения",
+    "allChat": "Общий чат",
+    "teamMessages": "Командный чат",
+    "loading": "Загрузка...",
+    "chat": "Чат",
+    "author": "Автор",
+    "message": "Сообщение",
+    "toAll": "ВСЕМ: ",
+    "toTeam": "КОМАНДЕ:",
+    "noMessages": "Игрок не писал в чат."
   }
 }

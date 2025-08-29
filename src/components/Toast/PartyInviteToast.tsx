@@ -27,8 +27,9 @@ export const PartyInviteToastFactory: React.FC<
   return (
     <div className={c.toast}>
       <div className={c.content}>
-        <span className="gold">{inviter.name}</span>{" "}
-        {t("party_invite.groupInvite")}
+        {t("party_invite.groupInvite", {
+          username: inviter.name,
+        })}
       </div>
       <div className={c.buttons}>
         <Button onClick={accept} className={c.accept}>

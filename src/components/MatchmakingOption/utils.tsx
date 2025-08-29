@@ -7,6 +7,7 @@ import {
 } from "@/const/game-mode-access-level";
 import { QueueStore } from "@/store/queue/QueueStore";
 import { TFunction } from "i18next";
+import { Trans } from "react-i18next";
 
 export const modEnableCondition = (
   queue: QueueStore,
@@ -30,8 +31,12 @@ export const modEnableCondition = (
     if (requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
       return (
         <>
-          {t("matchmaking_option.needToPlayAgainstBots")}
-          <span className="gold">{t("matchmaking_option.bots")}</span>
+          <Trans
+            i18nKey="matchmaking_option.needToPlayAgainstBots"
+            components={{
+              attention: <span className="gold" />,
+            }}
+          />
         </>
       );
     } else if (requiredAccessLevel === GameModeAccessLevel.HUMAN_GAMES) {

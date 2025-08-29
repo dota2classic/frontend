@@ -1,7 +1,6 @@
 {
   "waiting_accept": {
-    "searchingServer": "Searching for a server...",
-    "waitingForPlayers": "Waiting for other players",
-    "avatarAlt": "Avatar of player {{steamId}}"
+    "searchingServer": "Ищем игровой сервер...",
+    "waitingForPlayers": "Ожидаем других игроков..."
   }
 }

@@ -1,8 +1,8 @@
 {
   "queues": {
-    "sendNotification": "Send notification about searching",
-    "party": "Party ",
-    "emptyQueue": "The queue is empty",
-    "online": "Online"
+    "sendNotification": "Призвать к поиску",
+    "party": "Группа ",
+    "emptyQueue": "Очередь пуста",
+    "online": "Онлайн"
   }
 }

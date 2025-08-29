@@ -1,9 +1,9 @@
 {
   "rich_message": {
-    "matches": "Matches <ForumUsername steamId={{steamId}} />",
-    "records": "Records <ForumUsername steamId={{steamId}} />",
-    "heroes": "Heroes <ForumUsername steamId={{steamId}} />",
-    "teammates": "Teammates <ForumUsername steamId={{steamId}} />",
-    "match": "Match {{matchId}}"
+    "player_matches": "Матчи <username />",
+    "player_records": "Рекорды <username />",
+    "player_heroes": "Герои <username />",
+    "player_teammates": "Союзники <username />",
+    "match": "Матч {{matchId}}"
   }
 }

@@ -60,9 +60,6 @@ export const WaitingAccept = observer((p: Props) => {
                     user.tryGetUser(entry.steamId)?.entry?.user?.avatar ||
                     "/avatar.png"
                   }
-                  alt={t("waiting_accept.avatarAlt", {
-                    steamId: entry.steamId,
-                  })}
                 />
               </picture>
             </PageLink>

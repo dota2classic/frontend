@@ -1,9 +1,8 @@
 {
   "matchmaking_option": {
-    "searchForbiddenUntil": "Search forbidden until {{date}}",
-    "needToPlayAgainstBots": "Need to play against ",
-    "bots": "bots",
-    "needToWinAnyMode": "Need to win in any mode",
-    "needToPlayMore": "Need to play {{gamesRequired}} more games in Regular 5x5"
+    "searchForbiddenUntil": "Поиск запрещен до {{date}}",
+    "needToPlayAgainstBots": "Нужно сыграть против <attention>ботов</attention>",
+    "needToWinAnyMode": "Нужно победить в любом режиме",
+    "needToPlayMore": "Нужно сыграть еще {{gamesRequired}} игр в Обычная 5х5"
   }
 }
