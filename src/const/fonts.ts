@@ -1,10 +1,13 @@
-import { Rubik } from "next/font/google";
+import { JetBrains_Mono, Rubik } from "next/font/google";
 import localFont from "next/font/local";
 
 export const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
 });
 
+export const tableFont = JetBrains_Mono({
+  subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
+});
 export const TrajanPro = localFont({
   src: [
     { path: "../pages/Trajan Pro 3 Regular.otf", weight: "500" },

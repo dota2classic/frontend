@@ -136,6 +136,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       domain: getBaseCookieDomain(),
       path: "/",
     });
+    BrowserCookies.set(AuthStore.cookieTokenKey, "");
     if (typeof window !== "undefined") {
       window.location.reload();
     }

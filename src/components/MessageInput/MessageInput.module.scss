@@ -131,7 +131,7 @@
   background-color: $bg2;
   @include box();
   width: 400px;
-  max-height: 300px;
+  max-height: 400px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -141,6 +141,7 @@
 
 .suggestion {
   padding: 4px 8px !important;
+  font-size: 1rem !important;
 }
 
 .focused {

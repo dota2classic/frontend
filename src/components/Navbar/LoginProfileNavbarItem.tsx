@@ -78,7 +78,7 @@ export const LoginProfileNavbarItem = observer(function LoginNavbarItem() {
         height={30}
         className={c.playerAvatar}
         src={smallAvatar || "/avatar.png"}
-        alt={t("navbar.userAvatarAlt")}
+        alt="avatar"
       />
     </NavbarItem>
   );

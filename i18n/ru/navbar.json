@@ -20,12 +20,12 @@
     "live": "Live",
     "stream": "Стрим",
 
-
     "matches": "Матчи",
     "heroes": "Герои",
     "items": "Предметы",
     "players": "Игроки",
     "records": "Рекорды",
-    "meta": "Мета"
+    "meta": "Мета",
+    "login": "Войти"
   }
 }

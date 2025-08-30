@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { Mention, MentionsInput, SuggestionDataItem } from "react-mentions";
 import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
+import { tableFont } from "@/const/fonts";
 
 type ExtendedSuggestionDataItem = SuggestionDataItem & { user: UserDTO };
 
@@ -149,7 +150,10 @@ export const MessageInput = observer(function MessageInput(p: {
             setValue(newValue);
           }}
           customSuggestionsContainer={(children) => (
-            <div style={{ zIndex: 500 }} className={c.suggestion_list}>
+            <div
+              style={{ zIndex: 500 }}
+              className={cx(c.suggestion_list, tableFont.className)}
+            >
               {children}
             </div>
           )}
