@@ -5,10 +5,11 @@ import { useRouter } from "next/router";
 import { TabItem } from "@/components/BigTabs/BigTabs";
 import { TrajanPro } from "@/const/fonts";
 import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 type TechTab = "performance" | "commands" | "faq" | "download";
 
-const items: TabItem<TechTab, string>[] = [
+const items: TabItem<TechTab, TranslationKey>[] = [
   {
     key: "download",
     onSelect: AppRouter.download.link,

@@ -126,7 +126,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
     const launchGame = () => {
       getApi()
         .lobby.lobbyControllerStartLobby(data.id)
-        .catch((e) => handleException(t("lobby.errorWhileStartingLobby"), e));
+        .catch((e) => handleException(t("lobby.errorStartingLobby"), e));
     };
 
     const leaveLobby = () => {

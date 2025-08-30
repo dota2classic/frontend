@@ -18,8 +18,8 @@ import { ColumnType } from "@/const/tables";
 import { NotoSans } from "@/const/notosans";
 import { TechStaticTabs } from "@/containers";
 import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
-import { Trans, useTranslation } from "react-i18next";
-import type { TFunction } from "i18next";
+import { Trans, TranslationFunction, useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 const useDownloadData = () => {
   const { t } = useTranslation();
@@ -88,7 +88,7 @@ interface Props {
   initialOS: OperatingSystem;
 }
 
-const GuideCompact = (t: TFunction) => [
+const GuideCompact = (t: TranslationFunction) => [
   {
     title: t("download_page.launchGame"),
     content: (
@@ -150,7 +150,9 @@ const GuideCompact = (t: TFunction) => [
             <Trans
               i18nKey="download_page.setupSearch"
               values={{
-                mode: t(`matchmaking_mode.${MatchmakingMode.BOTS}`),
+                mode: t(
+                  `matchmaking_mode.${MatchmakingMode.BOTS}` as TranslationKey,
+                ),
               }}
               components={{
                 queue: (
@@ -180,7 +182,9 @@ const GuideCompact = (t: TFunction) => [
               queue: <PageLink link={AppRouter.queue.link} className="link" />,
             }}
             values={{
-              mode: t(`matchmaking_mode.${MatchmakingMode.UNRANKED}`),
+              mode: t(
+                `matchmaking_mode.${MatchmakingMode.UNRANKED}` as TranslationKey,
+              ),
             }}
           />
         </p>

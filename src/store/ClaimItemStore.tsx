@@ -7,6 +7,7 @@ import {
 import { AppRouter, NextLinkProp } from "@/route";
 import { ReactNode } from "react";
 import cx from "clsx";
+import { TranslationKey } from "@/TranslationKey";
 
 export enum ClaimType {
   SUBSCRIPTION = "SUBSCRIPTION",
@@ -23,7 +24,7 @@ interface ClaimSubscription {
     className?: string;
   };
   action: {
-    label: string;
+    label: TranslationKey;
     link: NextLinkProp;
   };
 }
@@ -57,10 +58,10 @@ export class ClaimItemStore {
         title: "Подписка приобретена!",
         item: {
           image: "/maskot/present.png",
-          label: "dotaclassic plus",
+          label: "claim_container.dotaclassicPlus",
         },
         action: {
-          label: "Настроить профиль",
+          label: "claim_container.customizeProfile",
           link: AppRouter.players.player.settings(notification.steamId).link,
         },
       } satisfies ClaimSubscription);
@@ -79,7 +80,7 @@ export class ClaimItemStore {
           className: cx("rarity", marketItem.rarity.toString()),
         },
         action: {
-          label: "Получить",
+          label: "claim_container.claim",
           link: AppRouter.players.player.drops(notification.steamId).link,
         },
       } satisfies ClaimSubscription);

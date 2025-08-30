@@ -1,5 +1,6 @@
 {
   "edit_rules": {
-    "editingRules": "Editing Rules"
+    "editingRules": "Editing Rules",
+    "deleteRuleDatabase": "Удалить в базе"
   }
 }

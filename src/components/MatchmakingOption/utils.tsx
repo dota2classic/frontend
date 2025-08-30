@@ -6,13 +6,12 @@ import {
   getRequiredAccessLevel,
 } from "@/const/game-mode-access-level";
 import { QueueStore } from "@/store/queue/QueueStore";
-import { TFunction } from "i18next";
-import { Trans } from "react-i18next";
+import { Trans, TranslationFunction } from "react-i18next";
 
 export const modEnableCondition = (
   queue: QueueStore,
   mode: MatchmakingMode,
-  t: TFunction<"translation", undefined>,
+  t: TranslationFunction,
 ): React.ReactNode | undefined => {
   if (queue.partyBanStatus?.isBanned) {
     return (

@@ -14,6 +14,8 @@
     "autoRepeatRightClick": "Автоматический повтор нажатия ПКМ",
     "disableMinimapClickDelay": "Отключить задержку клика по мини-карте",
     "increaseHeroIconsOnMinimap": "Увеличение иконок героев на мини-карте",
+    "consoleCommandSelfCastTimeout": "Эта консольная команда ускоряет применение двойного нажатия на себя через альт(ниже 0.2 не ставить!)",
+    "highlightUnits": "Подсветка юнитов",
     "quickAttack": "Быстрая атака",
     "moveDirection": "Идти в направлении",
     "abilityRange": "Дальность умений",

@@ -31,6 +31,7 @@ import { formatBanReason } from "@/util/texts/bans";
 import { hasSubscription } from "@/util/subscription";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -55,7 +56,7 @@ type PlayerPage =
   | "drops"
   | "settings";
 
-type Items = IBigTabsProps<PlayerPage, string>["items"];
+type Items = IBigTabsProps<PlayerPage, TranslationKey>["items"];
 
 const getMenuItems = (steamId: string, isMyProfile: boolean): Items => {
   const menuItems: Items = [
@@ -213,7 +214,9 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                   <PageLink
                     link={AppRouter.matches.match(session.matchId).link}
                   >
-                    {t(`matchmaking_mode.${session.lobbyType}`)}
+                    {t(
+                      `matchmaking_mode.${session.lobbyType}` as TranslationKey,
+                    )}
                   </PageLink>
                 </dd>
                 <dt>{t("player_summary.matchPlaying")}</dt>

@@ -30,6 +30,7 @@ import {
   useDotaMapOptions,
 } from "@/const/options";
 import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 interface PageProps {
   initialServerPool: GameServerDto[];
@@ -62,7 +63,7 @@ const SessionList = observer(
           {
             type: ColumnType.Raw,
             name: t("admin.servers.sessionList.mode"),
-            format: (gm) => t(`matchmaking_mode.${gm}`),
+            format: (gm) => t(`matchmaking_mode.${gm}` as TranslationKey),
           },
           {
             type: ColumnType.Raw,
@@ -215,7 +216,7 @@ export default function AdminServersPage({
   return (
     <div className={c.gridPanel}>
       <Section className={c.grid12}>
-        <header>{t("admin.servers.gameModes")}</header>
+        <header>{t("admin.servers.gameModes.title")}</header>
 
         <Table>
           <thead>
@@ -234,7 +235,11 @@ export default function AdminServersPage({
           <tbody>
             {modes.map((matchmakingMode) => (
               <tr key={matchmakingMode.lobbyType.toString()}>
-                <td>{t(`matchmaking_mode.${matchmakingMode.lobbyType}`)}</td>
+                <td>
+                  {t(
+                    `matchmaking_mode.${matchmakingMode.lobbyType}` as TranslationKey,
+                  )}
+                </td>
                 <td>
                   <SelectOptions
                     defaultText={t("admin.servers.gameModes.selectGameMode")}

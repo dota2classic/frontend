@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { PlayerRecordDto } from "@/api/back";
 import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 interface IRecordCardProps {
   record: PlayerRecordDto;
@@ -26,7 +27,7 @@ export const RecordCardPlaceholder = ({
       <div className={c.shadow} />
       <div className={c.contentContainer}>
         <span className={c.recordType}>
-          {t(`records.${record.recordType}`)}
+          {t(`records.${record.recordType}` as TranslationKey)}
         </span>
         <div className={c.recordValue}>Не поставлен</div>
         {!noPlayer && (

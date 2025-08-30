@@ -37,7 +37,7 @@ export const HeroPlayersTable: React.FC<IHeroPlayersTableProps> = ({
           color: colors.green,
         },
         {
-          name: t("tables.winRate"),
+          name: t("tables.winrate"),
           type: ColumnType.PercentWithBar,
           color: colors.red,
         },

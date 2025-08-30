@@ -1,6 +1,9 @@
 {
   "claim_container": {
     "default_title": "Default Title",
-    "default_action_label": "Default Action Label"
+    "default_action_label": "Default Action Label",
+    "customizeProfile": "Настроить профиль",
+    "dotaclassicPlus": "dotaclassic plus",
+    "claim": "Получить"
   }
 }

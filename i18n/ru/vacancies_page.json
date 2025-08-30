@@ -18,6 +18,7 @@
     "frontendDevDescription": "Основной сайт написан на NextJS, но некоторые компоненты(например, превью предметов) написаны на Vue. Много интересных фичей ждет разработки, а также рефакторинг существующей кодовой базы.",
     "uiDesigner": "UI дизайнер",
     "uiDesignerDescription": "У сайта есть \"зародыш\" стиля, но не хватает общей дизайн системы и структуры. Опытный дизайнер поможет нам прийти к однообразию, визуальной стабильности и удобству пользования.",
+    "layoutAndComponentSystem": "Построение макетов и систем компонентов",
     "expectedSkills": "Ожидаемые навыки и инструменты:",
     "devops": "DevOps/System admin",
     "devopsDescription": "Support and enhancement of multiple VPS machines. Our main app runs in docker-compose, while game servers are run on separate smaller servers.",

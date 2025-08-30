@@ -7,6 +7,7 @@ import {
 import heroes from "@/util/texts/heroes";
 import { Region } from "@/api/back";
 import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 const DotaMapOptions = [
   DotaMap.DOTA,
@@ -15,7 +16,7 @@ const DotaMapOptions = [
   DotaMap.DOTA_AUTUMN,
   DotaMap.DOTA_WINTER,
 ].map((dm) => ({
-  label: `dota_map.${dm}`,
+  label: `dota_map.${dm}` as TranslationKey,
   value: dm,
 }));
 
@@ -54,7 +55,7 @@ const DotaGameModeOptions = [
   DotaGameMode.DIRETIDE,
   DotaGameMode.ARDM,
 ].map((gm) => ({
-  label: `game_mode.${gm}`,
+  label: `game_mode.${gm}` as TranslationKey,
   value: gm,
 }));
 
@@ -66,8 +67,8 @@ export const useDotaGameModeOptions = () => {
   }));
 };
 
-const GameModeOptions = [
-  { value: "undefined", label: "Все режимы" },
+const GameModeOptions: { value: string; label: TranslationKey }[] = [
+  { value: "undefined", label: "matchmaking_mode.all" },
   ...[
     // MatchmakingMode.RANKED,
     MatchmakingMode.UNRANKED,
@@ -78,7 +79,7 @@ const GameModeOptions = [
     MatchmakingMode.HIGHROOM,
   ].map((it) => ({
     value: it.toString(),
-    label: `matchmaking_mode.${it}`,
+    label: `matchmaking_mode.${it}` as TranslationKey,
   })),
 ];
 

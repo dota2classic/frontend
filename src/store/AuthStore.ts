@@ -132,11 +132,9 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     console.trace("Logout called");
     this.token = undefined;
     appApi.apiParams.accessToken = undefined;
-    BrowserCookies.set(AuthStore.cookieTokenKey, "", {
-      domain: getBaseCookieDomain(),
-      path: "/",
+    BrowserCookies.erase(AuthStore.cookieTokenKey, {
+      domain: "." + getBaseCookieDomain(),
     });
-    BrowserCookies.set(AuthStore.cookieTokenKey, "");
     if (typeof window !== "undefined") {
       window.location.reload();
     }

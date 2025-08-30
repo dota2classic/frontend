@@ -72,8 +72,16 @@ locales.forEach((locale) => {
     }
   });
 
-  fs.writeFileSync(
-    `src/i18n/${locale}.json`,
-    JSON.stringify(flattenObject(combinedData), null, 2),
-  );
+  const flat = flattenObject(combinedData);
+  fs.writeFileSync(`src/i18n/${locale}.json`, JSON.stringify(flat, null, 2));
+
+  if (locale === "ru") {
+    const typeDeclaration = Object.keys(flat)
+      .map((key) => `'${key}'`)
+      .join(" | ");
+    fs.writeFileSync(
+      "src/TranslationKey.d.ts",
+      `export type TranslationKey = ${typeDeclaration}`,
+    );
+  }
 });

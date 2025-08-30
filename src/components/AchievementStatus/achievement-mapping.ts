@@ -1,7 +1,11 @@
 import { AchievementKey } from "@/api/mapped-models";
+import { TranslationKey } from "@/TranslationKey";
 
 export const AchievementMapping: Partial<
-  Record<AchievementKey, { img: string; description: string; title: string }>
+  Record<
+    AchievementKey,
+    { img: string; description: TranslationKey; title: TranslationKey }
+  >
 > = {
   [AchievementKey.WIN_1HR_GAME_AGAINST_TECHIES]: {
     img: "/achievement/Proximity_Mines_icon.webp",

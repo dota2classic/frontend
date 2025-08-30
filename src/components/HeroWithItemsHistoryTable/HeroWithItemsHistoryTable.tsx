@@ -9,6 +9,7 @@ import { KDABarChart } from "@/components/BarChart/KDABarChart";
 import { ColumnType } from "@/const/tables";
 import { UserDTO } from "@/api/back";
 import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 export interface PlayerMatchItem {
   hero: string;
@@ -83,8 +84,10 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
           name: t("tables.mode"),
           format: ([lobby, mode]) => (
             <div className={c.twoRows}>
-              <span>{t(`matchmaking_mode.${lobby}`)}</span>
-              <span className={c.secondary}>{t(`game_mode.${mode}`)}</span>
+              <span>{t(`matchmaking_mode.${lobby}` as TranslationKey)}</span>
+              <span className={c.secondary}>
+                {t(`game_mode.${mode}` as TranslationKey)}
+              </span>
             </div>
           ),
           mobileOmit: true,
