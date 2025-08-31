@@ -32,8 +32,8 @@ import { getCache } from "@/api/api-cache";
 import BrowserCookies from "browser-cookies";
 import { __unsafeGetClientStore } from "@/store";
 import { parseJwt } from "@/util";
-import {getBaseCookieDomain, getBaseDomain} from "@/util/getBaseCookieDomain";
-import {AuthStore} from "@/store/AuthStore";
+import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
+import { AuthStore } from "@/store/AuthStore";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
@@ -108,9 +108,8 @@ export class AppApi {
           domain: getBaseDomain(),
         });
 
-        if (typeof window !== "undefined") {
-          window.location.reload();
-        }
+        window.location.reload();
+        return
       }
     }
 
