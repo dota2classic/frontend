@@ -109,7 +109,7 @@ export class AppApi {
         });
 
         window.location.reload();
-        return
+        return;
       }
     }
 
