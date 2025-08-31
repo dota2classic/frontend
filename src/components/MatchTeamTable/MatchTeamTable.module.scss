@@ -64,6 +64,13 @@
   @media (max-width: 600px) {
     grid-template-columns: repeat(3, 1fr);
     width: fit-content;
+    gap: 0 !important;
+  }
+
+  &__secondary {
+    //justify-content: space-around;
+    //width: fit-content;
+    //grid-template-columns: repeat(6, 1fr);
   }
 }
 
@@ -169,4 +176,15 @@
 }
 
 .streak {
+}
+
+.heroes {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.heroIcon {
+  position: relative;
+
 }

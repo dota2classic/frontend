@@ -5,21 +5,14 @@
       "description": "Страница матча с ID {{matchId}}, сыгранного на старом клиенте Dota 2 6.84 на сайте dotaclassic.ru"
     },
     "radiant": "Силы Света",
-    "dire": "Силы Тьмы"
-  },
-  "match_summary": {
-    "summary": "Сводка"
-  },
-  "farming": {
-    "farming": "Фарм"
-  },
-  "damage": {
-    "damage": "Урон"
-  },
-  "items": {
-    "items": "Предметы"
-  },
-  "other": {
-    "other": "Прочее"
+    "dire": "Силы Тьмы",
+
+    "tabs": {
+      "summary": "Сводка",
+      "farming": "Фарм",
+      "damage": "Урон",
+      "items": "Предметы",
+      "other": "Прочее"
+    }
   }
 }

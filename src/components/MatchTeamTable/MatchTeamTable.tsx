@@ -228,9 +228,15 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                       </span>
                     )}
                     <PageLink
+                      className={c.heroes}
                       link={AppRouter.heroes.hero.index(player.hero).link}
                     >
-                      <HeroIcon hero={player.hero} />
+                      <picture className={c.heroIcon}>
+                        <HeroIcon hero={player.hero} />
+                        <span className={c.level}>{player.level}</span>
+                      </picture>
+
+                      {player.bear && <HeroIcon small hero={"spirit_bear"} />}
                     </PageLink>
                     <img
                       className={cx(
@@ -242,7 +248,6 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                       })}
                       src="/abandon.png"
                     />
-                    <span className={c.level}>{player.level}</span>
                   </div>
                 </td>
                 <td>
@@ -398,6 +403,15 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     <ItemIcon item={player.item4} />
                     <ItemIcon item={player.item5} />
                   </div>
+                  {player.bear && (
+                    <div
+                      className={cx(c.itemsWrapper, c.itemsWrapper__secondary)}
+                    >
+                      {player.bear.map((item, idx) => (
+                        <ItemIcon key={idx} item={item} />
+                      ))}
+                    </div>
+                  )}
                 </td>
                 <td className={hc.includes("MMR") ? c.mobileHidden : undefined}>
                   {(player.mmr?.change && (

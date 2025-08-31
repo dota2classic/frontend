@@ -70,6 +70,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   private setTokenFromCookies = () => {
     if (typeof window !== "undefined") {
       const cookie = BrowserCookies.get(AuthStore.cookieTokenKey);
+      console.log("SetTokenFromCookies");
       if (cookie) {
         this.setToken(cookie, false);
       }
@@ -121,6 +122,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   public setToken = (token: string | undefined, fetchMe: boolean = true) => {
     this.token = token;
     appApi.apiParams.accessToken = token;
+    console.log(`Set token to ${token ? "token" : "null"}`);
 
     if (fetchMe) {
       this.fetchMe();

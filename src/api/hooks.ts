@@ -96,6 +96,13 @@ export class AppApi {
   requestRefreshToken = (token: string) => {
     const jwt = parseJwt<JwtPayload>(token);
 
+    if (jwt.exp < Date.now()) {
+      // Already expired long time ago
+      if (typeof window !== "undefined") {
+        __unsafeGetClientStore().auth.logout();
+      }
+    }
+
     const isExpiringSoon = jwt.exp * 1000 - new Date().getTime() <= 1000 * 60; // Less than a
 
     const isTokenStale = new Date().getTime() - jwt.iat * 1000 >= 1000 * 60 * 5; // 5 minutes is stale enough

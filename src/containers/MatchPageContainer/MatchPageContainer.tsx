@@ -24,6 +24,7 @@ import { MatchThread } from "@/containers/MatchPageContainer/MatchThread";
 import { observer } from "mobx-react-lite";
 import { getMaxMatchValues } from "@/util/useMaxMatchValues";
 import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 interface IMatchPageContainerProps {
   matchId: number;
@@ -31,27 +32,27 @@ interface IMatchPageContainerProps {
   liveMatches: LiveMatchDto[];
 }
 
-type Filter = { label: string; columns: Columns[] };
+type Filter = { label: TranslationKey; columns: Columns[] };
 
 const options: Filter[] = [
   {
-    label: "match_summary",
+    label: "match.tabs.farming",
     columns: ["K", "D", "A", "NW"],
   },
   {
-    label: "farming",
+    label: "match.tabs.farming",
     columns: ["GPM", "LH", "NW"],
   },
   {
-    label: "damage",
+    label: "match.tabs.damage",
     columns: ["HD", "TD", "NW"],
   },
   {
-    label: "items",
+    label: "match.tabs.items",
     columns: ["Items"],
   },
   {
-    label: "other",
+    label: "match.tabs.other",
     columns: ["MMR", "Actions"],
   },
 ];
