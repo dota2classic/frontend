@@ -16,9 +16,8 @@ export const modEnableCondition = (
   if (queue.partyBanStatus?.isBanned && mode === MatchmakingMode.UNRANKED) {
     return (
       <>
-        {t("matchmaking_option.searchForbiddenUntil", {
-          date: <TimeAgo date={queue.partyBanStatus!.bannedUntil} />,
-        })}
+        {t("matchmaking_option.searchForbiddenUntil")}{" "}
+        <TimeAgo date={queue.partyBanStatus!.bannedUntil} />
       </>
     );
   }
@@ -28,13 +27,7 @@ export const modEnableCondition = (
     new Date(queue.partyBanStatus!.bannedUntil).getTime() >
       Date.now() + 1000 * 60 * 60 * 24 * 365
   ) {
-    return (
-      <>
-        {t("matchmaking_option.searchForbiddenUntil", {
-          date: <TimeAgo date={queue.partyBanStatus!.bannedUntil} />,
-        })}
-      </>
-    );
+    return <>{t("matchmaking_option.searchForbiddenPermanent")}</>;
   }
 
   const requiredAccessLevel = getRequiredAccessLevel(mode);

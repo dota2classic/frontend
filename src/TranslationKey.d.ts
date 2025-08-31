@@ -824,6 +824,7 @@ export type TranslationKey =
   | "matchmaking_option.dropRewards"
   | "matchmaking_option.inQueue"
   | "matchmaking_option.searchForbiddenUntil"
+  | "matchmaking_option.searchForbiddenPermanent"
   | "matchmaking_option.needToPlayAgainstBots"
   | "matchmaking_option.needToWinAnyMode"
   | "matchmaking_option.needToPlayMore"
