@@ -69,9 +69,22 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   @action
   private setTokenFromCookies = () => {
     if (typeof window !== "undefined") {
-      const cookie = BrowserCookies.get(AuthStore.cookieTokenKey);
+      let cookie: string | undefined | null = BrowserCookies.get(
+        AuthStore.cookieTokenKey,
+      );
       console.log("SetTokenFromCookies");
       if (cookie) {
+        const jwt = parseJwt<JwtPayload>(cookie);
+        if (jwt.exp * 1000 < Date.now()) {
+          console.warn("Outdated token in cookies! Removing");
+          cookie = undefined;
+          BrowserCookies.erase(AuthStore.cookieTokenKey, {
+            domain: "." + getBaseCookieDomain(),
+          });
+          BrowserCookies.erase(AuthStore.cookieTokenKey, {
+            domain: getBaseDomain(),
+          });
+        }
         this.setToken(cookie, false);
       }
     }
@@ -120,14 +133,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @action
   public setToken = (token: string | undefined, fetchMe: boolean = true) => {
-    if (token) {
-      const jwt = parseJwt<JwtPayload>(token);
-      if (jwt.exp * 1000 < Date.now()) {
-        console.warn("Outdated token in cookies! Ignoring");
-        token = undefined;
-      }
-    }
-
     this.token = token;
     appApi.apiParams.accessToken = token;
     console.log(`Set token to ${token ? "token" : "null"}`);
