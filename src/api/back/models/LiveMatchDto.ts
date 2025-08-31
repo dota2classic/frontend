@@ -82,6 +82,18 @@ export interface LiveMatchDto {
     timestamp: number;
     /**
      * 
+     * @type {Array<number>}
+     * @memberof LiveMatchDto
+     */
+    towers: Array<number>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof LiveMatchDto
+     */
+    barracks: Array<number>;
+    /**
+     * 
      * @type {Array<MatchSlotInfo>}
      * @memberof LiveMatchDto
      */
@@ -105,6 +117,8 @@ export function LiveMatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'duration': json['duration'],
         'server': json['server'],
         'timestamp': json['timestamp'],
+        'towers': json['towers'],
+        'barracks': json['barracks'],
         'heroes': ((json['heroes'] as Array<any>).map(MatchSlotInfoFromJSON)),
     };
 }
@@ -125,6 +139,8 @@ export function LiveMatchDtoToJSON(value?: LiveMatchDto | null): any {
         'duration': value.duration,
         'server': value.server,
         'timestamp': value.timestamp,
+        'towers': value.towers,
+        'barracks': value.barracks,
         'heroes': ((value.heroes as Array<any>).map(MatchSlotInfoToJSON)),
     };
 }

@@ -10,3 +10,9 @@ export function getBaseCookieDomain() {
     }
   }
 }
+
+export function getBaseDomain() {
+  if (typeof window !== "undefined") {
+    return window.location.hostname;
+  }
+}

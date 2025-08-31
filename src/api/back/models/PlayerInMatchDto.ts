@@ -174,6 +174,12 @@ export interface PlayerInMatchDto {
      * @memberof PlayerInMatchDto
      */
     mmr?: MmrChangeDto;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof PlayerInMatchDto
+     */
+    bear?: Array<number>;
 }
 
 export function PlayerInMatchDtoFromJSON(json: any): PlayerInMatchDto {
@@ -210,6 +216,7 @@ export function PlayerInMatchDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'item5': json['item5'],
         'abandoned': json['abandoned'],
         'mmr': !exists(json, 'mmr') ? undefined : MmrChangeDtoFromJSON(json['mmr']),
+        'bear': !exists(json, 'bear') ? undefined : json['bear'],
     };
 }
 
@@ -246,6 +253,7 @@ export function PlayerInMatchDtoToJSON(value?: PlayerInMatchDto | null): any {
         'item5': value.item5,
         'abandoned': value.abandoned,
         'mmr': MmrChangeDtoToJSON(value.mmr),
+        'bear': value.bear,
     };
 }
 

@@ -88,6 +88,18 @@ export interface MatchDto {
      * @memberof MatchDto
      */
     replayUrl?: string;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof MatchDto
+     */
+    towers: Array<number>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof MatchDto
+     */
+    barracks: Array<number>;
 }
 
 export function MatchDtoFromJSON(json: any): MatchDto {
@@ -109,6 +121,8 @@ export function MatchDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'duration': json['duration'],
         'timestamp': json['timestamp'],
         'replayUrl': !exists(json, 'replayUrl') ? undefined : json['replayUrl'],
+        'towers': json['towers'],
+        'barracks': json['barracks'],
     };
 }
 
@@ -130,6 +144,8 @@ export function MatchDtoToJSON(value?: MatchDto | null): any {
         'duration': value.duration,
         'timestamp': value.timestamp,
         'replayUrl': value.replayUrl,
+        'towers': value.towers,
+        'barracks': value.barracks,
     };
 }
 

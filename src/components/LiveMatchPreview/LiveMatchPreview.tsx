@@ -4,7 +4,6 @@ import {
   DotaGameRulesState,
   LiveMatchDto,
   MatchSlotInfo,
-  PlayerInfo,
 } from "@/api/back";
 import c from "./LiveMatchPreview.module.scss";
 import {
@@ -19,13 +18,14 @@ import {
 import { AppRouter } from "@/route";
 import { KDATableData } from "@/components/GenericTable/GenericTable";
 import cx from "clsx";
-import heroName, { shortName } from "@/util/heroName";
+import heroName from "@/util/heroName";
 import { TbGrave2 } from "react-icons/tb";
-import { remapNumber } from "@/util/math";
 import { iterateItems } from "@/util";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
 import { watchCmd } from "@/util/urls";
+import { MinimapTowers } from "@/components/LiveMatchPreview/MinimapTower";
+import { MinimapHero } from "@/components/LiveMatchPreview/MinimapHero";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -131,33 +131,6 @@ const TeamListTable = ({ players }: { players: MatchSlotInfo[] }) => {
   );
 };
 
-interface MinimapHeroProps {
-  hero: PlayerInfo;
-  team: number;
-}
-
-const MinimapHero = ({ hero, team }: MinimapHeroProps) => {
-  const { posX, posY, respawnTime } = hero;
-  const dead = respawnTime > 0;
-
-  const remappedX = remapNumber(posX, 0, 1, 0.02, 0.96) * 100;
-  const remappedY = remapNumber(posY, 0, 1, 0.02, 0.96) * 100;
-
-  return (
-    <div
-      className={cx(c.hero, shortName(hero.hero), "d2mh", {
-        [c.radiant]: team === 2,
-        [c.dire]: team === 3,
-        [c.dead]: dead,
-      })}
-      style={{
-        left: `${remappedX}%`,
-        bottom: `${remappedY}%`,
-      }}
-    ></div>
-  );
-};
-
 export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
   match,
 }) => {
@@ -185,6 +158,7 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
                 team={slot.team}
               />
             ))}
+          <MinimapTowers towers={match.towers} barracks={match.barracks} />
         </div>
         <TeamListTable players={dire} />
       </div>

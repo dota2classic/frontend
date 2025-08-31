@@ -269,3 +269,46 @@
 .username {
   flex: 1;
 }
+
+.tower {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1px solid $bg2;
+}
+
+.barrack {
+  width: 0.4rem;
+  height: 0.4rem;
+  border: 1px solid $bg2;
+}
+
+.ancient {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid $bg2;
+}
+.building {
+  position: absolute;
+  transition: 0.3s ease;
+
+  &__radiant {
+    background-color: #41a525;
+  }
+
+  &__dire {
+    background-color: $red;
+  }
+
+  &__dead {
+    opacity: 0;
+  }
+
+  &__alive {
+    opacity: 1;
+  }
+
+  &__middle {
+    transform: rotateZ(45deg);
+
+  }
+}
