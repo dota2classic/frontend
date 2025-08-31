@@ -32,7 +32,8 @@ import { getCache } from "@/api/api-cache";
 import BrowserCookies from "browser-cookies";
 import { __unsafeGetClientStore } from "@/store";
 import { parseJwt } from "@/util";
-import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
+import {getBaseCookieDomain, getBaseDomain} from "@/util/getBaseCookieDomain";
+import {AuthStore} from "@/store/AuthStore";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
@@ -99,7 +100,17 @@ export class AppApi {
     if (jwt.exp < Date.now()) {
       // Already expired long time ago
       if (typeof window !== "undefined") {
-        __unsafeGetClientStore().auth.logout();
+        BrowserCookies.erase(AuthStore.cookieTokenKey, {
+          domain: "." + getBaseCookieDomain(),
+        });
+
+        BrowserCookies.erase(AuthStore.cookieTokenKey, {
+          domain: getBaseDomain(),
+        });
+
+        if (typeof window !== "undefined") {
+          window.location.reload();
+        }
       }
     }
 
