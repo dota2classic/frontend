@@ -32,15 +32,14 @@ import { getCache } from "@/api/api-cache";
 import BrowserCookies from "browser-cookies";
 import { __unsafeGetClientStore } from "@/store";
 import { parseJwt } from "@/util";
-import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
-import { AuthStore } from "@/store/AuthStore";
+import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
 const PROD_URL = (process.env.API_URL ||
   process.env.NEXT_PUBLIC_API_URL) as string;
 
-interface JwtPayload {
+export interface JwtPayload {
   sub: string;
   roles: Role[];
   name: string | undefined;
@@ -96,23 +95,6 @@ export class AppApi {
 
   requestRefreshToken = (token: string) => {
     const jwt = parseJwt<JwtPayload>(token);
-
-    if (jwt.exp * 1000 < Date.now()) {
-      // Already expired long time ago
-      if (typeof window !== "undefined") {
-        BrowserCookies.erase(AuthStore.cookieTokenKey, {
-          domain: "." + getBaseCookieDomain(),
-        });
-
-        BrowserCookies.erase(AuthStore.cookieTokenKey, {
-          domain: getBaseDomain(),
-        });
-
-        window.location.reload();
-        return;
-      }
-    }
-
     const isExpiringSoon = jwt.exp * 1000 - new Date().getTime() <= 1000 * 60; // Less than a
 
     const isTokenStale = new Date().getTime() - jwt.iat * 1000 >= 1000 * 60 * 5; // 5 minutes is stale enough

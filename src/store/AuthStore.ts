@@ -9,7 +9,7 @@ import {
 import { HydratableStore } from "@/store/HydratableStore";
 import { parseJwt } from "@/util";
 import BrowserCookies from "browser-cookies";
-import { appApi, getApi } from "@/api/hooks";
+import { appApi, getApi, JwtPayload } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
 import { metrika } from "@/ym";
 import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
@@ -120,6 +120,14 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @action
   public setToken = (token: string | undefined, fetchMe: boolean = true) => {
+    if (token) {
+      const jwt = parseJwt<JwtPayload>(token);
+      if (jwt.exp * 1000 < Date.now()) {
+        console.warn("Outdated token in cookies! Ignoring");
+        token = undefined;
+      }
+    }
+
     this.token = token;
     appApi.apiParams.accessToken = token;
     console.log(`Set token to ${token ? "token" : "null"}`);

@@ -13,7 +13,21 @@ export const modEnableCondition = (
   mode: MatchmakingMode,
   t: TranslationFunction,
 ): React.ReactNode | undefined => {
-  if (queue.partyBanStatus?.isBanned) {
+  if (queue.partyBanStatus?.isBanned && mode === MatchmakingMode.UNRANKED) {
+    return (
+      <>
+        {t("matchmaking_option.searchForbiddenUntil", {
+          date: <TimeAgo date={queue.partyBanStatus!.bannedUntil} />,
+        })}
+      </>
+    );
+  }
+
+  if (
+    queue.partyBanStatus?.isBanned &&
+    new Date(queue.partyBanStatus!.bannedUntil).getTime() >
+      Date.now() + 1000 * 60 * 60 * 24 * 365
+  ) {
     return (
       <>
         {t("matchmaking_option.searchForbiddenUntil", {
