@@ -153,6 +153,9 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   hydrate = (data?: { token?: string }) => {
     if (!data) return;
+    if (typeof window !== "undefined") {
+      return;
+    }
     this.setToken(data.token, false);
   };
 }

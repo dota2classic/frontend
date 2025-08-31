@@ -799,7 +799,6 @@ export type TranslationKey =
   | "match_team_table.header.heroDamage"
   | "match_team_table.header.heroHealing"
   | "match_team_table.header.towerDamage"
-  | "match_team_table.header.gold"
   | "match_team_table.header.items"
   | "match_team_table.header.mmr"
   | "match_team_table.header.actions"
