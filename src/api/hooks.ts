@@ -97,7 +97,7 @@ export class AppApi {
   requestRefreshToken = (token: string) => {
     const jwt = parseJwt<JwtPayload>(token);
 
-    if (jwt.exp < Date.now()) {
+    if (jwt.exp * 1000 < Date.now()) {
       // Already expired long time ago
       if (typeof window !== "undefined") {
         BrowserCookies.erase(AuthStore.cookieTokenKey, {
