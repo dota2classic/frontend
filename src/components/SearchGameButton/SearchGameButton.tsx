@@ -12,6 +12,7 @@ import { getAuthUrl } from "@/util/getAuthUrl";
 import { PeriodicDurationTimerClient } from "@/components/PeriodicTimer/PeriodicDurationTimerClient";
 import { pluralize } from "@/util/pluralize";
 import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 interface Props {
   visible: boolean;
@@ -145,9 +146,7 @@ export const SearchGameButton = observer((p: Props) => {
       searchedModes.length > 1
         ? `${searchedModes.length} ${pluralize(searchedModes.length, t("search_game_button.modeSingular"), t("search_game_button.modePluralGenitive"), t("search_game_button.modePlural"))}`
         : searchedModes
-            .map((mode) => {
-              t(`matchmaking_mode.${mode}`);
-            })
+            .map((mode) => t(`matchmaking_mode.${mode}` as TranslationKey))
             .join(", ");
     return (
       <Button
