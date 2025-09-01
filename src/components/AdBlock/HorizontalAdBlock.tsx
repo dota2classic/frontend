@@ -14,13 +14,13 @@ export const HorizontalAdBlock: React.FC<Props> = ({}: Props) => {
       <a href="https://collectorsshop.ru/promo/old" target="__blank">
         <img
           className={cx(c.imgHorizontal, c.imgHorizontal__large)}
-          src="/ads/D2C_Collectors_Wide_01.webp"
+          src="/img/D2C_Collectors_Wide_01.webp"
           loading="lazy"
           alt=""
         />
         <img
           className={cx(c.imgHorizontal, c.imgHorizontal__small)}
-          src="/ads/D2C_Collectors_Wide_02.webp"
+          src="/img/D2C_Collectors_Wide_02.webp"
           loading="lazy"
           alt=""
         />
