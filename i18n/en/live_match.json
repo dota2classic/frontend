@@ -1,0 +1,10 @@
+{
+  "live_match_page": {
+    "noGames": "There are no games right now.",
+    "launchSearch": "Great reason to start searching!",
+    "mode": "Mode",
+    "matchId": "Match {{matchId}}",
+    "score": "Score:",
+    "duration": "Time:"
+  }
+}

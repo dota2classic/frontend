@@ -1,0 +1,9 @@
+{
+  "claim_container": {
+    "default_title": "Default Title",
+    "default_action_label": "Default Action Label",
+    "customizeProfile": "Customize profile",
+    "dotaclassicPlus": "dotaclassic plus",
+    "claim": "Get"
+  }
+}

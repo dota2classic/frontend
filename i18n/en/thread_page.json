@@ -1,0 +1,9 @@
+{
+  "forum_thread": {
+    "seo": {
+      "title": "{{title}}",
+      "description": "Forum on dotaclassic.ru: {{title}}"
+    },
+    "forum": "Forum"
+  }
+}

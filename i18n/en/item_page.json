@@ -1,0 +1,12 @@
+{
+  "item_page": {
+    "seo": {
+      "title": "{{item}}",
+      "description": "{{item}} in patch {{patch}} {{game}}."
+    },
+    "hero": "Hero",
+    "matches": "Matches",
+    "wins": "Wins",
+    "winRate": "Win rate"
+  }
+}

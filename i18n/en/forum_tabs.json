@@ -1,0 +1,9 @@
+{
+  "forum_tabs": {
+    "forum": "Forum",
+    "technicalSupport": "Technical support",
+    "complaints": "Complaints",
+    "allTechnicalSupport": "All technical support",
+    "allComplaints": "All complaints"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "emoticon_select_window": {
+    "placeholder": ":{code}:",
+    "hoveredEmoticon": ":{{code}}:"
+  }
+}

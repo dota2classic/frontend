@@ -1,0 +1,14 @@
+{
+  "game_ready_modal": {
+    "title": "The game is ready!",
+    "connectToGame": "Connect to the game",
+    "confirmExit": "Are you sure you want to leave this game?",
+    "instructions": "Instructions:",
+    "step1": "Make sure Steam is running.",
+    "step2": "Make sure our game client is running.",
+    "step3": "Use the console command to connect to the game server",
+    "step4": "Having trouble? Post in the chat, we will try to help",
+    "hideGuide": "Hide",
+    "showGuide": "Connection guide"
+  }
+}

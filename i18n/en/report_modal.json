@@ -1,0 +1,15 @@
+{
+  "report_modal": {
+    "reportPlayer": "Report a player",
+    "match": "Match",
+    "matchLabel": "Match",
+    "offender": "Offender",
+    "message": "Message",
+    "brokenRule": "Violated rule",
+    "ruleItem": "Rule item",
+    "comment": "Comment",
+    "commentPlaceholder": "If you want the player to be punished, please specify what happened: behavior, quotes, moments from the match. Remember: frequent inaccurate or unfounded reports may disable the ability to submit reports.",
+    "sendButton": "Submit",
+    "errorCreatingReport": "Error creating report"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "drop_card": {
+    "discardTooltip": "Decline reward",
+    "offeredForTrade": "Offered for trade",
+    "expiresIn": "Expires in",
+    "unknown": "Unknown"
+  }
+}

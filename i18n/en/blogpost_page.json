@@ -1,0 +1,9 @@
+{
+  "blogpostPage": {
+    "seo": {
+      "title": "{{title}}",
+      "description": "{{description}}"
+    },
+    "allNews": "All news"
+  }
+}

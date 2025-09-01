@@ -1,0 +1,11 @@
+{
+  "heroes_meta_table": {
+    "hero": "Hero",
+    "matches": "Matches",
+    "winRate": "Win rate",
+    "pickRate": "Pick rate",
+    "kda": "KDA",
+    "gpmXpm": "GPM/XPM",
+    "lhD": "LH/D"
+  }
+}

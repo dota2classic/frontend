@@ -1,0 +1,18 @@
+{
+  "records": {
+    "KILLS": "Kills",
+    "KDA": "Best KDA",
+    "ASSISTS": "Assists",
+    "DEATHS": "Deaths",
+    "LASTHITS": "Last hits",
+    "DENIES": "Denies",
+    "GPM": "Gold per minute",
+    "XPM": "XP per minute",
+    "NETWORTH": "Net worth",
+    "TOWER_DAMAGE": "Tower damage",
+    "HERO_DAMAGE": "Hero damage",
+    "HERO_HEALING": "Healing",
+    "victory": "Victory",
+    "loss": "Defeat"
+  }
+}

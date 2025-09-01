@@ -1,0 +1,36 @@
+{
+  "match_team_table": {
+    "header": {
+      "hero": "Hero",
+      "player": "Player",
+      "gpm_xpm": "GPM/XPM",
+      "lastHitsDenies": "Last Hits / Denies",
+      "kills": "Kills",
+      "deaths": "Deaths",
+      "assists": "Assists",
+      "heroDamage": "Hero Damage",
+      "heroHealing": "Hero Healing",
+      "towerDamage": "Tower Damage",
+      "items": "Items",
+      "mmr": "MMR",
+      "actions": "Actions"
+    },
+    "tooltip": {
+      "gpmXpm": "Gold per Minute / Experience per Minute",
+      "lastHitsDenies": "Last hits / Denies",
+      "kills": "Kills",
+      "deaths": "Deaths",
+      "assists": "Assists",
+      "heroDamage": "Hero Damage",
+      "heroHealing": "Healing",
+      "towerDamage": "Tower Damage",
+      "gold": "Total Value",
+      "actions": "Actions",
+      "report": "Report",
+      "feedback": "Feedback"
+    },
+    "hero": {
+      "abandoned": "Player {{name}} has left the game"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "notification_setting": {
+    "pushTooltip": "Receive push notifications when a game is available",
+    "enableNotifications": "Enable notifications",
+    "disableNotifications": "Disable notifications"
+  }
+}

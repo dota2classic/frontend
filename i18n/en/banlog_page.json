@@ -1,0 +1,20 @@
+{
+  "banlog_page": {
+    "onlyMine": "Only mine",
+    "dateOfPunishment": "Punishment date",
+    "durationOfBan": "Ban duration",
+    "rule": "Rule",
+    "complaint": "Complaint",
+    "violator": "Offender",
+    "executor": "Executor",
+    "gameplayBan": "Gameplay ban",
+    "communicationBan": "Communication ban",
+    "permaBan": "Permanent ban",
+    "withComplaint": "With a complaint",
+    "withoutComplaint": "No complaint",
+    "seo": {
+      "title": "Violations log",
+      "description": "Violations log for the dotaclassic.ru site"
+    }
+  }
+}

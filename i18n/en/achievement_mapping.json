@@ -1,0 +1,52 @@
+{
+  "achievement": {
+    "win1hrGameAgainstTechies": {
+      "description": "Win an hour-long game against Techies",
+      "title": "Endurer"
+    },
+    "lastHits1000": {
+      "description": "Last-hit 1000 enemy creeps",
+      "title": "Creeps"
+    },
+    "gpm1000": {
+      "description": "End the game with 1000 gold per minute",
+      "title": "Businessman"
+    },
+    "xpm1000": {
+      "description": "End the game with 1000 experience per minute",
+      "title": "Experienced"
+    },
+    "allHeroChallenge": {
+      "description": "Win with every hero",
+      "title": "Universal"
+    },
+    "winBotGame": {
+      "description": "Complete the tutorial",
+      "title": "Classicist"
+    },
+    "winSoloMidGame": {
+      "description": "Win a 1v1",
+      "title": "sololineabuse"
+    },
+    "gpmXpm1000": {
+      "description": "Finish the match with 1000 experience per minute and 1000 gold per minute",
+      "title": "Booster"
+    },
+    "win1hrGame": {
+      "description": "Win an hour-long game",
+      "title": "Fast"
+    },
+    "winStreak10": {
+      "description": "Win 10 games in a row",
+      "title": "Streaker"
+    },
+    "hardcore": {
+      "description": "Win a game with level 25 and no deaths",
+      "title": "Hardcore"
+    },
+    "denies50": {
+      "description": "Deny 50 allied creeps to the enemy",
+      "title": "Dendi"
+    }
+  }
+}

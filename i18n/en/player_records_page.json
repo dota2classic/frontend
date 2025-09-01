@@ -1,0 +1,8 @@
+{
+  "player_records": {
+    "seo": {
+      "title": "Match history for {{name}}",
+      "description": "Player {{name}}'s match history. List of games played in old Dota"
+    }
+  }
+}

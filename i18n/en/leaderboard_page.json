@@ -1,0 +1,19 @@
+{
+  "leaderboard_page": {
+    "seo": {
+      "title": "Leaderboard",
+      "description": "Leaderboard for players on dotaclassic.ru, top players and their statistics"
+    },
+    "season": "Season",
+    "seasonSelect": "Season",
+    "rank": "Rank",
+    "player": "Player",
+    "rating": "Rating",
+    "matches": "Matches",
+    "wins": "Wins",
+    "winRate": "Win Rate",
+    "kda": "KDA",
+    "playTime": "Play Time",
+    "abandons": "Abandons"
+  }
+}

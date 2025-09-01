@@ -1,0 +1,7 @@
+{
+  "live_match": {
+    "liveMatch": "LIVE match {{matchId}}",
+    "matchPreview": "Preview of the active match {{matchId}}, a game map with heroes moving around the map.",
+    "playerAbandoned": "Player {{playerName}} left the game"
+  }
+}

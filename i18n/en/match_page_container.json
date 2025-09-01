@@ -1,0 +1,17 @@
+{
+  "match": {
+    "seo": {
+      "title": "Match {{matchId}}",
+      "description": "Match page with ID {{matchId}}, played on the old Dota 2 6.84 client on dotaclassic.ru"
+    },
+    "radiant": "Radiant",
+    "dire": "Dire",
+    "tabs": {
+      "summary": "Summary",
+      "farming": "Farming",
+      "damage": "Damage",
+      "items": "Items",
+      "other": "Other"
+    }
+  }
+}

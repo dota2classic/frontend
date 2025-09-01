@@ -1,0 +1,7 @@
+{
+  "feedback_modal": {
+    "option": "Option: {{option}}",
+    "yourComment": "Your comment",
+    "submit": "Submit"
+  }
+}

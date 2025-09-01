@@ -1,0 +1,7 @@
+{
+  "duration": {
+    "days": "{{count}} d",
+    "hours": "{{count}} h",
+    "minutes": "{{count}} m"
+  }
+}

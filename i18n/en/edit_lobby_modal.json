@@ -1,0 +1,21 @@
+{
+  "edit_lobby": {
+    "settings": "Lobby settings",
+    "name": "Name",
+    "lobbyName": "Lobby name",
+    "password": "Password",
+    "noPassword": "No password",
+    "map": "Map",
+    "selectMap": "Map",
+    "gameMode": "Game mode",
+    "selectGameMode": "Game mode",
+    "patch": "Patch",
+    "server": "Server",
+    "gamePatch": "Game patch",
+    "serverRegion": "Server region",
+    "settingsHeader": "Settings",
+    "enableCheats": "Enable cheats",
+    "addBots": "Add bots",
+    "saveChanges": "Save changes"
+  }
+}

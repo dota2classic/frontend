@@ -1,0 +1,23 @@
+{
+  "edit_rules": {
+    "createRule": "Create rule",
+    "setIndices": "Set indices",
+    "rule": "Rule",
+    "rulePlaceholder": "Rule",
+    "ruleDescription": "Description of the rule",
+    "ruleDescriptionPlaceholder": "Description of the rule",
+    "punishment": "Punishment",
+    "punishmentDefaultText": "Punishment",
+    "removePunishment": "Remove punishment",
+    "ruleType": "Rule type",
+    "ruleTypeDefaultText": "Rule type",
+    "communication": "Communications",
+    "gameplay": "Gameplay",
+    "flags": "Flags",
+    "autoProcess": "Automatically processed",
+    "saveRule": "Save rule",
+    "deleteRule": "Delete rule from database",
+    "createChildRule": "Create child rule",
+    "createSiblingRule": "Create sibling rule"
+  }
+}

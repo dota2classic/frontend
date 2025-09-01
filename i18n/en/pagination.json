@@ -1,0 +1,5 @@
+{
+  "pagination": {
+    "pageNumber": "Page {{number}}"
+  }
+}

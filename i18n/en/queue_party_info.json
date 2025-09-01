@@ -1,0 +1,14 @@
+{
+  "queue_party_info": {
+    "disconnected": "Connecting to the coordinator...",
+    "authorizing": "Authorizing...",
+    "invitationSent": "Invitation sent {{name}}",
+    "inviteToGroup": "Invite to group",
+    "leaveGroup": "Leave group",
+    "onlineStatus": "{{count}} playing, {{onlineCount}} open tab in browser",
+    "onlineStatusMain": "{{count}} playing, {{onlineCount}} on the site",
+    "gamesInProgress": "Games in progress: {{sessions}}",
+    "onlineStatusShort": "{{inGame}} in game, {{online}} on the site",
+    "currentGames": "Games in progress: {{games}}"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "feedback_page": {
+    "feedback": "Feedback",
+    "tag": "Tag: {{tag}}"
+  }
+}

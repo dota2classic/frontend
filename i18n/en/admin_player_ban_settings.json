@@ -1,0 +1,8 @@
+{
+  "admin_player_ban_settings": {
+    "endTimeLabel": "End time:",
+    "assignLabel": "Assign",
+    "removeBanLabel": "Remove ban",
+    "loadingLabel": "Loading"
+  }
+}

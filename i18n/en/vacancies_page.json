@@ -1,0 +1,34 @@
+{
+  "vacancies_page": {
+    "seo": {
+      "title": "Who we need",
+      "description": "What talents the dotaclassic team needs"
+    },
+    "whoWeNeed": "Who we need",
+    "projectNeeds": "What talents the dotaclassic project needs",
+    "projectIntro": "The <project>{{project}}</project> project is sustained by the enthusiasm of people for whom old DotA is more than just a 'custom game'. We welcome any help, but, unfortunately, free of charge - the project is non-profit and all profits go to development.",
+    "volunteerNote": "All 'vacancies' imply no monetary compensation, but candidates are not expected to have outsized impact.",
+    "productManager": "Product manager",
+    "productManagerDescription": "Our project really needs a person who will guide product development. We have development resources, some analytics, but we devote too little time to working with users and are developing in an 'approximate' direction.",
+    "contentManager": "Content manager",
+    "contentManagerDescription": "We have a Telegram channel, a Discord server, TikTok and YouTube - but there is very little content and it is not on a regular schedule. Developing a content plan, regularly posting to the channels - we simply lack hands for all this.",
+    "productAnalyst": "Product analyst",
+    "productAnalystDescription": "We have a metrics platform and analytics building, but lack professionalism. Forming analytical queries, building product dashboards in Grafana, and most importantly - understanding user behavior and forming hypotheses.",
+    "frontendDev": "Frontend developer React/Vue",
+    "frontendDevDescription": "The main site is written in NextJS, but some components (for example, item previews) are written in Vue. Many interesting features await development, as well as refactoring of the existing codebase.",
+    "uiDesigner": "UI designer",
+    "uiDesignerDescription": "The site has an embryonic style, but lacks a unified design system and structure. An experienced designer will help us achieve consistency, visual stability, and ease of use.",
+    "layoutAndComponentSystem": "Layout and component system development",
+    "expectedSkills": "Expected skills and tools:",
+    "devops": "DevOps/System admin",
+    "devopsDescription": "Support and enhancement of multiple VPS machines. Our main app runs in docker-compose, while game servers are run on separate smaller servers.",
+    "backendDev": "Backend Developer NodeJS/Typescript",
+    "backendDevDescription": "The backend mainly consists of NestJS services communicating via REST, RabbitMQ, and Redis. Main tasks are implementing new features in existing services, creating new services, writing and maintaining integration and unit tests.",
+    "srcdsDev": "SRCDS modder/plugin developer",
+    "srcdsDevDescription": "A very specialized job - development and support of existing SourceMod plugins, configuring configs and working with other Source tools - Hammer and others.",
+    "discordModerator": "Discord moderator/server setup",
+    "discordModeratorDescription": "We'd be happy to help set up the Discord server so it's easy to use, essential information is easily accessible to newcomers, and moderators can easily maintain order.",
+    "contactUs": "How to contact us",
+    "contactInstruction": "DM me on Telegram. Please specify what exactly you are interested in, and tell me about your experience — I would be very interested!"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "info_page": {
+    "seo": {
+      "title": "About the dotaclassic.ru project",
+      "description": "The current state of the project, who runs it, and a bit of history."
+    },
+    "siteEssence": "What is the purpose of the site?",
+    "onlineOldDotaExplanation": "This site helps you play the old version of Dota 2 online. We offer Steam login, convenient game search, a link to the client, support, and useful materials about the version.",
+    "freeOldDotaOpportunity": "We give everyone who wants the opportunity to play the old Dota online for free. If you violate the rules, we may disable access to the service.",
+    "whyOldDota": "Why the old Dota?",
+    "differencesExplanation": "The game now looks completely different from 10 years ago. Some people liked the changes, some did not, and we do not claim that the old version is the best. But trying the original can be interesting for everyone. Here's how they differ:",
+    "oldMapDetails": "The old map has fewer neutral creep camps, Roshan on the river, side shops.",
+    "heroStatsDetails": "Far less health and mana for heroes and more damage - having 700 HP at 15 minutes is normal. Any spell on the lane costs a lot of mana, but also deals a lot of damage. Spending a spell to last-hit a creep is a much more important decision.",
+    "originalHeroesDetails": "Original heroes and their abilities — many abilities that in the current version either do not exist or have been significantly transformed. For example, Pudge here uses his second ability.",
+    "roleSeparationDetails": "Strict role separation: the support needs to gank to earn money. There are far fewer creeps on the map, and kills give a bigger reward.",
+    "costToMaintainSite": "How much does it cost to maintain this site?",
+    "expensesExplanation": "The project has three expense items:",
+    "fixedExpenseDetails": "Mandatory: rent for servers hosting the site and other infrastructure services (storage, analytics, databases). This part is almost fixed and costs about {{amount}} per month. In case of large influxes this part also has to scale; expenses increase to {{amount}} per month.",
+    "scalableExpenseDetails": "Scalable: depending on online, we require a different number of game servers so there are enough slots for everyone. This expense is easy to predict: one optimal game server provides 3-4 parallel games and costs {{amount}} per month. If online is high, as during Pari Rivals 6.84, with around 180 parallel players — we get about 30 parallel games, so the server costs will be around {{amount}} per month.",
+    "advertExpenseDetails": "Advertising: the most flexible part of expenses. Here we are highly dependent on market offers (which YouTubers are willing to cooperate for how much, for example), and, of course, our financial capabilities. We are always glad for new collaborations, and we do not refuse cheap advertising :)",
+    "approximateExpenses": "In total, you can get approximate costs for maintenance: with low online of 5-10 parallel games, this is {{lowOnline}} per month. If online increases, advertising or a hype event triggers, costs can rise to {{highOnline}}.",
+    "projectTeam": "Who runs the project?",
+    "projectHistoryExplanation": "Classic Dota has passed through many hands: Western enthusiasts began hosting games in 2019. After that, there were two communities for quite some time: Western and CIS in the form of Discord servers. Then from 2021 to the end of 2024 all games were on the site https://dota2classic.com. From September 2024 to the present, all games are hosted on this site, by developers and supporters who are involved in:",
+    "developerDetails": "{{name}} - Lead developer of the site",
+    "communityManagerDetails": "{{name}} - \"community manager\", public relations, advertising, reading long texts and generating smart phrases",
+    "wikiDeveloperDetails": "{{name}} - developer of the wiki on items and heroes, the chief scapegoat of matchmaking experiments",
+    "contributorsList": "List of people who contributed to the development of classic Dota:",
+    "ancient678Details": "Ancient678 - created the CIS server for classic Dota",
+    "samovarDetails": "The Samovar Man - thanks to him many players first saw classic Dota",
+    "sittingBullDetails": "SittingBull - wrote the first automatic host servers via a Discord bot, wrote the first server plugins",
+    "deathTBODetails": "DeathTBO - for years has been running dota2classic.com",
+    "alisonDetails": "Alison - wrote many useful server plugins",
+    "konakonaqqDetails": "konakonaqq - help with writing server plugins",
+    "otherContributors": "Many others - hard to recall, but they were there and helped",
+    "finalGoal": "What is the ultimate goal of the project?",
+    "stableOnlineGoal": "Stable online that allows roughly in 10 minutes to find a balanced game with players of similar level at virtually any time of day. A cozy place where it will be interesting for everyone to play: both beginners to old Dota, and seasoned veterans. The project's maintenance is fully paid for by players, and there is a positive return for a stable stream of advertising."
+  }
+}

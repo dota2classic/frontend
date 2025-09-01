@@ -1,0 +1,20 @@
+{
+  "meta_page": {
+    "seo": {
+      "title": "Meta",
+      "description": "Carefully compiled statistics for matches, heroes, items, and players"
+    },
+    "meta": "Meta",
+    "strongItems": "Strongest items",
+    "itemsDescription": "Detailed statistics and descriptions of all items in our patch",
+    "metaHeroes": "Meta heroes",
+    "heroesDescription": "The strongest and weakest heroes of the patch, their statistics and top players",
+    "achievements": "Achievements",
+    "leaderBoard": "Leaderboard",
+    "topPlayers": "Top players of all time and for the season",
+    "records": "Records",
+    "recordsDescription": "Records set for the month, season, and all time",
+    "lastMatches": "Last matches",
+    "goToGameHistory": "Go to game history"
+  }
+}

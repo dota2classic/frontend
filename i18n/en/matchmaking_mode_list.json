@@ -1,0 +1,7 @@
+{
+  "matchmaking_mode_list": {
+    "gameMode": "Game mode",
+    "calibrationGamesLeft": "{{count}} more calibration games",
+    "strictPenalties": "Strict penalties for leavers"
+  }
+}

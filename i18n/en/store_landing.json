@@ -1,0 +1,22 @@
+{
+  "store_landing": {
+    "title": "dotaclassic plus",
+    "description": "dotaclassic plus subscription page",
+    "subscriptionTitle": "dotaclassic plus",
+    "subscriptionText": "You help develop classic Dota: online activity is growing, matches are improving, and new features are being added. And you also receive nice privileges and exclusive features — as a token of appreciation for your support.",
+    "profileDecorationTitle": "Profile decorations",
+    "profileDecorationText": "Choose from a variety of styles, frames, and effects to express your character and stand out from others. Let your profile speak for you even without words.",
+    "dodgeListTitle": "Dodge list",
+    "dodgeListText": "Looks like you're back on the same team? Not today. Add the player to the dodge list — and you won't be on the same team anymore. Sick of the same 'match heroes'? Build your perfect lineup even with at least one side of the screen.",
+    "unbanHeroTitle": "Unban hero",
+    "unbanHeroText": "Hero banned? That's not a reason to give up your favorite character. dotaclassic plus subscribers can choose banned heroes.",
+    "inGamePraiseTitle": "In-game praise",
+    "inGamePraiseText": "You can praise a teammate for hard work—or lightly tease an opponent for a fail. Just like in the current version. Added to bring a bit more emotion to classic as well.",
+    "muteTitle": "Blocking",
+    "muteText": "Do you no longer want to read messages, receive invites, or see others' comments on your profile? Block the player — and they will disappear from your gaming space. Peace of mind guaranteed.",
+    "lobbyTitle": "Lobby",
+    "lobbyText": "Gather your friends, pick a map, enable (or disable) bots, and decide for yourself how the match will go. Private game — your rules, your pace, your team.",
+    "recalibrationTitle": "Recalibration",
+    "recalibrationText": "Once per season you can reset your rating to the starting value and replay 10 calibration games. Maybe this time the system will understand who the real fighter for MMR is?"
+  }
+}

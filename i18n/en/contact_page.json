@@ -1,0 +1,17 @@
+{
+  "contact_page": {
+    "seo": {
+      "title": "Contacts",
+      "description": "Contacts for communication and collaboration"
+    },
+    "contactsTitle": "Contacts",
+    "personName": "Stepin Yuri Andreevich",
+    "innLabel": "INN:",
+    "emailLabel": "Email:",
+    "email1": "enchantinggg4@gmail.com",
+    "email2": "adv@dotaclass.ru",
+    "documentsTitle": "Documents",
+    "policyText": "Personal data processing policy",
+    "offerText": "Public offer"
+  }
+}

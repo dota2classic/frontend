@@ -1,0 +1,39 @@
+{
+  "download_page": {
+    "extractGame": "Unpack the downloaded archive with the game, start Steam, and then run <dota>dota.exe</dota>",
+    "downloadingGame": "While the game is downloading, join us at <telegram /> and <discord />! There's plenty of interesting stuff there, and they'll help you if you encounter any difficulties.",
+    "forPlayingWithPeople": "A site was created for playing with people: you can't just press Search in the client itself, as it will start a search in the current version of the game.",
+    "cantJustSearch": "That's why we have our own matchmaking, for which you need to <steamauth>authenticate via Steam</steamauth>. This is safe and required for finding online games.",
+    "steamAccountMustMatch": "<attention>IMPORTANT:</attention> The Steam account for playing and the one on the website must match.",
+    "passTraining": "You need to complete the training on the site: it's a normal game against bots. This will help you get used to the old Dota, get to know the original heroes and their abilities, and customize the game and keybindings to your preferences.",
+    "trainingProcess": "Here's what you'll have to do:",
+    "serversInRussia": "<attention>IMPORTANT:</attention> The gaming servers are located in the Russian Federation. Ukrainian players may benefit from a tool to bypass provider blocks.",
+    "setupSearch": "<queue>Start searching for a game</queue> in mode <mode>{{mode}}</mode>",
+    "acceptGame": "Accept the found game",
+    "startGameClient": "Launch Steam, then start the game client",
+    "connectButton": "Join by clicking the button or using a console command",
+    "defeatBots": "Defeat bots",
+    "congratulations": "Congratulations! You have completed your first online match! Now we’re waiting for you <queue>in search</queue> in mode <mode>{{mode}}</mode>",
+    "learnAbout": "Meanwhile you can explore <history>match history</history>, <heroes>the strongest heroes</heroes>, or <leaderboard>the leaderboard</leaderboard>.",
+    "downloadLibraries": "You also need to download libraries for your system and extract them into the game folder",
+    "gameClient": "Game client",
+    "linuxBinaries": "Linux libraries",
+    "macosBinaries": "MacOS libraries",
+    "forOldDota": "To play the old Dota you need the old game client. This is not a mod: it's the real Dota from 2015.",
+    "dontClickMatchSearch": "<attention>IMPORTANT:</attention> do not press the match search in the game itself",
+    "howToStartPlaying": "How to start playing?",
+    "downloadGameClient": "Download the game client",
+    "launchGame": "Launch the game",
+    "authorizeTitle": "Log in to the site",
+    "educationTutorial": "Training: play against bots",
+    "humanGames": "It's time for real games!",
+    "googleDrive": "Google Drive",
+    "yandexDisk": "Yandex Disk",
+    "ourWebsite": "Our website",
+    "torrent": "Torrent",
+    "seo": {
+      "title": "Start playing",
+      "description": "A detailed guide for downloading, installing, and finding the game Dota 2. Download the old version of Dota 2 here"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "please_go_queue": {
+    "titlePart1": "Let's play",
+    "queueInfo": "There are already {{inQueue}} in the queue!",
+    "acceptText": "I'm on my way",
+    "declineText": "Later"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "ticket_page": {
+    "seo": {
+      "title": "{{title}}",
+      "description": "Inquiry on dotaclassic.ru: {{title}}"
+    },
+    "tickets": "Tickets"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "admin_reports": {
+    "complaintLink": "Link to complaint",
+    "rule": "Rule",
+    "accused": "Accused",
+    "plaintiff": "Plaintiff",
+    "complaintType": "Complaint type",
+    "processed": "Processed?",
+    "complaint": "Complaint",
+    "message": "Message",
+    "match": "Match",
+    "processedYes": "Processed",
+    "processedNo": "Needs processing",
+    "seo": {
+      "title": "Complaints",
+      "description": "noindex"
+    }
+  }
+}

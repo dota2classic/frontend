@@ -1,0 +1,25 @@
+{
+  "tables": {
+    "player": "Player",
+    "matches": "Matches",
+    "winrate": "Win %",
+    "hero": "Hero",
+    "result": "Result",
+    "win": "Win",
+    "wins": "Wins",
+    "lose": "Loss",
+    "mode": "Mode",
+    "duration": "Duration",
+    "kda": "KDA",
+    "items": "Items",
+    "item": "Item",
+    "popularityTooltip": "Popularity",
+    "matchNumber": "Match number",
+    "gameMode": "Game mode",
+    "radiant": "Radiant",
+    "dire": "Dire",
+    "radiantVictory": "Radiant victory",
+    "direVictory": "Dire victory",
+    "showAll": "Show all"
+  }
+}

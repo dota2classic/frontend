@@ -1,0 +1,11 @@
+{
+  "giveProduct": {
+    "successMessage": "Subscription successfully issued!",
+    "toastTitle": "Loot here",
+    "errorMessage": "Error issuing subscription!",
+    "loading": "Loading...",
+    "defaultText": "Punishment",
+    "months": "months",
+    "submitButton": "Grant subscription"
+  }
+}

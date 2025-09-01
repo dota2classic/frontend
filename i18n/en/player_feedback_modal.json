@@ -1,0 +1,14 @@
+{
+  "player_feedback": {
+    "toast": {
+      "reviewSent": "Review sent",
+      "reviewSaved": "Review for player {{playerName}} saved successfully!",
+      "errorOccurred": "An error occurred",
+      "errorSaving": "We couldn't save the player's review"
+    },
+    "modal": {
+      "title": "Feedback for the player",
+      "reportsLeft": "Reviews left: {{reportsAvailable}}"
+    }
+  }
+}

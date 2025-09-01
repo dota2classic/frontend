@@ -1,0 +1,11 @@
+{
+  "blog_edit": {
+    "title": "Article title",
+    "titlePlaceholder": "Title",
+    "description": "Article description",
+    "descriptionPlaceholder": "Short description",
+    "image": "Image",
+    "content": "Article content",
+    "publish": "Publish"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "edit_feedback_template": {
+    "tagInfo": "Tag (technical info)",
+    "tagPlaceholder": "Tag",
+    "title": "Title",
+    "titlePlaceholder": "Title",
+    "createTicket": "Create ticket",
+    "responseOptions": "Response options",
+    "optionPlaceholder": "Response option",
+    "save": "Save",
+    "delete": "Delete",
+    "addResponse": "Add response option"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "report_page": {
+    "seo": {
+      "title": "Complaint {{title}}",
+      "description": "Complaint {{title}} on dotaclassic.ru"
+    },
+    "reports": "Complaints",
+    "loadError": "Error loading messages"
+  }
+}

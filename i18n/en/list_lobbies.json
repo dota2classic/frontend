@@ -1,0 +1,21 @@
+{
+  "lobby": {
+    "createError": "Error creating lobby",
+    "listTitle": "Lobby list",
+    "listDescription": "List of game lobbies",
+    "createLobby": "Create lobby",
+    "table": {
+      "lobby": "Lobby",
+      "host": "Host",
+      "mode": "Mode",
+      "map": "Map",
+      "playerCount": "Player count",
+      "privacy": "Privacy",
+      "actions": "Actions"
+    },
+    "emptyList": "Lobby list is empty",
+    "passwordRequired": "Password required",
+    "passwordNotRequired": "No password",
+    "join": "Join"
+  }
+}

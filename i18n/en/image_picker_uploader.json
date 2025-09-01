@@ -1,0 +1,7 @@
+{
+  "image_picker": {
+    "uploadIssue": "Issue uploading: {{error}}",
+    "undoLabel": "Undo",
+    "uploadLabel": "Upload image"
+  }
+}

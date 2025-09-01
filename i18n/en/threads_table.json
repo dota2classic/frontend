@@ -1,0 +1,9 @@
+{
+  "threads_table": {
+    "topic": "Topic",
+    "messages": "Messages",
+    "views": "Views",
+    "author": "Author",
+    "lastMessage": "Last message"
+  }
+}

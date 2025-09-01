@@ -1,0 +1,7 @@
+{
+  "party_invite": {
+    "groupInvite": "{{username}} invites you to the group",
+    "accept": "Accept",
+    "decline": "Decline"
+  }
+}

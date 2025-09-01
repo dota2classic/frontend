@@ -1,0 +1,15 @@
+{
+  "player_heroes": {
+    "playerHeroesTitle": "Player's Heroes {{playerName}}",
+    "heroStatsDescription": "Heroes statistics for player {{playerName}}.",
+    "heroesHeader": "Heroes",
+    "heroColumn": "Hero",
+    "matchesColumn": "Matches",
+    "winrateColumn": "Win %",
+    "kdaColumn": "KDA",
+    "gpmColumn": "GPM",
+    "xpmColumn": "XPM",
+    "lastHitsColumn": "Last Hits",
+    "deniesColumn": "Denies"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "edit_hat_container": {
+    "chatPreviewHeader": "Chat preview: {{decorationType}}",
+    "settingsHeader": "Settings",
+    "deleteDecorationButton": "Delete decoration",
+    "chooseImageButton": "Choose image",
+    "verticalOffsetHeader": "Vertical offset",
+    "horizontalTrimHeader": "Trim edges horizontally",
+    "topTrimHeader": "Trim from top",
+    "hatNamePlaceholder": "Hat name",
+    "saveDecorationButton": "Save",
+    "createDecorationButton": "Create"
+  }
+}

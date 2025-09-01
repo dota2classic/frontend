@@ -1,0 +1,11 @@
+{
+  "profile_navbar": {
+    "login": "Log in",
+    "matches": "Matches",
+    "heroes": "Heroes",
+    "teammates": "Allies",
+    "records": "Records",
+    "logout": "Log out",
+    "userAvatarAlt": "User avatar"
+  }
+}

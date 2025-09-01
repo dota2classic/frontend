@@ -1,0 +1,26 @@
+{
+  "player_summary": {
+    "avatarAlt": "Avatar of player {{name}}",
+    "matches": "Matches",
+    "matchPlaying": "Playing a match",
+    "lastGame": "Last game",
+    "banReason": "Reason: {{reason}}",
+    "ban": "Ban",
+    "subscriberTooltip": "Dotaclassic Plus subscriber",
+    "winLossTooltip": "Wins - Losses - Left",
+    "winRate": "Win rate",
+    "noRating": "No rating",
+    "rating": "Rating",
+    "noRank": "No rank",
+    "rank": "Rank",
+    "menu": {
+      "overall": "Overall",
+      "matches": "Matches",
+      "teammates": "Teammates",
+      "heroes": "Heroes",
+      "records": "Records",
+      "drops": "Awards",
+      "settings": "Settings"
+    }
+  }
+}

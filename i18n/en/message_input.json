@@ -1,0 +1,10 @@
+{
+  "message_input": {
+    "tooShortMessage": "Too short a message!",
+    "forbiddenMessage": "You are not allowed to send messages!",
+    "tooFrequentMessages": "You are sending messages too frequently!",
+    "replyToMessage": "Reply to message",
+    "enterMessage": "Enter message",
+    "noPermission": "You do not have permission to send messages."
+  }
+}

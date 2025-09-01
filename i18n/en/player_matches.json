@@ -1,0 +1,8 @@
+{
+  "player_matches": {
+    "historyTitle": "Match history for {{name}}",
+    "historyDescription": "Player {{name}}'s match history. List of games played in old Dota",
+    "gameMode": "Game mode",
+    "hero": "Hero"
+  }
+}

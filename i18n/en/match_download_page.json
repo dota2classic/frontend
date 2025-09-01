@@ -1,0 +1,17 @@
+{
+  "match_download": {
+    "downloadReplayTitle": "Download the replay",
+    "downloadReplayButton": "Click here to download the game's replay file",
+    "placeFileTitle": "Place the downloaded file in the game folder",
+    "gameFolder": "game folder/dota",
+    "createFolder": "If such a folder doesn't exist, create it.",
+    "finalFile": "Result: you should have the file.",
+    "finalFilePath": "dota/{{matchId}}.dem",
+    "startClientTitle": "Launch the client and run the console command",
+    "consoleCommandText": "Console command to start viewing the replay",
+    "seo": {
+      "title": "Download the match replay {{matchId}}",
+      "description": "Download the match replay {{matchId}} played on dotaclassic.ru"
+    }
+  }
+}

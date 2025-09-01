@@ -1,0 +1,17 @@
+{
+  "match_summary": {
+    "matches": "Matches",
+    "matchNumber": "Match {{matchId}}",
+    "view": "View",
+    "log": "Log",
+    "download": "Download",
+    "replay": "Replay",
+    "mode": "Mode",
+    "lobby": "Lobby",
+    "gameStage": "Game stage",
+    "duration": "Duration",
+    "matchEnded": "Match ended",
+    "victoryRadiant": "Radiant victory",
+    "victoryDire": "Dire victory"
+  }
+}

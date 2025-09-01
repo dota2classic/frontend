@@ -1,0 +1,177 @@
+{
+  "faq": {
+    "title": "Common issues when playing Dota 2 6.84",
+    "description": "Problems with launching, configuring, and connecting to game servers",
+    "header": "FAQ - frequently asked questions",
+    "items": {
+      "version": {
+        "title": "Which game version is used?",
+        "content": {
+          "part1": "We are playing on version 6.84c. This is the latest game version on ",
+          "source1": "Source 1",
+          "part2": ", as well as the most popular patch by player count."
+        }
+      },
+      "safe": {
+        "title": "Is it safe?",
+        "content": {
+          "part1": "The client was downloaded directly from official Steam depots, so it is fully authentic. The servers run on Valve's official tool — srcds.exe, as expected. Therefore bans are not possible.",
+          "part2": " For site authentication, a secure Steam service using the OpenID protocol is used — it does not transmit login, password, or other personal data. This method has long been used on many third-party resources."
+        }
+      },
+      "ban": {
+        "title": "Can I play with a ban in Dota?",
+        "content": {
+          "part1": "Bans from the current Dota version do not apply to this client — they are not transferred here. But if you regularly leave games, spoil matches for others, or behave in a clearly toxic manner, you may receive a ban here. We monitor order and do not turn a blind eye."
+        }
+      },
+      "console": {
+        "title": "How to open the console?",
+        "content": "Bind it in the control settings and run the game via a batch file (the -console parameter is specified there)"
+      },
+      "settings": {
+        "title": "My game settings reset / quick casts aren't working",
+        "content": {
+          "part1": "Disable Steam Cloud (for modern Dota and globally on Steam) and do not agree to synchronization. On the path ",
+          "part2": "Dota 6.84\\dota\\cfg",
+          "part3": " in config.cfg file properties uncheck Read-only if present.",
+          "copyBlock1": {
+            "text": "Enable quick casts for abilities",
+            "command": "dota_ability_quick_cast 1"
+          },
+          "copyBlock2": {
+            "text": "Enable quick casts for items",
+            "command": "dota_item_quick_cast 1"
+          }
+        }
+      },
+      "connection": {
+        "title": "I can't connect to the game server",
+        "content": {
+          "checkAccounts": "Make sure the accounts on the site and Steam match.",
+          "relogin": "Log back into your account.",
+          "tryAgain": "Try connecting a few times.",
+          "ukraineNote": "If you are from Ukraine or the previous methods did not help, try using tools to bypass ISP blocks.",
+          "internetNote": "If you're already using it, try disabling it.",
+          "redownload": "Redownload and re-pack the client using 7-zip."
+        }
+      },
+      "newDota": {
+        "title": "I get the new Dota opening, not the old one",
+        "content": {
+          "part1": "Before connecting to the server, open the old client first. Enter the data from the table about the accepted game (format: connect ip) into the console and press Enter."
+        }
+      },
+      "clientLimit": {
+        "title": "Only one Dota 2 client per customer",
+        "content": {
+          "part1": "Close the new or old Dota client if it's already running (kill the process via Task Manager). Only one Dota client can be running at the same time."
+        }
+      },
+      "dotaExeError": {
+        "title": "dota.exe not found",
+        "content": {
+          "part1": "You need to add 'cd ' at the start of the .bat file using Notepad.",
+          "path": "C:\\Program Files (x86)\\Dota 6.84 (replace with the path to the old Dota client)"
+        }
+      },
+      "launchError": {
+        "title": "The game isn't launching, what should I do?",
+        "content": {
+          "part1": "Most likely you're missing something. Possible solutions:",
+          "possibleSolutions": {
+            "part1": "You haven't extracted the game archive and are trying to run the game from the archive. Extract the archive using 7-zip and run the game.",
+            "part2": "Try clearing Steam's download cache or switching the account before launching the old client.",
+            "part3": "Install DirectX",
+            "part4": "Install Microsoft Visual C++ for 32-bit",
+            "part5": "Install Microsoft Visual C++ for 64-bit",
+            "part6": "Install .NET Framework",
+            "part7": "If nothing helps – reinstall the operating system."
+          }
+        }
+      },
+      "steamClient": {
+        "title": "Steam client is missing or out of date",
+        "content": {
+          "part1": "One of the options below will help fix this issue:",
+          "solution1": "Log in to Steam",
+          "solution2": "Restart Steam",
+          "solution3": "Restart PC",
+          "solution4": "Turn off Invisible mode in Steam",
+          "solution5": "Run DOTA Classic and Steam as administrator"
+        }
+      },
+      "launcherError": {
+        "title": "dota launcher DLL failed to load / Setup file 'gameinfo.txt' doesn't exist in subdirectory 'dota2'",
+        "content": {
+          "part1": "The game archive may not have extracted completely. We strongly recommend using 7-zip to extract.",
+          "part2": "To fix it you need to avoid Russian/Cyrillic letters in the path or unpack the archive to the desktop. If that doesn't help, unpack the game archive to the root of drive C: or D:"
+        }
+      },
+      "graphicsAudio": {
+        "title": "Graphics / Audio artifacts",
+        "content": {
+          "part1": "You can try:",
+          "copyBlock1": {
+            "text": "gl_clear 0",
+            "command": "gl_clear 0"
+          },
+          "copyBlock2": {
+            "text": "Valid values: 1, 2",
+            "command": "mat_fullbright 1"
+          },
+          "copyBlock3": {
+            "text": "",
+            "command": "mat_reloadallmaterials"
+          },
+          "copyBlock4": {
+            "text": "",
+            "command": "mat_reloadtextures"
+          },
+          "driverInstall": "Reinstall the video driver, or install a newer version",
+          "audioRestart": "Run snd_restart in Windows command prompt or reinstall the audio driver",
+          "disableExtras": "Disable all additional graphics options in the game settings",
+          "switchToDiscrete": "Switch from integrated to discrete graphics card",
+          "ifNotHelped": "IF THE PREVIOUS DOES NOT HELP: enter commands one by one (checking the result after each command):",
+          "startupParams": "Use startup parameters in the bat file to set: -dxlevel 80, 81, 90, 95, 98 or -gl"
+        }
+      },
+      "keybindAbility": {
+        "title": "Is there a way to enable stopping abilities with a separate key (for example, rearm on Tinker)?",
+        "content": "No, there is no such feature."
+      },
+      "mouseBind": {
+        "title": "Is there a way to bind any function to the mouse wheel or remap camera movement?",
+        "content": "No, there is no such option."
+      },
+      "smartAttack": {
+        "title": "Can I enable \"smart attack\"?",
+        "content": "No, there is no such feature."
+      },
+      "lobby15": {
+        "title": "Is it possible to create a separate 5x5 lobby with the ability to choose mode and other parameters?",
+        "content": {
+          "part1": "Yes, this feature is available with a subscription ",
+          "part2": "dotaclassic plus",
+          "part3": " or by agreement with the administration."
+        }
+      },
+      "meta": {
+        "title": "How can I study the meta of the old patch?",
+        "content": {
+          "part1": "Check out the ",
+          "part2": "statistics",
+          "part3": " on our site and go to ",
+          "part4": "Discord"
+        }
+      },
+      "replay": {
+        "title": "How to view a replay?",
+        "content": {
+          "part1": "On the page of the past match, click the \"Download Replay\" button. You will be redirected to a page with a detailed guide on how to view this replay, for example, ",
+          "part2": "Match 33630"
+        }
+      }
+    }
+  }
+}

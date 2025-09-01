@@ -1,0 +1,10 @@
+{
+  "edit_punishments": {
+    "newPunishment": "New punishment",
+    "title": "Title",
+    "punishmentPlaceholder": "Punishment",
+    "blockHours": "Ban duration (hours)",
+    "save": "Save",
+    "delete": "Delete"
+  }
+}

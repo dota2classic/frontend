@@ -1,0 +1,8 @@
+{
+  "steam_auth_error": {
+    "steamNotResponding": "Steam is currently not responding to authorization requests!",
+    "pleaseTryLater": "Please try to log in again later.",
+    "steamSitesLostAccess": "All sites accessible via <span className=\\\"gold\\\">Steam</span> have now lost this ability.",
+    "soonFixed": "We are confident that this will be fixed soon."
+  }
+}

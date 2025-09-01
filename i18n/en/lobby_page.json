@@ -1,0 +1,10 @@
+{
+  "lobby_page": {
+    "lobbyDoesNotExist": "Lobby does not exist!",
+    "returnToLobbyList": "Return to lobby list",
+    "seo": {
+      "title": "Lobby {{lobbyName}}",
+      "description": "Lobby"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "lobby_team": {
+    "lightForces": "Light forces",
+    "darkForces": "Dark forces",
+    "undefined": "Undecided",
+    "removeFromTeamTooltip": "Remove from team",
+    "kickFromLobbyTooltip": "Kick from lobby",
+    "takeSlot": "Take a slot"
+  }
+}

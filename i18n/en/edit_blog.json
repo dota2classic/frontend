@@ -1,0 +1,13 @@
+{
+  "edit_blog": {
+    "loading": "Loading",
+    "loadingError": "...",
+    "news": "News",
+    "editing": "Editing {{title}}",
+    "published": "Published",
+    "draft": "Draft",
+    "status": "Status",
+    "notPublished": "Not yet published",
+    "publishDate": "Publication date"
+  }
+}

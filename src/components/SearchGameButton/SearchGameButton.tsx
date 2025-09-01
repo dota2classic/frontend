@@ -34,7 +34,11 @@ export const SearchGameButton = observer((p: Props) => {
 
   if (queue.needAuth) return null;
 
-  if (queue.partyBanStatus?.isBanned) {
+  if (
+    queue.partyBanStatus?.isBanned &&
+    new Date(queue.partyBanStatus!.bannedUntil).getTime() >
+      Date.now() + 1000 * 60 * 60 * 24 * 365
+  ) {
     content = (
       <>
         {t("search_game_button.searchForbidden")}:

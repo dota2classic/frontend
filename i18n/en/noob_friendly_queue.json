@@ -1,0 +1,25 @@
+{
+  "noob_friendly_queue": {
+    "howToStartPlaying": "How to start playing?",
+    "login": "Log in",
+    "needToAuthorize": "You need to log in to the site via Steam",
+    "downloadAndExtractClient": "I downloaded and extracted the game client",
+    "downloadAndExtractGameClient": "First you need to download and extract the game client.",
+    "downloadHere": "You can download it here",
+    "possibleDifficulties": "Possible difficulties and their solutions:",
+    "unpackedArchiveIssue": "xiradoh782 huiman – most likely, the game archive did not extract properly. Re-extract it.",
+    "downloadIssues": "Downloading takes long — try downloading it via torrent or another cloud service",
+    "gameStartsOnMyComputer": "The game runs on my computer",
+    "startTheGame": "Now you need to launch the game (dota.exe) from the extracted archive.",
+    "attentionSteamRequired": "ATTENTION: The game will not work without Steam running!",
+    "startedGameWithoutSteam": "Steam is running - you started the game without Steam. Close the client, start Steam, and only then launch the game",
+    "notLaunchingGame": "The game isn't launching – re-extract the game.",
+    "playedWithBotsReadyToPlayWithPeople": "I was able to play with bots and am ready to play with people",
+    "startSinglePlayerGameWithBots": "Start a single-player game with bots",
+    "advicePlayWithBots": "TIP: play a few games with bots to get used to the old Dota",
+    "lags": "Severe lag — do a somersault in place",
+    "dontWantToSeeCharacter": "I don't want to see the man - novid in the console",
+    "quickcast": "Quick casts: available",
+    "altClickSelf": "Alt-click on self - not available"
+  }
+}

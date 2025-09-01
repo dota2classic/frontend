@@ -1,0 +1,8 @@
+{
+  "join_lobby_modal": {
+    "joinToLobby": "Join the lobby",
+    "lobby": "Lobby {{ownerName}}",
+    "incorrectPassword": "Incorrect password",
+    "join": "Join"
+  }
+}

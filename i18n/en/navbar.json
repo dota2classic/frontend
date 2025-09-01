@@ -1,0 +1,30 @@
+{
+  "navbar": {
+    "dota2classic": "DOTA2CLASSIC",
+    "play": "Play",
+    "howToPlay": "How to play",
+    "clientSettings": "Client settings",
+    "fpsPing": "FPS and ping",
+    "commonIssues": "Common issues",
+    "news": "News",
+    "forum": "Forum",
+    "lobby": "Lobby",
+    "support": "Support",
+    "complaints": "Complaints",
+    "vacancies": "Vacancies",
+    "rules": "Rules",
+    "documents": "Documents",
+    "violationsLog": "Violations log",
+    "aboutProject": "About the project",
+    "store": "Store",
+    "live": "Live",
+    "stream": "Stream",
+    "matches": "Matches",
+    "heroes": "Heroes",
+    "items": "Items",
+    "players": "Players",
+    "records": "Records",
+    "meta": "Meta",
+    "login": "Login"
+  }
+}

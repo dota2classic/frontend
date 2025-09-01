@@ -1,0 +1,49 @@
+{
+  "queue_page": {
+    "onboarding": {
+      "gameModes": {
+        "title": "Game Modes",
+        "content": "Here is a list of modes available for finding a game. You can select several modes at once! To search for a 5v5 game, you need to win the training against bots."
+      },
+      "party": {
+        "title": "Group",
+        "content": "Here is your group: to invite a friend, click '+'"
+      },
+      "onlineStats": {
+        "content": "Here you can see how many players are currently playing and how many are simply online"
+      },
+      "chat": {
+        "title": "General Chat",
+        "content": "General chat for all players — here you can report problems, and you'll get help."
+      },
+      "searchButton": {
+        "title": "Search Button",
+        "content": "When you choose a mode to search, press this button — the search for a game will begin."
+      },
+      "adblock": {
+        "title": "Ad Block",
+        "content": "Please disable ad blocking on this site. Although the game is completely free here, running the project still costs money. Have a great game!"
+      },
+      "locale": {
+        "back": "Back",
+        "close": "Close",
+        "last": "End",
+        "next": "Next",
+        "nextLabelWithProgress": "Next (Step {{step}} of {{steps}})",
+        "open": "Open dialog",
+        "skip": "Skip"
+      }
+    },
+    "seo": {
+      "title": "Game Search",
+      "description": "Game search page for Classic Dota. Play in a group with your friends, bots, and other players"
+    },
+    "bigTabs": {
+      "play": "Play",
+      "chat": "Chat"
+    },
+    "section": {
+      "header": "Group and Search"
+    }
+  }
+}

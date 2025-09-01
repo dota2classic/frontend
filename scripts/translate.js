@@ -3,6 +3,8 @@ const path = require("path");
 const { create } = require("apisauce");
 require("dotenv").config();
 
+const folderPath = "i18n"; // замените на ваш путь
+
 function areStringArraysEqual(arr1, arr2) {
   // Check if both are arrays
   if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
@@ -91,27 +93,26 @@ async function generateKey(text) {
   console.error(res.data);
 }
 
-async function translate() {
-  const ru = JSON.parse(fs.readFileSync("src/i18n/ru.json").toString());
+async function translate2() {
+  const localePath = path.join(folderPath, "ru");
+  const files = fs.readdirSync(localePath);
 
-  const entries = Object.entries(ru);
-  const batchSize = 50;
-  const all = {};
-  for (let i = 0; i < entries.length; i += batchSize) {
-    const slice = entries.slice(i, i + batchSize);
-    const newJson = {};
-    slice.forEach(([key, val]) => (newJson[key] = val));
-    const result = await generateKey(JSON.stringify(newJson));
+  // Фильтруем только JSON-файлы
+  const jsonFiles = files.filter(
+    (file) => path.extname(file).toLowerCase() === ".json",
+  );
 
-    if (!areStringArraysEqual(Object.keys(result), Object.keys(newJson))) {
+  for (const file of jsonFiles) {
+    const filePath = path.join(localePath, file);
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const result = await generateKey(fileContent);
+    if (!areStringArraysEqual(Object.keys(result), Object.keys(result))) {
       console.warn("Некоторые ключи не совпали!");
     }
 
-    console.log(`Translated batch ${i} - ${i + batchSize}`);
-
-    Object.assign(all, result);
-    fs.writeFileSync("src/i18n/en_staging.json", JSON.stringify(all, null, 2));
+    fs.writeFileSync(`i18n/en/${file}`, JSON.stringify(result, null, 2));
+    console.log(`Translated file ${file}`);
   }
 }
 
-translate();
+translate2();

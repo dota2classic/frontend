@@ -1,0 +1,8 @@
+{
+  "hero_stats": {
+    "popularity": "Popularity",
+    "matches": "Matches",
+    "wins": "Wins",
+    "winrate": "Win rate"
+  }
+}

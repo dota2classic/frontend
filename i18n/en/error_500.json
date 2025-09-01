@@ -1,0 +1,6 @@
+{
+  "error_page": {
+    "pageLoadFailed": "An error occurred while loading the page {{statusCode}}",
+    "returnHome": "Return to the home page"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "crimes_page": {
+    "filterByPlayer": "Filter by player",
+    "resetPlayerFilter": "Reset player filter",
+    "player": "Player",
+    "match": "Match",
+    "matchId": "Match {{matchId}}",
+    "outOfMatch": "Not in a match",
+    "comment": "Comment",
+    "banDuration": "Ban duration",
+    "violation": "Violation",
+    "gameMode": "Game mode",
+    "date": "Date",
+    "processed": "Processed?",
+    "botsGame": "Game with bots",
+    "counted": "Counted.",
+    "seo": {
+      "title": "Violations",
+      "description": "List of violations"
+    }
+  }
+}

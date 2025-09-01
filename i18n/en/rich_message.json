@@ -1,0 +1,9 @@
+{
+  "rich_message": {
+    "player_matches": "Matches <username />",
+    "player_records": "Records <username />",
+    "player_heroes": "Heroes <username />",
+    "player_teammates": "Allies <username />",
+    "match": "Match {{matchId}}"
+  }
+}

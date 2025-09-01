@@ -1,0 +1,13 @@
+{
+  "player_pentagon_stats": {
+    "reviews": "Reviews",
+    "kills": "Kills",
+    "deaths": "Deaths",
+    "assists": "Assists",
+    "seasonStats": "Season statistics",
+    "gamesPlayed": "Games played",
+    "winRate": "Win rate",
+    "abandonedGames": "Abandoned games",
+    "playtime": "Playtime"
+  }
+}

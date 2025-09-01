@@ -1,0 +1,8 @@
+{
+  "queues": {
+    "sendNotification": "Invite to search",
+    "party": "Group ",
+    "emptyQueue": "Queue is empty",
+    "online": "Online"
+  }
+}

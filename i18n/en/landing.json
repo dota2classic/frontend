@@ -1,0 +1,24 @@
+{
+  "landing": {
+    "embed": {
+      "title": "Play old Dota online",
+      "description": "Dota2Classic is the only way to play the old Dota from 2015. Here you can relive that very game. Old patch, dota old patch."
+    },
+    "oldDota": {
+      "question": "Do you miss the old Dota?",
+      "startPlaying": "Start playing the real {{game}} online"
+    },
+    "playForFree": "Play for free",
+    "originalGame": {
+      "experience": "Taste the original game"
+    },
+    "thousandsPlayers": "Thousands of players prefer to play {{game}} on {{website}}",
+    "startingGame": "The game that started it all",
+    "oldMap": {
+      "originalHeroes": "Old map, original heroes and abilities, and a reasonable amount of health for the heroes"
+    }
+  },
+  "game": {
+    "dota2": "Dota 2"
+  }
+}

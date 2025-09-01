@@ -1,0 +1,30 @@
+{
+  "lobby": {
+    "kickedFromLobby": "You left the lobby",
+    "kicked": "You've been kicked",
+    "lobbyClosed": "The lobby has been closed",
+    "gameStarted": "The game has started!",
+    "connectionInfo": "Connection information will be available soon",
+    "authorizeToView": "Please sign in to view this page",
+    "lobbyDoesNotExist": "The lobby does not exist",
+    "hostingLobby": "Lobby host",
+    "shufflePlayers": "Shuffle players",
+    "settings": "Settings",
+    "closeLobby": "Close lobby",
+    "leaveLobby": "Leave lobby",
+    "startGame": "Start game",
+    "kickFromLobby": "Kick from lobby",
+    "unassignedPlayers": "Unassigned players",
+    "lobbyName": "Lobby name",
+    "password": "Password",
+    "yes": "Yes",
+    "no": "No",
+    "map": "Map",
+    "mode": "Mode",
+    "cheats": "Cheats",
+    "bots": "Bots",
+    "patch": "Patch",
+    "region": "Region",
+    "errorStartingLobby": "An error occurred while starting the lobby!"
+  }
+}

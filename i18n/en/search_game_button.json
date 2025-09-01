@@ -1,0 +1,16 @@
+{
+  "search_game_button": {
+    "searchForbidden": "Search is forbidden",
+    "someoneInGame": "Someone in the group is playing",
+    "login": "Log in",
+    "connecting": "Connecting...",
+    "returnToLobby": "Return to lobby",
+    "groupInLobby": "Group in lobby",
+    "joinLobby": "Join lobby",
+    "cancelSearch": "Cancel search",
+    "play": "Play",
+    "modeSingular": "Mode",
+    "modePluralGenitive": "Modes",
+    "modePlural": "Modes"
+  }
+}

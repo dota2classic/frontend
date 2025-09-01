@@ -1,0 +1,14 @@
+{
+  "create_thread": {
+    "seo": {
+      "title": "Create a new topic on the forum",
+      "description": "Create a new topic on the forum. Discuss pressing issues"
+    },
+    "errorCreatingPost": "An error occurred while creating the post",
+    "topicTitle": "Topic title",
+    "placeholderTopicTitle": "Gena got sweaty in public again",
+    "message": "Message",
+    "placeholderMessage": "Enter message",
+    "createTopic": "Create topic"
+  }
+}

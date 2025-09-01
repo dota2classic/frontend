@@ -1,0 +1,33 @@
+{
+  "player_settings": {
+    "startRecalibrationError": "Error starting recalibration",
+    "profileSettings": "Your profile settings",
+    "settings": "Settings",
+    "activeSubscription": "Active, expires on ",
+    "inactiveSubscription": "Subscription is inactive",
+    "renewSubscription": "Renew subscription",
+    "subscribe": "Subscribe",
+    "profileDecoration": "Profile customization",
+    "recalibration": "Recalibration",
+    "recalibrationDescription": "Recalibration is a chance to reset your rating to the starting level and go through calibration again. It is suitable for those who are sure they deserve more or want to start from scratch. Recalibration can be used only once per season.",
+    "startedRecalibration": "Recalibration started at {{time}}",
+    "startNow": "Start now!",
+    "avoidedPlayers": "Avoided players",
+    "avoidedPlayersInfo": "Dotaclassic Plus subscribers can add up to one player to the avoided players list. This will prevent you from ever being matched with unpleasant players on the same team.",
+    "player": "Player",
+    "dateDodge": "Dodge date",
+    "actions": "Actions",
+    "remove": "Remove",
+    "avoidPlayer": "Avoid player",
+    "twitch": "Twitch",
+    "connectTwitchProfile": "Connect your Twitch profile to your account to unlock additional features!",
+    "twitchBenefits": "After linking, your profile will show a link to your stream, and in chat — a special icon that will mark you among other users. If you stream our game, we will automatically display a link to your live stream so viewers can easily find your channel. This is a great way to attract a new audience and make your stream more noticeable! 🎮📺",
+    "attention": "Attention:",
+    "twitchRequirements": "for your stream to appear on the main page, the game must be Dota 2, and the title must include dotaclassic.ru",
+    "connectedAccount": "Connected account:",
+    "notConnected": "Not connected",
+    "connectAccount": "Connect Twitch account",
+    "connectOtherAccount": "Connect another Twitch account",
+    "disconnectAccount": "Disconnect Twitch account"
+  }
+}

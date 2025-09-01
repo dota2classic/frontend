@@ -1,0 +1,33 @@
+{
+  "drop_list": {
+    "creatingTradeOffer": "Creating a trade offer...\"",
+    "itMayTakeTime": "This may take 5-10 seconds",
+    "rewardsOffered": "Rewards offered for trade!",
+    "goToTrade": "Go to trade",
+    "errorCreatingTrade": "Error creating trade",
+    "errorPurchasingSubscription": "Error purchasing subscription",
+    "settings": "Settings",
+    "tradeLinkHeader": "Steam trade link",
+    "tradeLinkInfo": "To receive rewards, you need to make your Steam inventory public, and also provide the trade link. You can find it at this link: {{tradeLinkSteam}}",
+    "howToFindTradeLink": "How to find the trade link?",
+    "tradeLinkPlaceholder": "Steam trade link",
+    "save": "Save",
+    "invalidLink": "Invalid link",
+    "donateItems": "Donate items",
+    "donationInfo": "Any player can donate items to the project on Steam. The bot will automatically calculate the value of the items and add them to your internal balance. This balance can be used to pay for a subscription!",
+    "transferItems": "Transfer items",
+    "yourBalance": "Your balance: {{balance}} rubles",
+    "paySubscription": "Pay subscription",
+    "historyOfTrades": "Trade history",
+    "date": "Date",
+    "itemCount": "Number of items",
+    "totalAmount": "Total amount",
+    "tradeType": "Trade type",
+    "donation": "Donation",
+    "rewardGiving": "Awarding rewards",
+    "rewards": "Rewards",
+    "getRewards": "Get rewards",
+    "noRewards": "You have no rewards yet! Play to earn them.",
+    "confirmDiscard": "Are you sure you want to discard this reward?"
+  }
+}
