@@ -110,7 +110,7 @@ const direBarracks = [
   { x: 0.929, y: 0.735, bit: 5 },
 ];
 
-const radiantAncient = { x: 0.075, y: 0.111, bit: 0 };
+const radiantAncient = { x: 0.068, y: 0.101, bit: 0 };
 const direAncient = { x: 0.876, y: 0.843, bit: 0 };
 
 export const MinimapTowers = ({
@@ -120,8 +120,12 @@ export const MinimapTowers = ({
   towers: number[];
   barracks: number[];
 }) => {
+  towerState = towerState || [2047, 2047];
+  barrackState = barrackState || [63, 63];
   return (
     <>
+      <Tower tilt type="ancient" team={2} tower={radiantAncient} alive={true} />
+      <Tower tilt type="ancient" team={3} tower={direAncient} alive={true} />
       {radiantBarracks.map((barrack) => (
         <Tower
           lowX={0.033}
@@ -168,9 +172,6 @@ export const MinimapTowers = ({
           alive={getTowerState(towerState[1], tower.bit)}
         />
       ))}
-
-      <Tower tilt type="ancient" team={2} tower={radiantAncient} alive={true} />
-      <Tower tilt type="ancient" team={3} tower={direAncient} alive={true} />
     </>
   );
 };

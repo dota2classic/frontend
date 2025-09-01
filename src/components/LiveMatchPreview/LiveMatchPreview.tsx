@@ -186,6 +186,7 @@ export const SmallLiveMatch: React.FC<ILiveMatchPreviewProps> = ({ match }) => {
             team={slot.team}
           />
         ))}
+      <MinimapTowers towers={match.towers} barracks={match.barracks} />
     </div>
   );
 };

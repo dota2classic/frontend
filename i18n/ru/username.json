@@ -1,6 +1,6 @@
 {
   "username": {
-    "bot": "Bot #{id}",
+    "bot": "Бот #{{id}}",
     "blank": "<blank>"
   }
 }
