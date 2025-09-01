@@ -414,7 +414,7 @@
   "edit_rules.createChildRule": "Создать дочернее правило",
   "edit_rules.createSiblingRule": "Создать соседнее правило",
   "emoji_plugin.undo": "Undo",
-  "emoticon_select_window.placeholder": ":{code}:",
+  "emoticon_select_window.placeholder": ":{{code}}:",
   "emoticon_select_window.hoveredEmoticon": ":{{code}}:",
   "error_page.pageLoadFailed": "Возникла ошибка при загрузке страницы {{statusCode}}",
   "error_page.returnHome": "Вернуться на главную",
