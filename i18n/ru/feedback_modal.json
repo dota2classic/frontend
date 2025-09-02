@@ -1,6 +1,6 @@
 {
   "feedback_modal": {
-    "option": "Опция: {{option}}",
+    "option": "{{option}}",
     "yourComment": "Твой комментарий",
     "submit": "Отправить"
   }

@@ -1,6 +1,6 @@
 {
   "feedback_modal": {
-    "option": "Option: {{option}}",
+    "option": "{{option}}",
     "yourComment": "Your comment",
     "submit": "Submit"
   }

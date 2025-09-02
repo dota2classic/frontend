@@ -1,12 +1,13 @@
 {
   "match_download": {
+    "extractZip": "Извлеки реплей из архива",
+    "extractZipDescription": "Распакуй архив с реплеем: правая кнопка мыши по файлу -> извлечь все",
     "downloadReplayTitle": "Скачай реплей",
     "downloadReplayButton": "Нажми сюда, чтобы скачать файл с реплеем игры",
-    "placeFileTitle": "Помести скачанный файл в папку с игрой",
+    "placeFileTitle": "Помести файл с реплеем в папку с игрой",
     "gameFolder": "папка с игрой/dota",
     "createFolder": "Если такой папки нет - создай.",
-    "finalFile": "Итог: у тебя должен быть файл",
-    "finalFilePath": "dota/{{matchId}}.dem",
+    "finalFile": "Итог: у тебя должен быть файл <attention>dota/{{matchId}}.dem</attention>",
     "startClientTitle": "Запусти клиент и выполни коснольную команду",
     "consoleCommandText": "Консольная команда для запуска просмотра реплея",
     "seo": {

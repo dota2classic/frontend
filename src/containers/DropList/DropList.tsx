@@ -267,7 +267,7 @@ export const DropList: React.FC<IDropListProps> = ({
           {dropList!.map((drop) => (
             <DropCard onDiscard={discard} drop={drop} key={drop.assetId} />
           ))}
-          {dropList!.length && (
+          {dropList!.length == 0 && (
             <h2 className={c.centerHeader}>{t("drop_list.noRewards")}</h2>
           )}
         </div>

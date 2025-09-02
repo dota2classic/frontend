@@ -13,6 +13,9 @@ import { hasSubscription } from "@/util/subscription";
 import { PageLink } from "../PageLink/PageLink";
 import { AppRouter, NextLinkProp } from "@/route";
 import { useTranslation } from "react-i18next";
+import { useStore } from "@/store";
+import { computed } from "mobx";
+import { observer } from "mobx-react-lite";
 
 type Props = Omit<
   React.DetailedHTMLProps<
@@ -42,7 +45,7 @@ type Props = Omit<
   link?: NextLinkProp;
 } & React.RefAttributes<HTMLImageElement | null>;
 
-export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
+export const PlayerAvatar: React.FC<Props> = observer(function PlayerAvatar({
   user,
   link,
   ...props
@@ -52,8 +55,20 @@ export const PlayerAvatar: React.FC<Props> = React.memo(function PlayerAvatar({
   const hat = hasSubscription(user) && user.hat?.image.url;
   const linkProp = link ?? AppRouter.players.player.index(user.steamId).link;
 
+  const { queue } = useStore();
+  const isOnline = computed(
+    () => queue.online.findIndex((x) => x === user.steamId) !== -1,
+  ).get();
+
   return (
-    <picture className={c.avatar}>
+    <picture
+      className={cx(
+        c.avatar,
+        isOnline ? c.online : undefined,
+        props.width > 50 && c.online__big,
+      )}
+      style={{ width: props.width, height: props.width }}
+    >
       {hat && (
         <Image
           alt=""

@@ -206,6 +206,9 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                 Math.sign(player?.mmr?.change || -1);
             const absStreak = Math.abs(player.mmr?.streak || 0) + 1;
 
+            const hasBear =
+              player.hero === "npc_dota_hero_lone_druid" && player.bear;
+
             return (
               <tr key={player.user.steamId}>
                 <td>
@@ -236,7 +239,7 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                         <span className={c.level}>{player.level}</span>
                       </picture>
 
-                      {player.bear && <HeroIcon small hero={"spirit_bear"} />}
+                      {hasBear && <HeroIcon small hero={"spirit_bear"} />}
                     </PageLink>
                     <img
                       className={cx(
@@ -403,11 +406,11 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                     <ItemIcon item={player.item4} />
                     <ItemIcon item={player.item5} />
                   </div>
-                  {player.bear && (
+                  {hasBear && (
                     <div
                       className={cx(c.itemsWrapper, c.itemsWrapper__secondary)}
                     >
-                      {player.bear.map((item, idx) => (
+                      {player.bear!.map((item, idx) => (
                         <ItemIcon key={idx} item={item} />
                       ))}
                     </div>

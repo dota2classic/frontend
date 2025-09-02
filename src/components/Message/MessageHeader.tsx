@@ -5,7 +5,6 @@ import { AppRouter } from "@/route";
 import React, { useContext } from "react";
 import { MessageTools } from "@/components/Message/MessageTools";
 import { MessageReactions } from "@/components/Message/MessageReactions";
-import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { ThreadMessageDTO } from "@/api/back";
 import { MessageContent } from "@/components/Message/MessageContent";
@@ -24,13 +23,8 @@ export const MessageHeader = observer(function MessageHeader({
   lightweight,
 }: IMessageProps) {
   const { t } = useTranslation();
-  const { queue } = useStore();
 
   const thread = useContext(ThreadContext);
-
-  const isOnline = computed(
-    () => queue.online.findIndex((x) => x === message.author.steamId) !== -1,
-  ).get();
 
   const isBeingEdited = computed(
     () => thread.editingMessageId === message.messageId,
@@ -45,18 +39,19 @@ export const MessageHeader = observer(function MessageHeader({
       )}
     >
       <div className={cx(c.contentWrapper__left, c.contentWrapper__left_user)}>
-        <picture className={cx(c.avatarRoot, isOnline ? c.online : c.offline)}>
-          {lightweight ? (
-            <span className={c.avatarPlaceholder} />
-          ) : (
-            <PlayerAvatar
-              width={45}
-              height={45}
-              user={message.author}
-              alt={t("message.avatarAlt", { playerName: message.author.name })}
-            />
-          )}
-        </picture>
+        {lightweight ? (
+          <span className={c.avatarPlaceholder} />
+        ) : (
+          <PlayerAvatar
+            width={45}
+            height={45}
+            user={message.author}
+            alt={t("message.avatarAlt", { playerName: message.author.name })}
+          />
+        )}
+        {/*<picture className={cx(c.avatarRoot)}>*/}
+        {/*  */}
+        {/*</picture>*/}
       </div>
       <div className={c.contentWrapper__middle}>
         <div className={cx(c.author)}>

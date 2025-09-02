@@ -13,7 +13,7 @@ import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { metrika } from "@/ym";
 import { NextPageContext } from "next";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -33,6 +33,9 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
 
   if (!match) return;
 
+  const isZippedReplay =
+    new Date(match.timestamp).getTime() >
+    new Date("2025-09-01T00:00:59.369Z").getTime();
   return (
     <div>
       <EmbedProps
@@ -60,10 +63,7 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
                 <Button
                   link
                   href={
-                    new Date(match.timestamp).getTime() >
-                    new Date("2025-09-01T00:00:59.369Z").getTime()
-                      ? match.replayUrl + ".zip"
-                      : match.replayUrl
+                    isZippedReplay ? match.replayUrl + ".zip" : match.replayUrl
                   }
                   target="__blank"
                   onClick={() => metrika("reachGoal", "DOWNLOAD_REPLAY")}
@@ -73,6 +73,14 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
               </>
             ),
           },
+          ...(isZippedReplay
+            ? [
+                {
+                  title: <>{t("match_download.extractZip")}</>,
+                  content: <p>{t("match_download.extractZipDescription")}</p>,
+                },
+              ]
+            : []),
           {
             title: <> {t("match_download.placeFileTitle")} </>,
             content: (
@@ -80,11 +88,17 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
                 <p className={cx("gold", threadFont.className)}>
                   {t("match_download.gameFolder")}
                 </p>
-                {t("match_download.createFolder")}. <br />
-                {t("match_download.finalFile")}
-                <span className={cx("green", threadFont.className)}>
-                  {t("match_download.finalFilePath", { matchId: match.id })}
-                </span>
+                {t("match_download.createFolder")}
+                <br />
+                <Trans
+                  i18nKey="match_download.finalFile"
+                  values={{
+                    matchId: match.id,
+                  }}
+                  components={{
+                    attention: <span className={cx("green")} />,
+                  }}
+                />
                 <img src="/guide/replay-folder.png" alt="" />
               </>
             ),

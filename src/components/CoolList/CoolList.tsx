@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 
 import c from "./CoolList.module.scss";
 import cx from "clsx";
+import { NotoSans } from "@/const/notosans";
 
 interface ListItem {
   content: ReactNode;
@@ -22,7 +23,9 @@ export const CoolList: React.FC<ICoolListProps> = ({ items }) => {
           <div className={c.step__num}>{index + 1}</div>
           <div className={c.step__content}>
             <h3>{item.title}</h3>
-            <div className={c.content}>{item.content}</div>
+            <div className={cx(c.content, NotoSans.className)}>
+              {item.content}
+            </div>
           </div>
         </div>
       ))}
