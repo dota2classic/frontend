@@ -59,7 +59,12 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
               <>
                 <Button
                   link
-                  href={match.replayUrl}
+                  href={
+                    new Date(match.timestamp).getTime() >
+                    new Date("2025-09-01T00:00:59.369Z").getTime()
+                      ? match.replayUrl + ".zip"
+                      : match.replayUrl
+                  }
                   target="__blank"
                   onClick={() => metrika("reachGoal", "DOWNLOAD_REPLAY")}
                 >
