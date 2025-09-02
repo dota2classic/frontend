@@ -15,6 +15,7 @@ import { AchievementMapping } from "@/components/AchievementStatus/achievement-m
 import { PleaseGoQueueToast } from "@/components/Toast/PleaseGoQueueToast";
 import { SimpleToast } from "@/components/Toast/SimpleToast";
 import { AppRouter } from "@/route";
+import { Trans } from "react-i18next";
 
 export const createAcceptPartyToast = (
   invite: PartyInviteReceivedMessageS2C,
@@ -78,9 +79,7 @@ export const handleNotification = (notification: NotificationDto) => {
   };
 
   const onAccept = async () => {
-    // Acknowledge notification
-    // FIXME
-    // await acknowledge();
+    await acknowledge();
 
     if (isFeedback) {
       await showFeedback();
@@ -115,8 +114,17 @@ export const handleNotification = (notification: NotificationDto) => {
       title = `Достижение получено`;
       content = (
         <>
-          <span className="gold">{AchievementMapping[ak]?.title || title}</span>
-          : {AchievementMapping[ak]?.description || content}
+          <span className="gold">
+            <Trans
+              i18nKey={AchievementMapping[ak]?.title || notification.title}
+            />
+          </span>
+          :{" "}
+          <Trans
+            i18nKey={
+              AchievementMapping[ak]?.description || notification.content
+            }
+          />
         </>
       );
       break;
