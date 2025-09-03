@@ -52,15 +52,15 @@ export const Username: React.FC<UsernameProps> = observer(function Username({
   }
 
   return (
-    <>
+    <div className={cx(c.wrapper, className)}>
       <PageLink
         link={targetLink}
         testId={testId}
-        className={cx(c.usernameLinkContainer, "link", className)}
+        className={cx(c.usernameLinkContainer, "link")}
       >
         <span className={cx(c.usernameLink)}>{displayName}</span>
       </PageLink>
       {roles && <UsernameRoles user={user} />}
-    </>
+    </div>
   );
 });

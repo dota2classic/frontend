@@ -18,7 +18,9 @@ import { LivePlayerMmr } from "@/containers/PlayingNowCarousel/LivePlayerMmr";
 import { useTranslation } from "react-i18next";
 
 const playerPriority = (a: MatchSlotInfo) =>
-  (a.heroData!.kills + a.heroData!.assists) / Math.max(a.heroData!.deaths);
+  a.heroData
+    ? (a.heroData!.kills + a.heroData!.assists) / Math.max(a.heroData!.deaths)
+    : 0;
 
 export const PlayingNowCarousel: React.FC = observer(() => {
   const { live } = useStore();
@@ -42,13 +44,12 @@ export const PlayingNowCarousel: React.FC = observer(() => {
           return (
             <div key={live.matchId} className={c.carouselItem}>
               <div className={c.player}>
-                <UserPreview avatarSize={30} user={bestPlayer.user} />
-                <div className={c.player_info}>
-                  <span className="gold">
-                    <LivePlayerMmr steamId={bestPlayer.user.steamId} />
-                  </span>{" "}
-                  {t("common.mmr")}
-                </div>
+                <UserPreview avatarSize={30} user={bestPlayer.user}>
+                  <span>
+                    <LivePlayerMmr steamId={bestPlayer.user.steamId} />{" "}
+                    {t("common.mmr")}
+                  </span>
+                </UserPreview>
               </div>
               <div className={c.hero}>
                 <div className={c.heroInMatch}>

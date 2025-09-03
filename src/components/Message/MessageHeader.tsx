@@ -49,9 +49,6 @@ export const MessageHeader = observer(function MessageHeader({
             alt={t("message.avatarAlt", { playerName: message.author.name })}
           />
         )}
-        {/*<picture className={cx(c.avatarRoot)}>*/}
-        {/*  */}
-        {/*</picture>*/}
       </div>
       <div className={c.contentWrapper__middle}>
         <div className={cx(c.author)}>

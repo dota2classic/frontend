@@ -15,7 +15,7 @@
 .carouselItem {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   flex: 0 0 100%; /* full width of carousel */
   scroll-snap-align: start;
   box-sizing: border-box;
@@ -50,7 +50,7 @@
 
 .player {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
   padding: 6px 8px;
   align-items: center;
