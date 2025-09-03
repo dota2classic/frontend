@@ -1,4 +1,7 @@
 {
+  "common": {
+    "mmr": "MMR"
+  },
   "matchmaking_mode": {
     "0": "Rating",
     "1": "Classic 5x5",

@@ -1,0 +1,67 @@
+@import "../../common.scss";
+
+.carousel {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  box-sizing: border-box; /* include padding/border in width */
+  padding: 0; /* no padding */
+  margin: 0; /* no margin */
+}
+
+.carouselItem {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 0 0 100%; /* full width of carousel */
+  scroll-snap-align: start;
+  box-sizing: border-box;
+  width: 100%; /* full width of carousel container */
+  padding: 8px;
+}
+
+.heroInMatch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.items {
+  gap: 2px;
+}
+
+.kda {
+  letter-spacing: 2px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.4);
+  gap: 8px;
+  padding: 6px 8px;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px 8px;
+  align-items: center;
+}
+
+
+.player_info {
+  display: flex;
+  flex-direction: row;
+}
+
+.watchLive {
+
+}

@@ -43,7 +43,7 @@
 }
 .main {
   grid-row-gap: 12px;
-  grid-column: span 8;
+  grid-column: span 6;
   grid-row: span 12;
 
   display: flex;
@@ -119,4 +119,14 @@
       display: none;
     }
   }
+}
+
+
+.fun {
+  //grid-row-gap: 12px;
+  grid-column: span 3;
+  grid-row: span 12;
+
+  display: flex;
+  flex-direction: column;
 }

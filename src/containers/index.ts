@@ -35,3 +35,4 @@ export { LogFileHistory } from "./LogFileHistory/LogFileHistory";
 export { DropList } from "./DropList/DropList";
 export { Form } from "./Form/Form";
 export { EditDropSettings } from "./EditDropSettings/EditDropSettings";
+export { PlayingNowCarousel } from "./PlayingNowCarousel/PlayingNowCarousel";
