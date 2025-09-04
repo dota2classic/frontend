@@ -34,6 +34,51 @@ export class RecordApi extends runtime.BaseAPI {
 
     /**
      */
+    private async recordControllerDailyRecordsRaw(): Promise<runtime.ApiResponse<void>> {
+        this.recordControllerDailyRecordsValidation();
+        const context = this.recordControllerDailyRecordsContext();
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private recordControllerDailyRecordsValidation() {
+    }
+
+    /**
+     */
+    recordControllerDailyRecordsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/record/daily`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    recordControllerDailyRecords = async (): Promise<void> => {
+        await this.recordControllerDailyRecordsRaw();
+    }
+
+    useRecordControllerDailyRecords(config?: SWRConfiguration<void, Error>) {
+        let valid = true
+
+        const context = this.recordControllerDailyRecordsContext();
+        return useSWR(context, valid ? () => this.recordControllerDailyRecords() : null, config)
+    }
+
+    /**
+     */
     private async recordControllerPlayerRecordsRaw(requestParameters: RecordControllerPlayerRecordsRequest): Promise<runtime.ApiResponse<PlayerRecordsResponse>> {
         this.recordControllerPlayerRecordsValidation(requestParameters);
         const context = this.recordControllerPlayerRecordsContext(requestParameters);

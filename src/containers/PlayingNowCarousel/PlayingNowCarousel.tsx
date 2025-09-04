@@ -3,19 +3,17 @@ import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { DotaGameRulesState, MatchmakingMode } from "@/api/mapped-models";
 import c from "./PlayingNowCarousel.module.scss";
-import {
-  HeroIcon,
-  ItemIcon,
-  KDABarChart,
-  PageLink,
-  Panel,
-  UserPreview,
-} from "@/components";
 import { MatchSlotInfo } from "@/api/back";
 import cx from "clsx";
 import { AppRouter } from "@/route";
 import { LivePlayerMmr } from "@/containers/PlayingNowCarousel/LivePlayerMmr";
 import { useTranslation } from "react-i18next";
+import { ItemIcon } from "@/components/ItemIcon";
+import { PageLink } from "@/components/PageLink";
+import { KDABarChart } from "@/components/BarChart";
+import { HeroIcon } from "@/components/HeroIcon";
+import { UserPreview } from "@/components/UserPreview";
+import { Panel } from "@/components/Panel";
 
 const playerPriority = (a: MatchSlotInfo) =>
   a.heroData
@@ -44,7 +42,7 @@ export const PlayingNowCarousel: React.FC = observer(() => {
           return (
             <div key={live.matchId} className={c.carouselItem}>
               <div className={c.player}>
-                <UserPreview avatarSize={30} user={bestPlayer.user}>
+                <UserPreview avatarSize={40} user={bestPlayer.user}>
                   <span>
                     <LivePlayerMmr steamId={bestPlayer.user.steamId} />{" "}
                     {t("common.mmr")}

@@ -3,13 +3,14 @@
 .user {
   display: flex;
   flex-direction: row;
-  align-items: center;
   column-gap: 0.5rem;
   font-size: 0.8rem;
   color: common.$primaryText;
+  align-items: stretch;
 }
 
 .username {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }

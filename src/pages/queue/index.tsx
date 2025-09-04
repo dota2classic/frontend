@@ -27,6 +27,7 @@ import { useLocalStorage } from "react-use";
 import cx from "clsx";
 import { redirectToPage } from "@/util/redirectToPage";
 import { useTranslation } from "react-i18next";
+import { PlayingNowCarousel } from "@/containers/PlayingNowCarousel";
 
 const JoyRideNoSSR = dynamic(() => import("react-joyride"), { ssr: false });
 
@@ -168,6 +169,10 @@ export default function QueuePage(props: Props) {
             id={"17aa3530-d152-462e-a032-909ae69019ed"}
             threadType={ThreadType.FORUM}
           />
+        </Section>
+        <Section className={c.fun}>
+          <header>{t("queue_page.fun.header")}</header>
+          <PlayingNowCarousel />
         </Section>
       </div>
     </>
