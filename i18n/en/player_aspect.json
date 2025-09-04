@@ -1,0 +1,9 @@
+{
+  "player_aspect": {
+    "FRIENDLY": "Friendly",
+    "TOXIC": "Toxic",
+    "TALKATIVE": "Talker",
+    "OPTIMIST": "Optimist",
+    "CLOWN": "Clown"
+  }
+}

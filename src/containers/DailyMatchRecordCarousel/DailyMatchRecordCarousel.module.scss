@@ -1,0 +1,8 @@
+@use "../../common.scss";
+
+.fixRecordBorder {
+  & > a:first-child {
+    border: none !important;
+    display: block;
+  }
+}

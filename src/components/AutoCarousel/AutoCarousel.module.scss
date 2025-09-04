@@ -1,0 +1,37 @@
+@import "../../common.scss";
+
+.carousel {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  box-sizing: border-box; /* include padding/border in width */
+  padding: 0; /* no padding */
+  margin: 0; /* no margin */
+  scrollbar-width: none; /* hide scrollbar (Firefox) */
+  &::-webkit-scrollbar {
+    display: none; /* hide scrollbar (WebKit) */
+  }
+
+
+  &__vertical {
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: unset;
+    scroll-snap-type: y mandatory;
+    flex: 1;
+  }
+}
+
+.carouselItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 100%; /* full width of carousel */
+  scroll-snap-align: start;
+  box-sizing: border-box;
+  width: 100%; /* full width of carousel container */
+  padding: 8px;
+}

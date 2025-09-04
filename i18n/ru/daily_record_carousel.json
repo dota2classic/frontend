@@ -1,0 +1,9 @@
+{
+  "daily_record_carousel": {
+    "games": "Матчей",
+    "wins": "Побед",
+    "loss": "Поражений",
+    "mmr_gained": "Получено ММР",
+    "mmr_lost": "Потеряно ММР"
+  }
+}

@@ -6,7 +6,6 @@ import { Button } from "@/components/Button";
 import { EmbedProps } from "@/components/EmbedProps";
 import { Table } from "@/components/Table";
 import { UserPreview } from "@/components/UserPreview";
-import { formatDotaMap } from "@/util/gamemode";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import c from "./Lobby.module.scss";
@@ -16,6 +15,7 @@ import { observer } from "mobx-react-lite";
 import { paidAction } from "@/util/subscription";
 import { handleException } from "@/util/handleException";
 import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 interface Props {
   lobbies: LobbyDto[];
@@ -89,9 +89,9 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
                   <UserPreview avatarSize={30} user={lobby.owner} />
                 </td>
                 <td>
-                  <dd>{t(`game_mode.${lobby.gameMode}`)}</dd>
+                  <dd>{t(`game_mode.${lobby.gameMode}` as TranslationKey)}</dd>
                 </td>
-                <td>{formatDotaMap(lobby.map)}</td>
+                <td>{t(`dota_map.${lobby.map}` as TranslationKey)}</td>
                 <td>{lobby.slots.length}</td>
                 <td>
                   {lobby.requiresPassword

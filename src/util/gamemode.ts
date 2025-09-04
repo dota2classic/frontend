@@ -1,16 +1,4 @@
-import { DotaMap, PlayerAspect, Role } from "@/api/mapped-models";
-import { ReactNode } from "react";
-
-const mapName: Partial<Record<DotaMap, ReactNode>> = {
-  [DotaMap.DOTA]: "Обычная 6.84",
-  [DotaMap.DOTA_WINTER]: "Зимняя",
-  [DotaMap.DOTA_AUTUMN]: "Осенняя",
-  [DotaMap.DOTA681]: "6.81(старый рошан)",
-  [DotaMap.DIRETIDE]: "Diretide",
-};
-export function formatDotaMap(state: DotaMap) {
-  return mapName[state] || "Неизвестная карта";
-}
+import { PlayerAspect, Role } from "@/api/mapped-models";
 
 const aspectMessages = {
   [PlayerAspect.FRIENDLY]: "Добряк",

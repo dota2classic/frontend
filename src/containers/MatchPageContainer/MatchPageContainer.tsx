@@ -20,7 +20,7 @@ import { EmbedProps } from "@/components/EmbedProps";
 import { MatchSummary } from "@/components/MatchSummary";
 import { Typography } from "@/components/Typography";
 import { Tabs } from "@/components/Tabs";
-import { MatchTeamTable, type Columns } from "@/components/MatchTeamTable";
+import { type Columns, MatchTeamTable } from "@/components/MatchTeamTable";
 import { LiveMatchPreview } from "@/components/LiveMatchPreview";
 
 interface IMatchPageContainerProps {
@@ -33,7 +33,7 @@ type Filter = { label: TranslationKey; columns: Columns[] };
 
 const options: Filter[] = [
   {
-    label: "match.tabs.farming",
+    label: "match.tabs.summary",
     columns: ["K", "D", "A", "NW"],
   },
   {
@@ -161,7 +161,7 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
           </Typography.Header>
           <Tabs
             className={"mobile-only"}
-            options={options.map((t) => t.label)}
+            options={options.map((option) => option.label)}
             selected={filter.label}
             onSelect={(v) => setFilter(options.find((x) => x.label === v)!)}
           />
@@ -218,7 +218,7 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
             duration={liveMatch.duration}
             mode={liveMatch.matchmakingMode}
             gameMode={liveMatch.gameMode}
-            gameState={liveMatch.gameState}
+            gameState={liveMatch.gameState as unknown as never} // tODO: fixme api add @ApiProperty
           />
           <br />
           <LiveMatchPreview match={liveMatch} />

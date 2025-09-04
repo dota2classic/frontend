@@ -2,11 +2,13 @@ import React from "react";
 
 import c from "./Tabs.module.scss";
 import cx from "clsx";
+import { useTranslation } from "react-i18next";
+import { TranslationKey } from "@/TranslationKey";
 
 interface ITabsProps {
-  options: string[];
-  onSelect: (v: string) => void;
-  selected: string;
+  options: TranslationKey[];
+  onSelect: (v: TranslationKey) => void;
+  selected: TranslationKey;
   className?: string;
 }
 
@@ -16,6 +18,7 @@ export const Tabs: React.FC<ITabsProps> = ({
   selected,
   className,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className={cx(c.tabs, className)}>
       {options.map((option) => (
@@ -24,7 +27,7 @@ export const Tabs: React.FC<ITabsProps> = ({
           onClick={() => onSelect(option)}
           className={cx(c.tab, option === selected ? c.tab__active : undefined)}
         >
-          {option}
+          {t(option)}
         </div>
       ))}
     </div>

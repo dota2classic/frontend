@@ -99,6 +99,7 @@
   font-size: 1.4rem;
   font-weight: bold;
   margin-top: 2rem;
+  white-space: nowrap;
 }
 
 .recordValue {
@@ -116,4 +117,6 @@
 
 .player {
   font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

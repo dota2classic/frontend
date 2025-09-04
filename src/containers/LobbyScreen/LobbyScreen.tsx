@@ -15,7 +15,6 @@ import { useRouter } from "next/router";
 import cx from "clsx";
 import { LobbyTeam } from "./LobbyTeam";
 import { observer } from "mobx-react-lite";
-import { formatDotaMap } from "@/util/gamemode";
 import { IoMdExit } from "react-icons/io";
 import { makeSimpleToast } from "@/components/Toast";
 import { useAsyncButton } from "@/util/use-async-button";
@@ -28,6 +27,7 @@ import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { Tooltipable } from "@/components/Tooltipable";
 import { IconButton } from "@/components/IconButton";
 import { Thread } from "../Thread";
+import { TranslationKey } from "@/TranslationKey";
 
 interface ILobbyScreenProps {
   lobby: LobbyDto;
@@ -245,12 +245,12 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           </dl>
           <dl>
             <dt>{t("lobby.map")}</dt>
-            <dd>{formatDotaMap(data.map)}</dd>
+            <dd>{t(`dota_map.${data.map}` as TranslationKey)}</dd>
           </dl>
           <dl>
             <dt>{t("lobby.mode")}</dt>
             <dd>
-              <dd>{t(`game_mode.${data.gameMode}`)}</dd>
+              <dd>{t(`game_mode.${data.gameMode}` as TranslationKey)}</dd>
             </dd>
           </dl>
           <dl>

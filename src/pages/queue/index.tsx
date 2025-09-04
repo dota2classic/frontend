@@ -28,6 +28,8 @@ import cx from "clsx";
 import { redirectToPage } from "@/util/redirectToPage";
 import { useTranslation } from "react-i18next";
 import { PlayingNowCarousel } from "@/containers/PlayingNowCarousel";
+import { DailyRecordCarousel } from "@/containers/DailyRecordCarousel/DailyRecordCarousel";
+import { DailyMatchRecordCarousel } from "@/containers/DailyMatchRecordCarousel/DailyMatchRecordCarousel";
 
 const JoyRideNoSSR = dynamic(() => import("react-joyride"), { ssr: false });
 
@@ -171,8 +173,9 @@ export default function QueuePage(props: Props) {
           />
         </Section>
         <Section className={c.fun}>
-          <header>{t("queue_page.fun.header")}</header>
           <PlayingNowCarousel />
+          <DailyRecordCarousel />
+          <DailyMatchRecordCarousel />
         </Section>
       </div>
     </>

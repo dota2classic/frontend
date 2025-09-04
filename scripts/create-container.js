@@ -24,7 +24,7 @@ export const ${componentName}: React.FC<I${componentName}Props> = ({ }) => {
 
 `;
 
-const componentStyle = `@import "../../common.scss";\n`;
+const componentStyle = `@use "../../common.scss";\n`;
 
 fs.mkdirSync(`./src/containers/${componentName}`);
 fs.appendFileSync(
@@ -35,7 +35,7 @@ fs.appendFileSync(
   `./src/containers/${componentName}/${componentName}.tsx`,
   componentSource,
 );
-fs.appendFileSync(
-  "./src/containers/index.ts",
-  `export { ${componentName} } from "./${componentName}/${componentName}";\n`,
-);
+// fs.appendFileSync(
+//   "./src/containers/index.ts",
+//   `export { ${componentName} } from "./${componentName}/${componentName}";\n`,
+// );

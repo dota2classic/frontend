@@ -32,11 +32,6 @@
     display: grid;
   }
 
-  & header {
-    grid-row: span 1;
-    padding: 0;
-  }
-
   &__list {
     background-color: rgba(255, 255, 255, 0.04);
     box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);

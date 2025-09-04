@@ -74,6 +74,7 @@ export * from "./PartyDto";
 export * from "./PartyMemberDTO";
 export * from "./PerModePlayersDto";
 export * from "./PlayerAspectDto";
+export * from "./PlayerDailyRecord";
 export * from "./PlayerFeedbackDto";
 export * from "./PlayerFeedbackPageDto";
 export * from "./PlayerFlagDto";

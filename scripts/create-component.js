@@ -20,7 +20,7 @@ export const ${componentName} = () => {
 }
 `;
 
-const componentStyle = `@import "../../common.scss";\n`;
+const componentStyle = `@use "../../common.scss";\n`;
 
 fs.mkdirSync(`./src/components/${componentName}`);
 fs.appendFileSync(
@@ -31,7 +31,7 @@ fs.appendFileSync(
   `./src/components/${componentName}/${componentName}.tsx`,
   componentSource,
 );
-fs.appendFileSync(
-  "./src/components/index.ts",
-  `export { ${componentName} } from "./${componentName}/${componentName}";\n`,
-);
+// fs.appendFileSync(
+//   "./src/components/index.ts",
+//   `export { ${componentName} } from "./${componentName}/${componentName}";\n`,
+// );

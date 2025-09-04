@@ -1,0 +1,16 @@
+@use "../../common.scss";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 18px;
+}
+
+.stat {
+  font-weight: bold;
+}
+
+.carousel {
+  max-height: 110px;
+}

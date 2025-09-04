@@ -18,6 +18,9 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+  PlayerDailyRecord,
+  PlayerDailyRecordFromJSON,
+  PlayerDailyRecordToJSON,
   PlayerRecordsResponse,
   PlayerRecordsResponseFromJSON,
   PlayerRecordsResponseToJSON,
@@ -34,12 +37,12 @@ export class RecordApi extends runtime.BaseAPI {
 
     /**
      */
-    private async recordControllerDailyRecordsRaw(): Promise<runtime.ApiResponse<void>> {
+    private async recordControllerDailyRecordsRaw(): Promise<runtime.ApiResponse<Array<PlayerDailyRecord>>> {
         this.recordControllerDailyRecordsValidation();
         const context = this.recordControllerDailyRecordsContext();
         const response = await this.request(context);
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(PlayerDailyRecordFromJSON));
     }
 
 
@@ -66,11 +69,12 @@ export class RecordApi extends runtime.BaseAPI {
 
     /**
      */
-    recordControllerDailyRecords = async (): Promise<void> => {
-        await this.recordControllerDailyRecordsRaw();
+    recordControllerDailyRecords = async (): Promise<Array<PlayerDailyRecord>> => {
+        const response = await this.recordControllerDailyRecordsRaw();
+        return await response.value();
     }
 
-    useRecordControllerDailyRecords(config?: SWRConfiguration<void, Error>) {
+    useRecordControllerDailyRecords(config?: SWRConfiguration<Array<PlayerDailyRecord>, Error>) {
         let valid = true
 
         const context = this.recordControllerDailyRecordsContext();
