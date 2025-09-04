@@ -1,7 +1,7 @@
 import { ToastContentProps } from "react-toastify";
-import c from "@/components/Toast/Toast.module.scss";
+import c from "./Toast.module.scss";
 import React, { useCallback } from "react";
-import { Button } from "@/components";
+import { Button } from "../Button";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { UserDTO } from "@/api/back";

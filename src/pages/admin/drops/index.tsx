@@ -1,7 +1,7 @@
 import { getApi } from "@/api/hooks";
 import { DropSettingsDto, DropTierDto } from "@/api/back";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { EditDropSettings } from "@/containers";
+import { EditDropSettings } from "@/containers/EditDropSettings";
 import { NextPageContext } from "next";
 
 interface Props {

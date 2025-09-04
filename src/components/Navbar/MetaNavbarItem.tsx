@@ -1,5 +1,5 @@
 import { AppRouter } from "@/route";
-import { NavbarItem } from "@/components";
+import { NavbarItem } from "../NavbarItem";
 import React from "react";
 import { MdLeaderboard, MdViewList } from "react-icons/md";
 import { GiBattleAxe, GiFeatheredWing } from "react-icons/gi";

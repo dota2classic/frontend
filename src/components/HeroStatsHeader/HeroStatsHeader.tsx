@@ -1,11 +1,11 @@
 import React from "react";
 
-import { HeroIcon, Panel } from "..";
-
 import c from "./HeroStatsHeader.module.scss";
 import heroName from "@/util/heroName";
 import { formatWinrate } from "@/util/math";
 import { useTranslation } from "react-i18next";
+import { HeroIcon } from "../HeroIcon";
+import { Panel } from "../Panel";
 
 interface IHeroStatsHeaderProps {
   hero: string;

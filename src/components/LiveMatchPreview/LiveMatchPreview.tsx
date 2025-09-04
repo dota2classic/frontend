@@ -6,26 +6,23 @@ import {
   MatchSlotInfo,
 } from "@/api/back";
 import c from "./LiveMatchPreview.module.scss";
-import {
-  CopySomething,
-  EmbedProps,
-  HeroIcon,
-  Input,
-  ItemIcon,
-  PageLink,
-  PlaceholderImage,
-} from "@/components";
 import { AppRouter } from "@/route";
 import { KDATableData } from "@/components/GenericTable/GenericTable";
 import cx from "clsx";
 import heroName from "@/util/heroName";
 import { TbGrave2 } from "react-icons/tb";
-import { iterateItems } from "@/util";
+import { iterateItems } from "@/util/iterateItems";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
 import { watchCmd } from "@/util/urls";
 import { MinimapTowers } from "@/components/LiveMatchPreview/MinimapTower";
 import { MinimapHero } from "@/components/LiveMatchPreview/MinimapHero";
+import { ItemIcon, PlaceholderImage } from "../ItemIcon";
+import { PageLink } from "../PageLink";
+import { HeroIcon } from "../HeroIcon";
+import { EmbedProps } from "../EmbedProps";
+import { CopySomething } from "../CopySomething";
+import { Input } from "../Input";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;

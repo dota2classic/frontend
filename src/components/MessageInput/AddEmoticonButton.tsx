@@ -1,8 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import { FaRegFaceGrinTongueSquint } from "react-icons/fa6";
 import { createPortal } from "react-dom";
-import { EmoticonSelectWindow } from "@/components";
 import { EmoticonDto } from "@/api/back";
+import { EmoticonSelectWindow } from "../EmoticonSelectWindow";
 
 interface Props {
   onAddReaction: (e: EmoticonDto) => void;

@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { ReportModal } from "@/containers";
+import { ReportModal } from "./ReportModal";
 
 export const ReportModalContainer = observer(() => {
   const { report } = useStore();

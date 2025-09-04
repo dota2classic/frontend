@@ -1,0 +1,1 @@
+export { AdminRuleTabs } from "./AdminRuleTabs";

@@ -1,0 +1,1 @@
+export { YaReklama } from "./YaReklama";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NavbarItem } from "..";
+import { NavbarItem } from "../NavbarItem";
 
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";

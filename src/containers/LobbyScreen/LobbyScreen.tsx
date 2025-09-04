@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { EditLobbyModal, Thread } from "..";
-
 import c from "./LobbyScreen.module.scss";
 import {
   LobbyDto,
@@ -10,26 +8,26 @@ import {
   LobbyUpdateTypeFromJSON,
   ThreadType,
 } from "@/api/back";
-import { useEventSource } from "@/util";
+import { useEventSource } from "@/util/useEventSource";
 import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
-import {
-  Button,
-  IconButton,
-  Panel,
-  PlayerAvatar,
-  Tooltipable,
-} from "@/components";
 import cx from "clsx";
-import { LobbyTeam } from "@/containers/LobbyScreen/LobbyTeam";
+import { LobbyTeam } from "./LobbyTeam";
 import { observer } from "mobx-react-lite";
 import { formatDotaMap } from "@/util/gamemode";
 import { IoMdExit } from "react-icons/io";
-import { makeSimpleToast } from "@/components/Toast/toasts";
+import { makeSimpleToast } from "@/components/Toast";
 import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
 import { useTranslation } from "react-i18next";
+import { EditLobbyModal } from "../EditLobbyModal";
+import { Panel } from "@/components/Panel";
+import { Button } from "@/components/Button";
+import { PlayerAvatar } from "@/components/PlayerAvatar";
+import { Tooltipable } from "@/components/Tooltipable";
+import { IconButton } from "@/components/IconButton";
+import { Thread } from "../Thread";
 
 interface ILobbyScreenProps {
   lobby: LobbyDto;

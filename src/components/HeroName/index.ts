@@ -1,0 +1,1 @@
+export { HeroName } from "./HeroName";

@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 
-import { GenericModal, Input, UserPreview } from "..";
-
 import c from "./InvitePlayerModal.module.scss";
 import { getApi } from "@/api/hooks";
 import { UserDTO } from "@/api/back";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 import { useTranslation } from "react-i18next";
+import { GenericModal } from "../GenericModal";
+import { Input } from "../Input";
+import { UserPreview } from "../UserPreview";
 
 interface IInvitePlayerModalProps {
   onSelect: (user: UserDTO) => void;

@@ -7,12 +7,12 @@ import { useRouter } from "next/router";
 import { FaSteam } from "react-icons/fa";
 import cx from "clsx";
 import { formatBanReason } from "@/util/texts/bans";
-import { Button } from "@/components";
+import { Button } from "../Button";
 import { getAuthUrl } from "@/util/getAuthUrl";
-import { PeriodicDurationTimerClient } from "@/components/PeriodicTimer/PeriodicDurationTimerClient";
 import { pluralize } from "@/util/pluralize";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
+import { PeriodicDurationTimerClient } from "../PeriodicTimer";
 
 interface Props {
   visible: boolean;

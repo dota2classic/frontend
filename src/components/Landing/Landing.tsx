@@ -1,17 +1,20 @@
 import React from "react";
 
 import c from "./Landing.module.scss";
-import { EmbedProps, PageLink, TelegramInvite } from "@/components";
+
 import { AppRouter } from "@/route";
 import cx from "clsx";
 import { BlogpostDto, LiveMatchDto, TwitchStreamDto } from "@/api/back";
-import { RecentPostsCarousel } from "@/components/Landing/RecentPostsCarousel";
-import { ProjectStatisticsCarousel } from "@/components/Landing/ProjectStatisticsCarousel";
-import { MetaCarousel } from "@/components/Landing/MetaCarousel";
-import { StreamCarousel } from "@/components/Landing/StreamCarousel";
+import { RecentPostsCarousel } from "./RecentPostsCarousel";
+import { ProjectStatisticsCarousel } from "./ProjectStatisticsCarousel";
+import { MetaCarousel } from "./MetaCarousel";
+import { StreamCarousel } from "./StreamCarousel";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "../EmbedProps";
+import { PageLink } from "../PageLink";
+import { TelegramInvite } from "../TelegramInvite";
 
 interface Props {
   recentPosts: BlogpostDto[];

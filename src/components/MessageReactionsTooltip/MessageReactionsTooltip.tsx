@@ -2,8 +2,8 @@ import React from "react";
 
 import c from "./MessageReactionsTooltip.module.scss";
 import { ReactionEntry } from "@/api/back";
-import { PlayerAvatar } from "@/components";
 import { useTranslation } from "react-i18next";
+import { PlayerAvatar } from "../PlayerAvatar";
 
 interface IMessageReactionsTooltipProps {
   reaction: ReactionEntry;

@@ -1,12 +1,14 @@
 import { getApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { ThreadPageDTO, ThreadType } from "@/api/back";
-import { EmbedProps, Pagination, ThreadsTable } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Pagination } from "@/components/Pagination";
+import { ThreadsTable } from "@/components/ThreadsTable";
 import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
 import c from "@/pages/forum/Forum.module.scss";
-import { ForumTabs } from "@/containers";
+import { ForumTabs } from "@/containers/ForumTabs";
 import { useTranslation } from "react-i18next";
 
 interface Props {

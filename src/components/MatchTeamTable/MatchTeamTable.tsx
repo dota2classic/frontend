@@ -1,13 +1,5 @@
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  HeroIcon,
-  ItemIcon,
-  NumberFormat,
-  PageLink,
-  Table,
-  Tooltipable,
-} from "..";
 import { PlayerInMatchDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import c from "./MatchTeamTable.module.scss";
@@ -24,6 +16,12 @@ import { Username } from "../Username/Username";
 import heroName from "@/util/heroName";
 import { getMaxMatchValues } from "@/util/useMaxMatchValues";
 import { pluralize } from "@/util/pluralize";
+import { Table } from "../Table";
+import { Tooltipable } from "../Tooltipable";
+import { PageLink } from "../PageLink";
+import { HeroIcon } from "../HeroIcon";
+import { NumberFormat } from "../NumberFormat";
+import { ItemIcon } from "../ItemIcon";
 
 interface IMatchTeamTableProps {
   players: PlayerInMatchDto[];

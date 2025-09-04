@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect, useState } from "react";
 
-import { ItemIconRaw } from "..";
+import { ItemIconRaw } from "../ItemIcon";
 
 import c from "./ItemTooltip.module.scss";
 

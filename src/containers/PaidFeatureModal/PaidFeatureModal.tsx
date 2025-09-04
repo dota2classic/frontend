@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, GenericModal } from "@/components";
+import { Button } from "@/components/Button";
+import { GenericModal } from "@/components/GenericModal";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { AppRouter } from "@/route";

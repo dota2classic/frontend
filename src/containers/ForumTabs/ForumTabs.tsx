@@ -1,9 +1,9 @@
 import React from "react";
-import { BigTabs } from "@/components";
+import { BigTabs } from "@/components/BigTabs";
+import type { TabItem } from "@/components/BigTabs";
 import { observer } from "mobx-react-lite";
 import { AppRouter, NextLinkProp } from "@/route";
 import { useRouter } from "next/router";
-import { TabItem } from "@/components/BigTabs/BigTabs";
 import { useStore } from "@/store";
 import { MdLocalPolice } from "react-icons/md";
 import { useTranslation } from "react-i18next";

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import c from "./Wiki.module.scss";
-import { EmbedProps } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 
 //ни в коем случае не ставить в конце слэш

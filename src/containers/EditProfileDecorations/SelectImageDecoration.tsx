@@ -2,7 +2,7 @@ import { ProfileDecorationDto } from "@/api/back";
 import c from "./EditProfileDecorations.module.scss";
 import React, { ReactNode, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { GenericTooltip } from "@/components";
+import { GenericTooltip } from "@/components/GenericTooltip";
 import cx from "clsx";
 
 interface Props {

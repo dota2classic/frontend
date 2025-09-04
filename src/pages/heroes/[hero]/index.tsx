@@ -5,15 +5,6 @@ import {
   HeroSummaryDto,
   MatchPageDto,
 } from "@/api/back";
-import {
-  EmbedProps,
-  HeroItemsTable,
-  HeroPlayersTable,
-  HeroStatsHeader,
-  HeroWithItemsHistoryTable,
-  PageLink,
-  Section,
-} from "@/components";
 import { numberOrDefault } from "@/util/urls";
 import c from "./HeroPage.module.scss";
 import { matchToPlayerMatchItem } from "@/util/mappers";
@@ -23,6 +14,13 @@ import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { HeroStatsHeader } from "@/components/HeroStatsHeader";
+import { Section } from "@/components/Section";
+import { PageLink } from "@/components/PageLink";
+import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
+import { HeroPlayersTable } from "@/components/HeroPlayersTable";
+import { HeroItemsTable } from "@/components/HeroItemsTable";
 
 interface InitialProps {
   initialMatchData: MatchPageDto;

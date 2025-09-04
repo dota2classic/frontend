@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { Message } from "@/components/";
+import { Message } from "../Message";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import c from "./RenderForumThread.module.scss";
 import { useTranslation } from "react-i18next";

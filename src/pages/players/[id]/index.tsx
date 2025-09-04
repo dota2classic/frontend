@@ -1,13 +1,3 @@
-import {
-  AchievementStatus,
-  EmbedProps,
-  HeroPerformanceTable,
-  PageLink,
-  Panel,
-  PlayerPentagonStats,
-  PlayerSummary,
-  Section,
-} from "@/components";
 import c from "./PlayerPage.module.scss";
 import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
@@ -18,13 +8,21 @@ import {
   PlayerSummaryDto,
   ThreadType,
 } from "@/api/back";
-import { PlayerMatchItem } from "@/components/HeroWithItemsHistoryTable/HeroWithItemsHistoryTable";
+import type { PlayerMatchItem } from "@/components/HeroWithItemsHistoryTable";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import React from "react";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
 import { LazyPaginatedThread } from "@/containers/Thread/LazyPaginatedThread";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { PlayerSummary } from "@/components/PlayerSummary";
+import { Section } from "@/components/Section";
+import { Panel } from "@/components/Panel";
+import { AchievementStatus } from "@/components/AchievementStatus";
+import { HeroPerformanceTable } from "@/components/HeroPerformanceTable";
+import { PageLink } from "@/components/PageLink";
+import { PlayerPentagonStats } from "@/components/PlayerPentagonStats";
 
 interface PlayerPageProps {
   playerId: string;

@@ -1,11 +1,3 @@
-import {
-  Duration,
-  EmbedProps,
-  GenericTable,
-  Pagination,
-  Panel,
-  SelectOptions,
-} from "@/components";
 import { getApi } from "@/api/hooks";
 import { GameSeasonDto, LeaderboardEntryPageDto } from "@/api/back";
 import { colors } from "@/colors";
@@ -17,6 +9,12 @@ import React from "react";
 import { ColumnType } from "@/const/tables";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Panel } from "@/components/Panel";
+import { SelectOptions } from "@/components/SelectOptions";
+import { Pagination } from "@/components/Pagination";
+import { GenericTable } from "@/components/GenericTable";
+import { Duration } from "@/components/Duration";
 
 interface LeaderboardPageProps {
   initialLeaderboard: LeaderboardEntryPageDto;

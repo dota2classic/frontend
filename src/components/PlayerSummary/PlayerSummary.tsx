@@ -3,16 +3,9 @@ import React, { useMemo } from "react";
 import c from "./PlayerSummary.module.scss";
 import cx from "clsx";
 import { formatWinrate } from "@/util/math";
-import {
-  BigTabs,
-  PageLink,
-  Panel,
-  PlayerAvatar,
-  TimeAgo,
-  Tooltipable,
-} from "@/components";
 import { AppRouter, NextLinkProp } from "@/route";
-import { steamPage, useIsModerator } from "@/util";
+import { useIsModerator } from "@/util/useIsAdmin";
+import { steamPage } from "@/util/steamId";
 import { observer } from "mobx-react-lite";
 import { formatShortTime } from "@/util/dates";
 import { FaSteam, FaTwitch } from "react-icons/fa";
@@ -32,6 +25,12 @@ import { hasSubscription } from "@/util/subscription";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
+import { Panel } from "../Panel";
+import { PlayerAvatar } from "../PlayerAvatar";
+import { Tooltipable } from "../Tooltipable";
+import { PageLink } from "../PageLink";
+import { TimeAgo } from "../TimeAgo";
+import { BigTabs } from "../BigTabs";
 
 interface IPlayerSummaryProps {
   className?: string;

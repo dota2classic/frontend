@@ -4,7 +4,7 @@ import c from "./Emoticon.module.scss";
 import { observer } from "mobx-react-lite";
 import { EmoticonDto } from "@/api/back";
 import { useStore } from "@/store";
-import { Tooltipable } from "@/components";
+import { Tooltipable } from "../Tooltipable";
 
 type Props = { code: string } | { id: number };
 

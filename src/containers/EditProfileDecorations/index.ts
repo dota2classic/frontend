@@ -1,0 +1,1 @@
+export { EditProfileDecorations } from "./EditProfileDecorations";

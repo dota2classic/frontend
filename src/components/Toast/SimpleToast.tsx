@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { ToastContentProps } from "react-toastify";
-import { GenericToast } from "@/components";
+import { GenericToast } from "./GenericToast";
 
 export const SimpleToast: React.FC<
   Partial<ToastContentProps> & {

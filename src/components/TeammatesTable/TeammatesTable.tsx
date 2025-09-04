@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GenericTable } from "..";
+import { GenericTable } from "../GenericTable";
 import { PlayerTeammateDto } from "@/api/back";
 import { colors } from "@/colors";
 import { ColumnType } from "@/const/tables";

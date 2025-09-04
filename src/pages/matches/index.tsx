@@ -1,20 +1,19 @@
-import {
-  EmbedProps,
-  MatchHistoryTable,
-  Pagination,
-  Panel,
-  SelectOptions,
-} from "@/components";
 import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import { MatchPageDto } from "@/api/back";
 import { AppRouter } from "@/route";
-import { useQueryBackedParameter, useRouterChanging } from "@/util";
+import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
+import { useRouterChanging } from "@/util/useRouterChanging";
 import React, { useEffect } from "react";
 import { numberOrDefault } from "@/util/urls";
 import { MatchComparator } from "@/util/sorts";
 import { useGameModeOptions } from "@/const/options";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Panel } from "@/components/Panel";
+import { SelectOptions } from "@/components/SelectOptions";
+import { Pagination } from "@/components/Pagination";
+import { MatchHistoryTable } from "@/components/MatchHistoryTable";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;

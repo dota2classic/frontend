@@ -1,6 +1,6 @@
 import React from "react";
 
-import { EmbedProps } from "..";
+import { EmbedProps } from "../EmbedProps";
 import { useTranslation } from "react-i18next";
 
 export const NewLanding = () => {

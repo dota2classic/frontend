@@ -1,5 +1,6 @@
 import React, { ReactNode, useLayoutEffect } from "react";
-import { Button, GenericModal } from "@/components";
+import { Button } from "@/components/Button";
+import { GenericModal } from "@/components/GenericModal";
 import { NextLinkProp } from "@/route";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";

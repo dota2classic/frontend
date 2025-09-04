@@ -5,8 +5,6 @@ import React, {
   useState,
 } from "react";
 
-import { Button, PageLink } from "..";
-
 import c from "./NoobFriendlyQueue.module.scss";
 import { AppRouter } from "@/route";
 import { FaCheck } from "react-icons/fa6";
@@ -15,6 +13,8 @@ import { useStore } from "@/store";
 import { FaSteam } from "react-icons/fa";
 import { getAuthUrl } from "@/util/getAuthUrl";
 import { useTranslation } from "react-i18next";
+import { Button } from "../Button";
+import { PageLink } from "../PageLink";
 
 interface RequiredStepProps {
   onComplete: () => void;

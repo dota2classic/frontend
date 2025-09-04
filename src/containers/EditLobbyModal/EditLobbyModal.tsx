@@ -3,13 +3,6 @@ import React, { useCallback, useState } from "react";
 import c from "./EditLobbyModal.module.scss";
 import { LobbyDto, UpdateLobbyDto } from "@/api/back";
 import {
-  Button,
-  Checkbox,
-  GenericModal,
-  Input,
-  SelectOptions,
-} from "@/components";
-import {
   DotaPatchOptions,
   RegionOptions,
   useDotaGameModeOptions,
@@ -19,6 +12,11 @@ import { getApi } from "@/api/hooks";
 import { useFocusLock } from "@/util/useTypingCallback";
 import cx from "clsx";
 import { useTranslation } from "react-i18next";
+import { GenericModal } from "@/components/GenericModal";
+import { Input } from "@/components/Input";
+import { SelectOptions } from "@/components/SelectOptions";
+import { Checkbox } from "@/components/Checkbox";
+import { Button } from "@/components/Button";
 
 interface IEditLobbyModalProps {
   onClose: () => void;

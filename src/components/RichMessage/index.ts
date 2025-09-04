@@ -1,0 +1,1 @@
+export { RichMessage } from "./RichMessage";

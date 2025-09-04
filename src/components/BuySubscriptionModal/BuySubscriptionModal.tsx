@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import c from "./BuySubscriptionModal.module.scss";
-import { Button, Checkbox, GenericModal } from "..";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
 import { TrajanPro } from "@/const/fonts";
@@ -18,6 +17,9 @@ import { FaRegCalendarDays } from "react-icons/fa6";
 import { MdDiscount } from "react-icons/md";
 import { useAsyncButton } from "@/util/use-async-button";
 import { prepareAuth } from "@/util/prepareAuth";
+import { Button } from "../Button";
+import { Checkbox } from "../Checkbox";
+import { GenericModal } from "../GenericModal";
 
 interface IBuySubscriptionModalProps {
   onClose: () => void;

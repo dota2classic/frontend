@@ -3,17 +3,6 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { BanReason, CrimeLogPageDto, MatchmakingMode } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
-import {
-  Button,
-  Duration,
-  EmbedProps,
-  GenericTable,
-  InvitePlayerModalRaw,
-  PageLink,
-  Pagination,
-  Panel,
-  TimeAgo,
-} from "@/components";
 import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
 import { formatBanReason } from "@/util/texts/bans";
@@ -21,6 +10,15 @@ import { ColumnType } from "@/const/tables";
 import c from "./AdminStyles.module.scss";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal";
+import { Panel } from "@/components/Panel";
+import { Button } from "@/components/Button";
+import { Pagination } from "@/components/Pagination";
+import { GenericTable } from "@/components/GenericTable";
+import { PageLink } from "@/components/PageLink";
+import { Duration } from "@/components/Duration";
+import { TimeAgo } from "@/components/TimeAgo";
 
 interface Props {
   crime: CrimeLogPageDto;

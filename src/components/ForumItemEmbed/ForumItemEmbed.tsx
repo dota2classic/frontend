@@ -1,11 +1,11 @@
 import React from "react";
 
-import { ItemIconRaw, PageLink } from "..";
-
 import c from "./ForumItemEmbed.module.scss";
 import { itemName } from "@/util/heroName";
 import { AppRouter } from "@/route";
 import cx from "clsx";
+import { PageLink } from "../PageLink";
+import { ItemIconRaw } from "../ItemIcon";
 
 interface IForumItemEmbedProps {
   itemId: number;

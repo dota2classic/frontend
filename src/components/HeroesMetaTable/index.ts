@@ -1,0 +1,1 @@
+export { HeroesMetaTable } from "./HeroesMetaTable";

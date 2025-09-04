@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./AdBlock.module.scss";
-import { GenericAdBlock } from "@/components/AdBlock/GenericAdBlock";
+import { GenericAdBlock } from "./GenericAdBlock";
 
 interface Props {
   bannerId: string;

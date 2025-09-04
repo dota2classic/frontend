@@ -1,5 +1,5 @@
 import React from "react";
-import { EditHatContainer } from "@/containers";
+import { EditHatContainer } from "@/containers/EditHatContainer";
 import { UserProfileDecorationType } from "@/api/back";
 import { NextPageContext } from "next";
 

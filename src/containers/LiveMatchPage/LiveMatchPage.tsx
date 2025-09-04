@@ -1,14 +1,6 @@
 import React from "react";
 
 import c from "./LiveMatchPage.module.scss";
-import {
-  CopySomething,
-  Duration,
-  Input,
-  PageLink,
-  Panel,
-  SmallLiveMatch,
-} from "@/components";
 import { AppRouter } from "@/route";
 import { watchCmd } from "@/util/urls";
 import { observer } from "mobx-react-lite";
@@ -16,6 +8,12 @@ import { LiveMatchDto } from "@/api/back";
 import { useStore } from "@/store";
 import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { useTranslation } from "react-i18next";
+import { PageLink } from "@/components/PageLink";
+import { Panel } from "@/components/Panel";
+import { SmallLiveMatch } from "@/components/LiveMatchPreview";
+import { Duration } from "@/components/Duration";
+import { CopySomething } from "@/components/CopySomething";
+import { Input } from "@/components/Input";
 
 interface ILiveMatchPageProps {
   games: LiveMatchDto[];

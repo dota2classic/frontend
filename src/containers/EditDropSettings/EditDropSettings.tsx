@@ -1,6 +1,8 @@
 import React, { useCallback } from "react";
 import { DropSettingsDto, DropTierDto, UpdateDropTierDto } from "@/api/back";
-import { Button, Input, Table } from "@/components";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { Table } from "@/components/Table";
 import { observer, useLocalObservable } from "mobx-react-lite";
 import { computed, runInAction } from "mobx";
 import { getApi } from "@/api/hooks";

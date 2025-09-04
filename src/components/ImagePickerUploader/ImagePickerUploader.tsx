@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState, useTransition } from "react";
 
-import { GenericTooltip } from "..";
+import { GenericTooltip } from "../GenericTooltip";
 
 import c from "./ImagePickerUploader.module.scss";
 import cx from "clsx";

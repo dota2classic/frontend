@@ -11,11 +11,11 @@ import React, {
 import { createPortal } from "react-dom";
 import { observer } from "mobx-react-lite";
 import { UploadedImageDto } from "@/api/back";
-import { ImageGalleryModal } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageGalleryModal";
-import { GenericTooltip } from "@/components";
+import { ImageGalleryModal } from "./ImageGalleryModal";
+import { GenericTooltip } from "@/components/GenericTooltip";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $insertNodes } from "lexical";
-import { $createImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
+import { $createImageNode } from "./ImageNode";
 import { useStore } from "@/store";
 import { useTranslation } from "react-i18next";
 

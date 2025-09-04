@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useRef, useState } from "react";
 import { EmoticonDto } from "@/api/back";
-import { EmoticonSelectWindow } from "@/components";
+import { EmoticonSelectWindow } from "@/components/EmoticonSelectWindow";
 import { createPortal } from "react-dom";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { FaGrinTongueSquint } from "react-icons/fa";

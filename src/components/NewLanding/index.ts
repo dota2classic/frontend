@@ -1,0 +1,1 @@
+export { NewLanding } from "./NewLanding";

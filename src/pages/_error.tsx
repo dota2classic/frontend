@@ -1,4 +1,4 @@
-import { PageLink } from "@/components";
+import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import { useTranslation } from "react-i18next";
 

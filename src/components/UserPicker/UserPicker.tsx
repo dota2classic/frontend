@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { Button, InvitePlayerModalRaw, UserPreview } from "..";
+import { Button } from "../Button";
+import { InvitePlayerModalRaw } from "../InvitePlayerModal";
+import { UserPreview } from "../UserPreview";
 import { createPortal } from "react-dom";
 import { UserDTO } from "@/api/back";
 import { IoClose } from "react-icons/io5";

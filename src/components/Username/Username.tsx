@@ -5,7 +5,7 @@ import cx from "clsx";
 import c from "./Username.module.scss";
 import { UserDTO } from "@/api/back";
 import { observer } from "mobx-react-lite";
-import { UsernameRoles } from "@/components/Username/UsernameRoles";
+import { UsernameRoles } from "./UsernameRoles";
 import { useTranslation } from "react-i18next";
 
 interface UsernameProps {

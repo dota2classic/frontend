@@ -1,4 +1,4 @@
-import { NavbarItem } from "@/components";
+import { NavbarItem } from "../NavbarItem";
 import { AppRouter } from "@/route";
 
 import c from "./Navbar.module.scss";

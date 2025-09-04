@@ -28,11 +28,11 @@ import {
 } from "react-icons/fa";
 import c from "./ToolbarPlugin.module.scss";
 import cx from "clsx";
-import { $createEmojiNode } from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiNode";
-import findEmoji from "@/containers/RichEditor/plugins/EmojiPlugin/findEmoji";
+import { $createEmojiNode } from "../EmojiPlugin/EmojiNode";
+import findEmoji from "../EmojiPlugin/findEmoji";
 import { $setBlocksType } from "@lexical/selection";
 import { $createHeadingNode } from "@lexical/rich-text";
-import { InsertLinkButton } from "@/containers/RichEditor/plugins/InsertLinkPlugin";
+import { InsertLinkButton } from "../InsertLinkPlugin";
 
 function $textNodeTransform(node: TextNode): void {
   if (!node.isSimpleText() || node.hasFormat("code")) {

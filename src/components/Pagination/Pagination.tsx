@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from "react";
 
-import { PageLink, Panel } from "..";
+import { PageLink } from "../PageLink";
+import { Panel } from "../Panel";
 
 import c from "./Pagination.module.scss";
 import { NextLinkProp } from "@/route";

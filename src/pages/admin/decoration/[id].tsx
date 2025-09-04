@@ -2,7 +2,7 @@ import { NextPageContext } from "next";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { ProfileDecorationDto } from "@/api/back";
-import { EditHatContainer } from "@/containers";
+import { EditHatContainer } from "@/containers/EditHatContainer";
 
 interface Props {
   decoration: ProfileDecorationDto;

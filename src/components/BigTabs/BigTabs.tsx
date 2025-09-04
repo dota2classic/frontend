@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import c from "./BigTabs.module.scss";
 import cx from "clsx";
 import { NextLinkProp } from "@/route";
-import { PageLink } from "@/components";
+import { PageLink } from "../PageLink";
 
 export interface TabItem<T extends string, L = ReactNode> {
   key: T;

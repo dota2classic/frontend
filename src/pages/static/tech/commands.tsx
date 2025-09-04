@@ -2,8 +2,9 @@ import cx from "clsx";
 import { NotoSans } from "@/const/notosans";
 import c from "@/pages/static/Static.module.scss";
 import React from "react";
-import { TechStaticTabs } from "@/containers";
-import { CopyBlock, EmbedProps } from "@/components";
+import { TechStaticTabs } from "@/containers/TechStaticTabs";
+import { CopyBlock } from "@/components/CopyBlock";
+import { EmbedProps } from "@/components/EmbedProps";
 import { Trans, useTranslation } from "react-i18next";
 
 export default function CommandsTechTab() {

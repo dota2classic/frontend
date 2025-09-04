@@ -1,10 +1,11 @@
 import { ThreadMessageDTO } from "@/api/back";
 import cx from "clsx";
 import c from "./ThreadsTable.module.scss";
-import TableClasses from "@/components/GenericTable/GenericTable.module.scss";
-import { PlayerAvatar, TimeAgo } from "@/components";
+import TableClasses from "../GenericTable/GenericTable.module.scss";
 import React from "react";
 import { Username } from "@/components/Username/Username";
+import { PlayerAvatar } from "../PlayerAvatar";
+import { TimeAgo } from "../TimeAgo";
 
 export const ThreadMessagePreview = React.memo(function ThreadMessagePreview({
   message,

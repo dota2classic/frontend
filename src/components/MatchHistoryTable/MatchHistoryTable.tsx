@@ -1,21 +1,19 @@
 import React from "react";
 
-import {
-  Duration,
-  HeroIcon,
-  PageLink,
-  Table,
-  TableRowLoading,
-  TimeAgo,
-} from "..";
 import { MatchDto } from "@/api/back";
 import c from "./MatchHistoryTable.module.scss";
 import { AppRouter } from "@/route";
 import cx from "clsx";
 import { colors } from "@/colors";
-import { maxBy } from "@/util";
-import { SingleWeightedBarChart } from "@/components/BarChart/SingleWeightedBarChart";
+import { maxBy } from "@/util/maxBy";
 import { useTranslation } from "react-i18next";
+import { Table } from "../Table";
+import { TableRowLoading } from "../TableRowLoading";
+import { PageLink } from "../PageLink";
+import { TimeAgo } from "../TimeAgo";
+import { Duration } from "../Duration";
+import { HeroIcon } from "../HeroIcon";
+import { SingleWeightedBarChart } from "../BarChart";
 
 interface IMatchHistoryTableProps {
   data: MatchDto[];

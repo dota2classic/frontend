@@ -6,25 +6,22 @@ import {
   MatchReportInfoDto,
   PlayerInMatchDto,
 } from "@/api/back";
-import { Columns } from "@/components/MatchTeamTable/columns";
 import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
-import { useEventSource } from "@/util";
-import { PlayerFeedbackModal } from "@/containers";
-import {
-  EmbedProps,
-  LiveMatchPreview,
-  MatchSummary,
-  MatchTeamTable,
-  Tabs,
-  Typography,
-} from "@/components";
+import { useEventSource } from "@/util/useEventSource";
 import { FaTrophy } from "react-icons/fa";
-import { MatchThread } from "@/containers/MatchPageContainer/MatchThread";
+import { MatchThread } from "./MatchThread";
 import { observer } from "mobx-react-lite";
 import { getMaxMatchValues } from "@/util/useMaxMatchValues";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
+import { PlayerFeedbackModal } from "../PlayerFeedbackModal";
+import { EmbedProps } from "@/components/EmbedProps";
+import { MatchSummary } from "@/components/MatchSummary";
+import { Typography } from "@/components/Typography";
+import { Tabs } from "@/components/Tabs";
+import { MatchTeamTable, type Columns } from "@/components/MatchTeamTable";
+import { LiveMatchPreview } from "@/components/LiveMatchPreview";
 
 interface IMatchPageContainerProps {
   matchId: number;

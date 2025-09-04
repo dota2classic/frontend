@@ -1,15 +1,6 @@
 import { getApi } from "@/api/hooks";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  Button,
-  Checkbox,
-  Input,
-  PlayerSummary,
-  Section,
-  Table,
-  UserPreview,
-} from "@/components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { NextPageContext } from "next";
@@ -28,7 +19,15 @@ import { RoleNames } from "@/const/roles";
 import cx from "clsx";
 import { fullDate } from "@/util/dates";
 import { formatBanReason } from "@/util/texts/bans";
-import { AdminPlayerBanSettings, GiveProductContainer } from "@/containers";
+import { Button } from "@/components/Button";
+import { PlayerSummary } from "@/components/PlayerSummary";
+import { Section } from "@/components/Section";
+import { Checkbox } from "@/components/Checkbox";
+import { Table } from "@/components/Table";
+import { UserPreview } from "@/components/UserPreview";
+import { AdminPlayerBanSettings } from "@/containers/AdminPlayerBanSettings";
+import { GiveProductContainer } from "@/containers/GiveProductContainer";
+import { Input } from "@/components/Input";
 
 // const BanReasonOptions = [
 //   BanReason.GAME_DECLINE,

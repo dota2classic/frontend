@@ -1,9 +1,9 @@
-import GenericMentionPlugin from "@/containers/RichEditor/plugins/GenericMentionPlugin/GenericMentionPlugin";
+import GenericMentionPlugin from "../GenericMentionPlugin/GenericMentionPlugin";
 import { HeroName, HeroNames } from "@/const/heronames";
 import React, { useCallback } from "react";
 import c from "./HeroMentionPlugin.module.scss";
-import { HeroIcon } from "@/components";
-import { $createHeroMentionNode } from "@/containers/RichEditor/plugins/HeroMentionPlugin/HeroMentionNode";
+import { HeroIcon } from "@/components/HeroIcon";
+import { $createHeroMentionNode } from "./HeroMentionNode";
 import { useTranslation } from "react-i18next";
 
 const HeroRender = ({ hero, localizedName }: HeroName) => {

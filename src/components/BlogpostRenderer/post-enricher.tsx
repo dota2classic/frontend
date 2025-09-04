@@ -2,8 +2,10 @@
 
 import parse, { DOMNode, Element } from "html-react-parser";
 import { ElementType } from "domelementtype";
-import { ForumHeroEmbed, ForumItemEmbed, ForumUserEmbed } from "@/components";
 import React, { useMemo } from "react";
+import { ForumUserEmbed } from "../ForumUserEmbed";
+import { ForumHeroEmbed } from "../ForumHeroEmbed";
+import { ForumItemEmbed } from "../ForumItemEmbed";
 
 const isPlayerMention = (node: DOMNode): boolean => {
   return (

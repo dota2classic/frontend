@@ -1,6 +1,6 @@
 import React, { createElement, PropsWithChildren, ReactNode } from "react";
 import Image from "next/image";
-import { PageLink } from "..";
+import { PageLink } from "../PageLink";
 
 import c from "./CarouselItem.module.scss";
 import { NextLinkProp } from "@/route";

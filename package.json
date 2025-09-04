@@ -23,7 +23,8 @@
     "dockertest": "docker build . --build-arg API_URL=https://dotaclassic.ru/api --build-arg SOCKET_URL=wss://dotaclassic.ru/newsocket -t dota2classic/matchmaking:dotabuff",
     "knip": "knip",
     "i18n-replace": "npx jscodeshift -t scripts/replace.js src/components/QueuePartyInfo/QueuePartyInfo.tsx --parser=tsx && node scripts/combine-translation.js",
-    "combine": "node scripts/combine-translation.js"
+    "combine": "node scripts/combine-translation.js",
+    "depcruise": "depcruise src"
   },
   "dependencies": {
     "@dota2classic/react-arborist": "^1.0.1",
@@ -78,6 +79,7 @@
     "@types/web-push": "^3.6.4",
     "@typescript-eslint/eslint-plugin": "^8.24.0",
     "apisauce": "^3.2.0",
+    "dependency-cruiser": "^17.0.1",
     "dotenv": "^16.4.7",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.1.7",

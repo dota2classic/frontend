@@ -1,11 +1,3 @@
-import {
-  Carousel,
-  CarouselItem,
-  EmbedProps,
-  MatchHistoryTable,
-  PageLink,
-  Section,
-} from "@/components";
 import React from "react";
 import c from "./Meta.module.scss";
 import cx from "clsx";
@@ -14,6 +6,12 @@ import { getApi } from "@/api/hooks";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { MatchPageDto } from "@/api/back";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Section } from "@/components/Section";
+import { Carousel } from "@/components/Carousel";
+import { CarouselItem } from "@/components/CarouselItem";
+import { MatchHistoryTable } from "@/components/MatchHistoryTable";
+import { PageLink } from "@/components/PageLink";
 
 interface Props {
   matches: MatchPageDto;

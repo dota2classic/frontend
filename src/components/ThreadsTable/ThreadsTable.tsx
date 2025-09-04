@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Table } from "..";
+import { Table } from "../Table";
 
 import c from "./ThreadsTable.module.scss";
 import { ThreadPageDTO } from "@/api/back";
-import { ThreadTableRow } from "@/components/ThreadsTable/ThreadTableRow";
+import { ThreadTableRow } from "./ThreadTableRow";
 import { useTranslation } from "react-i18next";
 
 interface IThreadsTableProps {

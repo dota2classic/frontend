@@ -1,7 +1,8 @@
-import { AdminRuleTabs, EditRulesContainer } from "@/containers";
+import { AdminRuleTabs } from "@/containers/AdminRuleTabs";
+import { EditRulesContainer } from "@/containers/EditRulesContainer";
 import { getApi } from "@/api/hooks";
 import { RuleDto, RulePunishmentDto } from "@/api/back";
-import { EmbedProps } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 
 interface Props {

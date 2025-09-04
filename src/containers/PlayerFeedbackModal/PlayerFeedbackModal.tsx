@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from "react";
 import { MatchReportInfoDto, PlayerAspect, PlayerInMatchDto } from "@/api/back";
-import { GenericModal, UserPreview } from "@/components";
+import { GenericModal } from "@/components/GenericModal";
+import { UserPreview } from "@/components/UserPreview";
 import c from "./PlayerFeedbackModal.module.scss";
 import { formatPlayerAspect } from "@/util/gamemode";
 import cx from "clsx";
@@ -8,8 +9,8 @@ import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import { makeSimpleToast } from "@/components/Toast/toasts";
-import { PlayerAspectIcons } from "@/containers/PlayerFeedbackModal/PlayerAspectIcons";
+import { makeSimpleToast } from "@/components/Toast";
+import { PlayerAspectIcons } from "./PlayerAspectIcons";
 import { useTranslation } from "react-i18next";
 
 interface IPlayerReportModalProps {

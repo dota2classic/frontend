@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import c from "@/components/ForumUserEmbed/ForumUserEmbed.module.scss";
+import c from "./ForumUserEmbed.module.scss";
 import cx from "clsx";
 import { useTranslation } from "react-i18next";
 

@@ -5,15 +5,13 @@ import { LogLineDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
-import {
-  Checkbox,
-  ForumUserEmbed,
-  Panel,
-  SelectOptions,
-  Table,
-} from "@/components";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
+import { Panel } from "@/components/Panel";
+import { Checkbox } from "@/components/Checkbox";
+import { SelectOptions } from "@/components/SelectOptions";
+import { Table } from "@/components/Table";
+import { ForumUserEmbed } from "@/components/ForumUserEmbed";
 
 interface ILogFileHistoryProps {
   matchId: number;

@@ -7,7 +7,7 @@ import {
   type Spread,
 } from "lexical";
 import React, { ReactNode } from "react";
-import { ForumItemEmbed } from "@/components";
+import { ForumItemEmbed } from "@/components/ForumItemEmbed";
 
 export type SerializedMentionNode = Spread<
   {
