@@ -12,9 +12,9 @@ import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { QueueGameState, useQueueState } from "@/util/useQueueState";
 import cx from "clsx";
 import {
-  WaitingAccept,
-  ServerSearching,
   GameReadyModal,
+  ServerSearching,
+  WaitingAccept,
 } from "../AcceptGameModal";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
@@ -51,13 +51,7 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
       <Section className={cx(c.modes, className)}>
         <header>{t("matchmaking_mode_list.gameMode")}</header>
         <div className={cx(c.modes__list)}>
-          <div
-            className={cx(
-              c.modes__list,
-              c.modes__list_inner,
-              "onboarding-mode-list",
-            )}
-          >
+          <div className={cx(c.modes__list_inner, "onboarding-mode-list")}>
             {d84.map((info) => {
               const modeDisabledBy = modEnableCondition(
                 queue,
