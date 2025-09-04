@@ -1,4 +1,4 @@
-@import '../../common.scss';
+@use '../../common.scss';
 
 @keyframes moving-gradient {
   0% { background-position: -250px 0; }

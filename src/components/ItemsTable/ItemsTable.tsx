@@ -1,12 +1,13 @@
 import React from "react";
 
-import { GenericTable, Tooltipable } from "..";
 import { ColumnType } from "@/const/tables";
 import { colors } from "@/colors";
 import { itemName } from "@/util/heroName";
 import { ItemDto } from "@/api/back";
 import { FaCrown } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { GenericTable } from "../GenericTable";
+import { Tooltipable } from "../Tooltipable";
 
 interface IItemsTableProps {
   items: ItemDto[];

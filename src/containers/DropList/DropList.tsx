@@ -8,24 +8,23 @@ import {
   TradeOfferDto,
   TradeUserDto,
 } from "@/api/back";
-import { DropCard } from "@/containers/DropList/DropCard";
+import { DropCard } from "./DropCard";
 import { getApi } from "@/api/hooks";
-import { steam32to64, useDidMount } from "@/util";
-import {
-  Button,
-  BuySubscriptionModal,
-  ClientPortal,
-  Input,
-  Section,
-  Table,
-  TimeAgo,
-} from "@/components";
-import { Form } from "@/containers";
+import { steam32to64 } from "@/util/steamId";
+import { useDidMount } from "@/util/useDidMount";
+import { Form } from "../Form";
 import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
-import { makeLinkToast, makeSimpleToast } from "@/components/Toast/toasts";
+import { makeLinkToast, makeSimpleToast } from "@/components/Toast";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import { ClientPortal } from "@/components/ClientPortal";
+import { BuySubscriptionModal } from "@/components/BuySubscriptionModal";
+import { Section } from "@/components/Section";
+import { Input } from "@/components/Input";
+import { Button } from "@/components/Button";
+import { Table } from "@/components/Table";
+import { TimeAgo } from "@/components/TimeAgo";
 
 interface IDropListProps {
   drops: DroppedItemDto[];

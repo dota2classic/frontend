@@ -1,0 +1,1 @@
+export { ForumHeroEmbed } from "./ForumHeroEmbed";

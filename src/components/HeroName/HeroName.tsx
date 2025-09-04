@@ -1,6 +1,4 @@
 import React from "react";
-
-import {} from "..";
 import heroName from "@/util/heroName";
 
 interface IHeroNameProps {

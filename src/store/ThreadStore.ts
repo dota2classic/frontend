@@ -16,7 +16,7 @@ import {
 } from "@/api/back";
 import { diffMillis } from "@/util/dates";
 import { getApi } from "@/api/hooks";
-import { maxBy } from "@/util";
+import { maxBy } from "@/util/maxBy";
 import { VirtuosoHandle } from "react-virtuoso";
 
 export class ThreadStore implements HydratableStore<unknown> {

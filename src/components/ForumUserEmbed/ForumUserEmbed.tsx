@@ -1,10 +1,10 @@
 import React from "react";
 
-import { PageLink } from "..";
+import { PageLink } from "../PageLink";
 import { AppRouter } from "@/route";
 import c from "./ForumUserEmbed.module.scss";
 import cx from "clsx";
-import { ForumUsername } from "@/components/ForumUserEmbed/ForumUsername";
+import { ForumUsername } from "./ForumUsername";
 
 interface IForumUserEmbedProps {
   steamId: string;

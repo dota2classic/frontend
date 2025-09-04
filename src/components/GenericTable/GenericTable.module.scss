@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .avatar {
   height: 40px;
@@ -27,6 +27,8 @@
 }
 
 .heroWrapper {
+  column-gap: 0.45rem;
+
   & a,
   & span {
     text-transform: capitalize;
@@ -35,8 +37,6 @@
       max-width: 120px;
     }
   }
-
-  column-gap: 0.45rem;
 }
 
 .heroLinkWrapper {

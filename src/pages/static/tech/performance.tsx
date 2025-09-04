@@ -2,16 +2,14 @@ import cx from "clsx";
 import { NotoSans } from "@/const/notosans";
 import c from "@/pages/static/Static.module.scss";
 import React from "react";
-import { TechStaticTabs } from "@/containers";
-import {
-  CoolList,
-  CopyBlock,
-  CopySomething,
-  EmbedProps,
-  Input,
-  Table,
-} from "@/components";
+import { TechStaticTabs } from "@/containers/TechStaticTabs";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { CoolList } from "@/components/CoolList";
+import { CopyBlock } from "@/components/CopyBlock";
+import { CopySomething } from "@/components/CopySomething";
+import { Input } from "@/components/Input";
+import { Table } from "@/components/Table";
 
 export default function PerformanceTechTab() {
   const { t } = useTranslation();

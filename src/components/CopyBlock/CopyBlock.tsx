@@ -1,6 +1,6 @@
 import React from "react";
-
-import { CopySomething, Input } from "..";
+import { CopySomething } from "../CopySomething";
+import { Input } from "../Input";
 
 interface ICopyBlockProps {
   text: string;

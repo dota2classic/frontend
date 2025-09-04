@@ -1,23 +1,17 @@
 import "@/styles/globals.css";
 import "@/styles/scrollbars.css";
 import App, { AppContext, AppInitialProps } from "next/app";
-import { Layout, ReferralSniffer } from "@/components";
+import { ReferralSniffer } from "@/components/ReferralSniffer";
+import { Layout } from "@/components/Layout";
 import Cookies from "cookies";
 import "../util/promise";
 // import * as Fonts from 'next/font/google'
 import { SWRConfig } from "swr";
-import React, { createContext } from "react";
-import { getRootStore, HydrateRootData, RootStore } from "@/store";
+import React from "react";
+import { getRootStore, HydrateRootData } from "@/store";
 import Head from "next/head";
 import "../ext";
 import cx from "clsx";
-import {
-  AcceptCookiesContainer,
-  ClaimContainer,
-  DevVersionIndicator,
-  GreedyFocusManager,
-  PaidFeatureModal,
-} from "@/containers";
 import { ToastContainer } from "react-toastify";
 import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModalContainer";
 // Font files can be colocated inside of `pages`
@@ -29,8 +23,12 @@ import { MaintenanceDto } from "@/api/back";
 import "../i18n/i18n";
 import i18n from "@/i18n/i18n";
 import { detectLocale } from "@/util/detectLocale";
-
-export const MobxContext = createContext<RootStore>({} as RootStore);
+import { DevVersionIndicator } from "@/containers/DevVersionIndicator";
+import { ClaimContainer } from "@/containers/ClaimContainer";
+import { GreedyFocusManager } from "@/containers/GreedyFocusManager";
+import { PaidFeatureModal } from "@/containers/PaidFeatureModal";
+import { AcceptCookiesContainer } from "@/containers/AcceptCookiesContainer";
+import { MobxContext } from "@/store/MobxContext";
 
 export default class MyApp extends App<{
   initialState: HydrateRootData;

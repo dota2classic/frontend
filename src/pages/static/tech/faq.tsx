@@ -2,10 +2,13 @@ import cx from "clsx";
 import { NotoSans } from "@/const/notosans";
 import c from "@/pages/static/Static.module.scss";
 import React from "react";
-import { TechStaticTabs } from "@/containers";
-import { CopyBlock, EmbedProps, FAQ, PageLink } from "@/components";
+import { TechStaticTabs } from "@/containers/TechStaticTabs";
+import { CopyBlock } from "@/components/CopyBlock";
+import { EmbedProps } from "@/components/EmbedProps";
+import { FAQ } from "@/components/FAQ";
+import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
-import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
+import { DiscordInvite } from "@/components/TelegramInvite";
 import { useTranslation } from "react-i18next";
 
 export default function FaqTechTab() {

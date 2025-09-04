@@ -1,4 +1,4 @@
-import { NoobFriendlyQueue } from "@/components";
+import { NoobFriendlyQueue } from "@/components/NoobFriendlyQueue";
 
 export default function QueueGuide() {
   return (

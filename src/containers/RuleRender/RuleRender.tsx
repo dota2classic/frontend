@@ -3,7 +3,7 @@ import React from "react";
 import c from "./RuleRender.module.scss";
 import { RuleDto, RuleType } from "@/api/back";
 import { FaHashtag } from "react-icons/fa";
-import { Duration } from "@/components";
+import { Duration } from "@/components/Duration";
 import cx from "clsx";
 
 interface IRuleRenderProps {

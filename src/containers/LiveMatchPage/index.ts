@@ -1,0 +1,1 @@
+export { LiveMatchPage } from "./LiveMatchPage";

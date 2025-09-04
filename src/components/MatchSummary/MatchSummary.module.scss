@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 
 .matchWinner {
@@ -29,9 +29,9 @@
 }
 
 .radiant {
-  color: $green;
+  color: common.$green;
 }
 
 .dire {
-  color: $red;
+  color: common.$red;
 }

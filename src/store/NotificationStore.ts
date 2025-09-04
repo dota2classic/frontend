@@ -1,7 +1,7 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
 import { ReactNode } from "react";
 import { HydratableStore } from "@/store/HydratableStore";
-import { urlBase64ToUint8Array } from "@/util";
+import { urlBase64ToUint8Array } from "@/util/urlBase64ToUint8Array";
 import { getApi } from "@/api/hooks";
 import { FeedbackDto, NotificationDto, SubscriptionDto } from "@/api/back";
 import Queue from "queue";

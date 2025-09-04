@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .toast {
   z-index: 1000000;
@@ -9,7 +9,7 @@
 
   &__error {
     & header {
-      color: $error !important;
+      color: common.$error !important;
     }
   }
 }
@@ -19,12 +19,12 @@
 
   & header {
     font-weight: 500;
-    color: $primaryText;
+    color: common.$primaryText;
   }
 
   & p {
     //font-size: 0.8rem;
-    color: $primaryTextDark;
+    color: common.$primaryTextDark;
   }
 }
 
@@ -45,7 +45,7 @@
     padding: 4px;
     border-radius: 4px;
     transition: 0.3s ease;
-    color: $primaryTextTint;
+    color: common.$primaryTextTint;
     cursor: pointer;
 
     &:disabled {
@@ -80,6 +80,6 @@
 
 .partyToast {
   padding: 1rem;
-  background-color: $bg15;
+  background-color: common.$bg15;
   box-shadow: 0 0 16px 4px rgba(10, 10, 10, 0.4);
 }

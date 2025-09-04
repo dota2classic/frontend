@@ -1,7 +1,5 @@
 import React from "react";
 
-import {} from "..";
-
 import c from "./Section.module.scss";
 import cx from "clsx";
 

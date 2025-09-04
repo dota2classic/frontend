@@ -1,7 +1,8 @@
 import { getApi } from "@/api/hooks";
 import { ItemDto } from "@/api/back";
-import { ItemBreadcrumbs } from "@/containers";
-import { EmbedProps, ItemsTable } from "@/components";
+import { ItemBreadcrumbs } from "@/containers/ItemBreadcrumbs";
+import { EmbedProps } from "@/components/EmbedProps";
+import { ItemsTable } from "@/components/ItemsTable";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

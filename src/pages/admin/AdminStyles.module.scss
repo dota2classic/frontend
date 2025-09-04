@@ -1,7 +1,7 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .withBorder {
-  border: 1px solid $primaryTextDark2;
+  border: 1px solid common.$primaryTextDark2;
   padding: 12px 8px;
 
   & + & {
@@ -54,13 +54,13 @@
   }
 
   & h2 {
-    color: $red;
+    color: common.$red;
     font-weight: bold;
   }
 }
 
 .playerFeedback {
-  @include box();
+  @include common.box();
   display: flex;
   flex-direction: column;
   align-items: stretch;

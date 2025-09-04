@@ -1,7 +1,7 @@
 import { PlayerRecordsResponse } from "@/api/back";
 import { getApi } from "@/api/hooks";
-import { EmbedProps } from "@/components";
-import { PlayerRecords } from "@/containers";
+import { EmbedProps } from "@/components/EmbedProps";
+import { PlayerRecords } from "@/containers/PlayerRecords";
 import { useTranslation } from "react-i18next";
 
 interface Props {

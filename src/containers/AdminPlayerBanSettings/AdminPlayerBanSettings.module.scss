@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 
 .container {
@@ -7,7 +7,7 @@
 
 
 .active {
-  color: $red;
+  color: common.$red;
 }
 
 .inactive {

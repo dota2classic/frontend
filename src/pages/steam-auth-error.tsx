@@ -1,4 +1,4 @@
-import { Panel } from "@/components";
+import { Panel } from "@/components/Panel";
 import { useTranslation } from "react-i18next";
 
 export default function SteamAuthError() {

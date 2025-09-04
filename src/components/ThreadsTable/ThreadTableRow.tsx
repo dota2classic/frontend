@@ -5,9 +5,10 @@ import { FaUser } from "react-icons/fa";
 import { SiDota2 } from "react-icons/si";
 import { FaMessage } from "react-icons/fa6";
 import c from "./ThreadsTable.module.scss";
-import { PageLink, UserPreview } from "@/components";
 import { AppRouter } from "@/route";
 import { ThreadMessagePreview } from "@/components/ThreadsTable/ThreadMessagePreview";
+import { PageLink } from "../PageLink";
+import { UserPreview } from "../UserPreview";
 
 export const ThreadTableRow = observer(
   ({ thread }: { thread: ThreadDTO; mutate: () => void }) => {

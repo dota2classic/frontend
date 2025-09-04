@@ -1,11 +1,11 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .postContainer {
   max-width: 800px;
   width: 100%;
   margin: 10px auto 200px;
 
-  color: $primaryText;
+  color: common.$primaryText;
 
   & li {
     line-height: 1.5rem;

@@ -2,23 +2,22 @@ import React, { useState } from "react";
 
 import c from "./ReportCard.module.scss";
 import { getApi } from "@/api/hooks";
-import {
-  Button,
-  Duration,
-  Message,
-  PageLink,
-  Section,
-  SelectOptions,
-  Table,
-  UserPreview,
-} from "@/components";
+
 import { AppRouter } from "@/route";
 import { observer } from "mobx-react-lite";
-import { useIsModerator } from "@/util";
+import { useIsModerator } from "@/util/useIsAdmin";
 import { ReportDto, RulePunishmentDto, RuleType } from "@/api/back";
 import { useAsyncButton } from "@/util/use-async-button";
 import cx from "clsx";
-import { LogFileHistory } from "@/containers";
+import { LogFileHistory } from "../LogFileHistory";
+import { Table } from "@/components/Table";
+import { UserPreview } from "@/components/UserPreview";
+import { Message } from "@/components/Message";
+import { PageLink } from "@/components/PageLink";
+import { SelectOptions } from "@/components/SelectOptions";
+import { Duration } from "@/components/Duration";
+import { Button } from "@/components/Button";
+import { Section } from "@/components/Section";
 
 interface IReportCardProps {
   report: ReportDto;

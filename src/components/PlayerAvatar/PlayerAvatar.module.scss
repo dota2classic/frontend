@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 
 .hat {
@@ -37,7 +37,7 @@
 
     border-radius: 50%;
     background-color: rgba(34, 206, 34, 1);
-    outline: 2px solid $bg2;
+    outline: 2px solid common.$bg2;
     pointer-events: none;
     z-index: 1000;
   }

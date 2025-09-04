@@ -1,5 +1,5 @@
 import { toast, ToastContent, ToastContentProps } from "react-toastify";
-import c from "@/components/Toast/Toast.module.scss";
+import c from "./Toast.module.scss";
 import React, { ReactNode } from "react";
 import {
   MatchmakingMode,
@@ -7,15 +7,16 @@ import {
   NotificationType,
   ThreadType,
 } from "@/api/back";
-import { GenericToast, PageLink } from "@/components";
+import { GenericToast } from "./GenericToast";
+import { PageLink } from "../PageLink";
 import { getApi } from "@/api/hooks";
-import { __unsafeGetClientStore } from "@/store";
 import { PartyInviteReceivedMessageS2C } from "@/store/queue/messages/s2c/party-invite-received-message.s2c";
-import { AchievementMapping } from "@/components/AchievementStatus/achievement-mapping";
-import { PleaseGoQueueToast } from "@/components/Toast/PleaseGoQueueToast";
-import { SimpleToast } from "@/components/Toast/SimpleToast";
+import { AchievementMapping } from "../AchievementStatus";
+import { PleaseGoQueueToast } from "./PleaseGoQueueToast";
+import { SimpleToast } from "./SimpleToast";
 import { AppRouter } from "@/route";
 import { Trans } from "react-i18next";
+import { clientStoreManager } from "@/store/ClientStoreManager";
 
 export const createAcceptPartyToast = (
   invite: PartyInviteReceivedMessageS2C,
@@ -27,11 +28,11 @@ export const createAcceptPartyToast = (
       content={"Приглашает присоединиться к своей группе"}
       acceptText={"Принять"}
       onAccept={() =>
-        __unsafeGetClientStore().queue.acceptParty(invite.inviteId)
+        clientStoreManager.getRootStore()!.queue.acceptParty(invite.inviteId)
       }
       declineText={"Отклонить"}
       onDecline={() =>
-        __unsafeGetClientStore().queue.declineParty(invite.inviteId)
+        clientStoreManager.getRootStore()!.queue.declineParty(invite.inviteId)
       }
     />
   );
@@ -47,14 +48,14 @@ export const handleNotification = (notification: NotificationDto) => {
   if (
     notification.notificationType === NotificationType.SUBSCRIPTIONPURCHASED
   ) {
-    __unsafeGetClientStore().claim.claimSubscription(notification);
-    __unsafeGetClientStore().auth.forceRefreshToken().then();
+    clientStoreManager.getRootStore()!.claim.claimSubscription(notification);
+    clientStoreManager.getRootStore()!.auth.forceRefreshToken().then();
     return;
   }
 
   if (notification.notificationType === NotificationType.ITEMDROPPED) {
-    __unsafeGetClientStore().claim.claimSubscription(notification);
-    __unsafeGetClientStore().auth.forceRefreshToken().then();
+    clientStoreManager.getRootStore()!.claim.claimSubscription(notification);
+    clientStoreManager.getRootStore()!.auth.forceRefreshToken().then();
     return;
   }
 
@@ -66,7 +67,10 @@ export const handleNotification = (notification: NotificationDto) => {
     notification.notificationType === NotificationType.FEEDBACKCREATED;
 
   const acknowledge = () => {
-    __unsafeGetClientStore().notify.acknowledge(notification.id).then();
+    clientStoreManager
+      .getRootStore()!
+      .notify.acknowledge(notification.id)
+      .then();
   };
 
   const showFeedback = async () => {
@@ -75,7 +79,7 @@ export const handleNotification = (notification: NotificationDto) => {
     );
     if (!feedback || feedback.finished) return;
 
-    __unsafeGetClientStore().notify.startFeedback(feedback);
+    clientStoreManager.getRootStore()!.notify.startFeedback(feedback);
   };
 
   const onAccept = async () => {

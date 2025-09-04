@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .layout {
   display: flex;
@@ -48,7 +48,7 @@
 
 .queue {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: auto !important;
   margin-top: 0;
 }
 

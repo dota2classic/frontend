@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .modal {
 }
@@ -22,7 +22,7 @@
   }
 
   & .price {
-    color: $gold;
+    color: common.$gold;
   }
 }
 
@@ -41,16 +41,16 @@
   padding: 8px 12px;
   gap: 6px;
   border-radius: 4px;
-  border: 1px solid $panelBg;
+  border: 1px solid common.$panelBg;
   cursor: pointer;
   transition: 0.3s ease;
   min-width: 200px;
 
   &:hover {
-    border: 1px solid $gold;
+    border: 1px solid common.$gold;
   }
   &__selected {
-    border: 1px solid $gold;
+    border: 1px solid common.$gold;
   }
 
   & header {
@@ -60,7 +60,7 @@
 }
 
 .price {
-  color: $gold;
+  color: common.$gold;
 }
 
 .discount {
@@ -71,10 +71,10 @@
   top: 5px;
   right: 5px;
   font-size: 2rem;
-  color: $primaryTextDark2;
+  color: common.$primaryTextDark2;
 
   &__selected {
-    color: $blueHighlight;
+    color: common.$blueHighlight;
   }
 }
 
@@ -92,7 +92,7 @@
 }
 
 .delimiter {
-  border-bottom: 1px solid $primaryTextDark;
+  border-bottom: 1px solid common.$primaryTextDark;
   margin-top: 4px;
   margin-bottom: 4px;
 }

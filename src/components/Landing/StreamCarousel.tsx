@@ -1,11 +1,11 @@
 import cx from "clsx";
 import c from "@/components/Landing/Landing.module.scss";
-import { PageLink } from "@/components";
 import React from "react";
 import { TwitchStreamDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import { getDomain } from "@/util/domain";
 import { useTranslation } from "react-i18next";
+import { PageLink } from "../PageLink";
 
 interface Props {
   streamList: TwitchStreamDto[];

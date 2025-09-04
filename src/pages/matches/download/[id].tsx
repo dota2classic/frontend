@@ -2,18 +2,16 @@ import { MatchDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { useEffect } from "react";
 import { notFound } from "next/navigation";
-import {
-  Button,
-  CoolList,
-  CopyBlock,
-  EmbedProps,
-  MatchSummary,
-} from "@/components";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { metrika } from "@/ym";
 import { NextPageContext } from "next";
 import { Trans, useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { MatchSummary } from "@/components/MatchSummary";
+import { CoolList } from "@/components/CoolList";
+import { Button } from "@/components/Button";
+import { CopyBlock } from "@/components/CopyBlock";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],

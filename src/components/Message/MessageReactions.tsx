@@ -1,14 +1,15 @@
 import React, { useContext, useState } from "react";
-import c from "@/components/Message/Message.module.scss";
+import c from "./Message.module.scss";
 import cx from "clsx";
 import { ReactionEntry } from "@/api/back";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import { AddReactionTool } from "@/components/Message/tools/AddReactionTool";
+import { AddReactionTool } from "./tools/AddReactionTool";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { createPortal } from "react-dom";
-import { GenericTooltip, MessageReactionsTooltip } from "@/components";
 import { useTranslation } from "react-i18next";
+import { GenericTooltip } from "../GenericTooltip";
+import { MessageReactionsTooltip } from "../MessageReactionsTooltip";
 
 interface Props {
   messageId: string;

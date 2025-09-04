@@ -4,13 +4,14 @@ import c from "./Thread.module.scss";
 import { observer } from "mobx-react-lite";
 import cx from "clsx";
 import { useStore } from "@/store";
-import { MessageInput, RenderChatThread } from "@/components";
-import { useThread } from "@/containers/Thread/useThread";
+import { RenderChatThread } from "@/components/RenderChatThread";
+import { useThread } from "./useThread";
 import { ThreadContext } from "./threadContext";
 import { GreedyFocusPriority } from "@/util/useTypingCallback";
-import { useThreadControls } from "@/containers/Thread/useThreadControls";
+import { useThreadControls } from "./useThreadControls";
 import { ThreadType } from "@/api/mapped-models";
 import { threadFont } from "@/const/fonts";
+import { MessageInput } from "@/components/MessageInput";
 
 interface IThreadProps {
   id: string;

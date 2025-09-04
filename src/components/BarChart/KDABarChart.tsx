@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart } from "@/components";
+import { BarChart } from "./BarChart";
 
 interface KDABarChart {
   kills: number;

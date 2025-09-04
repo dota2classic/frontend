@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 @keyframes bgAnimate {
   0% {
@@ -43,12 +43,12 @@
     flex-direction: column;
 
     //background: $bg2;
-    background: linear-gradient(25deg, $bg1 0%, $bg3 100%);
+    background: linear-gradient(25deg, common.$bg1 0%, common.$bg3 100%);
     background-size: 200% 200%;
     animation: bgAnimate 3s ease alternate infinite;
 
     //border: 2px solid rgb(68, 61, 21);
-    border: 2px solid $bronze;
+    border: 2px solid common.$bronze;
 
     border-radius: 1px;
     padding: 12px;
@@ -60,7 +60,7 @@
       text-align: center;
       font-size: 24px;
       font-weight: normal;
-      color: $primaryText;
+      color: common.$primaryText;
     }
 
     &:global(.inline) {
@@ -100,14 +100,14 @@
     outline: none;
     border: none;
     padding: 0 3px;
-    color: $primaryText;
+    color: common.$primaryText;
     cursor: pointer;
     background-color: transparent;
     border-radius: 50%;
 
     &:hover {
       & svg {
-        color: $red;
+        color: common.$red;
       }
     }
   }

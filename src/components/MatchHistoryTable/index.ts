@@ -1,0 +1,1 @@
+export { MatchHistoryTable } from "./MatchHistoryTable";

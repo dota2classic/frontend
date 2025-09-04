@@ -4,23 +4,23 @@ import {
   LexicalComposer,
 } from "@lexical/react/LexicalComposer";
 import { Rubik } from "next/font/google";
-import ToolbarPlugin from "@/containers/RichEditor/plugins/ToolbarPlugin/ToolbarPlugin";
+import ToolbarPlugin from "./plugins/ToolbarPlugin/ToolbarPlugin";
 import { ParagraphNode, SerializedEditorState, TextNode } from "lexical";
-import ExampleTheme from "@/containers/RichEditor/ExampleTheme";
-import { EmojiNode } from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiNode";
+import ExampleTheme from "./ExampleTheme";
+import { EmojiNode } from "./plugins/EmojiPlugin/EmojiNode";
 import { HeadingNode } from "@lexical/rich-text";
 import { LinkNode } from "@lexical/link";
-import { RichEditorEditMode } from "@/containers/RichEditor/RichEditorEditMode";
+import { RichEditorEditMode } from "./RichEditorEditMode";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import { ItemMentionNode } from "@/containers/RichEditor/plugins/ItemMentionPlugin/ItemMentionNode";
-import { PlayerMentionNode } from "@/containers/RichEditor/plugins/PlayerMentionPlugin/PlayerMentionNode";
-import { HeroMentionNode } from "@/containers/RichEditor/plugins/HeroMentionPlugin/HeroMentionNode";
-import c from "@/containers/RichEditor/plugins/ToolbarPlugin/ToolbarPlugin.module.scss";
-import EmojiPlugin from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiPlugin";
-import ImageUploadPlugin from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageUploadPlugin";
-import { ImageNode } from "@/containers/RichEditor/plugins/ImageUploadPlugin/ImageNode";
+import { ItemMentionNode } from "./plugins/ItemMentionPlugin/ItemMentionNode";
+import { PlayerMentionNode } from "./plugins/PlayerMentionPlugin/PlayerMentionNode";
+import { HeroMentionNode } from "./plugins/HeroMentionPlugin/HeroMentionNode";
+import c from "./plugins/ToolbarPlugin/ToolbarPlugin.module.scss";
+import EmojiPlugin from "./plugins/EmojiPlugin/EmojiPlugin";
+import ImageUploadPlugin from "./plugins/ImageUploadPlugin/ImageUploadPlugin";
+import { ImageNode } from "./plugins/ImageUploadPlugin/ImageNode";
 import { $generateHtmlFromNodes } from "@lexical/html";
-import { BlogpostRenderer } from "@/components";
+import { BlogpostRenderer } from "@/components/BlogpostRenderer";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 
 const threadFont = Rubik({

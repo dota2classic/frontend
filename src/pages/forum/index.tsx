@@ -1,19 +1,17 @@
 import { getApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { ThreadPageDTO, ThreadType } from "@/api/back";
-import {
-  Button,
-  EmbedProps,
-  PageLink,
-  Pagination,
-  ThreadsTable,
-} from "@/components";
 import c from "./Forum.module.scss";
 import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
-import { ForumTabs } from "@/containers";
+import { ForumTabs } from "@/containers/ForumTabs";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { PageLink } from "@/components/PageLink";
+import { Pagination } from "@/components/Pagination";
+import { ThreadsTable } from "@/components/ThreadsTable";
+import { Button } from "@/components/Button";
 
 interface Props {
   threads: ThreadPageDTO;

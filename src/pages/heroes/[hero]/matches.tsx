@@ -1,18 +1,17 @@
 import { HeroSummaryDto, MatchPageDto } from "@/api/back";
-import {
-  HeroStatsHeader,
-  HeroWithItemsHistoryTable,
-  Pagination,
-  Section,
-} from "@/components";
 import React, { useMemo } from "react";
 import { numberOrDefault } from "@/util/urls";
 import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
-import { useQueryBackedParameter, useRouterChanging } from "@/util";
+import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
+import { useRouterChanging } from "@/util/useRouterChanging";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
+import { HeroStatsHeader } from "@/components/HeroStatsHeader";
+import { Section } from "@/components/Section";
+import { Pagination } from "@/components/Pagination";
+import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
 
 interface Props {
   hero: string;

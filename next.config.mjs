@@ -24,7 +24,7 @@ const nextConfig = {
     ]
   },
   sassOptions: {
-    silednceDeprecations: ['legacy-js-api'],
+    silenceDeprecations: ['legacy-js-api'],
   },
   reactStrictMode: false,
   output: "standalone",
@@ -41,7 +41,18 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
     fallbackNodePolyfills: true
-  }
+  },
+  webpack: (config, options) => {
+    config.optimization = {
+      ...config.optimization,
+      removeAvailableModules: false,
+      removeEmptyChunks: false,
+    }
+    config.output.pathinfo = false; 
+        
+ 
+    return config
+  },
 };
 
 const withBundleAnalyzer = bundleAnalyzer({

@@ -3,7 +3,6 @@ import { enableStaticRendering } from "mobx-react-lite";
 import { AuthStore } from "./AuthStore";
 import { HydratableStore } from "@/store/HydratableStore";
 import { useContext } from "react";
-import { MobxContext } from "@/pages/_app";
 import { QueueStore } from "@/store/queue/QueueStore";
 import { getApi } from "@/api/hooks";
 import { NotificationStore } from "@/store/NotificationStore";
@@ -14,8 +13,10 @@ import { ImageStore } from "@/store/ImageStore";
 import { LiveStore } from "@/store/LiveStore";
 import { ReportStore } from "@/store/ReportStore";
 import { ClaimItemStore } from "@/store/ClaimItemStore";
+import { MobxContext } from "@/store/MobxContext";
 import { SubStore } from "@/store/SubStore";
 import BrowserCookies from "browser-cookies";
+import { clientStoreManager } from "./ClientStoreManager";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -28,8 +29,6 @@ export type HydrateRootData = Partial<{
 }>;
 
 // init a client store that we will send to client (one store for client)
-let clientStore: RootStore;
-
 function createStore(): RootStore {
   const auth = new AuthStore();
   const notify = new NotificationStore();
@@ -50,11 +49,10 @@ function createStore(): RootStore {
     sub: new SubStore(),
   };
 }
-export const __unsafeGetClientStore = () => clientStore;
 
 const initStore = (initData: HydrateRootData | undefined): RootStore => {
   // check if we already declare store (client Store), otherwise create one
-  const store = clientStore ?? createStore();
+  const store = clientStoreManager.getRootStore() ?? createStore();
   // hydrate to store if receive initial data
   if (initData) {
     Object.entries(initData).forEach(([storeName, hydrateData]) => {
@@ -68,15 +66,16 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
   // Create a store on every server request
   if (typeof window === "undefined") return store;
   // Otherwise it's client, remember this store and return
-  if (!clientStore) clientStore = store;
+  if (!clientStoreManager.getRootStore()) {
+    clientStoreManager.setRootStore(store);
+  }
 
-  window.store = clientStore;
+  window.store = clientStoreManager.getRootStore() as RootStore;
   window.api = getApi();
   window.cook = BrowserCookies;
   return store;
 };
 
-// Hook for using store
 export function getRootStore(initData: HydrateRootData | undefined): RootStore {
   return initStore(initData);
 }

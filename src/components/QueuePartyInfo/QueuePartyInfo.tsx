@@ -5,12 +5,14 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { GameCoordinatorState } from "@/store/queue/game-coordinator.state";
 import { PartyMemberDTO, UserDTO } from "@/api/back";
-import { InvitePlayerModalRaw, PageLink, Tooltipable } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
 import { createPortal } from "react-dom";
 import { makeSimpleToast } from "@/components/Toast/toasts";
 import { useTranslation } from "react-i18next";
+import { InvitePlayerModalRaw } from "../InvitePlayerModal";
+import { PageLink } from "../PageLink";
+import { Tooltipable } from "../Tooltipable";
 
 const GameCoordinatorConnection = ({
   readyState,

@@ -1,15 +1,15 @@
 import React from "react";
 import c from "./Message.module.scss";
-import { AddReactionTool } from "@/components/Message/tools/AddReactionTool";
-import { DeleteMessageTool } from "@/components/Message/tools/DeleteMessageTool";
+import { AddReactionTool } from "./tools/AddReactionTool";
+import { DeleteMessageTool } from "./tools/DeleteMessageTool";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import { AddSpecificReactionTool } from "@/components/Message/tools/AddSpecificReactionTool";
-import { ReplyToMessageTool } from "@/components/Message/tools/ReplyToMessageTool";
-import { EditMessageTool } from "@/components/Message/tools/EditMessageTool";
+import { AddSpecificReactionTool } from "./tools/AddSpecificReactionTool";
+import { ReplyToMessageTool } from "./tools/ReplyToMessageTool";
+import { EditMessageTool } from "./tools/EditMessageTool";
 import { ThreadMessageDTO } from "@/api/back";
-import { BlockUserTool } from "@/components/Message/tools/BlockUserTool";
-import { ReportUserTool } from "@/components/Message/tools/ReportUserTool";
+import { BlockUserTool } from "./tools/BlockUserTool";
+import { ReportUserTool } from "./tools/ReportUserTool";
 
 interface Props {
   message: ThreadMessageDTO;

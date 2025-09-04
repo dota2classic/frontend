@@ -2,7 +2,7 @@ import React from "react";
 import { ToastContentProps } from "react-toastify";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { useRouter } from "next/router";
-import { GenericToast } from "@/components";
+import { GenericToast } from "./GenericToast";
 import { AppRouter } from "@/route";
 import { useTranslation } from "react-i18next";
 

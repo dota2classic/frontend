@@ -1,0 +1,1 @@
+export { Tooltipable } from "./Tooltipable";

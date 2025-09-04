@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .form {
   margin-top: 2rem;
@@ -28,12 +28,12 @@
 
 .delete {
   font-size: 1.2rem;
-  color: $red;
+  color: common.$red;
 }
 
 .save {
   font-size: 1.2rem;
-  color: $blueHighlight;
+  color: common.$blueHighlight;
 }
 
 .compact {

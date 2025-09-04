@@ -2,13 +2,13 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import c from "./AcceptGameModal.module.scss";
 import cx from "clsx";
-import { GameReadyModal } from "@/components";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
-import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
+import { WaitingAccept } from "./WaitingAccept";
 import { QueueGameState, useQueueState } from "@/util/useQueueState";
-import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
+import { ServerSearching } from "./ServerSearching";
 import { useTranslation } from "react-i18next";
+import { GameReadyModal } from "./GameReadyModal";
 
 export const AcceptGameModal = observer(() => {
   const { t } = useTranslation();

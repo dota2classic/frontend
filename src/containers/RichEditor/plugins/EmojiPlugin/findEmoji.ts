@@ -6,7 +6,7 @@
  *
  */
 
-import { __unsafeGetClientStore } from "@/store";
+import { clientStoreManager } from "@/store/ClientStoreManager";
 
 export type EmojiMatch = Readonly<{
   position: number;
@@ -20,7 +20,7 @@ export type EmojiMatch = Readonly<{
 export default function findEmoji(text: string): EmojiMatch | null {
   const skippedText: string[] = [];
 
-  const emos = __unsafeGetClientStore().threads.emoticons;
+  const emos = clientStoreManager.getRootStore()!.threads.emoticons;
 
   for (const word of text.split(" ")) {
     const isEmoticon =

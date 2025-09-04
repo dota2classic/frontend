@@ -1,8 +1,8 @@
 import React from "react";
 
-import { NavbarItem } from "..";
 import { useTranslation } from "react-i18next";
 import c from "./LanguageSwitcher.module.scss";
+import { NavbarItem } from "../NavbarItem";
 
 function redirectToLocaleDomain(locale: "ru" | "en") {
   const currentUrl = window.location.href;

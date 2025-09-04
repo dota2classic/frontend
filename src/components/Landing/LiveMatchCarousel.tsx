@@ -1,10 +1,12 @@
-import { Carousel, PageLink, SmallLiveMatch } from "@/components";
 import { getApi } from "@/api/hooks";
 import c from "./Landing.module.scss";
 import cx from "clsx";
 import { AppRouter } from "@/route";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { PageLink } from "../PageLink";
+import { Carousel } from "../Carousel";
+import { SmallLiveMatch } from "../LiveMatchPreview";
 
 export const LiveMatchCarousel = () => {
   const { t } = useTranslation();

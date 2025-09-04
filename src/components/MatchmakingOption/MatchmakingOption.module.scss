@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .modeTitle {
   display: flex;
@@ -47,24 +47,24 @@
   padding: 4px;
 
   &__name {
-    color: $gold;
+    color: common.$gold;
     line-height: 1.4rem;
     font-size: 1.2rem;
     //padding-bottom: 4px;
   }
 
   &__inQueue {
-    color: $primaryTextTint;
+    color: common.$primaryTextTint;
   }
 
   &__disabledBy {
-    color: $red;
+    color: common.$red;
   }
 
   &__suffix {
     margin-top: 8px;
     padding-left: -2px;
-    color: $primaryTextDark;
+    color: common.$primaryTextDark;
   }
 
   & svg {
@@ -119,7 +119,7 @@
 .modeAdditional {
   display: flex;
   //font-size: 0.9rem;
-  color: $primaryTextTint;
+  color: common.$primaryTextTint;
   //margin-top: 0.5rem;
 
   gap: 6px;
@@ -137,11 +137,11 @@
   }
 
   &__good {
-    color: $gold2;
+    color: common.$gold2;
   }
 
   &__bad {
-    color: $red;
+    color: common.$red;
   }
 
   //&__time {

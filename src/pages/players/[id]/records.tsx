@@ -1,9 +1,11 @@
 import { NextPageContext } from "next";
 import { PlayerRecordsResponse, PlayerSummaryDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
-import { EmbedProps, PlayerSummary, Section } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
+import { PlayerSummary } from "@/components/PlayerSummary";
+import { Section } from "@/components/Section";
 import React from "react";
-import { PlayerRecords } from "@/containers";
+import { PlayerRecords } from "@/containers/PlayerRecords";
 import { useTranslation } from "react-i18next";
 
 interface Props {

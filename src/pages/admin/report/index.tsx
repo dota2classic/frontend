@@ -1,19 +1,17 @@
 import { getApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { ReportPageDto } from "@/api/back";
-import {
-  Checkbox,
-  EmbedProps,
-  PageLink,
-  Pagination,
-  Table,
-  UserPreview,
-} from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
 import c from "@/pages/forum/Forum.module.scss";
-import { ForumTabs } from "@/containers";
+import { ForumTabs } from "@/containers/ForumTabs";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Pagination } from "@/components/Pagination";
+import { Table } from "@/components/Table";
+import { PageLink } from "@/components/PageLink";
+import { UserPreview } from "@/components/UserPreview";
+import { Checkbox } from "@/components/Checkbox";
 import { useTranslation } from "react-i18next";
 
 interface Props {

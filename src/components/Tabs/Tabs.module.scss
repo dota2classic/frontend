@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 
 
@@ -12,12 +12,12 @@
 
 .tab {
   padding: 12px 8px;
-  background-color: $bg2;
-  color: $primaryTextDark;
+  background-color: common.$bg2;
+  color: common.$primaryTextDark;
   border-radius: 4px 4px 0px 0px;
 
   &__active {
-    background-color: $bg15;
-    color: $primaryText;
+    background-color: common.$bg15;
+    color: common.$primaryText;
   }
 }

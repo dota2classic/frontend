@@ -1,5 +1,4 @@
 import React from "react";
-import { Duration, GenericTable, PageLink, TimeAgo } from "@/components";
 import c from "./HeroWithItemsHistoryTable.module.scss";
 import { DotaGameMode, MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
@@ -10,6 +9,10 @@ import { ColumnType } from "@/const/tables";
 import { UserDTO } from "@/api/back";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
+import { GenericTable } from "../GenericTable";
+import { PageLink } from "../PageLink";
+import { TimeAgo } from "../TimeAgo";
+import { Duration } from "../Duration";
 
 export interface PlayerMatchItem {
   hero: string;

@@ -1,17 +1,18 @@
-import { PeriodicTimerClient, PlayerAvatar } from "@/components";
 import cx from "clsx";
-import c from "@/components/Message/Message.module.scss";
+import c from "./Message.module.scss";
 import { AppRouter } from "@/route";
 import React, { useContext } from "react";
-import { MessageTools } from "@/components/Message/MessageTools";
-import { MessageReactions } from "@/components/Message/MessageReactions";
 import { observer } from "mobx-react-lite";
 import { ThreadMessageDTO } from "@/api/back";
-import { MessageContent } from "@/components/Message/MessageContent";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { computed } from "mobx";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
+import { PlayerAvatar } from "../PlayerAvatar";
+import { MessageTools } from "./MessageTools";
+import { MessageContent } from "./MessageContent";
+import { MessageReactions } from "./MessageReactions";
+import { PeriodicTimerClient } from "../PeriodicTimer";
 
 interface IMessageProps {
   message: ThreadMessageDTO;

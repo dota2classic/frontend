@@ -7,7 +7,7 @@ import { ThreadContext } from "@/containers/Thread/threadContext";
 import c from "../Message.module.scss";
 import { paidAction } from "@/util/subscription";
 import { useTranslation } from "react-i18next";
-import { Tooltipable } from "@/components";
+import { Tooltipable } from "@/components/Tooltipable";
 
 interface Props {
   relatedSteamId: string;

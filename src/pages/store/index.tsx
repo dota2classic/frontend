@@ -1,4 +1,4 @@
-import { StoreLanding } from "@/containers";
+import { StoreLanding } from "@/containers/StoreLanding";
 import { getApi } from "@/api/hooks";
 import { SubscriptionProductDto } from "@/api/back";
 

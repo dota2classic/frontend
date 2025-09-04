@@ -1,9 +1,10 @@
 import { LiveMatchDto, LiveMatchDtoFromJSON } from "@/api/back";
-import { SmallLiveMatch } from "@/components";
-import { useEventSource } from "@/util";
+
+import { useEventSource } from "@/util/useEventSource";
 import { getApi } from "@/api/hooks";
 import React from "react";
 import c from "./Landing.module.scss";
+import { SmallLiveMatch } from "../LiveMatchPreview";
 
 interface Props {
   seed: LiveMatchDto;

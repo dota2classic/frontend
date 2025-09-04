@@ -1,12 +1,5 @@
 import React, { ReactNode } from "react";
 
-import {
-  GameReadyModal,
-  MatchmakingOption,
-  SearchGameButton,
-  Section,
-} from "..";
-
 import c from "./MatchmakingModeList.module.scss";
 import { useStore } from "@/store";
 import {
@@ -18,11 +11,16 @@ import {
 import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { QueueGameState, useQueueState } from "@/util/useQueueState";
 import cx from "clsx";
-import { modEnableCondition } from "@/components/MatchmakingOption/utils";
-import { WaitingAccept } from "@/components/AcceptGameModal/WaitingAccept";
-import { ServerSearching } from "@/components/AcceptGameModal/ServerSearching";
+import {
+  GameReadyModal,
+  ServerSearching,
+  WaitingAccept,
+} from "../AcceptGameModal";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
+import { Section } from "../Section";
+import { MatchmakingOption, modEnableCondition } from "../MatchmakingOption";
+import { SearchGameButton } from "../SearchGameButton";
 
 interface IMatchmakingModeListProps {
   modes: MatchmakingInfo[];
@@ -53,13 +51,7 @@ export const MatchmakingModeList: React.FC<IMatchmakingModeListProps> =
       <Section className={cx(c.modes, className)}>
         <header>{t("matchmaking_mode_list.gameMode")}</header>
         <div className={cx(c.modes__list)}>
-          <div
-            className={cx(
-              c.modes__list,
-              c.modes__list_inner,
-              "onboarding-mode-list",
-            )}
-          >
+          <div className={cx(c.modes__list_inner, "onboarding-mode-list")}>
             {d84.map((info) => {
               const modeDisabledBy = modEnableCondition(
                 queue,

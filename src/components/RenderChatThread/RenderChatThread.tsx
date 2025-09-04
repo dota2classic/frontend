@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useRef, useTransition } from "react";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import { observer } from "mobx-react-lite";
 import { ThreadMessageDTO } from "@/api/back";
-import { Message } from "@/components";
+import { Message } from "../Message";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 
 export const RenderChatThread = observer(function RenderChatThread() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { PlayerAvatar } from "..";
+import { PlayerAvatar } from "../PlayerAvatar";
 import c from "./UserPreview.module.scss";
 import { UserDTO } from "@/api/back";
 import { NextLinkProp } from "@/route";

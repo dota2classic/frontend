@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .user {
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
   column-gap: 0.5rem;
   font-size: 0.8rem;
-  color: $primaryText;
+  color: common.$primaryText;
 }
 
 .username {

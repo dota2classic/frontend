@@ -6,22 +6,20 @@ import {
   PartyDto,
   ThreadType,
 } from "@/api/back";
-import { useDidMount } from "@/util";
-import {
-  BigTabs,
-  EmbedProps,
-  MatchmakingModeList,
-  OnboardingTooltip,
-  QueuePartyInfo,
-  Section,
-} from "@/components";
+import { useDidMount } from "@/util/useDidMount";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import React, { useState } from "react";
 import { NextPageContext } from "next";
-import { PlayingNowCarousel, Thread } from "@/containers";
+import { Thread } from "@/containers/Thread";
 import Cookies from "cookies";
 import { QueueStore } from "@/store/queue/QueueStore";
 import BrowserCookies from "browser-cookies";
+import { EmbedProps } from "@/components/EmbedProps";
+import { BigTabs } from "@/components/BigTabs";
+import { MatchmakingModeList } from "@/components/MatchmakingModeList";
+import { OnboardingTooltip } from "@/components/OnboardingTooltip";
+import { QueuePartyInfo } from "@/components/QueuePartyInfo";
+import { Section } from "@/components/Section";
 
 import dynamic from "next/dynamic";
 import { STATUS } from "react-joyride";
@@ -170,10 +168,6 @@ export default function QueuePage(props: Props) {
             id={"17aa3530-d152-462e-a032-909ae69019ed"}
             threadType={ThreadType.FORUM}
           />
-        </Section>
-        <Section className={c.fun}>
-          <header>{t("queue_page.fun.header")}</header>
-          <PlayingNowCarousel />
         </Section>
       </div>
     </>

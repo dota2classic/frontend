@@ -2,7 +2,7 @@ import React, { PropsWithChildren, ReactNode } from "react";
 
 import c from "./NavbarItem.module.scss";
 import { NextLinkProp } from "@/route";
-import { PageLink } from "@/components";
+import { PageLink } from "../PageLink";
 import cx from "clsx";
 import { useRouter } from "next/router";
 import { IconType } from "react-icons";

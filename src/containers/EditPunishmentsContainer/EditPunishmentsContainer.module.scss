@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 
 .container {
@@ -24,7 +24,7 @@
 
   &__selected,
   &:hover {
-    background: $panelBg;
+    background: common.$panelBg;
   }
 }
 

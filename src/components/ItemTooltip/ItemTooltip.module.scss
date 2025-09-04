@@ -1,9 +1,9 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .tooltip {
   position: absolute;
   z-index: 100;
-  background-color: $bg1;
+  background-color: common.$bg1;
   display: flex;
   flex-direction: column;
   width: 400px;

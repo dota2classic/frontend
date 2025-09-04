@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite";
-import { Panel, PlayerAvatar, UserPreview } from "@/components";
 import cx from "clsx";
 import c from "./MessageInput.module.scss";
 import { IoSend } from "react-icons/io5";
@@ -13,6 +12,9 @@ import { Mention, MentionsInput, SuggestionDataItem } from "react-mentions";
 import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { tableFont } from "@/const/fonts";
+import { Panel } from "../Panel";
+import { PlayerAvatar } from "../PlayerAvatar";
+import { UserPreview } from "../UserPreview";
 
 type ExtendedSuggestionDataItem = SuggestionDataItem & { user: UserDTO };
 

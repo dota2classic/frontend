@@ -10,12 +10,13 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import cx from "clsx";
 import { FaLock, FaRobot } from "react-icons/fa";
-import { Checkbox, Tooltipable } from "@/components";
 import { QueueDurationDto } from "@/api/back";
 import { GiJeweledChalice } from "react-icons/gi";
 import { MdSecurity } from "react-icons/md";
 import { BiDoorOpen } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
+import { Checkbox } from "../Checkbox";
+import { Tooltipable } from "../Tooltipable";
 
 interface MatchmakingOptionProps {
   mode: MatchmakingMode;

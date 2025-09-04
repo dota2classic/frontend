@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .usernameLinkContainer {
   display: flex;
@@ -27,10 +27,10 @@
 }
 
 .roleTooltip {
-  @include box();
+  @include common.box();
   padding: 8px 12px;
-  background-color: $bg2;
-  color: $primaryText;
+  background-color: common.$bg2;
+  color: common.$primaryText;
 }
 
 .roles {

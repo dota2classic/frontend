@@ -1,0 +1,1 @@
+export { HeroPlayersTable } from "./HeroPlayersTable";

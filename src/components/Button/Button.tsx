@@ -4,7 +4,7 @@ import c from "./Button.module.scss";
 import cx from "clsx";
 import { TrajanPro } from "@/const/fonts";
 import { NextLinkProp } from "@/route";
-import { PageLink } from "@/components";
+import { PageLink } from "../PageLink";
 
 export const Button: React.FC<
   PropsWithChildren<{

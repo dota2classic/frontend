@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .modal {
 
@@ -27,7 +27,7 @@
   }
 
   & .leaveLobby {
-    border: 1px solid $primaryTextDark2;
+    border: 1px solid common.$primaryTextDark2;
   }
 }
 

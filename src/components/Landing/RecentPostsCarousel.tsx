@@ -1,10 +1,12 @@
 import { BlogpostDto } from "@/api/back";
-import { Carousel, CarouselItem, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
 import cx from "clsx";
 import c from "@/components/Landing/Landing.module.scss";
 import { useTranslation } from "react-i18next";
+import { PageLink } from "../PageLink";
+import { Carousel } from "../Carousel";
+import { CarouselItem } from "../CarouselItem";
 
 interface Props {
   recentPosts: BlogpostDto[];

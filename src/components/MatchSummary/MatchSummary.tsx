@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Breadcrumbs, Duration, PageLink, Panel, TimeAgo } from "..";
-
 import c from "./MatchSummary.module.scss";
 import cx from "clsx";
 import {
@@ -10,11 +8,16 @@ import {
   MatchmakingMode,
 } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
-import { MatchSummaryScore } from "@/components/MatchSummary/MatchSummaryScore";
+import { MatchSummaryScore } from "./MatchSummaryScore";
 import { observer } from "mobx-react-lite";
-import { useIsModerator } from "@/util";
+import { useIsModerator } from "@/util/useIsAdmin";
 import { getApi } from "@/api/hooks";
 import { useTranslation } from "react-i18next";
+import { Panel } from "../Panel";
+import { Breadcrumbs } from "../Breadcrumbs";
+import { PageLink } from "../PageLink";
+import { Duration } from "../Duration";
+import { TimeAgo } from "../TimeAgo";
 
 interface IMatchSummaryProps {
   matchId: number;

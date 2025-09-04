@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { LanguageSwitcher, Logo, NavbarItem } from "..";
-
 import c from "./Navbar.module.scss";
 import { AppRouter } from "@/route";
 import { getApi } from "@/api/hooks";
@@ -9,10 +7,10 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { IoMenu } from "react-icons/io5";
 import cx from "clsx";
-import { useRouterChanging } from "@/util";
-import { LoginProfileNavbarItem } from "@/components/Navbar/LoginProfileNavbarItem";
-import { MetaNavbarItem } from "@/components/Navbar/MetaNavbarItem";
-import { AdminNavbarItem } from "@/components/Navbar/AdminNavbarItem";
+import { useRouterChanging } from "@/util/useRouterChanging";
+import { LoginProfileNavbarItem } from "./LoginProfileNavbarItem";
+import { MetaNavbarItem } from "./MetaNavbarItem";
+import { AdminNavbarItem } from "./AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdGavel } from "react-icons/md";
 import { FaCoins, FaJournalWhills } from "react-icons/fa";
@@ -20,6 +18,9 @@ import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
 import { AiOutlineTeam } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
+import { NavbarItem } from "../NavbarItem";
+import { Logo } from "../Logo";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 
 export const Navbar = observer(function Navbar(p: { className?: string }) {
   const { t } = useTranslation();

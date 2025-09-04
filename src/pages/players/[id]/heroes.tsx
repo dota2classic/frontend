@@ -1,5 +1,8 @@
 import { NextPageContext } from "next";
-import { EmbedProps, GenericTable, PlayerSummary, Section } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
+import { GenericTable } from "@/components/GenericTable";
+import { PlayerSummary } from "@/components/PlayerSummary";
+import { Section } from "@/components/Section";
 import React from "react";
 import { HeroStatsDto, PlayerSummaryDto } from "@/api/back";
 import { getApi } from "@/api/hooks";

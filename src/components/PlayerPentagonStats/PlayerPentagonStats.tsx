@@ -1,12 +1,13 @@
 import React, { useMemo, useState } from "react";
 
 import c from "./PlayerPentagonStats.module.scss";
-import { Duration, Tooltipable } from "@/components";
 import { PlayerAspect } from "@/api/mapped-models";
 import { formatPlayerAspect } from "@/util/gamemode";
 import { formatWinrate } from "@/util/math";
 import { PlayerAspectIcons } from "@/containers/PlayerFeedbackModal/PlayerAspectIcons";
 import { useTranslation } from "react-i18next";
+import { Tooltipable } from "../Tooltipable";
+import { Duration } from "../Duration";
 
 interface IPlayerPentagonStatsProps {
   aspects: {

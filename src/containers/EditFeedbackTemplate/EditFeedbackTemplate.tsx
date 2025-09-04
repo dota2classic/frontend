@@ -1,7 +1,10 @@
 import React, { useCallback } from "react";
 import { FeedbackTemplateDto, FeedbackTemplateOptionDto } from "@/api/back";
 import { observer, useLocalObservable } from "mobx-react-lite";
-import { Button, Checkbox, Input, Panel } from "@/components";
+import { Button } from "@/components/Button";
+import { Checkbox } from "@/components/Checkbox";
+import { Input } from "@/components/Input";
+import { Panel } from "@/components/Panel";
 import { runInAction } from "mobx";
 import c from "./EditFeedbackTemplate.module.scss";
 import { getApi } from "@/api/hooks";

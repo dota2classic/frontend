@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .image {
   position: absolute;
@@ -12,7 +12,7 @@
   height: 100%;
 }
 .card {
-  @include box();
+  @include common.box();
 
   grid-column: span 1;
   grid-row: span 1;
@@ -41,7 +41,7 @@
   &:hover,
   &__hovered {
     transform: scale(1.02);
-    border-color: $blueHighlight;
+    border-color: common.$blueHighlight;
 
     & .shadow {
       transform: scaleY(2);
@@ -57,7 +57,7 @@
 
   & h3 {
     margin: auto;
-    color: $primaryTextHighlight;
+    color: common.$primaryTextHighlight;
 
     @media (max-width: 600px) {
       font-size: 12px;
@@ -65,7 +65,7 @@
   }
 
   & h4 {
-    color: $primaryTextDark;
+    color: common.$primaryTextDark;
     @media (max-width: 600px) {
       margin-block-start: 0;
       margin-block-end: 1rem;
@@ -112,7 +112,7 @@
   transform: translateY(20px);
   overflow: hidden;
   transition: 0.3s ease;
-  color: $primaryText;
+  color: common.$primaryText;
 
   @media (max-width: 600px) {
     font-size: 12px;
@@ -125,7 +125,7 @@
     border-radius: 50%;
     width: 10px;
     height: 10px;
-    background-color: $error;
+    background-color: common.$error;
     display: inline-block;
     margin-right: 4px;
   }

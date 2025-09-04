@@ -1,23 +1,18 @@
 import React, { PropsWithChildren } from "react";
 
-import {
-  Navbar,
-  Notifications,
-  SearchGameFloater,
-  SideAdBlock,
-  TelegramInvite,
-} from "..";
-
 import c from "./Layout.module.scss";
 import cx from "clsx";
 import { useRouter } from "next/router";
 import { ThemeContext } from "@/util/theme";
-import { AdBlockType } from "@/components/AdBlock/AdBlockType";
-import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
+import { DiscordInvite } from "../TelegramInvite";
 import { TrajanPro } from "@/const/fonts";
 import { useShowSideAdBlocks } from "@/util/usePageSize";
-import { HorizontalAdBlock } from "@/components/AdBlock/HorizontalAdBlock";
 import { useTranslation } from "react-i18next";
+import { AdBlockType, HorizontalAdBlock, SideAdBlock } from "../AdBlock";
+import { Navbar } from "../Navbar";
+import { Notifications } from "../Notifications";
+import { SearchGameFloater } from "../SearchGameFloater";
+import { TelegramInvite } from "../TelegramInvite";
 
 interface LayoutProps {
   className?: string;

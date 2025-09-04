@@ -3,7 +3,7 @@ import c from "./Streams.module.scss";
 import { TwitchStreamDto } from "@/api/back";
 import React from "react";
 import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
-import { EmbedProps } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 
 interface InitialProps {

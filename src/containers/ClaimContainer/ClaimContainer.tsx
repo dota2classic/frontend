@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { ReceiveSubscriptionModal } from "@/containers";
 import { useTranslation } from "react-i18next";
+import { ReceiveSubscriptionModal } from "../ReceiveSubscriptionModal";
 
 export const ClaimContainer: React.FC = observer(() => {
   const { t } = useTranslation();

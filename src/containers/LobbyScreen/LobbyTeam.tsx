@@ -3,9 +3,11 @@ import { useStore } from "@/store";
 import { LobbySlotDto, UserDTO } from "@/api/back";
 import c from "@/pages/lobby/Lobby.module.scss";
 import cx from "clsx";
-import { IconButton, PlayerAvatar, Tooltipable } from "@/components";
 import { IoMdClose, IoMdExit } from "react-icons/io";
 import { useTranslation } from "react-i18next";
+import { PlayerAvatar } from "@/components/PlayerAvatar";
+import { Tooltipable } from "@/components/Tooltipable";
+import { IconButton } from "@/components/IconButton";
 
 interface TeamProps {
   isOwner: boolean;

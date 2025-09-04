@@ -1,11 +1,11 @@
 import { createPortal } from "react-dom";
-import { EmoticonSelectWindow } from "@/components";
+import { EmoticonSelectWindow } from "@/components/EmoticonSelectWindow";
 import cx from "clsx";
 import c from "@/containers/RichEditor/plugins/ToolbarPlugin/ToolbarPlugin.module.scss";
 import { FaGrinTongueSquint } from "react-icons/fa";
 import React, { useCallback, useRef, useState } from "react";
 import { EmoticonDto } from "@/api/back";
-import { $createEmojiNode } from "@/containers/RichEditor/plugins/EmojiPlugin/EmojiNode";
+import { $createEmojiNode } from "./EmojiNode";
 import { $insertNodes } from "lexical";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useTranslation } from "react-i18next";

@@ -2,20 +2,18 @@ import { Rubik } from "next/font/google";
 import { BlogPageDto } from "@/api/back";
 import c from "./Blog.module.scss";
 import cx from "clsx";
-import {
-  Breadcrumbs,
-  CarouselItem,
-  EmbedProps,
-  PageLink,
-  Panel,
-} from "@/components";
 import { AppRouter } from "@/route";
 import { NextPageContext } from "next";
 import { numberOrDefault } from "@/util/urls";
 import { getApi } from "@/api/hooks";
 import React from "react";
-import { useIsModerator } from "@/util";
+import { useIsModerator } from "@/util/useIsAdmin";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Panel } from "@/components/Panel";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageLink } from "@/components/PageLink";
+import { CarouselItem } from "@/components/CarouselItem";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],

@@ -1,7 +1,7 @@
 import c from "@/containers/EditProfileDecorations/EditProfileDecorations.module.scss";
 import React, { ReactNode } from "react";
 import { ProfileDecorationDto } from "@/api/back";
-import { SelectOptions } from "@/components";
+import { SelectOptions } from "@/components/SelectOptions";
 import { useTranslation } from "react-i18next";
 
 interface Props {

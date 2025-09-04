@@ -1,14 +1,4 @@
 import React, { useMemo, useRef, useState } from "react";
-import {
-  Button,
-  GenericModal,
-  HeroIcon,
-  Input,
-  MarkdownTextarea,
-  Message,
-  SelectOptions,
-  UserPreview,
-} from "@/components";
 import { observer } from "mobx-react-lite";
 import { getApi } from "@/api/hooks";
 import {
@@ -21,11 +11,19 @@ import c from "./ReportModal.module.scss";
 import cx from "clsx";
 import { useAsyncButton } from "@/util/use-async-button";
 import { useStore } from "@/store";
-import { makeSimpleToast } from "@/components/Toast/toasts";
+import { makeSimpleToast } from "@/components/Toast";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 import { NotoSans } from "@/const/notosans";
 import { threadFont } from "@/const/fonts";
 import { useTranslation } from "react-i18next";
+import { GenericModal } from "@/components/GenericModal";
+import { Input } from "@/components/Input";
+import { HeroIcon } from "@/components/HeroIcon";
+import { Message } from "@/components/Message";
+import { UserPreview } from "@/components/UserPreview";
+import { SelectOptions } from "@/components/SelectOptions";
+import { MarkdownTextarea } from "@/components/MarkdownTextarea";
+import { Button } from "@/components/Button";
 
 type MatchReportMeta = { matchId: number; player: PlayerInMatchDto };
 type MessageReportMeta = { message: ThreadMessageDTO };

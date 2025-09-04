@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 $reactionSize: 40px;
 $reactionColumns: 8;
@@ -6,7 +6,7 @@ $reactionColumns: 8;
 .emoticons {
   display: flex;
   visibility: hidden;
-  background: $bg15;
+  background: common.$bg15;
   position: fixed;
   height: 400px;
   z-index: 10000000;
@@ -31,7 +31,7 @@ $reactionColumns: 8;
     transition: 0.3s ease;
 
     &:hover {
-      filter: drop-shadow(2px 4px 4px $green);
+      filter: drop-shadow(2px 4px 4px common.$green);
     }
   }
 }
@@ -60,7 +60,7 @@ $reactionColumns: 8;
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: $bg2;
+  background-color: common.$bg2;
   padding: 4px 12px;
 
   & img {

@@ -1,5 +1,5 @@
 import React from "react";
-import { BigTabs } from "@/components";
+import { BigTabs } from "@/components/BigTabs";
 import { AppRouter } from "@/route";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";

@@ -1,13 +1,14 @@
 import React, { useMemo } from "react";
 
-import { NumberFormat, PageLink } from "..";
+import { NumberFormat } from "../NumberFormat";
+import { PageLink } from "../PageLink";
 
 import c from "./RecordCard.module.scss";
 import Image from "next/image";
 import { formatDate } from "@/util/dates";
 import { MatchDto, PlayerRecordDto } from "@/api/back";
 import { AppRouter } from "@/route";
-import { getRecordValue } from "@/util";
+import { getRecordValue } from "@/util/getRecordValue";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
 

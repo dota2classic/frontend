@@ -1,6 +1,8 @@
 import { FeedbackTemplateDto } from "@/api/back";
-import { EditFeedbackTemplate } from "@/containers";
-import { Breadcrumbs, PageLink, Panel } from "@/components";
+import { EditFeedbackTemplate } from "@/containers/EditFeedbackTemplate";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageLink } from "@/components/PageLink";
+import { Panel } from "@/components/Panel";
 import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";

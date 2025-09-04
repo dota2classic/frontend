@@ -1,8 +1,9 @@
-import { Carousel, CarouselItem } from "@/components";
 import cx from "clsx";
 import c from "@/components/Landing/Landing.module.scss";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Carousel } from "../Carousel";
+import { CarouselItem } from "../CarouselItem";
 
 export const ProjectStatisticsCarousel = () => {
   const { t } = useTranslation();

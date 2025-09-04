@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .cookies {
   position: fixed;
@@ -12,7 +12,7 @@
   gap: 16px;
 
   padding: 16px;
-  background: linear-gradient(25deg, $bg1 0%, $bg3 100%);
+  background: linear-gradient(25deg, common.$bg1 0%, common.$bg3 100%);
   background-size: 200% 200%;
   animation: bgAnimate 3s ease alternate infinite;
 
