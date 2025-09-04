@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .twoRows {
   display: flex;
@@ -18,7 +18,7 @@
   flex-direction: column;
 
   &__id {
-    color: $green !important;
+    color: common.$green !important;
   }
   &__timeAgo {
     font-size: 0.7rem;
@@ -26,11 +26,11 @@
 }
 
 .radiant {
-  color: $green !important;
+  color: common.$green !important;
 }
 
 .dire {
-  color: $red !important;
+  color: common.$red !important;
 }
 
 .heroes {
@@ -49,5 +49,5 @@
 
 .secondary {
   font-size: 0.7rem;
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
 }

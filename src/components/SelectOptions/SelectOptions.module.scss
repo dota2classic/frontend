@@ -1,8 +1,8 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 
 .select {
-  background: $bg2 !important;
+  background: common.$bg2 !important;
   min-width: 200px;
   @media (max-width: 600px) {
     min-width: 160px;
@@ -10,18 +10,18 @@
 }
 
 .option {
-  background: $bg2 !important;
+  background: common.$bg2 !important;
   transition: 0.3s ease;
 
   cursor: pointer;
 
   &:hover {
-    background-color: $transparentTint !important;
+    background-color: common.$transparentTint !important;
   }
 }
 
 .menu {
-  background: $bg2 !important;
+  background: common.$bg2 !important;
   padding: 0 !important;
   border: 1px solid rgba(128, 128, 128, 0.3);
   margin-top: 4px;
@@ -34,5 +34,5 @@
 }
 
 .preview {
-  color: $primaryText !important;
+  color: common.$primaryText !important;
 }

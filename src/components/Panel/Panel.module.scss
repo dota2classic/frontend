@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .panel {
   padding: 6px 6px;
@@ -24,7 +24,7 @@
     // }
 
     & a {
-      color: $green;
+      color: common.$green;
       // margin-left: 8px;
       font-size: 1rem;
     }
@@ -60,7 +60,7 @@
       }
 
       & dd {
-        color: $primaryTextHighlight;
+        color: common.$primaryTextHighlight;
         margin-inline-start: 0px;
         white-space: nowrap;
       }

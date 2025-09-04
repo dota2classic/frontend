@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 // #242f39
 // #1d242d
@@ -28,7 +28,7 @@
   }
 
   & thead > tr {
-    background-color: $bg2 !important;
+    background-color: common.$bg2 !important;
   }
 
   td:global(.middle),
@@ -65,7 +65,7 @@
 
   & th.red,
   td.red {
-    color: $red;
+    color: common.$red;
   }
 
   & td.tiny {
@@ -74,7 +74,7 @@
 
   & th.green,
   td.green {
-    color: $green;
+    color: common.$green;
   }
 
   & td,
@@ -120,7 +120,7 @@
   & tr {
     line-height: 16px;
 
-    color: $primaryText;
+    color: common.$primaryText;
 
     font-size: 14px;
     &.link {

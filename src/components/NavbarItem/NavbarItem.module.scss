@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .navbarItem {
   white-space: nowrap;
@@ -29,7 +29,7 @@
 
   &:focus,
   &:hover {
-    background: $deepBlue;
+    background: common.$deepBlue;
     & .options {
       visibility: visible;
       pointer-events: auto;
@@ -39,8 +39,8 @@
   }
 
   &.active {
-    color: $gold;
-    background: $deepBlue;
+    color: common.$gold;
+    background: common.$deepBlue;
   }
 }
 
@@ -51,11 +51,11 @@
 }
 
 .admin {
-  color: $bronze;
+  color: common.$bronze;
 }
 
 .options {
-  @include box();
+  @include common.box();
   clip-path: inset(0px -10px -10px -10px);
   opacity: 0;
   visibility: hidden;
@@ -67,7 +67,7 @@
   display: flex;
   flex-direction: column;
   transition: 0.3s ease;
-  background: $deepBlue;
+  background: common.$deepBlue;
 
   padding: 8px 12px;
   font-size: 1.2rem;
@@ -79,7 +79,7 @@
 
 .option {
   cursor: pointer;
-  color: $primaryText;
+  color: common.$primaryText;
 
   & svg {
     margin-bottom: -3px;
@@ -88,14 +88,14 @@
 }
 
 .delimiter {
-  border-top: 1px solid $bg3;
+  border-top: 1px solid common.$bg3;
 }
 
 .tip {
   position: absolute;
   top: 4px;
   right: 0px;
-  color: $primaryText;
+  color: common.$primaryText;
   font-size: 14px;
 
   @media (max-width: 600px) {

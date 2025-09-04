@@ -1,4 +1,4 @@
-@import "../../../common.scss";
+@use "../../../common.scss";
 
 .actions {
   display: flex;
@@ -15,9 +15,9 @@
 }
 
 .active {
-  color: $red;
+  color: common.$red;
 }
 
 .inactive {
-  color: $primaryTextDark2;
+  color: common.$primaryTextDark2;
 }

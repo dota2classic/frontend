@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .container {
   display: grid;
@@ -163,7 +163,7 @@
     filter: drop-shadow(1px 1px 0 #c0de15) drop-shadow(-1px -1px 0 #c0de15);
 
     & span {
-      border-color: $green;
+      border-color: common.$green;
     }
   }
 
@@ -171,7 +171,7 @@
     filter: drop-shadow(1px 1px 0 #c23c2a) drop-shadow(-1px -1px 0 #c23c2a);
 
     & span {
-      border-color: $red;
+      border-color: common.$red;
     }
   }
 
@@ -200,7 +200,7 @@
 
 .hp {
   & span {
-    background-color: $green;
+    background-color: common.$green;
   }
 }
 .mana {
@@ -259,7 +259,7 @@
     width: 450px;
     margin: auto;
     & input {
-      color: $primaryTextHighlight;
+      color: common.$primaryTextHighlight;
     }
   }
 }
@@ -285,19 +285,19 @@
 .tower {
   width: 0.8rem;
   height: 0.8rem;
-  border: 1px solid $bg2;
+  border: 1px solid common.$bg2;
 }
 
 .barrack {
   width: 0.4rem;
   height: 0.4rem;
-  border: 1px solid $bg2;
+  border: 1px solid common.$bg2;
 }
 
 .ancient {
   width: 1.2rem;
   height: 1.2rem;
-  border: 2px solid $bg2;
+  border: 2px solid common.$bg2;
 }
 .building {
   position: absolute;
@@ -308,7 +308,7 @@
   }
 
   &__dire {
-    background-color: $red;
+    background-color: common.$red;
   }
 
   &__dead {

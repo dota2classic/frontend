@@ -1,12 +1,12 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .navbar {
   position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  background: $bg2;
-  color: $primaryText;
+  background: common.$bg2;
+  color: common.$primaryText;
   z-index: 100000;
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
 }
@@ -65,7 +65,7 @@
       display: flex !important;
       flex-direction: column;
       width: 100vw;
-      background: $bg2;
+      background: common.$bg2;
       height: calc(100dvh - 44px);
       top: 44px;
       font-size: 22px;
@@ -114,13 +114,13 @@
 .user {
   min-width: 100px;
   @media (max-width: 600px) {
-    border: 1px solid $transparentTint;
+    border: 1px solid common.$transparentTint;
     outline: none;
     border-radius: 4px;
     transition: 0.3s ease;
-    color: $primaryText;
+    color: common.$primaryText;
     cursor: pointer;
-    background-color: $bg2;
+    background-color: common.$bg2;
   }
 }
 
@@ -136,7 +136,7 @@
 }
 
 .liveMatch {
-  color: $gold;
+  color: common.$gold;
   //overflow: hidden;
   position: relative;
   //width: 13ch;

@@ -1,7 +1,7 @@
-@import "../../../../common.scss";
+@use "../../../../common.scss";
 
 .gallery {
-  @include box();
+  @include common.box();
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(8, 1fr);
@@ -11,7 +11,7 @@
 
   width: 400px;
   height: 400px;
-  background-color: $bg2;
+  background-color: common.$bg2;
   overflow-y: auto;
 }
 

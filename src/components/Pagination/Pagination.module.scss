@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .pagination {
   //padding: 6px 6px;
@@ -28,7 +28,7 @@
 
   min-width: 20px;
 
-  color: $green;
+  color: common.$green;
   text-decoration: none;
   cursor: pointer;
 
@@ -37,11 +37,11 @@
   }
 
   & a {
-    color: $green;
+    color: common.$green;
   }
 
   &.active {
-    background-color: $blueHighlight3;
+    background-color: common.$blueHighlight3;
   }
 
   &.disabled {
@@ -51,6 +51,6 @@
   }
 
   &:hover {
-    background-color: $blueHighlight3;
+    background-color: common.$blueHighlight3;
   }
 }

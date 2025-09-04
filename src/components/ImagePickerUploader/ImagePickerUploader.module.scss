@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .hiddenInput {
   display: none;
@@ -19,9 +19,9 @@
   vertical-align: middle;
   outline: none;
   border: none;
-  color: $primaryText;
+  color: common.$primaryText;
   &:hover {
-    background-color: $transparentTint;
+    background-color: common.$transparentTint;
   }
 }
 

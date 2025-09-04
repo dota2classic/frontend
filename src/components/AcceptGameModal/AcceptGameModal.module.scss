@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .modalWrapper {
   position: fixed;
@@ -16,7 +16,7 @@
   text-align: center;
 
   & h4 {
-    color: $primaryTextTint;
+    color: common.$primaryTextTint;
   }
   & h3 {
     padding-top: 8px;
@@ -33,7 +33,7 @@
 .nonPrimaryModal {
   //width: fit-content;
   //height: fit-content;
-  background: $bg2;
+  background: common.$bg2;
 
   //padding: 40px;
   border-radius: 0px;
@@ -63,7 +63,7 @@
   min-width: 400px;
 
   height: fit-content;
-  background: $bg2;
+  background: common.$bg2;
 
   //padding: 40px;
   border-radius: 0px;
@@ -140,9 +140,9 @@
   padding: 12px;
   border-radius: 4px;
   transition: 0.3s ease;
-  color: $primaryTextTint;
+  color: common.$primaryTextTint;
   cursor: pointer;
-  background-color: $bg2;
+  background-color: common.$bg2;
 }
 
 .dots {
@@ -152,7 +152,7 @@
 }
 
 .acceptedDot {
-  background: $gold !important;
+  background: common.$gold !important;
 }
 
 .connectInfo {
@@ -212,7 +212,7 @@
 }
 
 .accepted {
-  border-color: $green;
+  border-color: common.$green;
   position: relative;
 
   &::before {
@@ -233,15 +233,15 @@
 }
 
 .pending {
-  border-color: $primaryTextDark2;
+  border-color: common.$primaryTextDark2;
 }
 
 .decline {
-  border-color: $red;
+  border-color: common.$red;
 }
 
 .timeout {
-  border-color: $red;
+  border-color: common.$red;
 }
 
 .fullInstruction {

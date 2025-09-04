@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .image {
   position: absolute;
@@ -12,7 +12,7 @@
   height: 100%;
 }
 .card {
-  @include box();
+  @include common.box();
 
   grid-column: span 1;
   grid-row: span 1;
@@ -40,11 +40,11 @@
 
   &:hover {
     transform: scale(1.02);
-    border-color: $blueHighlight;
+    border-color: common.$blueHighlight;
   }
 
   & h3 {
-    color: $primaryTextHighlight;
+    color: common.$primaryTextHighlight;
     margin-block-end: 0;
 
     @media (max-width: 600px) {
@@ -53,7 +53,7 @@
   }
 
   & h4 {
-    color: $primaryTextDark;
+    color: common.$primaryTextDark;
     @media (max-width: 600px) {
       margin-block-start: 0;
       margin-block-end: 1rem;
@@ -95,7 +95,7 @@
 }
 
 .recordType {
-  color: $primaryText;
+  color: common.$primaryText;
   font-size: 1.4rem;
   font-weight: bold;
   margin-top: 2rem;
@@ -104,12 +104,12 @@
 .recordValue {
   font-size: 2rem;
   font-weight: bold;
-  color: $gold;
+  color: common.$gold;
   margin-top: 2rem;
   flex: 1;
 }
 .recordTime {
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
   font-size: 1rem;
   margin-block-start: 1rem;
 }

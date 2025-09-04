@@ -1,4 +1,4 @@
-@import "../../../common.scss";
+@use "../../../common.scss";
 
 .stats {
   display: flex;
@@ -48,7 +48,7 @@
 }
 
 .twitch {
-  color: $purple;
+  color: common.$purple;
 }
 
 .heading {

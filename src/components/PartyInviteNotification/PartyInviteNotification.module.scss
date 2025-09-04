@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 @keyframes pendingAnimation {
   0% {
@@ -16,7 +16,7 @@
 
 .invite {
   width: 350px;
-  background: $bg2;
+  background: common.$bg2;
   box-shadow: 0 0 10px 3px rgba(150, 150, 150, 0.25);
 
   display: flex;
@@ -29,10 +29,10 @@
     display: flex;
     align-self: stretch;
     flex-direction: column;
-    background-color: $bg1;
+    background-color: common.$bg1;
     padding: 16px 12px;
     text-align: center;
-    color: $primaryText;
+    color: common.$primaryText;
 
     & span {
       font-size: 1.4rem;
@@ -61,9 +61,9 @@
     padding: 12px;
     border-radius: 4px;
     transition: 0.3s ease;
-    color: $primaryTextTint;
+    color: common.$primaryTextTint;
     cursor: pointer;
-    background-color: $bg2;
+    background-color: common.$bg2;
 
     &:disabled {
       background: rgba(0, 0, 0, 0.3);

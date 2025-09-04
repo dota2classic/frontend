@@ -1,11 +1,11 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .gameReady {
-  background: $bg2;
+  background: common.$bg2;
   margin: 0;
 
   //border: 1px solid #4e4d4d;
-  border: 2px solid $primaryTextDark;
+  border: 2px solid common.$primaryTextDark;
   border-radius: 6px;
   padding: 8px 12px;
 
@@ -57,7 +57,7 @@
 }
 
 .box {
-  background-color: $bg2;
+  background-color: common.$bg2;
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
   align-items: stretch;
   display: flex;

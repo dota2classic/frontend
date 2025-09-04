@@ -1,4 +1,4 @@
-@import '../../common.scss';
+@use '../../common.scss';
 
 
 .section {
@@ -21,7 +21,7 @@
     & a {
       float: right;
       font-size: 0.8rem;
-      color: $green;
+      color: common.$green;
     }
 
     * + & {

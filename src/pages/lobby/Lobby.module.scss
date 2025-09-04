@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .gridPanel {
   display: grid;
@@ -55,11 +55,11 @@
 
   & svg {
     font-size: 2rem;
-    color: $red;
+    color: common.$red;
     transition: 0.3s ease;
   }
   & svg:hover {
-    color: $error;
+    color: common.$error;
   }
 
   & .username {
@@ -75,7 +75,7 @@
   justify-content: center;
 
   & + & {
-    border-top: 1px solid $primaryTextDark2;
+    border-top: 1px solid common.$primaryTextDark2;
   }
 
   //& img {
@@ -95,10 +95,10 @@
     justify-content: center;
     flex: 1;
 
-    color: $primaryTextDark;
+    color: common.$primaryTextDark;
 
     &:hover {
-      color: $primaryText;
+      color: common.$primaryText;
     }
   }
 }
@@ -111,7 +111,7 @@
 
 .team {
   text-align: center;
-  border-bottom: 1px solid $primaryTextDark;
+  border-bottom: 1px solid common.$primaryTextDark;
   padding-bottom: 12px;
 }
 
@@ -130,7 +130,7 @@
 }
 .unassigned {
   padding: 4px;
-  border: 1px solid $blueHighlight3;
+  border: 1px solid common.$blueHighlight3;
   border-radius: 4px;
   & img {
     width: 24px;
@@ -181,7 +181,7 @@
   transition: 0.3s ease;
 
   &:hover {
-    color: $gold;
+    color: common.$gold;
   }
 
   & svg {
@@ -202,11 +202,11 @@
   }
 
   & .startGame {
-    border: 1px solid $green;
+    border: 1px solid common.$green;
   }
 
   & .leaveLobby {
-    border: 1px solid $primaryTextDark2;
+    border: 1px solid common.$primaryTextDark2;
   }
 }
 

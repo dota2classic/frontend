@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .list {
   display: flex;
@@ -20,14 +20,14 @@
       top: 50px;
       bottom: 12px;
       left: 18px;
-      border: 1px none $primaryTextDark;
+      border: 1px none common.$primaryTextDark;
       border-right-style: dotted;
     }
   }
 
   & h3 {
     margin-block-start: -10px;
-    color: $primaryTextHighlight;
+    color: common.$primaryTextHighlight;
     font-size: 2rem;
   }
 
@@ -41,15 +41,15 @@
 .step__content {
   padding: 8px;
   margin-left: 20px;
-  color: $primaryText;
+  color: common.$primaryText;
 
 }
 
 .step__num {
   padding: 8px;
   text-align: center;
-  background-color: $transparentTint;
-  border: 1px solid $transparentTint3;
+  background-color: common.$transparentTint;
+  border: 1px solid common.$transparentTint3;
   border-radius: 4px;
   width: 20px;
   min-width: 20px;

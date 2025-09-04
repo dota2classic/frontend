@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .message {
   display: flex;
@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: row;
 
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
   gap: 4px;
   align-items: center;
   padding-right: 8px;
@@ -49,7 +49,7 @@
   visibility: hidden;
   position: absolute;
   right: 10px;
-  background: $bg2;
+  background: common.$bg2;
   padding: 4px 8px;
   border-radius: 4px;
   top: -26px;
@@ -62,7 +62,7 @@
   & svg,
   span {
     font-size: 1.2rem;
-    color: $primaryText;
+    color: common.$primaryText;
     cursor: pointer;
     transition: transform 0.3s ease;
 
@@ -79,7 +79,7 @@
   cursor: pointer;
 
   &:hover {
-    color: $red;
+    color: common.$red;
   }
 }
 
@@ -118,7 +118,7 @@
   }
 
   &_reactions:hover {
-    background-color: $transparentTint3;
+    background-color: common.$transparentTint3;
 
     & .time {
       visibility: visible;
@@ -146,7 +146,7 @@
   //align-items: center;
   justify-content: space-around;
   font-size: 0.8rem;
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
 }
 
 .online {
@@ -161,7 +161,7 @@
     height: 10px;
     border-radius: 50%;
     background-color: rgba(34, 206, 34, 1);
-    outline: 2px solid $bg2;
+    outline: 2px solid common.$bg2;
     z-index: 10;
   }
 }
@@ -182,7 +182,7 @@
     background-image: url("/newyear/santahat.png");
     background-repeat: no-repeat;
     background-size: contain;
-    filter: drop-shadow(2px 4px 4px $almostBlack);
+    filter: drop-shadow(2px 4px 4px common.$almostBlack);
   }
 }
 
@@ -203,7 +203,7 @@
   flex-direction: row;
   align-items: center;
   padding: 2px 4px;
-  background-color: $bg3;
+  background-color: common.$bg3;
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s ease;
@@ -211,11 +211,11 @@
   outline: 1px solid transparent;
 
   &:hover {
-    outline: 1px solid $blueHighlight3;
+    outline: 1px solid common.$blueHighlight3;
   }
 
   &__active {
-    outline: 1px solid $blueHighlight2;
+    outline: 1px solid common.$blueHighlight2;
     //box-shadow: 0px 0 2px 2px $blueHighlight2 inset;
   }
 
@@ -226,7 +226,7 @@
   }
 
   & svg {
-    color: $primaryTextTint;
+    color: common.$primaryTextTint;
     vertical-align: middle;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -245,10 +245,10 @@
 
   &:hover {
     & .repliedMessage__content {
-      color: $primaryText !important;
+      color: common.$primaryText !important;
     }
     & .repliedMessage__indicator::before {
-      border-color: $primaryText !important;
+      border-color: common.$primaryText !important;
     }
   }
 
@@ -259,7 +259,7 @@
     font-size: 0.8rem;
     display: block;
     align-items: center;
-    color: $primaryTextSemiDark;
+    color: common.$primaryTextSemiDark;
     padding-left: 4px;
     margin-right: 10px;
     padding-top: 2px;
@@ -280,7 +280,7 @@
       position: absolute;
       width: 200px;
       height: 200px;
-      border: 2px solid $primaryTextSemiDark;
+      border: 2px solid common.$primaryTextSemiDark;
       border-radius: 6px;
       top: 8px;
       left: 35px;
@@ -291,7 +291,7 @@
 
 .edited {
   font-size: 0.6rem;
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
   margin-left: 2px;
 }
 
@@ -300,7 +300,7 @@
   overflow: hidden;
 
   &__placeholder {
-    background-color: $primaryTextDark2;
+    background-color: common.$primaryTextDark2;
     height: 1rem;
   }
 
@@ -320,14 +320,14 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color: $primaryTextDark2;
+  background-color: common.$primaryTextDark2;
 }
 
 .roleTooltip {
-  @include box();
+  @include common.box();
   padding: 8px 12px;
-  background-color: $bg2;
-  color: $primaryText;
+  background-color: common.$bg2;
+  color: common.$primaryText;
 }
 
 
@@ -340,14 +340,14 @@
 }
 
 .showBlockedMessage {
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
   cursor: pointer;
   display: flex;
   transition: 0.3s ease;
 
   &:hover {
     text-decoration: underline;
-    color: $blueHighlight;
+    color: common.$blueHighlight;
   }
 
   & svg {
@@ -359,13 +359,13 @@
 .hover_red {
   transition: 0.3s ease;
   &:hover {
-    color: $red;
+    color: common.$red;
   }
 }
 .hover_green {
   transition: 0.3s ease;
   &:hover {
-    color: $green;
+    color: common.$green;
   }
 }
 

@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .root {
   display: flex;
@@ -18,13 +18,13 @@
 }
 
 .shinyText {
-  background: radial-gradient($gold 0%, $red 100%);
+  background: radial-gradient(common.$gold 0%, common.$red 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .shinyTextLight {
-  background: radial-gradient($gold 0%, #fff 100%);
+  background: radial-gradient(common.$gold 0%, #fff 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -33,7 +33,7 @@
   padding-top: 50px;
   text-align: center;
   font-size: 80px;
-  color: $primaryText;
+  color: common.$primaryText;
   font-weight: bold;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .description {
-  color: $primaryTextSemiDark;
+  color: common.$primaryTextSemiDark;
   width: 60%;
   text-align: center;
 }
@@ -76,7 +76,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
-  color: $primaryText;
+  color: common.$primaryText;
   font-size: 40px;
   text-transform: uppercase;
   letter-spacing: 8px;
@@ -152,7 +152,7 @@
     bottom: 40px;
     width: 60%;
     max-width: 800px;
-    color: $primaryText;
+    color: common.$primaryText;
 
     left: 50%;
     text-align: center;
@@ -206,10 +206,10 @@
     &::after {
       background: linear-gradient(
         to top,
-        $bg2 0%,
+        common.$bg2 0%,
         rgba(0, 0, 0, 0.3) 30%,
         rgba(0, 0, 0, 0.3) 70%,
-        $bg2 100%
+        common.$bg2 100%
       ) !important;
     }
   }
@@ -223,17 +223,17 @@
     pointer-events: none;
     background: linear-gradient(
       to top,
-      $bg2 0%,
+      common.$bg2 0%,
       rgba(0, 0, 0, 0.7) 30%,
       rgba(0, 0, 0, 0.7) 70%,
-      $bg2 100%
+      common.$bg2 100%
     );
   }
 }
 
 .payButton {
   position: absolute;
-  color: $primaryText;
+  color: common.$primaryText;
   background-color: #1c2024cc; // background of the button
 
   left: 50%;

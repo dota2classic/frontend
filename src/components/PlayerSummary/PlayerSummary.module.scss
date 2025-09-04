@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .panel {
   box-shadow: none;
@@ -23,7 +23,7 @@
 }
 
 .externalLink {
-  color: $green;
+  color: common.$green;
   font-size: 1rem;
   display: flex;
   gap: 6px;
@@ -37,7 +37,7 @@
 
 .twitch {
   & svg {
-    color: $purple !important;
+    color: common.$purple !important;
   }
 }
 
@@ -81,7 +81,7 @@
   border-radius: 2px;
 }
 .icon_svg {
-  color: $blueHighlight;
+  color: common.$blueHighlight;
   font-size: 1.1rem;
 }
 
@@ -89,7 +89,7 @@
   & span + span {
     &::before {
       content: "-";
-      color: $primaryTextDark2;
+      color: common.$primaryTextDark2;
       margin: 2px;
     }
   }

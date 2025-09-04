@@ -1,13 +1,13 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .tooltip {
-  @include box;
+  @include common.box;
   display: flex;
   flex-direction: column;
   padding: 4px;
   border-radius: 4px;
   gap: 2px;
-  background-color: $bg2;
+  background-color: common.$bg2;
 }
 
 .reacted {
@@ -29,7 +29,7 @@
 
 
 .emoticon {
-  border-bottom: 1px solid $transparentTint;
+  border-bottom: 1px solid common.$transparentTint;
   padding-bottom: 4px;
   margin-bottom: 4px;
   align-items: center;
@@ -37,7 +37,7 @@
   flex-direction: row;
 
   & span {
-    color: $primaryTextSemiDark;
+    color: common.$primaryTextSemiDark;
   }
 
   & img {

@@ -1,16 +1,16 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .button {
   position: relative;
-  border: 1px solid $transparentTint;
+  border: 1px solid common.$transparentTint;
   outline: none;
   font-size: 1rem;
   padding: 12px;
   border-radius: 8px;
   transition: 0.3s ease;
-  color: $primaryText;
+  color: common.$primaryText;
   cursor: pointer;
-  background-color: $bg3;
+  background-color: common.$bg3;
 
   display: flex;
   align-items: center;
@@ -22,18 +22,18 @@
 
   &:disabled {
     cursor: not-allowed;
-    color: $primaryTextDark;
+    color: common.$primaryTextDark;
   }
 
   &:not([disabled]):focus,
   &:not([disabled]):hover {
     //background: $transparentTint;
-    background-color: $bg15;
+    background-color: common.$bg15;
   }
 
   &.active {
-    color: $gold;
-    background: $transparentTint;
+    color: common.$gold;
+    background: common.$transparentTint;
   }
 }
 
@@ -60,7 +60,7 @@
   z-index: 10;
   white-space: pre;
   color: #ed3b1c;
-  border: 2px solid $primaryText;
+  border: 2px solid common.$primaryText;
   border-radius: 4px;
   font-size: 1.5rem;
   letter-spacing: 2.5px;
@@ -74,7 +74,7 @@
   display: flex;
   flex-direction: column;
 
-  background: radial-gradient($gold 0%, $red 100%);
+  background: radial-gradient(common.$gold 0%, common.$red 100%);
   background-size: 150% 150%;
   animation: shinyText 3s ease alternate infinite;
   background-clip: text;
@@ -89,7 +89,7 @@
 
   &:disabled {
     background-clip: unset;
-    background: $bg1 !important;
+    background: common.$bg1 !important;
     -webkit-text-fill-color: unset;
   }
 
@@ -98,7 +98,7 @@
   &:not([disabled]):active {
     background-size: 250% 250% !important;
     color: #ee2c0a;
-    border-color: $primaryTextHighlight;
+    border-color: common.$primaryTextHighlight;
     transform: translateY(-2px);
   }
 
