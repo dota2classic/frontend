@@ -44,6 +44,12 @@ export interface PlayerRecordsResponse {
      * @memberof PlayerRecordsResponse
      */
     month: Array<PlayerRecordDto>;
+    /**
+     * 
+     * @type {Array<PlayerRecordDto>}
+     * @memberof PlayerRecordsResponse
+     */
+    day: Array<PlayerRecordDto>;
 }
 
 export function PlayerRecordsResponseFromJSON(json: any): PlayerRecordsResponse {
@@ -59,6 +65,7 @@ export function PlayerRecordsResponseFromJSONTyped(json: any, ignoreDiscriminato
         'season': ((json['season'] as Array<any>).map(PlayerRecordDtoFromJSON)),
         'overall': ((json['overall'] as Array<any>).map(PlayerRecordDtoFromJSON)),
         'month': ((json['month'] as Array<any>).map(PlayerRecordDtoFromJSON)),
+        'day': ((json['day'] as Array<any>).map(PlayerRecordDtoFromJSON)),
     };
 }
 
@@ -74,6 +81,7 @@ export function PlayerRecordsResponseToJSON(value?: PlayerRecordsResponse | null
         'season': ((value.season as Array<any>).map(PlayerRecordDtoToJSON)),
         'overall': ((value.overall as Array<any>).map(PlayerRecordDtoToJSON)),
         'month': ((value.month as Array<any>).map(PlayerRecordDtoToJSON)),
+        'day': ((value.day as Array<any>).map(PlayerRecordDtoToJSON)),
     };
 }
 

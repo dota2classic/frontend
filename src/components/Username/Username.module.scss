@@ -7,6 +7,12 @@
   min-width: 1em;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
 .usernameLink {
   display: inline-block;
   white-space: nowrap;
@@ -19,7 +25,6 @@
   flex-direction: row;
   min-width: 0.5rem;
 }
-
 
 .roleTooltip {
   @include common.box();

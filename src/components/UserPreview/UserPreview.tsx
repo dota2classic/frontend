@@ -34,7 +34,11 @@ export const UserPreview: React.FC<IUserPreviewProps & DivProps> = observer(
             link={link}
           />
         </div>
-        <Username user={user} link={link} nolink={nolink} roles={roles} />
+        <div className={c.username}>
+          <Username user={user} link={link} nolink={nolink} roles={roles} />
+
+          {props.children}
+        </div>
       </div>
     );
   },

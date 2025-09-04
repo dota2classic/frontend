@@ -62,11 +62,7 @@ export const PlayerAvatar: React.FC<Props> = observer(function PlayerAvatar({
 
   return (
     <picture
-      className={cx(
-        c.avatar,
-        isOnline ? c.online : undefined,
-        props.width > 50 && c.online__big,
-      )}
+      className={cx(c.avatar, isOnline ? c.online : undefined)}
       style={{ width: props.width, height: props.width }}
     >
       {hat && (

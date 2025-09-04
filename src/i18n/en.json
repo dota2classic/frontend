@@ -154,6 +154,7 @@
   "commands_tech_tab.blueColor": "Blue color",
   "commands_tech_tab.forEnemyTeam": "For the enemy team",
   "commands_tech_tab.neutrals": "Neutrals",
+  "common.mmr": "MMR",
   "matchmaking_mode.0": "Rating",
   "matchmaking_mode.1": "Classic 5x5",
   "matchmaking_mode.2": "1v1 Mid",

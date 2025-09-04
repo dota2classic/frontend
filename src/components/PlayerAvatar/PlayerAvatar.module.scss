@@ -23,23 +23,18 @@
 
 .online {
   position: relative;
-
-  &__big {
-    &::before {
-      width: 14px;
-      height: 14px;
-      bottom: 8%;
-      right: 4%;
-    }
-  }
   &::before {
     content: "";
     position: absolute;
     bottom: 1px;
     right: 1px;
 
-    width: 10px;
-    height: 10px;
+    //width: 10px;
+    //height: 10px;
+
+    width: 20%;
+    aspect-ratio: 1;
+
     border-radius: 50%;
     background-color: rgba(34, 206, 34, 1);
     outline: 2px solid common.$bg2;
