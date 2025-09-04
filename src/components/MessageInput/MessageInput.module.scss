@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .createMessageContainer {
   display: flex;
@@ -8,7 +8,7 @@
 
 .createMessage {
   position: relative;
-  background-color: $bg3;
+  background-color: common.$bg3;
   border-radius: 8px;
   display: flex;
   flex-direction: row;
@@ -28,7 +28,7 @@
       //padding: 12px;
       //border-radius: 8px;
       //transition: 0.3s ease;
-      color: $primaryText !important;
+      color: common.$primaryText !important;
       border: none;
       outline: none;
       background-color: transparent !important;
@@ -41,7 +41,7 @@
   & .markdown {
     display: inline-block;
     align-self: flex-start;
-    color: $primaryTextDark;
+    color: common.$primaryTextDark;
     width: unset;
   }
 
@@ -70,13 +70,13 @@
 
     & svg {
       font-size: 1.4rem;
-      color: $primaryTextTint;
+      color: common.$primaryTextTint;
       transition: 0.3s ease;
     }
 
     &:hover {
       & svg {
-        color: $gold;
+        color: common.$gold;
         transform: rotateZ(-5deg);
       }
     }
@@ -86,7 +86,7 @@
 .test {
   grid-column: span 23;
   grid-row: span 1;
-  color: $red;
+  color: common.$red;
   transition: 0.3s ease;
 
   height: 0;
@@ -122,14 +122,14 @@
 
     &:hover {
       transform: scale(1.1);
-      color: $red;
+      color: common.$red;
     }
   }
 }
 
 .suggestion_list {
-  background-color: $bg2;
-  @include box();
+  background-color: common.$bg2;
+  @include common.box();
   width: 400px;
   max-height: 400px;
   display: flex;
@@ -145,5 +145,5 @@
 }
 
 .focused {
-  background-color: $blueHighlight3;
+  background-color: common.$blueHighlight3;
 }

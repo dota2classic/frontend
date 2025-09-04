@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .faq {
   display: flex;
@@ -14,12 +14,12 @@
   flex-direction: column;
 
   & + & {
-    border-top: 1px solid $primaryTextDark2;
+    border-top: 1px solid common.$primaryTextDark2;
   }
 
   &[open] {
     & .title {
-      color: $gold;
+      color: common.$gold;
     }
     & summary > svg {
       rotate: 180deg;
@@ -39,7 +39,7 @@
 
     & .title {
       flex: 1;
-      color: $primaryText;
+      color: common.$primaryText;
     }
 
     & svg {

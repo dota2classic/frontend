@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .header {
   font-size: 1.8rem;
@@ -11,9 +11,9 @@
 }
 
 .radiant {
-  color: $green;
+  color: common.$green;
 }
 
 .dire {
-  color: $red;
+  color: common.$red;
 }

@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .info {
   display: flex;
@@ -84,11 +84,11 @@
 
 
   &.banned {
-    border: 1px solid $red;
+    border: 1px solid common.$red;
   }
 
   &.playing {
-    border: 1px dotted $red;
+    border: 1px dotted common.$red;
   }
 
   & img {
@@ -106,12 +106,12 @@
   cursor: pointer;
 
   transition: 0.3s ease;
-  color: $primaryTextDark;
-  background-color: $evenDarkerBg;
+  color: common.$primaryTextDark;
+  background-color: common.$evenDarkerBg;
 
   &:hover {
-    color: $primaryText;
-    background-color: $darkBg;
+    color: common.$primaryText;
+    background-color: common.$darkBg;
   }
 }
 
@@ -127,5 +127,5 @@
 
   transition: 0.3s ease;
 
-  color: $primaryText;
+  color: common.$primaryText;
 }

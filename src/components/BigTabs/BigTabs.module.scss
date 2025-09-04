@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .tabs {
   display: flex;
@@ -33,11 +33,11 @@
   cursor: pointer;
   transition: 0.3s ease;
   &:hover {
-    box-shadow: inset 0 -2px 0 $blueHighlight !important;
+    box-shadow: inset 0 -2px 0 common.$blueHighlight !important;
   }
 
   &.active {
-    box-shadow: inset 0 -2px 0 $blueHighlight !important;
-    background-color: $transparentTint3;
+    box-shadow: inset 0 -2px 0 common.$blueHighlight !important;
+    background-color: common.$transparentTint3;
   }
 }

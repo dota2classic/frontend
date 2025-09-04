@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .heroWithLevel {
   position: relative;
@@ -35,7 +35,7 @@
 }
 
 .gold {
-  color: $gold !important;
+  color: common.$gold !important;
 }
 
 .fixedWidth {
@@ -102,7 +102,7 @@
   position: absolute;
   width: 200px;
   height: 200px;
-  border: 2px solid $primaryTextSemiDark;
+  border: 2px solid common.$primaryTextSemiDark;
   border-radius: 9px;
   z-index: 2;
 

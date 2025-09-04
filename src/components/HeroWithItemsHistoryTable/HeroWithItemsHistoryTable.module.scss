@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .hero {
   display: flex;
@@ -23,10 +23,10 @@
   }
 
   &__win {
-    color: $green !important;
+    color: common.$green !important;
   }
   &__lose {
-    color: $red !important;
+    color: common.$red !important;
   }
 }
 
@@ -58,5 +58,5 @@
 
 .secondary {
   font-size: 0.7rem;
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
 }

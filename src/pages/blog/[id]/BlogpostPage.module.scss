@@ -1,4 +1,4 @@
-@import "../../../common.scss";
+@use "../../../common.scss";
 
 .post {
   flex-direction: column;
@@ -12,14 +12,14 @@
 
 .date {
   font-size: 2rem;
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
   text-align: center;
   margin-block-start: 0;
 }
 
 .newsLink {
   font-size: 1.4rem;
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
   text-align: center;
   display: block;
   margin: 4rem auto auto;
@@ -34,5 +34,5 @@
   margin: 10px auto auto;
 
 
-  color: $primaryText;
+  color: common.$primaryText;
 }

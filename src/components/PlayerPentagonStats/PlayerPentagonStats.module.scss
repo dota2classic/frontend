@@ -1,9 +1,9 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .stats {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  background-color: $panelBg;
+  background-color: common.$panelBg;
   flex: 1;
 }
 
@@ -23,7 +23,7 @@
   }
 
   & dd {
-    color: $gold;
+    color: common.$gold;
     min-width: 100px;
     margin-inline-start: 1rem;
   }
@@ -38,7 +38,7 @@
     display: block;
     width: 80%;
     margin: auto;
-    border-bottom: 1px solid $blueHighlight3;
+    border-bottom: 1px solid common.$blueHighlight3;
   }
 }
 
@@ -61,8 +61,8 @@
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  background-color: $red;
-  border: 1px solid $deepBlue;
+  background-color: common.$red;
+  border: 1px solid common.$deepBlue;
 
   transform: translate(-40%, -77%);
 
@@ -106,12 +106,12 @@
   & .svg__big_penta {
     fill: url(#grad);
     stroke-width: 2px;
-    stroke: $deepBlue;
+    stroke: common.$deepBlue;
   }
 
   & .svg__small_penta {
     stroke-width: 2px;
-    stroke: $gold;
+    stroke: common.$gold;
     fill: rgba(203, 181, 66, 0.35);
   }
 }

@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .panel {
   display: flex;
@@ -19,7 +19,7 @@
 .imageDecoration {
   background: rgba(0, 0, 0, 0.4);
   transition: 0.3s ease;
-  border: 1px solid $transparentTint2;
+  border: 1px solid common.$transparentTint2;
   cursor: pointer;
 
   &:hover {
@@ -51,7 +51,7 @@
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
   gap: 16px;
-  background: $bg15;
+  background: common.$bg15;
   z-index: 10000000;
   overflow-y: auto;
   box-shadow: 0 0 6px rgba(10, 10, 10, 0.6);
@@ -73,7 +73,7 @@
     transition: 0.3s ease;
 
     &:hover {
-      filter: drop-shadow(2px 4px 4px $green);
+      filter: drop-shadow(2px 4px 4px common.$green);
     }
   }
 }

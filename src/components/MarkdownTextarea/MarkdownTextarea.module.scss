@@ -1,4 +1,4 @@
-@import '../../common.scss';
+@use '../../common.scss';
 
 
 .markdown {
@@ -14,11 +14,11 @@
   padding: 12px;
   border-radius: 8px;
   transition: 0.3s ease;
-  color: $primaryText;
+  color: common.$primaryText;
   flex: 1;
 
   //margin-bottom: 24px;
-  background-color: $bg2;
+  background-color: common.$bg2;
 
   resize: none;
 
@@ -26,6 +26,6 @@
   cursor: pointer;
 
   &:focus, &:hover {
-    background: $transparentTint3;
+    background: common.$transparentTint3;
   }
 }

@@ -1,16 +1,16 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 
 
 .part {
-  color: $gold;
+  color: common.$gold;
   font-weight: bold;
   line-height: 2rem;
 }
 
 
 .hashtag {
-  color: $primaryTextDark;
+  color: common.$primaryTextDark;
   transition: 0.3s ease;
   position: absolute;
   left: -1.6rem;
@@ -31,20 +31,20 @@
   &:hover {
     & .hashtag {
       opacity: 1;
-      color: $primaryText;
+      color: common.$primaryText;
     }
   }
 }
 
 .description {
-  color: $primaryTextSemiDark;
+  color: common.$primaryTextSemiDark;
   font-size: 1.2rem !important;
   margin-top: 0 !important;
   padding-left: 2rem;
 }
 
 .punishment {
-  color: $red;
+  color: common.$red;
   font-size: 1.2rem;
   padding-left: 2rem;
 }

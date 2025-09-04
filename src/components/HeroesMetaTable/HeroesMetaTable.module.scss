@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .gpm {
   letter-spacing: 2px;
@@ -28,11 +28,11 @@
 }
 
 .aTier {
-  background-color: $blueHighlight;
+  background-color: common.$blueHighlight;
 }
 
 .bTier {
-  background-color: $green;
+  background-color: common.$green;
 }
 
 .cTier {
@@ -40,5 +40,5 @@
 }
 
 .dTier {
-  background-color: $red;
+  background-color: common.$red;
 }

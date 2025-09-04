@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .noobQueue {
   display: flex;
@@ -22,7 +22,7 @@
   }
 
   & .complete {
-    background-color: $blueHighlight2;
+    background-color: common.$blueHighlight2;
   }
 
   & .button {

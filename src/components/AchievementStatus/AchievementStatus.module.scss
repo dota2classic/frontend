@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .achievement {
   position: relative;
@@ -74,8 +74,8 @@
   position: absolute;
   left: 0;
   padding: 6px 12px;
-  color: $primaryText;
-  background-color: $bg2;
+  color: common.$primaryText;
+  background-color: common.$bg2;
   box-shadow: 0 0 6px rgba(10, 10, 10, 0.4);
   z-index: 10000;
   //width: 300%;

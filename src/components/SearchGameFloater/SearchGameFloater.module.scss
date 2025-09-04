@@ -1,9 +1,9 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .container {
   position: fixed;
 
-  background: $bg15;
+  background: common.$bg15;
 
   right: 50px;
   bottom: 50px;

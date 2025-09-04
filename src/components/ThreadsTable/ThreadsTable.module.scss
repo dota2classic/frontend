@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .block {
   max-width: unset !important;
@@ -48,5 +48,5 @@
   height: 1.5em;
 }
 .newMessages {
-  color: $gold;
+  color: common.$gold;
 }

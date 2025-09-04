@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .tree {
   grid-column: span 4;
@@ -32,7 +32,7 @@
         content: "*";
         margin-right: 2px;
         left: -4px;
-        color: $error;
+        color: common.$error;
         font-size: 1rem;
         transform: scale(1.5);
       }
@@ -41,7 +41,7 @@
 
   &__selected,
   &:hover {
-    background: $panelBg;
+    background: common.$panelBg;
   }
 }
 

@@ -1,8 +1,8 @@
-@import "../../../../common.scss";
+@use "../../../../common.scss";
 
 .typeaheadPopover {
-  @include box();
-  background-color: $bg2;
+  @include common.box();
+  background-color: common.$bg2;
   position: fixed;
 
   & ul {

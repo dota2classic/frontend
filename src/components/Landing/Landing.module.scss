@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common.scss";
 
 .promoVideoWrapper {
   width: 100%;
@@ -133,7 +133,7 @@
   z-index: 10;
   white-space: pre;
   color: #ed3b1c;
-  border: 2px solid $primaryText;
+  border: 2px solid common.$primaryText;
   border-radius: 6px;
   font-size: 28px;
   letter-spacing: 2.5px;
@@ -156,7 +156,7 @@
   &:active {
     background-color: rgba(0, 0, 0, 0.6);
     color: #ee2c0a;
-    border-color: $primaryTextHighlight;
+    border-color: common.$primaryTextHighlight;
     transform: translateY(-2px);
   }
 }
@@ -180,7 +180,7 @@
 
 .tintBackground {
   display: inline-block;
-  background-color: $transparentTint;
+  background-color: common.$transparentTint;
   padding-top: 16px;
   padding-left: 12px;
   padding-right: 12px;

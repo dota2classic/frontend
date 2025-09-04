@@ -1,4 +1,4 @@
-@import '../../common.scss';
+@use '../../common.scss';
 
 .container {
   position: fixed;
@@ -15,8 +15,8 @@
 }
 
 .notification {
-  color: $primaryText;
-  background: $evenDarkerBg;
+  color: common.$primaryText;
+  background: common.$evenDarkerBg;
   padding: 15px;
 }
 
