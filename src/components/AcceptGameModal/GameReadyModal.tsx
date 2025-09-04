@@ -1,13 +1,15 @@
 import cx from "clsx";
-import c from "@/components/AcceptGameModal/AcceptGameModal.module.scss";
+import c from "./AcceptGameModal.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import React, { useCallback } from "react";
-import { Button, CopySomething, Input } from "@/components";
 import { useLocalStorageBackedParam } from "@/util/useLocalStorageBackedParam";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
+import { Button } from "../Button";
+import { CopySomething } from "../CopySomething";
+import { Input } from "../Input";
 
 export const GameReadyModal = observer(
   ({ className }: { className?: string }) => {

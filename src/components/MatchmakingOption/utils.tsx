@@ -1,6 +1,6 @@
 import { MatchmakingMode } from "@/api/mapped-models";
 import React from "react";
-import { TimeAgo } from "@/components";
+import { TimeAgo } from "../TimeAgo";
 import {
   GameModeAccessLevel,
   getRequiredAccessLevel,

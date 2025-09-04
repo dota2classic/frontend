@@ -1,6 +1,6 @@
 import { ThreadType } from "@/api/mapped-models";
 import React, { useEffect, useState } from "react";
-import { PaginatedThread } from "@/containers/Thread/PaginatedThread";
+import { PaginatedThread } from "./PaginatedThread";
 import { ThreadMessagePageDTO } from "@/api/back";
 import { getApi } from "@/api/hooks";
 

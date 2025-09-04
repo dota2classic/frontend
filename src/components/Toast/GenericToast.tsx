@@ -1,7 +1,7 @@
 import React, { ReactNode, useCallback } from "react";
 import { ToastContentProps } from "react-toastify";
 import c from "./Toast.module.scss";
-import { Button } from "@/components";
+import { Button } from "../Button";
 import cx from "clsx";
 
 export interface GenericToastProps {

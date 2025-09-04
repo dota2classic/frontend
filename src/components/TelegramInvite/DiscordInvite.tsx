@@ -1,5 +1,5 @@
 import cx from "clsx";
-import c from "@/components/TelegramInvite/TelegramInvite.module.scss";
+import c from "./TelegramInvite.module.scss";
 import { FaDiscord } from "react-icons/fa";
 import React from "react";
 import { useTranslation } from "react-i18next";

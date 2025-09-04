@@ -1,13 +1,16 @@
 import React from "react";
 import { getApi } from "@/api/hooks";
-import { Button, Input, Panel, SelectOptions } from "@/components";
 import { runInAction } from "mobx";
 import { observer, useLocalObservable } from "mobx-react-lite";
 import { SubscriptionProductDto } from "@/api/back";
 import { useAsyncButton } from "@/util/use-async-button";
-import { makeSimpleToast } from "@/components/Toast/toasts";
+import { makeSimpleToast } from "@/components/Toast";
 import { handleException } from "@/util/handleException";
 import { useTranslation } from "react-i18next";
+import { Panel } from "@/components/Panel";
+import { SelectOptions } from "@/components/SelectOptions";
+import { Input } from "@/components/Input";
+import { Button } from "@/components/Button";
 
 interface IGiveProductContainerProps {
   steamId: string;

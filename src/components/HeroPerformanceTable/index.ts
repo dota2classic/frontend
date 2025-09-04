@@ -1,0 +1,1 @@
+export { HeroPerformanceTable } from "./HeroPerformanceTable";

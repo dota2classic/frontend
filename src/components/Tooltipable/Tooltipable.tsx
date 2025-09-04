@@ -4,7 +4,7 @@ import c from "./Tooltipable.module.scss";
 import cx from "clsx";
 import { useToggle } from "react-use";
 import { createPortal } from "react-dom";
-import { GenericTooltip } from "@/components";
+import { GenericTooltip } from "../GenericTooltip";
 
 interface ITooltipableProps {
   tooltip: ReactNode;

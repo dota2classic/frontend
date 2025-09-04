@@ -12,8 +12,8 @@ import { LexicalNode, TextNode } from "lexical";
 import * as ReactDOM from "react-dom";
 import cx from "clsx";
 import c from "../PlayerMentionPlugin/Mention.module.scss";
-import { MentionSelectionListItem } from "@/containers/RichEditor/plugins/GenericMentionPlugin/MentionSelectionListItem";
-import { GenericTooltip } from "@/components";
+import { MentionSelectionListItem } from "./MentionSelectionListItem";
+import { GenericTooltip } from "@/components/GenericTooltip";
 
 function useMentionLookupService<T>(
   provide: (search: string) => Promise<T[]>,

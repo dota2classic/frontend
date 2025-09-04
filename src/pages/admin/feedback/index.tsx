@@ -2,11 +2,14 @@ import c from "@/pages/admin/AdminStyles.module.scss";
 import { FeedbackTemplateDto } from "@/api/back";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
-import { Breadcrumbs, Button, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
 import { useTranslation } from "react-i18next";
+import { Panel } from "@/components/Panel";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageLink } from "@/components/PageLink";
+import { Button } from "@/components/Button";
 
 interface Props {
   feedbacks: FeedbackTemplateDto[];

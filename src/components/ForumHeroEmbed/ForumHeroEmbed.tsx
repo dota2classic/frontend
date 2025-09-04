@@ -1,11 +1,11 @@
 import React from "react";
 
-import { HeroIcon, PageLink } from "..";
-
 import c from "./ForumHeroEmbed.module.scss";
 import heroName from "@/util/heroName";
 import { AppRouter } from "@/route";
 import cx from "clsx";
+import { PageLink } from "../PageLink";
+import { HeroIcon } from "../HeroIcon";
 
 interface IForumHeroEmbedProps {
   hero: string;

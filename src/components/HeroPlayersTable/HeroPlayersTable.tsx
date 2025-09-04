@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GenericTable } from "..";
+import { GenericTable } from "../GenericTable";
 import { colors } from "@/colors";
 import { HeroPlayerDto } from "@/api/back";
 import { ColumnType } from "@/const/tables";

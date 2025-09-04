@@ -1,15 +1,16 @@
 import React, { useCallback, useRef, useState } from "react";
 import { ItemMap } from "@/const/items";
 import cx from "clsx";
-import c from "@/components/ItemIcon/ItemIcon.module.scss";
+import c from "./ItemIcon.module.scss";
 import {
   bigImageStyles,
   IItemIconProps,
   smallImageStyles,
-} from "@/components/ItemIcon/ItemIcon.props";
-import { GenericTooltip, PlaceholderImage } from "@/components";
+} from "./ItemIcon.props";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
+import { GenericTooltip } from "../GenericTooltip";
+import { PlaceholderImage } from "./PlaceholderImage";
 
 const BASE_URL = "https://wiki.dotaclassic.ru";
 

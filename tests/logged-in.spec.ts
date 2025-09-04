@@ -11,7 +11,7 @@ import {
   ReadyState,
 } from "@/store/queue/messages/s2c/player-room-state-message.s2c";
 import { PlayerGameStateMessageS2C } from "@/store/queue/messages/s2c/player-game-state-message.s2c";
-import { parseJwt } from "@/util";
+import { parseJwt } from "@/util/parseJwt";
 
 dotenv.config();
 

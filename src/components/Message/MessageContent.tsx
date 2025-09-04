@@ -1,11 +1,12 @@
-import { MessageInput, RichMessage } from "@/components";
-import c from "@/components/Message/Message.module.scss";
+import c from "./Message.module.scss";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { ThreadMessageDTO } from "@/api/back";
 import { observer } from "mobx-react-lite";
 import { GreedyFocusPriority } from "@/util/useTypingCallback";
 import { Trans, useTranslation } from "react-i18next";
+import { MessageInput } from "../MessageInput";
+import { RichMessage } from "../RichMessage";
 
 interface Props {
   message: ThreadMessageDTO;

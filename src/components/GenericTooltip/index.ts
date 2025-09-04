@@ -1,0 +1,1 @@
+export { GenericTooltip } from "./GenericTooltip";

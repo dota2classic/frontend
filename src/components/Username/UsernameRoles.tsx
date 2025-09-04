@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Role, UserConnectionDtoConnectionEnum, UserDTO } from "@/api/back";
-import c from "@/components/Username/Username.module.scss";
+import c from "./Username.module.scss";
 import { createPortal } from "react-dom";
-import { GenericTooltip, Tooltipable } from "@/components";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { formatRole } from "@/util/gamemode";
 import { FaTwitch } from "react-icons/fa";
 import cx from "clsx";
-import animations from "@/components/Message/ChatIconAnimations.module.scss";
+import animations from "../Message/ChatIconAnimations.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
+import { GenericTooltip } from "../GenericTooltip";
+import { Tooltipable } from "../Tooltipable";
 
 interface Props {
   user: UserDTO;

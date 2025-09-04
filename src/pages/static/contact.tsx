@@ -1,4 +1,4 @@
-import { EmbedProps } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 import cx from "clsx";
 import c from "@/pages/static/rules/RulesPage.module.scss";

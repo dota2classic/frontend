@@ -1,5 +1,5 @@
 import cx from "clsx";
-import c from "@/components/ItemIcon/ItemIcon.module.scss";
+import c from "./ItemIcon.module.scss";
 import React from "react";
 
 export const PlaceholderImage = ({

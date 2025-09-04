@@ -1,0 +1,1 @@
+export { EditHatContainer } from "./EditHatContainer";

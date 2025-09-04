@@ -4,10 +4,13 @@ import { getApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { PlayerFeedbackPageDto } from "@/api/back";
 import c from "../AdminStyles.module.scss";
-import { EmbedProps, Pagination, Panel, UserPreview } from "@/components";
 import { AppRouter } from "@/route";
 import cx from "clsx";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Pagination } from "@/components/Pagination";
+import { Panel } from "@/components/Panel";
+import { UserPreview } from "@/components/UserPreview";
 
 interface Props {
   page: PlayerFeedbackPageDto;

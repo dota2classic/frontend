@@ -1,16 +1,4 @@
 import { NextPageContext } from "next";
-import {
-  Button,
-  EmbedProps,
-  InvitePlayerModalRaw,
-  Logo,
-  Panel,
-  PlayerSummary,
-  Section,
-  Table,
-  TimeAgo,
-  UserPreview,
-} from "@/components";
 import React, { useState } from "react";
 import {
   DodgeListEntryDto,
@@ -25,17 +13,27 @@ import c from "./PlayerPage.module.scss";
 import { getTwitchConnectUrl } from "@/util/getAuthUrl";
 import cx from "clsx";
 import { NotoSans } from "@/const/notosans";
-import { EditProfileDecorations } from "@/containers";
+import { EditProfileDecorations } from "@/containers/EditProfileDecorations";
 import { formatDate } from "@/util/dates";
 import { createPortal } from "react-dom";
 import { SiAdblock } from "react-icons/si";
 import { GiAngelWings } from "react-icons/gi";
 import { AppRouter } from "@/route";
 import { useAsyncButton } from "@/util/use-async-button";
-import { makeSimpleToast } from "@/components/Toast/toasts";
+import { makeSimpleToast } from "@/components/Toast";
 import { useRefreshPageProps } from "@/util/usePageProps";
 import { paidAction } from "@/util/subscription";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { PlayerSummary } from "@/components/PlayerSummary";
+import { Section } from "@/components/Section";
+import { Table } from "@/components/Table";
+import { TimeAgo } from "@/components/TimeAgo";
+import { UserPreview } from "@/components/UserPreview";
+import { Logo } from "@/components/Logo";
+import { Panel } from "@/components/Panel";
+import { Button } from "@/components/Button";
+import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal";
 
 interface Props {
   summary: PlayerSummaryDto;

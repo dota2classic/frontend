@@ -9,27 +9,25 @@ import {
 } from "@/api/back";
 import { observer, useLocalObservable } from "mobx-react-lite";
 import { MoveHandler, Tree, TreeApi } from "@dota2classic/react-arborist";
-import { RuleNode } from "@/containers/EditRulesContainer/RuleNode";
+import { RuleNode } from "./RuleNode";
 import { getApi } from "@/api/hooks";
 import { runInAction, toJS } from "mobx";
-import {
-  Button,
-  Checkbox,
-  Duration,
-  Input,
-  MarkdownTextarea,
-  SelectOptions,
-} from "@/components";
 import { useAsyncButton } from "@/util/use-async-button";
 import useResizeObserver from "use-resize-observer";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
-import { makeSimpleToast } from "@/components/Toast/toasts";
+import { makeSimpleToast } from "@/components/Toast";
 import { IoMdCreate, IoMdSave } from "react-icons/io";
 import { BsList, BsListNested } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { GoListOrdered } from "react-icons/go";
 import { useTranslation } from "react-i18next";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { MarkdownTextarea } from "@/components/MarkdownTextarea";
+import { SelectOptions } from "@/components/SelectOptions";
+import { Duration } from "@/components/Duration";
+import { Checkbox } from "@/components/Checkbox";
 
 interface IEditRulesContainerProps {
   rules?: RuleDto[];

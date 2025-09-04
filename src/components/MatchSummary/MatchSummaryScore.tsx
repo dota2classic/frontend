@@ -1,5 +1,5 @@
 import c from "@/components/MatchSummary/MatchSummary.module.scss";
-import { Duration } from "@/components";
+import { Duration } from "../Duration";
 import React from "react";
 
 export const MatchSummaryScore = ({

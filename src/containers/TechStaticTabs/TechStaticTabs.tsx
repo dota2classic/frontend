@@ -1,8 +1,7 @@
 import React from "react";
-import { BigTabs } from "@/components";
+import { BigTabs, type TabItem } from "@/components/BigTabs";
 import { AppRouter, NextLinkProp } from "@/route";
 import { useRouter } from "next/router";
-import { TabItem } from "@/components/BigTabs/BigTabs";
 import { TrajanPro } from "@/const/fonts";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";

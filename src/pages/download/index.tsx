@@ -1,12 +1,3 @@
-import {
-  BigTabs,
-  CoolList,
-  EmbedProps,
-  GenericTable,
-  PageLink,
-  Section,
-  TelegramInvite,
-} from "@/components";
 import React, { useState } from "react";
 import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
@@ -16,10 +7,16 @@ import { metrika } from "@/ym";
 import { getAuthUrl } from "@/util/getAuthUrl";
 import { ColumnType } from "@/const/tables";
 import { NotoSans } from "@/const/notosans";
-import { TechStaticTabs } from "@/containers";
-import { DiscordInvite } from "@/components/TelegramInvite/DiscordInvite";
+import { TechStaticTabs } from "@/containers/TechStaticTabs";
+import { DiscordInvite, TelegramInvite } from "@/components/TelegramInvite";
 import { Trans, TranslationFunction, useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
+import { PageLink } from "@/components/PageLink";
+import { Section } from "@/components/Section";
+import { BigTabs } from "@/components/BigTabs";
+import { GenericTable } from "@/components/GenericTable";
+import { EmbedProps } from "@/components/EmbedProps";
+import { CoolList } from "@/components/CoolList";
 
 const useDownloadData = () => {
   const { t } = useTranslation();

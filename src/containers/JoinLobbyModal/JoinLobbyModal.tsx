@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from "react";
-import { Button, GenericModal, Input } from "@/components";
+import { Button } from "@/components/Button";
+import { GenericModal } from "@/components/GenericModal";
+import { Input } from "@/components/Input";
 import { LobbyDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { AppRouter } from "@/route";

@@ -5,11 +5,11 @@ import { AchievementDto } from "@/api/back";
 import cx from "clsx";
 import { FaCheck } from "react-icons/fa6";
 import { RiCloseFill } from "react-icons/ri";
-import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import Image from "next/image";
-import { AchievementMapping } from "@/components/AchievementStatus/achievement-mapping";
+import { AchievementMapping } from "./achievement-mapping";
 import { useTranslation } from "react-i18next";
+import { PageLink } from "../PageLink";
 
 interface IAchievementStatusProps {
   achievement: AchievementDto;

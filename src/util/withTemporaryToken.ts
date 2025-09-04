@@ -1,7 +1,8 @@
-import { __unsafeGetClientStore, getRootStore, RootStore } from "@/store";
+import { getRootStore, RootStore } from "@/store";
 import Cookies from "cookies";
 import { AuthStore } from "@/store/AuthStore";
 import { NextPageContext } from "next";
+import { clientStoreManager } from "@/store/ClientStoreManager";
 
 export function withTemporaryToken<T>(
   ctx: NextPageContext,
@@ -17,6 +18,6 @@ export function withTemporaryToken<T>(
     store.auth.setToken(token, false);
     return call(store);
   } else {
-    return call(__unsafeGetClientStore());
+    return call(clientStoreManager.getRootStore()!);
   }
 }

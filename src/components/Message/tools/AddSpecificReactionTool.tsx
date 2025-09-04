@@ -1,6 +1,6 @@
 import { EmoticonDto } from "@/api/back";
 import React, { useCallback, useContext } from "react";
-import { Emoticon } from "@/components";
+import { Emoticon } from "@/components/Emoticon";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 
 interface IAddSpecificReactionToolProps {

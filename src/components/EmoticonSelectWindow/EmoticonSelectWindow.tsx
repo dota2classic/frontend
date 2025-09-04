@@ -11,7 +11,7 @@ import { observer } from "mobx-react-lite";
 import { EmoticonDto } from "@/api/back";
 import cx from "clsx";
 import useOutsideClick from "@/util/useOutsideClick";
-import { Input } from "@/components";
+import { Input } from "../Input";
 import { useStore } from "@/store";
 import { useKeyDown } from "@/util/keyboard";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";

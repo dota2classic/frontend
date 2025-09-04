@@ -1,4 +1,4 @@
-import { ImagePickerUploader } from "@/components";
+import { ImagePickerUploader } from "@/components/ImagePickerUploader";
 import { UploadedImageDto } from "@/api/back";
 import { useState } from "react";
 

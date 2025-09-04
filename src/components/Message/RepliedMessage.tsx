@@ -1,6 +1,6 @@
 import { ThreadMessageDTO } from "@/api/back";
 import c from "./Message.module.scss";
-import { PlayerAvatar } from "@/components";
+import { PlayerAvatar } from "../PlayerAvatar";
 import { useCallback, useContext } from "react";
 import { ThreadContext } from "@/containers/Thread/threadContext";
 import { observer } from "mobx-react-lite";

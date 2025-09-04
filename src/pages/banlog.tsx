@@ -2,24 +2,22 @@ import { NextPageContext } from "next";
 import { numberOrDefault } from "@/util/urls";
 import { PunishmentLogPageDto, RuleType, UserDTO } from "@/api/back";
 import { getApi } from "@/api/hooks";
-import {
-  Checkbox,
-  Duration,
-  EmbedProps,
-  PageLink,
-  Pagination,
-  Panel,
-  Table,
-  TimeAgo,
-  UserPicker,
-  UserPreview,
-} from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
-import { useQueryBackedParameter } from "@/util";
+import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Panel } from "@/components/Panel";
+import { Checkbox } from "@/components/Checkbox";
+import { Pagination } from "@/components/Pagination";
+import { Table } from "@/components/Table";
+import { TimeAgo } from "@/components/TimeAgo";
+import { UserPicker } from "@/components/UserPicker";
+import { UserPreview } from "@/components/UserPreview";
+import { Duration } from "@/components/Duration";
+import { PageLink } from "@/components/PageLink";
 
 interface Props {
   page: PunishmentLogPageDto;

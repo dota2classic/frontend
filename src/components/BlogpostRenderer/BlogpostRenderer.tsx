@@ -1,7 +1,7 @@
 import React from "react";
 import cx from "clsx";
 import c from "./BlogpostRenderer.module.scss";
-import { useEnrichedPostContent } from "@/components/BlogpostRenderer/post-enricher";
+import { useEnrichedPostContent } from "./post-enricher";
 import { NotoSans } from "@/const/notosans";
 
 interface IBlogpostRendererProps {

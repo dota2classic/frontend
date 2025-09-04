@@ -1,10 +1,12 @@
 import React from "react";
-import { Emoticon, ForumUserEmbed, PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import { ForumUsername } from "@/components/ForumUserEmbed/ForumUsername";
 import c from "./RichMessage.module.scss";
 import cx from "clsx";
 import { Trans } from "react-i18next";
+import { PageLink } from "../PageLink";
+import { ForumUserEmbed } from "../ForumUserEmbed";
+import { Emoticon } from "../Emoticon";
 
 interface IRichMessageProps {
   rawMsg: string;

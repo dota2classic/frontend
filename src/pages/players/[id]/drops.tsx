@@ -8,8 +8,9 @@ import {
   TradeUserDto,
 } from "@/api/back";
 import { getApi } from "@/api/hooks";
-import { EmbedProps, PlayerSummary } from "@/components";
-import { DropList } from "@/containers";
+import { EmbedProps } from "@/components/EmbedProps";
+import { PlayerSummary } from "@/components/PlayerSummary";
+import { DropList } from "@/containers/DropList";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { useTranslation } from "react-i18next";
 

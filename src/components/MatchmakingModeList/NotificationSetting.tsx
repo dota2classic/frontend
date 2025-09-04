@@ -1,11 +1,12 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import React, { useTransition } from "react";
-import { Button, Tooltipable } from "@/components";
 import c from "@/pages/queue/Queue.module.scss";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { Tooltipable } from "../Tooltipable";
+import { Button } from "../Button";
 
 export const NotificationSetting = observer(() => {
   const { notify } = useStore();

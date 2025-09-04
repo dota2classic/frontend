@@ -1,12 +1,5 @@
 import { appApi, getApi } from "@/api/hooks";
 import {
-  Button,
-  GenericTable,
-  Section,
-  SelectOptions,
-  Table,
-} from "@/components";
-import {
   DotaGameMode,
   DotaMap,
   DotaPatch,
@@ -17,7 +10,7 @@ import {
 } from "@/api/back";
 import React, { useCallback } from "react";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { useDidMount } from "@/util";
+import { useDidMount } from "@/util/useDidMount";
 import c from "./AdminStyles.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
@@ -31,6 +24,11 @@ import {
 } from "@/const/options";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
+import { GenericTable } from "@/components/GenericTable";
+import { Button } from "@/components/Button";
+import { Table } from "@/components/Table";
+import { Section } from "@/components/Section";
+import { SelectOptions } from "@/components/SelectOptions";
 
 interface PageProps {
   initialServerPool: GameServerDto[];

@@ -1,10 +1,12 @@
 import React, { useCallback } from "react";
-import { BuySubscriptionModal, ClientPortal, EmbedProps } from "@/components";
 import { observer } from "mobx-react-lite";
-import { StoreLandingSlide } from "@/containers/StoreLanding/StoreLandingSlide";
+import { StoreLandingSlide } from "./StoreLandingSlide";
 import { SubscriptionProductDto } from "@/api/back";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import { ClientPortal } from "@/components/ClientPortal";
+import { BuySubscriptionModal } from "@/components/BuySubscriptionModal";
+import { EmbedProps } from "@/components/EmbedProps";
 
 interface Props {
   products: SubscriptionProductDto[];

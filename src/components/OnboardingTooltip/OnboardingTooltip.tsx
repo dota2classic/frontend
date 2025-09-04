@@ -7,7 +7,7 @@ import c from "./OnboardingTooltip.module.scss";
 import { TooltipRenderProps } from "react-joyride";
 import { threadFont, TrajanPro } from "@/const/fonts";
 import cx from "clsx";
-import { Button } from "@/components";
+import { Button } from "../Button";
 import { IoMdClose } from "react-icons/io";
 
 export const OnboardingTooltip: React.FC<TooltipRenderProps> = (

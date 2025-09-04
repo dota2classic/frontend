@@ -56,7 +56,7 @@ import { NotificationCreatedMessageS2C } from "@/store/queue/messages/s2c/notifi
 import {
   createAcceptPartyToast,
   makeEnterQueueToast,
-} from "@/components/Toast/toasts";
+} from "@/components/Toast";
 import { toast } from "react-toastify";
 
 // TODO: maybe very bad

@@ -1,8 +1,8 @@
 import React, { createElement, ReactNode } from "react";
 import cx from "clsx";
-import c from "@/containers/StoreLanding/StoreLanding.module.scss";
+import c from "./StoreLanding.module.scss";
 import { threadFont, TrajanPro } from "@/const/fonts";
-import { Button } from "@/components";
+import { Button } from "@/components/Button";
 import { useTranslation } from "react-i18next";
 
 interface Props {

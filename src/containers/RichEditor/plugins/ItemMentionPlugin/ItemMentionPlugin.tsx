@@ -1,9 +1,9 @@
-import GenericMentionPlugin from "@/containers/RichEditor/plugins/GenericMentionPlugin/GenericMentionPlugin";
+import GenericMentionPlugin from "../GenericMentionPlugin/GenericMentionPlugin";
 import React, { useCallback } from "react";
 import c from "../HeroMentionPlugin/HeroMentionPlugin.module.scss";
-import { ItemIconRaw } from "@/components";
+import { ItemIconRaw } from "@/components/ItemIcon";
 import { ItemData, ItemDataEntry } from "@/const/itemdata";
-import { $createItemMentionNode } from "@/containers/RichEditor/plugins/ItemMentionPlugin/ItemMentionNode";
+import { $createItemMentionNode } from "./ItemMentionNode";
 import { useTranslation } from "react-i18next";
 
 const ItemRender = ({ name, id }: ItemDataEntry) => {

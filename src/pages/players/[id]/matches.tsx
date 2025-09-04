@@ -1,19 +1,8 @@
-import {
-  useClampedPage,
-  useQueryBackedParameter,
-  useRouterChanging,
-} from "@/util";
+import { useClampedPage } from "@/util/useClampedPage";
+import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
+import { useRouterChanging } from "@/util/useRouterChanging";
 import { getApi } from "@/api/hooks";
 import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
-import {
-  EmbedProps,
-  HeroWithItemsHistoryTable,
-  Pagination,
-  Panel,
-  PlayerSummary,
-  Section,
-  SelectOptions,
-} from "@/components";
 import { AppRouter } from "@/route";
 import React from "react";
 import c from "@/pages/matches/History.module.scss";
@@ -24,6 +13,13 @@ import { NextPageContext } from "next";
 import { MatchComparator } from "@/util/sorts";
 import { HeroOptions, useGameModeOptions } from "@/const/options";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Panel } from "@/components/Panel";
+import { SelectOptions } from "@/components/SelectOptions";
+import { Pagination } from "@/components/Pagination";
+import { Section } from "@/components/Section";
+import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
+import { PlayerSummary } from "@/components/PlayerSummary";
 
 interface Props {
   playerId: string;

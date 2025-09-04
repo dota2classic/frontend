@@ -1,0 +1,1 @@
+export { ForumTabs } from "./ForumTabs";

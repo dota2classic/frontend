@@ -1,6 +1,7 @@
 import { getApi } from "@/api/hooks";
 import { HeroSummaryDto } from "@/api/back";
-import { EmbedProps, HeroesMetaTable } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
+import { HeroesMetaTable } from "@/components/HeroesMetaTable";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

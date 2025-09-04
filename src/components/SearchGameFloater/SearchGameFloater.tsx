@@ -1,6 +1,7 @@
 import React from "react";
 
-import { AcceptGameModal, SearchGameButton } from "..";
+import { AcceptGameModal } from "../AcceptGameModal";
+import { SearchGameButton } from "../SearchGameButton";
 
 import c from "./SearchGameFloater.module.scss";
 import { useRouter } from "next/router";

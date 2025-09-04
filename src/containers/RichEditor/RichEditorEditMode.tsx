@@ -4,10 +4,10 @@ import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import React from "react";
-import { LocalStorageSavingPlugin } from "@/containers/RichEditor/plugins/LocalStorageSavingPlugin/LocalStorageSavingPlugin";
-import HeroMentionPlugin from "@/containers/RichEditor/plugins/HeroMentionPlugin/HeroMentionPlugin";
-import ItemMentionPlugin from "@/containers/RichEditor/plugins/ItemMentionPlugin/ItemMentionPlugin";
-import PlayerMentionPlugin from "@/containers/RichEditor/plugins/PlayerMentionPlugin/PlayerMentionPlugin";
+import { LocalStorageSavingPlugin } from "./plugins/LocalStorageSavingPlugin/LocalStorageSavingPlugin";
+import HeroMentionPlugin from "./plugins/HeroMentionPlugin/HeroMentionPlugin";
+import ItemMentionPlugin from "./plugins/ItemMentionPlugin/ItemMentionPlugin";
+import PlayerMentionPlugin from "./plugins/PlayerMentionPlugin/PlayerMentionPlugin";
 
 interface RichEditorEditModeProps {
   saveKey: string;

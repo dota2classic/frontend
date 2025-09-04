@@ -1,9 +1,11 @@
 import React from "react";
 
 import c from "./AdminPlayerBanSettings.module.scss";
-import { Button, Input, Panel } from "@/components";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { Panel } from "@/components/Panel";
 import { getApi } from "@/api/hooks";
-import { AdminRuleViolationContainer } from "@/containers";
+import { AdminRuleViolationContainer } from "../AdminRuleViolationContainer";
 import cx from "clsx";
 import DatePicker from "react-datepicker";
 import { isInFuture } from "@/util/time";

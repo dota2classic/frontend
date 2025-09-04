@@ -1,7 +1,10 @@
 import React, { useRef } from "react";
 import { observer, useLocalObservable } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { Button, Checkbox, GenericModal, MarkdownTextarea } from "@/components";
+import { Button } from "@/components/Button";
+import { Checkbox } from "@/components/Checkbox";
+import { GenericModal } from "@/components/GenericModal";
+import { MarkdownTextarea } from "@/components/MarkdownTextarea";
 import { FeedbackDto } from "@/api/back";
 import { runInAction } from "mobx";
 import c from "./FeedbackModal.module.scss";

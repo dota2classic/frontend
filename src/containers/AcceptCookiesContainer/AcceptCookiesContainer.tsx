@@ -2,13 +2,14 @@ import React from "react";
 
 import c from "./AcceptCookiesContainer.module.scss";
 import { useLocalStorage } from "react-use";
-import { Button, PageLink } from "@/components";
 import cx from "clsx";
 import { threadFont } from "@/const/fonts";
 import { FaCheck } from "react-icons/fa6";
 import dynamic from "next/dynamic";
 import { Trans, useTranslation } from "react-i18next";
 import { AppRouter } from "@/route";
+import { PageLink } from "@/components/PageLink";
+import { Button } from "@/components/Button";
 
 function AcceptCookiesContainerAll() {
   const { t } = useTranslation();

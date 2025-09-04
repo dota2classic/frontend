@@ -1,16 +1,14 @@
 import { NextPageContext } from "next";
 import { numberOrDefault } from "@/util/urls";
-import {
-  PlayerSummary,
-  ScrollDetector,
-  Section,
-  TeammatesTable,
-} from "@/components";
 import React, { useState } from "react";
 import { PlayerSummaryDto, PlayerTeammatePageDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
-import { maxBy } from "@/util";
+import { maxBy } from "@/util/maxBy";
 import { useTranslation } from "react-i18next";
+import { PlayerSummary } from "@/components/PlayerSummary";
+import { Section } from "@/components/Section";
+import { TeammatesTable } from "@/components/TeammatesTable";
+import { ScrollDetector } from "@/components/ScrollDetecter";
 
 interface Props {
   summary: PlayerSummaryDto;

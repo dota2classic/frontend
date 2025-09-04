@@ -1,10 +1,3 @@
-import {
-  Button,
-  EmbedProps,
-  Input,
-  MarkdownTextarea,
-  Panel,
-} from "@/components";
 import React, { useCallback, useState } from "react";
 import c from "./Forum.module.scss";
 import { getApi } from "@/api/hooks";
@@ -13,6 +6,11 @@ import { ThreadType } from "@/api/mapped-models";
 import { NextPageContext } from "next";
 import { handleException } from "@/util/handleException";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Panel } from "@/components/Panel";
+import { Input } from "@/components/Input";
+import { MarkdownTextarea } from "@/components/MarkdownTextarea";
+import { Button } from "@/components/Button";
 
 interface Props {
   threadType: ThreadType;

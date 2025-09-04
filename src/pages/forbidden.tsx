@@ -1,4 +1,6 @@
-import { EmbedProps, PageLink, Panel } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
+import { PageLink } from "@/components/PageLink";
+import { Panel } from "@/components/Panel";
 import { AppRouter } from "@/route";
 import { useTranslation } from "react-i18next";
 

@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { FeedbackModal } from "@/containers";
+import { FeedbackModal } from "./FeedbackModal";
 
 export const FeedbackModalContainer = observer(() => {
   const { notify } = useStore();

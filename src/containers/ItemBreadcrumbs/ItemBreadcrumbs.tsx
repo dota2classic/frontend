@@ -1,9 +1,11 @@
 import React, { useMemo } from "react";
-import { Breadcrumbs, PageLink, Panel } from "@/components";
 import { AppRouter } from "@/route";
 import { ItemMap } from "@/const/items";
 import { ItemData } from "@/const/itemdata";
 import { useTranslation } from "react-i18next";
+import { Panel } from "@/components/Panel";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageLink } from "@/components/PageLink";
 
 interface IItemBreadcrumbsProps {
   itemId: number | undefined;

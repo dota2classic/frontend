@@ -1,14 +1,17 @@
 import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
-import { Breadcrumbs, EmbedProps, PageLink, Panel } from "@/components";
 import { getApi } from "@/api/hooks";
 import { ThreadDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import React from "react";
 import { numberOrDefault } from "@/util/urls";
-import { PaginatedThread } from "@/containers/Thread/PaginatedThread";
+import { PaginatedThread } from "@/containers/Thread";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { Panel } from "@/components/Panel";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageLink } from "@/components/PageLink";
 
 interface Props {
   messages: ThreadMessagePageDTO;

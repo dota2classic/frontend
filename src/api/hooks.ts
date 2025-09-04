@@ -30,9 +30,9 @@ import {
 } from "./back";
 import { getCache } from "@/api/api-cache";
 import BrowserCookies from "browser-cookies";
-import { __unsafeGetClientStore } from "@/store";
-import { parseJwt } from "@/util";
+import { parseJwt } from "@/util/parseJwt";
 import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
+import { clientStoreManager } from "@/store/ClientStoreManager";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
@@ -84,7 +84,8 @@ export class AppApi {
     ): Promise<Response> => {
       return fetch(input, init).then((t) => {
         if (typeof window === "undefined") return t;
-        const auth = __unsafeGetClientStore().auth;
+        const rootStore = clientStoreManager.getRootStore()!;
+        const auth = rootStore.auth;
         if (t.status === 401 && auth.isAuthorized) {
           auth.logout();
         }

@@ -1,4 +1,5 @@
-import { EmbedProps, PageLink } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
+import { PageLink } from "@/components/PageLink";
 import cx from "clsx";
 import c from "@/pages/static/rules/RulesPage.module.scss";
 import { NotoSans } from "@/const/notosans";

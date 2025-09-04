@@ -1,4 +1,4 @@
-import { Landing } from "@/components";
+import { Landing } from "@/components/Landing";
 import { BlogPageDto, LiveMatchDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 

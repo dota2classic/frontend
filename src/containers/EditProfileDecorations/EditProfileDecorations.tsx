@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
 
 import c from "./EditProfileDecorations.module.scss";
-import { Message, Panel } from "@/components";
+import { Message } from "@/components/Message";
+import { Panel } from "@/components/Panel";
 import cx from "clsx";
 import { NotoSans } from "@/const/notosans";
 import {
@@ -12,8 +13,8 @@ import {
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { getApi } from "@/api/hooks";
-import { SelectImageDecoration } from "@/containers/EditProfileDecorations/SelectImageDecoration";
-import { SelectTextDecoration } from "@/containers/EditProfileDecorations/SelectTextDecoration";
+import { SelectImageDecoration } from "./SelectImageDecoration";
+import { SelectTextDecoration } from "./SelectTextDecoration";
 import { paidAction } from "@/util/subscription";
 import { useTranslation } from "react-i18next";
 

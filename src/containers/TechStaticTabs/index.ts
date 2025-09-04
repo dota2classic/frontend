@@ -1,0 +1,1 @@
+export { TechStaticTabs } from "./TechStaticTabs";

@@ -1,7 +1,9 @@
-import { BlogEditContainer } from "@/containers";
+import { BlogEditContainer } from "@/containers/BlogEditContainer";
 import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
-import { Breadcrumbs, PageLink, Panel } from "@/components";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageLink } from "@/components/PageLink";
+import { Panel } from "@/components/Panel";
 import { AppRouter } from "@/route";
 import React from "react";
 import { formatDate } from "@/util/dates";

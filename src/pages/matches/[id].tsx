@@ -2,7 +2,7 @@ import { NextPageContext } from "next";
 import React from "react";
 import { getApi } from "@/api/hooks";
 import { LiveMatchDto, MatchDto } from "@/api/back";
-import { MatchPageContainer } from "@/containers";
+import { MatchPageContainer } from "@/containers/MatchPageContainer";
 
 interface InitialProps {
   matchId: number;

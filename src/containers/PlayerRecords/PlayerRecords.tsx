@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 
-import { BigTabs, RecordCard } from "@/components";
+import { BigTabs } from "@/components/BigTabs";
 import { PlayerRecordsResponse } from "@/api/back";
-import { useQueryBackedParameter } from "@/util";
+import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
 import c from "./PlayerRecords.module.scss";
-import { RecordCardPlaceholder } from "@/components/RecordCard/RecordCardPlaceholder";
+import { RecordCard, RecordCardPlaceholder } from "@/components/RecordCard";
 import { useTranslation } from "react-i18next";
 
 interface IPlayerRecordsProps {

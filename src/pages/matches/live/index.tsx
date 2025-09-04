@@ -1,8 +1,8 @@
 import { getApi } from "@/api/hooks";
 import { LiveMatchDto } from "@/api/back";
 import React from "react";
-import { LiveMatchPage } from "@/containers";
-import { EmbedProps } from "@/components";
+import { LiveMatchPage } from "@/containers/LiveMatchPage";
+import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 
 interface InitialProps {

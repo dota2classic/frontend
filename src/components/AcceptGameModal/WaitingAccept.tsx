@@ -2,10 +2,10 @@ import c from "@/components/AcceptGameModal/AcceptGameModal.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import cx from "clsx";
-import { PageLink } from "@/components";
 import { AppRouter } from "@/route";
 import { ReadyState } from "@/store/queue/messages/s2c/player-room-state-message.s2c";
 import { useTranslation } from "react-i18next";
+import { PageLink } from "../PageLink";
 
 interface Props {
   className?: string;

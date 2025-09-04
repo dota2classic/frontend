@@ -1,4 +1,4 @@
-import c from "@/components/RecordCard/RecordCard.module.scss";
+import c from "./RecordCard.module.scss";
 import Image from "next/image";
 import React from "react";
 import { PlayerRecordDto } from "@/api/back";

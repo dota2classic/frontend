@@ -1,4 +1,4 @@
-import { EmbedProps } from "@/components";
+import { EmbedProps } from "@/components/EmbedProps";
 import c from "./RulesPage.module.scss";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";

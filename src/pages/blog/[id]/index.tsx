@@ -2,13 +2,15 @@ import { getApi } from "@/api/hooks";
 import { BlogpostDto, ThreadType } from "@/api/back";
 import c from "./BlogpostPage.module.scss";
 import { NextPageContext } from "next";
-import { BlogpostRenderer, EmbedProps, PageLink } from "@/components";
 import React from "react";
 import { formatDate } from "@/util/dates";
 import { AppRouter } from "@/route";
 import { FaArrowLeft } from "react-icons/fa";
 import { LazyPaginatedThread } from "@/containers/Thread/LazyPaginatedThread";
 import { useTranslation } from "react-i18next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { PageLink } from "@/components/PageLink";
+import { BlogpostRenderer } from "@/components/BlogpostRenderer";
 
 interface Props {
   post: BlogpostDto;

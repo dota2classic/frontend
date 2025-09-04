@@ -1,17 +1,19 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import { useStore } from "@/store";
-import { usePaginatedThread } from "@/containers/Thread/useThread";
-import { ThreadContext } from "@/containers/Thread/threadContext";
+import { usePaginatedThread } from "./useThread";
+import { ThreadContext } from "./threadContext";
 import cx from "clsx";
-import c from "@/containers/Thread/Thread.module.scss";
-import { ForumThread, MessageInput, Pagination } from "@/components";
+import c from "./Thread.module.scss";
 import { GreedyFocusPriority } from "@/util/useTypingCallback";
 import { ThreadType } from "@/api/mapped-models";
 import { ThreadMessagePageDTO } from "@/api/back";
 import { NextLinkProp } from "@/route";
 import { Rubik } from "next/font/google";
-import { useThreadControls } from "@/containers/Thread/useThreadControls";
+import { useThreadControls } from "./useThreadControls";
+import { Pagination } from "@/components/Pagination";
+import { ForumThread } from "@/components/ForumThread";
+import { MessageInput } from "@/components/MessageInput";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],

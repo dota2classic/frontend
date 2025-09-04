@@ -12,20 +12,18 @@ import {
 } from "@/api/back";
 import { useDebounce } from "react-use";
 import { drawImageWithYOffset } from "@/util/createHat";
-import {
-  Button,
-  Input,
-  Message,
-  Panel,
-  PlayerSummary,
-  Section,
-} from "@/components";
 import { threadFont } from "@/const/fonts";
 import { NotoSans } from "@/const/notosans";
 import { AppRouter } from "@/route";
 import c from "./EditHatContainer.module.scss";
 import { useAsyncButton } from "@/util/use-async-button";
 import { useTranslation } from "react-i18next";
+import { PlayerSummary } from "@/components/PlayerSummary";
+import { Section } from "@/components/Section";
+import { Message } from "@/components/Message";
+import { Panel } from "@/components/Panel";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
 
 interface IEditHatContainerProps {
   decoration?: ProfileDecorationDto;
