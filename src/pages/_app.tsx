@@ -28,7 +28,7 @@ import { ClaimContainer } from "@/containers/ClaimContainer";
 import { GreedyFocusManager } from "@/containers/GreedyFocusManager";
 import { PaidFeatureModal } from "@/containers/PaidFeatureModal";
 import { AcceptCookiesContainer } from "@/containers/AcceptCookiesContainer";
-import { MobxContext } from "./store/mobxContext";
+import { MobxContext } from "@/store/MobxContext";
 
 export default class MyApp extends App<{
   initialState: HydrateRootData;
