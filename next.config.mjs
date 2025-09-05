@@ -70,7 +70,7 @@ export default withSentryConfig(withBundleAnalyzer(nextConfig), {
   project: "frontend",
 
   sourcemaps: {
-    disable: process.env.NODE_ENV !== "PRODUCTION"
+    disable: !process.env.CI
   },
 
   // Only print logs for uploading source maps in CI
