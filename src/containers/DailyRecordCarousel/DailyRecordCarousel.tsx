@@ -42,14 +42,14 @@ export const DailyRecordCarousel: React.FC = () => {
   const { t } = useTranslation();
 
   const stats = useMemo(() => {
-    if (!data) return null;
+    if (!data || !data.length) return null;
 
     return [
       maxBy(data, "games", `daily_record_carousel.games`),
       maxBy(data, "wins", `daily_record_carousel.wins`),
       maxBy(data, "loss", `daily_record_carousel.loss`),
       maxBy(data, "mmrChange", `daily_record_carousel.mmr_gained`),
-      maxBy(data, "mmrChange", `daily_record_carousel.mmr_lost`, true),
+      // maxBy(data, "mmrChange", `daily_record_carousel.mmr_lost`, true),
     ];
   }, [data]);
 

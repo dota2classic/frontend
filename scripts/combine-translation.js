@@ -69,7 +69,7 @@ function flattenObject(obj, parentKey = "", result = {}) {
   return result;
 }
 
-const allLocales = [];
+const allLocales = {};
 locales.forEach((locale) => {
   const localePath = path.join(folderPath, locale);
   const files = fs.readdirSync(localePath);
@@ -98,12 +98,24 @@ locales.forEach((locale) => {
   const flat = flattenObject(combinedData);
   fs.writeFileSync(`src/i18n/${locale}.json`, JSON.stringify(flat, null, 2));
 
-  allLocales.push(combinedData);
+  allLocales[locale] = combinedData;
 
   if (locale === "ru") {
-    const typeDeclaration = Object.keys(flat)
-      .map((key) => `  | "${key}"`)
-      .join("\n");
+    const plurals = ["_one", "_few", "_many", "_other"];
+
+    const rawKeys = Array.from(
+      new Set(
+        Object.keys(flat).map((t) => {
+          for (const plural of plurals) {
+            if (t.endsWith(plural)) {
+              return t.replace(plural, "");
+            }
+          }
+          return t;
+        }),
+      ),
+    );
+    const typeDeclaration = rawKeys.map((key) => `  | "${key}"`).join("\n");
     fs.writeFileSync(
       "src/TranslationKey.d.ts",
       `export type TranslationKey =\n${typeDeclaration};\n`,
@@ -111,5 +123,10 @@ locales.forEach((locale) => {
   }
 });
 
-const eq = areStringArraysEqual(...allLocales.map((t) => Object.keys(t)));
-console.log(eq ? "All good" : "Key mismatch!");
+const extra = allLocales["en"];
+const source = Object.keys(allLocales["ru"]);
+Object.keys(extra).forEach((key) => {
+  if (!source.includes(key)) {
+    console.warn(`Missing key "${key}"`);
+  }
+});

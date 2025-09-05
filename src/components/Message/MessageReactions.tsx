@@ -44,7 +44,7 @@ export const MessageReactions = observer(function MessageReactions({
           onMouseEnter={(e) =>
             setTooltipReaction({ reaction, anchor: e.target as HTMLElement })
           }
-          onMouseLeave={() => setTooltipReaction(undefined)}
+          // onMouseLeave={() => setTooltipReaction(undefined)}
           key={reaction.emoticon.id}
           onClick={() => thread.react(messageId, reaction.emoticon.id)}
           className={cx(

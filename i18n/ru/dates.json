@@ -1,0 +1,29 @@
+{
+  "dates": {
+    "todayAt": "Сегодня в {{time}}",
+    "yesterdayAt": "Сегодня в {{time}}",
+    "format_short": {
+      "w": "{{count}}н",
+      "d": "{{count}}д",
+      "h": "{{count}}ч",
+      "m": "{{count}}м"
+    },
+    "format_long": {
+      "weeks_one": "{{count}} неделя",
+      "weeks_few": "{{count}} недели",
+      "weeks_many": "{{count}} недель",
+
+      "days_one": "{{count}} день",
+      "days_few": "{{count}} дня",
+      "days_many": "{{count}} дней",
+
+      "hours_one": "{{count}} час",
+      "hours_few": "{{count}} часа",
+      "hours_many": "{{count}} часов",
+
+      "minutes_one": "{{count}} минута",
+      "minutes_few": "{{count}} минуты",
+      "minutes_many": "{{count}} минут"
+    }
+  }
+}

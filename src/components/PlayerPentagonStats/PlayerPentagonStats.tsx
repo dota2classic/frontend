@@ -2,12 +2,12 @@ import React, { useMemo, useState } from "react";
 
 import c from "./PlayerPentagonStats.module.scss";
 import { PlayerAspect } from "@/api/mapped-models";
-import { formatPlayerAspect } from "@/util/gamemode";
 import { formatWinrate } from "@/util/math";
 import { PlayerAspectIcons } from "@/containers/PlayerFeedbackModal/PlayerAspectIcons";
 import { useTranslation } from "react-i18next";
 import { Tooltipable } from "../Tooltipable";
 import { Duration } from "../Duration";
+import { TranslationKey } from "@/TranslationKey";
 
 interface IPlayerPentagonStatsProps {
   aspects: {
@@ -119,7 +119,7 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
             {sortedAspects.map(({ x, y, magnitude, aspect, count }) => (
               <Tooltipable
                 key={aspect}
-                tooltip={`${formatPlayerAspect(aspect)}: ${count}`}
+                tooltip={`${t(`player_aspect.${aspect}` as TranslationKey)}: ${count}`}
                 className={c.dot}
               >
                 <div
@@ -141,7 +141,7 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
                   top: `calc(50% + ${y * outerPentaSize * 110}%)`,
                 }}
               >
-                {formatPlayerAspect(aspect)}
+                {t(`player_aspect.${aspect}` as TranslationKey)}
               </div>
             ))}
           </span>

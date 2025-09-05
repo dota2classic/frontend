@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { formatShortTime } from "@/util/dates";
+import { useFormattedDateTime } from "@/util/dates";
 
 interface IPeriodicTimerProps {
   time: string | number;
@@ -8,6 +8,7 @@ interface IPeriodicTimerProps {
 export const PeriodicTimer: React.FC<IPeriodicTimerProps> = React.memo(
   function PeriodicTimer({ time }) {
     const ref = useRef<HTMLSpanElement | null>(null);
+    const formatShortTime = useFormattedDateTime();
     useEffect(() => {
       const interval = setInterval(() => {
         if (!ref.current) return;
@@ -15,7 +16,7 @@ export const PeriodicTimer: React.FC<IPeriodicTimerProps> = React.memo(
       }, 5000);
 
       return () => clearInterval(interval);
-    }, [time]);
+    }, [formatShortTime, time]);
 
     return <span ref={ref}>{formatShortTime(new Date(time))}</span>;
   },

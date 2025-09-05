@@ -7,7 +7,7 @@ import { AppRouter, NextLinkProp } from "@/route";
 import { useIsModerator } from "@/util/useIsAdmin";
 import { steamPage } from "@/util/steamId";
 import { observer } from "mobx-react-lite";
-import { formatShortTime } from "@/util/dates";
+import { useFormattedDateTime } from "@/util/dates";
 import { FaSteam, FaTwitch } from "react-icons/fa";
 import { MdLocalPolice } from "react-icons/md";
 import { useRouter } from "next/router";
@@ -114,6 +114,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     mmr,
   }) => {
     const { t } = useTranslation();
+    const formatShortTime = useFormattedDateTime();
     const { wins, abandons, loss } = stats;
     const isModerator = useIsModerator();
 

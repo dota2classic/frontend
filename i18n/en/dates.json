@@ -1,0 +1,25 @@
+{
+  "dates": {
+    "todayAt": "Today at {{time}}",
+    "yesterdayAt": "Yesterday at {{time}}",
+    "format_short": {
+      "w": "{{count}}w",
+      "d": "{{count}}d",
+      "h": "{{count}}h",
+      "m": "{{count}}m"
+    },
+    "format_long": {
+      "weeks_one": "{{count}} week",
+      "weeks_other": "{{count}} weeks",
+
+      "days_one": "{{count}} day",
+      "days_other": "{{count}} days",
+
+      "hours_one": "{{count}} hour",
+      "hours_other": "{{count}} hours",
+
+      "minutes_one": "{{count}} minute",
+      "minutes_other": "{{count}} minutes"
+    }
+  }
+}
