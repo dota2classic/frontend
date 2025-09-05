@@ -13,6 +13,7 @@
     "HERO_DAMAGE": "Hero damage",
     "HERO_HEALING": "Healing",
     "victory": "Victory",
-    "loss": "Defeat"
+    "loss": "Defeat",
+    "notSet": "Not set"
   }
 }

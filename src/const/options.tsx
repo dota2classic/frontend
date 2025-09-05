@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import {
   DotaGameMode,
   DotaMap,
@@ -6,7 +7,7 @@ import {
 } from "@/api/mapped-models";
 import heroes from "@/util/texts/heroes";
 import { Region } from "@/api/back";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
 
 const DotaMapOptions = [
@@ -92,7 +93,7 @@ export const useGameModeOptions = () => {
 };
 
 export const HeroOptions = [
-  { value: "undefined", label: "Все герои" },
+  { value: "undefined", label: <Trans i18nKey="heroes.allHeroes" /> },
   ...heroes
     .toSorted((a, b) => a.name.localeCompare(b.name))
     .map((it) => ({

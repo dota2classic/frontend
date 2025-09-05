@@ -1,6 +1,7 @@
 {
   "heroes": {
     "title": "Герои",
-    "description": "Статистика героев в старой Dota 2, сыгранных на сайте dotaclassic.ru"
+    "description": "Статистика героев в старой Dota 2, сыгранных на сайте dotaclassic.ru",
+    "allHeroes": "Все герои"
   }
 }

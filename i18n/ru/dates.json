@@ -1,7 +1,7 @@
 {
   "dates": {
     "todayAt": "Сегодня в {{time}}",
-    "yesterdayAt": "Сегодня в {{time}}",
+    "yesterdayAt": "Вчера в {{time}}",
     "format_short": {
       "w": "{{count}}н",
       "d": "{{count}}д",

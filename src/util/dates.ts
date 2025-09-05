@@ -51,14 +51,14 @@ export function useLongFormattedDuration() {
   return (millis: number) => {
     const totalSeconds = Math.floor(millis / 1000);
 
-    const weeks = Math.floor(totalSeconds / (7 * 24 * 3600));
-    const days = Math.floor((totalSeconds % (7 * 24 * 3600)) / (24 * 3600));
+    // const weeks = Math.floor(totalSeconds / (7 * 24 * 3600));
+    const days = Math.floor(totalSeconds / (24 * 3600));
     const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
 
     const parts: string[] = [];
 
-    if (weeks) parts.push(t("dates.format_long.weeks", { count: weeks }));
+    // if (weeks) parts.push(t("dates.format_long.weeks", { count: weeks }));
     if (days) parts.push(t("dates.format_long.days", { count: days }));
     if (hours) parts.push(t("dates.format_long.hours", { count: hours }));
     if (minutes) parts.push(t("dates.format_long.minutes", { count: minutes }));

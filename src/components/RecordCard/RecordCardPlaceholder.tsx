@@ -29,7 +29,7 @@ export const RecordCardPlaceholder = ({
         <span className={c.recordType}>
           {t(`records.${record.recordType}` as TranslationKey)}
         </span>
-        <div className={c.recordValue}>Не поставлен</div>
+        <div className={c.recordValue}>{t("records.notSet")}</div>
         {!noPlayer && (
           <h3>
             <span className={c.player}>{record.player.name}</span>
