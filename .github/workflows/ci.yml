@@ -42,6 +42,7 @@ jobs:
         uses: docker/build-push-action@v6.7.0
         with:
           build-args: |
+            SENTRY_AUTH_KEY=${{ secrets.SENTRY_AUTH_KEY }}
             API_URL=https://dotaclassic.ru/api
             SOCKET_URL=wss://dotaclassic.ru/newsocket
             VAPID_PUBLIC_KEY=BLeadyll3oCNn_oM62pZBJzSVu2ktZwE6lciUq57Xa8aS3eAyGZ67mFgNVsDg0stn5otBlVW4HIr8E5zkFUp1u8

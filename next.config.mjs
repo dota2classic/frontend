@@ -65,6 +65,8 @@ export default withSentryConfig(withBundleAnalyzer(nextConfig), {
 
   org: "dota-2-classic",
 
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
   project: "frontend",
 
   // Only print logs for uploading source maps in CI
