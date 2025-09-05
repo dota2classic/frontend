@@ -121,7 +121,7 @@ export default function LeaderboardPage({
             name: t("leaderboard_page.playTime"),
             color: colors.grey,
             mobileOmit: true,
-            format: (d) => <Duration big duration={d} />,
+            format: (d) => <Duration duration={d} />,
           },
           {
             type: ColumnType.IntWithBar,
