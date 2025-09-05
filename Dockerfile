@@ -45,6 +45,8 @@ ENV SOCKET_URL=$SOCKET_URL
 ARG VAPID_PUBLIC_KEY
 ENV VAPID_PUBLIC_KEY=$VAPID_PUBLIC_KEY
 
+ENV NODE_ENV=production
+
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
