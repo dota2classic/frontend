@@ -40,7 +40,7 @@ const nextConfig = {
   },
   experimental: {
     scrollRestoration: true,
-    fallbackNodePolyfills: true
+    fallbackNodePolyfills: false
   },
   webpack: (config, options) => {
     config.optimization = {
@@ -48,9 +48,9 @@ const nextConfig = {
       removeAvailableModules: false,
       removeEmptyChunks: false,
     }
-    config.output.pathinfo = false; 
-        
- 
+    config.output.pathinfo = false;
+
+
     return config
   },
 };
