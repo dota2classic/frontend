@@ -42,3 +42,5 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 dependency-graph.svg
+# Sentry Config File
+.env.sentry-build-plugin

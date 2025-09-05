@@ -34,6 +34,7 @@
     "@lexical/selection": "^0.24.0",
     "@microsoft/fetch-event-source": "^2.0.1",
     "@next/bundle-analyzer": "15.1.7",
+    "@sentry/nextjs": "^10",
     "browser-cookies": "^1.2.0",
     "clsx": "^2.1.1",
     "cookies": "^0.9.1",
