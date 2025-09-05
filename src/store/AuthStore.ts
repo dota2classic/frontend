@@ -77,9 +77,9 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   private fixCookies() {
     // delete old cookie for dotaclassic.ru(not .dotaclassic.ru)
-    BrowserCookies.erase(AuthStore.cookieTokenKey, {
-      domain: "dotaclassic.ru",
-    });
+    // BrowserCookies.erase(AuthStore.cookieTokenKey, {
+    //   domain: "dotaclassic.ru",
+    // });
   }
 
   @action
