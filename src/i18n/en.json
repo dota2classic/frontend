@@ -550,7 +550,7 @@
   "forum_thread.forum": "Forum",
   "forum_user.loading": "Loading...",
   "game_ready_modal.title": "The game is ready!",
-  "game_ready_modal.connectToGame": "Connect to the game",
+  "game_ready_modal.connectToGame": "Connect",
   "game_ready_modal.confirmExit": "Are you sure you want to leave this game?",
   "game_ready_modal.instructions": "Instructions:",
   "game_ready_modal.step1": "Make sure Steam is running.",

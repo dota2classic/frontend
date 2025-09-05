@@ -56,6 +56,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     makeObservable(this);
 
     if (typeof window !== "undefined") {
+      this.fixCookies();
       this.setTokenFromCookies();
       this.periodicallyFetchMe();
     }
@@ -71,6 +72,13 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
             }
           : null,
       );
+    });
+  }
+
+  private fixCookies() {
+    // delete old cookie for dotaclassic.ru(not .dotaclassic.ru)
+    BrowserCookies.erase(AuthStore.cookieTokenKey, {
+      domain: "dotaclassic.ru",
     });
   }
 

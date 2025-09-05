@@ -38,7 +38,9 @@ const maxBy = (
 };
 
 export const DailyRecordCarousel: React.FC = () => {
-  const { data } = getApi().record.useRecordControllerDailyRecords();
+  const { data } = getApi().record.useRecordControllerDailyRecords({
+    refreshInterval: 60_000,
+  });
   const { t } = useTranslation();
 
   const stats = useMemo(() => {

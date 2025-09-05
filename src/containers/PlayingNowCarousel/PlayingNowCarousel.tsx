@@ -15,13 +15,14 @@ import { UserPreview } from "@/components/UserPreview";
 import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { TranslationKey } from "@/TranslationKey";
 import { AutoCarousel } from "@/components/AutoCarousel/AutoCarousel";
+import { shuffle } from "@/util/shuffle";
 
 export const PlayingNowCarousel: React.FC = observer(() => {
   const { live } = useStore();
   const { t } = useTranslation();
 
   const suitableMatches = useMemo(() => {
-    return live.liveMatches
+    const base = live.liveMatches
       .filter((t) => t.gameState >= DotaGameRulesState.PRE_GAME)
       .sort(
         (a, b) =>
@@ -35,6 +36,7 @@ export const PlayingNowCarousel: React.FC = observer(() => {
         })),
       )
       .filter((t) => t.hero.user.steamId.length > 2 && t.hero.heroData);
+    return shuffle(base);
   }, [live.liveMatches]);
 
   if (!suitableMatches.length) return null;

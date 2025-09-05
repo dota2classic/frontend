@@ -559,7 +559,7 @@
   "forum_thread.forum": "Форум",
   "forum_user.loading": "Loading...",
   "game_ready_modal.title": "Игра готова!",
-  "game_ready_modal.connectToGame": "Подключиться к игре",
+  "game_ready_modal.connectToGame": "Подключиться",
   "game_ready_modal.confirmExit": "Ты действительно хочешь покинуть эту игру?",
   "game_ready_modal.instructions": "Порядок действий:",
   "game_ready_modal.step1": "Убедись, что запущен steam.",

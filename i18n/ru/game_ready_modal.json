@@ -1,7 +1,7 @@
 {
   "game_ready_modal": {
     "title": "Игра готова!",
-    "connectToGame": "Подключиться к игре",
+    "connectToGame": "Подключиться",
     "confirmExit": "Ты действительно хочешь покинуть эту игру?",
     "instructions": "Порядок действий:",
     "step1": "Убедись, что запущен steam.",

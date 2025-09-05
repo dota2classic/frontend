@@ -1,7 +1,7 @@
 {
   "game_ready_modal": {
     "title": "The game is ready!",
-    "connectToGame": "Connect to the game",
+    "connectToGame": "Connect",
     "confirmExit": "Are you sure you want to leave this game?",
     "instructions": "Instructions:",
     "step1": "Make sure Steam is running.",
