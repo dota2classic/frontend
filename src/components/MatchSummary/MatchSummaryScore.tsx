@@ -15,7 +15,7 @@ export const MatchSummaryScore = ({
     <div className={c.matchWinner__score}>
       <div className={c.radiant}>{radiantKills}</div>
       <div className={c.matchWinner__duration}>
-        <Duration duration={duration} />
+        <Duration clock duration={duration} />
       </div>
       <div className={c.dire}>{direKills}</div>
     </div>

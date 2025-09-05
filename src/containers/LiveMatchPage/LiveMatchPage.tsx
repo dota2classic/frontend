@@ -78,7 +78,7 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
                 </div>
                 <div className={c.info}>
                   {t("live_match_page.duration")}{" "}
-                  <Duration duration={liveMatch.duration} />
+                  <Duration clock duration={liveMatch.duration} />
                 </div>
                 <div className={c.info}>
                   <CopySomething

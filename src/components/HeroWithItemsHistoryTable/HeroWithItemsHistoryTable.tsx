@@ -99,7 +99,7 @@ export const HeroWithItemsHistoryTable: React.FC<IPlayerMatchTableProps> = ({
         {
           type: ColumnType.IntWithBar,
           name: t("tables.duration"),
-          format: (dur) => <Duration duration={dur} />,
+          format: (dur) => <Duration clock duration={dur} />,
           color: colors.grey,
           mobileOmit: true,
         },

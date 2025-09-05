@@ -1,18 +1,19 @@
 import React, { useEffect, useRef } from "react";
-import formatDuration from "format-duration";
 import { useFormattedDuration, useLongFormattedDuration } from "@/util/dates";
+import formatDuration from "format-duration";
 
 interface IDurationProps {
   duration: number;
-  big?: boolean;
   long?: boolean;
   interval?: number;
+  clock?: boolean;
 }
 
 export const Duration: React.FC<IDurationProps> = ({
   duration,
   long,
   interval,
+  clock,
 }) => {
   const ref = useRef<HTMLSpanElement | null>(null);
   const formatShortDuration = useFormattedDuration();
@@ -32,7 +33,9 @@ export const Duration: React.FC<IDurationProps> = ({
     <span ref={ref} suppressHydrationWarning>
       {long
         ? formatLongDuration(duration * 1000)
-        : formatShortDuration(duration * 1000)}
+        : clock
+          ? formatDuration(duration * 1000)
+          : formatShortDuration(duration * 1000)}
     </span>
   );
 };

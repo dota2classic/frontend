@@ -40,7 +40,7 @@ const nextConfig = {
   },
   experimental: {
     scrollRestoration: true,
-    fallbackNodePolyfills: false
+    fallbackNodePolyfills: true
   },
   webpack: (config, options) => {
     config.optimization = {

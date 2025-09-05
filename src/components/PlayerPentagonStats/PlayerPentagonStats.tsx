@@ -179,7 +179,7 @@ export const PlayerPentagonStats: React.FC<IPlayerPentagonStatsProps> = ({
           </dl>
           <dl>
             <dd>
-              <Duration big duration={playtime} />
+              <Duration duration={playtime} />
             </dd>
             <dt>{t("player_pentagon_stats.playtime")}</dt>
           </dl>

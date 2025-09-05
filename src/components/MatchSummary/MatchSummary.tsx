@@ -109,7 +109,7 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
             )}
             <dl>
               <dd>
-                <Duration duration={duration} />
+                <Duration clock duration={duration} />
               </dd>
               <dt>{t("match_summary.duration")}</dt>
             </dl>
