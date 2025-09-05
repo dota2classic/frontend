@@ -31,7 +31,7 @@ export type HydrateRootData = Partial<{
 // init a client store that we will send to client (one store for client)
 function createStore(): RootStore {
   const auth = new AuthStore();
-  const notify = new NotificationStore();
+  const notify = new NotificationStore(auth);
   const queue = new QueueStore(auth, notify);
   const ucache = new UserCacheStore();
   const threads = new ThreadsStore(auth);

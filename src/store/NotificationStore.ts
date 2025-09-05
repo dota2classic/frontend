@@ -1,4 +1,4 @@
-import { action, makeObservable, observable, runInAction } from "mobx";
+import { action, autorun, makeObservable, observable, runInAction } from "mobx";
 import { ReactNode } from "react";
 import { HydratableStore } from "@/store/HydratableStore";
 import { urlBase64ToUint8Array } from "@/util/urlBase64ToUint8Array";
@@ -9,6 +9,7 @@ import { createDateComparator } from "@/util/dates";
 import { handleNotification, makeSimpleToast } from "@/components/Toast/toasts";
 import { AppRouter } from "@/route";
 import { toast } from "react-toastify";
+import { AuthStore } from "@/store/AuthStore";
 
 export class PopupNotificationDto {
   constructor(
@@ -40,7 +41,7 @@ export class NotificationStore implements HydratableStore<unknown> {
 
   private queue!: Queue;
 
-  constructor() {
+  constructor(private readonly auth: AuthStore) {
     makeObservable(this);
     if (typeof window === "undefined") return;
 
@@ -59,13 +60,17 @@ export class NotificationStore implements HydratableStore<unknown> {
       }, 1000);
     }
 
-    this.fetchNotifications().then();
+    autorun(() => {
+      if (this.auth.isAuthorized) {
+        this.fetchNotifications().then();
+      }
+    });
 
     // Here we should implement tasking?
   }
 
-  private async fetchNotifications() {
-    getApi()
+  private fetchNotifications() {
+    return getApi()
       .notificationApi.notificationControllerGetNotifications()
       .then((notifications) =>
         runInAction(() => {
@@ -77,7 +82,8 @@ export class NotificationStore implements HydratableStore<unknown> {
             )
             .forEach(this.addNotification);
         }),
-      );
+      )
+      .catch();
   }
 
   @action
