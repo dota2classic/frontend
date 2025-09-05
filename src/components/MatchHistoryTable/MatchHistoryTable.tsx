@@ -80,7 +80,7 @@ export const MatchHistoryTable: React.FC<IMatchHistoryTableProps> = ({
                 </PageLink>
               </td>
               <td>
-                <Duration duration={it.duration} />
+                <Duration clock duration={it.duration} />
                 <SingleWeightedBarChart
                   value={it.duration / maxDuration}
                   color={colors.grey}
