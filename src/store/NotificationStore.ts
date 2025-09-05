@@ -147,13 +147,11 @@ export class NotificationStore implements HydratableStore<unknown> {
       this.permanentQueue.push(notif);
     } else {
       this.queue.push((callback) => {
-        console.log("Start notification", callback);
         runInAction(() => {
           this.currentPendingNotification = notif;
         });
 
         setTimeout(() => {
-          console.log("Finishing notification");
           runInAction(() => (this.currentPendingNotification = undefined));
           if (callback) {
             callback(undefined);

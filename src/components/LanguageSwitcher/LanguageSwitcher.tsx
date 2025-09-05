@@ -15,7 +15,6 @@ function redirectToLocaleDomain(locale: "ru" | "en") {
   } else if (locale === "ru" && hostname.startsWith("en.")) {
     newHref = currentUrl.replace(`en.`, "");
   }
-  console.log(`Redirecting to ${newHref}`);
   window.location.href = newHref;
 }
 

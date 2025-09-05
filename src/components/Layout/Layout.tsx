@@ -4,15 +4,13 @@ import c from "./Layout.module.scss";
 import cx from "clsx";
 import { useRouter } from "next/router";
 import { ThemeContext } from "@/util/theme";
-import { DiscordInvite } from "../TelegramInvite";
+import { DiscordInvite, TelegramInvite } from "../TelegramInvite";
 import { TrajanPro } from "@/const/fonts";
-import { useShowSideAdBlocks } from "@/util/usePageSize";
 import { useTranslation } from "react-i18next";
 import { AdBlockType, HorizontalAdBlock, SideAdBlock } from "../AdBlock";
 import { Navbar } from "../Navbar";
 import { Notifications } from "../Notifications";
 import { SearchGameFloater } from "../SearchGameFloater";
-import { TelegramInvite } from "../TelegramInvite";
 
 interface LayoutProps {
   className?: string;
@@ -26,10 +24,6 @@ export const Layout = ({
   const isQueuePage = r.pathname === "/queue";
   const isLanding = r.pathname === "/" || r.pathname === "/store";
   const isStore = r.pathname === "/store";
-
-  const showSideAds = useShowSideAdBlocks();
-
-  console.log("Show side ads?", showSideAds);
 
   return (
     <ThemeContext.Provider value={{ newYear: true }}>

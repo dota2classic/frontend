@@ -65,7 +65,6 @@ export default function QueuePage(props: Props) {
       <JoyRideNoSSR
         disableScrolling
         callback={({ status }) => {
-          console.log(status);
           if (([STATUS.FINISHED] as string[]).includes(status)) {
             setTutorialComplete(true);
           }

@@ -107,11 +107,10 @@ export default class MyApp extends App<{
 
   componentDidMount() {
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/service-worker.js")
-        .then((registration) =>
-          console.log("" + "scope is: ", registration.scope),
-        );
+      navigator.serviceWorker.register("/service-worker.js").then();
+      // .then((registration) =>
+      //   console.log("" + "scope is: ", registration.scope),
+      // );
     }
   }
 

@@ -25,22 +25,14 @@ export const useEventSource = <T extends object>(
         signal: ctrl.signal,
         openWhenHidden: true,
         onmessage: (something) => {
-          console.log("onmessage", something);
           if (something.data.length <= 0) return;
           const msg = something.data;
           const raw = JSON.parse(msg);
           const formatted = transformer(raw);
           setData(formatted);
         },
-        onclose() {
-          // if the server closes the connection unexpectedly, retry:
-          console.log("CLOSED?");
-        },
-        onerror(err) {
-          console.error("ERROR", err);
-        },
       },
-    ).then((a) => console.log("EventSource finished.", a));
+    ).then();
 
     return () => {
       ctrl.abort();

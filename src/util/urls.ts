@@ -13,7 +13,6 @@ export function queryParameters(
 ) {
   const q = Qs.stringify(params);
 
-  // console.log(q)
   return q.length > 1 ? "?" + q : "";
 }
 

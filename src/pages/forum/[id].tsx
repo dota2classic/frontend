@@ -57,7 +57,6 @@ ThreadPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const tid = ctx.query.id as string;
   const page = numberOrDefault(ctx.query.page as string, 0);
 
-  console.log("getInitialProps", tid, page);
   return {
     page,
     messages: await getApi().forumApi.forumControllerMessagesPage(

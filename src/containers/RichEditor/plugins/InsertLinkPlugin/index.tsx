@@ -22,7 +22,6 @@ export function InsertLinkButton() {
 
     editor.update(() => {
       const selection = $getSelection();
-      console.log("Hey", selection, $isRangeSelection(selection), url);
       if ($isRangeSelection(selection)) {
         const linkNode = $createLinkNode(url, { target: "_blank" });
         linkNode.append($createTextNode(selection.getTextContent()));

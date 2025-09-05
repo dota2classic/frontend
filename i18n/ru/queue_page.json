@@ -48,7 +48,8 @@
     "fun": {
       "playing_now": "Сейчас играют",
       "player_stats": "Игроки дня",
-      "day_records": "Рекорды дня"
+      "day_records": "Рекорды дня",
+      "watchMatch": "Смотреть матч {{id}}"
     }
   }
 }

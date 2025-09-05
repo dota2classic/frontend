@@ -282,12 +282,6 @@ export class QueueStore
 
   @computed
   public get ready(): boolean {
-    console.log(
-      "Socket auth complete:" +
-        (this.readyState === GameCoordinatorState.CONNECTION_COMPLETE),
-      "Party loaded:" + !!this.party,
-      "Need auth:" + this.needAuth,
-    );
     return (
       this.readyState === GameCoordinatorState.CONNECTION_COMPLETE &&
       this.party !== undefined &&
@@ -375,11 +369,6 @@ export class QueueStore
     // Make sure token is not stale
     await this.authStore.fetchMe();
 
-    console.log(
-      "Help here",
-      process.env.NEXT_PUBLIC_SOCKET_URL,
-      process.env.NEXT_PUBLIC_API_URL,
-    );
     const url = new URL(process.env.NEXT_PUBLIC_SOCKET_URL as string);
 
     const path = url.pathname === "/" ? undefined : url.pathname;
@@ -454,14 +443,12 @@ export class QueueStore
   @action
   public onConnected = () => {
     if (this.readyState === GameCoordinatorState.DISCONNECTED) {
-      console.log("Set state -> Connected");
       this.readyState = GameCoordinatorState.CONNECTED;
     }
   };
 
   @action
   public onDisconnected = () => {
-    console.log("Set state -> Disconnected");
     this.readyState = GameCoordinatorState.DISCONNECTED;
     this.cleanUp();
   };
@@ -548,7 +535,6 @@ export class QueueStore
     getApi()
       .playerApi.playerControllerMyParty()
       .then((data) => {
-        console.log("FetchParty -> ", data);
         runInAction(() => (this.party = data));
       })
       .catch(() => (this.party = undefined));
@@ -644,7 +630,6 @@ export class QueueStore
   };
 
   @action onPlayerPartyState = (msg: PartyDto) => {
-    console.log("Update party via socket", msg);
     this.party = PartyDtoFromJSON(msg);
   };
 

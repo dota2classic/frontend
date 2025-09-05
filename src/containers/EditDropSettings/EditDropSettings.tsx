@@ -37,12 +37,6 @@ export const EditDropSettings: React.FC<IEditDropSettingsProps> = observer(
         data.settings.subsequentDropChance,
       );
 
-      console.log(
-        averageDropsPerMatch,
-        data.settings.baseDropChance,
-        data.settings.subsequentDropChance,
-      );
-
       return pricePerDrop * averageDropsPerMatch;
     }).get();
 

@@ -62,7 +62,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       metrika("userParams", {
         UserID: this.parsedToken?.sub,
       });
-      console.log(`Set user id to ${this.parsedToken?.sub}`);
     });
   }
 
@@ -72,7 +71,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       let cookie: string | undefined | null = BrowserCookies.get(
         AuthStore.cookieTokenKey,
       );
-      console.log("SetTokenFromCookies");
       if (cookie) {
         const jwt = parseJwt<JwtPayload>(cookie);
         if (jwt.exp * 1000 < Date.now()) {
@@ -135,7 +133,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   public setToken = (token: string | undefined, fetchMe: boolean = true) => {
     this.token = token;
     appApi.apiParams.accessToken = token;
-    console.log(`Set token to ${token ? "token" : "null"}`);
 
     if (fetchMe) {
       this.fetchMe();

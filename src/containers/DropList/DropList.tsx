@@ -83,7 +83,7 @@ export const DropList: React.FC<IDropListProps> = ({
     });
 
   const tradeUrlRegex = useMemo(() => {
-    const r = `https:\/\/steamcommunity\.com\/tradeoffer\/new\/\?partner=${user.steamId}&token=(.+)`;
+    const r = `https:\/\/steamcommunity\.com\/tradeoffer\/new\/\\?partner=${user.steamId}&token=(.+)`;
     return new RegExp(r);
   }, [user]);
 
@@ -190,9 +190,13 @@ export const DropList: React.FC<IDropListProps> = ({
                 {t("drop_list.save")}
               </Button>
             </div>
-            <span className="red">
-              {tradeLink && isValidTradeLink ? "" : t("drop_list.invalidLink")}
-            </span>
+            {tradeLink && (
+              <span className={isValidTradeLink ? "green" : "red"}>
+                {isValidTradeLink
+                  ? t("drop_list.validLink")
+                  : t("drop_list.invalidLink")}
+              </span>
+            )}
           </div>
         </Form>
       </Section>

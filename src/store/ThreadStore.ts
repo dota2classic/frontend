@@ -309,7 +309,6 @@ export class ThreadStore implements HydratableStore<unknown> {
   setBlockMessagesOf(relatedSteamId: string, block: boolean) {
     this.messageMap.values().forEach((msg) => {
       if (msg.author.steamId === relatedSteamId) {
-        console.log("Updateing message!!", msg);
         this.messageMap.set(msg.messageId, {
           ...msg,
           blocked: block,

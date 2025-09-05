@@ -3,7 +3,6 @@ import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { DotaGameRulesState } from "@/api/mapped-models";
 import c from "./PlayingNowCarousel.module.scss";
-import { MatchSlotInfo } from "@/api/back";
 import cx from "clsx";
 import { AppRouter } from "@/route";
 import { LivePlayerMmr } from "@/containers/PlayingNowCarousel/LivePlayerMmr";
@@ -17,26 +16,26 @@ import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { TranslationKey } from "@/TranslationKey";
 import { AutoCarousel } from "@/components/AutoCarousel/AutoCarousel";
 
-const playerPriority = (a: MatchSlotInfo) =>
-  a.heroData
-    ? (a.heroData!.kills + a.heroData!.assists) / Math.max(a.heroData!.deaths)
-    : 0;
-
 export const PlayingNowCarousel: React.FC = observer(() => {
   const { live } = useStore();
   const { t } = useTranslation();
 
-  const suitableMatches = useMemo(
-    () =>
-      live.liveMatches
-        .filter((t) => t.gameState >= DotaGameRulesState.PRE_GAME)
-        .sort(
-          (a, b) =>
-            getLobbyTypePriority(a.matchmakingMode) -
-            getLobbyTypePriority(b.matchmakingMode),
-        ),
-    [live.liveMatches],
-  );
+  const suitableMatches = useMemo(() => {
+    return live.liveMatches
+      .filter((t) => t.gameState >= DotaGameRulesState.PRE_GAME)
+      .sort(
+        (a, b) =>
+          getLobbyTypePriority(a.matchmakingMode) -
+          getLobbyTypePriority(b.matchmakingMode),
+      )
+      .flatMap((match) =>
+        match.heroes.map((hero) => ({
+          match,
+          hero,
+        })),
+      )
+      .filter((t) => t.hero.user.steamId.length > 2 && t.hero.heroData);
+  }, [live.liveMatches]);
 
   if (!suitableMatches.length) return null;
 
@@ -45,24 +44,18 @@ export const PlayingNowCarousel: React.FC = observer(() => {
       <header>{t("queue_page.fun.playing_now")}</header>
       <AutoCarousel interval={5000}>
         {suitableMatches
-          .map((live) => {
-            const bestPlayer = live.heroes
-              .slice()
-              .filter((t) => t.user.steamId.length > 2 && t.heroData)
-              .sort((a, b) => playerPriority(b) - playerPriority(a))[0];
-
-            if (!bestPlayer) return null;
-            const heroData = bestPlayer.heroData!;
+          .map(({ match, hero }) => {
+            const heroData = hero.heroData!;
 
             return (
-              <div key={live.matchId} className={c.item}>
+              <div key={match.matchId} className={c.item}>
                 <div className={c.player}>
-                  <UserPreview avatarSize={40} user={bestPlayer.user}>
+                  <UserPreview avatarSize={40} user={hero.user}>
                     <span>
                       {t(
-                        `matchmaking_mode.${live.matchmakingMode}` as TranslationKey,
+                        `matchmaking_mode.${match.matchmakingMode}` as TranslationKey,
                       )}
-                      , <LivePlayerMmr steamId={bestPlayer.user.steamId} />{" "}
+                      , <LivePlayerMmr steamId={hero.user.steamId} />{" "}
                       {t("common.mmr")}
                     </span>
                   </UserPreview>
@@ -92,10 +85,13 @@ export const PlayingNowCarousel: React.FC = observer(() => {
                   </div>
                 </div>
                 <PageLink
-                  link={AppRouter.matches.match(live.matchId).link}
+                  onClick={() => {
+                    throw "fdf";
+                  }}
+                  link={AppRouter.matches.match(match.matchId).link}
                   className={cx(c.watchLive, "link")}
                 >
-                  Смотреть матч {live.matchId}
+                  {t("queue_page.fun.watchMatch", { id: match.matchId })}
                 </PageLink>
               </div>
             );

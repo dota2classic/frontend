@@ -75,7 +75,6 @@ CreateThreadPage.getInitialProps = async (
 ): Promise<Props> => {
   const threadType = (ctx.query.thread_type as ThreadType) || ThreadType.FORUM;
 
-  console.log(threadType);
   return {
     threadType,
   };

@@ -48,7 +48,6 @@ export class UserCacheStore implements HydratableStore<unknown> {
     this.userMap[id].resolver = getApi()
       .playerApi.playerControllerPlayerSummary(id)
       .then((user) => {
-        console.log("User loaded, resoving into entry");
         runInAction(() => {
           this.userMap[id].entry = {
             user: user.user,

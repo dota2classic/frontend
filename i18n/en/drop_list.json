@@ -13,6 +13,7 @@
     "tradeLinkPlaceholder": "Steam trade link",
     "save": "Save",
     "invalidLink": "Invalid link",
+    "validLink": "Link is correct",
     "donateItems": "Donate items",
     "donationInfo": "Any player can donate items to the project on Steam. The bot will automatically calculate the value of the items and add them to your internal balance. This balance can be used to pay for a subscription!",
     "transferItems": "Transfer items",
