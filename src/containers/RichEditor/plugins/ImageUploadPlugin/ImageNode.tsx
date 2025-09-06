@@ -1,5 +1,4 @@
 import { NodeKey, SerializedTextNode, Spread, TextNode } from "lexical";
-import c from "./ImageUploadPlugin.module.scss";
 
 export type SerializedImageNode = Spread<
   {
@@ -36,7 +35,7 @@ export class ImageNode extends TextNode {
   createDOM(): HTMLElement {
     const dom = document.createElement("img");
     dom.src = this.__src;
-    dom.className = c.embedImage;
+    dom.className = "embedImage";
 
     return dom;
   }

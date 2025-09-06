@@ -250,6 +250,12 @@
   margin-block-start: 3em;
 }
 
+
+.embedImage, .ImageUploadPlugin_embedImage__q_guo {
+  object-fit: contain;
+  max-width: 100%;
+}
+
 .editor-quote {
   margin: 0;
   margin-left: 20px;
