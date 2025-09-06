@@ -70,9 +70,9 @@ export default withSentryConfig(withBundleAnalyzer(nextConfig), {
 
   project: "frontend",
 
-  sourcemaps: {
-    disable: !process.env.CI
-  },
+  // sourcemaps: {
+  //   disable: !process.env.CI
+  // },
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
