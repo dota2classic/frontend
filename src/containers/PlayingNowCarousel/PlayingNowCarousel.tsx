@@ -87,9 +87,6 @@ export const PlayingNowCarousel: React.FC = observer(() => {
                   </div>
                 </div>
                 <PageLink
-                  onClick={() => {
-                    throw "fdf";
-                  }}
                   link={AppRouter.matches.match(match.matchId).link}
                   className={cx(c.watchLive, "link")}
                 >
