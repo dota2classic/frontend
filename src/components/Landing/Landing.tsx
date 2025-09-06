@@ -67,6 +67,7 @@ export const Landing = observer(({ recentPosts }: Props) => {
             width={1920}
             height={1080}
             alt="highres"
+            fetchPriority="high"
           />
         </div>
         <div className={c.leadingIntent}>
