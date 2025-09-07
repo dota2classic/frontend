@@ -17,6 +17,8 @@
 .imgHorizontal {
   max-width: 100%;
   width: 100%;
+  height: auto;
+
   &__small {
     @media (min-width: 601px) {
       display: none;

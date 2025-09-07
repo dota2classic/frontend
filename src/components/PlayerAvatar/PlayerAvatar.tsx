@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import Image from "next/image";
-
 import type {
   OnLoadingComplete,
   PlaceholderValue,
@@ -66,7 +64,7 @@ export const PlayerAvatar: React.FC<Props> = observer(function PlayerAvatar({
       style={{ width: props.width, height: props.width }}
     >
       {hat && (
-        <Image
+        <img
           alt=""
           width={props.width}
           height={props.width * 1.55}
@@ -75,7 +73,7 @@ export const PlayerAvatar: React.FC<Props> = observer(function PlayerAvatar({
         />
       )}
       <PageLink link={linkProp}>
-        <Image
+        <img
           {...props}
           className={cx(props.className, "avatar")}
           alt={props.alt || t("player_avatar.defaultAlt")}
