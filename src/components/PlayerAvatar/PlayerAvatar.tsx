@@ -77,7 +77,7 @@ export const PlayerAvatar: React.FC<Props> = observer(function PlayerAvatar({
           {...props}
           className={cx(props.className, "avatar")}
           alt={props.alt || t("player_avatar.defaultAlt")}
-          src={error ? "/avatar.png" : user.avatar}
+          src={error ? "/avatar.png" : user.avatarSmall}
           onError={setError}
           title={user.name}
         />
