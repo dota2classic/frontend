@@ -1146,6 +1146,7 @@
   "queue_page.seo.description": "Game search page for Classic Dota. Play in a group with your friends, bots, and other players",
   "queue_page.bigTabs.play": "Play",
   "queue_page.bigTabs.chat": "Chat",
+  "queue_page.bigTabs.news": "News",
   "queue_page.section.party": "Group",
   "queue_page.section.chat": "Chat",
   "queue_page.section.blog": "News",

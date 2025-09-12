@@ -1147,6 +1147,7 @@ export type TranslationKey =
   | "queue_page.seo.description"
   | "queue_page.bigTabs.play"
   | "queue_page.bigTabs.chat"
+  | "queue_page.bigTabs.news"
   | "queue_page.section.party"
   | "queue_page.section.chat"
   | "queue_page.section.blog"

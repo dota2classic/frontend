@@ -11,12 +11,21 @@ export const QueueAdBlock = () => {
     <QueuePageBlock title={t("queue_page.section.partners")}>
       <a href="https://collectorsshop.ru/promo/old" target="__blank">
         <Image
-          className={cx(c.imgHorizontal)}
+          className={cx(c.imgHorizontal, c.imgHorizontal__large)}
           src="/img/D2C_Collectors_Wide_01.webp"
           alt=""
           priority
           unoptimized
           width={1179}
+          height={120}
+        />
+        <Image
+          className={cx(c.imgHorizontal, c.imgHorizontal__small)}
+          src="/img/D2C_Collectors_Wide_02.webp"
+          alt=""
+          priority
+          unoptimized
+          width={414}
           height={120}
         />
       </a>

@@ -6,7 +6,8 @@ import {
   ServerSearching,
   WaitingAccept,
 } from "@/components/AcceptGameModal";
-import c from "@/containers/NewQueuePage/NewQueuePage.module.scss";
+// import c from "@/containers/NewQueuePage/NewQueuePage.module.scss";
+import c from "./SearchGameBlock.module.scss";
 import React from "react";
 import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 

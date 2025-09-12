@@ -40,7 +40,8 @@
     },
     "bigTabs": {
       "play": "Play",
-      "chat": "Chat"
+      "chat": "Chat",
+      "news": "News"
     },
     "section": {
       "party": "Group",
