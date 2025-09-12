@@ -43,13 +43,14 @@
       "chat": "Chat"
     },
     "section": {
-      "header": "Group and Search"
-    },
-    "fun": {
+      "party": "Group",
+      "chat": "Chat",
+      "blog": "News",
       "playing_now": "Playing now",
-      "player_stats": "Players",
-      "day_records": "Daily records",
-      "watchMatch": "Watch game {{id}}"
+      "day_records": "Records today",
+      "watchMatch": "Watch match {{id}}",
+      "partners": "Our partners",
+      "search": "Search game"
     }
   }
 }

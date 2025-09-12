@@ -9,6 +9,8 @@ import { getApi } from "@/api/hooks";
 import { QueueStore } from "@/store/queue/QueueStore";
 import BrowserCookies from "browser-cookies";
 import Cookies from "cookies";
+import { EmbedProps } from "@/components/EmbedProps";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -18,8 +20,13 @@ interface Props {
 }
 
 export default function QueuePage({ modes }: Props) {
+  const { t } = useTranslation();
   return (
     <>
+      <EmbedProps
+        title={t("queue_page.seo.title")}
+        description={t("queue_page.seo.description")}
+      />
       <NewQueuePage modes={modes} />
     </>
   );
