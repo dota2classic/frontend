@@ -4,15 +4,14 @@ import c from "./SearchGameButton.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
-import { FaSteam } from "react-icons/fa";
 import cx from "clsx";
 import { formatBanReason } from "@/util/texts/bans";
-import { Button } from "../Button";
-import { getAuthUrl } from "@/util/getAuthUrl";
 import { pluralize } from "@/util/pluralize";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
 import { PeriodicDurationTimerClient } from "../PeriodicTimer";
+import { QueueButton } from "@/components/QueueButton/QueueButton";
+import { makeSimpleToast } from "@/components/Toast";
 
 interface Props {
   visible: boolean;
@@ -23,7 +22,7 @@ export const SearchGameButton = observer((p: Props) => {
   const { queue } = useStore();
   const router = useRouter();
 
-  const isQueuePage = router.pathname === "/queue";
+  const isQueuePage = router.pathname.startsWith("/queue");
   const isLobbyPage = router.pathname.startsWith("/lobby/");
 
   const isInQueue = queue.queueState?.inQueue;
@@ -61,27 +60,27 @@ export const SearchGameButton = observer((p: Props) => {
 
   if (!p.visible) return null;
 
-  if (queue.needAuth)
-    return (
-      <Button
-        mega
-        href={getAuthUrl()}
-        data-testid="floater-play-button-steam-login"
-      >
-        <FaSteam />
-        {t("search_game_button.login")}
-      </Button>
-    );
+  if (queue.needAuth) {
+    // return (
+    //   <QueueButton
+    //     href={getAuthUrl()}
+    //     data-testid="floater-play-button-steam-login"
+    //   >
+    //     <FaSteam />
+    //     {t("search_game_button.login")}
+    //   </QueueButton>
+    // );
+    return null;
+  }
 
   if (!queue.ready)
     return (
-      <Button
+      <QueueButton
         className="onboarding-queue-button"
-        mega
         data-testid="floater-play-button-loading"
       >
         {t("search_game_button.connecting")}
-      </Button>
+      </QueueButton>
     );
 
   // Hide button in lobby
@@ -92,8 +91,7 @@ export const SearchGameButton = observer((p: Props) => {
   if (isPartyInLobby) {
     if (myLobby) {
       return (
-        <Button
-          mega
+        <QueueButton
           data-testid="floater-play-button-enter-queue"
           onClick={() => {
             if (!isLobbyPage) {
@@ -107,15 +105,14 @@ export const SearchGameButton = observer((p: Props) => {
           )}
         >
           {t("search_game_button.returnToLobby")}
-        </Button>
+        </QueueButton>
       );
     } else {
       const anyLobby = queue.party
         ? queue.party.players.find((t) => t.lobbyId)?.lobbyId
         : undefined;
       return (
-        <Button
-          mega
+        <QueueButton
           data-testid="floater-play-button-enter-queue"
           onClick={() => {
             if (!isLobbyPage) {
@@ -135,7 +132,7 @@ export const SearchGameButton = observer((p: Props) => {
               {t("search_game_button.joinLobby")}
             </span>
           </div>
-        </Button>
+        </QueueButton>
       );
     }
   }
@@ -149,8 +146,7 @@ export const SearchGameButton = observer((p: Props) => {
             .map((mode) => t(`matchmaking_mode.${mode}` as TranslationKey))
             .join(", ");
     return (
-      <Button
-        mega
+      <QueueButton
         data-testid="floater-play-button-leave-queue"
         onClick={() => {
           queue.cancelSearch();
@@ -159,6 +155,7 @@ export const SearchGameButton = observer((p: Props) => {
           queue.gameState?.serverUrl && c.ingame,
           "onboarding-queue-button",
           c.button,
+          c.active,
         )}
       >
         <div>{t("search_game_button.cancelSearch")}</div>
@@ -173,7 +170,7 @@ export const SearchGameButton = observer((p: Props) => {
             </span>
           )}
         </div>
-      </Button>
+      </QueueButton>
     );
   }
 
@@ -181,11 +178,17 @@ export const SearchGameButton = observer((p: Props) => {
     const shouldDisable =
       (isQueuePage && queue.selectedModes.length === 0) || !!content;
     return (
-      <Button
-        mega
+      <QueueButton
         data-testid="floater-play-button-enter-queue"
-        disabled={shouldDisable}
         onClick={() => {
+          if (shouldDisable) {
+            makeSimpleToast(
+              "Выбери режим для поиска!",
+              "Чтобы искать игру, выбери хотя бы 1 режим для поика",
+              5000,
+            );
+            return;
+          }
           if (!isQueuePage) {
             router.push("/queue", "/queue").finally();
             return;
@@ -201,7 +204,7 @@ export const SearchGameButton = observer((p: Props) => {
         )}
       >
         {content || t("search_game_button.play")}
-      </Button>
+      </QueueButton>
     );
   }
 

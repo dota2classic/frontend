@@ -51,7 +51,6 @@ import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 import { blinkTab } from "@/util/blinkTab";
 import { GameModeAccessLevel } from "@/const/game-mode-access-level";
 import BrowserCookies from "browser-cookies";
-import { modEnableCondition } from "@/components/MatchmakingOption/utils";
 import { NotificationCreatedMessageS2C } from "@/store/queue/messages/s2c/notification-created-message.s2c";
 import {
   createAcceptPartyToast,
@@ -62,6 +61,7 @@ import { toast } from "react-toastify";
 // TODO: maybe very bad
 import { t } from "i18next";
 import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
+import { modEnableCondition } from "@/containers/QueuePageBlock/QueueModeList/utils";
 
 export type QueueHolder = {
   [key: string]: number;
@@ -233,6 +233,11 @@ export class QueueStore
   @computed
   public get isPartyInLobby(): boolean {
     return this.party ? isPartyInLobby(this.party) : true;
+  }
+
+  @computed
+  public get partySize(): number {
+    return this.party ? this.party.players!.length : 0;
   }
 
   @computed
@@ -453,8 +458,10 @@ export class QueueStore
     this.cleanUp();
   };
 
-  public inQueueCount(mode: MatchmakingMode, version: Dota2Version): number {
-    return this.inQueue[JSON.stringify({ mode: mode, version: version })];
+  public inQueueCount(mode: MatchmakingMode): number {
+    return this.inQueue[
+      JSON.stringify({ mode: mode, version: Dota2Version.Dota_684 })
+    ];
   }
 
   public inGameCount(mode: MatchmakingMode): number {

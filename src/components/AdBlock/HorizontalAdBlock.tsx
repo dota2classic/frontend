@@ -11,7 +11,6 @@ interface Props {
 export const HorizontalAdBlock: React.FC<Props> = ({}: Props) => {
   return (
     <div className={c.horizontalAdBlock}>
-      {/*<GenericAdBlock bannerId={bannerId} />*/}
       <a href="https://collectorsshop.ru/promo/old" target="__blank">
         <Image
           className={cx(c.imgHorizontal, c.imgHorizontal__large)}

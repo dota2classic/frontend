@@ -1,12 +1,12 @@
 import { MatchmakingMode } from "@/api/mapped-models";
 import React from "react";
-import { TimeAgo } from "../TimeAgo";
 import {
   GameModeAccessLevel,
   getRequiredAccessLevel,
 } from "@/const/game-mode-access-level";
 import { QueueStore } from "@/store/queue/QueueStore";
 import { Trans, TranslationFunction } from "react-i18next";
+import { TimeAgo } from "@/components/TimeAgo";
 
 export const modEnableCondition = (
   queue: QueueStore,

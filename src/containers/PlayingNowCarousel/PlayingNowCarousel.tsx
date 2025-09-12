@@ -16,6 +16,8 @@ import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { TranslationKey } from "@/TranslationKey";
 import { AutoCarousel } from "@/components/AutoCarousel/AutoCarousel";
 import { shuffle } from "@/util/shuffle";
+import { DailyMatchRecordCarousel } from "@/containers/QueuePageBlock/DailyMatchRecordCarousel";
+import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 
 export const PlayingNowCarousel: React.FC = observer(() => {
   const { live } = useStore();
@@ -39,11 +41,10 @@ export const PlayingNowCarousel: React.FC = observer(() => {
     return shuffle(base);
   }, [live.liveMatches]);
 
-  if (!suitableMatches.length) return null;
+  if (!suitableMatches.length) return <DailyMatchRecordCarousel />;
 
   return (
-    <>
-      <header>{t("queue_page.fun.playing_now")}</header>
+    <QueuePageBlock title={t("queue_page.section.playing_now")}>
       <AutoCarousel interval={5000}>
         {suitableMatches
           .map(({ match, hero }) => {
@@ -90,13 +91,13 @@ export const PlayingNowCarousel: React.FC = observer(() => {
                   link={AppRouter.matches.match(match.matchId).link}
                   className={cx(c.watchLive, "link")}
                 >
-                  {t("queue_page.fun.watchMatch", { id: match.matchId })}
+                  {t("queue_page.section.watchMatch", { id: match.matchId })}
                 </PageLink>
               </div>
             );
           })
           .filter(Boolean)}
       </AutoCarousel>
-    </>
+    </QueuePageBlock>
   );
 });

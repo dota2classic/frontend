@@ -1,0 +1,1 @@
+export { DailyMatchRecordCarousel } from "./DailyMatchRecordCarousel";

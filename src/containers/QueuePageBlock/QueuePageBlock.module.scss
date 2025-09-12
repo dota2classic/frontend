@@ -1,0 +1,21 @@
+@use "../../common.scss";
+
+
+@keyframes bgAnimate {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 90% 0%;
+  }
+}
+
+
+.blockContentPlaceholder {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(45deg, rgba(18, 19, 21, 0.7) 0%, rgba(36, 44, 52, 0.7) 240%);
+  background-size: 500% 500%;
+  animation: bgAnimate 1s ease alternate infinite;
+}

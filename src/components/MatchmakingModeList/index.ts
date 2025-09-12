@@ -1,1 +1,0 @@
-export { MatchmakingModeList } from "./MatchmakingModeList";

@@ -15,7 +15,7 @@ export const AcceptGameModal = observer(() => {
   const { queue } = useStore();
 
   const router = useRouter();
-  const isQueuePage = router.pathname === "/queue";
+  const isQueuePage = router.pathname.startsWith("/queue");
 
   const queueGameState = useQueueState();
 

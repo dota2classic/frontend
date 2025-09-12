@@ -38,7 +38,6 @@
   }
 }
 
-
 .searchTimer {
   //&::before {
   //  content: '/';
@@ -49,7 +48,25 @@
   width: 80px;
 }
 
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
 .button {
-  flex-direction: column;
+}
+
+@keyframes dd {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 50% 100%;
+  }
+}
+
+.active {
+  animation: dd 5s linear infinite;
 }

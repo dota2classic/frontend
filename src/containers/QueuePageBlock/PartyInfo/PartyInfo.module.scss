@@ -1,4 +1,4 @@
-@use "../../common.scss";
+@use "../../../common.scss";
 
 .info {
   display: flex;
@@ -13,9 +13,6 @@
   background-color: rgba(255, 255, 255, 0.04);
 
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
-  //align-items: stretch;
-  //display: flex;
-  //flex-direction: row;
 }
 
 .searchGameBar {
@@ -25,7 +22,6 @@
   border: none;
 
   font-size: 1rem;
-
 
   &__pending {
     animation: pendingAnimation 2s linear infinite;
@@ -81,7 +77,6 @@
   &.leader {
     border: 1px solid #c8831c;
   }
-
 
   &.banned {
     border: 1px solid common.$red;

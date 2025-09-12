@@ -5,8 +5,9 @@
 
   background: common.$bg15;
 
-  right: 50px;
-  bottom: 50px;
+  //right: 50px;
+  right: max(0px, calc((100dvw - 1600px) / 2));
+  bottom: 58.4px;
 
   z-index: 10000;
 

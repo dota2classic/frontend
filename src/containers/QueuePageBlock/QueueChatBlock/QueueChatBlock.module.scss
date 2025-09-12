@@ -1,0 +1,13 @@
+@use "../../../common.scss";
+
+.queueDiscussion {
+  flex: 1;
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  & :global(.messageList) {
+    flex: 1;
+  }
+}

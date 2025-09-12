@@ -13,7 +13,6 @@
 }
 
 .middleContent {
-  //margin: 20px auto auto;
   display: flex;
   flex-direction: column;
   max-width: 1200px;
@@ -47,7 +46,10 @@
 }
 
 .queue {
-  height: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  //height: 100%;
+  flex: 1;
   overflow-y: auto !important;
   margin-top: 0;
 }

@@ -1,0 +1,131 @@
+@use "../../common.scss";
+
+.span3 {
+  grid-row: span 4;
+  grid-column: span 1;
+}
+
+.block {
+  //border: 1px solid red;
+  //background: linear-gradient(45deg, rgba(18, 19, 21, 0.7) 0%, rgba(36, 44, 52, 0.7) 240%);
+  background: rgba(18, 19, 21, 0.7);
+  box-shadow: 0px 0px 10px #000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  & > header {
+    color: common.$primaryText;
+    background-color: common.$bg1;
+    font-size: 1.2rem;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__content {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex: 1;
+  }
+
+  &__header_title {
+  }
+
+  &__icons {
+    & > svg {
+      font-size: 1rem;
+      scale: 1.5;
+      transition: 0.3s ease;
+      cursor: pointer;
+      &:hover {
+        color: #c9af1d;
+        scale: 1.7;
+      }
+    }
+  }
+}
+
+.layout {
+  max-width: 1600px;
+  width: 100%;
+  align-self: center;
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: 300px 1fr 390px; /* left - center - right */
+
+  @media (width <= 1080px) {
+    grid-template-columns: 1fr 390px; /*  center - right */
+  }
+
+  flex: 1;
+  gap: 16px;
+}
+
+.left {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 16px;
+  @media (width <= 1080px) {
+    display: none;
+  }
+
+}
+
+.center {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 16px;
+}
+
+.modes {
+  background-color: common.$panelBg;
+}
+.right {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+}
+
+.imgHorizontal {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+// MODE OPTIONS
+
+
+
+.gameReady {
+  background: common.$bg2;
+  margin: 0;
+
+  //border: 1px solid #4e4d4d;
+  border: 2px solid common.$primaryTextDark;
+  border-radius: 6px;
+  padding: 8px 12px;
+
+  animation: something 2s infinite ease-out alternate;
+
+  // Move to base
+  & h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: normal;
+    color: #dcddde;
+  }
+}
+
+.onlineData {
+  padding: 8px;
+  gap: 16px;
+  display: flex;
+  flex-direction: row;
+  border: none;
+}

@@ -1,37 +1,14 @@
-import c from "./Queue.module.scss";
-import { getApi } from "@/api/hooks";
-import {
-  MatchmakingInfo,
-  MatchmakingMode,
-  PartyDto,
-  ThreadType,
-} from "@/api/back";
-import { useDidMount } from "@/util/useDidMount";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
-import React, { useState } from "react";
+import React from "react";
+import { NewQueuePage } from "@/containers/NewQueuePage/NewQueuePage";
 import { NextPageContext } from "next";
-import { Thread } from "@/containers/Thread";
-import Cookies from "cookies";
+import { MatchmakingMode } from "@/api/mapped-models";
+import { MatchmakingInfo, PartyDto } from "@/api/back";
+import { withTemporaryToken } from "@/util/withTemporaryToken";
+import { redirectToPage } from "@/util/redirectToPage";
+import { getApi } from "@/api/hooks";
 import { QueueStore } from "@/store/queue/QueueStore";
 import BrowserCookies from "browser-cookies";
-import { EmbedProps } from "@/components/EmbedProps";
-import { BigTabs } from "@/components/BigTabs";
-import { MatchmakingModeList } from "@/components/MatchmakingModeList";
-import { OnboardingTooltip } from "@/components/OnboardingTooltip";
-import { QueuePartyInfo } from "@/components/QueuePartyInfo";
-import { Section } from "@/components/Section";
-
-import dynamic from "next/dynamic";
-import { STATUS } from "react-joyride";
-import { useLocalStorage } from "react-use";
-import cx from "clsx";
-import { redirectToPage } from "@/util/redirectToPage";
-import { useTranslation } from "react-i18next";
-import { PlayingNowCarousel } from "@/containers/PlayingNowCarousel";
-import { DailyRecordCarousel } from "@/containers/DailyRecordCarousel/DailyRecordCarousel";
-import { DailyMatchRecordCarousel } from "@/containers/DailyMatchRecordCarousel/DailyMatchRecordCarousel";
-
-const JoyRideNoSSR = dynamic(() => import("react-joyride"), { ssr: false });
+import Cookies from "cookies";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -40,143 +17,10 @@ interface Props {
   "@defaultModes": MatchmakingMode[];
 }
 
-type Tabs = "chat" | "modes";
-
-export default function QueuePage(props: Props) {
-  const { t } = useTranslation();
-  const mounted = useDidMount();
-  const [tutorialComplete, setTutorialComplete] = useLocalStorage(
-    "tutorial-passed",
-    false,
-  );
-
-  const [tab, setTab] = useState<Tabs>("modes");
-
-  const { data: modes } =
-    getApi().statsApi.useStatsControllerGetMatchmakingInfo({
-      fallbackData: props.modes,
-      isPaused() {
-        return !mounted;
-      },
-    });
-
+export default function QueuePage({ modes }: Props) {
   return (
     <>
-      <JoyRideNoSSR
-        disableScrolling
-        callback={({ status }) => {
-          if (([STATUS.FINISHED] as string[]).includes(status)) {
-            setTutorialComplete(true);
-          }
-        }}
-        run={!tutorialComplete}
-        steps={[
-          {
-            title: t("queue_page.onboarding.gameModes.title"),
-            disableBeacon: true,
-            target: ".onboarding-mode-list",
-            content: t("queue_page.onboarding.gameModes.content"),
-          },
-          {
-            target: ".onboarding-party",
-            title: t("queue_page.onboarding.party.title"),
-            content: t("queue_page.onboarding.party.content"),
-          },
-          {
-            target: ".onboarding-online-stats",
-            placement: "left",
-            content: t("queue_page.onboarding.onlineStats.content"),
-          },
-          {
-            placement: "left",
-            target: ".onboarding-chat-window",
-            title: t("queue_page.onboarding.chat.title"),
-            content: t("queue_page.onboarding.chat.content"),
-          },
-          {
-            placement: "top",
-            title: t("queue_page.onboarding.searchButton.title"),
-            target: ".onboarding-queue-button",
-            content: t("queue_page.onboarding.searchButton.content"),
-          },
-          {
-            title: t("queue_page.onboarding.adblock.title"),
-            target: ".onboarding-logo",
-            content: t("queue_page.onboarding.adblock.content"),
-          },
-        ]}
-        tooltipComponent={OnboardingTooltip}
-        debug
-        showSkipButton
-        continuous
-        locale={{
-          back: t("queue_page.onboarding.locale.back"),
-          close: t("queue_page.onboarding.locale.close"),
-          last: t("queue_page.onboarding.locale.last"),
-          next: t("queue_page.onboarding.locale.next"),
-          nextLabelWithProgress: t(
-            "queue_page.onboarding.locale.nextLabelWithProgress",
-            { step: "step", steps: "steps" },
-          ),
-          open: t("queue_page.onboarding.locale.open"),
-          skip: t("queue_page.onboarding.locale.skip"),
-        }}
-        styles={{
-          options: {
-            zIndex: 1000000000,
-          },
-        }}
-      />
-      <div className={c.queue}>
-        <EmbedProps
-          title={t("queue_page.seo.title")}
-          description={t("queue_page.seo.description")}
-        />
-        <BigTabs<Tabs>
-          className={c.mobile__tabs}
-          flavor="small"
-          selected={tab}
-          items={[
-            {
-              key: "modes",
-              label: t("queue_page.bigTabs.play"),
-              onSelect: setTab,
-            },
-            {
-              key: "chat",
-              label: t("queue_page.bigTabs.chat"),
-              onSelect: setTab,
-            },
-          ]}
-        />
-        <MatchmakingModeList
-          className={cx(
-            c.mobile__modes,
-            tab !== "modes" && c.mobile__modes_hidden,
-          )}
-          modes={modes || props.modes}
-        />
-        <Section
-          className={cx(
-            c.main,
-            c.mobile__chat,
-            tab !== "chat" && c.mobile__modes_hidden,
-          )}
-        >
-          <header>{t("queue_page.section.header")}</header>
-          <QueuePartyInfo />
-          <Thread
-            className={c.queueDiscussion}
-            id={"17aa3530-d152-462e-a032-909ae69019ed"}
-            threadType={ThreadType.FORUM}
-          />
-        </Section>
-        <Section className={c.fun}>
-          <PlayingNowCarousel />
-          <DailyRecordCarousel />
-          <DailyMatchRecordCarousel />
-        </Section>
-      </div>
+      <NewQueuePage modes={modes} />
     </>
   );
 }

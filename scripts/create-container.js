@@ -35,7 +35,7 @@ fs.appendFileSync(
   `./src/containers/${componentName}/${componentName}.tsx`,
   componentSource,
 );
-// fs.appendFileSync(
-//   "./src/containers/index.ts",
-//   `export { ${componentName} } from "./${componentName}/${componentName}";\n`,
-// );
+fs.appendFileSync(
+  `./src/containers/${componentName}/index.ts`,
+  `export { ${componentName} } from "./${componentName}";\n`,
+);

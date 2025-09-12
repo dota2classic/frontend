@@ -1,31 +1,10 @@
-@use "../../common.scss";
+@use "../../../common.scss";
 
-.modeTitle {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+
+.modes {
+  background-color: common.$panelBg;
 }
 
-.locked {
-  position: relative;
-  cursor: not-allowed !important;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: 5;
-    pointer-events: none;
-  }
-}
-
-.disabled {
-  cursor: not-allowed !important;
-}
 
 .modeOption {
   display: flex;
@@ -85,16 +64,6 @@
       background: unset;
     }
   }
-
-  &__current {
-    //background-color: $transparentTint !important;
-  }
-
-  //&__disabled_selected {
-  //  background-color: $transparentTint !important;
-  //  //box-shadow: 0 0 4px 4px rgba(211, 38, 38, 0.25) inset;
-  //}
-
   &__active {
     animation: pendingAnimation 2s linear infinite;
   }
@@ -114,6 +83,29 @@
   & > div {
     flex: 1;
   }
+}
+
+.locked {
+  position: relative;
+  cursor: not-allowed !important;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    pointer-events: none;
+  }
+}
+
+.modeTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .modeAdditional {
@@ -143,9 +135,4 @@
   &__bad {
     color: common.$red;
   }
-
-  //&__time {
-  //  display: flex;
-  //  align-items: center;
-  //}
 }

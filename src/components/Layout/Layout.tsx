@@ -7,10 +7,14 @@ import { ThemeContext } from "@/util/theme";
 import { DiscordInvite, TelegramInvite } from "../TelegramInvite";
 import { TrajanPro } from "@/const/fonts";
 import { useTranslation } from "react-i18next";
-import { AdBlockType, HorizontalAdBlock, SideAdBlock } from "../AdBlock";
 import { Navbar } from "../Navbar";
 import { Notifications } from "../Notifications";
 import { SearchGameFloater } from "../SearchGameFloater";
+import {
+  AdBlockType,
+  HorizontalAdBlock,
+  SideAdBlock,
+} from "@/components/AdBlock";
 
 interface LayoutProps {
   className?: string;
@@ -21,8 +25,9 @@ export const Layout = ({
 }: PropsWithChildren<LayoutProps>) => {
   const { t } = useTranslation();
   const r = useRouter();
-  const isQueuePage = r.pathname === "/queue";
-  const isLanding = r.pathname === "/" || r.pathname === "/store";
+  const isQueuePage = r.pathname.startsWith("/queue");
+  const isLanding =
+    r.pathname === "/" || r.pathname === "/store" || isQueuePage;
   const isStore = r.pathname === "/store";
 
   return (
@@ -46,7 +51,7 @@ export const Layout = ({
             className={cx(
               c.middleContent,
               isLanding && c.landing,
-              r.pathname === "/queue" && c.queue,
+              r.pathname.startsWith("/queue") && c.queue,
             )}
           >
             {!isLanding && (
@@ -55,7 +60,7 @@ export const Layout = ({
             <main
               className={cx(
                 c.layoutInner,
-                r.pathname === "/queue" && c.queue,
+                r.pathname.startsWith("/queue") && c.queue,
                 isStore && c.store,
               )}
             >

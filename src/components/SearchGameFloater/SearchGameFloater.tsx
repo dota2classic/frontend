@@ -11,7 +11,7 @@ import { QueueGameState, useQueueState } from "@/util/useQueueState";
 export const SearchGameFloater: React.FC = observer(() => {
   const router = useRouter();
 
-  const isQueuePage = router.pathname === "/queue";
+  const isQueuePage = router.pathname.startsWith("/queue");
 
   const qState = useQueueState();
 
