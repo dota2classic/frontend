@@ -22,7 +22,7 @@ export interface JwtAuthToken {
   avatar: string;
 }
 export class AuthStore implements HydratableStore<{ token?: string }> {
-  public static cookieTokenKey: string = "dota2classic_auth_token";
+  public static cookieTokenKey: string = "d2c:auth_token_new";
 
   @observable
   public token: string | undefined = undefined;
