@@ -104,6 +104,12 @@ export interface NotificationDto {
     content: string;
     /**
      * 
+     * @type {object}
+     * @memberof NotificationDto
+     */
+    params: object;
+    /**
+     * 
      * @type {PlayerFeedbackDto}
      * @memberof NotificationDto
      */
@@ -148,6 +154,7 @@ export function NotificationDtoFromJSONTyped(json: any, ignoreDiscriminator: boo
         'entityId': json['entityId'],
         'title': json['title'],
         'content': json['content'],
+        'params': json['params'],
         'feedback': !exists(json, 'feedback') ? undefined : PlayerFeedbackDtoFromJSON(json['feedback']),
         'achievement': !exists(json, 'achievement') ? undefined : NotificationAchievementDtoFromJSON(json['achievement']),
         'thread': !exists(json, 'thread') ? undefined : NotificationThreadDtoFromJSON(json['thread']),
@@ -174,6 +181,7 @@ export function NotificationDtoToJSON(value?: NotificationDto | null): any {
         'entityId': value.entityId,
         'title': value.title,
         'content': value.content,
+        'params': value.params,
         'feedback': PlayerFeedbackDtoToJSON(value.feedback),
         'achievement': NotificationAchievementDtoToJSON(value.achievement),
         'thread': NotificationThreadDtoToJSON(value.thread),

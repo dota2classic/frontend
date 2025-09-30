@@ -2,7 +2,6 @@ import c from "./PlayerPage.module.scss";
 import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import {
-  AchievementDto,
   HeroStatsDto,
   MatchPageDto,
   PlayerSummaryDto,
@@ -18,8 +17,6 @@ import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { Section } from "@/components/Section";
-import { Panel } from "@/components/Panel";
-import { AchievementStatus } from "@/components/AchievementStatus";
 import { HeroPerformanceTable } from "@/components/HeroPerformanceTable";
 import { PageLink } from "@/components/PageLink";
 import { PlayerPentagonStats } from "@/components/PlayerPentagonStats";
@@ -29,7 +26,6 @@ interface PlayerPageProps {
   summary: PlayerSummaryDto;
   matches: MatchPageDto;
   heroStats: HeroStatsDto[];
-  achievements: AchievementDto[];
 }
 
 export default function PlayerPage({
@@ -37,7 +33,6 @@ export default function PlayerPage({
   summary,
   matches,
   heroStats,
-  achievements,
 }: PlayerPageProps) {
   const { t } = useTranslation();
 
@@ -75,16 +70,6 @@ export default function PlayerPage({
         rank={summary.seasonStats.rank}
         mmr={summary.seasonStats.mmr}
       />
-      <Section style={{ gridColumn: "span 12" }}>
-        <header>{t("player_page.achievements")}</header>
-        <Panel className={c.achievements}>
-          {achievements
-            .sort((a, b) => b.key - a.key)
-            .map((t) => (
-              <AchievementStatus key={t.key} achievement={t} />
-            ))}
-        </Panel>
-      </Section>
       <Section className={c.matchHistory}>
         <header data-testid="player-hero-performance-header">
           <span>{t("player_page.summary")}</span>
@@ -128,11 +113,10 @@ PlayerPage.getInitialProps = async (
 ): Promise<PlayerPageProps> => {
   const playerId = ctx.query.id as string;
 
-  const [summary, matches, heroStats, achievements] = await Promise.combine([
+  const [summary, matches, heroStats] = await Promise.combine([
     getApi().playerApi.playerControllerPlayerSummary(playerId),
     getApi().matchApi.matchControllerPlayerMatches(playerId, 0, 1),
     getApi().playerApi.playerControllerHeroSummary(playerId),
-    getApi().playerApi.playerControllerAchievements(playerId),
   ]);
 
   return {
@@ -140,6 +124,5 @@ PlayerPage.getInitialProps = async (
     summary,
     matches,
     heroStats,
-    achievements,
   };
 };

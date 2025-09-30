@@ -2,6 +2,10 @@
 
 .tooltipable {
   position: relative;
+  &__visible {
+    box-shadow: 0 0 8px #ffb400 !important;
+    border-radius: 8px !important;
+  }
 }
 
 .tooltip {

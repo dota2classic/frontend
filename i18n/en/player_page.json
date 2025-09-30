@@ -4,7 +4,6 @@
       "title": "Profile {{username}}",
       "description": "Profile and gaming statistics of player {{username}}"
     },
-    "achievements": "Achievements",
     "summary": "Summary",
     "topHeroes": "Best heroes"
   }

@@ -25,7 +25,11 @@ export const Tooltipable: React.FC<PropsWithChildren<ITooltipableProps>> = ({
     // typescript error too.
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {
-        className: cx(c.tooltipable, className),
+        className: cx(
+          c.tooltipable,
+          visible && c.tooltipable__visible,
+          className,
+        ),
         ref: ref,
         onMouseEnter: () => setVisible(true),
         onMouseLeave: () => setVisible(false),

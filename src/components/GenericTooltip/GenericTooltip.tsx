@@ -28,11 +28,12 @@ const calculateModalPosition = (
   const windowHeight = modal.clientHeight;
   const windowWidth = modal.clientWidth;
 
-  const scrollY = window.scrollY;
+  // const scrollY = window.scrollY;
   const wb = window.innerHeight;
 
   const top = Math.min(
-    scrollY + (wb - windowHeight - 12),
+    // scrollY + (wb - windowHeight - 12),
+    wb - windowHeight - 12,
     rect.top + rect.height + 8,
   );
 

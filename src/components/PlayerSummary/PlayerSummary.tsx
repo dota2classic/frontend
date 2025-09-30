@@ -49,6 +49,7 @@ interface IPlayerSummaryProps {
 type PlayerPage =
   | "overall"
   | "heroes"
+  | "achievements"
   | "matches"
   | "teammates"
   | "records"
@@ -68,6 +69,11 @@ const getMenuItems = (steamId: string, isMyProfile: boolean): Items => {
       key: "matches",
       label: "player_summary.menu.matches",
       onSelect: AppRouter.players.playerMatches(steamId).link,
+    },
+    {
+      key: "achievements",
+      label: "player_summary.menu.achievements",
+      onSelect: AppRouter.players.player.achievements(steamId).link,
     },
     {
       key: "teammates",

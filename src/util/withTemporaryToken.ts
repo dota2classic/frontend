@@ -1,8 +1,8 @@
 import { getRootStore, RootStore } from "@/store";
 import Cookies from "cookies";
-import { AuthStore } from "@/store/AuthStore";
 import { NextPageContext } from "next";
 import { clientStoreManager } from "@/store/ClientStoreManager";
+import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 
 export function withTemporaryToken<T>(
   ctx: NextPageContext,
@@ -12,7 +12,10 @@ export function withTemporaryToken<T>(
   // If we are on client, we need to use browser cookies
   if (typeof window === "undefined") {
     cookies = new Cookies(ctx.req!, ctx.res!);
-    const token = cookies.get(AuthStore.cookieTokenKey) || undefined;
+    const token =
+      cookies.get(AUTH_TOKEN_COOKIE_KEY) ||
+      cookies.get(encodeURIComponent(AUTH_TOKEN_COOKIE_KEY)) ||
+      undefined;
 
     const store = getRootStore(undefined);
     store.auth.setToken(token, false);

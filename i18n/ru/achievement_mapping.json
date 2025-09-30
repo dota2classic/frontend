@@ -1,19 +1,21 @@
 {
   "achievement": {
+    "percentile": "<percent /> игроков достигли такого результата",
+    "percentileUnique": "<percent/> игроков получили достижение",
     "win1hrGameAgainstTechies": {
       "description": "Выиграть часовую игру против Techies",
       "title": "Терпила"
     },
     "lastHits1000": {
-      "description": "Добить 1000 вражеских крипов",
+      "description": "Добить <cp /> вражеских крипов",
       "title": "Крипочек"
     },
     "gpm1000": {
-      "description": "Закончить игру с 1000 золота в минуту",
+      "description": "Закончить игру с <cp /> золота в минуту",
       "title": "Бизнесмен"
     },
     "xpm1000": {
-      "description": "Закончить игру с 1000 опыта в минуту",
+      "description": "Закончить игру с <cp /> опыта в минуту",
       "title": "На опыте"
     },
     "allHeroChallenge": {
@@ -25,7 +27,7 @@
       "title": "Классиковец"
     },
     "winSoloMidGame": {
-      "description": "Победить в 1х1",
+      "description": "Победить в 1х1 <cp /> раз",
       "title": "sololineabuse"
     },
     "gpmXpm1000": {
@@ -37,7 +39,7 @@
       "title": "По фасту"
     },
     "winStreak10": {
-      "description": "Победить 10 игр подряд",
+      "description": "Победить <cp /> игр подряд",
       "title": "Стрикер"
     },
     "hardcore": {
@@ -45,8 +47,80 @@
       "title": "Хардкор"
     },
     "denies50": {
-      "description": "Не отдать 50 союзных крипов врагу",
+      "description": "Не отдать <cp /> союзных крипов врагу в одной игре",
       "title": "Dendi"
+    },
+    "kills": {
+      "description": "Убить <cp /> вражеских героев",
+      "title": "Убийца"
+    },
+    "assists": {
+      "description": "Помочь в убийстве <cp /> вражеских героев",
+      "title": "Ассистент"
+    },
+    "meatgrinder": {
+      "description": "Сыграть игру, где у каждого героя больше 10 убийств, 10 смертей и 10 помощи",
+      "title": "Мясорубка"
+    },
+    "maxKills": {
+      "description": "Убить <cp /> вражеских героев в одной игре",
+      "title": "Палач"
+    },
+    "maxAssists": {
+      "description": "Помочь в убийстве <cp /> вражеских героев в одной игре",
+      "title": "Напарник"
+    },
+    "glasscannon": {
+      "description": "Закончить игру лидером по урону и смертям одновременно",
+      "title": "Стеклобой"
+    },
+    "lastHitsSum": {
+      "description": "Добить <cp /> крипов",
+      "title": "Фармила"
+    },
+    "denySum": {
+      "description": "Не отдать врагу <cp /> крипов",
+      "title": "Бей своих"
+    },
+    "winUnranked": {
+      "description": "Победить в 5х5 игре",
+      "title": "Работяга"
+    },
+    "towerDamage": {
+      "description": "Нанести <cp /> урона по строениям в одной игре",
+      "title": "Демонтаж"
+    },
+    "towerDamageSum": {
+      "description": "Нанести <cp /> суммарного урона по строениям",
+      "title": "Снос"
+    },
+    "heroHealing": {
+      "description": "Вылечить <cp /> здоровья союзникам в одной игре",
+      "title": "Лекарь"
+    },
+    "heroHealingSum": {
+      "description": "Вылечить <cp /> суммарного здоровья союзникам",
+      "title": "Целитель"
+    },
+    "allMelee": {
+      "description": "Выиграть матч, в котором все герои - ближнего боя",
+      "title": "Боксер"
+    },
+    "heroDamage": {
+      "description": "Нанести <cp /> урона по героям в одной игре",
+      "title": "Мучитель"
+    },
+    "heroDamageSum": {
+      "description": "Нанести <cp /> суммарного урона по вражеским героям",
+      "title": "Мясник"
+    },
+    "misses": {
+      "description": "Промахнуться <cp /> раз в одной игре",
+      "title": "Близорукость"
+    },
+    "deathSum": {
+      "description": "Умереть <cp /> раз",
+      "title": "Мертв внутри"
     }
   }
 }

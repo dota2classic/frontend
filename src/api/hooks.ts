@@ -33,6 +33,7 @@ import BrowserCookies from "browser-cookies";
 import { parseJwt } from "@/util/parseJwt";
 import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
 import { clientStoreManager } from "@/store/ClientStoreManager";
+import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 
 // const PROD_URL = "http://localhost:6001";
 // const PROD_URL = "https://dotaclassic.ru/api";
@@ -57,7 +58,7 @@ export class AppApi {
     basePath: `${PROD_URL}`,
     accessToken:
       typeof window !== "undefined"
-        ? BrowserCookies.get("dota2classic_auth_token") || undefined
+        ? BrowserCookies.get(AUTH_TOKEN_COOKIE_KEY) || undefined
         : undefined,
     middleware: [
       {
@@ -114,7 +115,7 @@ export class AppApi {
 
   refreshToken = async () => {
     const newToken = await this.authApi.steamControllerRefreshToken();
-    BrowserCookies.set("dota2classic_auth_token", newToken, {
+    BrowserCookies.set(AUTH_TOKEN_COOKIE_KEY, newToken, {
       expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30),
       path: "/",
       domain: getBaseCookieDomain(),

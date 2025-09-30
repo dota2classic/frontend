@@ -29,6 +29,7 @@ import { GreedyFocusManager } from "@/containers/GreedyFocusManager";
 import { PaidFeatureModal } from "@/containers/PaidFeatureModal";
 import { AcceptCookiesContainer } from "@/containers/AcceptCookiesContainer";
 import { MobxContext } from "@/store/MobxContext";
+import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 
 export default class MyApp extends App<{
   initialState: HydrateRootData;
@@ -90,7 +91,10 @@ export default class MyApp extends App<{
     if (!appContext.ctx.req || !appContext.ctx.res) return { ...appProps };
 
     const cookies = new Cookies(appContext.ctx.req, appContext.ctx.res);
-    const cookieToken = cookies.get("dota2classic_auth_token");
+
+    const cookieToken =
+      cookies.get(AUTH_TOKEN_COOKIE_KEY) ||
+      cookies.get(encodeURIComponent(AUTH_TOKEN_COOKIE_KEY));
 
     const inferredState: Partial<HydrateRootData> =
       MyApp.inferPagePropsAsHydratable(appProps);

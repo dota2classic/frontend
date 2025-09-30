@@ -14,6 +14,7 @@ import { MeDto, Role } from "@/api/back";
 import { metrika } from "@/ym";
 import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
 import * as Sentry from "@sentry/nextjs";
+import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 
 export interface JwtAuthToken {
   sub: string;
@@ -22,8 +23,6 @@ export interface JwtAuthToken {
   avatar: string;
 }
 export class AuthStore implements HydratableStore<{ token?: string }> {
-  public static cookieTokenKey: string = "d2c:auth_token_new";
-
   @observable
   public token: string | undefined = undefined;
 
@@ -77,7 +76,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   private fixCookies() {
     // delete old cookie for dotaclassic.ru(not .dotaclassic.ru)
-    // BrowserCookies.erase(AuthStore.cookieTokenKey, {
+    // BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
     //   domain: "dotaclassic.ru",
     // });
   }
@@ -85,18 +84,19 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   @action
   private setTokenFromCookies = () => {
     if (typeof window !== "undefined") {
+      // debugger;
       let cookie: string | undefined | null = BrowserCookies.get(
-        AuthStore.cookieTokenKey,
+        AUTH_TOKEN_COOKIE_KEY,
       );
       if (cookie) {
         const jwt = parseJwt<JwtPayload>(cookie);
         if (jwt.exp * 1000 < Date.now()) {
           console.warn("Outdated token in cookies! Removing");
           cookie = undefined;
-          BrowserCookies.erase(AuthStore.cookieTokenKey, {
+          BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
             domain: "." + getBaseCookieDomain(),
           });
-          BrowserCookies.erase(AuthStore.cookieTokenKey, {
+          BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
             domain: getBaseDomain(),
           });
         }
@@ -148,6 +148,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @action
   public setToken = (token: string | undefined, fetchMe: boolean = true) => {
+    console.trace("SetToken called");
     this.token = token;
     appApi.apiParams.accessToken = token;
 
@@ -162,11 +163,11 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     this.token = undefined;
     appApi.apiParams.accessToken = undefined;
 
-    BrowserCookies.erase(AuthStore.cookieTokenKey, {
+    BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
       domain: "." + getBaseCookieDomain(),
     });
 
-    BrowserCookies.erase(AuthStore.cookieTokenKey, {
+    BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
       domain: getBaseDomain(),
     });
 

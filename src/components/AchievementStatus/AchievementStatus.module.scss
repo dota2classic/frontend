@@ -5,20 +5,25 @@
 
   z-index: auto;
 
-  width: 100px;
-  min-width: 100px;
-  height: 140px;
   background: rgba(0, 0, 0, 0.4);
+  height: 100%;
 
   transition: 0.3s ease;
 
   scroll-snap-align: start;
 
   &:hover {
-    box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+    //box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+    & img {
+      transform: scale(1.15) translateY(-10px);
+    }
   }
 
+
+
   & img {
+    position: relative;
+
     transition: 0.3s ease;
     transform: perspective(500px) translateZ(0px);
 
@@ -26,13 +31,14 @@
     right: 0;
     left: 0;
     object-fit: cover;
-    width: 100%;
-    height: calc(100% - 40px);
+    width: 101%;
+    height: calc(100% - 50px);
+    z-index: 10000;
   }
 
   &__incomplete {
     & img {
-      opacity: 0.3;
+      filter: grayscale(80%) brightness(50%);
     }
   }
 
@@ -57,7 +63,14 @@
 }
 
 .title {
-  font-size: 12px;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.achievementDescription {
+  margin-top: 2px;
+  font-size: 0.7rem;
   text-align: center;
 }
 
@@ -70,20 +83,49 @@
   }
 }
 
-.achievementDescription {
-  position: absolute;
-  left: 0;
-  padding: 6px 12px;
-  color: common.$primaryText;
-  background-color: common.$bg2;
-  box-shadow: 0 0 6px rgba(10, 10, 10, 0.4);
-  z-index: 10000;
-  //width: 300%;
-  min-width: 200px;
-  //max-width: 200%;
-  display: none;
-  //transform: translateX(-25%);
+.stars {
+  position: relative;
+  height: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 4px;
 
-  top: unset;
-  bottom: 0px;
+  & .star {
+    display: block;
+    margin-top: -10px;
+    font-size: 1.4rem;
+    color: common.$primaryTextDark;
+    text-shadow: 0 0 24px rgba(0, 0, 0, 1); // <-- added shadow
+
+    &__complete {
+      opacity: 1;
+      color: common.$gold;
+    }
+  }
+}
+
+.complete {
+  color: common.$gold;
+}
+
+.sep {
+  display: inline-block;
+  & + & {
+    &::before {
+      content: "/";
+      // i want to add small padding
+
+      margin-left: 3px;
+      margin-right: 2px;
+      color: common.$primaryText;
+    }
+  }
+}
+
+.percentile {
+  padding-top: 4px;
+  margin-top: 4px;
+
+  border-top: 1px solid common.$blueHighlight3;
 }

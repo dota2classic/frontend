@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { parseJwt } from "@/util/parseJwt";
 import { Role } from "@/api/mapped-models";
+import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 
 interface JwtAuthToken {
   sub: string;
@@ -12,7 +13,7 @@ interface JwtAuthToken {
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  const cookie = request.cookies.get("dota2classic_auth_token");
+  const cookie = request.cookies.get(AUTH_TOKEN_COOKIE_KEY);
   if (!cookie) {
     return NextResponse.redirect(new URL("/forbidden", request.url));
   }

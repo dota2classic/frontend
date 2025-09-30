@@ -114,8 +114,16 @@ export const handleNotification = (notification: NotificationDto) => {
       );
       break;
     case NotificationType.ACHIEVEMENTCOMPLETE:
+      // TODO: make achievmenet description gneeric and reuse from achievement status
       const ak = notification.achievement!.key;
       title = `Достижение получено`;
+      const params = notification.params as {
+        checkpoints: number[];
+        progress: number;
+      };
+      const cp = (params.checkpoints as number[]).findLast(
+        (t) => t <= params.progress,
+      );
       content = (
         <>
           <span className="gold">
@@ -128,6 +136,9 @@ export const handleNotification = (notification: NotificationDto) => {
             i18nKey={
               AchievementMapping[ak]?.description || notification.content
             }
+            components={{
+              cp: <span className="gold">{cp}</span>,
+            }}
           />
         </>
       );

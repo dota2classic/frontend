@@ -16,6 +16,7 @@ export * from "./CreateThreadDTO";
 export * from "./CrimeLogDto";
 export * from "./CrimeLogPageDto";
 export * from "./CurrentOnlineDto";
+export * from "./DemoHighlightsEntity";
 export * from "./DodgeListEntryDto";
 export * from "./DodgePlayerDto";
 export * from "./DropSettingsDto";

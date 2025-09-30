@@ -36,14 +36,15 @@
 }
 
 .achievements {
-  flex-direction: row;
-  gap: 10px;
-  overflow-x: auto;
+  display: grid;
+  gap: 16px;
+
+  grid-template-columns: repeat(10, 1fr);
+
+
 
   @media (max-width: 600px) {
-    flex-direction: row;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

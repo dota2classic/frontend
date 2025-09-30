@@ -4,7 +4,6 @@
       "title": "Профиль {{username}}",
       "description": "Профиль и игровая статистика игрока {{username}}"
     },
-    "achievements": "Достижения",
     "summary": "Сводка",
     "topHeroes": "Лучшие герои"
   }

@@ -21,6 +21,9 @@ import {
   CurrentOnlineDto,
   CurrentOnlineDtoFromJSON,
   CurrentOnlineDtoToJSON,
+  DemoHighlightsEntity,
+  DemoHighlightsEntityFromJSON,
+  DemoHighlightsEntityToJSON,
   GameSeasonDto,
   GameSeasonDtoFromJSON,
   GameSeasonDtoToJSON,
@@ -34,6 +37,14 @@ import {
   TwitchStreamDtoFromJSON,
   TwitchStreamDtoToJSON,
 } from "../models";
+
+export interface StatsControllerGetHighlightsRequest {
+  id: number;
+}
+
+export interface StatsControllerRequestHighlightsRequest {
+  id: number;
+}
 
 /**
  * 
@@ -84,6 +95,59 @@ export class StatsApi extends runtime.BaseAPI {
 
         const context = this.statsControllerGetGameSeasonsContext();
         return useSWR(context, valid ? () => this.statsControllerGetGameSeasons() : null, config)
+    }
+
+    /**
+     */
+    private async statsControllerGetHighlightsRaw(requestParameters: StatsControllerGetHighlightsRequest): Promise<runtime.ApiResponse<DemoHighlightsEntity>> {
+        this.statsControllerGetHighlightsValidation(requestParameters);
+        const context = this.statsControllerGetHighlightsContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DemoHighlightsEntityFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private statsControllerGetHighlightsValidation(requestParameters: StatsControllerGetHighlightsRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling statsControllerGetHighlights.");
+        }
+    }
+
+    /**
+     */
+    statsControllerGetHighlightsContext(requestParameters: StatsControllerGetHighlightsRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/stats/highlights/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    statsControllerGetHighlights = async (id: number): Promise<DemoHighlightsEntity> => {
+        const response = await this.statsControllerGetHighlightsRaw({ id: id });
+        return await response.value();
+    }
+
+    useStatsControllerGetHighlights(id: number, config?: SWRConfiguration<DemoHighlightsEntity, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.statsControllerGetHighlightsContext({ id: id! });
+        return useSWR(context, valid ? () => this.statsControllerGetHighlights(id!) : null, config)
     }
 
     /**
@@ -315,5 +379,47 @@ export class StatsApi extends runtime.BaseAPI {
         const context = this.statsControllerOnlineContext();
         return useSWR(context, valid ? () => this.statsControllerOnline() : null, config)
     }
+
+    /**
+     */
+    private async statsControllerRequestHighlightsRaw(requestParameters: StatsControllerRequestHighlightsRequest): Promise<runtime.ApiResponse<void>> {
+        this.statsControllerRequestHighlightsValidation(requestParameters);
+        const context = this.statsControllerRequestHighlightsContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private statsControllerRequestHighlightsValidation(requestParameters: StatsControllerRequestHighlightsRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling statsControllerRequestHighlights.");
+        }
+    }
+
+    /**
+     */
+    statsControllerRequestHighlightsContext(requestParameters: StatsControllerRequestHighlightsRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/stats/highlights/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    statsControllerRequestHighlights = async (id: number): Promise<void> => {
+        await this.statsControllerRequestHighlightsRaw({ id: id });
+    }
+
 
 }

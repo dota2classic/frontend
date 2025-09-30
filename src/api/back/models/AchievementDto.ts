@@ -18,10 +18,6 @@ import {
     AchievementKeyFromJSON,
     AchievementKeyFromJSONTyped,
     AchievementKeyToJSON,
-    MatchDto,
-    MatchDtoFromJSON,
-    MatchDtoFromJSONTyped,
-    MatchDtoToJSON,
     UserDTO,
     UserDTOFromJSON,
     UserDTOFromJSONTyped,
@@ -48,10 +44,10 @@ export interface AchievementDto {
     user: UserDTO;
     /**
      * 
-     * @type {number}
+     * @type {Array<number>}
      * @memberof AchievementDto
      */
-    maxProgress: number;
+    checkpoints: Array<number>;
     /**
      * 
      * @type {number}
@@ -60,16 +56,22 @@ export interface AchievementDto {
     progress: number;
     /**
      * 
+     * @type {number}
+     * @memberof AchievementDto
+     */
+    percentile: number;
+    /**
+     * 
      * @type {boolean}
      * @memberof AchievementDto
      */
     isComplete: boolean;
     /**
      * 
-     * @type {MatchDto}
+     * @type {number}
      * @memberof AchievementDto
      */
-    match?: MatchDto;
+    matchId?: number;
 }
 
 export function AchievementDtoFromJSON(json: any): AchievementDto {
@@ -84,10 +86,11 @@ export function AchievementDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
         
         'key': AchievementKeyFromJSON(json['key']),
         'user': UserDTOFromJSON(json['user']),
-        'maxProgress': json['maxProgress'],
+        'checkpoints': json['checkpoints'],
         'progress': json['progress'],
+        'percentile': json['percentile'],
         'isComplete': json['isComplete'],
-        'match': !exists(json, 'match') ? undefined : MatchDtoFromJSON(json['match']),
+        'matchId': !exists(json, 'matchId') ? undefined : json['matchId'],
     };
 }
 
@@ -102,10 +105,11 @@ export function AchievementDtoToJSON(value?: AchievementDto | null): any {
         
         'key': AchievementKeyToJSON(value.key),
         'user': UserDTOToJSON(value.user),
-        'maxProgress': value.maxProgress,
+        'checkpoints': value.checkpoints,
         'progress': value.progress,
+        'percentile': value.percentile,
         'isComplete': value.isComplete,
-        'match': MatchDtoToJSON(value.match),
+        'matchId': value.matchId,
     };
 }
 

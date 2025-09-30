@@ -9,6 +9,7 @@ import { PlayerSummary } from "@/components/PlayerSummary";
 import { Section } from "@/components/Section";
 import { TeammatesTable } from "@/components/TeammatesTable";
 import { ScrollDetector } from "@/components/ScrollDetecter";
+import { EmbedProps } from "@/components/EmbedProps";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -57,6 +58,14 @@ export default function PlayerTeammates({
         user={summary.user}
         rank={summary.seasonStats.rank}
         mmr={summary.seasonStats.mmr}
+      />
+      <EmbedProps
+        description={t("player_teammates.seo.description", {
+          player: summary.user.name,
+        })}
+        title={t("player_teammates.seo.title", {
+          player: summary.user.name,
+        })}
       />
       <Section>
         <header>{t("player_teammates.header")}</header>
