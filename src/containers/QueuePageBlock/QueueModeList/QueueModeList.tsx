@@ -25,7 +25,7 @@ export const QueueModeList: React.FC<IQueueModeListProps> = ({ modes }) => {
     [modes],
   );
   return (
-    <QueuePageBlock title={t("queue_page.section.search")}>
+    <QueuePageBlock heading={t("queue_page.section.search")}>
       <div className={c.modes}>
         {enabledModes.map((mode) => (
           <SelectMatchmakingMode key={mode.lobbyType} mode={mode.lobbyType} />

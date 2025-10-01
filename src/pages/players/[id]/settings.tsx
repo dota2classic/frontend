@@ -23,10 +23,9 @@ import { useAsyncButton } from "@/util/use-async-button";
 import { makeSimpleToast } from "@/components/Toast";
 import { useRefreshPageProps } from "@/util/usePageProps";
 import { paidAction } from "@/util/subscription";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerSummary } from "@/components/PlayerSummary";
-import { Section } from "@/components/Section";
 import { Table } from "@/components/Table";
 import { TimeAgo } from "@/components/TimeAgo";
 import { UserPreview } from "@/components/UserPreview";
@@ -34,6 +33,7 @@ import { Logo } from "@/components/Logo";
 import { Panel } from "@/components/Panel";
 import { Button } from "@/components/Button";
 import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal";
+import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -79,7 +79,7 @@ export default function PlayerSettings({ summary, decorations }: Props) {
   const close = () => setDodgeListOpen(false);
 
   return (
-    <>
+    <div className={c.playerPage}>
       {dodgeListOpen &&
         createPortal(
           <InvitePlayerModalRaw
@@ -107,10 +107,14 @@ export default function PlayerSettings({ summary, decorations }: Props) {
         rank={summary.seasonStats.rank}
         mmr={summary.seasonStats.mmr}
       />
-      <Section className={cx(c.section)}>
-        <header className={c.heading}>
-          <Logo size={30} /> dotaclassic plus
-        </header>
+      <QueuePageBlock
+        className={cx(c.fullwidth)}
+        heading={
+          <>
+            <Logo size={30} /> dotaclassic plus
+          </>
+        }
+      >
         <Panel className={cx(c.panel, NotoSans.className)}>
           <p>
             {oldSubscription ? (
@@ -134,19 +138,26 @@ export default function PlayerSettings({ summary, decorations }: Props) {
               : t("player_settings.subscribe")}
           </Button>
         </Panel>
-      </Section>
-      <Section className={cx(c.section)}>
-        <header className={c.heading}>
-          <GiAngelWings className={"gold"} />{" "}
-          {t("player_settings.profileDecoration")}
-        </header>
-
+      </QueuePageBlock>
+      <QueuePageBlock
+        className={cx(c.fullwidth)}
+        heading={
+          <>
+            <GiAngelWings className={"gold"} />{" "}
+            {t("player_settings.profileDecoration")}
+          </>
+        }
+      >
         <EditProfileDecorations decorations={decorations} user={summary.user} />
-      </Section>
-      <Section className={cx(c.section)}>
-        <header className={c.heading}>
-          <SiAdblock className={"red"} /> {t("player_settings.recalibration")}
-        </header>
+      </QueuePageBlock>
+      <QueuePageBlock
+        className={cx(c.fullwidth)}
+        heading={
+          <>
+            <SiAdblock className={"red"} /> {t("player_settings.recalibration")}
+          </>
+        }
+      >
         <Panel className={cx(c.panel, NotoSans.className)}>
           <p>{t("player_settings.recalibrationDescription")}</p>
           {summary.recalibration ? (
@@ -157,9 +168,14 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             >
               {t("player_settings.recalibration")}
               <div>
-                {t("player_settings.startedRecalibration", {
-                  time: <TimeAgo date={summary.recalibration.createdAt} />,
-                })}
+                <Trans
+                  i18nKey={"player_settings.startedRecalibration"}
+                  components={{
+                    timeStarted: (
+                      <TimeAgo date={summary.recalibration.createdAt} />
+                    ),
+                  }}
+                />
               </div>
             </Button>
           ) : (
@@ -174,11 +190,16 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             </Button>
           )}
         </Panel>
-      </Section>
-      <Section className={cx(c.section)}>
-        <header className={c.heading}>
-          <SiAdblock className={"red"} /> {t("player_settings.avoidedPlayers")}
-        </header>
+      </QueuePageBlock>
+      <QueuePageBlock
+        className={cx(c.fullwidth)}
+        heading={
+          <>
+            <SiAdblock className={"red"} />{" "}
+            {t("player_settings.avoidedPlayers")}
+          </>
+        }
+      >
         <Panel className={cx(c.panel, NotoSans.className)}>
           <p>{t("player_settings.avoidedPlayersInfo")}</p>
           <Table>
@@ -220,13 +241,16 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             {t("player_settings.avoidPlayer")}
           </Button>
         </Panel>
-      </Section>
+      </QueuePageBlock>
 
-      <Section className={cx(c.section)}>
-        <header className={c.heading}>
-          <FaTwitch className={c.twitch} /> {t("player_settings.twitch")}
-        </header>
-
+      <QueuePageBlock
+        className={cx(c.fullwidth)}
+        heading={
+          <>
+            <FaTwitch className={c.twitch} /> {t("player_settings.twitch")}
+          </>
+        }
+      >
         <Panel className={cx(c.panel, NotoSans.className)}>
           <p>
             <b>{t("player_settings.connectTwitchProfile")}</b>{" "}
@@ -269,8 +293,8 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             )}
           </div>
         </Panel>
-      </Section>
-    </>
+      </QueuePageBlock>
+    </div>
   );
 }
 

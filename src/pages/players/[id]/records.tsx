@@ -3,10 +3,10 @@ import { PlayerRecordsResponse, PlayerSummaryDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerSummary } from "@/components/PlayerSummary";
-import { Section } from "@/components/Section";
 import React from "react";
 import { PlayerRecords } from "@/containers/PlayerRecords";
 import { useTranslation } from "react-i18next";
+import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 
 interface Props {
   preloadedSummary: PlayerSummaryDto;
@@ -39,9 +39,9 @@ export default function PlayerRecordsPage({
         mmr={preloadedSummary.seasonStats.mmr}
       />
 
-      <Section>
+      <QueuePageBlock>
         <PlayerRecords records={records} />
-      </Section>
+      </QueuePageBlock>
     </>
   );
 }

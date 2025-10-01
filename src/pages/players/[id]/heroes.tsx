@@ -2,7 +2,6 @@ import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { GenericTable } from "@/components/GenericTable";
 import { PlayerSummary } from "@/components/PlayerSummary";
-import { Section } from "@/components/Section";
 import React from "react";
 import { HeroStatsDto, PlayerSummaryDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
@@ -11,6 +10,8 @@ import { colors } from "@/colors";
 import { winrate } from "@/util/math";
 import { ColumnType } from "@/const/tables";
 import { useTranslation } from "react-i18next";
+import c from "@/pages/players/[id]/PlayerPage.module.scss";
+import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -29,7 +30,7 @@ export default function PlayerHeroes({
   );
 
   return (
-    <>
+    <div className={c.playerPage}>
       <EmbedProps
         title={t("player_heroes.playerHeroesTitle", {
           playerName: summary.user.name,
@@ -46,8 +47,10 @@ export default function PlayerHeroes({
         rank={summary.seasonStats.rank}
         mmr={summary.seasonStats.mmr}
       />
-      <Section>
-        <header>{t("player_heroes.heroesHeader")}</header>
+      <QueuePageBlock
+        className={c.fullwidth}
+        heading={t("player_heroes.heroesHeader")}
+      >
         <GenericTable
           columns={[
             {
@@ -115,8 +118,8 @@ export default function PlayerHeroes({
             it.denies,
           ])}
         />
-      </Section>
-    </>
+      </QueuePageBlock>
+    </div>
   );
 }
 

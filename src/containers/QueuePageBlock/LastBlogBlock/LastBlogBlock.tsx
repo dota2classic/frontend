@@ -13,7 +13,7 @@ export const LastBlogBlock: React.FC = observer(({}) => {
   const { t } = useTranslation();
 
   return (
-    <QueuePageBlock title={t("queue_page.section.blog")}>
+    <QueuePageBlock heading={t("queue_page.section.blog")}>
       {post ? (
         <CarouselItem
           link={AppRouter.blog.post(post.id).link}

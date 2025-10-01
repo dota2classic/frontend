@@ -20,11 +20,11 @@ import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { ClientPortal } from "@/components/ClientPortal";
 import { BuySubscriptionModal } from "@/components/BuySubscriptionModal";
-import { Section } from "@/components/Section";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { Table } from "@/components/Table";
 import { TimeAgo } from "@/components/TimeAgo";
+import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 
 interface IDropListProps {
   drops: DroppedItemDto[];
@@ -160,9 +160,7 @@ export const DropList: React.FC<IDropListProps> = ({
           }}
         />
       </ClientPortal>
-      <Section>
-        <header>{t("drop_list.settings")}</header>
-
+      <QueuePageBlock className={c.fullwidth} heading={t("drop_list.settings")}>
         <Form>
           <div>
             <header>{t("drop_list.tradeLinkHeader")}</header>
@@ -199,10 +197,12 @@ export const DropList: React.FC<IDropListProps> = ({
             )}
           </div>
         </Form>
-      </Section>
+      </QueuePageBlock>
 
-      <Section>
-        <header>{t("drop_list.donateItems")}</header>
+      <QueuePageBlock
+        className={c.fullwidth}
+        heading={t("drop_list.donateItems")}
+      >
         <Form>
           <div>
             <p>{t("drop_list.donationInfo")}</p>
@@ -252,20 +252,23 @@ export const DropList: React.FC<IDropListProps> = ({
             </Table>
           </div>
         </Form>
-      </Section>
+      </QueuePageBlock>
 
-      <Section>
-        <header>{t("drop_list.rewards")}</header>
-        <Button
-          disabled={isClaiming || !user.tradeUrl || drops.length === 0}
-          mega
-          onClick={claimDrops}
-        >
-          {t("drop_list.getRewards")}
-        </Button>
-        <br />
-        <br />
-
+      <QueuePageBlock className={c.fullwidth} heading={t("drop_list.rewards")}>
+        {drops.length > 0 && (
+          <>
+            <Button
+              disabled={isClaiming || !user.tradeUrl || drops.length === 0}
+              mega
+              onClick={claimDrops}
+            >
+              {t("drop_list.getRewards")}
+            </Button>
+            <br />
+            <br />
+            <br />
+          </>
+        )}
         <div className={c.list}>
           {dropList!.map((drop) => (
             <DropCard onDiscard={discard} drop={drop} key={drop.assetId} />
@@ -274,7 +277,7 @@ export const DropList: React.FC<IDropListProps> = ({
             <h2 className={c.centerHeader}>{t("drop_list.noRewards")}</h2>
           )}
         </div>
-      </Section>
+      </QueuePageBlock>
     </>
   );
 };

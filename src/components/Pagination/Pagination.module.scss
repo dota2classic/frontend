@@ -1,6 +1,7 @@
 @use "../../common.scss";
 
 .pagination {
+  background-color: common.$bg1;
   //padding: 6px 6px;
   padding: 0 !important;
   display: flex;

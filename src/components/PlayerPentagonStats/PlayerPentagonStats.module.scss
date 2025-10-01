@@ -10,6 +10,7 @@
 
 .statsContainer {
   grid-column: 5 span;
+  padding: 1rem;
 }
 
 .numericalStats {
@@ -46,6 +47,10 @@
   grid-column: 7 span;
   position: relative;
   //background-color: $blueHighlight3;
+  padding: 1rem;
+  //& header {
+  //  margin-top: 12px;
+  //}
 
   &__visual {
     width: 100%;

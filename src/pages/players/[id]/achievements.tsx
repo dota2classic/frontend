@@ -4,11 +4,11 @@ import { AchievementDto, AchievementKey, PlayerSummaryDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { useTranslation } from "react-i18next";
 import { PlayerSummary } from "@/components/PlayerSummary";
-import { Section } from "@/components/Section";
 import { AchievementStatus } from "@/components/AchievementStatus";
 import c from "@/pages/players/[id]/PlayerPage.module.scss";
 import { Panel } from "@/components/Panel";
 import { EmbedProps } from "@/components/EmbedProps";
+import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -86,7 +86,7 @@ export default function PlayerAchievements({ achievements, summary }: Props) {
   );
 
   return (
-    <>
+    <div className={c.playerPage}>
       <PlayerSummary
         session={summary.session}
         banStatus={summary.banStatus}
@@ -103,36 +103,44 @@ export default function PlayerAchievements({ achievements, summary }: Props) {
           player: summary.user.name,
         })}
       />
-      <Section>
-        <header>{t("achievements_page.header.lifetime")}</header>
+      <QueuePageBlock
+        className={c.fullwidth}
+        heading={t("achievements_page.header.lifetime")}
+      >
         <Panel className={c.achievements}>
           {lifetime.map((t) => (
             <AchievementStatus key={t.key} achievement={t} />
           ))}
         </Panel>
-      </Section>
+      </QueuePageBlock>
 
-      <Section>
-        <header>{t("achievements_page.header.records")}</header>
+      <QueuePageBlock
+        className={c.fullwidth}
+        heading={t("achievements_page.header.records")}
+      >
         <Panel className={c.achievements}>
           {records.map((t) => (
             <AchievementStatus key={t.key} achievement={t} />
           ))}
         </Panel>
-      </Section>
+      </QueuePageBlock>
 
-      <Section>
-        <header>{t("achievements_page.header.unique")}</header>
+      <QueuePageBlock
+        className={c.fullwidth}
+        heading={t("achievements_page.header.unique")}
+      >
         <Panel className={c.achievements}>
           {oneShot.map((t) => (
             <AchievementStatus key={t.key} achievement={t} />
           ))}
         </Panel>
-      </Section>
+      </QueuePageBlock>
 
       {remaining.length > 0 && (
-        <Section>
-          <header>{t("achievements_page.header.unique")}</header>
+        <QueuePageBlock
+          className={c.fullwidth}
+          heading={t("achievements_page.header.unique")}
+        >
           <Panel className={c.achievements}>
             {remaining
               .sort((a, b) => b.key - a.key)
@@ -140,10 +148,10 @@ export default function PlayerAchievements({ achievements, summary }: Props) {
                 <AchievementStatus key={t.key} achievement={t} />
               ))}
           </Panel>
-        </Section>
+        </QueuePageBlock>
       )}
       <div style={{ marginBottom: 100 }} />
-    </>
+    </div>
   );
 }
 

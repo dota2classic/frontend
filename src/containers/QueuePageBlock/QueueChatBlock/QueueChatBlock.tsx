@@ -12,7 +12,7 @@ export const QueueChatBlock: React.FC = () => {
 
   return (
     <QueuePageBlock
-      title={t("queue_page.section.chat")}
+      heading={t("queue_page.section.chat")}
       icons={<OnlineDataHeader />}
     >
       <Thread

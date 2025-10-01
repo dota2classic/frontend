@@ -59,6 +59,9 @@
   display: grid;
   grid-template-columns: 300px 1fr 390px; /* left - center - right */
 
+  flex: 1;
+  gap: 16px;
+
   @media (width <= 1080px) {
     grid-template-columns: 1fr 390px; /*  center - right */
   }
@@ -67,9 +70,6 @@
     grid-template-columns: 1fr;
     padding-top: 0;
   }
-
-  flex: 1;
-  gap: 16px;
 }
 
 .left {

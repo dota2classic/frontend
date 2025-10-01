@@ -10,7 +10,7 @@
     "profileDecoration": "Profile customization",
     "recalibration": "Recalibration",
     "recalibrationDescription": "Recalibration is a chance to reset your rating to the starting level and go through calibration again. It is suitable for those who are sure they deserve more or want to start from scratch. Recalibration can be used only once per season.",
-    "startedRecalibration": "Recalibration started at {{time}}",
+    "startedRecalibration": "Recalibration started at <timeStarted/>",
     "startNow": "Start now!",
     "avoidedPlayers": "Avoided players",
     "avoidedPlayersInfo": "Dotaclassic Plus subscribers can add up to one player to the avoided players list. This will prevent you from ever being matched with unpleasant players on the same team.",

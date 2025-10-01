@@ -11,7 +11,7 @@ export const DailyMatchRecordCarousel: React.FC = ({}) => {
   const { t } = useTranslation();
   if (!data) return null;
   return (
-    <QueuePageBlock title={t("queue_page.section.day_records")}>
+    <QueuePageBlock heading={t("queue_page.section.day_records")}>
       <AutoCarousel interval={15000}>
         {data.day.map((record) =>
           record.match ? (

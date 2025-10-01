@@ -8,7 +8,7 @@ import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 export const QueueAdBlock = () => {
   const { t } = useTranslation();
   return (
-    <QueuePageBlock title={t("queue_page.section.partners")}>
+    <QueuePageBlock heading={t("queue_page.section.partners")}>
       <a href="https://collectorsshop.ru/promo/old" target="__blank">
         <Image
           className={cx(c.imgHorizontal, c.imgHorizontal__large)}

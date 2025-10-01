@@ -1123,7 +1123,7 @@
   "player_settings.profileDecoration": "Оформление профиля",
   "player_settings.recalibration": "Перекалибровка",
   "player_settings.recalibrationDescription": "Перекалибровка — это шанс сбросить рейтинг до стартового и пройти калибровку заново. Подойдёт тем, кто уверен, что заслуживает больше или хочет начать с чистого листа. Использовать перекалибровку можно только один раз за сезон.",
-  "player_settings.startedRecalibration": "Запущена {{time}}",
+  "player_settings.startedRecalibration": "Запущена <timeStarted/>",
   "player_settings.startNow": "Запустить!",
   "player_settings.avoidedPlayers": "Избегаемые игроки",
   "player_settings.avoidedPlayersInfo": "Обладатели подписки dotaclassic plus могут добавить до одного игрока в список избегаемых игроков. Это позволит никогда не попадаться с неприятными игрокам за одну команду.",

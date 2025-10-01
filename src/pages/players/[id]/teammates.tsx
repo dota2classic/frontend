@@ -6,10 +6,11 @@ import { getApi } from "@/api/hooks";
 import { maxBy } from "@/util/maxBy";
 import { useTranslation } from "react-i18next";
 import { PlayerSummary } from "@/components/PlayerSummary";
-import { Section } from "@/components/Section";
 import { TeammatesTable } from "@/components/TeammatesTable";
 import { ScrollDetector } from "@/components/ScrollDetecter";
 import { EmbedProps } from "@/components/EmbedProps";
+import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import c from "./PlayerPage.module.scss";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -50,7 +51,7 @@ export default function PlayerTeammates({
   };
 
   return (
-    <>
+    <div className={c.playerPage}>
       <PlayerSummary
         session={summary.session}
         banStatus={summary.banStatus}
@@ -67,14 +68,16 @@ export default function PlayerTeammates({
           player: summary.user.name,
         })}
       />
-      <Section>
-        <header>{t("player_teammates.header")}</header>
+      <QueuePageBlock
+        className={c.fullwidth}
+        heading={t("player_teammates.header")}
+      >
         <TeammatesTable
           data={Object.values(totalData).flatMap((it) => it.data)}
         />
         <ScrollDetector onScrolledTo={onScrollToEnd} />
-      </Section>
-    </>
+      </QueuePageBlock>
+    </div>
   );
 }
 

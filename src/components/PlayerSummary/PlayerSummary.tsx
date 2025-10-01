@@ -149,7 +149,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     );
 
     return (
-      <>
+      <div className={c.summary}>
         <Panel
           className={cx(className, c.panel)}
           data-testid="player-summary-panel"
@@ -289,7 +289,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
           }))}
           selected={selected?.key || "overall"}
         />
-      </>
+      </div>
     );
   },
 );

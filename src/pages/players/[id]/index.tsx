@@ -2,6 +2,7 @@ import c from "./PlayerPage.module.scss";
 import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import {
+  AchievementDto,
   HeroStatsDto,
   MatchPageDto,
   PlayerSummaryDto,
@@ -10,28 +11,32 @@ import {
 import type { PlayerMatchItem } from "@/components/HeroWithItemsHistoryTable";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import React from "react";
-import { AppRouter } from "@/route";
 import { MatchComparator } from "@/util/sorts";
 import { LazyPaginatedThread } from "@/containers/Thread/LazyPaginatedThread";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerSummary } from "@/components/PlayerSummary";
-import { Section } from "@/components/Section";
 import { HeroPerformanceTable } from "@/components/HeroPerformanceTable";
-import { PageLink } from "@/components/PageLink";
 import { PlayerPentagonStats } from "@/components/PlayerPentagonStats";
+import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { PageLink } from "@/components/PageLink";
+import { AppRouter } from "@/route";
+import { Panel } from "@/components/Panel";
+import { AchievementStatus } from "@/components/AchievementStatus";
 
 interface PlayerPageProps {
   playerId: string;
   summary: PlayerSummaryDto;
   matches: MatchPageDto;
   heroStats: HeroStatsDto[];
+  achievements: AchievementDto[];
 }
 
 export default function PlayerPage({
   playerId,
   summary,
   matches,
+  achievements,
   heroStats,
 }: PlayerPageProps) {
   const { t } = useTranslation();
@@ -70,10 +75,33 @@ export default function PlayerPage({
         rank={summary.seasonStats.rank}
         mmr={summary.seasonStats.mmr}
       />
-      <Section className={c.matchHistory}>
-        <header data-testid="player-hero-performance-header">
-          <span>{t("player_page.summary")}</span>
-        </header>
+
+      <QueuePageBlock
+        className={c.achievements_panel}
+        heading={t("player_page.summary")}
+      >
+        <Panel className={c.achievements_carousel}>
+          {achievements
+            .sort((a, b) => {
+              function score(d: AchievementDto) {
+                let base = d.isComplete ? 1000000 : 0;
+                base += d.progress / d.checkpoints[d.checkpoints.length - 1];
+
+                return base;
+              }
+
+              return score(b) - score(a);
+            })
+            .map((t) => (
+              <AchievementStatus key={t.key} achievement={t} />
+            ))}
+        </Panel>
+      </QueuePageBlock>
+
+      <QueuePageBlock
+        className={c.matchHistory}
+        heading={t("player_page.summary")}
+      >
         <PlayerPentagonStats
           games={summary.seasonStats.gamesPlayed}
           aspects={summary.aspects}
@@ -84,20 +112,35 @@ export default function PlayerPage({
           playtime={summary.seasonStats.playtime}
           wins={summary.seasonStats.wins}
         />
-      </Section>
-      <Section className={c.heroPerformance}>
-        <header data-testid="player-hero-performance-header">
-          <span>{t("player_page.topHeroes")}</span>
+      </QueuePageBlock>
+      <QueuePageBlock
+        heading={t("player_page.topHeroes")}
+        className={c.heroPerformance}
+        icons={
           <PageLink link={AppRouter.players.player.heroes(playerId).link}>
             {t("tables.showAll")}
           </PageLink>
-        </header>
+        }
+      >
         <HeroPerformanceTable
           steamId={playerId}
           loading={false}
           data={formattedHeroStats}
         />
-      </Section>
+      </QueuePageBlock>
+      {/*<Section className={c.heroPerformance}>*/}
+      {/*  <header data-testid="player-hero-performance-header">*/}
+      {/*    <span>{t("player_page.topHeroes")}</span>*/}
+      {/*    <PageLink link={AppRouter.players.player.heroes(playerId).link}>*/}
+      {/*      {t("tables.showAll")}*/}
+      {/*    </PageLink>*/}
+      {/*  </header>*/}
+      {/*  <HeroPerformanceTable*/}
+      {/*    steamId={playerId}*/}
+      {/*    loading={false}*/}
+      {/*    data={formattedHeroStats}*/}
+      {/*  />*/}
+      {/*</Section>*/}
       <LazyPaginatedThread
         startLatest
         className={c.thread}
@@ -113,10 +156,11 @@ PlayerPage.getInitialProps = async (
 ): Promise<PlayerPageProps> => {
   const playerId = ctx.query.id as string;
 
-  const [summary, matches, heroStats] = await Promise.combine([
+  const [summary, matches, heroStats, achievements] = await Promise.combine([
     getApi().playerApi.playerControllerPlayerSummary(playerId),
     getApi().matchApi.matchControllerPlayerMatches(playerId, 0, 1),
     getApi().playerApi.playerControllerHeroSummary(playerId),
+    getApi().playerApi.playerControllerAchievements(playerId),
   ]);
 
   return {
@@ -124,5 +168,6 @@ PlayerPage.getInitialProps = async (
     summary,
     matches,
     heroStats,
+    achievements,
   };
 };

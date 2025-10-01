@@ -42,7 +42,7 @@ export const PartyInfo: React.FC = observer(() => {
 
   return (
     <QueuePageBlock
-      title={t("queue_page.section.party")}
+      heading={t("queue_page.section.party")}
       icons={
         queue.partySize > 1 ? (
           <>

@@ -13,6 +13,7 @@ import { PlayerSummary } from "@/components/PlayerSummary";
 import { DropList } from "@/containers/DropList";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { useTranslation } from "react-i18next";
+import c from "./PlayerPage.module.scss";
 
 interface Props {
   steamId: string;
@@ -32,7 +33,7 @@ export default function PlayerDrops({
 }: Props) {
   const { t } = useTranslation();
   return (
-    <>
+    <div className={c.playerPage}>
       <EmbedProps
         description={t("player_drops.receivedItemsSettings")}
         title={t("player_drops.items")}
@@ -53,7 +54,7 @@ export default function PlayerDrops({
         summary={summary}
         user={user}
       />
-    </>
+    </div>
   );
 }
 

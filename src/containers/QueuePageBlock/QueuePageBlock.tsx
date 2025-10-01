@@ -6,12 +6,12 @@ export const QueuePageBlock = (
   p: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
-  > & { title?: ReactNode; icons?: ReactNode },
+  > & { heading?: ReactNode; icons?: ReactNode },
 ) => (
   <section className={cx(c.block, p.className)}>
-    {(p.title || p.icons) && (
+    {(p.heading || p.icons) && (
       <header>
-        <span className={c.block__header_title}>{p.title}</span>
+        <span className={c.block__header_title}>{p.heading}</span>
         <span className={c.block__icons}>{p.icons}</span>
       </header>
     )}

@@ -7,7 +7,7 @@
 
 .playerPage {
   display: grid;
-  grid-column-gap: 12px;
+  gap: 16px;
   grid-template-columns: repeat(12, 1fr);
 }
 
@@ -33,6 +33,30 @@
   margin-top: 20px;
   grid-column: span 12;
 
+}
+
+.achievements_panel {
+  grid-column: span 12;
+}
+
+.achievements_carousel {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 6px;
+  align-items: stretch;
+  scroll-snap-type: x mandatory; /* enable horizontal snap */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+
+
+  & > div, & > a {
+    flex: 0 0 110px; /* fixed width for each item */
+    min-width: 110px;
+  }
+}
+
+.fullwidth {
+  grid-column: 1 / -1;
 }
 
 .achievements {
@@ -111,7 +135,3 @@
   }
 }
 
-
-.section {
-  gap: 16px;
-}
