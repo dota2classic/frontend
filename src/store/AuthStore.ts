@@ -15,6 +15,7 @@ import { metrika } from "@/ym";
 import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
 import * as Sentry from "@sentry/nextjs";
 import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
+import {eraseCookie} from "@/util/erase-cookie";
 
 export interface JwtAuthToken {
   sub: string;
@@ -163,13 +164,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
     this.token = undefined;
     appApi.apiParams.accessToken = undefined;
 
-    BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
-      domain: "." + getBaseCookieDomain(),
-    });
-
-    BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
-      domain: getBaseDomain(),
-    });
+    eraseCookie(AUTH_TOKEN_COOKIE_KEY);
 
     if (typeof window !== "undefined") {
       window.location.reload();
