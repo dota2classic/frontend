@@ -7,10 +7,10 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { redirectToPage } from "@/util/redirectToPage";
 import { getApi } from "@/api/hooks";
 import { QueueStore } from "@/store/queue/QueueStore";
-import BrowserCookies from "browser-cookies";
 import Cookies from "cookies";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
+import { BrowserCookies } from "@/util/browser-cookies";
 
 interface Props {
   modes: MatchmakingInfo[];

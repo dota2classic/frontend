@@ -5,5 +5,11 @@ export function eraseCookie(name: string) {
     const eraseDomain = "." + getBaseCookieDomain();
     document.cookie =
       name + "=; Max-Age=0; path=/; domain=" + eraseDomain + ";";
+
+    document.cookie =
+      encodeURIComponent(name) +
+      "=; Max-Age=0; path=/; domain=" +
+      eraseDomain +
+      ";";
   }
 }

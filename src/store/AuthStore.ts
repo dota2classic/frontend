@@ -8,7 +8,7 @@ import {
 } from "mobx";
 import { HydratableStore } from "@/store/HydratableStore";
 import { parseJwt } from "@/util/parseJwt";
-import BrowserCookies from "browser-cookies";
+import Cookies from "js-cookie";
 import { appApi, getApi, JwtPayload } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
 import { metrika } from "@/ym";
@@ -16,6 +16,7 @@ import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
 import * as Sentry from "@sentry/nextjs";
 import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 import { eraseCookie } from "@/util/erase-cookie";
+import { BrowserCookies } from "@/util/browser-cookies";
 
 export interface JwtAuthToken {
   sub: string;
@@ -77,7 +78,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   private fixCookies() {
     // delete old cookie for dotaclassic.ru(not .dotaclassic.ru)
-    // BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
+    // Cookies.erase(AUTH_TOKEN_COOKIE_KEY, {
     //   domain: "dotaclassic.ru",
     // });
   }
@@ -86,7 +87,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   private setTokenFromCookies = () => {
     if (typeof window !== "undefined") {
       // debugger;
-      let cookie: string | undefined | null = BrowserCookies.get(
+      let cookie: string | undefined = BrowserCookies.get(
         AUTH_TOKEN_COOKIE_KEY,
       );
       if (cookie) {
@@ -94,10 +95,10 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
         if (jwt.exp * 1000 < Date.now()) {
           console.warn("Outdated token in cookies! Removing");
           cookie = undefined;
-          BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
+          Cookies.remove(AUTH_TOKEN_COOKIE_KEY, {
             domain: "." + getBaseCookieDomain(),
           });
-          BrowserCookies.erase(AUTH_TOKEN_COOKIE_KEY, {
+          Cookies.remove(AUTH_TOKEN_COOKIE_KEY, {
             domain: getBaseDomain(),
           });
         }

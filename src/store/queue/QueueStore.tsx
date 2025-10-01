@@ -50,7 +50,7 @@ import { metrika } from "@/ym";
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 import { blinkTab } from "@/util/blinkTab";
 import { GameModeAccessLevel } from "@/const/game-mode-access-level";
-import BrowserCookies from "browser-cookies";
+import BrowserCookies from "js-cookie";
 import { NotificationCreatedMessageS2C } from "@/store/queue/messages/s2c/notification-created-message.s2c";
 import {
   createAcceptPartyToast,

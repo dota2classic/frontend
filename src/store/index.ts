@@ -15,8 +15,8 @@ import { ReportStore } from "@/store/ReportStore";
 import { ClaimItemStore } from "@/store/ClaimItemStore";
 import { MobxContext } from "@/store/MobxContext";
 import { SubStore } from "@/store/SubStore";
-import BrowserCookies from "browser-cookies";
 import { clientStoreManager } from "./ClientStoreManager";
+import Cookies from "js-cookie";
 
 // enable static rendering ONLY on server
 enableStaticRendering(typeof window === "undefined");
@@ -72,7 +72,7 @@ const initStore = (initData: HydrateRootData | undefined): RootStore => {
 
   window.store = clientStoreManager.getRootStore() as RootStore;
   window.api = getApi();
-  window.cook = BrowserCookies;
+  window.cook = Cookies;
   return store;
 };
 
