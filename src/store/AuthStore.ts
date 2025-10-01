@@ -15,7 +15,7 @@ import { metrika } from "@/ym";
 import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
 import * as Sentry from "@sentry/nextjs";
 import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
-import {eraseCookie} from "@/util/erase-cookie";
+import { eraseCookie } from "@/util/erase-cookie";
 
 export interface JwtAuthToken {
   sub: string;
