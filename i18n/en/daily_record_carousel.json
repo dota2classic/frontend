@@ -1,0 +1,9 @@
+{
+  "daily_record_carousel": {
+    "games": "Games",
+    "wins": "Wins",
+    "loss": "Losses",
+    "mmr_gained": "MMR Gained",
+    "mmr_lost": "MMR Lost"
+  }
+}

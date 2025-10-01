@@ -1,52 +1,126 @@
 {
   "achievement": {
+    "percentile": "<percent /> of players achieved this result",
+    "percentileUnique": "<percent/> of players got this achievement",
     "win1hrGameAgainstTechies": {
-      "description": "Win an hour-long game against Techies",
-      "title": "Endurer"
+      "description": "Win a 1-hour game against Techies",
+      "title": "Iron Will"
     },
     "lastHits1000": {
-      "description": "Last-hit 1000 enemy creeps",
-      "title": "Creeps"
+      "description": "Last hit <cp /> enemy creeps",
+      "title": "Creep"
     },
     "gpm1000": {
-      "description": "End the game with 1000 gold per minute",
+      "description": "Finish a game with <cp /> gold per minute",
       "title": "Businessman"
     },
     "xpm1000": {
-      "description": "End the game with 1000 experience per minute",
+      "description": "Finish a game with <cp /> experience per minute",
       "title": "Experienced"
     },
     "allHeroChallenge": {
-      "description": "Win with every hero",
-      "title": "Universal"
+      "description": "Win on every hero",
+      "title": "Generalist"
     },
     "winBotGame": {
       "description": "Complete the tutorial",
-      "title": "Classicist"
+      "title": "El Classic"
     },
     "winSoloMidGame": {
       "description": "Win a 1v1",
-      "title": "sololineabuse"
+      "title": "Sololineabuse"
     },
     "gpmXpm1000": {
-      "description": "Finish the match with 1000 experience per minute and 1000 gold per minute",
+      "description": "Finish a match with 1000 XPM and 1000 GPM",
       "title": "Booster"
     },
     "win1hrGame": {
-      "description": "Win an hour-long game",
-      "title": "Fast"
+      "description": "Win a 1-hour game",
+      "title": "Fast One"
     },
     "winStreak10": {
-      "description": "Win 10 games in a row",
+      "description": "Win <cp /> games in a row",
       "title": "Streaker"
     },
     "hardcore": {
-      "description": "Win a game with level 25 and no deaths",
+      "description": "Win a game at level 25 with no deaths",
       "title": "Hardcore"
     },
     "denies50": {
-      "description": "Deny 50 allied creeps to the enemy",
+      "description": "Deny <cp /> allied creeps in one game",
       "title": "Dendi"
+    },
+    "kills": {
+      "description": "Kill <cp /> enemy heroes",
+      "title": "Killer"
+    },
+    "assists": {
+      "description": "Assist in killing <cp /> enemy heroes",
+      "title": "Assistant"
+    },
+    "meatgrinder": {
+      "description": "Play a game where every hero has more than 10 kills, 10 deaths, and 10 assists",
+      "title": "Meatgrinder"
+    },
+    "maxKills": {
+      "description": "Kill <cp /> enemy heroes in one game",
+      "title": "Executioner"
+    },
+    "maxAssists": {
+      "description": "Assist in killing <cp /> enemy heroes in one game",
+      "title": "Partner"
+    },
+    "glasscannon": {
+      "description": "Finish a game as both top damage and top deaths",
+      "title": "Glasscannon"
+    },
+    "lastHitsSum": {
+      "description": "Last hit <cp /> creeps",
+      "title": "Farmer"
+    },
+    "denySum": {
+      "description": "Deny <cp /> creeps",
+      "title": "Friendly Fire"
+    },
+    "winUnranked": {
+      "description": "Win a 5v5 game",
+      "title": "Hardworker"
+    },
+    "towerDamage": {
+      "description": "Deal <cp /> damage to buildings in one game",
+      "title": "Demolition"
+    },
+    "towerDamageSum": {
+      "description": "Deal <cp /> total damage to buildings",
+      "title": "Wrecker"
+    },
+    "heroHealing": {
+      "description": "Heal <cp /> HP to allies in one game",
+      "title": "Healer"
+    },
+    "heroHealingSum": {
+      "description": "Heal <cp /> total HP to allies",
+      "title": "Medic"
+    },
+    "allMelee": {
+      "description": "Win a match where all heroes are melee",
+      "title": "Boxer"
+    },
+    "heroDamage": {
+      "description": "Deal <cp /> damage to heroes in one game",
+      "title": "Tormentor"
+    },
+    "heroDamageSum": {
+      "description": "Deal <cp /> total damage to enemy heroes",
+      "title": "Butcher"
+    },
+    "misses": {
+      "description": "Miss <cp /> times in one game",
+      "title": "Shortsighted"
+    },
+    "deathSum": {
+      "description": "Die <cp /> times",
+      "title": "Dead Inside"
     }
   }
 }

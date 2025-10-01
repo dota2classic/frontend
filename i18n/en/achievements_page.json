@@ -1,0 +1,15 @@
+{
+  "achievements_page": {
+    "seo": {
+      "title": "Achievements of {{player}}",
+      "description": "Player {{player}}'s achievements in matches played on dotaclassic.ru"
+    },
+    "header": {
+      "title": "Achievements",
+      "unique": "Unique",
+      "lifetime": "Progress",
+      "records": "Record",
+      "other": "Other"
+    }
+  }
+}

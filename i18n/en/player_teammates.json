@@ -1,5 +1,9 @@
 {
   "player_teammates": {
-    "header": "Teammates"
+    "header": "Teammates",
+    "seo": {
+      "title": "{{player}}'s Teammates",
+      "description": "Players with whom {{player}} has a high win rate and many games"
+    }
   }
 }

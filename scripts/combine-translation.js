@@ -6,26 +6,27 @@ const folderPath = "i18n"; // замените на ваш путь
 // Получаем список всех файлов в папке
 const locales = fs.readdirSync(folderPath);
 
-function areStringArraysEqual(arr1, arr2) {
-  // Check if both are arrays
-  if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
-    return false;
-  }
+function checkMissingKeys(base, target, path = "") {
+  const missing = [];
 
-  // Check if lengths are equal
-  if (arr1.length !== arr2.length) {
-    return false;
-  }
+  for (const key in base) {
+    const fullPath = path ? `${path}.${key}` : key;
 
-  // Compare each element
-  for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i] !== arr2[i]) {
-      return false;
+    if (!(key in target)) {
+      missing.push(fullPath);
+      continue;
+    }
+
+    if (
+      base[key] !== null &&
+      typeof base[key] === "object" &&
+      !Array.isArray(base[key])
+    ) {
+      missing.push(...checkMissingKeys(base[key], target[key], fullPath));
     }
   }
 
-  // All elements are equal
-  return true;
+  return missing;
 }
 
 // Простая функция глубокого слияния с предупреждениями
@@ -123,10 +124,13 @@ locales.forEach((locale) => {
   }
 });
 
-const extra = allLocales["en"];
-const source = Object.keys(allLocales["ru"]);
-Object.keys(extra).forEach((key) => {
-  if (!source.includes(key)) {
-    console.warn(`Missing key "${key}"`);
-  }
-});
+
+const missing = checkMissingKeys(allLocales["ru"], allLocales["en"]);
+missing
+  .filter(
+    (it) =>
+      !it.endsWith("_long") && !it.endsWith("_few") && !it.endsWith("_many"),
+  )
+  .forEach((miss) => {
+    console.log(`Missing key: ${miss}`);
+  });
