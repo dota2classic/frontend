@@ -114,7 +114,6 @@ export const handleNotification = (notification: NotificationDto) => {
       );
       break;
     case NotificationType.ACHIEVEMENTCOMPLETE:
-      // TODO: make achievmenet description gneeric and reuse from achievement status
       const ak = notification.achievement!.key;
       title = `Достижение получено`;
       const params = notification.params as {
@@ -125,22 +124,30 @@ export const handleNotification = (notification: NotificationDto) => {
         (t) => t <= params.progress,
       );
       content = (
-        <>
-          <span className="gold">
+        <PageLink
+          className={c.horizontal}
+          link={
+            AppRouter.players.player.achievements(notification.steamId).link
+          }
+        >
+          <img src={AchievementMapping[ak]?.img} alt="" />
+          <div>
+            <span className="gold">
+              <Trans
+                i18nKey={AchievementMapping[ak]?.title || notification.title}
+              />
+            </span>
+            :{" "}
             <Trans
-              i18nKey={AchievementMapping[ak]?.title || notification.title}
+              i18nKey={
+                AchievementMapping[ak]?.description || notification.content
+              }
+              components={{
+                cp: <span className="gold">{cp}</span>,
+              }}
             />
-          </span>
-          :{" "}
-          <Trans
-            i18nKey={
-              AchievementMapping[ak]?.description || notification.content
-            }
-            components={{
-              cp: <span className="gold">{cp}</span>,
-            }}
-          />
-        </>
+          </div>
+        </PageLink>
       );
       break;
     case NotificationType.FEEDBACKCREATED:
