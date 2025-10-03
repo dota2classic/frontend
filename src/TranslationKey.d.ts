@@ -629,6 +629,8 @@ export type TranslationKey =
   | "hero_icon.iconAlt"
   | "hero_matches.loading"
   | "hero_matches.matches"
+  | "hero_matches_page.seo.title"
+  | "hero_matches_page.seo.description"
   | "hero_mention.localizedName"
   | "hero_stats.popularity"
   | "hero_stats.matches"

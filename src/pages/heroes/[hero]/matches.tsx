@@ -12,6 +12,8 @@ import { HeroStatsHeader } from "@/components/HeroStatsHeader";
 import { Section } from "@/components/Section";
 import { Pagination } from "@/components/Pagination";
 import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
+import { EmbedProps } from "@/components/EmbedProps";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   hero: string;
@@ -26,7 +28,7 @@ export default function HeroMatches({
 }: Props) {
   const [isLoading] = useRouterChanging();
   const [page] = useQueryBackedParameter("page");
-
+  const { t } = useTranslation();
   const sortedSummaries: HeroSummaryDto[] = useMemo(
     () => (initialHeroesMeta || []).toSorted((a, b) => b.games - a.games),
     [initialHeroesMeta],
@@ -46,6 +48,10 @@ export default function HeroMatches({
 
   return (
     <>
+      <EmbedProps
+        title={t("hero_matches_page.seo.title")}
+        description={t("hero_matches_page.seo.description")}
+      />
       <HeroStatsHeader
         popularity={sortedSummaries.indexOf(summary) + 1}
         hero={hero}

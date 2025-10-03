@@ -1,0 +1,8 @@
+{
+  "hero_matches_page": {
+    "seo": {
+      "title": "Матчи героя {{hero}}",
+      "description": "Матчи героя {{hero}}, сыгранные на сайте dotaclassic.ru"
+    }
+  }
+}

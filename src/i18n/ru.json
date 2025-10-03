@@ -637,6 +637,8 @@
   "hero_icon.iconAlt": "Icon of hero {{heroName}}",
   "hero_matches.loading": "Loading...",
   "hero_matches.matches": "Matches for {{hero}}",
+  "hero_matches_page.seo.title": "Матчи героя {{hero}}",
+  "hero_matches_page.seo.description": "Матчи героя {{hero}}, сыгранные на сайте dotaclassic.ru",
   "hero_mention.localizedName": "localized name of hero {{name}}",
   "hero_stats.popularity": "Популярность",
   "hero_stats.matches": "Матчи",

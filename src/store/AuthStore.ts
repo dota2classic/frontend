@@ -150,7 +150,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @action
   public setToken = (token: string | undefined, fetchMe: boolean = true) => {
-    console.trace("SetToken called");
     this.token = token;
     appApi.apiParams.accessToken = token;
 

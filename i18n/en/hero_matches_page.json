@@ -1,0 +1,8 @@
+{
+  "hero_matches_page": {
+    "seo": {
+      "title": "Games with {{hero}}",
+      "description": "Games with {{hero}} played on en.dotaclassic.ru"
+    }
+  }
+}
