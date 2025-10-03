@@ -98,6 +98,10 @@ export interface PlayerControllerUnblockPlayerRequest {
   id: string;
 }
 
+export interface PlayerControllerUserRequest {
+  id: string;
+}
+
 /**
  * 
  */
@@ -1000,6 +1004,59 @@ export class PlayerApi extends runtime.BaseAPI {
 
         const context = this.playerControllerUnblockPlayerContext({ id: id! });
         return useSWR(context, valid ? () => this.playerControllerUnblockPlayer(id!) : null, config)
+    }
+
+    /**
+     */
+    private async playerControllerUserRaw(requestParameters: PlayerControllerUserRequest): Promise<runtime.ApiResponse<UserDTO>> {
+        this.playerControllerUserValidation(requestParameters);
+        const context = this.playerControllerUserContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserDTOFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private playerControllerUserValidation(requestParameters: PlayerControllerUserRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerUser.");
+        }
+    }
+
+    /**
+     */
+    playerControllerUserContext(requestParameters: PlayerControllerUserRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/player/{id}/user`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerUser = async (id: string): Promise<UserDTO> => {
+        const response = await this.playerControllerUserRaw({ id: id });
+        return await response.value();
+    }
+
+    usePlayerControllerUser(id: string, config?: SWRConfiguration<UserDTO, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.playerControllerUserContext({ id: id! });
+        return useSWR(context, valid ? () => this.playerControllerUser(id!) : null, config)
     }
 
 }
