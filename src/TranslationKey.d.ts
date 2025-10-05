@@ -983,6 +983,8 @@ export type TranslationKey =
   | "notification_setting.enableNotifications"
   | "notification_setting.disableNotifications"
   | "notifications.popupNotificationText"
+  | "notifications.itemDropped"
+  | "notifications.itemDroppedDescription"
   | "offer_page.seo.title"
   | "offer_page.seo.description"
   | "offer_page.offer"

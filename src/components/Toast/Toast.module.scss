@@ -97,3 +97,21 @@
     height: auto;
   }
 }
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding-bottom: 8px;
+
+  & > a {
+    font-size: 1.2rem;
+    padding-top: 8px;
+  }
+
+  & > img {
+    width: 100%;
+    height: auto;
+  }
+}

@@ -1,5 +1,7 @@
 {
   "notifications": {
-    "popupNotificationText": "{{text}}"
+    "popupNotificationText": "{{text}}",
+    "itemDropped": "Получена награда!",
+    "itemDroppedDescription": "Получить ее можно в профиле во вкладке \"награды\"!"
   }
 }

@@ -991,6 +991,8 @@
   "notification_setting.enableNotifications": "Включить уведомления",
   "notification_setting.disableNotifications": "Отключить уведомления",
   "notifications.popupNotificationText": "{{text}}",
+  "notifications.itemDropped": "Получена награда!",
+  "notifications.itemDroppedDescription": "Получить ее можно в профиле во вкладке \"награды\"!",
   "offer_page.seo.title": "Оферта dotaclassic.ru",
   "offer_page.seo.description": "Юридические документы",
   "offer_page.offer": "Оферта",

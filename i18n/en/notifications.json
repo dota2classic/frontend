@@ -1,5 +1,7 @@
 {
   "notifications": {
-    "popupNotificationText": "{{text}}"
+    "popupNotificationText": "{{text}}",
+    "itemDropped": "Item dropped!",
+    "itemDroppedDescription": "You can get claim it in profile tab \"drops\"!"
   }
 }

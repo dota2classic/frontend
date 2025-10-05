@@ -17,6 +17,7 @@ import { SimpleToast } from "./SimpleToast";
 import { AppRouter } from "@/route";
 import { Trans } from "react-i18next";
 import { clientStoreManager } from "@/store/ClientStoreManager";
+import { ItemDroppedNotification } from "@/components/Toast/ItemDroppedNotification";
 
 export const createAcceptPartyToast = (
   invite: PartyInviteReceivedMessageS2C,
@@ -53,11 +54,11 @@ export const handleNotification = (notification: NotificationDto) => {
     return;
   }
 
-  if (notification.notificationType === NotificationType.ITEMDROPPED) {
-    clientStoreManager.getRootStore()!.claim.claimSubscription(notification);
-    clientStoreManager.getRootStore()!.auth.forceRefreshToken().then();
-    return;
-  }
+  // if (notification.notificationType === NotificationType.ITEMDROPPED) {
+  //   clientStoreManager.getRootStore()!.claim.claimSubscription(notification);
+  //   clientStoreManager.getRootStore()!.auth.forceRefreshToken().then();
+  //   return;
+  // }
 
   let title: ReactNode = notification.title;
   let content: ReactNode = notification.content;
@@ -169,6 +170,11 @@ export const handleNotification = (notification: NotificationDto) => {
       break;
     case NotificationType.PLAYERREPORTBAN:
       // TODO: reuse
+      break;
+
+    case NotificationType.ITEMDROPPED:
+      title = <Trans i18nKey={"notifications.itemDropped"} />;
+      content = <ItemDroppedNotification notification={notification} />;
       break;
     case NotificationType.TICKETCREATED:
       title = `Создан тикет с твоей обратной связью`;

@@ -987,6 +987,8 @@
   "notification_setting.enableNotifications": "Enable notifications",
   "notification_setting.disableNotifications": "Disable notifications",
   "notifications.popupNotificationText": "{{text}}",
+  "notifications.itemDropped": "Item dropped!",
+  "notifications.itemDroppedDescription": "You can get claim it in profile tab \"drops\"!",
   "offer_page.seo.title": "Offer dotaclassic.ru",
   "offer_page.seo.description": "Legal documents",
   "offer_page.offer": "Offer",
