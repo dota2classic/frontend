@@ -900,7 +900,7 @@
   "matchmaking_option.searchForbiddenUntil": "Поиск запрещен до",
   "matchmaking_option.searchForbiddenPermanent": "Тебе запрещена игра.",
   "matchmaking_option.needToPlayAgainstBots": "Нужно сыграть против <attention>ботов</attention>",
-  "matchmaking_option.needToWinAnyMode": "Нужно победить в любом режиме",
+  "matchmaking_option.needToWinAnyMode": "Нужно победить против ботов",
   "matchmaking_option.needToPlayMore": "Нужно сыграть еще {{gamesRequired}} игр в Обычная 5х5",
   "message_content.edit": "<key>escape</key> для отмены, <key>enter</key> сохранить",
   "message_content.edited": "редактировано",

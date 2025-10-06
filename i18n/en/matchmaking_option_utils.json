@@ -3,7 +3,7 @@
     "searchForbiddenUntil": "Search forbidden until",
     "searchForbiddenPermanent": "You are banned from playing.",
     "needToPlayAgainstBots": "Need to play against <attention>bots</attention>",
-    "needToWinAnyMode": "Need to win in any mode",
+    "needToWinAnyMode": "Need to win against bots",
     "needToPlayMore": "Need to play more {{gamesRequired}} games in Normal 5x5"
   }
 }

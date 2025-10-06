@@ -896,7 +896,7 @@
   "matchmaking_option.searchForbiddenUntil": "Search forbidden until",
   "matchmaking_option.searchForbiddenPermanent": "You are banned from playing.",
   "matchmaking_option.needToPlayAgainstBots": "Need to play against <attention>bots</attention>",
-  "matchmaking_option.needToWinAnyMode": "Need to win in any mode",
+  "matchmaking_option.needToWinAnyMode": "Need to win against bots",
   "matchmaking_option.needToPlayMore": "Need to play more {{gamesRequired}} games in Normal 5x5",
   "message_content.edit": "<key>escape</key> to cancel, <key>enter</key> to save",
   "message_content.edited": "edited",
