@@ -24,7 +24,7 @@ const domains = [
 export const EmbedProps: React.FC<PropsWithChildren<IEmbedPropsProps>> = (
   p,
 ) => {
-  const isDev = process.env.NEXT_PUBLIC_IS_DEV_VERSION;
+  const isDev = process.env.IS_DEV_VERSION;
   const url = useRouter().asPath;
   const title = `${p.title} • dotaclassic.ru`;
   return (

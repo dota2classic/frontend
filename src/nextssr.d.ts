@@ -12,6 +12,8 @@ declare global {
   }
 
   interface Window {
+    env: string;
+    process: Record<string, string>;
     store: RootStore;
     registration?: ServiceWorkerRegistration;
     api: AppApi;

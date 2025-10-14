@@ -27,7 +27,7 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
   const router = useRouter();
 
   const saveKey = useMemo(() => {
-    return `${process.env.NEXT_PUBLIC_API_URL}-edit-${post?.id || "draft"}`;
+    return `${process.env.API_URL}-edit-${post?.id || "draft"}`;
   }, [post]);
 
   const [loaded, setLoaded] = useState(false);

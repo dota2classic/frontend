@@ -1,11 +1,13 @@
 import { Head, Html, Main, NextScript } from "next/document";
-import { YandexMetrika, GoogleTagManager } from "@/components/YandexMetrika";
+import { GoogleTagManager, YandexMetrika } from "@/components/YandexMetrika";
 import { YaReklama } from "@/components/YaReklama";
+import { EnvFromServer } from "@/components/EnvFromServer";
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <EnvFromServer />
         <link rel="stylesheet" href={`/normalize.css`} />
         <link rel="stylesheet" href={`/minimap.css`} />
         <link rel="icon" href="/favicon.ico" sizes="any" />

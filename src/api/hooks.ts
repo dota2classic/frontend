@@ -36,10 +36,7 @@ import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 import Cookies from "js-cookie";
 import { BrowserCookies } from "@/util/browser-cookies";
 
-// const PROD_URL = "http://localhost:6001";
-// const PROD_URL = "https://dotaclassic.ru/api";
-const PROD_URL = (process.env.API_URL ||
-  process.env.NEXT_PUBLIC_API_URL) as string;
+const PROD_URL = process.env.API_URL;
 
 export interface JwtPayload {
   sub: string;
