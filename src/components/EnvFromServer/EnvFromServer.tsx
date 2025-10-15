@@ -5,6 +5,7 @@ export const EnvFromServer: React.FC = () => {
     API_URL: process.env.API_URL,
     SOCKET_URL: process.env.SOCKET_URL,
     IS_DEV_VERSION: process.env.IS_DEV_VERSION,
+    WIKI_URL: process.env.WIKI_URL,
   };
 
   // Return a JS snippet that sets window.env

@@ -12,14 +12,14 @@ import { useTranslation } from "react-i18next";
 import { GenericTooltip } from "../GenericTooltip";
 import { PlaceholderImage } from "./PlaceholderImage";
 
-const BASE_URL = "https://wiki.dotaclassic.ru";
-
 export const ItemIconRaw: React.FC<IItemIconProps> = React.memo(
   function ItemIconRaw({ item, small, noTooltip }) {
     const { t } = useTranslation();
     const ref = useRef<HTMLImageElement | null>(null);
     const [tooltipRef, setTooltipRef] = useState<HTMLElement | null>(null);
     const listener = useRef<(ev: MessageEvent) => void | null>(null);
+
+    const BASE_URL = process.env.WIKI_URL;
 
     const onIframeLoad = useCallback(
       (e: React.SyntheticEvent<HTMLIFrameElement>) => {

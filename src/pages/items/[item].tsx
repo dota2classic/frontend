@@ -20,13 +20,12 @@ interface Props {
   item: number;
 }
 
-const BASE_URL = "https://wiki.dotaclassic.ru";
-
 export default function ItemPage({ data, item }: Props) {
   const { t } = useTranslation();
   const router = useRouter();
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
+  const BASE_URL = process.env.WIKI_URL;
   const [iframeSrc] = useState(() => `${BASE_URL}/slim/items/${item}`);
 
   const isFirstRun = useRef(true);

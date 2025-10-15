@@ -4,7 +4,6 @@ import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 
 //ни в коем случае не ставить в конце слэш
-const CHILD_ORIGIN = "https://wiki.dotaclassic.ru";
 
 interface WikiMsg {
   height: number | string;
@@ -16,6 +15,11 @@ export default function WikiEmbed() {
 
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
+      let CHILD_ORIGIN = process.env.WIKI_URL;
+      if (CHILD_ORIGIN.endsWith("/")) {
+        CHILD_ORIGIN = CHILD_ORIGIN.substring(0, CHILD_ORIGIN.length - 1);
+      }
+
       if (event.origin !== CHILD_ORIGIN) return;
 
       const data = event.data as { type: string };
