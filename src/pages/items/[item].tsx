@@ -46,7 +46,7 @@ export default function ItemPage({ data, item }: Props) {
     if (!target) return;
 
     const msg = { type: "sync-route", route: `/slim${route}` };
-    target.postMessage(msg, BASE_URL);
+    target.postMessage(msg, BASE_URL as string);
   }
 
   useEffect(() => {

@@ -13,7 +13,7 @@ export default function WikiEmbed() {
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
-  let CHILD_ORIGIN = process.env.WIKI_URL;
+  let CHILD_ORIGIN = process.env.WIKI_URL as string;
   if (CHILD_ORIGIN.endsWith("/")) {
     CHILD_ORIGIN = CHILD_ORIGIN.substring(0, CHILD_ORIGIN.length - 1);
   }
