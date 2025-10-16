@@ -15,7 +15,7 @@ export const DevVersionIndicator: React.FC<Props> = observer(
   ({ maintenance }) => {
     const { t } = useTranslation();
     const { auth } = useStore();
-    const doShow = process.env.NEXT_PUBLIC_IS_DEV_VERSION;
+    const doShow = process.env.IS_DEV_VERSION;
     const { data, error } = getApi().statsApi.useStatsControllerMaintenance({
       refreshInterval: 5000,
       fallbackData: maintenance,
