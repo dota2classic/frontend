@@ -374,7 +374,7 @@ export class QueueStore
     // Make sure token is not stale
     await this.authStore.fetchMe();
 
-    console.log("Constructing url", process.env.SOCKET_URL)
+    console.log("Constructing url", process.env.SOCKET_URL);
     const url = new URL(process.env.SOCKET_URL as string);
 
     const path = url.pathname === "/" ? undefined : url.pathname;

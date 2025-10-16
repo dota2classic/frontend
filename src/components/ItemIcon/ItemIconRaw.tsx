@@ -19,7 +19,7 @@ export const ItemIconRaw: React.FC<IItemIconProps> = React.memo(
     const [tooltipRef, setTooltipRef] = useState<HTMLElement | null>(null);
     const listener = useRef<(ev: MessageEvent) => void | null>(null);
 
-    const BASE_URL = process.env.WIKI_URL;
+    const BASE_URL = process.env.WIKI_URL as string;
 
     const onIframeLoad = useCallback(
       (e: React.SyntheticEvent<HTMLIFrameElement>) => {
@@ -30,7 +30,7 @@ export const ItemIconRaw: React.FC<IItemIconProps> = React.memo(
           type: "sync-route",
           route: `/slim/items/${item}?hideTree=true`,
         };
-        target.postMessage(msg, BASE_URL);
+        target.postMessage(msg, BASE_URL as string);
       },
       [item],
     );
