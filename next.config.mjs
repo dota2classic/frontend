@@ -32,12 +32,8 @@ const nextConfig = {
   output: "standalone",
   env: {
     API_URL: process.env.API_URL,
-    NEXT_PUBLIC_API_URL: process.env.API_URL,
     SOCKET_URL: process.env.SOCKET_URL,
-    NEXT_PUBLIC_SOCKET_URL: process.env.SOCKET_URL,
-
     IS_DEV_VERSION: process.env.IS_DEV_VERSION,
-    NEXT_PUBLIC_IS_DEV_VERSION: process.env.IS_DEV_VERSION,
     NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.VAPID_PUBLIC_KEY,
   },
   experimental: {

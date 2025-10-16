@@ -36,7 +36,7 @@ import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 import Cookies from "js-cookie";
 import { BrowserCookies } from "@/util/browser-cookies";
 
-const PROD_URL = process.env.API_URL;
+const PROD_URL = process.env.INTERNAL_API_URL || process.env.API_URL;
 
 export interface JwtPayload {
   sub: string;
