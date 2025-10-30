@@ -13,7 +13,6 @@ import { appApi, getApi, JwtPayload } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
 import { metrika } from "@/ym";
 import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
-import * as Sentry from "@sentry/nextjs";
 import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 import { eraseCookie } from "@/util/erase-cookie";
 import { BrowserCookies } from "@/util/browser-cookies";
@@ -65,14 +64,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       metrika("userParams", {
         UserID: this.parsedToken?.sub,
       });
-      const userId = this.parsedToken?.sub;
-      Sentry.setUser(
-        userId
-          ? {
-              id: userId,
-            }
-          : null,
-      );
     });
   }
 

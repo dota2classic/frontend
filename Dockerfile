@@ -27,10 +27,7 @@ COPY . .
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED=1
-
-ARG SENTRY_AUTH_KEY
-ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_KEY
+ENV NEXT_TELEMETRY_DISABLED=1
 
 ARG VAPID_PUBLIC_KEY
 ENV VAPID_PUBLIC_KEY=$VAPID_PUBLIC_KEY

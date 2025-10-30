@@ -2,7 +2,6 @@ import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import { useTranslation } from "react-i18next";
 import { NextPageContext } from "next";
-import * as Sentry from "@sentry/nextjs";
 import Error from "next/error";
 
 export default function Error500({ statusCode }: { statusCode: number }) {
@@ -18,7 +17,5 @@ export default function Error500({ statusCode }: { statusCode: number }) {
   );
 }
 Error500.getInitialProps = async (contextData: NextPageContext) => {
-  await Sentry.captureUnderscoreErrorException(contextData);
-
   return Error.getInitialProps(contextData);
 };
