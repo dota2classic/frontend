@@ -49,6 +49,7 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
     }),
     [],
   );
+
   return (
     <>
       <EmbedProps
@@ -92,7 +93,11 @@ const ListLobbies = observer(function ListLobbies({ lobbies }: Props) {
                   <dd>{t(`game_mode.${lobby.gameMode}` as TranslationKey)}</dd>
                 </td>
                 <td>{t(`dota_map.${lobby.map}` as TranslationKey)}</td>
-                <td>{lobby.slots.length}</td>
+                <td>
+                  {lobby.slots.filter((t) => t.user).length}
+                  {" / "}
+                  {lobby.slots.length}
+                </td>
                 <td>
                   {lobby.requiresPassword
                     ? t("lobby.passwordRequired")
