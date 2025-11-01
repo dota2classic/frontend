@@ -118,7 +118,9 @@ export class AppApi {
       path: "/",
       domain: getBaseCookieDomain(),
     });
-    this.apiParams.accessToken = newToken;
+    const rootStore = clientStoreManager.getRootStore()!;
+    const auth = rootStore.auth;
+    auth.setToken(newToken);
   };
 
   private readonly apiConfig = new Configuration(this.apiParams);
