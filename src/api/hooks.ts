@@ -120,7 +120,7 @@ export class AppApi {
     });
     const rootStore = clientStoreManager.getRootStore()!;
     const auth = rootStore.auth;
-    auth.setToken(newToken);
+    auth.setToken(newToken, false);
   };
 
   private readonly apiConfig = new Configuration(this.apiParams);
