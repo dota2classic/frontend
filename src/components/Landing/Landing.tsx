@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { EmbedProps } from "../EmbedProps";
 import { PageLink } from "../PageLink";
 import { TelegramInvite } from "../TelegramInvite";
+import { SrcSetImage } from "@/components/Landing/SrcSetImage";
 
 interface Props {
   recentPosts: BlogpostDto[];
@@ -61,21 +62,11 @@ export const Landing = observer(({ recentPosts }: Props) => {
 
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>
-          <img
-            className={c.backimage}
-            width={1920}
-            height={1080}
-            alt=""
+          <SrcSetImage
             fetchPriority="high"
             loading="eager"
-            srcSet="/landing/highres2-480.webp 480w,
-           /landing/highres2-768.webp 768w,
-           /landing/highres2-1280.webp 1280w,
-           /landing/highres2-1920.webp 1920w"
-            sizes="(max-width: 480px) 480px,
-          (max-width: 768px) 768px,
-          (max-width: 1280px) 1280px,
-          1920px"
+            className={c.backimage}
+            src="/landing/highres2.webp"
           />
         </div>
         <div className={c.leadingIntent}>
@@ -97,21 +88,10 @@ export const Landing = observer(({ recentPosts }: Props) => {
 
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>
-          <img
+          <SrcSetImage
             className={c.backimage}
-            width={1920}
-            height={1080}
             loading="lazy"
-            alt=""
             src="/landing/dotaold.webp"
-            srcSet="/landing/dotaold-480.webp 480w,
-          /landing/dotaold-768.webp 768w,
-          /landing/dotaold-1280.webp 1280w,
-          /landing/dotaold-1920.webp 1920w"
-            sizes="(max-width: 480px) 480px,
-         (max-width: 768px) 768px,
-         (max-width: 1280px) 1280px,
-         1920px"
           />
         </div>
         <div className={c.leadingIntent}>
@@ -123,21 +103,10 @@ export const Landing = observer(({ recentPosts }: Props) => {
 
       <div className={cx(c.block)}>
         <div className={c.promoVideoWrapper}>
-          <img
+          <SrcSetImage
             className={c.backimage}
             src="/landing/bg3.webp"
-            width={1920}
-            height={1080}
-            loading="lazy"
-            srcSet="/landing/bg3-480.webp 480w,
-          /landing/bg3-768.webp 768w,
-          /landing/bg3-1280.webp 1280w,
-          /landing/bg3-1920.webp 1920w"
-            sizes="(max-width: 480px) 480px,
-         (max-width: 768px) 768px,
-         (max-width: 1280px) 1280px,
-         1920px"
-            alt=""
+            loading={"lazy"}
           />
         </div>
         <div className={cx(c.playBottom)}>

@@ -1,8 +1,8 @@
 {
   "meta_carousel": {
-    "statistics": "Statistics",
-    "bestPlayers": "Best Players",
-    "matchHistory": "Match History",
-    "strongestHeroes": "Strongest Heroes"
+    "statistics": "Статистика",
+    "bestPlayers": "Лучшие игроки",
+    "matchHistory": "История матчей",
+    "strongestHeroes": "Сильнейшие герои"
   }
 }
