@@ -15,6 +15,7 @@ import {
   HorizontalAdBlock,
   SideAdBlock,
 } from "@/components/AdBlock";
+import { useLazyBackground } from "@/util/useLazyBackground";
 
 interface LayoutProps {
   className?: string;
@@ -30,10 +31,17 @@ export const Layout = ({
     r.pathname === "/" || r.pathname === "/store" || isQueuePage;
   const isStore = r.pathname === "/store";
 
+  const [ref, loaded] = useLazyBackground("/bg_repeater_lossless.webp");
+
   return (
     <ThemeContext.Provider value={{ newYear: true }}>
       <div
-        className={cx(c.wrapper, isQueuePage && c.wrapper__queue, c.blogpost)}
+        ref={ref}
+        className={cx(
+          c.wrapper,
+          isQueuePage && c.wrapper__queue,
+          loaded && c.blogpost,
+        )}
       >
         <Navbar className={TrajanPro.className} />
         <div
