@@ -63,11 +63,19 @@ export const Landing = observer(({ recentPosts }: Props) => {
         <div className={c.promoVideoWrapper}>
           <img
             className={c.backimage}
-            src="/landing/highres2.webp"
             width={1920}
             height={1080}
-            alt="highres"
+            alt=""
             fetchPriority="high"
+            loading="eager"
+            srcSet="/landing/highres2-480.webp 480w,
+           /landing/highres2-768.webp 768w,
+           /landing/highres2-1280.webp 1280w,
+           /landing/highres2-1920.webp 1920w"
+            sizes="(max-width: 480px) 480px,
+          (max-width: 768px) 768px,
+          (max-width: 1280px) 1280px,
+          1920px"
           />
         </div>
         <div className={c.leadingIntent}>
@@ -91,10 +99,19 @@ export const Landing = observer(({ recentPosts }: Props) => {
         <div className={c.promoVideoWrapper}>
           <img
             className={c.backimage}
-            src="/landing/dotaold.webp"
             width={1920}
             height={1080}
-            alt="old dota"
+            loading="lazy"
+            alt=""
+            src="/landing/dotaold.webp"
+            srcSet="/landing/dotaold-480.webp 480w,
+          /landing/dotaold-768.webp 768w,
+          /landing/dotaold-1280.webp 1280w,
+          /landing/dotaold-1920.webp 1920w"
+            sizes="(max-width: 480px) 480px,
+         (max-width: 768px) 768px,
+         (max-width: 1280px) 1280px,
+         1920px"
           />
         </div>
         <div className={c.leadingIntent}>
@@ -111,7 +128,16 @@ export const Landing = observer(({ recentPosts }: Props) => {
             src="/landing/bg3.webp"
             width={1920}
             height={1080}
-            alt="background"
+            loading="lazy"
+            srcSet="/landing/bg3-480.webp 480w,
+          /landing/bg3-768.webp 768w,
+          /landing/bg3-1280.webp 1280w,
+          /landing/bg3-1920.webp 1920w"
+            sizes="(max-width: 480px) 480px,
+         (max-width: 768px) 768px,
+         (max-width: 1280px) 1280px,
+         1920px"
+            alt=""
           />
         </div>
         <div className={cx(c.playBottom)}>

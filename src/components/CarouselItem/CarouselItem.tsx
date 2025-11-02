@@ -51,6 +51,7 @@ export const CarouselItem: React.FC<ICarouselItemProps> = ({
         width={500}
         height={500}
         unoptimized={unoptimized}
+        loading={"lazy"}
       />
       <div className={c.shadow} />
       <div className={c.contentContainer}>

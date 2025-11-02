@@ -1,6 +1,6 @@
 export const metrika = (name: string, value: unknown) => {
   try {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && window.ym) {
       window.ym(98808071, name, value);
       console.log(`${name}(${value})`);
     }

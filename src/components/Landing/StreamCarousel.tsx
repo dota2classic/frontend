@@ -26,6 +26,7 @@ export const StreamCarousel = ({ streamList }: Props) => {
             <iframe
               src={`https://player.twitch.tv/?channel=${stream.link.split("twitch.tv/")[1]}&parent=${getDomain()}&muted=true&autoplay=${idx < 2}`}
               allowFullScreen={false}
+              loading="lazy"
             />
           </div>
         ))}
