@@ -77,7 +77,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   @action
   private setTokenFromCookies = () => {
     if (typeof window !== "undefined") {
-      // debugger;
       let cookie: string | undefined = BrowserCookies.get(
         AUTH_TOKEN_COOKIE_KEY,
       );
