@@ -117,7 +117,7 @@ export class AppApi {
       expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30),
       path: "/",
       domain: getBaseCookieDomain(),
-      sameSite: "none",
+      sameSite: "lax",
     });
     const rootStore = clientStoreManager.getRootStore()!;
     const auth = rootStore.auth;
