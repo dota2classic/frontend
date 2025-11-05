@@ -20,7 +20,7 @@ export const CookieChangedPopup: React.FC = () => {
         // Copy to new key with same attributes
         Cookies.set(AUTH_TOKEN_COOKIE_KEY, oldValue, {
           path: "/",
-          sameSite: "Lax",
+          sameSite: "none",
           secure: true,
           expires: 30,
           domain,
