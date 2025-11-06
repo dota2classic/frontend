@@ -14,7 +14,6 @@ import "../ext";
 import cx from "clsx";
 import { ToastContainer } from "react-toastify";
 import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModalContainer";
-import { CookieChangedPopup } from "@/containers/CookieChangedPopup/CookieChangedPopup";
 // Font files can be colocated inside of `pages`
 import "@/styles/editor.css";
 import { TrajanPro } from "@/const/fonts";
@@ -128,7 +127,6 @@ export default class MyApp extends App<{
         <ReferralSniffer />
         <DevVersionIndicator maintenance={maintenance} />
         <ToastContainer />
-        <CookieChangedPopup />
         <ReportModalContainer />
         <ClaimContainer />
         <FeedbackModalContainer />
