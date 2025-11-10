@@ -1,22 +1,22 @@
 import { Landing } from "@/components/Landing";
-import { BlogPageDto, LiveMatchDto } from "@/api/back";
+import { AggregatedStatsDto, BlogPageDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 
 interface LandingProps {
   blog: BlogPageDto;
-  live: LiveMatchDto[];
+  agg: AggregatedStatsDto;
 }
-export default function Home({ blog, live }: LandingProps) {
-  return <Landing recentPosts={blog.data} live={live} />;
+export default function Home({ blog, agg }: LandingProps) {
+  return <Landing recentPosts={blog.data} live={[]} aggStats={agg} />;
 }
 
 Home.getInitialProps = async (): Promise<LandingProps> => {
-  const [blog, live] = await Promise.combine([
+  const [blog, agg] = await Promise.combine([
     getApi().blog.blogpostControllerBlogPage(0, 3),
-    getApi().liveApi.liveMatchControllerListMatches(),
+    getApi().statsApi.statsControllerGetAggStats(),
   ]);
   return {
     blog,
-    live,
+    agg,
   };
 };

@@ -1,4 +1,5 @@
 export * from "./AchievementDto";
+export * from "./AggregatedStatsDto";
 export * from "./ApplyPunishmentDto";
 export * from "./BanHammerDto";
 export * from "./BanStatusDto";

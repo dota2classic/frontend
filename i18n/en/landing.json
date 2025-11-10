@@ -6,7 +6,15 @@
     },
     "oldDota": {
       "question": "Do you miss the old Dota?",
-      "startPlaying": "Start playing the real {{game}} online"
+      "startPlaying": "Start playing the real {{game}} online",
+
+      "gamesWeekly_one": "<games /> game",
+      "gamesWeekly_other": "<games /> games",
+
+      "playersWeekly_one": "<players /> player",
+      "playersWeekly_other": "<players /> players",
+
+      "weekly": "this week"
     },
     "playForFree": "Play for free",
     "originalGame": {

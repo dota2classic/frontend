@@ -18,6 +18,9 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+  AggregatedStatsDto,
+  AggregatedStatsDtoFromJSON,
+  AggregatedStatsDtoToJSON,
   CurrentOnlineDto,
   CurrentOnlineDtoFromJSON,
   CurrentOnlineDtoToJSON,
@@ -50,6 +53,52 @@ export interface StatsControllerRequestHighlightsRequest {
  * 
  */
 export class StatsApi extends runtime.BaseAPI {
+
+    /**
+     */
+    private async statsControllerGetAggStatsRaw(): Promise<runtime.ApiResponse<AggregatedStatsDto>> {
+        this.statsControllerGetAggStatsValidation();
+        const context = this.statsControllerGetAggStatsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AggregatedStatsDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private statsControllerGetAggStatsValidation() {
+    }
+
+    /**
+     */
+    statsControllerGetAggStatsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/stats/agg_stats`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    statsControllerGetAggStats = async (): Promise<AggregatedStatsDto> => {
+        const response = await this.statsControllerGetAggStatsRaw();
+        return await response.value();
+    }
+
+    useStatsControllerGetAggStats(config?: SWRConfiguration<AggregatedStatsDto, Error>) {
+        let valid = true
+
+        const context = this.statsControllerGetAggStatsContext();
+        return useSWR(context, valid ? () => this.statsControllerGetAggStats() : null, config)
+    }
 
     /**
      */

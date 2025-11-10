@@ -6,7 +6,16 @@
     },
     "oldDota": {
       "question": "Скучаешь по старой доте?",
-      "startPlaying": "Начни играть в настоящую {{game}} онлайн"
+      "startPlaying": "Начни играть в настоящую {{game}} онлайн",
+      "gamesWeekly_one": "<games /> игра",
+      "gamesWeekly_few": "<games /> игры",
+      "gamesWeekly_many": "<games /> игр",
+
+      "playersWeekly_one": "<players /> игрок",
+      "playersWeekly_few": "<players /> игрока",
+      "playersWeekly_many": "<players /> игроков",
+
+      "weekly": "за неделю"
     },
     "playForFree": "Играть бесплатно",
     "originalGame": {
