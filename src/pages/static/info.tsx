@@ -35,14 +35,14 @@ export default function InfoPage() {
         </h2>
         <p>{t("info_page.expensesExplanation")}</p>
         <ul>
-          <li>{t("info_page.fixedExpenseDetails", { amount: "2000₽" })}</li>
-          <li>{t("info_page.scalableExpenseDetails", { amount: "±520₽" })}</li>
+          <li>{t("info_page.fixedExpenseDetails", { amount: "5000₽" })}</li>
+          <li>{t("info_page.scalableExpenseDetails", { amount: "±1500" })}</li>
           <li>{t("info_page.advertExpenseDetails")}</li>
         </ul>
         <p>
           {t("info_page.approximateExpenses", {
-            lowOnline: "3500₽",
-            highOnline: "10000₽",
+            lowOnline: "6500₽",
+            highOnline: "15000₽",
           })}
         </p>
         <h2 className={cx(TrajanPro.className, "megaheading")}>
