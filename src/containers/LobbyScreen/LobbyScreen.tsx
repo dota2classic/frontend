@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import c from "./LobbyScreen.module.scss";
 import {
@@ -28,13 +28,14 @@ import { Tooltipable } from "@/components/Tooltipable";
 import { IconButton } from "@/components/IconButton";
 import { Thread } from "../Thread";
 import { TranslationKey } from "@/TranslationKey";
+import { useSummaries } from "@/util/use-summaries";
 
 interface ILobbyScreenProps {
   lobby: LobbyDto;
 }
 
 export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
-  ({ lobby }) => {
+  function LobbyScreen({ lobby }) {
     const { t } = useTranslation();
     const evt = useEventSource<LobbyUpdateType>(
       getApi().lobby.lobbyControllerLobbyUpdatesContext({ id: lobby.id }),
@@ -109,6 +110,30 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
       getApi().lobby.lobbyControllerShuffleLobby(data.id).catch();
     }, [data, mySteamId]);
 
+    const summaries = useSummaries(
+      lobby.slots.map((t) => t.user?.steamId).filter(Boolean) as string[],
+    );
+
+    const [radiantMMR, direMMR] = useMemo(() => {
+      if (!data) return [0, 0];
+
+      let radiant = 0,
+        dire = 0;
+
+      for (const slot of data.slots) {
+        if (!slot.user) continue;
+        const mmr =
+          summaries.summaries.get(slot.user.steamId)?.seasonStats.mmr || 1500;
+        if (slot.team === 2) {
+          radiant += mmr;
+        } else if (slot.team === 3) {
+          dire += mmr;
+        }
+      }
+
+      return [radiant, dire];
+    }, [data, summaries]);
+
     if (!auth.isAuthorized) {
       return <h2>{t("lobby.authorizeToView")}</h2>;
     }
@@ -166,6 +191,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             onRemoveSlot={(idx, steamId) => takeSlot(undefined, 0, steamId)}
             onTakeSlot={(idx) => takeSlot(2, idx, mySteamId)}
             slots={radiant}
+            totalMMR={radiantMMR}
           />
           <LobbyTeam
             onKickPlayer={kickPlayer}
@@ -174,6 +200,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             onTakeSlot={(idx) => takeSlot(3, idx, mySteamId)}
             onRemoveSlot={(idx, steamId) => takeSlot(undefined, 0, steamId)}
             slots={dire}
+            totalMMR={direMMR}
           />
           <div className={cx(c.grid4, c.settings)}>
             <Button disabled={!isOwner || $shuffleLobby} onClick={shuffleLobby}>

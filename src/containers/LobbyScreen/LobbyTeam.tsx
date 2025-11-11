@@ -16,6 +16,7 @@ interface TeamProps {
   team: number | undefined;
   onRemoveSlot: (index: number, steamId: string) => void;
   onKickPlayer: (steamId: string) => void;
+  totalMMR: number;
 }
 
 export const LobbyTeam = observer(
@@ -26,6 +27,7 @@ export const LobbyTeam = observer(
     onRemoveSlot,
     team,
     onKickPlayer,
+    totalMMR,
   }: TeamProps) => {
     const { auth } = useStore();
     const { t } = useTranslation();
@@ -39,6 +41,7 @@ export const LobbyTeam = observer(
             : team === 3
               ? t("lobby_team.darkForces")
               : t("lobby_team.undefined")}
+          <div className={c.mmr}>{totalMMR} mmr</div>
         </h2>
         <div className={c.slots}>
           {slots
