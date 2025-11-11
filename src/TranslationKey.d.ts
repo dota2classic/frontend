@@ -717,6 +717,7 @@ export type TranslationKey =
   | "landing.thousandsPlayers"
   | "landing.startingGame"
   | "landing.oldMap.originalHeroes"
+  | "landing.join"
   | "game.dota2"
   | "layout.showSideAds"
   | "layout.copyright"

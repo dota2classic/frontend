@@ -723,6 +723,7 @@
   "landing.thousandsPlayers": "Thousands of players prefer to play {{game}} on {{website}}",
   "landing.startingGame": "The game that started it all",
   "landing.oldMap.originalHeroes": "Old map, original heroes and abilities, and a reasonable amount of health for the heroes",
+  "landing.join": "Join us",
   "game.dota2": "Dota 2",
   "layout.showSideAds": "Show side ads? {{showSideAds}}",
   "layout.copyright": "© {{min}} - {{max}} dotaclassic.ru",

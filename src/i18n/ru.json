@@ -729,6 +729,7 @@
   "landing.thousandsPlayers": "Тысячи игроков предпочитают играть в {{game}} на сайте {{website}}",
   "landing.startingGame": "Игра, с которой все начиналось",
   "landing.oldMap.originalHeroes": "Старая карта, оригинальные герои и способности, адекватное количество здоровья у героев",
+  "landing.join": "Присоединяйся к нам",
   "game.dota2": "Dota 2",
   "layout.showSideAds": "Show side ads? {{showSideAds}}",
   "layout.copyright": "© {{min}} - {{max}} dotaclassic.ru",

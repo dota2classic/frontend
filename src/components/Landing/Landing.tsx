@@ -53,7 +53,7 @@ export const Landing = observer(({ recentPosts, aggStats }: Props) => {
             src={`/landing/output_action.webm`}
           />
         </div>
-        <div className={cx(c.leadingIntent, c.hero)}>
+        <div className={cx(c.leadingIntent)}>
           <h1>{t("landing.oldDota.question")}</h1>
           <h3>
             {t("landing.oldDota.startPlaying", { game: t("game.dota2") })}
@@ -108,7 +108,7 @@ export const Landing = observer(({ recentPosts, aggStats }: Props) => {
             src="/landing/highres2.webp"
           />
         </div>
-        <div className={c.leadingIntent}>
+        <div className={cx(c.leadingIntent)}>
           <h2>{t("landing.originalGame.experience")}</h2>
           <p>
             {t("landing.thousandsPlayers", {
@@ -148,7 +148,8 @@ export const Landing = observer(({ recentPosts, aggStats }: Props) => {
             loading={"lazy"}
           />
         </div>
-        <div className={cx(c.playBottom)}>
+        <div className={cx(c.leadingIntent)}>
+          <h2>{t("landing.join")}</h2>
           <PageLink link={AppRouter.download.link} className={cx(c.playButton)}>
             {t("landing.playForFree")}
           </PageLink>

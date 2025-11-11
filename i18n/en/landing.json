@@ -24,7 +24,8 @@
     "startingGame": "The game that started it all",
     "oldMap": {
       "originalHeroes": "Old map, original heroes and abilities, and a reasonable amount of health for the heroes"
-    }
+    },
+    "join": "Join us"
   },
   "game": {
     "dota2": "Dota 2"
