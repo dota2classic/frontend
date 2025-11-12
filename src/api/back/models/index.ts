@@ -111,6 +111,8 @@ export * from "./RuleDeleteResultDto";
 export * from "./RuleDto";
 export * from "./RulePunishmentDto";
 export * from "./RuleType";
+export * from "./RunRconDto";
+export * from "./RunRconResponseDto";
 export * from "./SelectDecorationDto";
 export * from "./SessionDto";
 export * from "./SimulatePaymentDto";

@@ -16,32 +16,32 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface StopServerDto
+ * @interface RunRconResponseDto
  */
-export interface StopServerDto {
+export interface RunRconResponseDto {
     /**
      * 
-     * @type {number}
-     * @memberof StopServerDto
+     * @type {string}
+     * @memberof RunRconResponseDto
      */
-    matchId: number;
+    response: string;
 }
 
-export function StopServerDtoFromJSON(json: any): StopServerDto {
-    return StopServerDtoFromJSONTyped(json, false);
+export function RunRconResponseDtoFromJSON(json: any): RunRconResponseDto {
+    return RunRconResponseDtoFromJSONTyped(json, false);
 }
 
-export function StopServerDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): StopServerDto {
+export function RunRconResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): RunRconResponseDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'matchId': json['matchId'],
+        'response': json['response'],
     };
 }
 
-export function StopServerDtoToJSON(value?: StopServerDto | null): any {
+export function RunRconResponseDtoToJSON(value?: RunRconResponseDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -50,7 +50,7 @@ export function StopServerDtoToJSON(value?: StopServerDto | null): any {
     }
     return {
         
-        'matchId': value.matchId,
+        'response': value.response,
     };
 }
 

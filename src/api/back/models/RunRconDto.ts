@@ -16,32 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface StopServerDto
+ * @interface RunRconDto
  */
-export interface StopServerDto {
+export interface RunRconDto {
     /**
      * 
-     * @type {number}
-     * @memberof StopServerDto
+     * @type {string}
+     * @memberof RunRconDto
      */
-    matchId: number;
+    serverUrl: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RunRconDto
+     */
+    command: string;
 }
 
-export function StopServerDtoFromJSON(json: any): StopServerDto {
-    return StopServerDtoFromJSONTyped(json, false);
+export function RunRconDtoFromJSON(json: any): RunRconDto {
+    return RunRconDtoFromJSONTyped(json, false);
 }
 
-export function StopServerDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): StopServerDto {
+export function RunRconDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): RunRconDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'matchId': json['matchId'],
+        'serverUrl': json['serverUrl'],
+        'command': json['command'],
     };
 }
 
-export function StopServerDtoToJSON(value?: StopServerDto | null): any {
+export function RunRconDtoToJSON(value?: RunRconDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -50,7 +57,8 @@ export function StopServerDtoToJSON(value?: StopServerDto | null): any {
     }
     return {
         
-        'matchId': value.matchId,
+        'serverUrl': value.serverUrl,
+        'command': value.command,
     };
 }
 

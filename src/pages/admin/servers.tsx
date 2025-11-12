@@ -3,12 +3,11 @@ import {
   DotaGameMode,
   DotaMap,
   DotaPatch,
-  GameServerDto,
   GameSessionDto,
   MatchmakingInfo,
   MatchmakingMode,
 } from "@/api/back";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { useDidMount } from "@/util/useDidMount";
 import c from "./AdminStyles.module.scss";
@@ -29,9 +28,9 @@ import { Button } from "@/components/Button";
 import { Table } from "@/components/Table";
 import { Section } from "@/components/Section";
 import { SelectOptions } from "@/components/SelectOptions";
+import { RconModal } from "@/containers/RconModal";
 
 interface PageProps {
-  initialServerPool: GameServerDto[];
   initialGameSessions: GameSessionDto[];
   initialAllowedModes: MatchmakingInfo[];
 }
@@ -46,95 +45,68 @@ const SessionList = observer(
   }) => {
     const { isAdmin } = useStore().auth;
     const { t } = useTranslation();
-    return (
-      <GenericTable
-        keyProvider={(t) => t[1]}
-        columns={[
-          {
-            type: ColumnType.ExternalLink,
-            name: t("admin.servers.sessionList.link"),
-          },
-          {
-            type: ColumnType.Raw,
-            name: t("admin.servers.sessionList.matchId"),
-          },
-          {
-            type: ColumnType.Raw,
-            name: t("admin.servers.sessionList.mode"),
-            format: (gm) => t(`matchmaking_mode.${gm}` as TranslationKey),
-          },
-          {
-            type: ColumnType.Raw,
-            name: t("admin.servers.sessionList.teams"),
-          },
-          {
-            type: ColumnType.Raw,
-            name: t("admin.servers.sessionList.actions"),
-            format: (d) => (
-              <>
-                <Button disabled={!isAdmin} onClick={() => stopGameSession(d)}>
-                  {t("admin.servers.sessionList.stop")}
-                </Button>
-              </>
-            ),
-          },
-        ]}
-        data={sessions.map((t) => [
-          { link: `steam://connect/${t.url}`, label: t.url },
-          t.matchId,
-          t.info.mode,
-          `${t.info.radiant.map((t) => t.name)} vs ${t.info.dire.map((t) => t.name)}`,
-          t,
-        ])}
-        placeholderRows={5}
-      />
+    const [rconTarget, setRconTarget] = useState<GameSessionDto | undefined>(
+      undefined,
     );
-  },
-);
-
-const ServerPool = observer(
-  ({
-    serverPool,
-    onKillServer,
-  }: {
-    serverPool: GameServerDto[];
-    onKillServer: (url: string) => void;
-  }) => {
-    const { isAdmin } = useStore().auth;
-    const { t } = useTranslation();
     return (
-      <Table>
-        <thead>
-          <tr>
-            <th>{t("admin.servers.serverPool.link")}</th>
-            <th>{t("admin.servers.serverPool.version")}</th>
-            <th>{t("admin.servers.serverPool.actions")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {serverPool?.map((it) => (
-            <tr key={it.url}>
-              <td>{it.url}</td>
-              <td>{it.version}</td>
-              <td>
-                <button
-                  disabled={!isAdmin}
-                  className="small"
-                  onClick={() => onKillServer(it.url)}
-                >
-                  {t("admin.servers.serverPool.stop")}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <>
+        <RconModal
+          onClose={() => setRconTarget(undefined)}
+          serverUrl={rconTarget?.url}
+        />
+        <GenericTable
+          keyProvider={(t) => t[1]}
+          columns={[
+            {
+              type: ColumnType.ExternalLink,
+              name: t("admin.servers.sessionList.link"),
+            },
+            {
+              type: ColumnType.Raw,
+              name: t("admin.servers.sessionList.matchId"),
+            },
+            {
+              type: ColumnType.Raw,
+              name: t("admin.servers.sessionList.mode"),
+              format: (gm) => t(`matchmaking_mode.${gm}` as TranslationKey),
+            },
+            {
+              type: ColumnType.Raw,
+              name: t("admin.servers.sessionList.teams"),
+            },
+            {
+              type: ColumnType.Raw,
+              name: t("admin.servers.sessionList.actions"),
+              format: (d: GameSessionDto) => (
+                <div className={c.buttons}>
+                  <Button
+                    disabled={!isAdmin}
+                    onClick={() => stopGameSession(d)}
+                  >
+                    {t("admin.servers.sessionList.stop")}
+                  </Button>
+                  <Button disabled={!isAdmin} onClick={() => setRconTarget(d)}>
+                    RCON
+                  </Button>
+                </div>
+              ),
+            },
+          ]}
+          data={sessions.map((t) => [
+            { link: `steam://connect/${t.url}`, label: t.url },
+            t.matchId,
+            t.info.mode,
+            `${t.info.radiant.map((t) => t.name)} vs ${t.info.dire.map((t) => t.name)}`,
+            t,
+          ])}
+          placeholderRows={5}
+        />
+      </>
     );
   },
 );
 
 export default function AdminServersPage({
-  initialServerPool,
   initialGameSessions,
   initialAllowedModes,
 }: PageProps) {
@@ -143,13 +115,7 @@ export default function AdminServersPage({
 
   const dotaGameModeOptions = useDotaGameModeOptions();
   const dotaMapOptions = useDotaMapOptions();
-  const { data: serverPool } = getApi().adminApi.useServerControllerServerPool({
-    fallbackData: initialServerPool,
-    isPaused() {
-      return mounted;
-    },
-  });
-  const { data: liveSessions, mutate: mutateLiveSessions } =
+  const { data: liveSessions } =
     getApi().adminApi.useServerControllerLiveSessions({
       fallbackData: initialGameSessions,
       isPaused() {
@@ -184,7 +150,7 @@ export default function AdminServersPage({
   const sessions: GameSessionDto[] = liveSessions || [];
 
   const stopGameSession = useCallback(async (it: GameSessionDto) => {
-    await appApi.adminApi.serverControllerStopServer({ url: it.url });
+    await appApi.adminApi.serverControllerStopServer({ matchId: it.matchId });
   }, []);
 
   const updateGameMode = useCallback(
@@ -351,20 +317,6 @@ export default function AdminServersPage({
       </Section>
 
       <div className={c.grid12}>
-        <h3>{t("admin.servers.serverPool.title")}</h3>
-
-        <ServerPool
-          serverPool={serverPool!}
-          onKillServer={async (url) => {
-            await appApi.adminApi.serverControllerStopServer({
-              url: url,
-            });
-            await mutateLiveSessions();
-          }}
-        />
-      </div>
-
-      <div className={c.grid12}>
         <h3>{t("admin.servers.currentSessions")}</h3>
         <SessionList sessions={sessions} stopGameSession={stopGameSession} />
       </div>
@@ -376,15 +328,12 @@ AdminServersPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<PageProps> => {
   return withTemporaryToken(ctx, async () => {
-    const [initialServerPool, initialGameSessions, initialAllowedModes] =
-      await Promise.combine([
-        getApi().adminApi.serverControllerServerPool(),
-        getApi().adminApi.serverControllerLiveSessions(),
-        getApi().statsApi.statsControllerGetMatchmakingInfo(),
-      ]);
+    const [initialGameSessions, initialAllowedModes] = await Promise.combine([
+      getApi().adminApi.serverControllerLiveSessions(),
+      getApi().statsApi.statsControllerGetMatchmakingInfo(),
+    ]);
 
     return {
-      initialServerPool,
       initialGameSessions,
       initialAllowedModes,
     };

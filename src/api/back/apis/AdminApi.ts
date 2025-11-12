@@ -42,6 +42,12 @@ import {
   QueueEntryDTO,
   QueueEntryDTOFromJSON,
   QueueEntryDTOToJSON,
+  RunRconDto,
+  RunRconDtoFromJSON,
+  RunRconDtoToJSON,
+  RunRconResponseDto,
+  RunRconResponseDtoFromJSON,
+  RunRconResponseDtoToJSON,
   SmurfData,
   SmurfDataFromJSON,
   SmurfDataToJSON,
@@ -115,6 +121,10 @@ export interface ServerControllerDebugCommandRequest {
 
 export interface ServerControllerDebugEventRequest {
   eventAdminDto: EventAdminDto;
+}
+
+export interface ServerControllerRunRconRequest {
+  runRconDto: RunRconDto;
 }
 
 export interface ServerControllerStopServerRequest {
@@ -988,6 +998,60 @@ export class AdminApi extends runtime.BaseAPI {
         const context = this.serverControllerQueuesContext();
         return useSWR(context, valid ? () => this.serverControllerQueues() : null, config)
     }
+
+    /**
+     */
+    private async serverControllerRunRconRaw(requestParameters: ServerControllerRunRconRequest): Promise<runtime.ApiResponse<RunRconResponseDto>> {
+        this.serverControllerRunRconValidation(requestParameters);
+        const context = this.serverControllerRunRconContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RunRconResponseDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private serverControllerRunRconValidation(requestParameters: ServerControllerRunRconRequest) {
+        if (requestParameters.runRconDto === null || requestParameters.runRconDto === undefined) {
+            throw new runtime.RequiredError("runRconDto","Required parameter requestParameters.runRconDto was null or undefined when calling serverControllerRunRcon.");
+        }
+    }
+
+    /**
+     */
+    serverControllerRunRconContext(requestParameters: ServerControllerRunRconRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/servers/run_rcon`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RunRconDtoToJSON(requestParameters.runRconDto),
+        };
+    }
+
+    /**
+     */
+    serverControllerRunRcon = async (runRconDto: RunRconDto): Promise<RunRconResponseDto> => {
+        const response = await this.serverControllerRunRconRaw({ runRconDto: runRconDto });
+        return await response.value();
+    }
+
 
     /**
      */

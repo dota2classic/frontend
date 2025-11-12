@@ -1,0 +1,38 @@
+@use "../../common.scss";
+
+.modal {
+  & :global(.modal__content) {
+    overflow-y: auto;
+  }
+}
+
+.messages {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+
+  //box-sizing: border-box;
+  overflow-y: auto;
+  gap: 6px;
+  margin-bottom: 10px;
+  max-height: 600px;
+}
+
+.message {
+  flex: 0 0 auto;        /* do not grow or shrink, size to content */
+  padding: 8px;
+  white-space: pre;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 90%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.input {
+  align-self: flex-end;
+}
+
+.output {
+  align-self: flex-start;
+}
