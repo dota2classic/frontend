@@ -31,9 +31,7 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
 
   if (!match) return;
 
-  const isZippedReplay =
-    new Date(match.timestamp).getTime() >
-    new Date("2025-09-01T00:00:59.369Z").getTime();
+  const isZippedReplay = match.replayUrl && match.replayUrl.endsWith(".zip");
   return (
     <div>
       <EmbedProps
@@ -60,9 +58,7 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
               <>
                 <Button
                   link
-                  href={
-                    isZippedReplay ? match.replayUrl + ".zip" : match.replayUrl
-                  }
+                  href={match.replayUrl}
                   target="__blank"
                   onClick={() => metrika("reachGoal", "DOWNLOAD_REPLAY")}
                 >
