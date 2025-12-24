@@ -12,6 +12,14 @@ export const QueueButton: React.FC<
   return (
     <button {...props} className={cx(c.button, className)}>
       {children}
+      <>
+        <span className={cx(c.snow)} />
+        <span className={cx(c.snow)} />
+        <span className={cx(c.snow)} />
+        <span className={cx(c.snow)} />
+        <span className={cx(c.snow)} />
+        <span className={cx(c.snow)} />
+      </>
     </button>
   );
 };

@@ -41,16 +41,16 @@ export const Button: React.FC<
     );
   return (
     <button className={cn} {...props}>
-      {/*{mega && (*/}
-      {/*  <>*/}
-      {/*    <span className={cx(c.snow)} />*/}
-      {/*    <span className={cx(c.snow)} />*/}
-      {/*    <span className={cx(c.snow)} />*/}
-      {/*    <span className={cx(c.snow)} />*/}
-      {/*    <span className={cx(c.snow)} />*/}
-      {/*    <span className={cx(c.snow)} />*/}
-      {/*  </>*/}
-      {/*)}*/}
+      {mega && (
+        <>
+          <span className={cx(c.snow)} />
+          <span className={cx(c.snow)} />
+          <span className={cx(c.snow)} />
+          <span className={cx(c.snow)} />
+          <span className={cx(c.snow)} />
+          <span className={cx(c.snow)} />
+        </>
+      )}
       {props.children}
     </button>
   );

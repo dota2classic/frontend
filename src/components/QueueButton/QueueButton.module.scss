@@ -31,3 +31,55 @@
   cursor: pointer;
   text-align: center;
 }
+
+
+@for $i from 0 through 3 {
+  .snow:nth-child(9n + #{$i + 1}) {
+    left: 20px * $i;
+    animation-delay: $i * 0.3s;
+    background-position: 32px * $i 0px !important;
+  }
+}
+
+@for $i from 3 through 6 {
+  .snow:nth-child(9n + #{$i + 1}) {
+    left: unset;
+    right: 20px * ($i - 3);
+    animation-delay: $i * 0.3s;
+    background-position: 32px * ($i - 3) 32px !important;
+  }
+}
+
+@keyframes baubleAnimation {
+  0% {
+    transform: rotateY(0deg) translateY(3px);
+  }
+
+  25% {
+    transform: rotateY(20deg) translateY(-8px);
+    filter: drop-shadow(0px 0px 5px red);
+  }
+
+  75% {
+    transform: rotateY(-20deg) translateY(8px);
+    filter: drop-shadow(0px 0px 5px green);
+  }
+
+  100% {
+    transform: rotateY(5deg) translateY(3px);
+    filter: drop-shadow(0px 0px 5px blue);
+  }
+}
+
+.snow {
+  position: absolute;
+  animation: baubleAnimation infinite 5s;
+  top: -8px;
+  content: "";
+  background-image: url("/newyear/baubles.png");
+  background-position: 0px 0px;
+  background-size: 96px 96px;
+  width: 32px;
+  height: 32px;
+  scale: 0.5;
+}
