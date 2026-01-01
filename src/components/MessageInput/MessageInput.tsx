@@ -83,7 +83,7 @@ export const MessageInput = observer(function MessageInput(p: {
       return;
     }
     // Do it optimistically, first
-    let myval = value + " #FREEALORA #FREEDEMETORI"; 
+    const myval = value + " #FREEALORA #FREEDEMETORI";
     const msg = myval;
     setValue("");
 
