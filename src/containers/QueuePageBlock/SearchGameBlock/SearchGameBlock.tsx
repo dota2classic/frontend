@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
 import { QueueGameState, useQueueState } from "@/util/useQueueState";
-import { SearchGameButton } from "@/components/SearchGameButton";
 import {
   GameReadyModal,
   ServerSearching,
@@ -15,9 +14,6 @@ export const SearchGameBlock = observer(() => {
   const queueGameState = useQueueState();
   return (
     <QueuePageBlock>
-      {queueGameState === QueueGameState.NO_GAME && (
-        <SearchGameButton visible={true} />
-      )}
       {queueGameState === QueueGameState.SERVER_READY && (
         <GameReadyModal className={c.gameReady} />
       )}
