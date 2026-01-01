@@ -5,8 +5,4 @@ interface Props {
   visible: boolean;
   customContent?: ReactNode;
 }
-export const SearchGameButton = observer((p: Props) => {
-
-  return null;
-  
-});
+export const SearchGameButton = observer(() => { return null; });

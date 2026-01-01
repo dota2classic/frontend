@@ -1,10 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/Button";
 import { GenericModal } from "@/components/GenericModal";
 import { Input } from "@/components/Input";
 import { LobbyDto } from "@/api/back";
-import { getApi } from "@/api/hooks";
-import { AppRouter } from "@/route";
 import c from "./JoinLobbyModal.module.scss";
 import { useTranslation } from "react-i18next";
 
@@ -19,7 +17,7 @@ export const JoinLobbyModal: React.FC<IJoinLobbyModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [error] = useState<string | undefined>(undefined);
   const canJoin = lobby.requiresPassword ? password.length > 0 : true;
 
   return (
@@ -36,9 +34,7 @@ export const JoinLobbyModal: React.FC<IJoinLobbyModalProps> = ({
       )}
 
       {error && <span>{error}</span>}
-      <Button disabled={canJoin}>
-        {t("join_lobby_modal.join")}
-      </Button>
+      <Button disabled={canJoin}>{t("join_lobby_modal.join")}</Button>
     </GenericModal>
   );
 };
