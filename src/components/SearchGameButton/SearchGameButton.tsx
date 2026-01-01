@@ -18,20 +18,6 @@ interface Props {
   customContent?: ReactNode;
 }
 export const SearchGameButton = observer((p: Props) => {
-  const { t } = useTranslation();
-  const { queue } = useStore();
-  const router = useRouter();
-
-  const isQueuePage = router.pathname.startsWith("/queue");
-  const isLobbyPage = router.pathname.startsWith("/lobby/");
-
-  const isInQueue = queue.queueState?.inQueue;
-
-  const isPartyInLobby = queue.isPartyInLobby;
-  const myLobby = queue.myLobbyId;
-
-  let content: ReactNode;
-
   return null;
   
 });
