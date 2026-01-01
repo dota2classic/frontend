@@ -21,7 +21,7 @@ export const HeroIcon: React.FC<IHeroIconProps> = ({ hero, small }) => {
       height={small ? smallImageStyles.height : bigImageStyles.height}
       className={cx(c.hero, { [c.small]: small })}
       alt={t("hero_icon.iconAlt", { heroName })}
-      src={`/heroes/${heroName}.webp`}
+      src={`/heroes/techies.webp`}
     />
   );
 };

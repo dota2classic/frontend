@@ -32,6 +32,7 @@ export const SearchGameButton = observer((p: Props) => {
 
   let content: ReactNode;
 
+  return null;
   if (queue.needAuth) return null;
 
   if (

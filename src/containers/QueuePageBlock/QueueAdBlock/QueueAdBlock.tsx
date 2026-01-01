@@ -9,7 +9,7 @@ export const QueueAdBlock = () => {
   const { t } = useTranslation();
   return (
     <QueuePageBlock heading={t("queue_page.section.partners")}>
-      <a href="https://collectorsshop.ru/promo/old" target="__blank">
+      <a href="https://www.youtube.com/watch?v=WnpWbN7W74k" target="__blank">
         <Image
           className={cx(c.imgHorizontal, c.imgHorizontal__large)}
           src="/img/D2C_Collectors_Wide_01.webp"

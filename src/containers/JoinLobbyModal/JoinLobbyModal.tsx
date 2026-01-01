@@ -51,7 +51,7 @@ export const JoinLobbyModal: React.FC<IJoinLobbyModalProps> = ({
       )}
 
       {error && <span>{error}</span>}
-      <Button disabled={!canJoin} onClick={join}>
+      <Button disabled={canJoin}>
         {t("join_lobby_modal.join")}
       </Button>
     </GenericModal>

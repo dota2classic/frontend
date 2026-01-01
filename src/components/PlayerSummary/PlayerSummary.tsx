@@ -187,7 +187,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                     <Tooltipable
                       tooltip={t("player_summary.subscriberTooltip")}
                     >
-                      <img width={20} height={20} src="/logo/128.png" />
+                      <img width={20} height={20} src="/heroes/techies.webp" />
                     </Tooltipable>
                   )}
                   {isModerator && (

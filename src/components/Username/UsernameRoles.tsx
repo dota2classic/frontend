@@ -83,7 +83,7 @@ export const UsernameRoles: React.FC<Props> = observer(({ user }) => {
       )}
       {roleList.includes(Role.OLD) && (
         <img
-          src={chatIconOld ? chatIconOld.image.url : "/logo/128.png"}
+          src={chatIconOld ? chatIconOld.image.url : "/heroes/techies.webp"}
           className={cx(animations.old, user.chatIconAnimation?.image.key)}
           onMouseEnter={(e) =>
             setHoveredRole({
