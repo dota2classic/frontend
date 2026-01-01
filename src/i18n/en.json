@@ -1217,6 +1217,7 @@
   "queue_page.section.watchMatch": "Watch match {{id}}",
   "queue_page.section.partners": "Our partners",
   "queue_page.section.search": "Search game",
+  "queue_page.section.year_result": "Year results",
   "queue_party_info.disconnected": "Connecting to the coordinator...",
   "queue_party_info.authorizing": "Authorizing...",
   "queue_party_info.invitationSent": "Invitation sent {{name}}",

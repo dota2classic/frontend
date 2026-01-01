@@ -51,7 +51,8 @@
       "day_records": "Records today",
       "watchMatch": "Watch match {{id}}",
       "partners": "Our partners",
-      "search": "Search game"
+      "search": "Search game",
+      "year_result": "Year results"
     }
   }
 }
