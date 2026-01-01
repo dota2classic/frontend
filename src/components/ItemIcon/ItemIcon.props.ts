@@ -11,5 +11,10 @@ export function asItemId(item: string | number) {
     ? item
     : ItemMap.find((it) => it.name === item)!.id;
 }
+
+export function asItemName(id: number) {
+  return ItemMap.find((it) => it.id === id)!.name;
+}
+
 export const smallImageStyles = { width: 40, height: 30 };
 export const bigImageStyles = { width: 53.13, height: 40 };

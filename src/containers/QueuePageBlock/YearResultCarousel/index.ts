@@ -1,0 +1,1 @@
+export { YearResultCarousel } from "./YearResultCarousel";

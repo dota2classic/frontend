@@ -4,7 +4,6 @@ import c from "./NewQueuePage.module.scss";
 import cx from "clsx";
 import { PlayingNowCarousel } from "@/containers/PlayingNowCarousel";
 import { observer } from "mobx-react-lite";
-import { LastBlogBlock } from "@/containers/QueuePageBlock/LastBlogBlock";
 import { PartyInfo } from "@/containers/QueuePageBlock/PartyInfo";
 import { QueueModeList } from "@/containers/QueuePageBlock/QueueModeList";
 import { MatchmakingInfo } from "@/api/back";
@@ -14,6 +13,7 @@ import { SearchGameBlock } from "@/containers/QueuePageBlock/SearchGameBlock";
 import { QueueTutorial } from "@/containers/NewQueuePage/QueueTutorial";
 import { useTranslation } from "react-i18next";
 import { BigTabs } from "@/components/BigTabs";
+import { YearResultCarousel } from "@/containers/QueuePageBlock/YearResultCarousel";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -51,7 +51,8 @@ export const NewQueuePage: React.FC<Props> = observer(({ modes }) => {
       />
       <div className={cx(c.layout)}>
         <div className={cx(c.left, tab !== "news" && c.mobile_hidden)}>
-          <LastBlogBlock />
+          {/*<LastBlogBlock />*/}
+          <YearResultCarousel />
           <PlayingNowCarousel />
         </div>
         <div className={cx(c.center, tab !== "chat" && c.mobile_hidden)}>

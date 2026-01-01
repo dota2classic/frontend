@@ -24,6 +24,9 @@ import {
   PlayerRecordsResponse,
   PlayerRecordsResponseFromJSON,
   PlayerRecordsResponseToJSON,
+  PlayerYearSummaryDto,
+  PlayerYearSummaryDtoFromJSON,
+  PlayerYearSummaryDtoToJSON,
 } from "../models";
 
 export interface RecordControllerPlayerRecordsRequest {
@@ -132,6 +135,60 @@ export class RecordApi extends runtime.BaseAPI {
 
         const context = this.recordControllerPlayerRecordsContext({ steamId: steamId! });
         return useSWR(context, valid ? () => this.recordControllerPlayerRecords(steamId!) : null, config)
+    }
+
+    /**
+     */
+    private async recordControllerPlayerYearSummaryRaw(): Promise<runtime.ApiResponse<PlayerYearSummaryDto>> {
+        this.recordControllerPlayerYearSummaryValidation();
+        const context = this.recordControllerPlayerYearSummaryContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PlayerYearSummaryDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private recordControllerPlayerYearSummaryValidation() {
+    }
+
+    /**
+     */
+    recordControllerPlayerYearSummaryContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/record/year/{steam_id}`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    recordControllerPlayerYearSummary = async (): Promise<PlayerYearSummaryDto> => {
+        const response = await this.recordControllerPlayerYearSummaryRaw();
+        return await response.value();
+    }
+
+    useRecordControllerPlayerYearSummary(config?: SWRConfiguration<PlayerYearSummaryDto, Error>) {
+        let valid = true
+
+        const context = this.recordControllerPlayerYearSummaryContext();
+        return useSWR(context, valid ? () => this.recordControllerPlayerYearSummary() : null, config)
     }
 
     /**

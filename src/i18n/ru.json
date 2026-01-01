@@ -1223,6 +1223,7 @@
   "queue_page.section.watchMatch": "Смотреть матч {{id}}",
   "queue_page.section.partners": "Наши партнеры",
   "queue_page.section.search": "Поиск игры",
+  "queue_page.section.year_result": "Итоги года",
   "queue_party_info.disconnected": "Подключаемся к координатору...",
   "queue_party_info.authorizing": "Авторизуемся...",
   "queue_party_info.invitationSent": "Приглашение отправлено {{name}}",

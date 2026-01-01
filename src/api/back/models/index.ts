@@ -89,6 +89,7 @@ export * from "./PlayerStatsDto";
 export * from "./PlayerSummaryDto";
 export * from "./PlayerTeammateDto";
 export * from "./PlayerTeammatePageDto";
+export * from "./PlayerYearSummaryDto";
 export * from "./PrettyRuleDto";
 export * from "./ProfileDecorationDto";
 export * from "./PunishmentLogDto";

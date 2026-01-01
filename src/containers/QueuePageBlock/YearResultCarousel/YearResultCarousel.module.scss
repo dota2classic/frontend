@@ -1,0 +1,130 @@
+@use "../../../common.scss";
+
+.fixRecordBorder {
+  & > a:first-child {
+    border: none !important;
+    display: block;
+  }
+}
+
+.card {
+  @include common.box();
+
+  grid-column: span 1;
+  grid-row: span 1;
+
+  justify-items: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid #555;
+
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+
+  @media (max-width: 1400px) {
+    height: 250px;
+  }
+
+  @media (max-width: 1200px) {
+    height: 240px;
+  }
+
+  @media (max-width: 600px) {
+    height: 140px;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+    border-color: common.$blueHighlight;
+  }
+
+  & h3 {
+    color: common.$primaryTextHighlight;
+    margin-block-end: 0;
+
+    @media (max-width: 600px) {
+      font-size: 12px;
+    }
+  }
+
+  & h4 {
+    color: common.$primaryTextDark;
+    @media (max-width: 600px) {
+      margin-block-start: 0;
+      margin-block-end: 1rem;
+      font-size: 10px;
+    }
+  }
+
+  & p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}
+
+.image {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  object-fit: cover;
+
+  width: 100%;
+  height: 100%;
+}
+
+.shadow {
+  transition: 0.3s ease;
+  background: rgba(19, 23, 28, 0.75);
+  filter: brightness(0.3);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.contentContainer {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 12px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 600px) {
+    padding: 0px 6px;
+  }
+}
+
+.recordType {
+  color: common.$primaryText;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  white-space: nowrap;
+}
+
+.recordValue {
+  font-size: 2rem;
+  font-weight: bold;
+  color: common.$gold;
+  margin-top: 2rem;
+  flex: 1;
+}
+.recordTime {
+  color: common.$primaryTextDark;
+  font-size: 1rem;
+  margin-block-start: 1rem;
+}
+
+.player {
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

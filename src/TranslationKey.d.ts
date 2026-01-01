@@ -1211,6 +1211,7 @@ export type TranslationKey =
   | "queue_page.section.watchMatch"
   | "queue_page.section.partners"
   | "queue_page.section.search"
+  | "queue_page.section.year_result"
   | "queue_party_info.disconnected"
   | "queue_party_info.authorizing"
   | "queue_party_info.invitationSent"
