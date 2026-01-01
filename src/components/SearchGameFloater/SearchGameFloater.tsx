@@ -18,9 +18,6 @@ export const SearchGameFloater: React.FC = observer(() => {
   return (
     <div className={c.container}>
       <AcceptGameModal />
-      <SearchGameButton
-        visible={!isQueuePage && qState === QueueGameState.NO_GAME}
-      />
     </div>
   );
 });
