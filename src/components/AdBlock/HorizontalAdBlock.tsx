@@ -18,8 +18,8 @@ export const HorizontalAdBlock: React.FC<Props> = ({}: Props) => {
           alt=""
           priority
           unoptimized
-          width={1179}
-          height={120}
+          width={1200}
+          height={600}
         />
         <Image
           className={cx(c.imgHorizontal, c.imgHorizontal__small)}
