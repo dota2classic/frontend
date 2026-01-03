@@ -6,9 +6,12 @@ import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 import { YearResultCard } from "@/containers/QueuePageBlock/YearResultCarousel/YearResultCard";
 import { TranslationKey } from "@/TranslationKey";
 import { asItemName } from "@/components/ItemIcon/ItemIcon.props";
+import { useStore } from "@/store";
 
 export const YearResultCarousel: React.FC = () => {
-  const { data } = getApi().record.useRecordControllerPlayerYearSummary();
+  const { data } = getApi().record.useRecordControllerPlayerYearSummary(
+    useStore().auth.parsedToken?.sub || "",
+  );
   const { t } = useTranslation();
   if (!data) return null;
   return (

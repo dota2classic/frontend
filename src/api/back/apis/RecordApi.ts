@@ -33,6 +33,10 @@ export interface RecordControllerPlayerRecordsRequest {
   steamId: string;
 }
 
+export interface RecordControllerPlayerYearSummaryRequest {
+  steamId: string;
+}
+
 /**
  * 
  */
@@ -139,9 +143,9 @@ export class RecordApi extends runtime.BaseAPI {
 
     /**
      */
-    private async recordControllerPlayerYearSummaryRaw(): Promise<runtime.ApiResponse<PlayerYearSummaryDto>> {
-        this.recordControllerPlayerYearSummaryValidation();
-        const context = this.recordControllerPlayerYearSummaryContext();
+    private async recordControllerPlayerYearSummaryRaw(requestParameters: RecordControllerPlayerYearSummaryRequest): Promise<runtime.ApiResponse<PlayerYearSummaryDto>> {
+        this.recordControllerPlayerYearSummaryValidation(requestParameters);
+        const context = this.recordControllerPlayerYearSummaryContext(requestParameters);
         const response = await this.request(context);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PlayerYearSummaryDtoFromJSON(jsonValue));
@@ -151,26 +155,21 @@ export class RecordApi extends runtime.BaseAPI {
 
     /**
      */
-    private recordControllerPlayerYearSummaryValidation() {
+    private recordControllerPlayerYearSummaryValidation(requestParameters: RecordControllerPlayerYearSummaryRequest) {
+        if (requestParameters.steamId === null || requestParameters.steamId === undefined) {
+            throw new runtime.RequiredError("steamId","Required parameter requestParameters.steamId was null or undefined when calling recordControllerPlayerYearSummary.");
+        }
     }
 
     /**
      */
-    recordControllerPlayerYearSummaryContext(): runtime.RequestOpts {
+    recordControllerPlayerYearSummaryContext(requestParameters: RecordControllerPlayerYearSummaryRequest): runtime.RequestOpts {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === "function" ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
         return {
-            path: `/v1/record/year/{steam_id}`,
+            path: `/v1/record/year/{steam_id}`.replace(`{${"steam_id"}}`, encodeURIComponent(String(requestParameters.steamId))),
             method: "GET",
             headers: headerParameters,
             query: queryParameters,
@@ -179,16 +178,20 @@ export class RecordApi extends runtime.BaseAPI {
 
     /**
      */
-    recordControllerPlayerYearSummary = async (): Promise<PlayerYearSummaryDto> => {
-        const response = await this.recordControllerPlayerYearSummaryRaw();
+    recordControllerPlayerYearSummary = async (steamId: string): Promise<PlayerYearSummaryDto> => {
+        const response = await this.recordControllerPlayerYearSummaryRaw({ steamId: steamId });
         return await response.value();
     }
 
-    useRecordControllerPlayerYearSummary(config?: SWRConfiguration<PlayerYearSummaryDto, Error>) {
+    useRecordControllerPlayerYearSummary(steamId: string, config?: SWRConfiguration<PlayerYearSummaryDto, Error>) {
         let valid = true
 
-        const context = this.recordControllerPlayerYearSummaryContext();
-        return useSWR(context, valid ? () => this.recordControllerPlayerYearSummary() : null, config)
+        if (steamId === null || steamId === undefined || Number.isNaN(steamId)) {
+            valid = false
+        }
+
+        const context = this.recordControllerPlayerYearSummaryContext({ steamId: steamId! });
+        return useSWR(context, valid ? () => this.recordControllerPlayerYearSummary(steamId!) : null, config)
     }
 
     /**
