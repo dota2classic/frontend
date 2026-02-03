@@ -228,6 +228,27 @@ export const handleNotification = (notification: NotificationDto) => {
         </>
       );
       break;
+    case NotificationType.TOURNAMENTREADYCHECKSTARTED:
+      title = `Подтверди готовность к турниру!`;
+      content = (
+        <>
+          Началась проверка на готовность к турниру! Подтверди свою готовность
+          тут:
+          <br />
+          <PageLink
+            className="link"
+            link={
+              AppRouter.tournament.tournament(
+                (notification.params as { tournamentId: number }).tournamentId,
+              ).link
+            }
+            onClick={acknowledge}
+          >
+            Страница турнира
+          </PageLink>
+        </>
+      );
+      break;
   }
 
   const Toast: React.FunctionComponent<ToastContentProps<unknown>> = (
