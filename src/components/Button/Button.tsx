@@ -6,6 +6,8 @@ import { TrajanPro } from "@/const/fonts";
 import { NextLinkProp } from "@/route";
 import { PageLink } from "../PageLink";
 
+export type ButtonVariant = "mega" | "primary";
+
 export const Button: React.FC<
   PropsWithChildren<{
     link?: boolean;
@@ -15,15 +17,17 @@ export const Button: React.FC<
     onClick?: () => void;
     mega?: boolean;
     small?: boolean;
+    variant?: ButtonVariant;
     target?: string;
     pageLink?: NextLinkProp;
   }>
-> = ({ className, link, mega, small, pageLink, ...props }) => {
+> = ({ className, link, mega, variant, small, pageLink, ...props }) => {
   const cn = cx(
     c.button,
     mega && c.megaButton,
     mega && TrajanPro.className,
     small && c.smaller,
+    variant === "primary" && c.primary,
     className,
   );
   if (pageLink) {

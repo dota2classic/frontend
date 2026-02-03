@@ -19,6 +19,7 @@ import {
   SettingsApi,
   StatsApi,
   StorageApi,
+  TournamentApi,
   UserPaymentApi,
 } from "./back/apis";
 import {
@@ -147,6 +148,7 @@ export class AppApi {
   readonly rules = new RulesApi(this.apiConfig);
   readonly report = new ReportApi(this.apiConfig);
   readonly drops = new DropsApi(this.apiConfig);
+  readonly tournament = new TournamentApi(this.apiConfig);
 }
 
 export const appApi = new AppApi();

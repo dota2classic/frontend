@@ -4,6 +4,7 @@ $bg1: #0c0c0c;
 $bg15: #121315;
 $bg2: #1c2024;
 $bg3: #242c34;
+$bg4: #2d3842;
 
 $panelBg: rgba(255, 255, 255, 0.04);
 
@@ -40,6 +41,15 @@ $bronze: #91500d;
 @mixin box {
   //box-shadow: 0 0 4px rgba(10, 10, 10, 0.6);
   box-shadow: 0px 0px 10px #000;
+}
+
+
+@mixin card {
+  box-shadow: 0px 0px 10px #000;
+  border: 1px solid $blueHighlight3;
+  background-color: $panelBg;
+  border-radius: 6px;
+  padding: 1em;
 }
 
 @keyframes pendingAnimation {

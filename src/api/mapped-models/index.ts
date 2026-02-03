@@ -10,3 +10,4 @@ export * from "./DotaGameRulesState";
 export * from "./DotaPatch";
 export * from "./Dota_Map";
 export * from "./PlayerAspect";
+export * from "./MatchStatus";

@@ -15,6 +15,7 @@ declare global {
     env: string;
     process: Record<string, string>;
     store: RootStore;
+    bracketsViewer: any;
     registration?: ServiceWorkerRegistration;
     api: AppApi;
     cook: Cookies;

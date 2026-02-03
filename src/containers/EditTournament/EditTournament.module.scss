@@ -1,0 +1,27 @@
+@use "../../common.scss";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; // slightly more breathing room
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding: 4px 0;
+
+    header {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  }
+}
+
+
+.image {
+  width: 50%;
+  max-width: 300px;
+  border: 1px solid black;
+}

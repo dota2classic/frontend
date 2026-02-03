@@ -1,0 +1,101 @@
+@use "../../../common";
+
+.header {
+  padding: 12px;
+  background-color: common.$panelBg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  & > img {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.format {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 12px;
+  height: fit-content;
+}
+
+.participants {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: fit-content;
+}
+
+.fullwidth {
+  grid-column: span 12;
+}
+
+
+.main_info {
+  grid-column: span 8;
+}
+
+.side_info {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.register_card {
+  @include common.card();
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  & dl {
+    margin-block-start: 0;
+    margin-block-end: 0;
+
+    & > dd {
+      margin-inline-start: 0;
+      color: common.$primaryTextSemiDark;
+      font-size: 1rem;
+    }
+
+    & > dt {
+      font-size: 1.2rem;
+      margin-top: 8px;
+      text-align: center;
+      font-weight: bold;
+      color: common.$primaryText;
+    }
+  }
+}
+
+
+.timeline {
+
+}
+
+
+.empty {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.matches {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}

@@ -1,0 +1,44 @@
+{
+  "tournament": {
+    "tabs": {
+      "overall": "Информация",
+      "bracket": "Сетка",
+      "matches": "Матчи",
+      "registered": "Участники"
+    },
+    "versus": "{{cnt}} vs {{cnt}}",
+
+    "match_status": {
+      "0": "Запланирован",
+      "1": "Ожидает соперника",
+      "2": "Готов к запуску",
+      "3": "В процессе",
+      "4": "Завершен",
+      "5": "Завершен"
+    },
+
+    "best_of": {
+      "bo1": "До 1 победы",
+      "bo3": "До 2 побед"
+    },
+
+    "status": {
+      "DRAFT": "Черновик",
+      "REGISTRATION": "Регистрация",
+      "READY_CHECK": "Проверка на готовность",
+      "IN_PROGRESS": "В процессе",
+      "FINISHED": "Завершен"
+    },
+    "registration": {
+      "CREATED": "Зарегистрирован",
+      "PENDING_CONFIRMATION": "Ожидает подтверждения",
+      "CONFIRMED": "Готов",
+      "DECLINED": "Отклонен",
+      "TIMED_OUT": "Не подтвержден"
+    },
+    "bracket": {
+      "SINGLE_ELIMINATION": "Single elimination",
+      "DOUBLE_ELIMINATION": "Double elimination"
+    }
+  }
+}

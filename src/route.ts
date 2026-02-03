@@ -200,6 +200,20 @@ export const AppRouter = {
       match: (id: number) =>
         page(`/admin/tournament_match/[id]`, `/admin/tournament_match/${id}`),
     },
+    tournament: {
+      index: spage("/admin/tournament"),
+      create: spage("/admin/tournament/new"),
+
+      edit: (id: number) =>
+        page(`/admin/tournament/[id]/edit`, `/admin/tournament/${id}/edit`),
+      tournament: (id: number) =>
+        page(`/admin/tournament/[id]`, `/admin/tournament/${id}`),
+      bracket: (id: number) =>
+        page(
+          `/admin/tournament/[id]/bracket`,
+          `/admin/tournament/${id}/bracket`,
+        ),
+    },
     playerFeedback: (pg?: number) => {
       const q = queryParameters({ page: pg });
 
@@ -212,11 +226,15 @@ export const AppRouter = {
     lobby: (id: string) => page(`/lobby/[id]`, `/lobby/${id}`),
   },
   tournament: {
-    index: page("/stats/tournament"),
-    tournament: (id: number) =>
-      page(`/stats/tournament/[id]`, `/stats/tournament/${id}`),
+    index: page("/tournament"),
+    tournament: (id: number) => page(`/tournament/[id]`, `/tournament/${id}`),
     bracket: (id: number) =>
-      page(`/stats/tournament/[id]/bracket`, `/stats/tournament/${id}/bracket`),
+      page(`/tournament/[id]/bracket`, `/tournament/${id}/bracket`),
+    matches: (id: number) =>
+      page(`/tournament/[id]/matches`, `/tournament/${id}/matches`),
+
+    participants: (id: number) =>
+      page(`/tournament/[id]/participants`, `/tournament/${id}/participants`),
   },
   team: {
     index: page("/stats/team"),

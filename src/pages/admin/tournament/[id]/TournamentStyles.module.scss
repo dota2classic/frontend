@@ -1,0 +1,48 @@
+@use "../../../../common.scss";
+
+.block {
+  & > div {
+    padding: 1em;
+  }
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  & dl {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    & dd {
+      margin-inline-start: 0;
+      color: common.$primaryTextSemiDark;
+    }
+
+    & dt {
+      color: common.$primaryText;
+      font-weight: bold;
+    }
+
+    & dd,
+    dt {
+      padding: 4px 12px;
+    }
+  }
+}
+
+
+.inline {
+  width: fit-content;
+}
+
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}

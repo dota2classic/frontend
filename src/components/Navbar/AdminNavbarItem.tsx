@@ -40,6 +40,10 @@ export const AdminNavbarItem = () => {
           label: t("admin_navbar.rules"),
           action: AppRouter.admin.rules.editRules.link,
         },
+        {
+          label: t("admin_navbar.tournament"),
+          action: AppRouter.admin.tournament.index.link,
+        },
       ]}
     >
       <MdLocalPolice />

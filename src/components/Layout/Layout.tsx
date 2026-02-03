@@ -27,6 +27,7 @@ export const Layout = ({
   const { t } = useTranslation();
   const r = useRouter();
   const isQueuePage = r.pathname.startsWith("/queue");
+  const isAdmin = r.pathname.startsWith("/admin");
   const isLanding =
     r.pathname === "/" || r.pathname === "/store" || isQueuePage;
   const isStore = r.pathname === "/store";
@@ -62,7 +63,7 @@ export const Layout = ({
               r.pathname.startsWith("/queue") && c.queue,
             )}
           >
-            {!isLanding && (
+            {!isLanding && !isAdmin && (
               <HorizontalAdBlock bannerId={AdBlockType.HORIZONTAL_FULLWIDTH} />
             )}
             <main
@@ -76,7 +77,12 @@ export const Layout = ({
             </main>
             <footer className={cx(c.footer, isQueuePage && c.footer__queue)}>
               <div className={c.footer__bottom}>
-                <div>{t("layout.copyright", { min: 2020, max: 2025 })}</div>
+                <div>
+                  {t("layout.copyright", {
+                    min: 2020,
+                    max: new Date().getFullYear(),
+                  })}
+                </div>
                 <div>{t("layout.trademark")}</div>
                 <TelegramInvite noText />
                 <DiscordInvite noText />

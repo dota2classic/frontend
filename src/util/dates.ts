@@ -17,6 +17,25 @@ export function fullDate(d: Date): string {
   return format.format(d) + ", " + timeString;
 }
 
+export function prettyDate(
+  date: Date,
+  locale: string = navigator.language,
+): string {
+  const weekday = new Intl.DateTimeFormat(locale, {
+    weekday: "short",
+  }).format(date);
+
+  const dateTime = new Intl.DateTimeFormat(locale, {
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(date);
+
+  return `${weekday}, ${dateTime}`;
+}
+
 export function formatDate(d: Date): string {
   return new Intl.DateTimeFormat("ru-RU", {}).format(d);
 }

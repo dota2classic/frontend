@@ -130,7 +130,6 @@ export default function PlayerSettings({ summary, decorations }: Props) {
           </p>
           <Button
             className={c.inlineButton}
-            small
             pageLink={AppRouter.store.index.link}
           >
             {oldSubscription

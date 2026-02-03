@@ -1,0 +1,70 @@
+@use "../../common.scss";
+
+.card {
+  @include common.card();
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+}
+
+.players {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.avatar {
+  position: relative;
+}
+
+.status__container {
+  position: absolute;
+  bottom: -8px;
+  left: -8px;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 2px;
+  border-radius: 8px;
+  border: 0;
+  outline: 1px solid common.$transparentTint3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.status {
+}
+
+.ready {
+  outline: 3px solid common.$green;
+}
+.pending {
+  outline: 3px solid common.$bronze;
+}
+.declined {
+  outline: 3px solid common.$red;
+}
+
+.created {
+  outline: 3px solid common.$primaryTextDark2;
+}
+
+.title {
+  display: flex;
+  //align-items: center;
+  //justify-content: center;
+  flex: 1;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 2rem;
+}
+
+.delimeter {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.badge {
+}

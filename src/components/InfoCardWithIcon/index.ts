@@ -1,0 +1,1 @@
+export { InfoCardWithIcon } from "./InfoCardWithIcon";

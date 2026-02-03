@@ -1,0 +1,1 @@
+export { RegistrationCard } from "./RegistrationCard";

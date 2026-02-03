@@ -1,0 +1,66 @@
+@use "../../common.scss";
+
+.wrapper {
+  & :global(.brackets-viewer) {
+    margin: 0;
+
+    /* Colors */
+    --primary-background: rgba(0, 0, 0, 0);
+    //--primary-background: #{common.$panelBg};
+    --secondary-background: #303030;
+    --match-background: var(--primary-background);
+    --font-color: #d9d9d9;
+    --win-color: #{common.$green};
+    --loss-color: #{common.$red};
+    --label-color: grey;
+    --hint-color: #a7a7a7;
+    --connector-color: #9e9e9e;
+    --border-color: #d9d9d9;
+    --border-hover-color: #b6b5b5;
+
+    /* Sizes */
+    --text-size: 16px;
+    --round-margin: 40px;
+    --match-width: 240px;
+    --match-horizontal-padding: 8px;
+    --match-vertical-padding: 6px;
+    --connector-border-width: 2px;
+    --match-border-width: 1px;
+    --match-border-radius: 0.3em;
+
+    & h1 {
+      display: none;
+    }
+
+    & h3 {
+      margin-bottom: 2em;
+    }
+
+    & :global(.match) {
+      margin: 20px 0;
+    }
+
+
+    & :global(.match-date) {
+      bottom: -15px;
+      top: unset !important;
+      left: unset !important;
+      right: unset !important;
+    }
+
+    & :global(.match.connect-next::after) {
+      height: 75%;
+    }
+
+    & :global(.match.connect-next:nth-of-type(even)::after) {
+      top: -25%;
+      height: 75%;
+    }
+
+
+    & :global(.opponents) > span {
+      background-color: common.$bg2;
+      top: -13px;
+    }
+  }
+}

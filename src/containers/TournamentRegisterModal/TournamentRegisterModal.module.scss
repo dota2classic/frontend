@@ -1,0 +1,26 @@
+@use "../../common.scss";
+
+.modal {
+  & :global(.modal) {
+    width: 40% !important;
+
+    height: 60%;
+  }
+}
+
+.error {
+  color: common.$error;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 12px;
+}
+
+.teamSize {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.spacer {
+  flex: 1;
+}

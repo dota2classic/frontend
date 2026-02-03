@@ -18,4 +18,5 @@ export * from "./RulesApi";
 export * from "./SettingsApi";
 export * from "./StatsApi";
 export * from "./StorageApi";
+export * from "./TournamentApi";
 export * from "./UserPaymentApi";

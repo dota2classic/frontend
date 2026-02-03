@@ -7,14 +7,16 @@ import { NotoSans } from "@/const/notosans";
 interface ListItem {
   content: ReactNode;
   title: ReactNode;
+  time?: ReactNode;
 }
 interface ICoolListProps {
   items: ListItem[];
+  className?: string;
 }
 
-export const CoolList: React.FC<ICoolListProps> = ({ items }) => {
+export const CoolList: React.FC<ICoolListProps> = ({ items, className }) => {
   return (
-    <div className={cx(c.list)}>
+    <div className={cx(c.list, className)}>
       {items.map((item, index) => (
         <div
           key={index}
@@ -22,6 +24,7 @@ export const CoolList: React.FC<ICoolListProps> = ({ items }) => {
         >
           <div className={c.step__num}>{index + 1}</div>
           <div className={c.step__content}>
+            {item.time && <span>{item.time}</span>}
             <h3>{item.title}</h3>
             <div className={cx(c.content, NotoSans.className)}>
               {item.content}

@@ -1,0 +1,23 @@
+@use "../../common.scss";
+
+.card {
+  @include common.card();
+
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  font-size: 2rem;
+  color: common.$blueHighlight2;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.4rem;
+  padding-bottom: 0.4rem;
+}
+
+.text {
+  font-size: 1rem;
+}

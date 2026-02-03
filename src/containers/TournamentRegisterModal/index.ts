@@ -1,0 +1,1 @@
+export { TournamentRegisterModal } from "./TournamentRegisterModal";

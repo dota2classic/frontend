@@ -82,6 +82,7 @@
   "admin_navbar.list": "Ф:List",
   "admin_navbar.decorations": "Decorations",
   "admin_navbar.rules": "Rules",
+  "admin_navbar.tournament": "Tournaments",
   "admin_player_ban_settings.endTimeLabel": "End time:",
   "admin_player_ban_settings.assignLabel": "Assign",
   "admin_player_ban_settings.removeBanLabel": "Remove ban",

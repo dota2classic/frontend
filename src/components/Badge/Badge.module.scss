@@ -1,0 +1,36 @@
+@use "../../common.scss";
+
+.badge {
+  padding: 4px 12px;
+  font-size: 1rem;
+  display: inline;
+  border-radius: 16px;
+  font-weight: bold;
+  width: fit-content;
+  height: fit-content;
+
+  &.green {
+    color: common.$primaryText;
+    background-color: #0a8f29;
+  }
+
+  &.yellow {
+    background-color: #f59e0b;
+    color: common.$darkBg2;
+  }
+
+  &.blue {
+    background-color: #3b82f6;
+  }
+
+  &.grey {
+    color: common.$almostBlack;
+    background-color: #a8acb4;
+  }
+
+
+  &.red {
+    color: common.$almostBlack;
+    background-color: common.$error;
+  }
+}

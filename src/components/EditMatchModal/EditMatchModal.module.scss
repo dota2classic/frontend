@@ -1,0 +1,23 @@
+@use "../../common.scss";
+
+
+.modal {
+  overflow-y: auto;
+}
+
+.game {
+  @include common.card();
+  padding: 8px 12px;
+}
+
+.games {
+  margin-top: 12px;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.link {
+  margin-left: 8px;
+}

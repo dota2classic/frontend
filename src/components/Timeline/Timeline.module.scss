@@ -1,0 +1,79 @@
+@use "../../common.scss";
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+.step {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+
+  &.next {
+    padding-bottom: 30px;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 2px;
+      top: 66px;
+      bottom: 2px;
+      left: 18px;
+      border: 1px none common.$primaryTextDark;
+      border-right-style: dotted;
+    }
+  }
+
+}
+
+.step__content {
+  margin-left: 20px;
+  color: common.$primaryText;
+}
+
+.step__num {
+  //padding: 8px;
+  text-align: center;
+  //background-color: common.$transparentTint;
+  //border: 1px solid common.$transparentTint3;
+  border: 2px solid white;
+  border-radius: 12px;
+  height: fit-content;
+  overflow: hidden;
+  width: 40px;
+  min-width: 40px;
+}
+
+.month {
+  background-color: white;
+  padding: 4px;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+
+.date {
+  padding: 4px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+
+.time {
+  color: common.$blueHighlight2;
+}
+
+.title {
+  margin-top: 4px;
+  font-size: 1.2rem !important;
+  font-weight: bold;
+}
+
+.content {
+  margin-top: 4px;
+  font-size: 1rem;
+  color: common.$primaryTextSemiDark;
+}
