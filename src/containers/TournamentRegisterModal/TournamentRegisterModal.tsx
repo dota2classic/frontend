@@ -13,14 +13,16 @@ import { getApi } from "@/api/hooks";
 import { handleException } from "@/util/handleException";
 import { UserPreview } from "@/components/UserPreview";
 import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { makeSimpleToast } from "@/components/Toast";
 
 interface ITournamentRegisterModalProps {
   onClose: () => void;
+  onRegister: (regId: number) => void;
   tournament: TournamentDto;
 }
 
 export const TournamentRegisterModal: React.FC<ITournamentRegisterModalProps> =
-  observer(({ onClose, tournament }) => {
+  observer(({ onClose, tournament, onRegister }) => {
     const party = useStore().queue.party;
 
     const alreadyRegisteredMembers: UserDTO[] = useMemo(() => {
@@ -41,7 +43,9 @@ export const TournamentRegisterModal: React.FC<ITournamentRegisterModalProps> =
       try {
         const registrationId =
           await getApi().tournament.tournamentControllerRegister(tournament.id);
-        console.log("Registration id", registrationId);
+        onClose();
+        onRegister(registrationId);
+        makeSimpleToast("Успех", "Ты зарегистрировался на турнир");
       } catch (e) {
         await handleException("Ошибка при регистрации на турнир", e, 30000);
       }

@@ -20,12 +20,13 @@ import { NotoSans } from "@/const/notosans";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { Button } from "@/components/Button";
-import { Countdown } from "@/components/PeriodicTimer/Countdown";
 import { TournamentRegisterModal } from "@/containers/TournamentRegisterModal";
 import { useAsyncButton } from "@/util/use-async-button";
 import { getApi } from "@/api/hooks";
 import { handleException } from "@/util/handleException";
 import { useRefreshPageProps } from "@/util/usePageProps";
+import { CountdownClient } from "@/components/PeriodicTimer";
+import { makeSimpleToast } from "@/components/Toast";
 
 type Tabs = "overview" | "bracket" | "matches" | "registered";
 
@@ -110,7 +111,15 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
 
     const hasStarted = tournament.status === TournamentStatus.INPROGRESS;
 
-    const leaveRegistration = useCallback(() => {}, []);
+    const leaveRegistration = useCallback(async () => {
+      try {
+        await getApi().tournament.tournamentControllerUnregister(tournament.id);
+        await refreshPageProps();
+        makeSimpleToast("Успех", "Ты больше не участвуешь в турнире", 5000);
+      } catch (e) {
+        await handleException("Ошибка при изменении регистрации", e);
+      }
+    }, [refreshPageProps, tournament.id]);
 
     const [isConfirming, confirmReadyCheck] = useAsyncButton(async () => {
       try {
@@ -122,7 +131,11 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
       } catch (e) {
         await handleException("Ошибка при подтверждении готовности", e);
       }
-    }, [tournament]);
+    }, [tournament, refreshPageProps]);
+
+    const canJoinOrLeave =
+      tournament.status === TournamentStatus.REGISTRATION ||
+      tournament.status === TournamentStatus.READYCHECK;
 
     return (
       <div className={c.container}>
@@ -130,6 +143,7 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
           <TournamentRegisterModal
             tournament={tournament}
             onClose={() => setRegisterOpen(false)}
+            onRegister={refreshPageProps}
           />
         )}
         <div className={cx(c.header, NotoSans.className)}>
@@ -158,24 +172,18 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
               new Date(tournament.startDate).getDate() ===
                 new Date().getDate() && (
                 <>
-                  Начало через <Countdown until={tournament.startDate} />
+                  Начало через <CountdownClient until={tournament.startDate} />
                 </>
               )}
 
-            {registration &&
-              !hasStarted &&
-              tournament.status === TournamentStatus.REGISTRATION && (
-                <Button onClick={leaveRegistration}>
-                  Отказаться от участия
-                </Button>
-              )}
-            {!registration &&
-              !hasStarted &&
-              tournament.status === TournamentStatus.REGISTRATION && (
-                <Button onClick={() => setRegisterOpen(true)} variant="primary">
-                  Участвовать
-                </Button>
-              )}
+            {registration && !hasStarted && canJoinOrLeave && (
+              <Button onClick={leaveRegistration}>Отказаться от участия</Button>
+            )}
+            {!registration && !hasStarted && canJoinOrLeave && (
+              <Button onClick={() => setRegisterOpen(true)} variant="primary">
+                Участвовать
+              </Button>
+            )}
             {myRegistration &&
               !hasStarted &&
               myRegistration.state ===

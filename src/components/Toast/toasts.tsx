@@ -259,7 +259,7 @@ export const handleNotification = (notification: NotificationDto) => {
 export const makeSimpleToast = (
   title: string,
   content: string,
-  time: number,
+  time: number = 5000,
   variant: "simple" | "error" = "simple",
 ) => {
   toast(<SimpleToast variant={variant} title={title} content={content} />, {

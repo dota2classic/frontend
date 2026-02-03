@@ -104,6 +104,10 @@ export interface TournamentControllerStartTournamentRequest {
   id: number;
 }
 
+export interface TournamentControllerUnregisterRequest {
+  id: number;
+}
+
 export interface TournamentControllerUpdateTournamentRequest {
   id: number;
   updateTournamentDto: UpdateTournamentDto;
@@ -904,6 +908,56 @@ export class TournamentApi extends runtime.BaseAPI {
     tournamentControllerStartTournament = async (id: number): Promise<object> => {
         const response = await this.tournamentControllerStartTournamentRaw({ id: id });
         return await response.value();
+    }
+
+
+    /**
+     */
+    private async tournamentControllerUnregisterRaw(requestParameters: TournamentControllerUnregisterRequest): Promise<runtime.ApiResponse<void>> {
+        this.tournamentControllerUnregisterValidation(requestParameters);
+        const context = this.tournamentControllerUnregisterContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private tournamentControllerUnregisterValidation(requestParameters: TournamentControllerUnregisterRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling tournamentControllerUnregister.");
+        }
+    }
+
+    /**
+     */
+    tournamentControllerUnregisterContext(requestParameters: TournamentControllerUnregisterRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/tournament/{id}/unregister`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    tournamentControllerUnregister = async (id: number): Promise<void> => {
+        await this.tournamentControllerUnregisterRaw({ id: id });
     }
 
 
