@@ -1414,6 +1414,7 @@
   "tournament.common.join": "Join",
   "tournament.common.confirmReady": "I'm ready!",
   "tournament.common.notAllReady": "Someone in group not ready",
+  "tournament.common.description": "Description",
   "tournament.timeline.readyCheckStart.title": "Ready check",
   "tournament.timeline.readyCheckStart.content": "Ready check starts",
   "tournament.timeline.readyCheckEnd.title": "Tournament start",

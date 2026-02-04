@@ -82,7 +82,8 @@
       "registered": "Регистраций",
       "join": "Участвовать",
       "confirmReady": "Я готов!",
-      "notAllReady": "Не все в группе готовы"
+      "notAllReady": "Не все в группе готовы",
+      "description": "Описание"
     },
     "timeline": {
       "readyCheckStart": {

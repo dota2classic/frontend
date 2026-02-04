@@ -42,9 +42,9 @@ export const TournamentRegisterModal: React.FC<ITournamentRegisterModalProps> =
     const badMmrMembers: UserDTO[] = useMemo(() => {
       if (!party) return [];
       return party.players
-        .filter((t) => t.summary.seasonStats.mmr > maxMmr)
+        .filter((t) => (t.summary.seasonStats.mmr || 0) > maxMmr)
         .map((t) => t.summary.user);
-    }, [party, tournament, maxMmr]);
+    }, [party, maxMmr]);
 
     const maxMmrValid = badMmrMembers.length === 0;
     const isValid =

@@ -77,6 +77,11 @@ export default function TournamentPage({ tournament }: Props) {
               />
             </div>
           </QueuePageBlock>
+          <QueuePageBlock heading={"Описание"}>
+            <div className={c.description}>
+              <p>{tournament.description}</p>
+            </div>
+          </QueuePageBlock>
         </div>
         <div className={c.side_info}>
           <QueuePageBlock simple heading={t("tournament.common.teams")}>

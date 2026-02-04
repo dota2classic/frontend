@@ -1490,6 +1490,7 @@
   "tournament.common.join": "Участвовать",
   "tournament.common.confirmReady": "Я готов!",
   "tournament.common.notAllReady": "Не все в группе готовы",
+  "tournament.common.description": "Описание",
   "tournament.timeline.readyCheckStart.title": "Проверка на готовность",
   "tournament.timeline.readyCheckStart.content": "Начало проверки на готовность",
   "tournament.timeline.readyCheckEnd.title": "Начало турнира",

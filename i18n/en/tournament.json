@@ -82,7 +82,8 @@
       "registered": "Registered",
       "join": "Join",
       "confirmReady": "I'm ready!",
-      "notAllReady": "Someone in group not ready"
+      "notAllReady": "Someone in group not ready",
+      "description": "Description"
     },
     "timeline": {
       "readyCheckStart": {
