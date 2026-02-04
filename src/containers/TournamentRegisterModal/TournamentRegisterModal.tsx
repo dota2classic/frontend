@@ -14,6 +14,7 @@ import { handleException } from "@/util/handleException";
 import { UserPreview } from "@/components/UserPreview";
 import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 import { makeSimpleToast } from "@/components/Toast";
+import { FaExclamation } from "react-icons/fa";
 
 interface ITournamentRegisterModalProps {
   onClose: () => void;
@@ -35,8 +36,20 @@ export const TournamentRegisterModal: React.FC<ITournamentRegisterModalProps> =
         .map((t) => t.summary.user);
     }, [party, tournament]);
 
+    // FIXME: make this extractable
+    const maxMmr = tournament.id === 3 ? 3000 : 10000;
+
+    const badMmrMembers: UserDTO[] = useMemo(() => {
+      if (!party) return [];
+      return party.players
+        .filter((t) => t.summary.seasonStats.mmr > maxMmr)
+        .map((t) => t.summary.user);
+    }, [party, tournament, maxMmr]);
+
+    const maxMmrValid = badMmrMembers.length === 0;
     const isValid =
       alreadyRegisteredMembers.length === 0 &&
+      maxMmrValid &&
       (party?.players?.length || 100) <= tournament.teamSize;
 
     const [isActive, register] = useAsyncButton(async () => {
@@ -67,8 +80,24 @@ export const TournamentRegisterModal: React.FC<ITournamentRegisterModalProps> =
           система попробует заполнить нехватающие места другими игроками
         </p>
 
+        {badMmrMembers.length > 0 && (
+          <QueuePageBlock
+            icons={<FaExclamation />}
+            heading="Игроки не подходят по рейтингу"
+          >
+            <div className={c.error}>
+              {badMmrMembers.map((usr) => (
+                <UserPreview key={usr.steamId} user={usr} />
+              ))}
+            </div>
+          </QueuePageBlock>
+        )}
+
         {alreadyRegisteredMembers.length > 0 && (
-          <QueuePageBlock heading="Игроки уже зарегистрированы">
+          <QueuePageBlock
+            icons={<FaExclamation />}
+            heading="Игроки уже зарегистрированы"
+          >
             <div className={c.error}>
               {alreadyRegisteredMembers.map((usr) => (
                 <UserPreview key={usr.steamId} user={usr} />
