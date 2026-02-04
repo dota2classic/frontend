@@ -1,6 +1,6 @@
 import React from "react";
-import { BigTabs } from "@/components/BigTabs";
 import type { TabItem } from "@/components/BigTabs";
+import { BigTabs } from "@/components/BigTabs";
 import { observer } from "mobx-react-lite";
 import { AppRouter, NextLinkProp } from "@/route";
 import { useRouter } from "next/router";

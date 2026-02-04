@@ -1,0 +1,9 @@
+{
+  "match_info_modal": {
+    "tabs": {
+      "current": "Current game",
+      "games": "Games",
+      "lineups": "Teams"
+    }
+  }
+}

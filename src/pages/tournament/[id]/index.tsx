@@ -16,6 +16,7 @@ import { RiTeamFill } from "react-icons/ri";
 import { Timeline } from "@/components/Timeline";
 import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 import { NextPageContext } from "next";
+import { EmbedProps } from "@/components/EmbedProps";
 
 interface Props {
   id: number;
@@ -29,21 +30,27 @@ export default function TournamentPage({ tournament }: Props) {
 
   return (
     <div>
+      <EmbedProps
+        title={t("tournament.seo.info.title", { name: tournament.name })}
+        description={t("tournament.seo.info.description", {
+          name: tournament.name,
+        })}
+      />
       <TournamentTabs tournament={tournament} />
       <div className={cx(c.container, NotoSans.className)}>
         <div className={c.main_info}>
-          <QueuePageBlock simple heading="Формат">
+          <QueuePageBlock simple heading={t("tournament.common.format")}>
             <div className={c.format}>
               <InfoCardWithIcon
                 icon={<TbTournament />}
-                title={"Формат"}
+                title={t("tournament.common.format")}
                 text={t(
                   `tournament.bracket.${tournament.strategy}` as TranslationKey,
                 )}
               />
               <InfoCardWithIcon
                 icon={<FaCalendarDays />}
-                title={"Окно готовности"}
+                title={t("tournament.common.readyWindow")}
                 text={
                   <>
                     <TimeAgo pretty date={readyCheckStart} /> -{" "}
@@ -53,7 +60,7 @@ export default function TournamentPage({ tournament }: Props) {
               />
               <InfoCardWithIcon
                 icon={<RiTeamFill />}
-                title={"Размер команды"}
+                title={t("tournament.common.teamSize")}
                 text={
                   <Trans
                     i18nKey="tournament.versus"
@@ -65,17 +72,17 @@ export default function TournamentPage({ tournament }: Props) {
               />
               <InfoCardWithIcon
                 icon={<FaTrophy />}
-                title={"Приз"}
-                text={tournament.prize || "Не указан"}
+                title={t("tournament.common.prize")}
+                text={tournament.prize || t("tournament.common.notSet")}
               />
             </div>
           </QueuePageBlock>
         </div>
         <div className={c.side_info}>
-          <QueuePageBlock simple heading={"Команды"}>
+          <QueuePageBlock simple heading={t("tournament.common.teams")}>
             <div className={c.register_card}>
               <dl>
-                <dd>Регистраций</dd>
+                <dd>{t("tournament.common.registered")}</dd>
                 <dt>
                   {tournament.registrations.reduce(
                     (a, b) => a + b.players.length,
@@ -84,7 +91,7 @@ export default function TournamentPage({ tournament }: Props) {
                 </dt>
               </dl>
               <dl>
-                <dd>Готовы</dd>
+                <dd>{t("tournament.common.ready")}</dd>
                 <dt>
                   {" "}
                   {tournament.registrations.reduce(
@@ -98,25 +105,25 @@ export default function TournamentPage({ tournament }: Props) {
                   )}
                 </dt>
               </dl>
-              <dl>
-                <dd>Слотов</dd>
-                <dt>8</dt>
-              </dl>
+              {/*<dl>*/}
+              {/*  <dd>{t("tournament.common.slots")}</dd>*/}
+              {/*  <dt>8</dt>*/}
+              {/*</dl>*/}
             </div>
           </QueuePageBlock>
-          <QueuePageBlock simple heading={"График"}>
+          <QueuePageBlock simple heading={t("tournament.common.schedule")}>
             <Timeline
               className={c.timeline}
               items={[
                 {
                   time: new Date(readyCheckStart),
-                  content: "Начало проверки на готовность",
-                  title: "Проверка на готовность",
+                  title: t("tournament.timeline.readyCheckStart.title"),
+                  content: t("tournament.timeline.readyCheckStart.content"),
                 },
                 {
                   time: new Date(tournament.startDate),
-                  content: "Готовые игроки становятся участниками",
-                  title: "Начало турнира",
+                  title: t("tournament.timeline.readyCheckEnd.title"),
+                  content: t("tournament.timeline.readyCheckEnd.content"),
                 },
               ]}
             />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import c from "./TournamentMatchCard.module.scss";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import { TimeAgo } from "@/components/TimeAgo";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
 import { MatchStatusBadge } from "@/components/MatchStatusBadge";
+import { MatchInfoModal } from "@/components/MatchInfoModal";
 
 interface ITournamentMatchCardProps {
   match: BracketMatchDto;
@@ -44,9 +45,16 @@ export const TournamentMatchCard: React.FC<ITournamentMatchCardProps> = ({
   match,
 }) => {
   const { t } = useTranslation();
+  const [visible, setVisible] = useState<boolean>(false);
 
   return (
-    <div className={cx(c.card, NotoSans.className)}>
+    <div
+      className={cx(c.card, NotoSans.className)}
+      onClick={() => setVisible(true)}
+    >
+      {visible && (
+        <MatchInfoModal onClose={() => setVisible(false)} match={match} />
+      )}
       <div className={c.left}>
         <MatchStatusBadge status={match.status} />
         <span>

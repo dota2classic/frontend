@@ -1,0 +1,98 @@
+{
+  "tournament": {
+    "seo": {
+      "list": {
+        "title": "Tournaments",
+        "description": "Old Dota tournaments. A list of completed, active, and upcoming tournaments."
+      },
+      "info": {
+        "title": "Tournament {{name}}",
+        "description": "Old Dota tournament {{name}}, hosted on the dotaclassic.ru website"
+      },
+      "matches": {
+        "title": "Matches in tournament {{name}}",
+        "description": "List of matches within the old Dota tournament {{name}}"
+      },
+      "bracket": {
+        "title": "Tournament bracket {{name}}",
+        "description": "Match bracket for the old Dota tournament {{name}}"
+      },
+      "participants": {
+        "title": "Participants of tournament {{name}}",
+        "description": "List of participants in the old Dota tournament {{name}}"
+      }
+    },
+    "tabs": {
+      "overall": "Overview",
+      "bracket": "Bracket",
+      "matches": "Matches",
+      "registered": "Participants"
+    },
+    "versus": "{{cnt}} vs {{cnt}}",
+
+    "match_status": {
+      "0": "Scheduled",
+      "1": "Waiting for opponent",
+      "2": "Ready to start",
+      "3": "In progress",
+      "4": "Finished",
+      "5": "Finished"
+    },
+
+    "best_of": {
+      "bo1": "Best of 1",
+      "bo3": "Best of 3"
+    },
+
+    "status": {
+      "DRAFT": "Draft",
+      "REGISTRATION": "Registration",
+      "READY_CHECK": "Ready check",
+      "IN_PROGRESS": "In progress",
+      "FINISHED": "Finished"
+    },
+    "registration": {
+      "CREATED": "Registered",
+      "PENDING_CONFIRMATION": "Pending confirmation",
+      "CONFIRMED": "Ready",
+      "DECLINED": "Declined",
+      "TIMED_OUT": "Not confirmed"
+    },
+    "bracket": {
+      "SINGLE_ELIMINATION": "Single elimination",
+      "DOUBLE_ELIMINATION": "Double elimination"
+    },
+    "result": {
+      "win": "Win",
+      "loss": "Loss"
+    },
+    "common": {
+      "bracket": "Bracket",
+      "starts": "Starts: <time />",
+      "format": "Format",
+      "readyWindow": "Ready window",
+      "teamSize": "Team size",
+      "tbd": "TBD",
+      "notSet": "Not set",
+      "prize": "Prize",
+      "teams": "Teams",
+      "schedule": "Schedule",
+      "slots": "Slots",
+      "ready": "Ready",
+      "registered": "Registered",
+      "join": "Join",
+      "confirmReady": "I'm ready!",
+      "notAllReady": "Someone in group not ready"
+    },
+    "timeline": {
+      "readyCheckStart": {
+        "title": "Ready check",
+        "content": "Ready check starts"
+      },
+      "readyCheckEnd": {
+        "title": "Tournament start",
+        "content": "Confirmed registrations become participants"
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+@use "../../common.scss";
+
+.modal {
+  & :global(.modal) {
+    width: 40vw;
+  }
+
+  & :global(.modal__content) {
+    padding: 1rem 0 0;
+  }
+  cursor: auto;
+}
+
+.card {
+  @include common.card();
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.heading {
+  font-size: 1.4rem;
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1rem;
+  font-weight: bold;
+
+  &__small {
+    font-size: 1.1rem;
+  }
+}
+
+.match_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 12px 36px;
+  gap: 12px;
+}
+
+.teams {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  position: relative;
+}
+
+.delimeter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  text-align: end;
+
+  &__reverse {
+    flex-direction: row-reverse;
+    & .team__result {
+      text-align: start;
+    }
+  }
+
+  & > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.team__result {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.score {
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 12px;
+}
+
+.team_name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.games {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.game {
+  @include common.card();
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}

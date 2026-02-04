@@ -7,6 +7,9 @@ import { TournamentDto } from "@/api/back";
 import { TimeAgo } from "@/components/TimeAgo";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
+import { NotoSans } from "@/const/notosans";
+import cx from "clsx";
+import { TournamentStatusBadge } from "@/components/TournamentStatusBadge";
 
 interface ITournamentCardProps {
   tournament: TournamentDto;
@@ -18,17 +21,17 @@ export const TournamentCard: React.FC<ITournamentCardProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className={c.card}>
+    <div className={cx(c.card, NotoSans.className)}>
       <img src={tournament.imageUrl || "/avatar.png"} alt="" />
       <div className={c.info}>
-        <h3>
+        <h2>
           <PageLink
             className={"link"}
             link={AppRouter.tournament.tournament(tournament.id).link}
           >
             {tournament.name}
           </PageLink>
-        </h3>
+        </h2>
         <p>{tournament.description}</p>
         <div className={c.config}>
           <dl>
@@ -44,13 +47,13 @@ export const TournamentCard: React.FC<ITournamentCardProps> = ({
           <dl>
             <dd>Начало турнира</dd>
             <dt>
-              <TimeAgo date={tournament.startDate} />
+              <TimeAgo pretty date={tournament.startDate} />
             </dt>
           </dl>
           <dl>
             <dd>Статус</dd>
             <dt>
-              {t(`tournament.status.${tournament.status}` as TranslationKey)}
+              <TournamentStatusBadge status={tournament.status} />
             </dt>
           </dl>
         </div>

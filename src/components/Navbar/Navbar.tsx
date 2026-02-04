@@ -5,7 +5,7 @@ import { AppRouter } from "@/route";
 import { getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { IoMenu } from "react-icons/io5";
+import { IoMenu, IoNewspaper } from "react-icons/io5";
 import cx from "clsx";
 import { useRouterChanging } from "@/util/useRouterChanging";
 import { LoginProfileNavbarItem } from "./LoginProfileNavbarItem";
@@ -13,7 +13,7 @@ import { MetaNavbarItem } from "./MetaNavbarItem";
 import { AdminNavbarItem } from "./AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdGavel } from "react-icons/md";
-import { FaCoins, FaJournalWhills } from "react-icons/fa";
+import { FaCoins, FaExclamation, FaJournalWhills } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
 import { AiOutlineTeam } from "react-icons/ai";
@@ -100,11 +100,8 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 {t("navbar.howToPlay")}
               </NavbarItem>
             )}
-            <NavbarItem
-              action={AppRouter.blog.index.link}
-              tip={newBlogRecently && "!"}
-            >
-              {t("navbar.news")}
+            <NavbarItem tip={"!"} action={AppRouter.tournament.index.link}>
+              {t("navbar.tournaments")}
             </NavbarItem>
             <MetaNavbarItem />
             <NavbarItem
@@ -129,6 +126,11 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
               className={c.play}
               action={AppRouter.info.link}
               options={[
+                {
+                  Icon: newBlogRecently ? FaExclamation : IoNewspaper,
+                  label: t("navbar.news"),
+                  action: AppRouter.blog.index.link,
+                },
                 {
                   Icon: AiOutlineTeam,
                   label: t("navbar.vacancies"),

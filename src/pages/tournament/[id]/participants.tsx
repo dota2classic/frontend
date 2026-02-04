@@ -8,6 +8,8 @@ import cx from "clsx";
 import { RegistrationCard } from "@/components/RegistrationCard";
 import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 import { NextPageContext } from "next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   id: number;
@@ -15,8 +17,17 @@ interface Props {
 }
 
 export default function TournamentPage({ tournament }: Props) {
+  const { t } = useTranslation();
   return (
     <div>
+      <EmbedProps
+        title={t("tournament.seo.participants.title", {
+          name: tournament.name,
+        })}
+        description={t("tournament.seo.participants.description", {
+          name: tournament.name,
+        })}
+      />
       <TournamentTabs tournament={tournament} />
       <div className={cx(c.container, NotoSans.className)}>
         <QueuePageBlock className={c.fullwidth} heading="Участники">

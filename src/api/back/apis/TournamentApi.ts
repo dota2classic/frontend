@@ -65,6 +65,10 @@ export interface TournamentControllerEndRegistrationRequest {
   id: number;
 }
 
+export interface TournamentControllerFinishTournamentRequest {
+  id: number;
+}
+
 export interface TournamentControllerGetBracketRequest {
   id: number;
 }
@@ -377,6 +381,57 @@ export class TournamentApi extends runtime.BaseAPI {
      */
     tournamentControllerEndRegistration = async (id: number): Promise<object> => {
         const response = await this.tournamentControllerEndRegistrationRaw({ id: id });
+        return await response.value();
+    }
+
+
+    /**
+     */
+    private async tournamentControllerFinishTournamentRaw(requestParameters: TournamentControllerFinishTournamentRequest): Promise<runtime.ApiResponse<object>> {
+        this.tournamentControllerFinishTournamentValidation(requestParameters);
+        const context = this.tournamentControllerFinishTournamentContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+
+
+    /**
+     */
+    private tournamentControllerFinishTournamentValidation(requestParameters: TournamentControllerFinishTournamentRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling tournamentControllerFinishTournament.");
+        }
+    }
+
+    /**
+     */
+    tournamentControllerFinishTournamentContext(requestParameters: TournamentControllerFinishTournamentRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/tournament/{id}/finish_tournament`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    tournamentControllerFinishTournament = async (id: number): Promise<object> => {
+        const response = await this.tournamentControllerFinishTournamentRaw({ id: id });
         return await response.value();
     }
 

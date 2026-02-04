@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { AppRouter, NextLinkProp } from "@/route";
 import { BigTabs, IBigTabsProps } from "@/components/BigTabs/BigTabs";
 import { TranslationKey } from "@/TranslationKey";
@@ -15,7 +15,6 @@ import { TimeAgo } from "@/components/TimeAgo";
 import { Badge } from "@/components/Badge";
 import { TrajanPro } from "@/const/fonts";
 import cx from "clsx";
-import { BadgeVariant } from "@/components/Badge/Badge";
 import { NotoSans } from "@/const/notosans";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
@@ -27,18 +26,12 @@ import { handleException } from "@/util/handleException";
 import { useRefreshPageProps } from "@/util/usePageProps";
 import { CountdownClient } from "@/components/PeriodicTimer";
 import { makeSimpleToast } from "@/components/Toast";
+import { TournamentStatusBadge } from "@/components/TournamentStatusBadge";
+import { getAuthUrl } from "@/util/getAuthUrl";
 
 type Tabs = "overview" | "bracket" | "matches" | "registered";
 
 type Items = IBigTabsProps<Tabs, TranslationKey>["items"];
-
-const StatusMapping: Record<TournamentStatus, BadgeVariant> = {
-  [TournamentStatus.DRAFT]: "grey",
-  [TournamentStatus.FINISHED]: "grey",
-  [TournamentStatus.INPROGRESS]: "green",
-  [TournamentStatus.READYCHECK]: "yellow",
-  [TournamentStatus.REGISTRATION]: "blue",
-};
 
 const getMenuItems = (id: number): Items => {
   const menuItems: Items = [
@@ -78,6 +71,7 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
       [tournament.id],
     );
     const [registerOpen, setRegisterOpen] = useState(false);
+    const { isAuthorized } = useStore().auth;
 
     const refreshPageProps = useRefreshPageProps();
 
@@ -153,17 +147,15 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
               <h1 className={TrajanPro.className}>{tournament.name}</h1>
               <span className={c.timestamp}>
                 <span>
-                  Начало: <TimeAgo date={tournament.startDate} />
+                  <Trans
+                    i18nKey="tournament.common.starts"
+                    components={{
+                      time: <TimeAgo date={tournament.startDate} />,
+                    }}
+                  />
                 </span>
                 <span className={c.delimeter}>•</span>
-                <Badge
-                  className={c.badge}
-                  variant={StatusMapping[tournament.status]}
-                >
-                  {t(
-                    `tournament.status.${tournament.status}` as TranslationKey,
-                  )}
-                </Badge>
+                <TournamentStatusBadge status={tournament.status} />
               </span>
             </div>
           </div>
@@ -180,8 +172,13 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
               <Button onClick={leaveRegistration}>Отказаться от участия</Button>
             )}
             {!registration && !hasStarted && canJoinOrLeave && (
-              <Button onClick={() => setRegisterOpen(true)} variant="primary">
-                Участвовать
+              <Button
+                onClick={() => isAuthorized && setRegisterOpen(true)}
+                variant="primary"
+                link={!isAuthorized}
+                href={isAuthorized ? undefined : getAuthUrl()}
+              >
+                {t("tournament.common.join")}
               </Button>
             )}
             {myRegistration &&
@@ -193,7 +190,7 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
                   onClick={confirmReadyCheck}
                   variant="primary"
                 >
-                  Подвердить готовность
+                  {t("tournament.common.confirmReady")}
                 </Button>
               )}
 
@@ -201,13 +198,15 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
               !hasStarted &&
               myRegistration.state ===
                 RegistrationPlayerDtoStateEnum.CONFIRMED && (
-                <Badge variant="green">Готовность подтверждена</Badge>
+                <Badge variant="green">{t("tournament.common.ready")}</Badge>
               )}
             {registration &&
               !hasStarted &&
               registration.state ===
                 RegistrationDtoStateEnum.PENDINGCONFIRMATION && (
-                <Badge variant="yellow">Не все в группе готовы</Badge>
+                <Badge variant="yellow">
+                  {t("tournament.common.notAllReady")}
+                </Badge>
               )}
           </div>
         </div>

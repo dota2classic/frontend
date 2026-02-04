@@ -1,0 +1,9 @@
+{
+  "match_info_modal": {
+    "tabs": {
+      "current": "Текущая игра",
+      "games": "Игры",
+      "lineups": "Команды"
+    }
+  }
+}

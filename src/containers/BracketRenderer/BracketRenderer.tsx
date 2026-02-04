@@ -14,6 +14,8 @@ import {
 import { EditMatchModal } from "@/components/EditMatchModal";
 import { useRefreshPageProps } from "@/util/usePageProps";
 import { BracketMatchDto } from "@/api/back";
+import { MatchInfoModal } from "@/components/MatchInfoModal";
+import { useTranslation } from "react-i18next";
 
 interface IBracketRendererProps {
   uniqueId: string;
@@ -32,6 +34,7 @@ export const BracketRenderer: React.FC<IBracketRendererProps> = ({
   bracket,
 }) => {
   const [matchId, setMatchId] = useState<number | undefined>();
+  const { t } = useTranslation();
 
   const viewer = useMemo(() => new BracketsViewer(), []);
   const refreshPage = useRefreshPageProps();
@@ -42,13 +45,9 @@ export const BracketRenderer: React.FC<IBracketRendererProps> = ({
     ) as unknown as BracketMatchDto;
   }, [bracket, matchId]);
 
-  const onMatchClick = useCallback(
-    (match: MatchWithMetadata) => {
-      if (!admin) return;
-      setMatchId(Number(match.id));
-    },
-    [admin],
-  );
+  const onMatchClick = useCallback((match: MatchWithMetadata) => {
+    setMatchId(Number(match.id));
+  }, []);
 
   useEffect(() => {
     viewer.setParticipantImages(
@@ -97,12 +96,21 @@ export const BracketRenderer: React.FC<IBracketRendererProps> = ({
         src="/brackets-viewer.min.js"
       ></script>
 
-      <QueuePageBlock heading={"Сетка турнира"} className={c.wrapper}>
-        {match && (
+      <QueuePageBlock
+        heading={t("tournament.common.bracket")}
+        className={c.wrapper}
+      >
+        {match && admin && (
           <EditMatchModal
             match={match!}
             onClose={() => setMatchId(undefined)}
             onUpdated={refreshPage}
+          />
+        )}
+        {match && !admin && (
+          <MatchInfoModal
+            match={match!}
+            onClose={() => setMatchId(undefined)}
           />
         )}
         <div className="brackets-viewer" id={uniqueId} />

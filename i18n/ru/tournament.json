@@ -1,5 +1,27 @@
 {
   "tournament": {
+    "seo": {
+      "list": {
+        "title": "Турниры",
+        "description": "Турниры по старой доте. Список сыгранных, активных и предстоящих турниров."
+      },
+      "info": {
+        "title": "Турнир {{name}}",
+        "description": "Турнир по старой доте {{name}}, проводящийся на сайте dotaclassic.ru"
+      },
+      "matches": {
+        "title": "Матчи в турнире {{name}}",
+        "description": "Список матчей в рамках турнира по старой доте {{name}}"
+      },
+      "bracket": {
+        "title": "Турнирная сетка {{name}}",
+        "description": "Сетка матчей для турнира по старой доте {{name}}"
+      },
+      "participants": {
+        "title": "Участники турнира {{name}}",
+        "description": "Список участников турнира по старой доте {{name}}"
+      }
+    },
     "tabs": {
       "overall": "Информация",
       "bracket": "Сетка",
@@ -39,6 +61,38 @@
     "bracket": {
       "SINGLE_ELIMINATION": "Single elimination",
       "DOUBLE_ELIMINATION": "Double elimination"
+    },
+    "result": {
+      "win": "Победа",
+      "loss": "Поражение"
+    },
+    "common": {
+      "bracket": "Сетка",
+      "starts": "Начало: <time />",
+      "format": "Формат",
+      "readyWindow": "Окно готовости",
+      "teamSize": "Размер команды",
+      "tbd": "Еще неизвестен",
+      "notSet": "Не указан",
+      "prize": "Приз",
+      "teams": "Команды",
+      "schedule": "График",
+      "slots": "Слотов",
+      "ready": "Готовы",
+      "registered": "Регистраций",
+      "join": "Участвовать",
+      "confirmReady": "Я готов!",
+      "notAllReady": "Не все в группе готовы"
+    },
+    "timeline": {
+      "readyCheckStart": {
+        "title": "Проверка на готовность",
+        "content": "Начало проверки на готовность"
+      },
+      "readyCheckEnd": {
+        "title": "Начало турнира",
+        "content": "Готовые игроки становятся участниками"
+      }
     }
   }
 }

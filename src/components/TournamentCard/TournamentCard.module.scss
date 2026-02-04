@@ -8,12 +8,12 @@
   flex-direction: row;
   gap: 2rem;
   padding: 1em;
+  height: 12rem;
 
 
   & > img {
-    //width: 30%;
-    max-height: 200px;
-    height: auto;
+    width: 300px;
+    height: 100%;
     object-fit: cover;
   }
 }
@@ -22,11 +22,15 @@
 .info {
   display: flex;
   flex-direction: column;
-  gap: 12px;
   align-self: stretch;
+  flex: 1;
 
-  & h3 {
-    //margin-block-start: 0;
+  & p {
+    flex: 1;
+  }
+
+  & h2 {
+    margin-block-start: 0;
   }
 }
 

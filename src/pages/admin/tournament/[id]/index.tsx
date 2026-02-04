@@ -34,7 +34,18 @@ export default function TournamentAdminPage({ tournament }: Props) {
     } catch (e) {
       await handleException("Ошибка при публикации турнира", e);
     }
-  }, []);
+  }, [tournament, refresh]);
+
+  const [isFinishing, finish] = useAsyncButton(async () => {
+    try {
+      await getApi().tournament.tournamentControllerFinishTournament(
+        tournament.id,
+      );
+      await refresh();
+    } catch (e) {
+      await handleException("Ошибка при завершении турнира", e);
+    }
+  }, [tournament, refresh]);
 
   const [isStartingReadyCheck, startReadyCheck] = useAsyncButton(async () => {
     try {
@@ -65,6 +76,11 @@ export default function TournamentAdminPage({ tournament }: Props) {
           {tournament.status === TournamentStatus.DRAFT && (
             <Button disabled={isPublishing} variant="primary" onClick={publish}>
               Опубликовать
+            </Button>
+          )}
+          {tournament.status === TournamentStatus.INPROGRESS && (
+            <Button disabled={isFinishing} variant="primary" onClick={finish}>
+              Завершить
             </Button>
           )}
           {tournament.status === TournamentStatus.REGISTRATION && (

@@ -23,9 +23,14 @@ export const GenericModal = React.forwardRef<HTMLDivElement, AllProps>(
   ) {
     const comp = useRef<HTMLDivElement | null>(null);
 
-    const close = useCallback(() => {
-      onClose();
-    }, [onClose]);
+    const close = useCallback(
+      (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onClose();
+      },
+      [onClose],
+    );
 
     return (
       <div {...props} ref={ref} className={cx(className, c.modalWrapper)}>

@@ -7,6 +7,8 @@ import { TournamentBracketInfoDto, TournamentDto } from "@/api/back";
 import { TournamentTabs } from "@/components/TournamentTabs";
 import c from "./TournamentStyles.module.scss";
 import { NextPageContext } from "next";
+import { EmbedProps } from "@/components/EmbedProps";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   id: number;
@@ -15,9 +17,15 @@ interface Props {
 }
 export default function TournamentBracket({ id, tournament, bracket }: Props) {
   const hasBracket = bracket.stage.length > 0;
-
+  const { t } = useTranslation();
   return (
     <>
+      <EmbedProps
+        title={t("tournament.seo.bracket.title", { name: tournament.name })}
+        description={t("tournament.seo.bracket.description", {
+          name: tournament.name,
+        })}
+      />
       <TournamentTabs tournament={tournament} />
       {hasBracket ? (
         <BracketRenderer

@@ -1,0 +1,1 @@
+export { MatchInfoModal } from "./MatchInfoModal";
