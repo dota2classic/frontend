@@ -88,6 +88,10 @@ export interface ForumControllerGetLatestPageRequest {
   perPage?: number;
 }
 
+export interface ForumControllerGetMessageRequest {
+  id: string;
+}
+
 export interface ForumControllerGetMessagesRequest {
   id: string;
   threadType: ThreadType;
@@ -111,6 +115,10 @@ export interface ForumControllerMessagesPageRequest {
   page: number;
   cursor?: string;
   perPage?: number;
+}
+
+export interface ForumControllerPinMessageRequest {
+  id: string;
 }
 
 export interface ForumControllerPostMessageRequest {
@@ -445,6 +453,59 @@ export class ForumApi extends runtime.BaseAPI {
 
     /**
      */
+    private async forumControllerGetMessageRaw(requestParameters: ForumControllerGetMessageRequest): Promise<runtime.ApiResponse<ThreadMessageDTO>> {
+        this.forumControllerGetMessageValidation(requestParameters);
+        const context = this.forumControllerGetMessageContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ThreadMessageDTOFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private forumControllerGetMessageValidation(requestParameters: ForumControllerGetMessageRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling forumControllerGetMessage.");
+        }
+    }
+
+    /**
+     */
+    forumControllerGetMessageContext(requestParameters: ForumControllerGetMessageRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/forum/thread/message/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    forumControllerGetMessage = async (id: string): Promise<ThreadMessageDTO> => {
+        const response = await this.forumControllerGetMessageRaw({ id: id });
+        return await response.value();
+    }
+
+    useForumControllerGetMessage(id: string, config?: SWRConfiguration<ThreadMessageDTO, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.forumControllerGetMessageContext({ id: id! });
+        return useSWR(context, valid ? () => this.forumControllerGetMessage(id!) : null, config)
+    }
+
+    /**
+     */
     private async forumControllerGetMessagesRaw(requestParameters: ForumControllerGetMessagesRequest): Promise<runtime.ApiResponse<Array<ThreadMessageDTO>>> {
         this.forumControllerGetMessagesValidation(requestParameters);
         const context = this.forumControllerGetMessagesContext(requestParameters);
@@ -730,6 +791,56 @@ export class ForumApi extends runtime.BaseAPI {
         const context = this.forumControllerMessagesPageContext({ id: id!, threadType: threadType!, page: page!, cursor: cursor!, perPage: perPage! });
         return useSWR(context, valid ? () => this.forumControllerMessagesPage(id!, threadType!, page!, cursor!, perPage!) : null, config)
     }
+
+    /**
+     */
+    private async forumControllerPinMessageRaw(requestParameters: ForumControllerPinMessageRequest): Promise<runtime.ApiResponse<void>> {
+        this.forumControllerPinMessageValidation(requestParameters);
+        const context = this.forumControllerPinMessageContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private forumControllerPinMessageValidation(requestParameters: ForumControllerPinMessageRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling forumControllerPinMessage.");
+        }
+    }
+
+    /**
+     */
+    forumControllerPinMessageContext(requestParameters: ForumControllerPinMessageRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/forum/thread/message/{id}/pin`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    forumControllerPinMessage = async (id: string): Promise<void> => {
+        await this.forumControllerPinMessageRaw({ id: id });
+    }
+
 
     /**
      */

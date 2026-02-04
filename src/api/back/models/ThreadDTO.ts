@@ -100,6 +100,12 @@ export interface ThreadDTO {
      * @memberof ThreadDTO
      */
     lastMessage?: ThreadMessageDTO;
+    /**
+     * 
+     * @type {ThreadMessageDTO}
+     * @memberof ThreadDTO
+     */
+    pinnedMessage?: ThreadMessageDTO;
 }
 
 export function ThreadDTOFromJSON(json: any): ThreadDTO {
@@ -123,6 +129,7 @@ export function ThreadDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'adminOnly': json['adminOnly'],
         'originalPoster': !exists(json, 'originalPoster') ? undefined : UserDTOFromJSON(json['originalPoster']),
         'lastMessage': !exists(json, 'lastMessage') ? undefined : ThreadMessageDTOFromJSON(json['lastMessage']),
+        'pinnedMessage': !exists(json, 'pinnedMessage') ? undefined : ThreadMessageDTOFromJSON(json['pinnedMessage']),
     };
 }
 
@@ -146,6 +153,7 @@ export function ThreadDTOToJSON(value?: ThreadDTO | null): any {
         'adminOnly': value.adminOnly,
         'originalPoster': UserDTOToJSON(value.originalPoster),
         'lastMessage': ThreadMessageDTOToJSON(value.lastMessage),
+        'pinnedMessage': ThreadMessageDTOToJSON(value.pinnedMessage),
     };
 }
 

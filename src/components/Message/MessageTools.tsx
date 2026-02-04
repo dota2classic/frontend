@@ -10,6 +10,7 @@ import { EditMessageTool } from "./tools/EditMessageTool";
 import { ThreadMessageDTO } from "@/api/back";
 import { BlockUserTool } from "./tools/BlockUserTool";
 import { ReportUserTool } from "./tools/ReportUserTool";
+import { PinMessageTool } from "@/components/Message/tools/PinMessageTool";
 
 interface Props {
   message: ThreadMessageDTO;
@@ -38,6 +39,7 @@ export const MessageTools = observer(({ message }: Props) => {
         relatedSteamId={message.author.steamId}
       />
       <ReportUserTool message={message} />
+      <PinMessageTool messageId={message.messageId} />
     </div>
   );
 });

@@ -48,6 +48,20 @@ export class ThreadStore implements HydratableStore<unknown> {
   thread: ThreadDTO | undefined = undefined;
 
   @computed
+  public get pinnedMessage(): ThreadMessageDTO | undefined {
+    console.log(
+      "Computing pinned message, ",
+      this.thread?.pinnedMessage,
+      this.messageMap.get(this.thread?.pinnedMessage?.messageId || ""),
+    );
+    if (!this.thread?.pinnedMessage) return undefined;
+    return (
+      this.messageMap.get(this.thread.pinnedMessage.messageId) ||
+      this.thread!.pinnedMessage!
+    );
+  }
+
+  @computed
   public get replyingMessage(): ThreadMessageDTO | undefined {
     return (
       (this.replyingMessageId && this.messageMap.get(this.replyingMessageId)) ||
@@ -268,10 +282,29 @@ export class ThreadStore implements HydratableStore<unknown> {
       .then(this.consumeMessage);
   };
 
+  public pinMessage = async (messageId: string) => {
+    await getApi()
+      .forumApi.forumControllerPinMessage(messageId)
+      .then(() => this.fetchThread(this.id, this.threadType))
+      .catch();
+  };
+
   private fetchThread = async (id: string, threadType: ThreadType) => {
     return getApi()
       .forumApi.forumControllerGetThread(id, threadType)
-      .then((thread) => runInAction(() => (this.thread = thread)))
+      .then((thread) =>
+        runInAction(() => {
+          this.thread = thread;
+          if (thread.pinnedMessage) {
+            getApi()
+              .forumApi.forumControllerGetMessage(
+                thread.pinnedMessage.messageId,
+              )
+              .then(this.consumeMessage)
+              .catch();
+          }
+        }),
+      )
       .catch();
   };
 
