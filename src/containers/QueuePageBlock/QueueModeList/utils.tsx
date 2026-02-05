@@ -51,12 +51,12 @@ export const modEnableCondition = (
   }
 
   if (mode === MatchmakingMode.HIGHROOM) {
-    const gamesRequired = 30;
-    if (queue.minGamesInParty < gamesRequired) {
+    const mmrRequired = 5500;
+    if (queue.minMmrInParty < mmrRequired) {
       return (
         <>
           {t("matchmaking_option.needToPlayMore", {
-            gamesRequired: gamesRequired - queue.minGamesInParty,
+            minMmr: mmrRequired,
           })}
         </>
       );

@@ -983,7 +983,7 @@
   "matchmaking_option.searchForbiddenPermanent": "Тебе запрещена игра.",
   "matchmaking_option.needToPlayAgainstBots": "Нужно сыграть против <attention>ботов</attention>",
   "matchmaking_option.needToWinAnyMode": "Нужно победить против ботов",
-  "matchmaking_option.needToPlayMore": "Нужно сыграть еще {{gamesRequired}} игр в Обычная 5х5",
+  "matchmaking_option.needToPlayMore": "Минимальный рейтинг для поиска - {{minMmr}}",
   "message_content.edit": "<key>escape</key> для отмены, <key>enter</key> сохранить",
   "message_content.edited": "редактировано",
   "message.avatarAlt": "Avatar of player {{playerName}}",

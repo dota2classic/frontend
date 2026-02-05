@@ -4,6 +4,6 @@
     "searchForbiddenPermanent": "You are banned from playing.",
     "needToPlayAgainstBots": "Need to play against <attention>bots</attention>",
     "needToWinAnyMode": "Need to win against bots",
-    "needToPlayMore": "Need to play more {{gamesRequired}} games in Normal 5x5"
+    "needToPlayMore": "You need at least {{minMmr}} mmr to play this mode"
   }
 }

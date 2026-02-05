@@ -4,6 +4,6 @@
     "searchForbiddenPermanent": "Тебе запрещена игра.",
     "needToPlayAgainstBots": "Нужно сыграть против <attention>ботов</attention>",
     "needToWinAnyMode": "Нужно победить против ботов",
-    "needToPlayMore": "Нужно сыграть еще {{gamesRequired}} игр в Обычная 5х5"
+    "needToPlayMore": "Минимальный рейтинг для поиска - {{minMmr}}"
   }
 }

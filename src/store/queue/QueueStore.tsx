@@ -217,10 +217,10 @@ export class QueueStore
   }
 
   @computed
-  public get minGamesInParty(): number {
+  public get minMmrInParty(): number {
     return this.party
       ? this.party.players
-          .map((t) => t.summary.overallStats.gamesPlayed)
+          .map((t) => t.summary.seasonStats.mmr || 0)
           .sort((a, b) => a - b)[0]
       : 0;
   }
