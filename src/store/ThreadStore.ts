@@ -36,6 +36,9 @@ export class ThreadStore implements HydratableStore<unknown> {
   threadType: ThreadType = ThreadType.FORUM;
 
   @observable
+  initialLoaded: boolean = false;
+
+  @observable
   messageMap: Map<string, ThreadMessageDTO> = new Map();
 
   @observable
@@ -49,11 +52,6 @@ export class ThreadStore implements HydratableStore<unknown> {
 
   @computed
   public get pinnedMessage(): ThreadMessageDTO | undefined {
-    console.log(
-      "Computing pinned message, ",
-      this.thread?.pinnedMessage,
-      this.messageMap.get(this.thread?.pinnedMessage?.messageId || ""),
-    );
     if (!this.thread?.pinnedMessage) return undefined;
     return (
       this.messageMap.get(this.thread.pinnedMessage.messageId) ||
@@ -145,6 +143,7 @@ export class ThreadStore implements HydratableStore<unknown> {
     if (init) {
       this.setInitial(init);
       this.fetchThread(id, threadType).then();
+      this.initialLoaded = true;
     } else {
       this.initialLoad().then(() => this.fetchThread(id, threadType));
     }
@@ -155,9 +154,9 @@ export class ThreadStore implements HydratableStore<unknown> {
 
   private initialLoad = async () => {
     if (this.page !== undefined) {
-      this.loadPage(this.page);
+      await this.loadPage(this.page);
     } else {
-      getApi()
+      await getApi()
         .forumApi.forumControllerGetMessages(
           this.id,
           this.threadType,
@@ -166,10 +165,8 @@ export class ThreadStore implements HydratableStore<unknown> {
           SortOrder.DESC,
         )
         .then(this.consumeMessages);
-      // getApi()
-      //   .forumApi.forumControllerGetLatestPage(this.id, this.threadType, 100)
-      //   .then(this.setPageData);
     }
+    runInAction(() => (this.initialLoaded = true));
   };
 
   consumeMessage = (msg: ThreadMessageDTO) => this.consumeMessages([msg]);
@@ -241,7 +238,7 @@ export class ThreadStore implements HydratableStore<unknown> {
   };
 
   @action loadPage = (page: number, perPage?: number) => {
-    getApi()
+    return getApi()
       .forumApi.forumControllerMessagesPage(
         this.id.toString(),
         this.threadType,
@@ -261,6 +258,7 @@ export class ThreadStore implements HydratableStore<unknown> {
     this.pg = undefined;
     this.page = 0;
     this.messageMap.clear();
+    this.initialLoaded = false;
 
     this.fetchThread(id, threadType).then();
   };
