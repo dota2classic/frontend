@@ -12,7 +12,7 @@ import { useThreadControls } from "./useThreadControls";
 import { ThreadType } from "@/api/mapped-models";
 import { threadFont } from "@/const/fonts";
 import { MessageInput } from "@/components/MessageInput";
-import { Message } from "@/components/Message";
+import { PinnedMessage } from "@/containers/Thread/PinnedMessage";
 
 interface IThreadProps {
   id: string;
@@ -57,16 +57,7 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
             c.messageContainer__tiny,
           )}
         >
-          {pinnedMessage && (
-            <div className={c.pinnedMessage}>
-              <span className={c.pinnedMessage__indicator}>Закреплено</span>
-              <Message
-                header={true}
-                lightweight
-                message={{ ...pinnedMessage, reactions: [] }}
-              />
-            </div>
-          )}
+          <PinnedMessage message={pinnedMessage} />
           <RenderChatThread />
         </div>
         {displayInput && (
