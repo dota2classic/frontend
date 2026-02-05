@@ -51,7 +51,7 @@ export const modEnableCondition = (
   }
 
   if (mode === MatchmakingMode.HIGHROOM) {
-    const mmrRequired = 5500;
+    const mmrRequired = 2500;
     if (queue.minMmrInParty < mmrRequired) {
       return (
         <>
