@@ -60,7 +60,11 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
           {pinnedMessage && (
             <div className={c.pinnedMessage}>
               <span className={c.pinnedMessage__indicator}>Закреплено</span>
-              <Message header={true} message={pinnedMessage} />
+              <Message
+                header={true}
+                lightweight
+                message={{ ...pinnedMessage, reactions: [] }}
+              />
             </div>
           )}
           <RenderChatThread />

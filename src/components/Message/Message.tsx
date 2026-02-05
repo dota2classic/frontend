@@ -31,9 +31,16 @@ export const Message = React.memo(function RenderMessageNew({
 
   if (header) {
     return (
-      <div id={message.messageId} className={cx(c.message, c.message__header)}>
+      <div
+        id={message.messageId}
+        className={cx(
+          c.message,
+          c.message__header,
+          lightweight && c.message__header_nopadding,
+        )}
+      >
         <RepliedMessage message={message.reply} />
-        <MessageHeader message={message} lightweight={lightweight} />
+        <MessageHeader message={message} />
       </div>
     );
   } else {

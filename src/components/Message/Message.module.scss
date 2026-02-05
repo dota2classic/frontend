@@ -8,6 +8,10 @@
 
   &__header {
     padding-top: 10px;
+
+    &_nopadding {
+      padding-top: 0;
+    }
   }
 }
 
@@ -57,7 +61,6 @@
 
   display: flex;
   gap: 8px;
-
 
   & svg,
   span {
@@ -129,10 +132,10 @@
   }
 
   &:has(:global(.avatar):hover) {
-      :global(.globalLinkReference)::before {
-        width: 100%;
-      }
+    :global(.globalLinkReference)::before {
+      width: 100%;
     }
+  }
 }
 
 .username {
@@ -330,11 +333,6 @@
   color: common.$primaryText;
 }
 
-
-
-
-
-
 .blockedMessage {
   font-size: 1.2rem;
 }
@@ -368,4 +366,3 @@
     color: common.$green;
   }
 }
-
