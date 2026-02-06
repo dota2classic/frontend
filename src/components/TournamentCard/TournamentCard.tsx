@@ -3,7 +3,7 @@ import React from "react";
 import c from "./TournamentCard.module.scss";
 import { AppRouter } from "@/route";
 import { PageLink } from "@/components/PageLink";
-import { TournamentDto, TournamentStatus } from "@/api/back";
+import { TournamentDto } from "@/api/back";
 import { TimeAgo } from "@/components/TimeAgo";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
@@ -44,7 +44,7 @@ export const TournamentCard: React.FC<ITournamentCardProps> = ({
           <dl>
             <dd>Начало турнира</dd>
             <dt>
-              <TimeAgo pretty date={tournament.startDate}/>
+              <TimeAgo pretty date={tournament.startDate} />
             </dt>
           </dl>
           <dl>
@@ -59,7 +59,7 @@ export const TournamentCard: React.FC<ITournamentCardProps> = ({
           <dl>
             <dd>Статус</dd>
             <dt>
-              <TournamentStatusBadge status={tournament.status}/>
+              <TournamentStatusBadge status={tournament.status} />
             </dt>
           </dl>
         </div>
