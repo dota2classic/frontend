@@ -83,7 +83,9 @@
       "join": "Участвовать",
       "confirmReady": "Я готов!",
       "notAllReady": "Не все в группе готовы",
-      "description": "Описание"
+      "description": "Описание",
+      "bracketNotReady": "Сетка еще не сформирована!",
+      "matchesWhenStart": "Матчи появятся, когда турнир начнется"
     },
     "timeline": {
       "readyCheckStart": {

@@ -37,8 +37,8 @@ export default function TournamentMatches({ tournament, matches }: Props) {
         </div>
       ) : (
         <div className={c.empty}>
-          <h1>Сетка еще сформирована!</h1>
-          <h3>Матчи появятся, когда турнир начнется</h3>
+          <h1>{t("tournament.common.bracketNotReady")}</h1>
+          <h3>{t("tournament.common.matchesWhenStart")}</h3>
         </div>
       )}
     </>

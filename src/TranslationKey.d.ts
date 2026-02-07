@@ -1479,6 +1479,8 @@ export type TranslationKey =
   | "tournament.common.confirmReady"
   | "tournament.common.notAllReady"
   | "tournament.common.description"
+  | "tournament.common.bracketNotReady"
+  | "tournament.common.matchesWhenStart"
   | "tournament.timeline.readyCheckStart.title"
   | "tournament.timeline.readyCheckStart.content"
   | "tournament.timeline.readyCheckEnd.title"

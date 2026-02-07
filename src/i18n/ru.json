@@ -1491,6 +1491,8 @@
   "tournament.common.confirmReady": "Я готов!",
   "tournament.common.notAllReady": "Не все в группе готовы",
   "tournament.common.description": "Описание",
+  "tournament.common.bracketNotReady": "Сетка еще не сформирована!",
+  "tournament.common.matchesWhenStart": "Матчи появятся, когда турнир начнется",
   "tournament.timeline.readyCheckStart.title": "Проверка на готовность",
   "tournament.timeline.readyCheckStart.content": "Начало проверки на готовность",
   "tournament.timeline.readyCheckEnd.title": "Начало турнира",
