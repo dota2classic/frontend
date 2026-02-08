@@ -8,6 +8,7 @@
   font-weight: bold;
   width: fit-content;
   height: fit-content;
+  white-space: nowrap;
 
   &.green {
     color: common.$primaryText;

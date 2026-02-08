@@ -32,9 +32,11 @@ export default function TournamentPage({ tournament }: Props) {
       <div className={cx(c.container, NotoSans.className)}>
         <QueuePageBlock className={c.fullwidth} heading="Участники">
           <div className={c.participants}>
-            {tournament.registrations.map((reg) => (
-              <RegistrationCard key={reg.id} registration={reg} />
-            ))}
+            {tournament.registrations
+              .sort((a, b) => b.id - a.id)
+              .map((reg) => (
+                <RegistrationCard key={reg.id} registration={reg} />
+              ))}
           </div>
         </QueuePageBlock>
       </div>
