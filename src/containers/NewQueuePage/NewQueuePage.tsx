@@ -51,11 +51,11 @@ export const NewQueuePage: React.FC<Props> = observer(({ modes }) => {
       />
       <div className={cx(c.layout)}>
         <div className={cx(c.left, tab !== "news" && c.mobile_hidden)}>
+          <QueueAdBlock />
           <LastBlogBlock />
           <PlayingNowCarousel />
         </div>
         <div className={cx(c.center, tab !== "chat" && c.mobile_hidden)}>
-          <QueueAdBlock />
           <QueueChatBlock />
         </div>
         <div className={cx(c.right, tab !== "modes" && c.mobile_hidden)}>

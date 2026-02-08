@@ -78,7 +78,7 @@
 
 .left {
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto auto 1fr;
   gap: 16px;
   @media (width <= 1080px) {
     display: none;
@@ -91,7 +91,7 @@
 
 .center {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr;
   gap: 16px;
 }
 
@@ -115,17 +115,17 @@
   width: 100%;
   height: auto;
 
-  &__small {
-    @media (width >= 600px) {
-      display: none;
-    }
-  }
-
-  &__large {
-    @media (width < 600px) {
-      display: none;
-    }
-  }
+  //&__small {
+  //  @media (width >= 600px) {
+  //    display: none;
+  //  }
+  //}
+  //
+  //&__large {
+  //  @media (width < 600px) {
+  //    display: none;
+  //  }
+  //}
 }
 
 .mobile__tabs {
