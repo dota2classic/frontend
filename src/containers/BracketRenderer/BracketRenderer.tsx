@@ -107,7 +107,7 @@ export const BracketRenderer: React.FC<IBracketRendererProps> = ({
             onUpdated={refreshPage}
           />
         )}
-        {match && !admin && (
+        {match && !admin && match.games.length > 0 && (
           <MatchInfoModal
             match={match!}
             onClose={() => setMatchId(undefined)}

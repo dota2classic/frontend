@@ -19,6 +19,7 @@ import { MatchStatusBadge } from "@/components/MatchStatusBadge";
 import { AppRouter } from "@/route";
 import { Button } from "@/components/Button";
 import { TimeAgo } from "@/components/TimeAgo";
+import { CiShare1 } from "react-icons/ci";
 
 type Tabs = "current" | "games";
 type Items = IBigTabsProps<Tabs, string>["items"];
@@ -58,11 +59,16 @@ const Team: React.FC<{
 
 const Header: React.FC<Omit<IMatchInfoModalProps, "onClose">> = ({ match }) => {
   const { t } = useTranslation();
+  const gameCount = useMemo(() => {
+    return (
+      match.childCount ||
+      (match as unknown as { child_count: number })["child_count"]
+    );
+  }, [match]);
   return (
     <div className={c.match_info}>
-      <span>
-        {t(`tournament.best_of.bo${match.childCount}` as TranslationKey)}
-      </span>
+      <MatchStatusBadge status={match.status} />
+      <span>{t(`tournament.best_of.bo${gameCount}` as TranslationKey)}</span>
       <div className={c.teams}>
         <Team participant={match.opponent1} />
         <span className={c.delimeter}>:</span>
@@ -84,8 +90,11 @@ const GamePreview = ({ game }: { game: MatchGameDto }) => {
       {game.externalMatchId ? (
         <Button
           variant="primary"
-          pageLink={AppRouter.matches.match(game.externalMatchId).link}
+          link
+          href={AppRouter.matches.match(game.externalMatchId).link.as}
+          target="__blank"
         >
+          <CiShare1 />
           Матч
         </Button>
       ) : (
@@ -124,11 +133,23 @@ export const MatchInfoModal: React.FC<IMatchInfoModalProps> = ({
   }, [match]);
 
   return (
-    <GenericModal className={c.modal} onClose={onClose} title={"Матч"}>
+    <GenericModal
+      className={c.modal}
+      onClose={onClose}
+      title={"Матч"}
+      header={() => (
+        <>
+          <div className={c.bg} />
+          <div className={c.bgMask} />
+        </>
+      )}
+    >
       <Header match={match} />
       <BigTabs<Tabs> items={items} selected={selected} flavor="small" />
       <br />
-      {selected === "current" && <MatchGameCard game={currentGame} />}
+      {selected === "current" && currentGame && (
+        <MatchGameCard game={currentGame} />
+      )}
       {selected === "games" && (
         <div className={c.games}>
           {match.games.map((game) => (

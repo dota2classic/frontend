@@ -90,7 +90,7 @@
     }
   },
   "common": {
-    "bye": "BYE",
+    "bye": "Нет соперника",
     "best-of-x": "До {{x}} побед",
     "consolation": "Consolation",
     "group-name": "Group {{groupNumber}}",

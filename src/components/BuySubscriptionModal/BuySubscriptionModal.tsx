@@ -65,6 +65,15 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
       return accept;
     }, [accept]);
 
+    const baseMonthCost = useMemo(() => {
+      return products.find((t) => t.months === 1)?.pricePerMonth || 299;
+    }, [products]);
+
+    const noDiscountPrice = useMemo(() => {
+      const months = selectedPlanInfo?.months || 1;
+      return baseMonthCost * months;
+    }, [baseMonthCost, selectedPlanInfo?.months]);
+
     return (
       <GenericModal
         onClose={onClose}
@@ -109,15 +118,15 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
             : "Loading..."}
         </div>
         {selectedPlanInfo && (
-          <div className={c.checkoutInfo}>
-            <div className={c.checkoutInfo__row}>
+          <div className={c.form}>
+            <div className={c.form__row}>
               <span>
                 <FaRubleSign />
                 Цена за месяц
               </span>
               <span>{selectedPlanInfo.pricePerMonth}P</span>
             </div>
-            <div className={c.checkoutInfo__row}>
+            <div className={c.form__row}>
               <span>
                 <FaRegCalendarDays />
                 Продолжительность
@@ -126,7 +135,7 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
                 {`${selectedPlanInfo.months} ${pluralize(selectedPlanInfo.months, "месяц", "месяца", "месяцев")}`}{" "}
               </span>
             </div>
-            <div className={c.checkoutInfo__row}>
+            <div className={c.form__row}>
               <span>
                 <MdDiscount />
                 Скидка
@@ -138,13 +147,23 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
               </span>
             </div>
             <div className={c.delimiter} />
-            <div className={c.checkoutInfo__row}>
+            <div className={c.form__row}>
               <span>
                 <FaRegCalendarDays />
                 Общая стоимость
               </span>
               <span>
-                {selectedPlanInfo.pricePerMonth * selectedPlanInfo.months}P
+                <span className="gold">
+                  {selectedPlanInfo.pricePerMonth * selectedPlanInfo.months}P
+                </span>
+                {selectedPlanInfo.discount > 0 && (
+                  <>
+                    {" "}
+                    <s style={{ fontSize: "0.8rem", color: "grey" }}>
+                      {noDiscountPrice}P
+                    </s>
+                  </>
+                )}
               </span>
             </div>
             {/*<div className={c.email}>*/}
@@ -156,7 +175,7 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
             {/*    onChange={(e) => setEmail(e.target.value)}*/}
             {/*  />*/}
             {/*</div>*/}
-            <div className={c.checkoutInfo__row} style={{ marginTop: 10 }}>
+            <div className={c.form__row} style={{ marginTop: 10 }}>
               <Checkbox onChange={setAccept}>
                 Я согласен с{" "}
                 <a target="__blank" href="/privacy.pdf">

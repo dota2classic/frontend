@@ -224,7 +224,7 @@
   "matchmaking_mode_description.5": "Ability Draft",
   "matchmaking_mode_description.6": "TOURNAMENT",
   "matchmaking_mode_description.7": "Tutorial mode against bots. Play with other newcomers and defeat the bots to access regular 5x5 matches.",
-  "matchmaking_mode_description.8": "A mode for more experienced players who want to play a calm, high-quality game without leavers. The rating changes with wins and losses, and access opens after 30 matches.",
+  "matchmaking_mode_description.8": "A mode for more experienced players who want to play a calm, high-quality game without leavers. The rating changes with wins and losses, and access opens after you reach 2500 MMR.",
   "matchmaking_mode_description.9": "TOURNAMENT_SOLOMID",
   "matchmaking_mode_description.10": "Captains Mode",
   "matchmaking_mode_description.11": "Lobby",

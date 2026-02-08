@@ -24,7 +24,7 @@ export const GenericModal = React.forwardRef<HTMLDivElement, AllProps>(
     const comp = useRef<HTMLDivElement | null>(null);
 
     const close = useCallback(
-      (e: React.MouseEvent) => {
+      (e: MouseEvent | React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
         onClose();

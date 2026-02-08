@@ -7,18 +7,9 @@ import i18next, { TFunction, TOptions } from "i18next";
 import { FinalType, GroupType, Stage, StageType, Status } from "brackets-model";
 import { isMajorRound } from "./helpers";
 import { OriginHint, RoundNameInfo } from "./types";
-
-import en from "./i18n/en/translation.json";
-import fr from "./i18n/fr/translation.json";
+import {TranslationKey} from "@/TranslationKey";
 
 export type { TFunction } from "i18next";
-
-export const locales = {
-  en,
-  fr,
-};
-
-export type Locale = (typeof locales)["en"];
 
 /**
  * Returns an internationalized version of a locale key.
@@ -27,11 +18,9 @@ export type Locale = (typeof locales)["en"];
  * @param options Data to pass to the i18n process.
  */
 export function t<
-  Scope extends keyof Locale,
-  SubKey extends string & keyof Locale[Scope],
   T extends TOptions,
 >(
-  key: `${Scope}.${SubKey}`,
+  key: TranslationKey,
   options?: T,
 ): T["returnObjects"] extends true ? object : string {
   return i18next.t(key, options);

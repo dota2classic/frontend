@@ -40,7 +40,6 @@
       margin: 20px 0;
     }
 
-
     & :global(.match-date) {
       bottom: -15px;
       top: unset !important;
@@ -57,6 +56,9 @@
       height: 75%;
     }
 
+    & :global(.opponents) {
+      cursor: pointer;
+    }
 
     & :global(.opponents) > span {
       background-color: common.$bg2;

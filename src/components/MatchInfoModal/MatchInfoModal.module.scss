@@ -1,13 +1,9 @@
 @use "../../common.scss";
 
 .modal {
-  & :global(.modal) {
-    width: 40vw;
-  }
-
-  & :global(.modal__content) {
-    padding: 1rem 0 0;
-  }
+  //& :global(.modal) {
+  //  width: 40vw;
+  //}
   cursor: auto;
 }
 
@@ -21,9 +17,14 @@
 .heading {
   font-size: 1.4rem;
   display: flex;
-  gap: 4px;
+  gap: 8px;
   margin-bottom: 1rem;
   font-weight: bold;
+  align-items: center;
+
+  &_match_link {
+    margin-left: auto;
+  }
 
   &__small {
     font-size: 1.1rem;
@@ -36,6 +37,27 @@
   align-items: center;
   padding: 12px 12px 36px;
   gap: 12px;
+}
+
+.bg {
+  background-image: url("https://image1.challengermode.com/5ad4086a-90d9-4cb5-3f88-08db5bcb0207_1200_300");
+  position: absolute;
+  inset: 0;
+  height: 190px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.bgMask {
+  position: absolute;
+  inset: 0;
+  height: 190px;
+  background-image: linear-gradient(180deg, common.$panelBg, common.$bg15);
+  background-size: 100% 100%;
+  z-index: -1;
 }
 
 .teams {
@@ -88,6 +110,9 @@
 .team_name {
   font-size: 1.2rem;
   font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .games {

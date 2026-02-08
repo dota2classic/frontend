@@ -2,6 +2,7 @@
 import { GroupType, Match, MatchGame, RankingItem } from "brackets-model";
 import { MatchWithMetadata, RankingHeader, Side } from "./types";
 import { t } from "./lang";
+import { TranslationKey } from "@/TranslationKey";
 
 /**
  * Splits an array of objects based on their values at a given key.
@@ -192,7 +193,9 @@ export function isMajorRound(roundNumber: number): boolean {
  * @param itemName Name of the ranking property.
  */
 export function rankingHeader(itemName: keyof RankingItem): RankingHeader {
-  return t(`ranking.${itemName}`, { returnObjects: true }) as RankingHeader;
+  return t(`ranking.${itemName}` as TranslationKey, {
+    returnObjects: true,
+  }) as RankingHeader;
 }
 
 /**
