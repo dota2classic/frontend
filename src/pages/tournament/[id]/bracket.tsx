@@ -9,6 +9,7 @@ import c from "./TournamentStyles.module.scss";
 import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
+import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
 
 interface Props {
   id: number;
@@ -18,6 +19,7 @@ interface Props {
 export default function TournamentBracket({ id, tournament, bracket }: Props) {
   const hasBracket = bracket.stage.length > 0;
   const { t } = useTranslation();
+  usePeriodicRefreshPageProps(30_000);
   return (
     <>
       <EmbedProps
@@ -46,9 +48,13 @@ TournamentBracket.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
   const id = Number(ctx.query.id as string);
+  const [tournament, bracket] = await Promise.combine([
+    getApi().tournament.tournamentControllerGetTournament(id),
+    fetchTournamentBracket(id),
+  ]);
   return {
     id,
-    tournament: await getApi().tournament.tournamentControllerGetTournament(id),
-    bracket: await fetchTournamentBracket(id),
+    tournament,
+    bracket,
   };
 };

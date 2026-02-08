@@ -13,7 +13,7 @@ import { SearchGameBlock } from "@/containers/QueuePageBlock/SearchGameBlock";
 import { QueueTutorial } from "@/containers/NewQueuePage/QueueTutorial";
 import { useTranslation } from "react-i18next";
 import { BigTabs } from "@/components/BigTabs";
-import { LastBlogBlock } from "@/containers/QueuePageBlock/LastBlogBlock";
+import { DailyMatchRecordCarousel } from "@/containers/QueuePageBlock/DailyMatchRecordCarousel";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -52,7 +52,8 @@ export const NewQueuePage: React.FC<Props> = observer(({ modes }) => {
       <div className={cx(c.layout)}>
         <div className={cx(c.left, tab !== "news" && c.mobile_hidden)}>
           <QueueAdBlock />
-          <LastBlogBlock />
+          <DailyMatchRecordCarousel />
+          {/*<LastBlogBlock />*/}
           <PlayingNowCarousel />
         </div>
         <div className={cx(c.center, tab !== "chat" && c.mobile_hidden)}>

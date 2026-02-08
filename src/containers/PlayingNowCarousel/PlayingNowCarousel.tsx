@@ -16,7 +16,6 @@ import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { TranslationKey } from "@/TranslationKey";
 import { AutoCarousel } from "@/components/AutoCarousel/AutoCarousel";
 import { shuffle } from "@/util/shuffle";
-import { DailyMatchRecordCarousel } from "@/containers/QueuePageBlock/DailyMatchRecordCarousel";
 import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 
 export const PlayingNowCarousel: React.FC = observer(() => {
@@ -41,8 +40,7 @@ export const PlayingNowCarousel: React.FC = observer(() => {
     return shuffle(base);
   }, [live.liveMatches]);
 
-  if (!suitableMatches.length) return <DailyMatchRecordCarousel />;
-
+  if (!suitableMatches) return null;
   return (
     <QueuePageBlock title={t("queue_page.section.playing_now")}>
       <AutoCarousel interval={5000}>

@@ -4,7 +4,10 @@ import { useEffect } from "react";
 export const useRefreshPageProps = () => {
   const router = useRouter();
 
-  return () => router.replace(router.asPath);
+  return () =>
+    router.replace(router.asPath, router.asPath, {
+      scroll: false,
+    });
 };
 
 export const usePeriodicRefreshPageProps = (interval: number) => {

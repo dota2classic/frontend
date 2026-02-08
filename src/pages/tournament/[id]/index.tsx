@@ -17,6 +17,7 @@ import { Timeline } from "@/components/Timeline";
 import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
+import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
 
 interface Props {
   id: number;
@@ -27,6 +28,8 @@ export default function TournamentPage({ tournament }: Props) {
   const { t } = useTranslation();
   const readyCheckStart =
     new Date(tournament.startDate).getTime() - 1000 * 60 * 60;
+
+  usePeriodicRefreshPageProps(30_000);
 
   return (
     <div>
