@@ -33,6 +33,7 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
 
     return (
       <>
+        <br />
         {data.length === 0 && (
           <div className={c.queue}>
             <span>{t("live_match_page.noGames")}</span>
