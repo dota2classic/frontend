@@ -136,6 +136,8 @@ export * from "./SimulatePaymentDto";
 export * from "./SmurfData";
 export * from "./SortOrder";
 export * from "./StageDto";
+export * from "./StageStandingRankedDto";
+export * from "./StageStandingsDto";
 export * from "./StopServerDto";
 export * from "./SubmitFeedbackDto";
 export * from "./SubmittedFeedbackOptionDto";

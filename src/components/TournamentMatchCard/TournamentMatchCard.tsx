@@ -19,19 +19,6 @@ const RenderTeam = ({
 }: {
   participant?: ParticipantResultDto;
 }) => {
-  // let img: string = "/avatar.png";
-  // if (participant.participant?.players) {
-  //   img = participant.participant!.players![0].avatar;
-  // }
-  //
-  // let name: string = "Еще неизвестен";
-  // if (participant.participant?.players) {
-  //   name = participant.participant.players[0].name;
-  //   if (participant.participant.players.length > 1) {
-  //     name += ` + ${participant.participant.players.length - 1}`;
-  //   }
-  // }
-
   return (
     <div className={c.team}>
       <span className={c.score}>{participant?.score || 0}</span>

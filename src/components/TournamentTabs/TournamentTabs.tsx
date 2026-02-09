@@ -29,7 +29,7 @@ import { makeSimpleToast } from "@/components/Toast";
 import { TournamentStatusBadge } from "@/components/TournamentStatusBadge";
 import { getAuthUrl } from "@/util/getAuthUrl";
 
-type Tabs = "overview" | "bracket" | "matches" | "registered";
+type Tabs = "overview" | "bracket" | "matches" | "registered" | "results";
 
 type Items = IBigTabsProps<Tabs, TranslationKey>["items"];
 
@@ -54,6 +54,11 @@ const getMenuItems = (id: number): Items => {
       key: "registered",
       label: "tournament.tabs.registered",
       onSelect: AppRouter.tournament.participants(id).link,
+    },
+    {
+      key: "results",
+      label: "tournament.tabs.results",
+      onSelect: AppRouter.tournament.results(id).link,
     },
   ];
 
@@ -141,6 +146,8 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
           />
         )}
         <div className={cx(c.header, NotoSans.className)}>
+          <div className={c.bg} />
+          <div className={c.bgMask} />
           <img loading={"lazy"} src={tournament.imageUrl} alt="" />
           <div className={c.header__right}>
             <div className={c.overview}>

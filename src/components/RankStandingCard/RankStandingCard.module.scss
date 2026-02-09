@@ -1,0 +1,30 @@
+@use "../../common.scss";
+
+
+.card {
+  @include common.card();
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+}
+
+.rank {
+  width: 60px;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  & svg {
+    margin-top: -8px;
+  }
+}
+
+.participant {
+
+}
+
+.prize {
+
+}

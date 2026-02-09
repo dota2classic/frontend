@@ -1,0 +1,78 @@
+@use "../../common.scss";
+
+.interesting {
+  @include common.card();
+  padding: 12px;
+  position: fixed;
+  background-color: common.$bg2;
+
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  height: 40px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 32px;
+  opacity: 1;
+  pointer-events: auto;
+
+  z-index: 1000;
+  color: common.$primaryText;
+
+  &:hover {
+    border: 1px solid common.$blueHighlight;
+  }
+}
+
+.img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 4rem;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.description {
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.closeButton {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  outline: none;
+  border: none;
+  padding: 0 3px;
+  color: common.$primaryText;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 50%;
+
+  & svg {
+    font-size: 2rem;
+    transition: 0.3s ease;
+    margin-top: 2px;
+  }
+
+  &:hover {
+    & svg {
+      color: common.$red;
+    }
+  }
+}

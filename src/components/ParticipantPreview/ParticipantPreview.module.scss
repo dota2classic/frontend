@@ -1,0 +1,21 @@
+@use "../../common.scss";
+
+.preview {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.avatars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+}
+
+
+.name {
+  font-weight: bold;
+}

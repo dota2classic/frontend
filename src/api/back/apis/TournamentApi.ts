@@ -33,6 +33,9 @@ import {
   SetMatchResultDto,
   SetMatchResultDtoFromJSON,
   SetMatchResultDtoToJSON,
+  StageStandingsDto,
+  StageStandingsDtoFromJSON,
+  StageStandingsDtoToJSON,
   TournamentBracketInfoDto,
   TournamentBracketInfoDtoFromJSON,
   TournamentBracketInfoDtoToJSON,
@@ -79,6 +82,10 @@ export interface TournamentControllerGetMatchRequest {
 }
 
 export interface TournamentControllerGetMatchesRequest {
+  id: number;
+}
+
+export interface TournamentControllerGetStandingsRequest {
   id: number;
 }
 
@@ -600,6 +607,59 @@ export class TournamentApi extends runtime.BaseAPI {
 
         const context = this.tournamentControllerGetMatchesContext({ id: id! });
         return useSWR(context, valid ? () => this.tournamentControllerGetMatches(id!) : null, config)
+    }
+
+    /**
+     */
+    private async tournamentControllerGetStandingsRaw(requestParameters: TournamentControllerGetStandingsRequest): Promise<runtime.ApiResponse<Array<StageStandingsDto>>> {
+        this.tournamentControllerGetStandingsValidation(requestParameters);
+        const context = this.tournamentControllerGetStandingsContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(StageStandingsDtoFromJSON));
+    }
+
+
+
+    /**
+     */
+    private tournamentControllerGetStandingsValidation(requestParameters: TournamentControllerGetStandingsRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling tournamentControllerGetStandings.");
+        }
+    }
+
+    /**
+     */
+    tournamentControllerGetStandingsContext(requestParameters: TournamentControllerGetStandingsRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        return {
+            path: `/v1/tournament/{id}/standings`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    tournamentControllerGetStandings = async (id: number): Promise<Array<StageStandingsDto>> => {
+        const response = await this.tournamentControllerGetStandingsRaw({ id: id });
+        return await response.value();
+    }
+
+    useTournamentControllerGetStandings(id: number, config?: SWRConfiguration<Array<StageStandingsDto>, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.tournamentControllerGetStandingsContext({ id: id! });
+        return useSWR(context, valid ? () => this.tournamentControllerGetStandings(id!) : null, config)
     }
 
     /**

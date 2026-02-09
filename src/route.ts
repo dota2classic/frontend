@@ -235,6 +235,9 @@ export const AppRouter = {
 
     participants: (id: number) =>
       page(`/tournament/[id]/participants`, `/tournament/${id}/participants`),
+
+    results: (id: number) =>
+      page(`/tournament/[id]/results`, `/tournament/${id}/results`),
   },
   team: {
     index: page("/stats/team"),

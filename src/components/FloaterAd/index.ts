@@ -1,0 +1,1 @@
+export { FloaterAd } from "./FloaterAd";

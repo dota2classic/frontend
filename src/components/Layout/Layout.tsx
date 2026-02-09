@@ -10,12 +10,9 @@ import { useTranslation } from "react-i18next";
 import { Navbar } from "../Navbar";
 import { Notifications } from "../Notifications";
 import { SearchGameFloater } from "../SearchGameFloater";
-import {
-  AdBlockType,
-  HorizontalAdBlock,
-  SideAdBlock,
-} from "@/components/AdBlock";
+import { AdBlockType, SideAdBlock } from "@/components/AdBlock";
 import { useLazyBackground } from "@/util/useLazyBackground";
+import { FloaterAd } from "@/components/FloaterAd";
 
 interface LayoutProps {
   className?: string;
@@ -27,7 +24,6 @@ export const Layout = ({
   const { t } = useTranslation();
   const r = useRouter();
   const isQueuePage = r.pathname.startsWith("/queue");
-  const isAdmin = r.pathname.startsWith("/admin");
   const isLanding =
     r.pathname === "/" || r.pathname === "/store" || isQueuePage;
   const isStore = r.pathname === "/store";
@@ -63,9 +59,7 @@ export const Layout = ({
               r.pathname.startsWith("/queue") && c.queue,
             )}
           >
-            {!isLanding && !isAdmin && (
-              <HorizontalAdBlock bannerId={AdBlockType.HORIZONTAL_FULLWIDTH} />
-            )}
+            {!isQueuePage && !isLanding && <FloaterAd />}
             <main
               className={cx(
                 c.layoutInner,

@@ -1451,6 +1451,7 @@
   "tournament.tabs.bracket": "Сетка",
   "tournament.tabs.matches": "Матчи",
   "tournament.tabs.registered": "Участники",
+  "tournament.tabs.results": "Результаты",
   "tournament.versus": "{{cnt}} vs {{cnt}}",
   "tournament.match_status.0": "Запланирован",
   "tournament.match_status.1": "Ожидает соперника",

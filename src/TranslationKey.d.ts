@@ -1439,6 +1439,7 @@ export type TranslationKey =
   | "tournament.tabs.bracket"
   | "tournament.tabs.matches"
   | "tournament.tabs.registered"
+  | "tournament.tabs.results"
   | "tournament.versus"
   | "tournament.match_status.0"
   | "tournament.match_status.1"
