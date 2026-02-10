@@ -61,10 +61,11 @@
 }
 
 .teams {
-  display: flex;
-  flex-direction: row;
   gap: 12px;
   position: relative;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 20px 1fr;
 }
 
 .delimeter {
@@ -79,6 +80,7 @@
   gap: 8px;
   align-items: center;
   text-align: end;
+  justify-content: flex-end;
 
   &__reverse {
     flex-direction: row-reverse;
