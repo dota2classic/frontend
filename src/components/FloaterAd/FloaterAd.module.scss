@@ -22,6 +22,15 @@
   z-index: 1000;
   color: common.$primaryText;
 
+  @media (width <= 600px) {
+    left: 5px;
+    right: 5px;
+    transform: unset;
+    gap: 16px;
+    height: 50px;
+    bottom: 5px;
+  }
+
   &:hover {
     border: 1px solid common.$blueHighlight;
   }
@@ -42,9 +51,15 @@
 
 .title {
   font-weight: bold;
+  @media (width <= 600px) {
+    font-size: 1rem;
+  }
 }
 
 .description {
+  @media (width <= 600px) {
+    font-size: 0.8rem;
+  }
 }
 
 .hidden {

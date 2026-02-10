@@ -2,10 +2,7 @@
 
 .modalWrapper {
   position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.6);
 }
 
@@ -59,8 +56,10 @@
   bottom: 0;
   margin: auto;
 
-  width: 400px;
-  min-width: 400px;
+  @media (width > 600px) {
+    width: 400px;
+    min-width: 400px;
+  }
 
   height: fit-content;
   background: common.$bg2;
@@ -87,6 +86,11 @@
     margin: unset;
 
     padding: 12px 10px;
+
+    @media (width <= 600px) {
+      right: 40px !important;
+      left: 40px !important;
+    }
   }
 }
 

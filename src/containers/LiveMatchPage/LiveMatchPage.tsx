@@ -43,59 +43,63 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
             </PageLink>
           </div>
         )}
-        {data.map((liveMatch) => {
-          const rScore = liveMatch.heroes
-            .filter((t) => t.team === 2)
-            .reduce((a, b) => a + (b.heroData?.kills || 0), 0);
-          const dScore = liveMatch.heroes
-            .filter((t) => t.team === 3)
-            .reduce((a, b) => a + (b.heroData?.kills || 0), 0);
-          return (
-            <Panel key={liveMatch.matchId} className={c.preview}>
-              <PageLink link={AppRouter.matches.match(liveMatch.matchId).link}>
-                <SmallLiveMatch match={liveMatch} />
-              </PageLink>
-              <div className={c.matchInfo}>
-                <h3>
-                  <PageLink
-                    link={AppRouter.matches.match(liveMatch.matchId).link}
-                    className="link"
-                  >
-                    {t("live_match_page.matchId", {
-                      matchId: liveMatch.matchId,
-                    })}
-                    {" - "}
-                    {t(`game_state.${liveMatch.gameState}`)}
-                  </PageLink>
-                </h3>
-                <div className={c.info}>
-                  Режим: {t(`matchmaking_mode.${liveMatch.matchmakingMode}`)},{" "}
-                  {t(`game_mode.${liveMatch.gameMode}`)}
+        <div className={c.liveMatches}>
+          {data.map((liveMatch) => {
+            const rScore = liveMatch.heroes
+              .filter((t) => t.team === 2)
+              .reduce((a, b) => a + (b.heroData?.kills || 0), 0);
+            const dScore = liveMatch.heroes
+              .filter((t) => t.team === 3)
+              .reduce((a, b) => a + (b.heroData?.kills || 0), 0);
+            return (
+              <Panel key={liveMatch.matchId} className={c.preview}>
+                <PageLink
+                  link={AppRouter.matches.match(liveMatch.matchId).link}
+                >
+                  <SmallLiveMatch match={liveMatch} />
+                </PageLink>
+                <div className={c.matchInfo}>
+                  <h3>
+                    <PageLink
+                      link={AppRouter.matches.match(liveMatch.matchId).link}
+                      className="link"
+                    >
+                      {t("live_match_page.matchId", {
+                        matchId: liveMatch.matchId,
+                      })}
+                      {" - "}
+                      {t(`game_state.${liveMatch.gameState}`)}
+                    </PageLink>
+                  </h3>
+                  <div className={c.info}>
+                    Режим: {t(`matchmaking_mode.${liveMatch.matchmakingMode}`)},{" "}
+                    {t(`game_mode.${liveMatch.gameMode}`)}
+                  </div>
+                  <div className={c.info}>
+                    {t("live_match_page.score")}{" "}
+                    <span className="green">{rScore}</span> :{" "}
+                    <span className="red">{dScore}</span>
+                  </div>
+                  <div className={c.info}>
+                    {t("live_match_page.duration")}{" "}
+                    <Duration clock duration={liveMatch.duration} />
+                  </div>
+                  <div className={c.info}>
+                    <CopySomething
+                      something={watchCmd(liveMatch.server)}
+                      placeholder={
+                        <Input
+                          value={watchCmd(liveMatch.server)}
+                          readOnly={true}
+                        />
+                      }
+                    />
+                  </div>
                 </div>
-                <div className={c.info}>
-                  {t("live_match_page.score")}{" "}
-                  <span className="green">{rScore}</span> :{" "}
-                  <span className="red">{dScore}</span>
-                </div>
-                <div className={c.info}>
-                  {t("live_match_page.duration")}{" "}
-                  <Duration clock duration={liveMatch.duration} />
-                </div>
-                <div className={c.info}>
-                  <CopySomething
-                    something={watchCmd(liveMatch.server)}
-                    placeholder={
-                      <Input
-                        value={watchCmd(liveMatch.server)}
-                        readOnly={true}
-                      />
-                    }
-                  />
-                </div>
-              </div>
-            </Panel>
-          );
-        })}
+              </Panel>
+            );
+          })}
+        </div>{" "}
       </>
     );
   },

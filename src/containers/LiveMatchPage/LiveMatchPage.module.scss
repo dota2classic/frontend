@@ -1,7 +1,5 @@
 @use "../../common.scss";
 
-
-
 .queue {
   color: #c2c2c2;
   font-size: 35px;
@@ -29,16 +27,22 @@
   }
 }
 
-
-.preview {
+.liveMatches {
   display: flex;
-  flex-direction: row;
-
-  & + & {
-    margin-top: 20px;
-  }
+  flex-direction: column;
+  gap: 20px;
 }
 
+.preview {
+  @include common.card();
+
+  display: flex;
+  flex-direction: row;
+  @media (width <= 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
 .info {
   & span {
@@ -47,10 +51,11 @@
   }
 
   & div {
-    width: 450px;
+    @media (width > 600px) {
+      width: 450px;
+    }
   }
 }
-
 
 .matchInfo {
   display: flex;

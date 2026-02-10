@@ -11,6 +11,7 @@ export const FloaterAd: React.FC = observer(() => {
   const [isVisible, setIsVisible] = useState(true);
 
   const isOld = useStore().auth.isOld;
+  // const isOld = false;
 
   const close = useCallback(
     (e: React.MouseEvent) => {
