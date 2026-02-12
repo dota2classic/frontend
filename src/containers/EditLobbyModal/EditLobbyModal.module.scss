@@ -2,11 +2,6 @@
 
 .modal {
 
-  & :global(.modal) {
-    width: 40vw;
-    //height: 60vh;
-  }
-
 }
 
 .settings {
@@ -31,17 +26,20 @@
   }
 }
 
+.checkboxes {
+  row-gap: 1rem;
+}
+
 .formItem {
   & header {
-    margin-block-start: 0.5rem;
-    margin-block-end: 0rem;
+    margin-block-start: 0rem;
+    margin-block-end: 0.5rem;
   }
 
   display: flex;
   flex-direction: column;
   align-items: stretch;
 
-  row-gap: 1rem;
 
   &__inline {
     flex-direction: row;

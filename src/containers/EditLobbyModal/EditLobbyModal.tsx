@@ -17,6 +17,7 @@ import { Input } from "@/components/Input";
 import { SelectOptions } from "@/components/SelectOptions";
 import { Checkbox } from "@/components/Checkbox";
 import { Button } from "@/components/Button";
+import { NotoSans } from "@/const/notosans";
 
 interface IEditLobbyModalProps {
   onClose: () => void;
@@ -55,7 +56,7 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
       title={t("edit_lobby.settings")}
       onClose={onClose}
     >
-      <div className={c.settings}>
+      <div className={cx(c.settings, NotoSans.className)}>
         <div className={c.formItem}>
           <header>{t("edit_lobby.name")}</header>
           <Input
@@ -102,6 +103,8 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
             }}
             defaultText={t("edit_lobby.selectGameMode")}
           />
+        </div>
+        <div className={c.formItem}>
           <header>{t("edit_lobby.patch")}</header>
           <SelectOptions
             options={DotaPatchOptions}
@@ -113,6 +116,8 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
             }}
             defaultText={t("edit_lobby.gamePatch")}
           />
+        </div>
+        <div className={c.formItem}>
           <header>{t("edit_lobby.server")}</header>
           <SelectOptions
             options={RegionOptions}
@@ -125,7 +130,7 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
             defaultText={t("edit_lobby.serverRegion")}
           />
         </div>
-        <div className={cx(c.formItem)}>
+        <div className={cx(c.formItem, c.checkboxes)}>
           <header>{t("edit_lobby.settingsHeader")}</header>
           <Checkbox
             checked={lobbySettings.enableCheats}

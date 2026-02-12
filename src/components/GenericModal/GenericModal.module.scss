@@ -36,8 +36,11 @@
     //bottom: 0;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 120px;
     height: fit-content;
+    margin-top: 120px;
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: calc(100vh - 160px);
 
     min-width: min(700px, 100vw);
 
@@ -56,7 +59,6 @@
     border-radius: 6px;
 
     box-shadow: 0 0 12px 6px rgba(0, 0, 0, 0.65);
-    overflow: hidden;
 
     & h2 {
       text-align: center;
