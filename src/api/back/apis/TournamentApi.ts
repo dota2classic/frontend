@@ -27,6 +27,12 @@ import {
   CreateTournamentDto,
   CreateTournamentDtoFromJSON,
   CreateTournamentDtoToJSON,
+  InviteToRegistrationDto,
+  InviteToRegistrationDtoFromJSON,
+  InviteToRegistrationDtoToJSON,
+  ReplyInvitationDto,
+  ReplyInvitationDtoFromJSON,
+  ReplyInvitationDtoToJSON,
   ScheduleTournamentGameDto,
   ScheduleTournamentGameDtoFromJSON,
   ScheduleTournamentGameDtoToJSON,
@@ -93,12 +99,22 @@ export interface TournamentControllerGetTournamentRequest {
   id: number;
 }
 
+export interface TournamentControllerInviteToRegistrationRequest {
+  id: number;
+  inviteToRegistrationDto: InviteToRegistrationDto;
+}
+
 export interface TournamentControllerPublishTournamentRequest {
   id: number;
 }
 
 export interface TournamentControllerRegisterRequest {
   id: number;
+}
+
+export interface TournamentControllerReplyToRegistrationInvitationRRequest {
+  id: number;
+  replyInvitationDto: ReplyInvitationDto;
 }
 
 export interface TournamentControllerScheduleGameRequest {
@@ -717,6 +733,62 @@ export class TournamentApi extends runtime.BaseAPI {
 
     /**
      */
+    private async tournamentControllerInviteToRegistrationRaw(requestParameters: TournamentControllerInviteToRegistrationRequest): Promise<runtime.ApiResponse<void>> {
+        this.tournamentControllerInviteToRegistrationValidation(requestParameters);
+        const context = this.tournamentControllerInviteToRegistrationContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private tournamentControllerInviteToRegistrationValidation(requestParameters: TournamentControllerInviteToRegistrationRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling tournamentControllerInviteToRegistration.");
+        }
+        if (requestParameters.inviteToRegistrationDto === null || requestParameters.inviteToRegistrationDto === undefined) {
+            throw new runtime.RequiredError("inviteToRegistrationDto","Required parameter requestParameters.inviteToRegistrationDto was null or undefined when calling tournamentControllerInviteToRegistration.");
+        }
+    }
+
+    /**
+     */
+    tournamentControllerInviteToRegistrationContext(requestParameters: TournamentControllerInviteToRegistrationRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/tournament/{id}/invite_to_registration`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: InviteToRegistrationDtoToJSON(requestParameters.inviteToRegistrationDto),
+        };
+    }
+
+    /**
+     */
+    tournamentControllerInviteToRegistration = async (id: number, inviteToRegistrationDto: InviteToRegistrationDto): Promise<void> => {
+        await this.tournamentControllerInviteToRegistrationRaw({ id: id, inviteToRegistrationDto: inviteToRegistrationDto });
+    }
+
+
+    /**
+     */
     private async tournamentControllerListTournamentsRaw(): Promise<runtime.ApiResponse<Array<TournamentDto>>> {
         this.tournamentControllerListTournamentsValidation();
         const context = this.tournamentControllerListTournamentsContext();
@@ -860,6 +932,62 @@ export class TournamentApi extends runtime.BaseAPI {
     tournamentControllerRegister = async (id: number): Promise<number> => {
         const response = await this.tournamentControllerRegisterRaw({ id: id });
         return await response.value();
+    }
+
+
+    /**
+     */
+    private async tournamentControllerReplyToRegistrationInvitationRRaw(requestParameters: TournamentControllerReplyToRegistrationInvitationRRequest): Promise<runtime.ApiResponse<void>> {
+        this.tournamentControllerReplyToRegistrationInvitationRValidation(requestParameters);
+        const context = this.tournamentControllerReplyToRegistrationInvitationRContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private tournamentControllerReplyToRegistrationInvitationRValidation(requestParameters: TournamentControllerReplyToRegistrationInvitationRRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling tournamentControllerReplyToRegistrationInvitationR.");
+        }
+        if (requestParameters.replyInvitationDto === null || requestParameters.replyInvitationDto === undefined) {
+            throw new runtime.RequiredError("replyInvitationDto","Required parameter requestParameters.replyInvitationDto was null or undefined when calling tournamentControllerReplyToRegistrationInvitationR.");
+        }
+    }
+
+    /**
+     */
+    tournamentControllerReplyToRegistrationInvitationRContext(requestParameters: TournamentControllerReplyToRegistrationInvitationRRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/tournament/{id}/reply_to_registration_invitation`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReplyInvitationDtoToJSON(requestParameters.replyInvitationDto),
+        };
+    }
+
+    /**
+     */
+    tournamentControllerReplyToRegistrationInvitationR = async (id: number, replyInvitationDto: ReplyInvitationDto): Promise<void> => {
+        await this.tournamentControllerReplyToRegistrationInvitationRRaw({ id: id, replyInvitationDto: replyInvitationDto });
     }
 
 

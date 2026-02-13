@@ -1,6 +1,10 @@
-import { RegistrationPlayerDtoStateEnum, TournamentDto } from "@/api/back";
+import {
+  RegistrationPlayerDtoStateEnum,
+  TournamentDto,
+  UserDTO,
+} from "@/api/back";
 import { getApi } from "@/api/hooks";
-import React from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { TournamentTabs } from "@/components/TournamentTabs";
 import c from "./TournamentStyles.module.scss";
 import { Trans, useTranslation } from "react-i18next";
@@ -18,6 +22,12 @@ import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
 import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
+import { RegistrationCard } from "@/components/RegistrationCard";
+import { useStore } from "@/store";
+import { Button } from "@/components/Button";
+import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal";
+import { handleException } from "@/util/handleException";
+import { makeSimpleToast } from "@/components/Toast";
 
 interface Props {
   id: number;
@@ -28,8 +38,40 @@ export default function TournamentPage({ tournament }: Props) {
   const { t } = useTranslation();
   const readyCheckStart =
     new Date(tournament.startDate).getTime() - 1000 * 60 * 60;
+  const [inviteVisible, setInviteVisible] = useState(false);
 
   usePeriodicRefreshPageProps(30_000);
+
+  const pt = useStore().auth.parsedToken;
+  const registration = useMemo(
+    () =>
+      tournament.registrations.find(
+        (reg) =>
+          reg.players.findIndex((plr) => plr.user.steamId === pt?.sub) !== -1,
+      ),
+    [tournament, pt],
+  );
+
+  const invitePlayer = useCallback(
+    async (user: UserDTO) => {
+      try {
+        await getApi().tournament.tournamentControllerInviteToRegistration(
+          tournament.id,
+          {
+            steamId: user.steamId,
+          },
+        );
+        setInviteVisible(false);
+        makeSimpleToast(
+          "Приглашение отправлено",
+          "Когда игрок на него ответит, ты получишь уведомление",
+        );
+      } catch (e) {
+        await handleException("Ошибка приглашения", e);
+      }
+    },
+    [tournament.id, setInviteVisible],
+  );
 
   return (
     <div>
@@ -39,6 +81,12 @@ export default function TournamentPage({ tournament }: Props) {
           name: tournament.name,
         })}
       />
+      {inviteVisible && (
+        <InvitePlayerModalRaw
+          onSelect={invitePlayer}
+          close={() => setInviteVisible(false)}
+        />
+      )}
       <TournamentTabs tournament={tournament} />
       <div className={cx(c.container, NotoSans.className)}>
         <div className={c.main_info}>
@@ -87,6 +135,18 @@ export default function TournamentPage({ tournament }: Props) {
           </QueuePageBlock>
         </div>
         <div className={c.side_info}>
+          {registration && (
+            <QueuePageBlock simple heading="Твоя команда">
+              <RegistrationCard registration={registration} />
+              <Button
+                variant="primary"
+                disabled={registration.players.length >= tournament.teamSize}
+                onClick={() => setInviteVisible(true)}
+              >
+                Пригласить
+              </Button>
+            </QueuePageBlock>
+          )}
           <QueuePageBlock simple heading={t("tournament.common.teams")}>
             <div className={c.register_card}>
               <dl>

@@ -18,6 +18,12 @@ import { AppRouter } from "@/route";
 import { Trans } from "react-i18next";
 import { clientStoreManager } from "@/store/ClientStoreManager";
 import { ItemDroppedNotification } from "@/components/Toast/ItemDroppedNotification";
+import { ForumUserEmbed } from "@/components/ForumUserEmbed";
+import { handleException } from "@/util/handleException";
+
+const doAcknowledge = (notification: NotificationDto) => {
+  clientStoreManager.getRootStore()!.notify.acknowledge(notification.id).then();
+};
 
 export const createAcceptPartyToast = (
   invite: PartyInviteReceivedMessageS2C,
@@ -68,10 +74,7 @@ export const handleNotification = (notification: NotificationDto) => {
     notification.notificationType === NotificationType.FEEDBACKCREATED;
 
   const acknowledge = () => {
-    clientStoreManager
-      .getRootStore()!
-      .notify.acknowledge(notification.id)
-      .then();
+    doAcknowledge(notification);
   };
 
   const showFeedback = async () => {
@@ -95,6 +98,7 @@ export const handleNotification = (notification: NotificationDto) => {
     acknowledge();
   };
 
+  console.log(`Handle notifification of type ${notification.notificationType}`);
   switch (notification.notificationType) {
     case NotificationType.REPORTCREATED:
       title = "Жалоба создана";
@@ -249,6 +253,22 @@ export const handleNotification = (notification: NotificationDto) => {
         </>
       );
       break;
+    case NotificationType.TOURNAMENTREGISTRATIONINVITATIONCREATED:
+      handleTournamentRegistrationInvitation(notification);
+      break;
+    case NotificationType.TOURNAMENTREGISTRATIONINVITATIONRESOLVED:
+      const p = notification.params as {
+        steamId: string;
+        accept: boolean;
+      };
+      title = `Получен ответ на приглашение`;
+      content = (
+        <>
+          <ForumUserEmbed steamId={p.steamId} />{" "}
+          {p.accept ? "принял" : "отклонил"} приглашение в команду
+        </>
+      );
+      break;
   }
 
   const Toast: React.FunctionComponent<ToastContentProps<unknown>> = (
@@ -262,6 +282,80 @@ export const handleNotification = (notification: NotificationDto) => {
       onAccept={onAccept}
       onDecline={onDecline}
       declineText={isFeedback ? "Нет, спасибо" : undefined}
+      {...props}
+    />
+  );
+
+  // Forgive me
+  toast(Toast as ToastContent, {
+    toastId: notification.id,
+    autoClose: ttl > 1000 * 60 ? false : Math.max(ttl, 5_000),
+    pauseOnHover: false,
+    pauseOnFocusLoss: false,
+    closeButton: false,
+    className: c.partyToast,
+  });
+};
+
+const handleTournamentRegistrationInvitation = (
+  notification: NotificationDto,
+) => {
+  const title = `Приглашение в команду на турнир`;
+  const content = (
+    <>
+      <ForumUserEmbed steamId={notification.entityId} /> приглашает тебя в
+      команду на турнир
+    </>
+  );
+
+  const ttl = new Date(notification.expiresAt).getTime() - Date.now();
+
+  const params = notification.params as {
+    invitationId: string;
+    tournamentId: number;
+  };
+
+  const onAccept = async () => {
+    try {
+      await getApi().tournament.tournamentControllerReplyToRegistrationInvitationR(
+        params.tournamentId,
+        {
+          accept: true,
+          id: params.invitationId,
+        },
+      );
+      await doAcknowledge(notification);
+    } catch (e) {
+      await handleException("Ошибка при обработке", e);
+    }
+  };
+
+  const onDecline = async () => {
+    try {
+      await getApi().tournament.tournamentControllerReplyToRegistrationInvitationR(
+        params.tournamentId,
+        {
+          accept: false,
+          id: params.invitationId,
+        },
+      );
+      await doAcknowledge(notification);
+    } catch (e) {
+      await handleException("Ошибка при обработке", e);
+    }
+  };
+
+  const Toast: React.FunctionComponent<ToastContentProps<unknown>> = (
+    props,
+  ) => (
+    <GenericToast
+      {...props}
+      title={title}
+      content={content}
+      acceptText={"Принять"}
+      onAccept={onAccept}
+      onDecline={onDecline}
+      declineText={"Отклонить"}
       {...props}
     />
   );

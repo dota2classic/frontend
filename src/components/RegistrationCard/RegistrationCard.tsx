@@ -18,6 +18,7 @@ import { CgSandClock } from "react-icons/cg";
 
 interface IRegistrationCardProps {
   registration: RegistrationDto;
+  noStatus?: boolean;
 }
 
 const StatusMapping: Record<RegistrationDtoStateEnum, BadgeVariant> = {
@@ -30,6 +31,7 @@ const StatusMapping: Record<RegistrationDtoStateEnum, BadgeVariant> = {
 
 export const RegistrationCard: React.FC<IRegistrationCardProps> = ({
   registration,
+  noStatus,
 }) => {
   const { t } = useTranslation();
   return (
@@ -69,9 +71,11 @@ export const RegistrationCard: React.FC<IRegistrationCardProps> = ({
         ))}
       </div>
       <div className={c.title}>{registration.title || "Участник"}</div>
-      <Badge className={c.badge} variant={StatusMapping[registration.state]}>
-        {t(`tournament.registration.${registration.state}` as TranslationKey)}
-      </Badge>
+      {noStatus && (
+        <Badge className={c.badge} variant={StatusMapping[registration.state]}>
+          {t(`tournament.registration.${registration.state}` as TranslationKey)}
+        </Badge>
+      )}
     </div>
   );
 };
