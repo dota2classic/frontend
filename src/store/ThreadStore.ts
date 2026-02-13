@@ -216,11 +216,12 @@ export class ThreadStore implements HydratableStore<unknown> {
   };
 
   loadMore = async (loadLatest: boolean, loadCount: number = 10) => {
+    const loadFilter = this.relevantMessages.filter(
+      (msg) => msg.messageId !== this.thread?.pinnedMessage?.messageId,
+    );
     const cursor = loadLatest
-      ? maxBy(this.relevantMessages, (it) => new Date(it.createdAt).getTime())
-          ?.createdAt
-      : maxBy(this.relevantMessages, (it) => -new Date(it.createdAt).getTime())
-          ?.createdAt;
+      ? maxBy(loadFilter, (it) => new Date(it.createdAt).getTime())?.createdAt
+      : maxBy(loadFilter, (it) => -new Date(it.createdAt).getTime())?.createdAt;
 
     getApi()
       .forumApi.forumControllerGetMessages(

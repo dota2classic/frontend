@@ -13,7 +13,10 @@ export const modEnableCondition = (
   mode: MatchmakingMode,
   t: TranslationFunction,
 ): React.ReactNode | undefined => {
-  if (queue.partyBanStatus?.isBanned && mode === MatchmakingMode.UNRANKED) {
+  if (
+    queue.partyBanStatus?.isBanned &&
+    (mode === MatchmakingMode.UNRANKED || mode === MatchmakingMode.HIGHROOM)
+  ) {
     return (
       <>
         {t("matchmaking_option.searchForbiddenUntil")}{" "}

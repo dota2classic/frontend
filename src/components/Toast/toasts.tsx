@@ -317,6 +317,7 @@ const handleTournamentRegistrationInvitation = (
 
   const onAccept = async () => {
     try {
+      await doAcknowledge(notification);
       await getApi().tournament.tournamentControllerReplyToRegistrationInvitationR(
         params.tournamentId,
         {
@@ -324,7 +325,6 @@ const handleTournamentRegistrationInvitation = (
           id: params.invitationId,
         },
       );
-      await doAcknowledge(notification);
     } catch (e) {
       await handleException("Ошибка при обработке", e);
     }
@@ -332,6 +332,7 @@ const handleTournamentRegistrationInvitation = (
 
   const onDecline = async () => {
     try {
+      await doAcknowledge(notification);
       await getApi().tournament.tournamentControllerReplyToRegistrationInvitationR(
         params.tournamentId,
         {
@@ -339,7 +340,6 @@ const handleTournamentRegistrationInvitation = (
           id: params.invitationId,
         },
       );
-      await doAcknowledge(notification);
     } catch (e) {
       await handleException("Ошибка при обработке", e);
     }
