@@ -21,8 +21,37 @@ import { ItemDroppedNotification } from "@/components/Toast/ItemDroppedNotificat
 import { ForumUserEmbed } from "@/components/ForumUserEmbed";
 import { handleException } from "@/util/handleException";
 
+// ============================================================================
+// TYPES & INTERFACES
+// ============================================================================
+
+interface NotificationConfig {
+  title: ReactNode;
+  content: ReactNode;
+  acceptText?: ReactNode;
+  declineText?: ReactNode;
+  onAccept?: () => void | Promise<void>;
+  onDecline?: () => void | Promise<void>;
+}
+
+type NotificationHandler = (
+  notification: NotificationDto,
+) => NotificationConfig | null;
+
+// ============================================================================
+// HELPERS
+// ============================================================================
+
 const doAcknowledge = (notification: NotificationDto) => {
   clientStoreManager.getRootStore()!.notify.acknowledge(notification.id).then();
+};
+
+const showFeedback = async (notification: NotificationDto) => {
+  const feedback = await getApi().feedback.feedbackControllerGetFeedback(
+    Number(notification.entityId),
+  );
+  if (!feedback || feedback.finished) return;
+  clientStoreManager.getRootStore()!.notify.startFeedback(feedback);
 };
 
 export const createAcceptPartyToast = (
@@ -32,12 +61,12 @@ export const createAcceptPartyToast = (
     <GenericToast
       {...props}
       title={`${invite.inviter.name}`}
-      content={"Приглашает присоединиться к своей группе"}
-      acceptText={"Принять"}
+      content={<Trans i18nKey="notifications.partyInviteContent" />}
+      acceptText={<Trans i18nKey="notifications.actionAccept" />}
       onAccept={() =>
         clientStoreManager.getRootStore()!.queue.acceptParty(invite.inviteId)
       }
-      declineText={"Отклонить"}
+      declineText={<Trans i18nKey="notifications.actionDecline" />}
       onDecline={() =>
         clientStoreManager.getRootStore()!.queue.declineParty(invite.inviteId)
       }
@@ -51,265 +80,237 @@ export const createAcceptPartyToast = (
   });
 };
 
-export const handleNotification = (notification: NotificationDto) => {
-  if (
-    notification.notificationType === NotificationType.SUBSCRIPTIONPURCHASED
-  ) {
-    clientStoreManager.getRootStore()!.claim.claimSubscription(notification);
-    clientStoreManager.getRootStore()!.auth.forceRefreshToken().then();
-    return;
-  }
+// ============================================================================
+// NOTIFICATION HANDLERS
+// ============================================================================
 
-  // if (notification.notificationType === NotificationType.ITEMDROPPED) {
-  //   clientStoreManager.getRootStore()!.claim.claimSubscription(notification);
-  //   clientStoreManager.getRootStore()!.auth.forceRefreshToken().then();
-  //   return;
-  // }
-
-  let title: ReactNode = notification.title;
-  let content: ReactNode = notification.content;
-  const ttl = new Date(notification.expiresAt).getTime() - Date.now();
-
-  const isFeedback =
-    notification.notificationType === NotificationType.FEEDBACKCREATED;
-
-  const acknowledge = () => {
-    doAcknowledge(notification);
-  };
-
-  const showFeedback = async () => {
-    const feedback = await getApi().feedback.feedbackControllerGetFeedback(
-      Number(notification.entityId),
-    );
-    if (!feedback || feedback.finished) return;
-
-    clientStoreManager.getRootStore()!.notify.startFeedback(feedback);
-  };
-
-  const onAccept = async () => {
-    await acknowledge();
-
-    if (isFeedback) {
-      await showFeedback();
-    }
-  };
-
-  const onDecline = () => {
-    acknowledge();
-  };
-
-  console.log(`Handle notifification of type ${notification.notificationType}`);
-  switch (notification.notificationType) {
-    case NotificationType.REPORTCREATED:
-      title = "Жалоба создана";
-      content = (
-        <>
-          Отслеживать ее можешь по{" "}
-          <PageLink
-            link={
-              AppRouter.forum.report.report(
-                notification.entityId.replace("report_", ""),
-              ).link
-            }
-            onClick={acknowledge}
-          >
-            ссылке
-          </PageLink>
-        </>
-      );
-      break;
-    case NotificationType.ACHIEVEMENTCOMPLETE:
-      const ak = notification.achievement!.key;
-      title = `Достижение получено`;
-      const params = notification.params as {
-        checkpoints: number[];
-        progress: number;
-      };
-      const cp = (params.checkpoints as number[]).findLast(
-        (t) => t <= params.progress,
-      );
-      content = (
+const handleReportCreated: NotificationHandler = (notification) => {
+  const acknowledge = () => doAcknowledge(notification);
+  return {
+    title: <Trans i18nKey="notifications.reportCreatedTitle" />,
+    content: (
+      <>
+        <Trans i18nKey="notifications.reportCreatedContent" />{" "}
         <PageLink
-          className={c.horizontal}
           link={
-            AppRouter.players.player.achievements(notification.steamId).link
+            AppRouter.forum.report.report(
+              notification.entityId.replace("report_", ""),
+            ).link
           }
+          onClick={acknowledge}
         >
-          <img src={AchievementMapping[ak]?.img} alt="" />
-          <div>
-            <span className="gold">
-              <Trans
-                i18nKey={AchievementMapping[ak]?.title || notification.title}
-              />
-            </span>
-            :{" "}
-            <Trans
-              i18nKey={
-                AchievementMapping[ak]?.description || notification.content
-              }
-              components={{
-                cp: <span className="gold">{cp}</span>,
-              }}
-            />
-          </div>
+          <Trans i18nKey="notifications.reportCreatedLink" />
         </PageLink>
-      );
-      break;
-    case NotificationType.FEEDBACKCREATED:
-      title = notification.feedback!.title;
-      content = "Нам очень важно твое мнение";
-      break;
-    case NotificationType.PLAYERFEEDBACK:
-      title = `Тебе оставили отзыв!`;
-      content = (
-        <>
-          <PageLink
-            link={AppRouter.matches.match(notification.match!.id).link}
-            onClick={acknowledge}
-          >
-            Оставить отзывы другим игрокам
-          </PageLink>
-        </>
-      );
-      break;
-    case NotificationType.PLAYERREPORTBAN:
-      // TODO: reuse
-      break;
-
-    case NotificationType.ITEMDROPPED:
-      title = <Trans i18nKey={"notifications.itemDropped"} />;
-      content = <ItemDroppedNotification notification={notification} />;
-      break;
-    case NotificationType.TICKETCREATED:
-      title = `Создан тикет с твоей обратной связью`;
-      content = (
-        <>
-          Отслеживать его можешь по{" "}
-          <PageLink
-            link={
-              AppRouter.forum.ticket.ticket(notification.thread!.externalId)
-                .link
-            }
-            onClick={acknowledge}
-          >
-            ссылке
-          </PageLink>
-        </>
-      );
-      break;
-    case NotificationType.TICKETNEWMESSAGE:
-      title = `Новое сообщение в твоем тикете!`;
-      const threadType = notification.thread!.externalId.split(
-        "_",
-        2,
-      )[0] as ThreadType;
-      const threadId = notification.thread!.externalId.split("_", 2)[1];
-
-      content = (
-        <>
-          <PageLink
-            link={AppRouter.forum.thread(threadId, threadType).link}
-            onClick={acknowledge}
-          >
-            Посмотреть новое сообщение
-          </PageLink>
-        </>
-      );
-      break;
-    case NotificationType.TRADEOFFEREXPIRED:
-      title = `Обмен предметами истек по времени!`;
-      content = (
-        <>
-          Ты не принял обмен и он был отменен. Ты можешь получить свои предметы
-          заново:{" "}
-          <PageLink
-            className="link"
-            link={AppRouter.players.player.drops(notification.entityId).link}
-            onClick={acknowledge}
-          >
-            Запросить обмен наград
-          </PageLink>
-        </>
-      );
-      break;
-    case NotificationType.TOURNAMENTREADYCHECKSTARTED:
-      title = `Подтверди готовность к турниру!`;
-      content = (
-        <>
-          Началась проверка на готовность к турниру! Подтверди свою готовность
-          тут:
-          <br />
-          <PageLink
-            className="link"
-            link={
-              AppRouter.tournament.tournament(
-                (notification.params as { tournamentId: number }).tournamentId,
-              ).link
-            }
-            onClick={acknowledge}
-          >
-            Страница турнира
-          </PageLink>
-        </>
-      );
-      break;
-    case NotificationType.TOURNAMENTREGISTRATIONINVITATIONCREATED:
-      handleTournamentRegistrationInvitation(notification);
-      break;
-    case NotificationType.TOURNAMENTREGISTRATIONINVITATIONRESOLVED:
-      const p = notification.params as {
-        steamId: string;
-        accept: boolean;
-      };
-      title = `Получен ответ на приглашение`;
-      content = (
-        <>
-          <ForumUserEmbed steamId={p.steamId} />{" "}
-          {p.accept ? "принял" : "отклонил"} приглашение в команду
-        </>
-      );
-      break;
-  }
-
-  const Toast: React.FunctionComponent<ToastContentProps<unknown>> = (
-    props,
-  ) => (
-    <GenericToast
-      {...props}
-      title={title}
-      content={content}
-      acceptText={"Хорошо"}
-      onAccept={onAccept}
-      onDecline={onDecline}
-      declineText={isFeedback ? "Нет, спасибо" : undefined}
-      {...props}
-    />
-  );
-
-  // Forgive me
-  toast(Toast as ToastContent, {
-    toastId: notification.id,
-    autoClose: ttl > 1000 * 60 ? false : Math.max(ttl, 5_000),
-    pauseOnHover: false,
-    pauseOnFocusLoss: false,
-    closeButton: false,
-    className: c.partyToast,
-  });
+      </>
+    ),
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    onAccept: acknowledge,
+  };
 };
 
-const handleTournamentRegistrationInvitation = (
-  notification: NotificationDto,
-) => {
-  const title = `Приглашение в команду на турнир`;
-  const content = (
-    <>
-      <ForumUserEmbed steamId={notification.entityId} /> приглашает тебя в
-      команду на турнир
-    </>
+const handleAchievementComplete: NotificationHandler = (notification) => {
+  const ak = notification.achievement!.key;
+  const params = notification.params as {
+    checkpoints: number[];
+    progress: number;
+  };
+  const cp = (params.checkpoints as number[]).findLast(
+    (t) => t <= params.progress,
   );
 
-  const ttl = new Date(notification.expiresAt).getTime() - Date.now();
+  return {
+    title: <Trans i18nKey="notifications.achievementCompleteTitle" />,
+    content: (
+      <PageLink
+        className={c.horizontal}
+        link={AppRouter.players.player.achievements(notification.steamId).link}
+      >
+        <img src={AchievementMapping[ak]?.img} alt="" />
+        <div>
+          <span className="gold">
+            <Trans
+              i18nKey={AchievementMapping[ak]?.title || notification.title}
+            />
+          </span>
+          :{" "}
+          <Trans
+            i18nKey={
+              AchievementMapping[ak]?.description || notification.content
+            }
+            components={{
+              cp: <span className="gold">{cp}</span>,
+            }}
+          />
+        </div>
+      </PageLink>
+    ),
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    onAccept: () => doAcknowledge(notification),
+  };
+};
 
+const handleFeedbackCreated: NotificationHandler = (notification) => {
+  return {
+    title: notification.feedback!.title,
+    content: <Trans i18nKey="notifications.feedbackCreatedContent" />,
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    declineText: <Trans i18nKey="notifications.actionNoThanks" />,
+    onAccept: async () => {
+      await doAcknowledge(notification);
+      await showFeedback(notification);
+    },
+    onDecline: () => doAcknowledge(notification),
+  };
+};
+
+const handlePlayerFeedback: NotificationHandler = (notification) => {
+  const acknowledge = () => doAcknowledge(notification);
+  return {
+    title: <Trans i18nKey="notifications.playerFeedbackTitle" />,
+    content: (
+      <PageLink
+        link={AppRouter.matches.match(notification.match!.id).link}
+        onClick={acknowledge}
+      >
+        <Trans i18nKey="notifications.playerFeedbackLink" />
+      </PageLink>
+    ),
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    onAccept: acknowledge,
+  };
+};
+
+const handleItemDropped: NotificationHandler = (notification) => {
+  return {
+    title: <Trans i18nKey="notifications.itemDropped" />,
+    content: <ItemDroppedNotification notification={notification} />,
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    onAccept: () => doAcknowledge(notification),
+  };
+};
+
+const handleTicketCreated: NotificationHandler = (notification) => {
+  const acknowledge = () => doAcknowledge(notification);
+  return {
+    title: <Trans i18nKey="notifications.ticketCreatedTitle" />,
+    content: (
+      <>
+        <Trans i18nKey="notifications.ticketCreatedContent" />{" "}
+        <PageLink
+          link={
+            AppRouter.forum.ticket.ticket(notification.thread!.externalId).link
+          }
+          onClick={acknowledge}
+        >
+          <Trans i18nKey="notifications.ticketCreatedLink" />
+        </PageLink>
+      </>
+    ),
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    onAccept: acknowledge,
+  };
+};
+
+const handleTicketNewMessage: NotificationHandler = (notification) => {
+  const acknowledge = () => doAcknowledge(notification);
+  const threadType = notification.thread!.externalId.split(
+    "_",
+    2,
+  )[0] as ThreadType;
+  const threadId = notification.thread!.externalId.split("_", 2)[1];
+
+  return {
+    title: <Trans i18nKey="notifications.ticketNewMessageTitle" />,
+    content: (
+      <PageLink
+        link={AppRouter.forum.thread(threadId, threadType).link}
+        onClick={acknowledge}
+      >
+        <Trans i18nKey="notifications.ticketNewMessageLink" />
+      </PageLink>
+    ),
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    onAccept: acknowledge,
+  };
+};
+
+const handleTradeOfferExpired: NotificationHandler = (notification) => {
+  const acknowledge = () => doAcknowledge(notification);
+  return {
+    title: <Trans i18nKey="notifications.tradeOfferExpiredTitle" />,
+    content: (
+      <>
+        <Trans i18nKey="notifications.tradeOfferExpiredContent" />{" "}
+        <PageLink
+          className="link"
+          link={AppRouter.players.player.drops(notification.entityId).link}
+          onClick={acknowledge}
+        >
+          <Trans i18nKey="notifications.tradeOfferExpiredLink" />
+        </PageLink>
+      </>
+    ),
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    onAccept: acknowledge,
+  };
+};
+
+const handleTournamentReadyCheck: NotificationHandler = (notification) => {
+  const acknowledge = () => doAcknowledge(notification);
+  return {
+    title: <Trans i18nKey="notifications.tournamentReadyCheckTitle" />,
+    content: (
+      <>
+        <Trans i18nKey="notifications.tournamentReadyCheckContent" />
+        <br />
+        <PageLink
+          className="link"
+          link={
+            AppRouter.tournament.tournament(
+              (notification.params as { tournamentId: number }).tournamentId,
+            ).link
+          }
+          onClick={acknowledge}
+        >
+          <Trans i18nKey="notifications.tournamentReadyCheckLink" />
+        </PageLink>
+      </>
+    ),
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    onAccept: acknowledge,
+  };
+};
+
+const handleTournamentInvitationResolved: NotificationHandler = (
+  notification,
+) => {
+  const p = notification.params as {
+    steamId: string;
+    accept: boolean;
+  };
+  return {
+    title: <Trans i18nKey="notifications.tournamentInvitationResolvedTitle" />,
+    content: (
+      <>
+        <ForumUserEmbed steamId={p.steamId} />{" "}
+        <Trans
+          i18nKey={
+            p.accept
+              ? "notifications.tournamentInvitationAccepted"
+              : "notifications.tournamentInvitationDeclined"
+          }
+        />{" "}
+        <Trans i18nKey="notifications.tournamentInvitationResolvedContent" />
+      </>
+    ),
+    acceptText: <Trans i18nKey="notifications.actionOk" />,
+    onAccept: () => doAcknowledge(notification),
+  };
+};
+
+const handleTournamentRegistrationInvitation: NotificationHandler = (
+  notification,
+) => {
   const params = notification.params as {
     invitationId: string;
     tournamentId: number;
@@ -326,7 +327,10 @@ const handleTournamentRegistrationInvitation = (
         },
       );
     } catch (e) {
-      await handleException("Ошибка при обработке", e);
+      await handleException(
+        <Trans i18nKey="notifications.processingError" />,
+        e,
+      );
     }
   };
 
@@ -341,26 +345,85 @@ const handleTournamentRegistrationInvitation = (
         },
       );
     } catch (e) {
-      await handleException("Ошибка при обработке", e);
+      await handleException(
+        <Trans i18nKey="notifications.processingError" />,
+        e,
+      );
     }
   };
 
+  return {
+    title: <Trans i18nKey="notifications.tournamentInvitationTitle" />,
+    content: (
+      <>
+        <ForumUserEmbed steamId={notification.entityId} />{" "}
+        <Trans i18nKey="notifications.tournamentInvitationContent" />
+      </>
+    ),
+    acceptText: <Trans i18nKey="notifications.actionAccept" />,
+    declineText: <Trans i18nKey="notifications.actionDecline" />,
+    onAccept,
+    onDecline,
+  };
+};
+
+// ============================================================================
+// NOTIFICATION HANDLER REGISTRY
+// ============================================================================
+
+const notificationHandlers: Partial<
+  Record<NotificationType, NotificationHandler>
+> = {
+  [NotificationType.REPORTCREATED]: handleReportCreated,
+  [NotificationType.ACHIEVEMENTCOMPLETE]: handleAchievementComplete,
+  [NotificationType.FEEDBACKCREATED]: handleFeedbackCreated,
+  [NotificationType.PLAYERFEEDBACK]: handlePlayerFeedback,
+  [NotificationType.ITEMDROPPED]: handleItemDropped,
+  [NotificationType.TICKETCREATED]: handleTicketCreated,
+  [NotificationType.TICKETNEWMESSAGE]: handleTicketNewMessage,
+  [NotificationType.TRADEOFFEREXPIRED]: handleTradeOfferExpired,
+  [NotificationType.TOURNAMENTREADYCHECKSTARTED]: handleTournamentReadyCheck,
+  [NotificationType.TOURNAMENTREGISTRATIONINVITATIONCREATED]:
+    handleTournamentRegistrationInvitation,
+  [NotificationType.TOURNAMENTREGISTRATIONINVITATIONRESOLVED]:
+    handleTournamentInvitationResolved,
+};
+
+// ============================================================================
+// MAIN NOTIFICATION HANDLER
+// ============================================================================
+
+export const handleNotification = (notification: NotificationDto) => {
+  console.log(`Handle notification of type ${notification.notificationType}`);
+
+  // Handle subscription purchased silently (no toast)
+  if (
+    notification.notificationType === NotificationType.SUBSCRIPTIONPURCHASED
+  ) {
+    clientStoreManager.getRootStore()!.claim.claimSubscription(notification);
+    clientStoreManager.getRootStore()!.auth.forceRefreshToken().then();
+    return;
+  }
+
+  // Get handler for this notification type
+  const handler = notificationHandlers[notification.notificationType];
+  if (!handler) {
+    console.warn(
+      `No handler for notification type: ${notification.notificationType}`,
+    );
+    return;
+  }
+
+  // Execute handler to get configuration
+  const config = handler(notification);
+  if (!config) return;
+
+  // Render toast
+  const ttl = new Date(notification.expiresAt).getTime() - Date.now();
   const Toast: React.FunctionComponent<ToastContentProps<unknown>> = (
     props,
-  ) => (
-    <GenericToast
-      {...props}
-      title={title}
-      content={content}
-      acceptText={"Принять"}
-      onAccept={onAccept}
-      onDecline={onDecline}
-      declineText={"Отклонить"}
-      {...props}
-    />
-  );
+  ) => <GenericToast {...props} {...config} />;
 
-  // Forgive me
   toast(Toast as ToastContent, {
     toastId: notification.id,
     autoClose: ttl > 1000 * 60 ? false : Math.max(ttl, 5_000),
@@ -372,7 +435,7 @@ const handleTournamentRegistrationInvitation = (
 };
 
 export const makeSimpleToast = (
-  title: string,
+  title: ReactNode,
   content: string,
   time: number = 5000,
   variant: "simple" | "error" = "simple",

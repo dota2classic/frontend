@@ -1,7 +1,8 @@
 import { makeSimpleToast } from "@/components/Toast/toasts";
+import { ReactNode } from "react";
 
 export const handleException = async (
-  title: string,
+  title: ReactNode,
   e: unknown,
   time = 5000,
 ) => {
