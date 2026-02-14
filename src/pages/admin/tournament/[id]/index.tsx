@@ -47,6 +47,20 @@ export default function TournamentAdminPage({ tournament }: Props) {
     }
   }, [tournament, refresh]);
 
+  const [isGeneratingBracket, generateBracket] = useAsyncButton(async () => {
+    try {
+      if (!confirm("Точно перегенерировать сетку? Это удалит все матчи")) {
+        return;
+      }
+      await getApi().tournament.tournamentControllerStartTournament(
+        tournament.id,
+      );
+      await refresh();
+    } catch (e) {
+      await handleException("Ошибка при завершении турнира", e);
+    }
+  }, [tournament, refresh]);
+
   const [isStartingReadyCheck, startReadyCheck] = useAsyncButton(async () => {
     try {
       await getApi().tournament.tournamentControllerEndRegistration(
@@ -83,6 +97,17 @@ export default function TournamentAdminPage({ tournament }: Props) {
               Завершить
             </Button>
           )}
+
+          {tournament.status === TournamentStatus.INPROGRESS && (
+            <Button
+              disabled={isGeneratingBracket}
+              variant="primary"
+              onClick={generateBracket}
+            >
+              (ОПАСНО) Перегенерировать сетку
+            </Button>
+          )}
+
           {tournament.status === TournamentStatus.REGISTRATION && (
             <Button
               disabled={isStartingReadyCheck}
