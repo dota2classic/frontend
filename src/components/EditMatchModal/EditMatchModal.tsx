@@ -53,6 +53,20 @@ export const EditMatchModal: React.FC<IEditMatchModalProps> = ({
     [match.id, onUpdated],
   );
 
+  const resetGame = useCallback(
+    async (gameId: string) => {
+      try {
+        await getApi().tournament.tournamentControllerResetGameData(match.id, {
+          gameId,
+        });
+        onUpdated();
+      } catch (e) {
+        await handleException("Ошибка при обновлении игры", e);
+      }
+    },
+    [match.id, onUpdated],
+  );
+
   return (
     <GenericModal
       className={c.modal}
@@ -81,6 +95,7 @@ export const EditMatchModal: React.FC<IEditMatchModalProps> = ({
                 key={game.id}
                 game={game}
                 schedule={schedule}
+                resetGame={resetGame}
               />
             ))}
         </div>

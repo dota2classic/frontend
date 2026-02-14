@@ -4,6 +4,11 @@ import { getApi } from "@/api/hooks";
 import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import { NextPageContext } from "next";
+import { TournamentCard } from "@/components/TournamentCard";
+import { Button } from "@/components/Button";
+import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import c from "../AdminStyles.module.scss";
+import cx from "clsx";
 
 interface Props {
   tournaments: TournamentDto[];
@@ -11,19 +16,23 @@ interface Props {
 
 export default function TournamentList({ tournaments }: Props) {
   return (
-    <>
-      <PageLink link={AppRouter.admin.tournament.create.link}>
-        Создать турнир
-      </PageLink>
-      {tournaments.map((t) => (
-        <PageLink
-          link={AppRouter.admin.tournament.tournament(t.id).link}
-          key={t.id}
-        >
-          {t.name}
-        </PageLink>
-      ))}
-    </>
+    <div className={cx(c.gap12, c.col)}>
+      <QueuePageBlock simple heading="Действия">
+        <Button pageLink={AppRouter.admin.tournament.create.link}>
+          Создать турнир
+        </Button>
+      </QueuePageBlock>
+      <QueuePageBlock simple heading="Турниры">
+        {tournaments.map((t) => (
+          <PageLink
+            link={AppRouter.admin.tournament.tournament(t.id).link}
+            key={t.id}
+          >
+            <TournamentCard tournament={t} />
+          </PageLink>
+        ))}
+      </QueuePageBlock>
+    </div>
   );
 }
 

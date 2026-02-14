@@ -33,6 +33,9 @@ import {
   ReplyInvitationDto,
   ReplyInvitationDtoFromJSON,
   ReplyInvitationDtoToJSON,
+  ResetGameDataDto,
+  ResetGameDataDtoFromJSON,
+  ResetGameDataDtoToJSON,
   ScheduleTournamentGameDto,
   ScheduleTournamentGameDtoFromJSON,
   ScheduleTournamentGameDtoToJSON,
@@ -115,6 +118,11 @@ export interface TournamentControllerRegisterRequest {
 export interface TournamentControllerReplyToRegistrationInvitationRRequest {
   id: number;
   replyInvitationDto: ReplyInvitationDto;
+}
+
+export interface TournamentControllerResetGameDataRequest {
+  id: number;
+  resetGameDataDto: ResetGameDataDto;
 }
 
 export interface TournamentControllerScheduleGameRequest {
@@ -988,6 +996,62 @@ export class TournamentApi extends runtime.BaseAPI {
      */
     tournamentControllerReplyToRegistrationInvitationR = async (id: number, replyInvitationDto: ReplyInvitationDto): Promise<void> => {
         await this.tournamentControllerReplyToRegistrationInvitationRRaw({ id: id, replyInvitationDto: replyInvitationDto });
+    }
+
+
+    /**
+     */
+    private async tournamentControllerResetGameDataRaw(requestParameters: TournamentControllerResetGameDataRequest): Promise<runtime.ApiResponse<void>> {
+        this.tournamentControllerResetGameDataValidation(requestParameters);
+        const context = this.tournamentControllerResetGameDataContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private tournamentControllerResetGameDataValidation(requestParameters: TournamentControllerResetGameDataRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling tournamentControllerResetGameData.");
+        }
+        if (requestParameters.resetGameDataDto === null || requestParameters.resetGameDataDto === undefined) {
+            throw new runtime.RequiredError("resetGameDataDto","Required parameter requestParameters.resetGameDataDto was null or undefined when calling tournamentControllerResetGameData.");
+        }
+    }
+
+    /**
+     */
+    tournamentControllerResetGameDataContext(requestParameters: TournamentControllerResetGameDataRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/tournament/{id}/reset_game_data`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ResetGameDataDtoToJSON(requestParameters.resetGameDataDto),
+        };
+    }
+
+    /**
+     */
+    tournamentControllerResetGameData = async (id: number, resetGameDataDto: ResetGameDataDto): Promise<void> => {
+        await this.tournamentControllerResetGameDataRaw({ id: id, resetGameDataDto: resetGameDataDto });
     }
 
 

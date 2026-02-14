@@ -15,9 +15,10 @@ interface Props {
   game: MatchGameDto;
   schedule: (gameId: string, date: Date) => void;
   setWinner: (gameId: string, opponentId: number) => void;
+  resetGame: (gameId: string) => void;
 }
 
-export const EditGame = ({ game, schedule, setWinner }: Props) => {
+export const EditGame = ({ game, schedule, setWinner, resetGame }: Props) => {
   const sd = (game.scheduledDate && new Date(game.scheduledDate)) || undefined;
   const gameComplete = game.status >= MatchStatus.Completed;
 
@@ -75,6 +76,12 @@ export const EditGame = ({ game, schedule, setWinner }: Props) => {
                 disabled={gameComplete}
               >
                 Победил
+              </Button>
+              <Button
+                disabled={game.status != MatchStatus.Running}
+                onClick={() => resetGame(game.id)}
+              >
+                Запустить игру заново
               </Button>
             </td>
           </tr>

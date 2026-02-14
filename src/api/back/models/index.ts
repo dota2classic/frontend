@@ -120,6 +120,7 @@ export * from "./ReportMessageDto";
 export * from "./ReportPageDto";
 export * from "./ReportPlayerDto";
 export * from "./ReportPlayerInMatchDto";
+export * from "./ResetGameDataDto";
 export * from "./RoleLifetimeDto";
 export * from "./RoleSubscriptionEntryDto";
 export * from "./RoundDto";

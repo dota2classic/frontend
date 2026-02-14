@@ -47,6 +47,10 @@
   }
 }
 
+.gap12 {
+  gap: 12px;
+}
+
 .nowrap {
   white-space: nowrap;
 }
@@ -74,4 +78,10 @@
   & ul {
     padding-inline-start: 1rem;
   }
+}
+
+
+.col {
+  display: flex;
+  flex-direction: column;
 }
