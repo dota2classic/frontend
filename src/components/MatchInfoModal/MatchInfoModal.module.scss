@@ -37,6 +37,10 @@
   align-items: center;
   padding: 12px 12px 36px;
   gap: 12px;
+
+  @media (width <= 600px) {
+    padding: 4px 4px 20px;
+  }
 }
 
 .bg {
@@ -88,6 +92,20 @@
       text-align: start;
     }
   }
+}
+
+.team_info {
+  display: flex;
+  flex-direction: row;
+
+  @media (width <= 600px) {
+    flex-direction: column-reverse;
+    align-items: center;
+
+    & .team__result {
+      align-items: center;
+    }
+  }
 
   & > img {
     width: 50px;
@@ -115,6 +133,10 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  @media (width <= 600px) {
+    font-size: 0.8rem;
+  }
 }
 
 .games {
@@ -129,4 +151,11 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
+  @media (width <= 600px) {
+    flex-wrap: wrap;
+  }
+}
+
+.tabs {
+  flex: 0 0 auto; /* don’t shrink */
 }

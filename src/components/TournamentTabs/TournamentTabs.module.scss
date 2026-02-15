@@ -12,7 +12,11 @@
   flex-direction: row;
   gap: 3rem;
   padding: 20px 8px;
-  //background-color: common.$panelBg;
+
+  @media (width <= 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
 
   & > img {
     aspect-ratio: 1 / 1;
@@ -40,11 +44,20 @@
   justify-content: center;
 
   gap: 4px;
+}
 
-  & h1 {
-    font-size: 48px;
-    margin-block-start: 0;
-    margin-block-end: 1.4rem;
+.title {
+  font-size: 48px;
+  margin-block-start: 0;
+  margin-block-end: 1.4rem;
+
+  @media (width <= 600px) {
+    font-size: 1.8rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90dvw;
   }
 }
 
@@ -57,10 +70,26 @@
 
   padding-right: 3em;
   gap: 1rem;
+
+
+  &:empty {
+    display: none;
+  }
 }
 
 .timestamp {
   font-size: 1.2rem;
+
+  @media (width <= 600px) {
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .delimeter {
+      display: none;
+    }
+  }
 }
 
 .delimeter {
@@ -72,7 +101,6 @@
   grid-column: 12 span;
   z-index: 5;
 }
-
 
 .bg {
   background-image: url("https://image1.challengermode.com/5ad4086a-90d9-4cb5-3f88-08db5bcb0207_1200_300");

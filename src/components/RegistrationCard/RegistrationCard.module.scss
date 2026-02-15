@@ -6,6 +6,12 @@
   flex-direction: row;
   gap: 12px;
   align-items: center;
+  @media (width <= 600px) {
+    flex-wrap: wrap;
+    .players {
+      width: 100%;
+    }
+  }
 }
 
 .players {
@@ -59,6 +65,9 @@
   font-size: 1.2rem;
   font-weight: bold;
   margin-left: 2rem;
+  @media (width <= 600px) {
+    margin-left: 0;
+  }
 }
 
 .delimeter {

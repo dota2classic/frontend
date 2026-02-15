@@ -108,7 +108,9 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
       );
     }, [registration, pt]);
 
-    const hasStarted = tournament.status === TournamentStatus.INPROGRESS;
+    const hasStarted =
+      tournament.status === TournamentStatus.INPROGRESS ||
+      tournament.status === TournamentStatus.FINISHED;
 
     const leaveRegistration = useCallback(async () => {
       try {
@@ -151,7 +153,9 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
           <img loading={"lazy"} src={tournament.imageUrl} alt="" />
           <div className={c.header__right}>
             <div className={c.overview}>
-              <h1 className={TrajanPro.className}>{tournament.name}</h1>
+              <h1 className={cx(TrajanPro.className, c.title)}>
+                {tournament.name}
+              </h1>
               <span className={c.timestamp}>
                 <span>
                   <Trans

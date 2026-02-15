@@ -1,13 +1,16 @@
 @use "../../common.scss";
 
-
-
 .card {
   @include common.card();
 
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   cursor: pointer;
+
+
+  @media (width <= 600px) {
+    gap: 1rem;
+  }
 }
 
 .left {
@@ -15,14 +18,15 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  @media (width <= 600px) {
+    grid-column: span 6;
+  }
 }
-
-
 
 .time {
   margin-left: 2px;
 }
-
 
 .middle {
   grid-column: span 4;
@@ -31,8 +35,13 @@
   flex-direction: column;
   gap: 8px;
   padding-left: 2rem;
-}
 
+  @media (width <= 600px) {
+    padding-left: 0;
+    grid-column: span 6;
+    border: none;
+  }
+}
 
 .team {
   display: flex;
@@ -40,14 +49,11 @@
   align-items: center;
   gap: 12px;
 
-
   & > img {
     border-radius: 50%;
     max-width: 50px;
   }
 }
-
-
 
 .score {
   padding: 8px 12px;

@@ -36,22 +36,24 @@ const Team: React.FC<{
   const { t } = useTranslation();
   return (
     <div className={cx(c.team, reverse && c.team__reverse)}>
-      <div className={c.team__result}>
-        {participant?.result && (
-          <span
-            className={cx(
-              participant.result === OpponentResult.Win && "green",
-              participant.result === OpponentResult.Loss && "red",
-            )}
-          >
-            {t(`tournament.result.${participant.result}` as TranslationKey)}
+      <div className={c.team_info}>
+        <div className={c.team__result}>
+          {participant?.result && (
+            <span
+              className={cx(
+                participant.result === OpponentResult.Win && "green",
+                participant.result === OpponentResult.Loss && "red",
+              )}
+            >
+              {t(`tournament.result.${participant.result}` as TranslationKey)}
+            </span>
+          )}
+          <span className={c.team_name}>
+            {participant?.participant?.name || "Еще неизвестен"}
           </span>
-        )}
-        <span className={c.team_name}>
-          {participant?.participant?.name || "Еще неизвестен"}
-        </span>
+        </div>
+        <img src={participant?.participant?.avatar || "/avatar.png"} alt="" />
       </div>
-      <img src={participant?.participant?.avatar || "/avatar.png"} alt="" />
       <span className={c.score}>{participant?.score}</span>
     </div>
   );
@@ -145,7 +147,12 @@ export const MatchInfoModal: React.FC<IMatchInfoModalProps> = ({
       )}
     >
       <Header match={match} />
-      <BigTabs<Tabs> items={items} selected={selected} flavor="small" />
+      <BigTabs<Tabs>
+        className={c.tabs}
+        items={items}
+        selected={selected}
+        flavor="small"
+      />
       <br />
       {selected === "current" && currentGame && (
         <MatchGameCard game={currentGame} />
