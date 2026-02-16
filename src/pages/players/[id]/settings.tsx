@@ -57,6 +57,13 @@ export default function PlayerSettings({ summary, decorations }: Props) {
 
   const [isStartingRecalibration, startRecalibration] = useAsyncButton(
     paidAction(async () => {
+      if (
+        !confirm(
+          "Точно начать перекалибровку? Это сбросит рейтинг до изначального",
+        )
+      ) {
+        return;
+      }
       try {
         await getApi().playerApi.playerControllerStartRecalibration();
         reloadProps().then();
