@@ -95,9 +95,17 @@ export default function TournamentPage({ tournament }: Props) {
               <InfoCardWithIcon
                 icon={<TbTournament />}
                 title={t("tournament.common.format")}
-                text={t(
-                  `tournament.bracket.${tournament.strategy}` as TranslationKey,
-                )}
+                text={
+                  <>
+                    {t(
+                      `tournament.bracket.${tournament.strategy}` as TranslationKey,
+                    )}
+                    ,{" "}
+                    <span className="gold">
+                      {t(`game_mode.${tournament.gameMode}` as TranslationKey)}
+                    </span>
+                  </>
+                }
               />
               <InfoCardWithIcon
                 icon={<FaCalendarDays />}
