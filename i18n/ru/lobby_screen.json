@@ -25,6 +25,10 @@
     "bots": "Боты",
     "patch": "Патч",
     "region": "Регион",
-    "errorStartingLobby": "Произошла ошибка при запуске лобби!"
+    "errorStartingLobby": "Произошла ошибка при запуске лобби!",
+    "midMode": "Режим \"мид\"",
+    "yesUpToKills": "Да, до {{kills}} убийств",
+    "runes": "Руны",
+    "killsToWin": "Убийств для победы"
   }
 }

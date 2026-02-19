@@ -132,21 +132,64 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
         </div>
         <div className={cx(c.formItem, c.checkboxes)}>
           <header>{t("edit_lobby.settingsHeader")}</header>
-          <Checkbox
-            checked={lobbySettings.enableCheats}
-            onChange={(e) =>
-              setLobbySettings((r) => ({ ...r, enableCheats: e }))
-            }
-          >
-            {t("edit_lobby.enableCheats")}
-          </Checkbox>
-          <Checkbox
-            checked={lobbySettings.fillBots}
-            onChange={(e) => setLobbySettings((r) => ({ ...r, fillBots: e }))}
-          >
-            {t("edit_lobby.addBots")}
-          </Checkbox>
+          <div className={c.box}>
+            <Checkbox
+              checked={lobbySettings.enableCheats}
+              disabled
+              onChange={(e) =>
+                setLobbySettings((r) => ({ ...r, enableCheats: e }))
+              }
+            >
+              {t("edit_lobby.enableCheats")}
+            </Checkbox>
+            <p>{t("edit_lobby.featureTemporarilyDisabled")}</p>
+          </div>
+          <div className={c.box}>
+            <Checkbox
+              checked={lobbySettings.fillBots}
+              onChange={(e) => setLobbySettings((r) => ({ ...r, fillBots: e }))}
+            >
+              {t("edit_lobby.addBots")}
+            </Checkbox>
+            <p>{t("edit_lobby.emptySlotsFilledWithBots")}</p>
+          </div>
+          <div className={c.box}>
+            <Checkbox
+              checked={lobbySettings.noRunes}
+              onChange={(e) => setLobbySettings((r) => ({ ...r, noRunes: e }))}
+            >
+              {t("edit_lobby.disableRunes")}
+            </Checkbox>
+          </div>
+          <div className={c.box}>
+            <Checkbox
+              checked={lobbySettings.midTowerToWin}
+              onChange={(e) =>
+                setLobbySettings((r) => ({ ...r, midTowerToWin: e }))
+              }
+            >
+              {t("edit_lobby.enableMidMode")}
+            </Checkbox>
+            <p>{t("edit_lobby.midModeDescription")}</p>
+          </div>
+          <div className={cx(c.box, c.formItem__inline, c.formItem)}>
+            <Input
+              type="number"
+              min={1}
+              max={100}
+              step={1}
+              value={lobbySettings.midTowerKillsToWin}
+              onChange={(e) =>
+                setLobbySettings((r) => ({
+                  ...r,
+                  midTowerKillsToWin: Number(e.target.value),
+                }))
+              }
+            />
+            <span>{t("edit_lobby.killsToWin")}</span>
+          </div>
         </div>
+
         <Button className={c.startGame} onClick={updateLobby}>
           {t("edit_lobby.saveChanges")}
         </Button>

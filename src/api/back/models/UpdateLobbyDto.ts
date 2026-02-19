@@ -86,6 +86,24 @@ export interface UpdateLobbyDto {
      * @memberof UpdateLobbyDto
      */
     enableCheats?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateLobbyDto
+     */
+    noRunes?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateLobbyDto
+     */
+    midTowerToWin?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateLobbyDto
+     */
+    midTowerKillsToWin?: number;
 }
 
 export function UpdateLobbyDtoFromJSON(json: any): UpdateLobbyDto {
@@ -106,6 +124,9 @@ export function UpdateLobbyDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
         'name': !exists(json, 'name') ? undefined : json['name'],
         'fillBots': !exists(json, 'fillBots') ? undefined : json['fillBots'],
         'enableCheats': !exists(json, 'enableCheats') ? undefined : json['enableCheats'],
+        'noRunes': !exists(json, 'noRunes') ? undefined : json['noRunes'],
+        'midTowerToWin': !exists(json, 'midTowerToWin') ? undefined : json['midTowerToWin'],
+        'midTowerKillsToWin': !exists(json, 'midTowerKillsToWin') ? undefined : json['midTowerKillsToWin'],
     };
 }
 
@@ -126,6 +147,9 @@ export function UpdateLobbyDtoToJSON(value?: UpdateLobbyDto | null): any {
         'name': value.name,
         'fillBots': value.fillBots,
         'enableCheats': value.enableCheats,
+        'noRunes': value.noRunes,
+        'midTowerToWin': value.midTowerToWin,
+        'midTowerKillsToWin': value.midTowerKillsToWin,
     };
 }
 

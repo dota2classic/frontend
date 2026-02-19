@@ -276,9 +276,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           </dl>
           <dl>
             <dt>{t("lobby.mode")}</dt>
-            <dd>
-              <dd>{t(`game_mode.${data.gameMode}` as TranslationKey)}</dd>
-            </dd>
+            <dd>{t(`game_mode.${data.gameMode}` as TranslationKey)}</dd>
           </dl>
           <dl>
             <dt>{t("lobby.cheats")}</dt>
@@ -287,6 +285,22 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           <dl>
             <dt>{t("lobby.bots")}</dt>
             <dd>{data.fillBots ? t("lobby.yes") : t("lobby.no")}</dd>
+          </dl>
+          <dl>
+            <dt>{t("lobby.midMode")}</dt>
+            <dd>{data.midTowerToWin ? t("lobby.yes") : t("lobby.no")}</dd>
+          </dl>
+          <dl>
+            <dt>{t("lobby.killsToWin")}</dt>
+            <dd>
+              {data.midTowerKillsToWin > 0
+                ? t("lobby.yesUpToKills", { kills: data.midTowerKillsToWin })
+                : t("lobby.no")}
+            </dd>
+          </dl>
+          <dl>
+            <dt>{t("lobby.runes")}</dt>
+            <dd>{data.noRunes ? t("lobby.no") : t("lobby.yes")}</dd>
           </dl>
           <dl>
             <dt>{t("lobby.patch")}</dt>

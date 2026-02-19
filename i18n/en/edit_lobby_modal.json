@@ -16,6 +16,12 @@
     "settingsHeader": "Settings",
     "enableCheats": "Enable cheats",
     "addBots": "Add bots",
-    "saveChanges": "Save changes"
+    "saveChanges": "Save changes",
+    "featureTemporarilyDisabled": "Feature temporarily disabled",
+    "emptySlotsFilledWithBots": "Empty slots will be filled with bots",
+    "disableRunes": "Disable runes",
+    "enableMidMode": "Enable \"mid\" mode",
+    "midModeDescription": "In this mode, you must either destroy the middle tower or kill enemies a certain number of times. Side lanes are disabled in this mode",
+    "killsToWin": "Kills to win"
   }
 }

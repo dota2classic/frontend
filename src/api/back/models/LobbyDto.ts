@@ -118,6 +118,24 @@ export interface LobbyDto {
      * @memberof LobbyDto
      */
     enableCheats: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof LobbyDto
+     */
+    noRunes: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof LobbyDto
+     */
+    midTowerToWin: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof LobbyDto
+     */
+    midTowerKillsToWin: number;
 }
 
 export function LobbyDtoFromJSON(json: any): LobbyDto {
@@ -142,6 +160,9 @@ export function LobbyDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'name': json['name'],
         'fillBots': json['fillBots'],
         'enableCheats': json['enableCheats'],
+        'noRunes': json['noRunes'],
+        'midTowerToWin': json['midTowerToWin'],
+        'midTowerKillsToWin': json['midTowerKillsToWin'],
     };
 }
 
@@ -166,6 +187,9 @@ export function LobbyDtoToJSON(value?: LobbyDto | null): any {
         'name': value.name,
         'fillBots': value.fillBots,
         'enableCheats': value.enableCheats,
+        'noRunes': value.noRunes,
+        'midTowerToWin': value.midTowerToWin,
+        'midTowerKillsToWin': value.midTowerKillsToWin,
     };
 }
 

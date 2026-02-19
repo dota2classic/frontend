@@ -25,6 +25,10 @@
     "bots": "Bots",
     "patch": "Patch",
     "region": "Region",
-    "errorStartingLobby": "An error occurred while starting the lobby!"
+    "errorStartingLobby": "An error occurred while starting the lobby!",
+    "midMode": "Mid mode",
+    "yesUpToKills": "Yes, up to {{kills}} kills",
+    "runes": "Runes",
+    "killsToWin": "Kills to win"
   }
 }

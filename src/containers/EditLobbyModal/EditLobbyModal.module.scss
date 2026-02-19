@@ -1,7 +1,6 @@
 @use "../../common.scss";
 
 .modal {
-
 }
 
 .settings {
@@ -40,12 +39,34 @@
   flex-direction: column;
   align-items: stretch;
 
-
   &__inline {
-    flex-direction: row;
     align-items: center;
+    justify-content: stretch;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
     & span {
       flex: 1;
     }
+  }
+}
+
+.box {
+  @include common.card();
+
+  & > p {
+    margin-block-end: 0;
+  }
+}
+
+.disabled {
+  position: relative;
+  cursor: not-allowed;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
   }
 }
