@@ -108,6 +108,30 @@ export interface UpdateTournamentDto {
      * @memberof UpdateTournamentDto
      */
     gameBreakDurationSeconds?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateTournamentDto
+     */
+    disableRunes?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateTournamentDto
+     */
+    midTowerToWin?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateTournamentDto
+     */
+    enableBanStage?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateTournamentDto
+     */
+    killsToWin?: number;
 }
 
 export function UpdateTournamentDtoFromJSON(json: any): UpdateTournamentDto {
@@ -133,6 +157,10 @@ export function UpdateTournamentDtoFromJSONTyped(json: any, ignoreDiscriminator:
         'grandFinalBestOf': !exists(json, 'grandFinalBestOf') ? undefined : json['grandFinalBestOf'],
         'gameDurationSeconds': !exists(json, 'gameDurationSeconds') ? undefined : json['gameDurationSeconds'],
         'gameBreakDurationSeconds': !exists(json, 'gameBreakDurationSeconds') ? undefined : json['gameBreakDurationSeconds'],
+        'disableRunes': !exists(json, 'disableRunes') ? undefined : json['disableRunes'],
+        'midTowerToWin': !exists(json, 'midTowerToWin') ? undefined : json['midTowerToWin'],
+        'enableBanStage': !exists(json, 'enableBanStage') ? undefined : json['enableBanStage'],
+        'killsToWin': !exists(json, 'killsToWin') ? undefined : json['killsToWin'],
     };
 }
 
@@ -158,6 +186,10 @@ export function UpdateTournamentDtoToJSON(value?: UpdateTournamentDto | null): a
         'grandFinalBestOf': value.grandFinalBestOf,
         'gameDurationSeconds': value.gameDurationSeconds,
         'gameBreakDurationSeconds': value.gameBreakDurationSeconds,
+        'disableRunes': value.disableRunes,
+        'midTowerToWin': value.midTowerToWin,
+        'enableBanStage': value.enableBanStage,
+        'killsToWin': value.killsToWin,
     };
 }
 

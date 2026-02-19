@@ -20,6 +20,7 @@ import { AppRouter } from "@/route";
 import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
 import { useDotaGameModeOptions } from "@/const/options";
+import { Checkbox } from "@/components/Checkbox";
 
 interface IEditTournamentProps {
   tournament?: TournamentDto;
@@ -58,6 +59,11 @@ export const EditTournament: React.FC<IEditTournamentProps> = observer(
         tournament?.scheduleStrategy?.gameBreakDurationSeconds || 60 * 10,
       gameDurationSeconds:
         tournament?.scheduleStrategy?.gameDurationSeconds || 60 * 50,
+
+      killsToWin: tournament?.killsToWin || 0,
+      disableRunes: tournament?.disableRunes || false,
+      midTowerToWin: tournament?.midTowerToWin || false,
+      enableBanStage: tournament?.enableBanStage || false,
     }));
 
     const update = (partial: Partial<typeof data>) => {
@@ -141,15 +147,43 @@ export const EditTournament: React.FC<IEditTournamentProps> = observer(
           />
           <img className={c.image} width={300} src={data.imageUrl} alt="" />
         </div>
-        {/*GameMode*/}
-        <div className={c.form__row}>
-          <header>Игровой режим</header>
+        {/*GameMode + flags */}
+        <div className={cx(c.form__row, c.complex)}>
+          <header>Настройки режима</header>
           <SelectOptions
             defaultText={"Игровой режим"}
             options={dotaGameModeOptions}
             selected={data.gameMode}
             onSelect={(e) => update({ gameMode: e.value })}
           />
+          <Checkbox
+            checked={data.enableBanStage}
+            onChange={(e) => update({ enableBanStage: e })}
+          >
+            Включить стадию банов
+          </Checkbox>
+          <Checkbox
+            checked={data.midTowerToWin}
+            onChange={(e) => update({ midTowerToWin: e })}
+          >
+            Игра до мид вышки
+          </Checkbox>
+          <Checkbox
+            checked={data.disableRunes}
+            onChange={(e) => update({ disableRunes: e })}
+          >
+            Выключить руны
+          </Checkbox>
+          <div className={c.form__row}>
+            <header>Количество киллов для победы (0 = отключить)</header>
+            <Input
+              type="number"
+              max={120}
+              min={0}
+              value={data.killsToWin}
+              onChange={(e) => update({ killsToWin: Number(e.target.value) })}
+            />
+          </div>
         </div>
         {/*Game duration*/}
         <div className={c.form__row}>

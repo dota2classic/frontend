@@ -190,6 +190,22 @@ export default function TournamentAdminPage({ tournament }: Props) {
             <dd>Количество игр в гранд финале</dd>
             <dt>{tournament.bestOfConfig.grandFinal}</dt>
           </dl>
+          <dl>
+            <dd>Руны</dd>
+            <dt>{tournament.disableRunes ? "Выключены" : "Включены"}</dt>
+          </dl>
+          <dl>
+            <dd>Лимит по киллам</dd>
+            <dt>{tournament.killsToWin || "-"}</dt>
+          </dl>
+          <dl>
+            <dd>Режим "midonly"</dd>
+            <dt>{tournament.midTowerToWin ? "Включен" : "-"}</dt>
+          </dl>
+          <dl>
+            <dd>Стадия банов</dd>
+            <dt>{tournament.enableBanStage ? "Включена" : "-"}</dt>
+          </dl>
         </div>
       </QueuePageBlock>
     </>

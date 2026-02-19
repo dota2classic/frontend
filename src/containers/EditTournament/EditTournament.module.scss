@@ -6,11 +6,11 @@
   gap: 16px; // slightly more breathing room
 
   &__row {
+    @include common.card();
+    padding: 12px;
     display: flex;
     flex-direction: column;
     gap: 6px;
-
-    padding: 4px 0;
 
     header {
       font-size: 1.2rem;
@@ -19,6 +19,9 @@
   }
 }
 
+.complex {
+  gap: 12px;
+}
 
 .image {
   width: 50%;

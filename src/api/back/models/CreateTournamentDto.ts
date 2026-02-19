@@ -108,6 +108,30 @@ export interface CreateTournamentDto {
      * @memberof CreateTournamentDto
      */
     gameBreakDurationSeconds: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateTournamentDto
+     */
+    disableRunes: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateTournamentDto
+     */
+    midTowerToWin: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateTournamentDto
+     */
+    enableBanStage: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateTournamentDto
+     */
+    killsToWin: number;
 }
 
 export function CreateTournamentDtoFromJSON(json: any): CreateTournamentDto {
@@ -133,6 +157,10 @@ export function CreateTournamentDtoFromJSONTyped(json: any, ignoreDiscriminator:
         'grandFinalBestOf': json['grandFinalBestOf'],
         'gameDurationSeconds': json['gameDurationSeconds'],
         'gameBreakDurationSeconds': json['gameBreakDurationSeconds'],
+        'disableRunes': json['disableRunes'],
+        'midTowerToWin': json['midTowerToWin'],
+        'enableBanStage': json['enableBanStage'],
+        'killsToWin': json['killsToWin'],
     };
 }
 
@@ -158,6 +186,10 @@ export function CreateTournamentDtoToJSON(value?: CreateTournamentDto | null): a
         'grandFinalBestOf': value.grandFinalBestOf,
         'gameDurationSeconds': value.gameDurationSeconds,
         'gameBreakDurationSeconds': value.gameBreakDurationSeconds,
+        'disableRunes': value.disableRunes,
+        'midTowerToWin': value.midTowerToWin,
+        'enableBanStage': value.enableBanStage,
+        'killsToWin': value.killsToWin,
     };
 }
 
