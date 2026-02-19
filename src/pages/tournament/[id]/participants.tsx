@@ -30,7 +30,10 @@ export default function TournamentPage({ tournament }: Props) {
       />
       <TournamentTabs tournament={tournament} />
       <div className={cx(c.container, NotoSans.className)}>
-        <QueuePageBlock className={c.fullwidth} heading="Участники">
+        <QueuePageBlock
+          className={c.fullwidth}
+          heading={t("tournament.common.participants")}
+        >
           <div className={c.participants}>
             {tournament.registrations
               .sort((a, b) => b.id - a.id)

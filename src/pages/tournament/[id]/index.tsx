@@ -4,7 +4,7 @@ import {
   UserDTO,
 } from "@/api/back";
 import { getApi } from "@/api/hooks";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { ReactNode, useCallback, useMemo, useState } from "react";
 import { TournamentTabs } from "@/components/TournamentTabs";
 import c from "./TournamentStyles.module.scss";
 import { Trans, useTranslation } from "react-i18next";
@@ -28,6 +28,8 @@ import { Button } from "@/components/Button";
 import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal";
 import { handleException } from "@/util/handleException";
 import { makeSimpleToast } from "@/components/Toast";
+import { BsPlugin } from "react-icons/bs";
+import { addSeconds } from "date-fns";
 
 interface Props {
   id: number;
@@ -63,15 +65,37 @@ export default function TournamentPage({ tournament }: Props) {
         );
         setInviteVisible(false);
         makeSimpleToast(
-          "Приглашение отправлено",
-          "Когда игрок на него ответит, ты получишь уведомление",
+          t("tournament.invite.sent"),
+          t("tournament.invite.notification"),
         );
       } catch (e) {
-        await handleException("Ошибка приглашения", e);
+        await handleException(t("tournament.invite.error"), e);
       }
     },
     [tournament.id, setInviteVisible],
   );
+
+  const aspects = useMemo(() => {
+    const entries: ReactNode[] = [];
+    if (tournament.killsToWin > 0) {
+      entries.push(
+        t("tournament.aspects.killsToWin", { kills: tournament.killsToWin }),
+      );
+    }
+    if (tournament.disableRunes) {
+      entries.push(t("tournament.aspects.noRunes"));
+    }
+
+    if (tournament.midTowerToWin) {
+      entries.push(t("tournament.aspects.midOnly"));
+    }
+
+    if (tournament.enableBanStage) {
+      entries.push(t("tournament.aspects.withBans"));
+    }
+
+    return entries;
+  }, [tournament, t]);
 
   return (
     <div>
@@ -134,9 +158,22 @@ export default function TournamentPage({ tournament }: Props) {
                 title={t("tournament.common.prize")}
                 text={tournament.prize || t("tournament.common.notSet")}
               />
+              <InfoCardWithIcon
+                icon={<BsPlugin />}
+                title={t("tournament.common.features")}
+                text={
+                  <>
+                    {aspects.map((entry, idx) => (
+                      <span key={idx} className={c.entry}>
+                        {entry};
+                      </span>
+                    ))}
+                  </>
+                }
+              />
             </div>
           </QueuePageBlock>
-          <QueuePageBlock heading={"Описание"}>
+          <QueuePageBlock heading={t("tournament.common.description")}>
             <div className={c.description}>
               <p>{tournament.description}</p>
             </div>
@@ -144,14 +181,14 @@ export default function TournamentPage({ tournament }: Props) {
         </div>
         <div className={c.side_info}>
           {registration && (
-            <QueuePageBlock simple heading="Твоя команда">
+            <QueuePageBlock simple heading={t("tournament.common.yourTeam")}>
               <RegistrationCard registration={registration} />
               <Button
                 variant="primary"
                 disabled={registration.players.length >= tournament.teamSize}
                 onClick={() => setInviteVisible(true)}
               >
-                Пригласить
+                {t("tournament.common.invite")}
               </Button>
             </QueuePageBlock>
           )}
@@ -200,6 +237,14 @@ export default function TournamentPage({ tournament }: Props) {
                   time: new Date(tournament.startDate),
                   title: t("tournament.timeline.readyCheckEnd.title"),
                   content: t("tournament.timeline.readyCheckEnd.content"),
+                },
+                {
+                  time: addSeconds(
+                    new Date(tournament.startDate),
+                    tournament.scheduleStrategy.gameBreakDurationSeconds,
+                  ),
+                  title: t("tournament.timeline.matchesStart.title"),
+                  content: t("tournament.timeline.matchesStart.content"),
                 },
               ]}
             />

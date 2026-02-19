@@ -119,3 +119,9 @@
     padding: 6px;
   }
 }
+
+.entry {
+  & + & {
+    margin-left: 6px;
+  }
+}

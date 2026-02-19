@@ -85,7 +85,22 @@
       "notAllReady": "Someone in group not ready",
       "description": "Description",
       "bracketNotReady": "Bracket is not ready",
-      "matchesWhenStart": "Matches will appear when tournament starts"
+      "matchesWhenStart": "Matches will appear when tournament starts",
+      "features": "Features",
+      "yourTeam": "Your team",
+      "invite": "Invite",
+      "participants": "Participants"
+    },
+    "invite": {
+      "sent": "Invitation sent",
+      "notification": "You will receive a notification when the player responds",
+      "error": "Invitation error"
+    },
+    "aspects": {
+      "killsToWin": "Up to {{kills}} kills",
+      "noRunes": "No runes",
+      "midOnly": "Mid only",
+      "withBans": "With hero bans"
     },
     "timeline": {
       "readyCheckStart": {
@@ -94,7 +109,11 @@
       },
       "readyCheckEnd": {
         "title": "Tournament start",
-        "content": "Confirmed registrations become participants"
+        "content": "Confirmed registrations become participants and the bracket is generated"
+      },
+      "matchesStart": {
+        "title": "Matches start",
+        "content": "First matches are automatically launched"
       }
     }
   }
