@@ -158,19 +158,21 @@ export default function TournamentPage({ tournament }: Props) {
                 title={t("tournament.common.prize")}
                 text={tournament.prize || t("tournament.common.notSet")}
               />
-              <InfoCardWithIcon
-                icon={<BsPlugin />}
-                title={t("tournament.common.features")}
-                text={
-                  <>
-                    {aspects.map((entry, idx) => (
-                      <span key={idx} className={c.entry}>
-                        {entry};
-                      </span>
-                    ))}
-                  </>
-                }
-              />
+              {aspects.length > 0 && (
+                <InfoCardWithIcon
+                  icon={<BsPlugin />}
+                  title={t("tournament.common.features")}
+                  text={
+                    <>
+                      {aspects.map((entry, idx) => (
+                        <span key={idx} className={c.entry}>
+                          {entry};
+                        </span>
+                      ))}
+                    </>
+                  }
+                />
+              )}
             </div>
           </QueuePageBlock>
           <QueuePageBlock heading={t("tournament.common.description")}>
