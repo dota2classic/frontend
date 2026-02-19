@@ -20,6 +20,8 @@
     "featureTemporarilyDisabled": "Feature temporarily disabled",
     "emptySlotsFilledWithBots": "Empty slots will be filled with bots",
     "disableRunes": "Disable runes",
+    "enableBanStage": "Enable ban stage",
+    "banStageDescription": "The first 15 seconds of the pick stage are reserved for hero bans",
     "enableMidMode": "Enable \"mid\" mode",
     "midModeDescription": "In this mode, you must either destroy the middle tower or kill enemies a certain number of times. Side lanes are disabled in this mode",
     "killsToWin": "Kills to win"

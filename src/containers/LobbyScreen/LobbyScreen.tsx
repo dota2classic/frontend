@@ -279,6 +279,10 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             <dd>{t(`game_mode.${data.gameMode}` as TranslationKey)}</dd>
           </dl>
           <dl>
+            <dt>{t("lobby.banStage")}</dt>
+            <dd>{data.enableBanStage ? t("lobby.yes") : t("lobby.no")}</dd>
+          </dl>
+          <dl>
             <dt>{t("lobby.cheats")}</dt>
             <dd>{data.enableCheats ? t("lobby.yes") : t("lobby.no")}</dd>
           </dl>

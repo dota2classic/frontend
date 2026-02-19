@@ -129,6 +129,12 @@ export interface LobbyDto {
      * @type {boolean}
      * @memberof LobbyDto
      */
+    enableBanStage: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof LobbyDto
+     */
     midTowerToWin: boolean;
     /**
      * 
@@ -161,6 +167,7 @@ export function LobbyDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'fillBots': json['fillBots'],
         'enableCheats': json['enableCheats'],
         'noRunes': json['noRunes'],
+        'enableBanStage': json['enableBanStage'],
         'midTowerToWin': json['midTowerToWin'],
         'midTowerKillsToWin': json['midTowerKillsToWin'],
     };
@@ -188,6 +195,7 @@ export function LobbyDtoToJSON(value?: LobbyDto | null): any {
         'fillBots': value.fillBots,
         'enableCheats': value.enableCheats,
         'noRunes': value.noRunes,
+        'enableBanStage': value.enableBanStage,
         'midTowerToWin': value.midTowerToWin,
         'midTowerKillsToWin': value.midTowerKillsToWin,
     };

@@ -155,6 +155,17 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
           </div>
           <div className={c.box}>
             <Checkbox
+              checked={lobbySettings.enableBanStage}
+              onChange={(e) =>
+                setLobbySettings((r) => ({ ...r, enableBanStage: e }))
+              }
+            >
+              {t("edit_lobby.enableBanStage")}
+            </Checkbox>
+            <p>{t("edit_lobby.banStageDescription")}</p>
+          </div>
+          <div className={c.box}>
+            <Checkbox
               checked={lobbySettings.noRunes}
               onChange={(e) => setLobbySettings((r) => ({ ...r, noRunes: e }))}
             >
