@@ -1,15 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import c from "./Message.module.scss";
 import cx from "clsx";
 import { ReactionEntry } from "@/api/back";
-import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { AddReactionTool } from "./tools/AddReactionTool";
 import { ThreadContext } from "@/containers/Thread/threadContext";
-import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { GenericTooltip } from "../GenericTooltip";
-import { MessageReactionsTooltip } from "../MessageReactionsTooltip";
 
 interface Props {
   messageId: string;
@@ -20,44 +16,21 @@ export const MessageReactions = observer(function MessageReactions({
   reactions,
 }: Props) {
   const { t } = useTranslation();
-  const [tooltipReaction, setTooltipReaction] = useState<
-    { reaction: ReactionEntry; anchor: HTMLElement } | undefined
-  >(undefined);
 
-  const mySteamId = useStore().auth.parsedToken?.sub;
   const thread = useContext(ThreadContext);
 
   return (
     <div className={cx(c.reactions, reactions.length && c.reactions__nonempty)}>
-      {tooltipReaction &&
-        createPortal(
-          <GenericTooltip
-            anchor={tooltipReaction.anchor}
-            onClose={() => setTooltipReaction(undefined)}
-          >
-            <MessageReactionsTooltip reaction={tooltipReaction.reaction} />
-          </GenericTooltip>,
-          document.body,
-        )}
       {reactions.map((reaction) => (
         <div
-          onMouseEnter={(e) =>
-            setTooltipReaction({ reaction, anchor: e.target as HTMLElement })
-          }
-          onMouseLeave={() => setTooltipReaction(undefined)}
           key={reaction.emoticon.id}
           onClick={() => thread.react(messageId, reaction.emoticon.id)}
-          className={cx(
-            c.reaction,
-            reaction.reacted.findIndex(
-              (reactor) => reactor.steamId === mySteamId,
-            ) !== -1 && c.reaction__active,
-          )}
+          className={cx(c.reaction, reaction.myReaction && c.reaction__active)}
         >
           <img src={reaction.emoticon.src} alt="" />
           <span>
             {t("message_reactions.reactionCount", {
-              count: reaction.reacted.length,
+              count: reaction.reactedCount,
             })}
           </span>
         </div>

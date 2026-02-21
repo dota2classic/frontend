@@ -42,6 +42,18 @@ export interface ReactionEntry {
      * @memberof ReactionEntry
      */
     reacted: Array<UserDTO>;
+    /**
+     * 
+     * @type {number}
+     * @memberof ReactionEntry
+     */
+    reactedCount: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ReactionEntry
+     */
+    myReaction: boolean;
 }
 
 export function ReactionEntryFromJSON(json: any): ReactionEntry {
@@ -56,6 +68,8 @@ export function ReactionEntryFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'emoticon': EmoticonDtoFromJSON(json['emoticon']),
         'reacted': ((json['reacted'] as Array<any>).map(UserDTOFromJSON)),
+        'reactedCount': json['reactedCount'],
+        'myReaction': json['myReaction'],
     };
 }
 
@@ -70,6 +84,8 @@ export function ReactionEntryToJSON(value?: ReactionEntry | null): any {
         
         'emoticon': EmoticonDtoToJSON(value.emoticon),
         'reacted': ((value.reacted as Array<any>).map(UserDTOToJSON)),
+        'reactedCount': value.reactedCount,
+        'myReaction': value.myReaction,
     };
 }
 
