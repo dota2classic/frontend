@@ -91,7 +91,7 @@
   },
   "common": {
     "bye": "Нет соперника",
-    "best-of-x": "До {{x}} побед",
+    "best-of-x": "До {{winsRequired}} побед",
     "consolation": "Consolation",
     "group-name": "Group {{groupNumber}}",
     "group-name-winner-bracket": "Winner Bracket",

@@ -1033,7 +1033,10 @@ export class BracketsViewer {
       if (match.child_count > 0)
         opponents.append(
           dom.createChildCountLabel(
-            lang.t("common.best-of-x", { x: match.child_count }),
+            lang.t("common.best-of-x", {
+              x: match.child_count,
+              winsRequired: Math.ceil(match.child_count / 2),
+            }),
             onClick,
           ),
         );
@@ -1044,6 +1047,7 @@ export class BracketsViewer {
     if (match.child_count > 0) {
       const childCountLabel = lang.t("common.best-of-x", {
         x: match.child_count,
+        winsRequired: Math.ceil(match.child_count / 2),
       });
       const joined = label ? `${label}, ${childCountLabel}` : childCountLabel;
       opponents.append(

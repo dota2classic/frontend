@@ -212,7 +212,7 @@
   "ranking.points.text": "Pts",
   "ranking.points.tooltip": "Points",
   "common.bye": "Нет соперника",
-  "common.best-of-x": "До {{x}} побед",
+  "common.best-of-x": "До {{winsRequired}} побед",
   "common.consolation": "Consolation",
   "common.group-name": "Group {{groupNumber}}",
   "common.group-name-winner-bracket": "Winner Bracket",
