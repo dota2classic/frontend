@@ -18,6 +18,9 @@ import useSWR from "swr";
 import { SWRConfiguration } from "swr/_internal";
 
 import {
+  CreateDropDto,
+  CreateDropDtoFromJSON,
+  CreateDropDtoToJSON,
   CreateDropTierDto,
   CreateDropTierDtoFromJSON,
   CreateDropTierDtoToJSON,
@@ -60,6 +63,10 @@ export interface ItemDropControllerDeleteTierRequest {
 
 export interface ItemDropControllerDiscardDropRequest {
   id: string;
+}
+
+export interface ItemDropControllerDropItemOfTierRequest {
+  createDropDto: CreateDropDto;
 }
 
 export interface ItemDropControllerPurchaseSubscriptionWithTradeBalanceRequest {
@@ -304,6 +311,59 @@ export class DropsApi extends runtime.BaseAPI {
         const context = this.itemDropControllerDiscardDropContext({ id: id! });
         return useSWR(context, valid ? () => this.itemDropControllerDiscardDrop(id!) : null, config)
     }
+
+    /**
+     */
+    private async itemDropControllerDropItemOfTierRaw(requestParameters: ItemDropControllerDropItemOfTierRequest): Promise<runtime.ApiResponse<void>> {
+        this.itemDropControllerDropItemOfTierValidation(requestParameters);
+        const context = this.itemDropControllerDropItemOfTierContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private itemDropControllerDropItemOfTierValidation(requestParameters: ItemDropControllerDropItemOfTierRequest) {
+        if (requestParameters.createDropDto === null || requestParameters.createDropDto === undefined) {
+            throw new runtime.RequiredError("createDropDto","Required parameter requestParameters.createDropDto was null or undefined when calling itemDropControllerDropItemOfTier.");
+        }
+    }
+
+    /**
+     */
+    itemDropControllerDropItemOfTierContext(requestParameters: ItemDropControllerDropItemOfTierRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/drops/drop_for_player`,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateDropDtoToJSON(requestParameters.createDropDto),
+        };
+    }
+
+    /**
+     */
+    itemDropControllerDropItemOfTier = async (createDropDto: CreateDropDto): Promise<void> => {
+        await this.itemDropControllerDropItemOfTierRaw({ createDropDto: createDropDto });
+    }
+
 
     /**
      */

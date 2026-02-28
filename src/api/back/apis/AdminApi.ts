@@ -27,9 +27,6 @@ import {
   EventAdminDto,
   EventAdminDtoFromJSON,
   EventAdminDtoToJSON,
-  GameServerDto,
-  GameServerDtoFromJSON,
-  GameServerDtoToJSON,
   GameSessionDto,
   GameSessionDtoFromJSON,
   GameSessionDtoToJSON,
@@ -1052,60 +1049,6 @@ export class AdminApi extends runtime.BaseAPI {
         return await response.value();
     }
 
-
-    /**
-     */
-    private async serverControllerServerPoolRaw(): Promise<runtime.ApiResponse<Array<GameServerDto>>> {
-        this.serverControllerServerPoolValidation();
-        const context = this.serverControllerServerPoolContext();
-        const response = await this.request(context);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GameServerDtoFromJSON));
-    }
-
-
-
-    /**
-     */
-    private serverControllerServerPoolValidation() {
-    }
-
-    /**
-     */
-    serverControllerServerPoolContext(): runtime.RequestOpts {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === "function" ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        return {
-            path: `/v1/servers/server_pool`,
-            method: "GET",
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     */
-    serverControllerServerPool = async (): Promise<Array<GameServerDto>> => {
-        const response = await this.serverControllerServerPoolRaw();
-        return await response.value();
-    }
-
-    useServerControllerServerPool(config?: SWRConfiguration<Array<GameServerDto>, Error>) {
-        let valid = true
-
-        const context = this.serverControllerServerPoolContext();
-        return useSWR(context, valid ? () => this.serverControllerServerPool() : null, config)
-    }
 
     /**
      */

@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { NextPageContext } from "next";
 import {
+  DropTierDto,
   ForumUserDto,
   PlayerSummaryDto,
   Role,
@@ -28,6 +29,9 @@ import { UserPreview } from "@/components/UserPreview";
 import { AdminPlayerBanSettings } from "@/containers/AdminPlayerBanSettings";
 import { GiveProductContainer } from "@/containers/GiveProductContainer";
 import { Input } from "@/components/Input";
+import { SelectOptions } from "@/components/SelectOptions";
+import { useAsyncButton } from "@/util/use-async-button";
+import { handleException } from "@/util/handleException";
 
 // const BanReasonOptions = [
 //   BanReason.GAME_DECLINE,
@@ -135,6 +139,54 @@ const RoleRow = (props: RoleSubscriptionEntryDto & { mutate: () => void }) => {
   );
 };
 
+const GiveSkinContainer = (props: { steamId: string }) => {
+  const { data: tiers } = getApi().drops.useItemDropControllerGetDropTiers();
+  const [selectedTier, setSelectedTier] = useState<DropTierDto | undefined>(
+    undefined,
+  );
+
+  const [isDropping, drop] = useAsyncButton(
+    async (tier: DropTierDto) => {
+      try {
+        await getApi().drops.itemDropControllerDropItemOfTier({
+          tierId: tier.id,
+          playerId: props.steamId,
+        });
+      } catch (e) {
+        await handleException("Ошибка при выдаче предмета", e);
+      }
+    },
+    [props.steamId],
+  );
+
+  if (!tiers) return null;
+
+  const options = tiers
+    .toSorted((a, b) => a.minPrice - b.minPrice)
+    .map((tier) => ({
+      value: tier,
+      label: `${tier.id} (${tier.minPrice}-${tier.maxPrice})`,
+    }));
+
+  return (
+    <div className={c.giveSkinContainer}>
+      <SelectOptions
+        options={options}
+        selected={options.find((o) => o.value.id === selectedTier?.id)}
+        onSelect={(opt) => setSelectedTier(opt.value)}
+        defaultText="Выберите тир"
+      />
+      <Button
+        className="small"
+        disabled={!selectedTier || isDropping}
+        onClick={() => selectedTier && drop(selectedTier)}
+      >
+        Дропнуть предмет
+      </Button>
+    </div>
+  );
+};
+
 interface AdminPlayerPageProps {
   preloadedSummary: PlayerSummaryDto;
   preloadedForumUser: ForumUserDto;
@@ -174,6 +226,7 @@ export default function AdminPlayerPage({
     },
     [mutateFlags, steamId],
   );
+  const [smurfFull, setSmurfFull] = useState<boolean>(false);
 
   const { data: forumUser, mutate: mutateForumUser } =
     getApi().forumApi.useForumControllerGetUser(steamId, {
@@ -297,7 +350,7 @@ export default function AdminPlayerPage({
             </tr>
           </thead>
           <tbody>
-            {smurfData.map((smurf) => (
+            {smurfData.slice(0, smurfFull ? 1000 : 10).map((smurf) => (
               <tr key={smurf.user.steamId}>
                 <td>
                   <UserPreview avatarSize={30} user={smurf.user} />
@@ -312,6 +365,15 @@ export default function AdminPlayerPage({
                 )}
               </tr>
             ))}
+            {smurfData.length > 10 && !smurfFull && (
+              <tr>
+                <td>
+                  <Button onClick={() => setSmurfFull(true)}>
+                    Показать все
+                  </Button>
+                </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </Section>
@@ -324,6 +386,11 @@ export default function AdminPlayerPage({
       <Section className={c2.grid12}>
         <header>Подписка</header>
         <GiveProductContainer steamId={steamId} />
+      </Section>
+
+      <Section className={c2.grid12}>
+        <header>Выдача шмоток</header>
+        <GiveSkinContainer steamId={steamId} />
       </Section>
 
       <Section className={c2.grid12}>
