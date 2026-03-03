@@ -2,7 +2,7 @@ import cx from "clsx";
 import c from "./AcceptGameModal.module.scss";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useLocalStorageBackedParam } from "@/util/useLocalStorageBackedParam";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../Button";
 import { CopySomething } from "../CopySomething";
 import { Input } from "../Input";
+import { MatchmakingMode } from "@/api/mapped-models";
 
 export const GameReadyModal = observer(
   ({ className }: { className?: string }) => {
@@ -25,6 +26,14 @@ export const GameReadyModal = observer(
       setFullGuide(!fullGuide);
     }, [fullGuide]);
 
+    const showAbandon = useMemo(() => {
+      const notAbandonable: MatchmakingMode[] = [
+        MatchmakingMode.UNRANKED,
+        MatchmakingMode.HIGHROOM,
+      ];
+      return q.gameState && !notAbandonable.includes(q.gameState.lobbyType);
+    }, [q.gameState]);
+
     if (!q.gameState) return null;
 
     return (
@@ -38,18 +47,20 @@ export const GameReadyModal = observer(
           >
             {t("game_ready_modal.connectToGame")}
           </a>
-          <Button
-            mega
-            small
-            onClick={async () => {
-              const doAbandon = confirm(t("game_ready_modal.confirmExit"));
-              if (doAbandon) {
-                await q.abandon();
-              }
-            }}
-          >
-            <IoClose />
-          </Button>
+          {showAbandon && (
+            <Button
+              mega
+              small
+              onClick={async () => {
+                const doAbandon = confirm(t("game_ready_modal.confirmExit"));
+                if (doAbandon) {
+                  await q.abandon();
+                }
+              }}
+            >
+              <IoClose />
+            </Button>
+          )}{" "}
         </div>
         <CopySomething
           something={`connect ${q.gameState?.serverUrl}`}

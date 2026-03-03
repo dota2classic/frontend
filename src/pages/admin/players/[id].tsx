@@ -33,14 +33,6 @@ import { SelectOptions } from "@/components/SelectOptions";
 import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
 
-// const BanReasonOptions = [
-//   BanReason.GAME_DECLINE,
-//   BanReason.LOAD_FAILURE,
-//   BanReason.INFINITE_BAN,
-//   BanReason.ABANDON,
-//   BanReason.RULE_VIOLATION,
-// ].map((it) => ({ value: it, label: formatBanReason(it) }));
-
 const TimeControlButtons = (p: {
   value: Date;
   onChange: (d: Date) => void;
@@ -51,14 +43,14 @@ const TimeControlButtons = (p: {
       d.setDate(d.getDate() + days);
       p.onChange(d);
     },
-    [p.value],
+    [p.onChange],
   );
 
   const permaBan = useCallback(() => {
     const d = new Date();
     d.setFullYear(2048);
     p.onChange(d);
-  }, []);
+  }, [p.onChange]);
 
   return (
     <>
@@ -83,7 +75,6 @@ const RoleRow = (props: RoleSubscriptionEntryDto & { mutate: () => void }) => {
   const api = getApi().adminApi;
 
   const isExpired = new Date(props.endTime).getTime() < new Date().getTime();
-  // const isExpired = false;
 
   const updateEndTime = (d: Date | null) => {
     if (!d) return;
@@ -201,20 +192,6 @@ export default function AdminPlayerPage({
   const { id } = useRouter().query;
   const steamId = id as string;
 
-  // const reloadPageProps = useRefreshPageProps();
-
-  // const [selectedBanReason, setSelectedBanReason] = useState<
-  //   { value: BanReason; label: string } | undefined
-  // >(
-  //   BanReasonOptions.find(
-  //     (t) =>
-  //       t.value ===
-  //       (preloadedBans.banStatus.isBanned
-  //         ? preloadedBans.banStatus.status
-  //         : undefined),
-  //   ),
-  // );
-
   const { data: flags, mutate: mutateFlags } =
     getApi().adminApi.useAdminUserControllerPlayerFlags(steamId);
 
@@ -268,22 +245,27 @@ export default function AdminPlayerPage({
     setCombinedRoles(tmp);
   }, [roleData, steamId]);
 
-  const setMuteEndTime = useCallback((date: Date | null) => {
-    getApi()
-      .forumApi.forumControllerUpdateUser(preloadedForumUser.user.steamId, {
-        muteUntil: date
-          ? date.toISOString()
-          : new Date(new Date().getTime() - 100000).toISOString(),
-      })
-      .then(() => mutateForumUser());
-  }, []);
+  const setMuteEndTime = useCallback(
+    (date: Date | null) => {
+      getApi()
+        .forumApi.forumControllerUpdateUser(preloadedForumUser.user.steamId, {
+          muteUntil: date
+            ? date.toISOString()
+            : new Date(new Date().getTime() - 100000).toISOString(),
+        })
+        .then(() => mutateForumUser());
+    },
+    [preloadedForumUser.user.steamId, mutateForumUser],
+  );
 
   const isBanActive = (endTime: Date | null) => {
     if (!endTime) return false;
     return endTime.getTime() > new Date().getTime();
   };
 
-  const endMuteTime = new Date(forumUser!.mutedUntil);
+  const endMuteTime = forumUser?.mutedUntil
+    ? new Date(forumUser.mutedUntil)
+    : new Date(0);
 
   return (
     <div className={c2.gridPanel}>
