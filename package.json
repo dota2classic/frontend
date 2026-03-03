@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@dota2classic/react-arborist": "^1.0.1",
+    "@grafana/faro-web-sdk": "^2.2.4",
     "@lexical/react": "^0.24.0",
     "@lexical/rich-text": "^0.24.0",
     "@lexical/selection": "^0.24.0",

@@ -110,6 +110,8 @@ export default class MyApp extends App<{
   }
 
   componentDidMount() {
+    import("@/util/faro").then(({ initFaro }) => initFaro());
+
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/service-worker.js").then();
       // .then((registration) =>
