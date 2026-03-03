@@ -16,7 +16,9 @@ export default function Error500({ statusCode, errorMessage }: Props) {
   useEffect(() => {
     if (!errorMessage) return;
     import("@/util/faro").then(({ logError }) =>
-      logError(new Error(errorMessage), { statusCode: String(statusCode) }),
+      logError(new Error(errorMessage as unknown as never), {
+        statusCode: String(statusCode),
+      }),
     );
   }, [errorMessage, statusCode]);
 
@@ -34,7 +36,9 @@ Error500.getInitialProps = async (contextData: NextPageContext) => {
   const errorProps = await Error.getInitialProps(contextData);
 
   if (contextData.err) {
-    await sendSsrErrorToLoki(contextData.err).catch(() => {});
+    await sendSsrErrorToLoki(contextData.err as unknown as never).catch(
+      () => {},
+    );
   }
 
   return {
@@ -43,7 +47,7 @@ Error500.getInitialProps = async (contextData: NextPageContext) => {
   };
 };
 
-async function sendSsrErrorToLoki(err: Error) {
+async function sendSsrErrorToLoki(err: { message?: string; stack?: string }) {
   const url = "http://141.105.71.200:3100/loki/api/v1/push";
   const now = (Date.now() * 1_000_000).toString();
   await fetch(url, {
@@ -52,7 +56,12 @@ async function sendSsrErrorToLoki(err: Error) {
     body: JSON.stringify({
       streams: [
         {
-          stream: { source: "faro", env: "prod", app: "d2c-new", level: "error" },
+          stream: {
+            source: "faro",
+            env: "prod",
+            app: "d2c-new",
+            level: "error",
+          },
           values: [[now, `SSR error: ${err.message}\n${err.stack ?? ""}`]],
         },
       ],
