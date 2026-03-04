@@ -116,14 +116,12 @@ const GuideCompact = (t: TranslationFunction) => [
             i18nKey="download_page.cantJustSearch"
             components={{
               steamauth: (
-                    <a
-                      className="link"
-                      href={getAuthUrl()}
-                      onClick={() =>
-                        pushFaroEvent("download_steam_auth_clicked")
-                      }
-                    />
-                  ),
+                <a
+                  className="link"
+                  href={getAuthUrl()}
+                  onClick={() => pushFaroEvent("download_steam_auth_clicked")}
+                />
+              ),
             }}
           />
         </p>
