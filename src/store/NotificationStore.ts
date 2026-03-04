@@ -88,25 +88,30 @@ export class NotificationStore implements HydratableStore<unknown> {
 
   @action
   public async registerServiceWorker() {
-    const registration = await navigator.serviceWorker.register(
-      `/service-worker.js`,
-      {
-        scope: "/",
-        updateViaCache: "none",
-      },
-    );
-
-    await registration.update();
-
-    window.registration = registration;
-
-    await runInAction(async () => {
-      this.registration = registration;
-    });
-
-    this.setSubscription(
-      (await registration.pushManager.getSubscription()) || undefined,
-    );
+    return;
+    //   try {
+    //   const registration = await navigator.serviceWorker.register(
+    //     `/service-worker.js`,
+    //     {
+    //       scope: "/",
+    //       updateViaCache: "none",
+    //     },
+    //   );
+    //
+    //   await registration.update();
+    //
+    //   window.registration = registration;
+    //
+    //   await runInAction(async () => {
+    //     this.registration = registration;
+    //   });
+    //
+    //   this.setSubscription(
+    //     (await registration.pushManager.getSubscription()) || undefined,
+    //   );
+    // } catch (error) {
+    //   console.warn("Failed to register service worker:", error);
+    // }
   }
 
   public subscribeToPush = async () => {
