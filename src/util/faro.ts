@@ -25,6 +25,25 @@ export function initFaro() {
   faroApp.api.pushLog(["Faro initialized"], { level: LogLevel.INFO });
 }
 
+export function pushFaroEvent(
+  name: string,
+  attributes?: Record<string, string>,
+) {
+  try {
+    faroInstance.api.pushEvent(name, attributes);
+  } catch {
+    // faro not initialized yet
+  }
+}
+
+export function setFaroUser(steamId: string | undefined) {
+  try {
+    faroInstance.api.setUser(steamId ? { id: steamId } : undefined);
+  } catch {
+    // faro not initialized yet
+  }
+}
+
 export function logError(error: unknown, context?: Record<string, string>) {
   if (typeof window === "undefined") return;
   try {

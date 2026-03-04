@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
-import { metrika } from "@/ym";
+import { pushFaroEvent } from "@/util/faro";
 import { getAuthUrl } from "@/util/getAuthUrl";
 import { ColumnType } from "@/const/tables";
 import { NotoSans } from "@/const/notosans";
@@ -115,7 +115,15 @@ const GuideCompact = (t: TranslationFunction) => [
           <Trans
             i18nKey="download_page.cantJustSearch"
             components={{
-              steamauth: <a className="link" href={getAuthUrl()} />,
+              steamauth: (
+                    <a
+                      className="link"
+                      href={getAuthUrl()}
+                      onClick={() =>
+                        pushFaroEvent("download_steam_auth_clicked")
+                      }
+                    />
+                  ),
             }}
           />
         </p>
@@ -215,6 +223,10 @@ export default function DownloadPage({ initialOS }: Props) {
   const [OS, setOS] = useState(initialOS);
   const _data = useDownloadData();
 
+  useEffect(() => {
+    pushFaroEvent("download_page_viewed", { os: initialOS });
+  }, []);
+
   let filteredData = [..._data];
 
   switch (OS) {
@@ -276,7 +288,13 @@ export default function DownloadPage({ initialOS }: Props) {
                       target="__blank"
                       href={r.link}
                       className="link"
-                      onClick={() => metrika("reachGoal", "DOWNLOAD_GOOGLE")}
+                      onClick={() => {
+                        pushFaroEvent("download_clicked", {
+                          source: "google",
+                          os: OS,
+                          file: r.label,
+                        });
+                      }}
                     >
                       {t(r.label)}
                     </a>
@@ -290,7 +308,13 @@ export default function DownloadPage({ initialOS }: Props) {
                       target="__blank"
                       href={r.link}
                       className="link"
-                      onClick={() => metrika("reachGoal", "DOWNLOAD_YANDEX")}
+                      onClick={() => {
+                        pushFaroEvent("download_clicked", {
+                          source: "yandex",
+                          os: OS,
+                          file: r.label,
+                        });
+                      }}
                     >
                       {t(r.label)}
                     </a>
@@ -304,7 +328,13 @@ export default function DownloadPage({ initialOS }: Props) {
                       target="__blank"
                       href={r.link}
                       className="link"
-                      onClick={() => metrika("reachGoal", "DOWNLOAD_D2C")}
+                      onClick={() => {
+                        pushFaroEvent("download_clicked", {
+                          source: "d2c",
+                          os: OS,
+                          file: r.label,
+                        });
+                      }}
                     >
                       {t(r.label)}
                     </a>
@@ -318,7 +348,13 @@ export default function DownloadPage({ initialOS }: Props) {
                       className="link"
                       target="__blank"
                       href={r.link}
-                      onClick={() => metrika("reachGoal", "DOWNLOAD_TORRENT")}
+                      onClick={() => {
+                        pushFaroEvent("download_clicked", {
+                          source: "torrent",
+                          os: OS,
+                          file: r.label,
+                        });
+                      }}
                     >
                       {t(r.label)}
                     </a>

@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import { appApi, getApi, JwtPayload } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
 import { metrika } from "@/ym";
+import { setFaroUser } from "@/util/faro";
 import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
 import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 import { eraseCookie } from "@/util/erase-cookie";
@@ -64,6 +65,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
       metrika("userParams", {
         UserID: this.parsedToken?.sub,
       });
+      setFaroUser(this.parsedToken?.sub);
     });
   }
 
