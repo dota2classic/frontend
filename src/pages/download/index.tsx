@@ -17,6 +17,7 @@ import { BigTabs } from "@/components/BigTabs";
 import { GenericTable } from "@/components/GenericTable";
 import { EmbedProps } from "@/components/EmbedProps";
 import { CoolList } from "@/components/CoolList";
+import c from "./Download.module.scss";
 
 const useDownloadData = () => {
   const { t } = useTranslation();
@@ -240,7 +241,27 @@ export default function DownloadPage({ initialOS }: Props) {
 
   const coolListContent = [
     {
-      title: t("download_page.downloadGameClient"),
+      title: t("download_page.downloadLauncher"),
+      content: (
+        <>
+          <p>{t("download_page.launcherDescription")}</p>
+          <p>
+            <a
+              href="https://github.com/dota2classic/launcher/releases/latest"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={c.launcherButton}
+              onClick={() => pushFaroEvent("download_launcher_clicked")}
+            >
+              {t("download_page.launcherButton")}
+            </a>
+          </p>
+          <p className="gold">{t("download_page.launcherWindowsOnly")}</p>
+        </>
+      ),
+    },
+    {
+      title: t("download_page.manualInstall"),
       content: (
         <>
           <p>{t("download_page.forOldDota")}</p>

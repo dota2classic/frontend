@@ -24,7 +24,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -34,7 +34,7 @@
   flex-direction: column;
   grid-column: span 4;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     order: 1;
   }
 }
@@ -49,7 +49,7 @@
     margin-top: 20px;
   }
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     margin-top: 0 !important;
     padding: 8px;
   }
@@ -99,7 +99,7 @@
   background-repeat: no-repeat;
   grid-column: span 4;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     width: unset;
     height: 100dvw;
     margin: 0;

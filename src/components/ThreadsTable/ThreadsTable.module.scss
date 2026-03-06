@@ -31,7 +31,7 @@
 .forumTitle {
   white-space: nowrap;
   max-width: 500px;
-  @media (max-width: 600px) {
+  @include common.mobile {
     max-width: 130px;
   }
 

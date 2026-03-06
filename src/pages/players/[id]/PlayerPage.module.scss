@@ -18,14 +18,14 @@
 
 .heroPerformance {
   grid-column: span 5;
-  @media (max-width: 600px) {
+  @include common.mobile {
     grid-column: span 12;
   }
 }
 
 .matchHistory {
   grid-column: span 7;
-  @media (max-width: 600px) {
+  @include common.mobile {
     grid-column: span 12;
   }
 }
@@ -68,7 +68,7 @@
 
 
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     grid-template-columns: repeat(3, 1fr);
   }
 }

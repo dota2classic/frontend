@@ -4,7 +4,7 @@
 .select {
   background: common.$bg2 !important;
   min-width: 200px;
-  @media (max-width: 600px) {
+  @include common.mobile {
     min-width: 160px;
   }
 }

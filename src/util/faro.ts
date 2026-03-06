@@ -19,7 +19,12 @@ export function initFaro() {
       name: "d2c-new",
       version: process.env.NEXT_PUBLIC_APP_VERSION ?? "unknown",
     },
-    instrumentations: [...getWebInstrumentations({ captureConsole: false })],
+    instrumentations: [
+      ...getWebInstrumentations({
+        captureConsole: false,
+        enablePerformanceInstrumentation: false,
+      }),
+    ],
   });
 
   faroApp.api.pushLog(["Faro initialized"], { level: LogLevel.INFO });

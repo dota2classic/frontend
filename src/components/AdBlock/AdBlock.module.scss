@@ -26,7 +26,7 @@
   }
 
   &__large {
-    @media (max-width: 600px) {
+    @include common.mobile {
       display: none;
     }
   }

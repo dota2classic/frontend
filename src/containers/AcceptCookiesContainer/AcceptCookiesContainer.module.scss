@@ -28,7 +28,7 @@
 
   }
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     width: 100vw;
   }
 }

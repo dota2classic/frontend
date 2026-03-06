@@ -131,9 +131,13 @@ const ColRenderer: React.FC<{
             <div className={cx(c.contentWrapper, c.heroWrapper)}>
               <HeroIcon small hero={value} />
               <span
-                className={cx(c.heroLinkWrapper, "link", "globalLinkReference")}
+                className={cx(
+                  c.entityLinkWrapper,
+                  "link",
+                  "globalLinkReference",
+                )}
               >
-                <span className={c.heroLink}>{heroName(value)}</span>
+                <span className={c.entityLink}>{heroName(value)}</span>
               </span>
             </div>
           )}
@@ -168,9 +172,13 @@ const ColRenderer: React.FC<{
             <div className={cx(c.contentWrapper, c.itemWrapper)}>
               <ItemIconRaw small item={value} />
               <span
-                className={cx(c.itemLinkWrapper, "link", "globalLinkReference")}
+                className={cx(
+                  c.entityLinkWrapper,
+                  "link",
+                  "globalLinkReference",
+                )}
               >
-                <span className={c.itemLink}>
+                <span className={c.entityLink}>
                   {!col.noname && itemName(value)}
                 </span>
               </span>

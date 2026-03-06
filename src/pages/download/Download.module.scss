@@ -1,5 +1,38 @@
 @use "../../common.scss";
 
+.launcherButton {
+  display: inline-block;
+  width: fit-content;
+  outline: none;
+  text-transform: uppercase;
+  color: #ed3b1c;
+  border: 2px solid common.$primaryText;
+  border-radius: 6px;
+  font-size: 28px;
+  letter-spacing: 2.5px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  transition: 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+
+  @include common.mobile {
+    font-size: 1.2rem;
+    padding: 16px 10px;
+    display: block;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: rgba(0, 0, 0, 1);
+    color: #ee2c0a;
+    border-color: common.$primaryTextHighlight;
+    transform: translateY(-2px) scale(1.05);
+  }
+}
+
 .guide {
   font-size: 1.2rem;
 

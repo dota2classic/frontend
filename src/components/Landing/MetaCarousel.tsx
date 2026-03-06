@@ -1,19 +1,15 @@
-import cx from "clsx";
-import c from "@/components/Landing/Landing.module.scss";
 import { AppRouter } from "@/route";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Carousel } from "../Carousel";
 import { CarouselItem } from "../CarouselItem";
+import { LandingCarouselBlock } from "./LandingCarouselBlock";
 
 export const MetaCarousel = () => {
   const { t } = useTranslation();
 
   return (
-    <div className={cx(c.carouselBlock, c.middleBlock)}>
-      <div className={c.newsMore}>
-        <header>{t("meta_carousel.statistics")}</header>
-      </div>
+    <LandingCarouselBlock title={t("meta_carousel.statistics")}>
       <Carousel>
         <CarouselItem
           link={AppRouter.players.leaderboard().link}
@@ -31,6 +27,6 @@ export const MetaCarousel = () => {
           image={"/landing/invoker.webp"}
         />
       </Carousel>
-    </div>
+    </LandingCarouselBlock>
   );
 };

@@ -84,8 +84,7 @@ export class QueueStore
   public selectedModes: MatchmakingMode[] = [];
   @observable
   public readyState: GameCoordinatorState = GameCoordinatorState.DISCONNECTED;
-  @observable
-  public inQueue: QueueHolder = DefaultQueueHolder;
+  public inQueue = observable.map<string, number>(DefaultQueueHolder);
 
   @observable
   public connected: boolean = false;
@@ -331,7 +330,7 @@ export class QueueStore
       }
     } catch (e: unknown) {
       console.warn(e);
-      return true;
+      return false;
     }
   }
 
@@ -383,8 +382,8 @@ export class QueueStore
       path,
       transports: ["websocket"],
       autoConnect: false,
-      auth: {
-        token: this.authStore.token,
+      auth: (cb) => {
+        cb({ token: this.authStore.token });
       },
     });
 
@@ -460,9 +459,11 @@ export class QueueStore
   };
 
   public inQueueCount(mode: MatchmakingMode): number {
-    return this.inQueue[
-      JSON.stringify({ mode: mode, version: Dota2Version.Dota_684 })
-    ];
+    return (
+      this.inQueue.get(
+        JSON.stringify({ mode: mode, version: Dota2Version.Dota_684 }),
+      ) ?? 0
+    );
   }
 
   public inGameCount(mode: MatchmakingMode): number {
@@ -535,7 +536,7 @@ export class QueueStore
   @action
   private cleanUp() {
     this.queueState = undefined;
-    this.inQueue = DefaultQueueHolder;
+    this.inQueue.replace(DefaultQueueHolder);
   }
 
   @action
@@ -545,7 +546,7 @@ export class QueueStore
       .then((data) => {
         runInAction(() => (this.party = data));
       })
-      .catch(() => (this.party = undefined));
+      .catch(() => runInAction(() => (this.party = undefined)));
   }
 
   public static inferDefaultMode(
@@ -633,8 +634,10 @@ export class QueueStore
   };
 
   @action onQueueState = (msg: QueueStateMessageS2C) => {
-    this.inQueue[JSON.stringify({ mode: msg.mode, version: msg.version })] =
-      msg.inQueue;
+    this.inQueue.set(
+      JSON.stringify({ mode: msg.mode, version: msg.version }),
+      msg.inQueue,
+    );
   };
 
   @action onPlayerPartyState = (msg: PartyDto) => {

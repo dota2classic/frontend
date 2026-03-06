@@ -7,7 +7,7 @@
   flex: 1;
   //padding-top: 20px;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     width: 100vw;
   }
 }
@@ -41,7 +41,7 @@
   flex: 1;
   //margin-top: 20px;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     margin: -2px auto auto;
   }
 }
@@ -106,11 +106,11 @@
   }
 
   &__queue {
-    @media (max-width: 600px) {
+    @include common.mobile {
       display: none;
     }
   }
-  @media (max-width: 600px) {
+  @include common.mobile {
     flex-direction: column;
   }
 }

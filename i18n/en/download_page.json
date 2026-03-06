@@ -34,6 +34,11 @@
     "seo": {
       "title": "Start playing",
       "description": "A detailed guide for downloading, installing, and finding the game Dota 2. Download the old version of Dota 2 here"
-    }
+    },
+    "downloadLauncher": "Download the Launcher",
+    "launcherDescription": "The launcher automatically downloads and installs the game client — the easiest way to get started.",
+    "launcherButton": "Download for Windows",
+    "launcherWindowsOnly": "The launcher is available for Windows only. Linux and macOS are not officially supported.",
+    "manualInstall": "Manual installation (alternative)"
   }
 }

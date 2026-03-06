@@ -1,12 +1,10 @@
 import { BlogpostDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import React from "react";
-import cx from "clsx";
-import c from "@/components/Landing/Landing.module.scss";
 import { useTranslation } from "react-i18next";
-import { PageLink } from "../PageLink";
 import { Carousel } from "../Carousel";
 import { CarouselItem } from "../CarouselItem";
+import { LandingCarouselBlock } from "./LandingCarouselBlock";
 
 interface Props {
   recentPosts: BlogpostDto[];
@@ -16,13 +14,11 @@ export const RecentPostsCarousel: React.FC<Props> = ({ recentPosts }) => {
 
   if (recentPosts.length === 0) return null;
   return (
-    <div className={cx(c.carouselBlock, c.middleBlock)}>
-      <div className={c.newsMore}>
-        <header>{t("recent_posts.news")}</header>
-        <PageLink link={AppRouter.blog.index.link}>
-          {t("recent_posts.viewAll")}
-        </PageLink>
-      </div>
+    <LandingCarouselBlock
+      title={t("recent_posts.news")}
+      viewAllLink={AppRouter.blog.index.link}
+      viewAllLabel={t("recent_posts.viewAll")}
+    >
       <Carousel>
         {recentPosts.map((it) => (
           <CarouselItem
@@ -35,6 +31,6 @@ export const RecentPostsCarousel: React.FC<Props> = ({ recentPosts }) => {
           />
         ))}
       </Carousel>
-    </div>
+    </LandingCarouselBlock>
   );
 };

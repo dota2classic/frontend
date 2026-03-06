@@ -33,23 +33,23 @@
   & span {
     text-transform: capitalize;
     max-width: 200px;
-    @media (max-width: 600px) {
+    @include common.mobile {
       max-width: 120px;
     }
   }
 }
 
-.heroLinkWrapper {
-    display: inline-block;
-    min-width: 1rem;
+.entityLinkWrapper {
+  display: inline-block;
+  min-width: 1rem;
 }
 
-.heroLink {
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 0.15rem;
+.entityLink {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.15rem;
 }
 
 .itemWrapper {
@@ -59,23 +59,10 @@
   & span {
     text-transform: capitalize;
     max-width: 140px;
-    @media (max-width: 600px) {
+    @include common.mobile {
       max-width: 110px;
     }
   }
-}
-
-.itemLinkWrapper {
-  display: inline-block;
-  min-width: 1rem;
-}
-
-.itemLink {
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 0.15rem;
 }
 
 .linkContainer:hover :global(.globalLinkReference)::before {
@@ -103,7 +90,7 @@
   width: 220px;
   align-items: center;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     width: 140px;
   }
 

@@ -15,7 +15,7 @@
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
-    @media (max-width: 600px) {
+    @include common.mobile {
       max-width: 120px;
     }
   }

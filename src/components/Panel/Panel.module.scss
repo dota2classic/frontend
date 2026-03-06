@@ -37,7 +37,7 @@
     justify-content: flex-end;
     gap: 12px;
 
-    @media (max-width: 600px) {
+    @include common.mobile {
       gap: 6px;
       overflow-x: auto;
       scrollbar-width: thin;
@@ -52,7 +52,7 @@
       vertical-align: top;
       font-size: 1rem;
 
-      @media (max-width: 600px) {
+      @include common.mobile {
         margin-block-start: 0;
         margin-block-end: 0;
         font-size: 0.8rem;

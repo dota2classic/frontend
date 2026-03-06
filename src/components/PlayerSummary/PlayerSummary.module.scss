@@ -4,7 +4,7 @@
   box-shadow: none;
   flex-direction: row !important;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     flex-direction: column !important;
   }
 }

@@ -34,7 +34,7 @@
     height: 240px;
   }
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     height: 140px;
   }
 
@@ -47,14 +47,14 @@
     color: common.$primaryTextHighlight;
     margin-block-end: 0;
 
-    @media (max-width: 600px) {
+    @include common.mobile {
       font-size: 12px;
     }
   }
 
   & h4 {
     color: common.$primaryTextDark;
-    @media (max-width: 600px) {
+    @include common.mobile {
       margin-block-start: 0;
       margin-block-end: 1rem;
       font-size: 10px;
@@ -89,7 +89,7 @@
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     padding: 0px 6px;
   }
 }

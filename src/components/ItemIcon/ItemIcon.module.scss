@@ -5,7 +5,7 @@
   object-fit: contain;
   width: unset;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     height: 30px;
   }
 
@@ -26,7 +26,7 @@
   );
   outline: 1px solid #403d3d73;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     height: 30px !important;
     width: 40px !important;
   }

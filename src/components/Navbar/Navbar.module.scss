@@ -113,7 +113,7 @@
 
 .user {
   min-width: 100px;
-  @media (max-width: 600px) {
+  @include common.mobile {
     border: 1px solid common.$transparentTint;
     outline: none;
     border-radius: 4px;

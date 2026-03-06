@@ -138,7 +138,7 @@
       width: 60%;
     }
 
-    @media (max-width: 600px) {
+    @include common.mobile {
       font-size: 3rem;
       width: unset;
     }
@@ -162,7 +162,7 @@
       font-size: 1.3rem;
     }
 
-    @media (max-width: 600px) {
+    @include common.mobile {
       font-size: 1rem;
     }
   }
@@ -194,7 +194,7 @@
     //@media (max-width: 1000px) {
     //}
 
-    @media (max-width: 600px) {
+    @include common.mobile {
       //font-size: 1rem;
       height: 100%;
       object-position: 50% 50%;
@@ -245,7 +245,7 @@
   @media (max-width: 1000px) {
     bottom: 250px;
   }
-  @media (max-width: 600px) {
+  @include common.mobile {
     bottom: 300px;
   }
 }

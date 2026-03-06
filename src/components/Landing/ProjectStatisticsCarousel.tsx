@@ -1,19 +1,14 @@
-import cx from "clsx";
-import c from "@/components/Landing/Landing.module.scss";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Carousel } from "../Carousel";
 import { CarouselItem } from "../CarouselItem";
+import { LandingCarouselBlock } from "./LandingCarouselBlock";
 
 export const ProjectStatisticsCarousel = () => {
   const { t } = useTranslation();
 
   return (
-    <div className={cx(c.carouselBlock, c.middleBlock)}>
-      <div className={c.newsMore}>
-        <header>{t("project_statistics.header")}</header>
-      </div>
-
+    <LandingCarouselBlock title={t("project_statistics.header")}>
       <Carousel>
         <CarouselItem
           image="/landing/leaderboard.webp"
@@ -53,6 +48,6 @@ export const ProjectStatisticsCarousel = () => {
           description={<>{t("project_statistics.nostalgiaExperience")}</>}
         />
       </Carousel>
-    </div>
+    </LandingCarouselBlock>
   );
 };

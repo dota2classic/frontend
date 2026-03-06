@@ -13,7 +13,7 @@
 
   width: fit-content;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     bottom: 10px;
     margin: auto;
     right: 0;

@@ -45,13 +45,13 @@
 }
 
 .mobileHidden {
-  @media (max-width: 600px) {
+  @include common.mobile {
     display: none !important;
   }
 }
 
 .items {
-  @media (max-width: 600px) {
+  @include common.mobile {
     min-width: 140px;
   }
 }
@@ -61,7 +61,7 @@
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 0;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     grid-template-columns: repeat(3, 1fr);
     width: fit-content;
     gap: 0 !important;
@@ -106,7 +106,7 @@
   border-radius: 9px;
   z-index: 2;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     display: none;
   }
 

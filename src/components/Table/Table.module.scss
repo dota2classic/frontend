@@ -23,7 +23,7 @@
   -webkit-border-vertical-spacing: 0px;
 
   border-spacing: 0;
-  @media (max-width: 600px) {
+  @include common.mobile {
     padding: 0;
   }
 
@@ -141,7 +141,7 @@
 
     & td:global(.omit),
     th:global(.omit) {
-      @media (max-width: 600px) {
+      @include common.mobile {
         display: none;
       }
     }

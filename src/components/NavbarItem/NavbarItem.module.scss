@@ -98,7 +98,7 @@
   color: common.$primaryText;
   font-size: 14px;
 
-  @media (max-width: 600px) {
+  @include common.mobile {
     left: calc(50% + 30px);
   }
 }
