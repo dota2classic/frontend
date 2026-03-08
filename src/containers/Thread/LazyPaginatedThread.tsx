@@ -25,7 +25,7 @@ export const LazyPaginatedThread: React.FC<Props> = ({
       const api = getApi().forumApi;
       api
         .forumControllerMessagesPage(id, threadType, 0)
-        .then((d) => setPage(d.pages - 1));
+        .then((d) => setPage(Math.max(0, d.pages - 1)));
     } else {
       setPage(0);
     }
