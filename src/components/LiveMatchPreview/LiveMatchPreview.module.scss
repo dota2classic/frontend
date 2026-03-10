@@ -254,6 +254,10 @@
   font-size: 1.4rem;
   text-align: center;
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 
   & > div {
     width: 450px;
@@ -262,6 +266,10 @@
       color: common.$primaryTextHighlight;
     }
   }
+}
+
+.launcherButton {
+  width: 450px;
 }
 
 .abandon {

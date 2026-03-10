@@ -20,8 +20,12 @@
       top: 66px;
       bottom: 2px;
       left: 18px;
-      border: 1px none common.$primaryTextDark;
-      border-right-style: dotted;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0.06) 100%
+      );
+      border: none;
     }
   }
 
@@ -33,32 +37,32 @@
 }
 
 .step__num {
-  //padding: 8px;
   text-align: center;
-  //background-color: common.$transparentTint;
-  //border: 1px solid common.$transparentTint3;
-  border: 2px solid white;
-  border-radius: 12px;
+  border: 2px solid common.$blueHighlight2;
+  border-radius: 10px;
   height: fit-content;
   overflow: hidden;
   width: 40px;
   min-width: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .month {
-  background-color: white;
-  padding: 4px;
-  color: black;
+  background-color: common.$blueHighlight;
+  padding: 3px 4px;
+  color: #fff;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
-
 
 .date {
   padding: 4px;
   color: white;
   font-weight: bold;
   font-size: 1.4rem;
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
 

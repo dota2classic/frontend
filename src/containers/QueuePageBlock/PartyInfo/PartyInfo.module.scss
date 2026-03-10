@@ -46,15 +46,26 @@
 }
 
 .partyItem {
-  border: 1px solid #5f5e5e;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
   height: 50px;
   width: 50px;
+  overflow: hidden;
 
   margin: 5px;
 
   position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: common.$blueHighlight2;
+    box-shadow: 0 0 8px common.$blueHighlight3;
+  }
 
   &.invite {
+    border-style: dashed;
+    border-color: rgba(255, 255, 255, 0.2);
+
     &::before {
       content: "";
       top: 0;
@@ -69,13 +80,15 @@
   }
 
   &.invite:hover {
+    border-color: common.$blueHighlight2;
     &::before {
       background: rgba(0, 0, 0, 0.05);
     }
   }
 
   &.leader {
-    border: 1px solid #c8831c;
+    border: 2px solid #c8831c;
+    box-shadow: 0 0 8px rgba(200, 131, 28, 0.3);
   }
 
   &.banned {
@@ -89,6 +102,7 @@
   & img {
     width: 50px;
     height: 50px;
+    display: block;
   }
 }
 

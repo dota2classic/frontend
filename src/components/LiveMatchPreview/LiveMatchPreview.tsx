@@ -14,7 +14,8 @@ import { TbGrave2 } from "react-icons/tb";
 import { iterateItems } from "@/util/iterateItems";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
-import { watchCmd } from "@/util/urls";
+import { spectateUrl, watchCmd } from "@/util/urls";
+import { Button } from "@/components/Button";
 import { MinimapTowers } from "@/components/LiveMatchPreview/MinimapTower";
 import { MinimapHero } from "@/components/LiveMatchPreview/MinimapHero";
 import { ItemIcon, PlaceholderImage } from "../ItemIcon";
@@ -160,6 +161,15 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         <TeamListTable players={dire} />
       </div>
       <div className={c.watchLive}>
+        <Button
+          link
+          href={spectateUrl(match.matchId)}
+          target="_blank"
+          variant="primary"
+          className={c.launcherButton}
+        >
+          {t("live_match.watchWithLauncher")}
+        </Button>
         <CopySomething
           something={watchCmd(match.server)}
           placeholder={<Input value={watchCmd(match.server)} readOnly={true} />}

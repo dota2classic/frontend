@@ -2,7 +2,8 @@ import React from "react";
 
 import c from "./LiveMatchPage.module.scss";
 import { AppRouter } from "@/route";
-import { watchCmd } from "@/util/urls";
+import { spectateUrl, watchCmd } from "@/util/urls";
+import { Button } from "@/components/Button";
 import { observer } from "mobx-react-lite";
 import { LiveMatchDto } from "@/api/back";
 import { useStore } from "@/store";
@@ -84,7 +85,16 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
                     {t("live_match_page.duration")}{" "}
                     <Duration clock duration={liveMatch.duration} />
                   </div>
-                  <div className={c.info}>
+                  <div className={c.watchActions}>
+                    <Button
+                      link
+                      href={spectateUrl(liveMatch.matchId)}
+                      target="_blank"
+                      variant="primary"
+                      small
+                    >
+                      {t("live_match.watchWithLauncher")}
+                    </Button>
                     <CopySomething
                       something={watchCmd(liveMatch.server)}
                       placeholder={

@@ -876,6 +876,7 @@ export type TranslationKey =
   | "live_match.liveMatch"
   | "live_match.matchPreview"
   | "live_match.playerAbandoned"
+  | "live_match.watchWithLauncher"
   | "live_matches.seo.title"
   | "live_matches.seo.description"
   | "live_streams.streamsTitle"

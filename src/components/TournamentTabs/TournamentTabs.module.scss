@@ -11,7 +11,8 @@
   display: flex;
   flex-direction: row;
   gap: 3rem;
-  padding: 20px 8px;
+  padding: 20px 8px 24px;
+  border-bottom: 1px solid common.$blueHighlight3;
 
   @media (width <= 600px) {
     flex-direction: column;
@@ -24,7 +25,10 @@
     height: 152px;
     object-fit: cover;
     border-radius: 50%;
-    border: 1px solid #373737bf;
+    border: 2px solid common.$blueHighlight2;
+    box-shadow:
+      0 0 0 4px common.$blueHighlight3,
+      0 4px 32px rgba(0, 0, 0, 0.7);
     z-index: 3;
   }
 
@@ -50,6 +54,9 @@
   font-size: 48px;
   margin-block-start: 0;
   margin-block-end: 1.4rem;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(0, 0, 0, 0.6);
 
   @media (width <= 600px) {
     font-size: 1.8rem;
@@ -103,13 +110,13 @@
 }
 
 .bg {
-  background-image: url("https://image1.challengermode.com/5ad4086a-90d9-4cb5-3f88-08db5bcb0207_1200_300");
   position: absolute;
   inset: 0;
   height: 240px;
   background-repeat: no-repeat;
   background-size: cover;
-  opacity: 0.2;
+  background-position: center;
+  opacity: 0.38;
   pointer-events: none;
   z-index: 0;
 }
@@ -118,7 +125,12 @@
   position: absolute;
   inset: 0;
   height: 240px;
-  background-image: linear-gradient(180deg, common.$panelBg, common.$bg15);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(12, 12, 12, 0.3) 0%,
+    rgba(12, 12, 12, 0.55) 50%,
+    common.$bg15 100%
+  );
   background-size: 100% 100%;
   z-index: 1;
 }

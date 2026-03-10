@@ -812,6 +812,7 @@
   "live_match.liveMatch": "LIVE match {{matchId}}",
   "live_match.matchPreview": "Preview of the active match {{matchId}}, a game map with heroes moving around the map.",
   "live_match.playerAbandoned": "Player {{playerName}} left the game",
+  "live_match.watchWithLauncher": "Watch with Launcher",
   "live_matches.seo.title": "View matches",
   "live_matches.seo.description": "View matches that are currently being played on dotaclassic.ru",
   "live_streams.streamsTitle": "Streams for old Dota",

@@ -27,3 +27,7 @@ export function watchCmd(serverUrl: string): string {
   const port = parseInt(serverUrl.split(":")[1]);
   return `connect ${host}:${port + 1}`;
 }
+
+export function spectateUrl(matchId: number): string {
+  return `d2c://spectate/${matchId}`;
+}

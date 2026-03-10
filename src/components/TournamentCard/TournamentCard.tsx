@@ -1,7 +1,7 @@
 import React from "react";
 
 import c from "./TournamentCard.module.scss";
-import { AppRouter } from "@/route";
+import { AppRouter, NextLinkProp } from "@/route";
 import { PageLink } from "@/components/PageLink";
 import { TournamentDto } from "@/api/back";
 import { TimeAgo } from "@/components/TimeAgo";
@@ -10,28 +10,25 @@ import { TranslationKey } from "@/TranslationKey";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
 import { TournamentStatusBadge } from "@/components/TournamentStatusBadge";
+import { TrajanPro } from "@/const/fonts";
 
 interface ITournamentCardProps {
   tournament: TournamentDto;
+  link?: NextLinkProp;
 }
 
 export const TournamentCard: React.FC<ITournamentCardProps> = ({
   tournament,
+  link,
 }) => {
   const { t } = useTranslation();
+  const cardLink = link ?? AppRouter.tournament.tournament(tournament.id).link;
 
   return (
-    <div className={cx(c.card, NotoSans.className)}>
+    <PageLink link={cardLink} className={cx(c.card, NotoSans.className)}>
       <img src={tournament.imageUrl || "/avatar.png"} alt="" />
       <div className={c.info}>
-        <h2>
-          <PageLink
-            className={"link"}
-            link={AppRouter.tournament.tournament(tournament.id).link}
-          >
-            {tournament.name}
-          </PageLink>
-        </h2>
+        <h2 className={TrajanPro.className}>{tournament.name}</h2>
         <p>{tournament.description}</p>
         <div className={c.config}>
           <dl>
@@ -64,6 +61,6 @@ export const TournamentCard: React.FC<ITournamentCardProps> = ({
           </dl>
         </div>
       </div>
-    </div>
+    </PageLink>
   );
 };

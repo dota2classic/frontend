@@ -148,7 +148,10 @@ export const TournamentTabs: React.FC<ITournamentTabsProps> = observer(
           />
         )}
         <div className={cx(c.header, NotoSans.className)}>
-          <div className={c.bg} />
+          <div
+            className={c.bg}
+            style={{ backgroundImage: `url(${tournament.imageUrl})` }}
+          />
           <div className={c.bgMask} />
           <img loading={"lazy"} src={tournament.imageUrl} alt="" />
           <div className={c.header__right}>

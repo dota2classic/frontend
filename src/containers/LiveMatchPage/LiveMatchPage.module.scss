@@ -63,7 +63,19 @@
   gap: 12px;
   align-self: stretch;
 
+
   & h3 {
-    //margin-block-start: 0;
+    margin-block-start: 0;
+  }
+}
+
+.watchActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  //width: fit-content;
+
+  & a {
+    width: 100%;
   }
 }

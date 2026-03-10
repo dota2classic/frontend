@@ -888,6 +888,7 @@
   "live_match.liveMatch": "LIVE матч {{matchId}}",
   "live_match.matchPreview": "Превью активного матча {{matchId}}, игровая карта с героями, которые двигаются по карте.",
   "live_match.playerAbandoned": "Игрок {{playerName}} покинул игру",
+  "live_match.watchWithLauncher": "Смотреть через лаунчер",
   "live_matches.seo.title": "Просмотр матчей",
   "live_matches.seo.description": "Просмотр матчей, которые прямо сейчас играются на сайте dotaclassic.ru",
   "live_streams.streamsTitle": "Стримы по старой доте",

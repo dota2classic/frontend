@@ -21,6 +21,7 @@ import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
 import { useDotaGameModeOptions } from "@/const/options";
 import { Checkbox } from "@/components/Checkbox";
+import { MarkdownTextarea } from "@/components/MarkdownTextarea";
 
 interface IEditTournamentProps {
   tournament?: TournamentDto;
@@ -110,7 +111,8 @@ export const EditTournament: React.FC<IEditTournamentProps> = observer(
         {/*Description*/}
         <div className={c.form__row}>
           <header>Описание</header>
-          <Input
+          <MarkdownTextarea
+            rows={4}
             value={data.description}
             onChange={(e) => update({ description: e.target.value })}
           />

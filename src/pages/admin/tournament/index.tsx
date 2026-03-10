@@ -1,7 +1,6 @@
 import { TournamentDto } from "@/api/back";
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
-import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import { NextPageContext } from "next";
 import { TournamentCard } from "@/components/TournamentCard";
@@ -24,12 +23,11 @@ export default function TournamentList({ tournaments }: Props) {
       </QueuePageBlock>
       <QueuePageBlock simple heading="Турниры">
         {tournaments.map((t) => (
-          <PageLink
-            link={AppRouter.admin.tournament.tournament(t.id).link}
+          <TournamentCard
             key={t.id}
-          >
-            <TournamentCard tournament={t} />
-          </PageLink>
+            tournament={t}
+            link={AppRouter.admin.tournament.tournament(t.id).link}
+          />
         ))}
       </QueuePageBlock>
     </div>

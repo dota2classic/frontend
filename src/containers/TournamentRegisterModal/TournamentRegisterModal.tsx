@@ -75,7 +75,7 @@ export const TournamentRegisterModal: React.FC<ITournamentRegisterModalProps> =
           Игроков в команде: {party?.players?.length || "-"} из{" "}
           {tournament.teamSize}
         </h3>
-        <p>
+        <p className={c.hint}>
           Если в вашей группе не хватает игроков для полноценной команды,
           система попробует заполнить нехватающие места другими игроками
         </p>
