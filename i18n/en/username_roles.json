@@ -1,6 +1,7 @@
 {
   "username_roles": {
     "streaming_now": "Dotaclassic.ru is streaming right now!",
-    "default_subscriber_title": "Subscriber dotaclassic plus"
+    "default_subscriber_title": "Subscriber dotaclassic plus",
+    "online_via_launcher": "Online via launcher"
   }
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Role, UserConnectionDtoConnectionEnum, UserDTO } from "@/api/back";
 import c from "./Username.module.scss";
 import { createPortal } from "react-dom";
-import { MdAdminPanelSettings } from "react-icons/md";
+import { MdAdminPanelSettings, MdInstallDesktop } from "react-icons/md";
 import { formatRole } from "@/util/gamemode";
 import { FaTwitch } from "react-icons/fa";
 import cx from "clsx";
@@ -12,13 +12,14 @@ import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
 import { GenericTooltip } from "../GenericTooltip";
 import { Tooltipable } from "../Tooltipable";
+import { ClientType } from "@/store/queue/messages/s2c/online-update-message.s2c";
 
 interface Props {
   user: UserDTO;
 }
 export const UsernameRoles: React.FC<Props> = observer(({ user }) => {
   const { t } = useTranslation();
-  const { live } = useStore();
+  const { live, queue } = useStore();
 
   const [hoveredRole, setHoveredRole] = useState<
     { label: string; ref: HTMLElement } | undefined
@@ -34,6 +35,7 @@ export const UsernameRoles: React.FC<Props> = observer(({ user }) => {
 
   const chatIconOld = user.icon;
   const roleList = user.roles.map((t) => t.role);
+  const clientType = queue.getClientType(user.steamId);
 
   const roles = (
     <div className={c.roles}>
@@ -78,6 +80,13 @@ export const UsernameRoles: React.FC<Props> = observer(({ user }) => {
         >
           <a target="__blank" href={liveStream.link}>
             <FaTwitch />
+          </a>
+        </Tooltipable>
+      )}
+      {clientType === ClientType.LAUNCHER && (
+        <Tooltipable tooltip={t("username_roles.online_via_launcher")}>
+          <a href="/download" target="_blank" rel="noreferrer">
+            <MdInstallDesktop />
           </a>
         </Tooltipable>
       )}

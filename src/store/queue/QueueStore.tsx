@@ -28,7 +28,11 @@ import {
 } from "@/util/party";
 import { PlayerQueueStateMessageS2C } from "@/store/queue/messages/s2c/player-queue-state-message.s2c";
 import { GameCoordinatorNewListener } from "@/store/queue/game-coordinator-new.listener";
-import { OnlineUpdateMessageS2C } from "@/store/queue/messages/s2c/online-update-message.s2c";
+import {
+  ClientType,
+  OnlineEntry,
+  OnlineUpdateMessageS2C,
+} from "@/store/queue/messages/s2c/online-update-message.s2c";
 import { PartyInviteExpiredMessageS2C } from "@/store/queue/messages/s2c/party-invite-expired-message.s2c";
 import { PartyInviteReceivedMessageS2C } from "@/store/queue/messages/s2c/party-invite-received-message.s2c";
 import { PlayerGameStateMessageS2C } from "@/store/queue/messages/s2c/player-game-state-message.s2c";
@@ -91,6 +95,9 @@ export class QueueStore
 
   @observable
   public online: string[] = [];
+
+  @observable
+  public onlineClients: OnlineEntry[] = [];
 
   private matchSound!: HTMLAudioElement;
   private roomReadySound!: HTMLAudioElement;
@@ -576,6 +583,11 @@ export class QueueStore
 
   @action onOnlineUpdate = (msg: OnlineUpdateMessageS2C) => {
     this.online = msg.online;
+    this.onlineClients = msg.clients;
+  };
+
+  public getClientType = (steamId: string): ClientType | undefined => {
+    return this.onlineClients.find((c) => c.steamId === steamId)?.clientType;
   };
 
   @action onPartyInviteExpired = (msg: PartyInviteExpiredMessageS2C) => {

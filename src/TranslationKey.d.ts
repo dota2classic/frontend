@@ -1552,6 +1552,8 @@ export type TranslationKey =
   | "username.blank"
   | "username_roles.streaming_now"
   | "username_roles.default_subscriber_title"
+  | "username_roles.online_via_launcher"
+  | "username_roles.online_via_webapp"
   | "vacancies_page.seo.title"
   | "vacancies_page.seo.description"
   | "vacancies_page.whoWeNeed"

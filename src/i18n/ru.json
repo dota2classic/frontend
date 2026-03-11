@@ -1564,6 +1564,8 @@
   "username.blank": "<blank>",
   "username_roles.streaming_now": "Стримит dotaclassic.ru прямо сейчас!",
   "username_roles.default_subscriber_title": "Подписчик dotaclassic plus",
+  "username_roles.online_via_launcher": "Онлайн через лаунчер",
+  "username_roles.online_via_webapp": "Онлайн через браузер",
   "vacancies_page.seo.title": "Кто нам нужен",
   "vacancies_page.seo.description": "В каких талантах нуждается команда dotaclassic",
   "vacancies_page.whoWeNeed": "Кто нам нужен",
