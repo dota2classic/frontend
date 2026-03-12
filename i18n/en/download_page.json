@@ -39,6 +39,9 @@
     "launcherDescription": "The launcher automatically downloads and installs the game client — the easiest way to get started.",
     "launcherButton": "Download for Windows",
     "launcherWindowsOnly": "The launcher is available for Windows only. Linux and macOS are not officially supported.",
-    "manualInstall": "Manual installation (alternative)"
+    "manualInstall": "Manual installation (alternative)",
+    "queueBotGame": "Queue for a bot game in the <queue>launcher</queue>",
+    "configureClientLauncher": "Configure your game client using the launcher and game client",
+    "winToUnlockModes": "Win the bot game to unlock access to other game modes"
   }
 }

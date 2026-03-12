@@ -1,7 +1,9 @@
 @use "../../common.scss";
 
 .launcherButton {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   width: fit-content;
   outline: none;
   text-transform: uppercase;
@@ -20,7 +22,9 @@
   @include common.mobile {
     font-size: 1.2rem;
     padding: 16px 10px;
-    display: block;
+    display: flex;
+    width: 100%;
+    justify-content: center;
   }
 
   &:hover,
@@ -33,18 +37,14 @@
   }
 }
 
-.guide {
-  font-size: 1.2rem;
-
-  & > li {
-    margin-top: 8px;
-  }
-
-
-  & span {
-    font-style: italic;
-  }
+.windowsNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(249, 211, 0, 0.07);
+  border: 1px solid rgba(249, 211, 0, 0.25);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 1rem;
+  color: common.$gold;
 }
-
-
-

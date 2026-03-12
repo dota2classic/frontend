@@ -1,86 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { getOS, getOSFromHeader, OperatingSystem } from "@/util/detect-os";
 import { NextPageContext } from "next";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 import { pushFaroEvent } from "@/util/faro";
-import { getAuthUrl } from "@/util/getAuthUrl";
-import { ColumnType } from "@/const/tables";
 import { NotoSans } from "@/const/notosans";
 import { TechStaticTabs } from "@/containers/TechStaticTabs";
-import { DiscordInvite, TelegramInvite } from "@/components/TelegramInvite";
 import { Trans, TranslationFunction, useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
 import { PageLink } from "@/components/PageLink";
-import { Section } from "@/components/Section";
-import { BigTabs } from "@/components/BigTabs";
-import { GenericTable } from "@/components/GenericTable";
 import { EmbedProps } from "@/components/EmbedProps";
 import { CoolList } from "@/components/CoolList";
+import { FaWindows } from "react-icons/fa";
+import { MdDownload } from "react-icons/md";
 import c from "./Download.module.scss";
-
-const useDownloadData = () => {
-  const { t } = useTranslation();
-
-  return [
-    [
-      {
-        link: "https://drive.google.com/file/d/1RKJ3kbTuSzspfZ9N1-RLWrtXw6nXt6FN/view?usp=sharing",
-        label: t("download_page.gameClient"),
-      },
-      {
-        link: "https://disk.yandex.ru/d/e6dil7uN8qTYSQ",
-        label: t("download_page.gameClient"),
-      },
-      {
-        link: "https://host.dotaclassic.ru/Dota6.84.zip",
-        label: t("download_page.gameClient"),
-      },
-      {
-        link: "/torrent/Dota 6.84.zip.torrent",
-        label: t("download_page.gameClient"),
-      },
-    ],
-
-    [
-      {
-        link: "https://drive.google.com/file/d/1DE0t-R_UDnLnalNz3SmS4fE0-OlhHNB-/view?usp=sharing",
-        label: t("download_page.linuxBinaries"),
-      },
-      {
-        link: "https://disk.yandex.ru/d/6IFRyqlGS3rqag",
-        label: t("download_page.linuxBinaries"),
-      },
-      {
-        link: "https://drive.google.com/file/d/1DE0t-R_UDnLnalNz3SmS4fE0-OlhHNB-/view?usp=sharing",
-        label: t("download_page.linuxBinaries"),
-      },
-      {
-        link: "/torrent/Dota 2 6.84 Source 1 Linux.tar.gz.torrent",
-        label: t("download_page.linuxBinaries"),
-      },
-    ],
-
-    [
-      {
-        link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
-        label: t("download_page.macosBinaries"),
-      },
-      {
-        link: "https://disk.yandex.ru/d/-52JcDeQONUs0A",
-        label: t("download_page.macosBinaries"),
-      },
-      {
-        link: "https://drive.google.com/file/d/1p3v4woa0Tzr_xSGk0zlW7AdH2VmK4YhF/view?usp=share_link",
-        label: t("download_page.macosBinaries"),
-      },
-      {
-        link: "/torrent/Dota 2 6.84 Source 1 Mac.tar.gz.torrent",
-        label: t("download_page.macosBinaries"),
-      },
-    ],
-  ];
-};
 
 interface Props {
   initialOS: OperatingSystem;
@@ -88,90 +21,20 @@ interface Props {
 
 const GuideCompact = (t: TranslationFunction) => [
   {
-    title: t("download_page.launchGame"),
-    content: (
-      <>
-        <Trans
-          i18nKey="download_page.extractGame"
-          components={{ dota: <span className="red" /> }}
-        />
-        <p>
-          <Trans
-            i18nKey="download_page.downloadingGame"
-            components={{
-              telegram: <TelegramInvite />,
-              discord: <DiscordInvite />,
-            }}
-          />
-        </p>
-      </>
-    ),
-  },
-  {
-    title: t("download_page.authorizeTitle"),
-    content: (
-      <>
-        <p>{t("download_page.forPlayingWithPeople")}</p>
-        <p>
-          <Trans
-            i18nKey="download_page.cantJustSearch"
-            components={{
-              steamauth: (
-                <a
-                  className="link"
-                  href={getAuthUrl()}
-                  onClick={() => pushFaroEvent("download_steam_auth_clicked")}
-                />
-              ),
-            }}
-          />
-        </p>
-        <p>
-          <Trans
-            i18nKey="download_page.steamAccountMustMatch"
-            components={{
-              attention: <span className="gold" />,
-            }}
-          />
-        </p>
-      </>
-    ),
-  },
-  {
     title: t("download_page.educationTutorial"),
     content: (
-      <>
-        <p>{t("download_page.passTraining")}</p>
-        <p>{t("download_page.trainingProcess")}</p>
-        <ol>
-          <li>
-            <Trans
-              i18nKey="download_page.serversInRussia"
-              components={{ attention: <span className="gold" /> }}
-            />
-          </li>
-          <li>
-            <Trans
-              i18nKey="download_page.setupSearch"
-              values={{
-                mode: t(
-                  `matchmaking_mode.${MatchmakingMode.BOTS}` as TranslationKey,
-                ),
-              }}
-              components={{
-                queue: (
-                  <PageLink link={AppRouter.queue.link} className="link" />
-                ),
-                mode: <span className="gold" />,
-              }}
-            />
-          </li>
-          <li>{t("download_page.acceptGame")}</li>
-          <li>{t("download_page.startGameClient")}</li>
-          <li>{t("download_page.connectButton")}</li>
-          <li>{t("download_page.defeatBots")}</li>
-        </ol>
-      </>
+      <ol>
+        <li>
+          <Trans
+            i18nKey="download_page.queueBotGame"
+            components={{
+              queue: <PageLink link={AppRouter.queue.link} className="link" />,
+            }}
+          />
+        </li>
+        <li>{t("download_page.configureClientLauncher")}</li>
+        <li>{t("download_page.winToUnlockModes")}</li>
+      </ol>
     ),
   },
   {
@@ -219,25 +82,10 @@ const GuideCompact = (t: TranslationFunction) => [
 
 export default function DownloadPage({ initialOS }: Props) {
   const { t } = useTranslation();
-  const [OS, setOS] = useState(initialOS);
-  const _data = useDownloadData();
 
   useEffect(() => {
     pushFaroEvent("download_page_viewed", { os: initialOS });
   }, []);
-
-  let filteredData = [..._data];
-
-  switch (OS) {
-    case OperatingSystem.LINUX:
-      filteredData = [_data[0], _data[1]];
-      break;
-    case OperatingSystem.WINDOWS:
-      filteredData = [_data[0]];
-      break;
-    case OperatingSystem.MAC_OS:
-      filteredData = [_data[0], _data[2]];
-  }
 
   const coolListContent = [
     {
@@ -247,142 +95,22 @@ export default function DownloadPage({ initialOS }: Props) {
           <p>{t("download_page.launcherDescription")}</p>
           <p>
             <a
-              href="https://github.com/dota2classic/launcher/releases/latest"
+              href="https://github.com/dota2classic/launcher/releases/latest/download/d2c-launcher-win-Setup.exe"
               target="_blank"
               rel="noopener noreferrer"
               className={c.launcherButton}
               onClick={() => pushFaroEvent("download_launcher_clicked")}
             >
+              <MdDownload size={28} />
               {t("download_page.launcherButton")}
             </a>
           </p>
-          <p className="gold">{t("download_page.launcherWindowsOnly")}</p>
-        </>
-      ),
-    },
-    {
-      title: t("download_page.manualInstall"),
-      content: (
-        <>
-          <p>{t("download_page.forOldDota")}</p>
           <p>
-            <Trans
-              i18nKey="download_page.dontClickMatchSearch"
-              components={{
-                attention: <span className="gold" />,
-              }}
-            />
+            <span className={c.windowsNote}>
+              <FaWindows size={16} />
+              {t("download_page.launcherWindowsOnly")}
+            </span>
           </p>
-          {(OS === OperatingSystem.MAC_OS || OS === OperatingSystem.LINUX) && (
-            <>
-              <p className="gold">{t("download_page.downloadLibraries")}</p>
-            </>
-          )}
-          <Section>
-            <BigTabs<OperatingSystem>
-              items={[
-                OperatingSystem.WINDOWS,
-                OperatingSystem.MAC_OS,
-                OperatingSystem.LINUX,
-              ].map((os) => ({
-                key: os,
-                label: os,
-                onSelect: setOS,
-              }))}
-              selected={OS}
-              flavor={"big"}
-            />
-
-            <GenericTable
-              className={"medium"}
-              isLoading={false}
-              keyProvider={(it) => it[0].link}
-              placeholderRows={9}
-              columns={[
-                {
-                  type: ColumnType.Raw,
-                  name: t("download_page.googleDrive"),
-                  format: (r) => (
-                    <a
-                      target="__blank"
-                      href={r.link}
-                      className="link"
-                      onClick={() => {
-                        pushFaroEvent("download_clicked", {
-                          source: "google",
-                          os: OS,
-                          file: r.label,
-                        });
-                      }}
-                    >
-                      {t(r.label)}
-                    </a>
-                  ),
-                },
-                {
-                  type: ColumnType.Raw,
-                  name: t("download_page.yandexDisk"),
-                  format: (r) => (
-                    <a
-                      target="__blank"
-                      href={r.link}
-                      className="link"
-                      onClick={() => {
-                        pushFaroEvent("download_clicked", {
-                          source: "yandex",
-                          os: OS,
-                          file: r.label,
-                        });
-                      }}
-                    >
-                      {t(r.label)}
-                    </a>
-                  ),
-                },
-                {
-                  type: ColumnType.Raw,
-                  name: t("download_page.ourWebsite"),
-                  format: (r) => (
-                    <a
-                      target="__blank"
-                      href={r.link}
-                      className="link"
-                      onClick={() => {
-                        pushFaroEvent("download_clicked", {
-                          source: "d2c",
-                          os: OS,
-                          file: r.label,
-                        });
-                      }}
-                    >
-                      {t(r.label)}
-                    </a>
-                  ),
-                },
-                {
-                  type: ColumnType.Raw,
-                  name: t("download_page.torrent"),
-                  format: (r) => (
-                    <a
-                      className="link"
-                      target="__blank"
-                      href={r.link}
-                      onClick={() => {
-                        pushFaroEvent("download_clicked", {
-                          source: "torrent",
-                          os: OS,
-                          file: r.label,
-                        });
-                      }}
-                    >
-                      {t(r.label)}
-                    </a>
-                  ),
-                },
-              ]}
-              data={filteredData}
-            />
-          </Section>
         </>
       ),
     },
