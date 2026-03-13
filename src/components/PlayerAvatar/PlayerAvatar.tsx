@@ -10,7 +10,6 @@ import cx from "clsx";
 import { hasSubscription } from "@/util/subscription";
 import { PageLink } from "../PageLink/PageLink";
 import { AppRouter, NextLinkProp } from "@/route";
-import { useTranslation } from "react-i18next";
 import { useStore } from "@/store";
 import { computed } from "mobx";
 import { observer } from "mobx-react-lite";
@@ -48,7 +47,6 @@ export const PlayerAvatar: React.FC<Props> = observer(function PlayerAvatar({
   link,
   ...props
 }: Props) {
-  const { t } = useTranslation();
   const [error, setError] = useState<unknown>(null);
   const hat = hasSubscription(user) && user.hat?.image.url;
   const linkProp = link ?? AppRouter.players.player.index(user.steamId).link;
@@ -76,8 +74,8 @@ export const PlayerAvatar: React.FC<Props> = observer(function PlayerAvatar({
         <img
           {...props}
           className={cx(props.className, "avatar")}
-          alt={props.alt || t("player_avatar.defaultAlt")}
-          src={error ? "/avatar.png" : user.avatarSmall}
+          alt={props.alt}
+          src={error ? "/avatar.png" : user.avatarSmall || "/avatar.png"}
           onError={setError}
           title={user.name}
         />
