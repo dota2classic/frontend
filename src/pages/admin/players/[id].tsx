@@ -318,6 +318,15 @@ export default function AdminPlayerPage({
                 />
               </td>
             </tr>
+            <tr>
+              <td>Маскировка профиля(легал)</td>
+              <td>
+                <Checkbox
+                  onChange={(e) => updateFlag({ legalRemove: e })}
+                  checked={flags?.legalRemove}
+                />
+              </td>
+            </tr>
           </tbody>
         </Table>
       </Section>
