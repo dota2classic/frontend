@@ -42,6 +42,9 @@ import {
   PartyDto,
   PartyDtoFromJSON,
   PartyDtoToJSON,
+  PlayerRelationDto,
+  PlayerRelationDtoFromJSON,
+  PlayerRelationDtoToJSON,
   PlayerSummaryDto,
   PlayerSummaryDtoFromJSON,
   PlayerSummaryDtoToJSON,
@@ -57,12 +60,20 @@ export interface PlayerControllerAchievementsRequest {
   id: string;
 }
 
+export interface PlayerControllerAddFriendRequest {
+  id: string;
+}
+
 export interface PlayerControllerBlockPlayerRequest {
   id: string;
 }
 
 export interface PlayerControllerDodgePlayerRequest {
   dodgePlayerDto: DodgePlayerDto;
+}
+
+export interface PlayerControllerGetRelationRequest {
+  id: string;
 }
 
 export interface PlayerControllerHeroSummaryRequest {
@@ -76,6 +87,10 @@ export interface PlayerControllerLeaderboardRequest {
 }
 
 export interface PlayerControllerPlayerSummaryRequest {
+  id: string;
+}
+
+export interface PlayerControllerRemoveFriendRequest {
   id: string;
 }
 
@@ -206,6 +221,56 @@ export class PlayerApi extends runtime.BaseAPI {
         const context = this.playerControllerAchievementsContext({ id: id! });
         return useSWR(context, valid ? () => this.playerControllerAchievements(id!) : null, config)
     }
+
+    /**
+     */
+    private async playerControllerAddFriendRaw(requestParameters: PlayerControllerAddFriendRequest): Promise<runtime.ApiResponse<void>> {
+        this.playerControllerAddFriendValidation(requestParameters);
+        const context = this.playerControllerAddFriendContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private playerControllerAddFriendValidation(requestParameters: PlayerControllerAddFriendRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerAddFriend.");
+        }
+    }
+
+    /**
+     */
+    playerControllerAddFriendContext(requestParameters: PlayerControllerAddFriendRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/friend/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerAddFriend = async (id: string): Promise<void> => {
+        await this.playerControllerAddFriendRaw({ id: id });
+    }
+
 
     /**
      */
@@ -417,6 +482,121 @@ export class PlayerApi extends runtime.BaseAPI {
 
         const context = this.playerControllerGetDodgeListContext();
         return useSWR(context, valid ? () => this.playerControllerGetDodgeList() : null, config)
+    }
+
+    /**
+     */
+    private async playerControllerGetFriendsRaw(): Promise<runtime.ApiResponse<Array<UserDTO>>> {
+        this.playerControllerGetFriendsValidation();
+        const context = this.playerControllerGetFriendsContext();
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UserDTOFromJSON));
+    }
+
+
+
+    /**
+     */
+    private playerControllerGetFriendsValidation() {
+    }
+
+    /**
+     */
+    playerControllerGetFriendsContext(): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/friends`,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerGetFriends = async (): Promise<Array<UserDTO>> => {
+        const response = await this.playerControllerGetFriendsRaw();
+        return await response.value();
+    }
+
+    usePlayerControllerGetFriends(config?: SWRConfiguration<Array<UserDTO>, Error>) {
+        let valid = true
+
+        const context = this.playerControllerGetFriendsContext();
+        return useSWR(context, valid ? () => this.playerControllerGetFriends() : null, config)
+    }
+
+    /**
+     */
+    private async playerControllerGetRelationRaw(requestParameters: PlayerControllerGetRelationRequest): Promise<runtime.ApiResponse<PlayerRelationDto>> {
+        this.playerControllerGetRelationValidation(requestParameters);
+        const context = this.playerControllerGetRelationContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PlayerRelationDtoFromJSON(jsonValue));
+    }
+
+
+
+    /**
+     */
+    private playerControllerGetRelationValidation(requestParameters: PlayerControllerGetRelationRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerGetRelation.");
+        }
+    }
+
+    /**
+     */
+    playerControllerGetRelationContext(requestParameters: PlayerControllerGetRelationRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/{id}/relation`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerGetRelation = async (id: string): Promise<PlayerRelationDto> => {
+        const response = await this.playerControllerGetRelationRaw({ id: id });
+        return await response.value();
+    }
+
+    usePlayerControllerGetRelation(id: string, config?: SWRConfiguration<PlayerRelationDto, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.playerControllerGetRelationContext({ id: id! });
+        return useSWR(context, valid ? () => this.playerControllerGetRelation(id!) : null, config)
     }
 
     /**
@@ -700,6 +880,66 @@ export class PlayerApi extends runtime.BaseAPI {
 
     /**
      */
+    private async playerControllerRemoveFriendRaw(requestParameters: PlayerControllerRemoveFriendRequest): Promise<runtime.ApiResponse<void>> {
+        this.playerControllerRemoveFriendValidation(requestParameters);
+        const context = this.playerControllerRemoveFriendContext(requestParameters);
+        const response = await this.request(context);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+
+
+    /**
+     */
+    private playerControllerRemoveFriendValidation(requestParameters: PlayerControllerRemoveFriendRequest) {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id","Required parameter requestParameters.id was null or undefined when calling playerControllerRemoveFriend.");
+        }
+    }
+
+    /**
+     */
+    playerControllerRemoveFriendContext(requestParameters: PlayerControllerRemoveFriendRequest): runtime.RequestOpts {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        return {
+            path: `/v1/player/friend/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    playerControllerRemoveFriend = async (id: string): Promise<void> => {
+        await this.playerControllerRemoveFriendRaw({ id: id });
+    }
+
+    usePlayerControllerRemoveFriend(id: string, config?: SWRConfiguration<void, Error>) {
+        let valid = true
+
+        if (id === null || id === undefined || Number.isNaN(id)) {
+            valid = false
+        }
+
+        const context = this.playerControllerRemoveFriendContext({ id: id! });
+        return useSWR(context, valid ? () => this.playerControllerRemoveFriend(id!) : null, config)
+    }
+
+    /**
+     */
     private async playerControllerSearchRaw(requestParameters: PlayerControllerSearchRequest): Promise<runtime.ApiResponse<Array<UserDTO>>> {
         this.playerControllerSearchValidation(requestParameters);
         const context = this.playerControllerSearchContext(requestParameters);
@@ -736,6 +976,14 @@ export class PlayerApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === "function" ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         return {
             path: `/v1/player/search`,
             method: "GET",

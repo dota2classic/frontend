@@ -95,6 +95,7 @@ export * from "./PlayerInMatchDto";
 export * from "./PlayerInfo";
 export * from "./PlayerRecordDto";
 export * from "./PlayerRecordsResponse";
+export * from "./PlayerRelationDto";
 export * from "./PlayerSessionDto";
 export * from "./PlayerStatsDto";
 export * from "./PlayerSummaryDto";

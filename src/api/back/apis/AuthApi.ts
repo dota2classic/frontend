@@ -20,6 +20,7 @@ import { SWRConfiguration } from "swr/_internal";
 
 export interface SteamControllerSteamSessionTicketToTokenRequest {
   ticket: string;
+  hwid: string;
 }
 
 /**
@@ -93,6 +94,9 @@ export class AuthApi extends runtime.BaseAPI {
         if (requestParameters.ticket === null || requestParameters.ticket === undefined) {
             throw new runtime.RequiredError("ticket","Required parameter requestParameters.ticket was null or undefined when calling steamControllerSteamSessionTicketToToken.");
         }
+        if (requestParameters.hwid === null || requestParameters.hwid === undefined) {
+            throw new runtime.RequiredError("hwid","Required parameter requestParameters.hwid was null or undefined when calling steamControllerSteamSessionTicketToToken.");
+        }
     }
 
     /**
@@ -102,6 +106,10 @@ export class AuthApi extends runtime.BaseAPI {
 
         if (requestParameters.ticket !== undefined) {
             queryParameters["ticket"] = requestParameters.ticket;
+        }
+
+        if (requestParameters.hwid !== undefined) {
+            queryParameters["hwid"] = requestParameters.hwid;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -116,8 +124,8 @@ export class AuthApi extends runtime.BaseAPI {
 
     /**
      */
-    steamControllerSteamSessionTicketToToken = async (ticket: string): Promise<string> => {
-        const response = await this.steamControllerSteamSessionTicketToTokenRaw({ ticket: ticket });
+    steamControllerSteamSessionTicketToToken = async (ticket: string, hwid: string): Promise<string> => {
+        const response = await this.steamControllerSteamSessionTicketToTokenRaw({ ticket: ticket, hwid: hwid });
         return await response.value();
     }
 

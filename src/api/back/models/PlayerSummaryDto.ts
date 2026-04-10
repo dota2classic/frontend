@@ -106,6 +106,12 @@ export interface PlayerSummaryDto {
     accessMap: GamemodeAccessMap;
     /**
      * 
+     * @type {number}
+     * @memberof PlayerSummaryDto
+     */
+    botGameProgress: number;
+    /**
+     * 
      * @type {Array<PlayerAspectDto>}
      * @memberof PlayerSummaryDto
      */
@@ -131,6 +137,7 @@ export function PlayerSummaryDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'overallStats': PlayerStatsDtoFromJSON(json['overallStats']),
         'session': !exists(json, 'session') ? undefined : PlayerSessionDtoFromJSON(json['session']),
         'accessMap': GamemodeAccessMapFromJSON(json['accessMap']),
+        'botGameProgress': json['botGameProgress'],
         'aspects': ((json['aspects'] as Array<any>).map(PlayerAspectDtoFromJSON)),
     };
 }
@@ -153,6 +160,7 @@ export function PlayerSummaryDtoToJSON(value?: PlayerSummaryDto | null): any {
         'overallStats': PlayerStatsDtoToJSON(value.overallStats),
         'session': PlayerSessionDtoToJSON(value.session),
         'accessMap': GamemodeAccessMapToJSON(value.accessMap),
+        'botGameProgress': value.botGameProgress,
         'aspects': ((value.aspects as Array<any>).map(PlayerAspectDtoToJSON)),
     };
 }

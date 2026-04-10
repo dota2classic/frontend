@@ -206,12 +206,12 @@ export class NotificationApi extends runtime.BaseAPI {
 
     /**
      */
-    private async notificationControllerSubscribeRaw(requestParameters: NotificationControllerSubscribeRequest): Promise<runtime.ApiResponse<number>> {
+    private async notificationControllerSubscribeRaw(requestParameters: NotificationControllerSubscribeRequest): Promise<runtime.ApiResponse<void>> {
         this.notificationControllerSubscribeValidation(requestParameters);
         const context = this.notificationControllerSubscribeContext(requestParameters);
         const response = await this.request(context);
 
-        return new runtime.TextApiResponse(response) as any;
+        return new runtime.VoidApiResponse(response);
     }
 
 
@@ -252,20 +252,19 @@ export class NotificationApi extends runtime.BaseAPI {
 
     /**
      */
-    notificationControllerSubscribe = async (subscriptionDto: SubscriptionDto): Promise<number> => {
-        const response = await this.notificationControllerSubscribeRaw({ subscriptionDto: subscriptionDto });
-        return await response.value();
+    notificationControllerSubscribe = async (subscriptionDto: SubscriptionDto): Promise<void> => {
+        await this.notificationControllerSubscribeRaw({ subscriptionDto: subscriptionDto });
     }
 
 
     /**
      */
-    private async notificationControllerUnsubscribeRaw(): Promise<runtime.ApiResponse<number>> {
+    private async notificationControllerUnsubscribeRaw(): Promise<runtime.ApiResponse<void>> {
         this.notificationControllerUnsubscribeValidation();
         const context = this.notificationControllerUnsubscribeContext();
         const response = await this.request(context);
 
-        return new runtime.TextApiResponse(response) as any;
+        return new runtime.VoidApiResponse(response);
     }
 
 
@@ -300,12 +299,11 @@ export class NotificationApi extends runtime.BaseAPI {
 
     /**
      */
-    notificationControllerUnsubscribe = async (): Promise<number> => {
-        const response = await this.notificationControllerUnsubscribeRaw();
-        return await response.value();
+    notificationControllerUnsubscribe = async (): Promise<void> => {
+        await this.notificationControllerUnsubscribeRaw();
     }
 
-    useNotificationControllerUnsubscribe(config?: SWRConfiguration<number, Error>) {
+    useNotificationControllerUnsubscribe(config?: SWRConfiguration<void, Error>) {
         let valid = true
 
         const context = this.notificationControllerUnsubscribeContext();

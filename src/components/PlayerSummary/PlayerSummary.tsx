@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import c from "./PlayerSummary.module.scss";
 import cx from "clsx";
@@ -9,7 +9,13 @@ import { steamPage } from "@/util/steamId";
 import { observer } from "mobx-react-lite";
 import { useFormattedDateTime } from "@/util/dates";
 import { FaSteam, FaTwitch } from "react-icons/fa";
-import { MdLocalPolice } from "react-icons/md";
+import {
+  MdLocalPolice,
+  MdPersonAdd,
+  MdPersonRemove,
+  MdPersonOff,
+  MdBlock,
+} from "react-icons/md";
 import { useRouter } from "next/router";
 import { IBigTabsProps } from "@/components/BigTabs/BigTabs";
 import {
@@ -21,7 +27,7 @@ import {
 } from "@/api/back";
 import { useStore } from "@/store";
 import { formatBanReason } from "@/util/texts/bans";
-import { hasSubscription } from "@/util/subscription";
+import { hasSubscription, paidAction } from "@/util/subscription";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
@@ -31,6 +37,7 @@ import { Tooltipable } from "../Tooltipable";
 import { PageLink } from "../PageLink";
 import { TimeAgo } from "../TimeAgo";
 import { BigTabs } from "../BigTabs";
+import { getApi } from "@/api/hooks";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -124,16 +131,73 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     const { wins, abandons, loss } = stats;
     const isModerator = useIsModerator();
 
-    const isMyProfile = useStore().auth.parsedToken?.sub === user.steamId;
+    const { auth, sub } = useStore();
+    const { steamId, name } = user;
+    const isMyProfile = auth.parsedToken?.sub === steamId;
+    const isAuthorized = auth.isAuthorized;
     const isOld = hasSubscription(user);
+
+    const { data: relation, mutate: mutateRelation } = getApi().playerApi.usePlayerControllerGetRelation(
+      (isAuthorized && !isMyProfile ? steamId : null) as string,
+    );
+
+    const [isDodged, setIsDodged] = useState(false);
+    const [isBlocked, setIsBlocked] = useState(false);
+    const [isFriend, setIsFriend] = useState(false);
+
+    useEffect(() => {
+      if (relation) {
+        setIsDodged(relation.isDodged);
+        setIsBlocked(relation.isBlocked);
+        setIsFriend(relation.isFriend);
+      }
+    }, [relation]);
+
+    const handleDodge = useCallback(
+      paidAction(async () => {
+        if (isDodged) {
+          await getApi().playerApi.playerControllerUnDodgePlayer({
+            dodgeSteamId: steamId,
+          });
+        } else {
+          await getApi().playerApi.playerControllerDodgePlayer({
+            dodgeSteamId: steamId,
+          });
+        }
+        await mutateRelation();
+      }),
+      [isDodged, steamId, sub, mutateRelation],
+    );
+
+    const handleBlock = useCallback(
+      paidAction(async () => {
+        if (isBlocked) {
+          await getApi().playerApi.playerControllerUnblockPlayer(steamId);
+        } else {
+          await getApi().playerApi.playerControllerBlockPlayer(steamId);
+        }
+        await mutateRelation();
+      }),
+      [isBlocked, steamId, sub, mutateRelation],
+    );
+
+    const handleFriend = useCallback(
+      paidAction(async () => {
+        if (isFriend) {
+          await getApi().playerApi.playerControllerRemoveFriend(steamId);
+        } else {
+          await getApi().playerApi.playerControllerAddFriend(steamId);
+        }
+        await mutateRelation();
+      }),
+      [isFriend, steamId, sub, mutateRelation],
+    );
 
     const twitchConnection = user.connections.find(
       (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
     );
 
     const r = useRouter();
-
-    const { steamId, name } = user;
 
     const items = useMemo<Items>(
       () => getMenuItems(steamId, isMyProfile),
@@ -208,6 +272,23 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                       {twitchConnection.externalId}
                     </a>
                   )}
+                  {isAuthorized && !isMyProfile && (
+                    <button
+                      className={cx(
+                        c.actionBtn,
+                        c.actionBtnDodge,
+                        isDodged && c.actionBtnDodgeActive,
+                      )}
+                      onClick={handleDodge}
+                    >
+                      <MdPersonOff />
+                      {t(
+                        isDodged
+                          ? "player_summary.undodge"
+                          : "player_summary.dodge",
+                      )}
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -278,6 +359,32 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
               </dd>
               <dt>{t("player_summary.rank")}</dt>
             </dl>
+            {isAuthorized && !isMyProfile && (
+              <div className={c.actionStack}>
+                <button
+                  className={cx(c.actionBtn, isFriend && c.actionBtnFriend)}
+                  onClick={handleFriend}
+                >
+                  {isFriend ? <MdPersonRemove /> : <MdPersonAdd />}
+                  {t(
+                    isFriend
+                      ? "player_summary.unfriend"
+                      : "player_summary.friend",
+                  )}
+                </button>
+                <button
+                  className={cx(c.actionBtn, isBlocked && c.actionBtnBlock)}
+                  onClick={handleBlock}
+                >
+                  <MdBlock />
+                  {t(
+                    isBlocked
+                      ? "player_summary.unblock"
+                      : "player_summary.block",
+                  )}
+                </button>
+              </div>
+            )}
           </div>
         </Panel>
         <BigTabs<PlayerPage>
