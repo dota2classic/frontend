@@ -137,9 +137,10 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     const isAuthorized = auth.isAuthorized;
     const isOld = hasSubscription(user);
 
-    const { data: relation, mutate: mutateRelation } = getApi().playerApi.usePlayerControllerGetRelation(
-      (isAuthorized && !isMyProfile ? steamId : null) as string,
-    );
+    const { data: relation, mutate: mutateRelation } =
+      getApi().playerApi.usePlayerControllerGetRelation(
+        (isAuthorized && !isMyProfile ? steamId : null) as string,
+      );
 
     const [isDodged, setIsDodged] = useState(false);
     const [isBlocked, setIsBlocked] = useState(false);
