@@ -36,11 +36,7 @@ export const FloaterAd: React.FC = observer(() => {
         !isVisible && c.hidden,
       )}
     >
-      <img
-        className={c.img}
-        src="https://collectorsshop.ru/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo_png.73abe906.png&w=3840&q=75"
-        alt=""
-      />
+      <img className={c.img} src="/collectors.webp" alt="" />
       <div className={c.text}>
         <span className={c.title}>Collector's shop</span>
         <span className={c.description}>
