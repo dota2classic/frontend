@@ -7,6 +7,7 @@ import React from "react";
 import { PlayerRecords } from "@/containers/PlayerRecords";
 import { useTranslation } from "react-i18next";
 import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import c from "@/pages/players/[id]/PlayerPage.module.scss";
 
 interface Props {
   preloadedSummary: PlayerSummaryDto;
@@ -20,7 +21,7 @@ export default function PlayerRecordsPage({
   const { t } = useTranslation();
 
   return (
-    <>
+    <div className={c.playerPage}>
       <EmbedProps
         title={t("player_records.seo.title", {
           name: preloadedSummary.user.name,
@@ -39,10 +40,10 @@ export default function PlayerRecordsPage({
         mmr={preloadedSummary.seasonStats.mmr}
       />
 
-      <QueuePageBlock>
+      <QueuePageBlock className={c.fullwidth}>
         <PlayerRecords records={records} />
       </QueuePageBlock>
-    </>
+    </div>
   );
 }
 

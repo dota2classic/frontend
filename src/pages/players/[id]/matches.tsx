@@ -6,6 +6,7 @@ import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import React from "react";
 import c from "@/pages/matches/History.module.scss";
+import pc from "@/pages/players/[id]/PlayerPage.module.scss";
 import { numberOrDefault } from "@/util/urls";
 import { fullName, shortName } from "@/util/heroName";
 import { matchToPlayerMatchItem } from "@/util/mappers";
@@ -52,7 +53,7 @@ export default function PlayerMatches({
     );
 
   return (
-    <>
+    <div className={pc.playerPage}>
       <EmbedProps
         title={t("player_matches.historyTitle", {
           name: preloadedSummary.user.name,
@@ -71,7 +72,7 @@ export default function PlayerMatches({
         mmr={preloadedSummary.seasonStats.mmr}
       />
 
-      <Section>
+      <Section className={pc.fullwidth}>
         <Panel className={c.filters}>
           <SelectOptions
             options={gameModeOptions}
@@ -122,7 +123,7 @@ export default function PlayerMatches({
           maxPage={data?.pages || 0}
         />
       </Section>
-    </>
+    </div>
   );
 }
 
