@@ -182,17 +182,14 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
       [isBlocked, steamId, sub, mutateRelation],
     );
 
-    const handleFriend = useCallback(
-      paidAction(async () => {
-        if (isFriend) {
-          await getApi().playerApi.playerControllerRemoveFriend(steamId);
-        } else {
-          await getApi().playerApi.playerControllerAddFriend(steamId);
-        }
-        await mutateRelation();
-      }),
-      [isFriend, steamId, sub, mutateRelation],
-    );
+    const handleFriend = useCallback(async () => {
+      if (isFriend) {
+        await getApi().playerApi.playerControllerRemoveFriend(steamId);
+      } else {
+        await getApi().playerApi.playerControllerAddFriend(steamId);
+      }
+      await mutateRelation();
+    }, [isFriend, steamId, sub, mutateRelation]);
 
     const twitchConnection = user.connections.find(
       (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
