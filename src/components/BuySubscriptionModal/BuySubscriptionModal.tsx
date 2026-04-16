@@ -146,8 +146,7 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
                   : "Нет :("}
               </span>
             </div>
-            <div className={c.delimiter} />
-            <div className={c.form__row}>
+            <div className={cx(c.form__row, c.totalRow)}>
               <span>
                 <FaRegCalendarDays />
                 Общая стоимость
@@ -155,15 +154,17 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
               <span>
                 <span className="gold">
                   {selectedPlanInfo.pricePerMonth * selectedPlanInfo.months}P
-                </span>
-                {selectedPlanInfo.discount > 0 && (
-                  <>
-                    {" "}
-                    <s style={{ fontSize: "0.8rem", color: "grey" }}>
-                      {noDiscountPrice}P
-                    </s>
-                  </>
-                )}
+                </span>{" "}
+                <s
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "grey",
+                    visibility:
+                      selectedPlanInfo.discount > 0 ? "visible" : "hidden",
+                  }}
+                >
+                  {noDiscountPrice}P
+                </s>
               </span>
             </div>
             {/*<div className={c.email}>*/}

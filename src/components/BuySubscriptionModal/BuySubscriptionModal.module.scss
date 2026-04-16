@@ -1,77 +1,80 @@
 @use "../../common.scss";
 
 .modal {
-}
+  & :global(.modal) {
+    width: 520px;
+    position: relative;
 
-.finalPrice {
-}
-
-.plans {
-  display: flex;
-  flex-direction: column;
-}
-
-.plan {
-  //padding: 12px 2px;
-  //background-color: $panelBg;
-
-  &.active {
-  }
-
-  & header {
-  }
-
-  & .price {
-    color: common.$gold;
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("/splash/subscription.webp");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      pointer-events: none;
+    }
   }
 }
 
 .subscriptionDurations {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .subItem {
   @include common.card();
   position: relative;
-  grid-column: span 1;
   display: flex;
   flex-direction: column;
-  padding: 8px 12px;
-  gap: 6px;
-  border-radius: 4px;
-  border: 1px solid common.$panelBg;
+  padding: 10px 14px;
+  gap: 4px;
   cursor: pointer;
-  transition: 0.3s ease;
-  min-width: 200px;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 
   &:hover {
-    border: 1px solid common.$gold;
+    border-color: common.$gold;
   }
+
   &__selected {
-    border: 1px solid common.$gold;
+    border-color: common.$gold;
+    background-color: rgba(common.$gold, 0.07);
   }
 
   & header {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    color: common.$primaryTextHighlight;
   }
 }
 
 .price {
   color: common.$gold;
+  font-size: 0.95rem;
 }
 
 .discount {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: common.$green;
+  background: rgba(common.$green, 0.12);
+  border: 1px solid rgba(common.$green, 0.25);
+  border-radius: 4px;
+  padding: 1px 6px;
+  width: fit-content;
 }
 
 .selectionIndicator {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 2rem;
+  top: 6px;
+  right: 6px;
+  font-size: 1.4rem;
   color: common.$primaryTextDark2;
 
   &__selected {
@@ -80,26 +83,47 @@
 }
 
 .form {
-  padding: 0px 6px;
+  @include common.card();
+  padding: 4px 12px;
+  margin-bottom: 16px;
+
   &__row {
     display: flex;
     justify-content: space-between;
-    padding: 6px 0px;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.95rem;
+    color: common.$primaryTextSemiDark;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
     & svg {
       margin-right: 6px;
       margin-bottom: -2px;
+    }
+
+    & span:first-child {
+      display: flex;
+      align-items: center;
     }
   }
 }
 
 .delimiter {
-  border-bottom: 1px solid common.$primaryTextDark;
-  margin-top: 4px;
-  margin-bottom: 4px;
+  display: none;
+}
+
+.totalRow {
+  color: common.$primaryTextHighlight;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .payButton {
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 .countdown {
@@ -115,4 +139,3 @@
   flex-direction: column;
   margin-top: 2rem;
 }
-

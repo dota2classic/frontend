@@ -1132,6 +1132,7 @@ export type TranslationKey =
   | "paid_feature_modal.lobbyCreation"
   | "paid_feature_modal.avoidedPlayersList"
   | "paid_feature_modal.recalibration"
+  | "paid_feature_modal.heroChatWheel"
   | "paid_feature_modal.otherFeatures"
   | "paid_feature_modal.interesting"
   | "party_invite.groupInvite"

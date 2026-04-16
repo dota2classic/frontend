@@ -5,6 +5,10 @@
   //  width: 40vw;
   //}
   cursor: auto;
+
+  & :global(.modal__header) {
+    padding: 0;
+  }
 }
 
 .card {

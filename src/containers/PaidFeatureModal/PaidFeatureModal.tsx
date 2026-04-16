@@ -9,6 +9,7 @@ import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
 import { TrajanPro } from "@/const/fonts";
 import { useTranslation } from "react-i18next";
+import { RiCheckboxCircleFill } from "react-icons/ri";
 
 export const PaidFeatureModal: React.FC = observer(({}) => {
   const { sub } = useStore();
@@ -26,11 +27,19 @@ export const PaidFeatureModal: React.FC = observer(({}) => {
         {t("paid_feature_modal.subscriptionName")}
       </h2>
       <ul>
-        <li>{t("paid_feature_modal.profileDecorations")}</li>
-        <li>{t("paid_feature_modal.lobbyCreation")}</li>
-        <li>{t("paid_feature_modal.avoidedPlayersList")}</li>
-        <li>{t("paid_feature_modal.recalibration")}</li>
-        <li>{t("paid_feature_modal.otherFeatures")}</li>
+        {[
+          t("paid_feature_modal.profileDecorations"),
+          t("paid_feature_modal.lobbyCreation"),
+          t("paid_feature_modal.avoidedPlayersList"),
+          t("paid_feature_modal.recalibration"),
+          t("paid_feature_modal.heroChatWheel"),
+          t("paid_feature_modal.otherFeatures"),
+        ].map((item) => (
+          <li key={item}>
+            <RiCheckboxCircleFill className={c.checkIcon} />
+            {item}
+          </li>
+        ))}
       </ul>
       <div className={c.buttons}>
         <Button onClick={sub.hide} mega pageLink={AppRouter.store.index.link}>

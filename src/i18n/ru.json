@@ -1144,6 +1144,7 @@
   "paid_feature_modal.lobbyCreation": "Создание лобби",
   "paid_feature_modal.avoidedPlayersList": "Список избегаемых игроков",
   "paid_feature_modal.recalibration": "Перекалибровка",
+  "paid_feature_modal.heroChatWheel": "Колесо фраз героя",
   "paid_feature_modal.otherFeatures": "...и другие новые функции",
   "paid_feature_modal.interesting": "Это интересно",
   "party_invite.groupInvite": "{{username}} приглашает тебя в группу",

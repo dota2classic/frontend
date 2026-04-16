@@ -1068,6 +1068,7 @@
   "paid_feature_modal.lobbyCreation": "Lobby creation",
   "paid_feature_modal.avoidedPlayersList": "Avoided players list",
   "paid_feature_modal.recalibration": "Recalibration",
+  "paid_feature_modal.heroChatWheel": "Hero chat wheel",
   "paid_feature_modal.otherFeatures": "... and other new features",
   "paid_feature_modal.interesting": "This is interesting",
   "party_invite.groupInvite": "{{username}} invites you to the group",
