@@ -32,6 +32,7 @@ export const useDotaMapOptions = () => {
 export const DotaPatchOptions = [
   DotaPatch.DOTA_684,
   DotaPatch.DOTA_684_TURBO,
+  DotaPatch.DOTA_688,
 ].map((dm) => ({
   label: dm,
   value: dm,

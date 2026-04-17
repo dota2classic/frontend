@@ -10,11 +10,11 @@ import { observer } from "mobx-react-lite";
 import { useFormattedDateTime } from "@/util/dates";
 import { FaSteam, FaTwitch } from "react-icons/fa";
 import {
+  MdBlock,
   MdLocalPolice,
   MdPersonAdd,
-  MdPersonRemove,
   MdPersonOff,
-  MdBlock,
+  MdPersonRemove,
 } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IBigTabsProps } from "@/components/BigTabs/BigTabs";
@@ -189,7 +189,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
         await getApi().playerApi.playerControllerAddFriend(steamId);
       }
       await mutateRelation();
-    }, [isFriend, steamId, sub, mutateRelation]);
+    }, [isFriend, steamId, mutateRelation]);
 
     const twitchConnection = user.connections.find(
       (t) => t.connection === UserConnectionDtoConnectionEnum.TWITCH,
