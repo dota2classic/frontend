@@ -208,6 +208,21 @@ export default function DesignSystemPage() {
                 </div>
                 <Button variant="primary">Акцентное действие</Button>
               </Surface>
+              <Surface
+                className={cx(c.surfaceCard, c.surfacePanel)}
+                padding="lg"
+                variant="panel"
+              >
+                <div>
+                  <h3 className={c.surfaceTitle}>Panel</h3>
+                  <p className={c.surfaceText}>
+                    Legacy-flavored shell. Для нового generic UI лучше
+                    предпочитать `surface` или `raised`, а `Panel` держать как
+                    compat-обертку.
+                  </p>
+                </div>
+                <Button variant="ghost">Compat shell</Button>
+              </Surface>
             </div>
           </section>
 

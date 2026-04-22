@@ -4,9 +4,11 @@ import c from "./Panel.module.scss";
 import cx from "clsx";
 import { Surface } from "../Surface";
 
+// Legacy compatibility wrapper around Surface.
+// Use Surface directly for new generic containers.
 export const Panel = (
   props: React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLDivElement>,
+    React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   >,
 ) => {

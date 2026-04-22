@@ -7,7 +7,7 @@ import { useAsyncButton } from "@/util/use-async-button";
 import { makeSimpleToast } from "@/components/Toast";
 import { handleException } from "@/util/handleException";
 import { useTranslation } from "react-i18next";
-import { Panel } from "@/components/Panel";
+import { Surface } from "@/components/Surface";
 import { SelectOptions } from "@/components/SelectOptions";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
@@ -48,7 +48,7 @@ export const GiveProductContainer: React.FC<IGiveProductContainerProps> =
 
     if (!data) return t("giveProduct.loading");
     return (
-      <Panel>
+      <Surface padding="sm" variant="panel">
         <SelectOptions
           defaultText={t("giveProduct.defaultText")}
           onSelect={(p: { value: number; label: string } | undefined) => {
@@ -83,6 +83,6 @@ export const GiveProductContainer: React.FC<IGiveProductContainerProps> =
         >
           {t("giveProduct.submitButton")}
         </Button>
-      </Panel>
+      </Surface>
     );
   });
