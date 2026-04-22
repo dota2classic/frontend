@@ -8,7 +8,7 @@ import { AchievementStatus } from "@/components/AchievementStatus";
 import c from "@/pages/players/[id]/PlayerPage.module.scss";
 import { Panel } from "@/components/Panel";
 import { EmbedProps } from "@/components/EmbedProps";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -103,43 +103,43 @@ export default function PlayerAchievements({ achievements, summary }: Props) {
           player: summary.user.name,
         })}
       />
-      <QueuePageBlock
+      <SectionBlock
         className={c.fullwidth}
-        heading={t("achievements_page.header.lifetime")}
+        title={t("achievements_page.header.lifetime")}
       >
         <Panel className={c.achievements}>
           {lifetime.map((t) => (
             <AchievementStatus key={t.key} achievement={t} />
           ))}
         </Panel>
-      </QueuePageBlock>
+      </SectionBlock>
 
-      <QueuePageBlock
+      <SectionBlock
         className={c.fullwidth}
-        heading={t("achievements_page.header.records")}
+        title={t("achievements_page.header.records")}
       >
         <Panel className={c.achievements}>
           {records.map((t) => (
             <AchievementStatus key={t.key} achievement={t} />
           ))}
         </Panel>
-      </QueuePageBlock>
+      </SectionBlock>
 
-      <QueuePageBlock
+      <SectionBlock
         className={c.fullwidth}
-        heading={t("achievements_page.header.unique")}
+        title={t("achievements_page.header.unique")}
       >
         <Panel className={c.achievements}>
           {oneShot.map((t) => (
             <AchievementStatus key={t.key} achievement={t} />
           ))}
         </Panel>
-      </QueuePageBlock>
+      </SectionBlock>
 
       {remaining.length > 0 && (
-        <QueuePageBlock
+        <SectionBlock
           className={c.fullwidth}
-          heading={t("achievements_page.header.unique")}
+          title={t("achievements_page.header.unique")}
         >
           <Panel className={c.achievements}>
             {remaining
@@ -148,7 +148,7 @@ export default function PlayerAchievements({ achievements, summary }: Props) {
                 <AchievementStatus key={t.key} achievement={t} />
               ))}
           </Panel>
-        </QueuePageBlock>
+        </SectionBlock>
       )}
       <div style={{ marginBottom: 100 }} />
     </div>

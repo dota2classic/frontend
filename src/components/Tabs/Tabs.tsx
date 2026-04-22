@@ -12,7 +12,7 @@ interface ITabsProps {
   className?: string;
 }
 
-export const Tabs: React.FC<ITabsProps> = ({
+export const SegmentedControl: React.FC<ITabsProps> = ({
   options,
   onSelect,
   selected,
@@ -33,3 +33,5 @@ export const Tabs: React.FC<ITabsProps> = ({
     </div>
   );
 };
+
+export const Tabs = SegmentedControl;

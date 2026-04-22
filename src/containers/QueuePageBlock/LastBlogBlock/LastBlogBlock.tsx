@@ -5,7 +5,7 @@ import { AppRouter } from "@/route";
 import { CarouselItem } from "@/components/CarouselItem";
 import c from "../QueuePageBlock.module.scss";
 import { useTranslation } from "react-i18next";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 export const LastBlogBlock: React.FC = observer(({}) => {
   const { data } = getApi().blog.useBlogpostControllerBlogPage(0, 1);
@@ -13,7 +13,7 @@ export const LastBlogBlock: React.FC = observer(({}) => {
   const { t } = useTranslation();
 
   return (
-    <QueuePageBlock heading={t("queue_page.section.blog")}>
+    <SectionBlock title={t("queue_page.section.blog")}>
       {post ? (
         <CarouselItem
           link={AppRouter.blog.post(post.id).link}
@@ -25,6 +25,6 @@ export const LastBlogBlock: React.FC = observer(({}) => {
       ) : (
         <div className={c.blockContentPlaceholder} />
       )}
-    </QueuePageBlock>
+    </SectionBlock>
   );
 });

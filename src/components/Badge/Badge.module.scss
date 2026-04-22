@@ -2,22 +2,23 @@
 
 .badge {
   padding: 4px 12px;
-  font-size: 1rem;
-  display: inline;
-  border-radius: 16px;
+  font-size: var(--ds-font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--ds-radius-pill);
   font-weight: bold;
   width: fit-content;
   height: fit-content;
   white-space: nowrap;
 
   &.green {
-    color: common.$primaryText;
+    color: var(--ds-color-text-primary);
     background-color: #0a8f29;
   }
 
   &.yellow {
     background-color: #f59e0b;
-    color: common.$darkBg2;
+    color: var(--ds-color-text-on-accent);
   }
 
   &.blue {
@@ -25,13 +26,12 @@
   }
 
   &.grey {
-    color: common.$almostBlack;
+    color: var(--ds-color-text-on-accent);
     background-color: #a8acb4;
   }
 
-
   &.red {
-    color: common.$almostBlack;
-    background-color: common.$error;
+    color: var(--ds-color-text-on-accent);
+    background-color: var(--ds-color-danger);
   }
 }

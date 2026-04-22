@@ -16,7 +16,7 @@ import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { TranslationKey } from "@/TranslationKey";
 import { AutoCarousel } from "@/components/AutoCarousel/AutoCarousel";
 import { shuffle } from "@/util/shuffle";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 export const PlayingNowCarousel: React.FC = observer(() => {
   const { live } = useStore();
@@ -42,7 +42,7 @@ export const PlayingNowCarousel: React.FC = observer(() => {
 
   if (!suitableMatches) return null;
   return (
-    <QueuePageBlock title={t("queue_page.section.playing_now")}>
+    <SectionBlock title={t("queue_page.section.playing_now")}>
       <AutoCarousel interval={5000}>
         {suitableMatches
           .map(({ match, hero }) => {
@@ -96,6 +96,6 @@ export const PlayingNowCarousel: React.FC = observer(() => {
           })
           .filter(Boolean)}
       </AutoCarousel>
-    </QueuePageBlock>
+    </SectionBlock>
   );
 });

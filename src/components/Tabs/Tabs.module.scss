@@ -1,23 +1,32 @@
 @use "../../common.scss";
 
-
-
 .tabs {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: var(--ds-space-2);
   overflow-x: auto;
   scrollbar-width: thin;
 }
 
 .tab {
-  padding: 12px 8px;
-  background-color: common.$bg2;
-  color: common.$primaryTextDark;
-  border-radius: 4px 4px 0px 0px;
+  padding: 12px 10px;
+  background-color: var(--ds-color-bg-elevated);
+  color: var(--ds-color-text-dim);
+  border: 1px solid transparent;
+  border-radius: var(--ds-radius-sm) var(--ds-radius-sm) 0 0;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard),
+    border-color var(--ds-duration-fast) var(--ds-ease-standard);
+
+  &:hover {
+    color: var(--ds-color-text-primary);
+    border-color: var(--ds-color-border-subtle);
+  }
 
   &__active {
-    background-color: common.$bg15;
-    color: common.$primaryText;
+    background-color: var(--ds-color-bg-surface);
+    color: var(--ds-color-text-primary);
+    border-color: var(--ds-color-border-subtle);
   }
 }

@@ -1,7 +1,7 @@
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { TournamentDto, TournamentStatus } from "@/api/back";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import React from "react";
 import c from "./TournamentStyles.module.scss";
 import { TimeAgo } from "@/components/TimeAgo";
@@ -79,7 +79,7 @@ export default function TournamentAdminPage({ tournament }: Props) {
         </PageLink>
         <span>{tournament.name}</span>
       </Breadcrumbs>
-      <QueuePageBlock className={c.block} heading={"Информация о турнире"}>
+      <SectionBlock className={c.block} title={"Информация о турнире"}>
         <div className={c.actions}>
           <Button
             className={c.inline}
@@ -138,11 +138,11 @@ export default function TournamentAdminPage({ tournament }: Props) {
             игроков
           </span>
         </h3>
-      </QueuePageBlock>
+      </SectionBlock>
       <br />
       <br />
       <br />
-      <QueuePageBlock className={c.block} heading={"Настройки сетки"}>
+      <SectionBlock className={c.block} title={"Настройки сетки"}>
         <div className={c.options}>
           <dl>
             <dd>Игроков в команде</dd>
@@ -207,7 +207,7 @@ export default function TournamentAdminPage({ tournament }: Props) {
             <dt>{tournament.enableBanStage ? "Включена" : "-"}</dt>
           </dl>
         </div>
-      </QueuePageBlock>
+      </SectionBlock>
     </>
   );
 }

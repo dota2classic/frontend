@@ -6,7 +6,7 @@ import { PlayerSummary } from "@/components/PlayerSummary";
 import React from "react";
 import { PlayerRecords } from "@/containers/PlayerRecords";
 import { useTranslation } from "react-i18next";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import c from "@/pages/players/[id]/PlayerPage.module.scss";
 
 interface Props {
@@ -40,9 +40,9 @@ export default function PlayerRecordsPage({
         mmr={preloadedSummary.seasonStats.mmr}
       />
 
-      <QueuePageBlock className={c.fullwidth}>
+      <SectionBlock className={c.fullwidth}>
         <PlayerRecords records={records} />
-      </QueuePageBlock>
+      </SectionBlock>
     </div>
   );
 }

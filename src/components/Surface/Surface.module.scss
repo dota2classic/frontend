@@ -1,0 +1,73 @@
+@use "../../common.scss";
+
+.surface {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid var(--ds-color-border-subtle);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-color-bg-surface);
+  box-shadow: var(--ds-shadow-soft);
+}
+
+.padding__none {
+  padding: 0;
+}
+
+.padding__sm {
+  padding: var(--ds-space-3);
+}
+
+.padding__md {
+  padding: var(--ds-space-4);
+}
+
+.padding__lg {
+  padding: var(--ds-space-6);
+}
+
+.variant__canvas {
+  background: var(--ds-color-bg-canvas);
+}
+
+.variant__surface {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.015)
+    ),
+    var(--ds-color-bg-surface);
+}
+
+.variant__raised {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.02)
+    ),
+    var(--ds-color-bg-elevated);
+}
+
+.variant__panel {
+  background-color: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+  border-radius: var(--ds-radius-md);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.interactive {
+  transition:
+    border-color var(--ds-duration-fast) var(--ds-ease-standard),
+    transform var(--ds-duration-fast) var(--ds-ease-standard),
+    box-shadow var(--ds-duration-fast) var(--ds-ease-standard);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--ds-color-border-strong);
+    box-shadow:
+      var(--ds-shadow-soft),
+      0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+}

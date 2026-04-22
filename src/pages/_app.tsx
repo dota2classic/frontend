@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "@/styles/design-tokens.css";
 import "@/styles/scrollbars.css";
 import App, { AppContext, AppInitialProps } from "next/app";
 import { ReferralSniffer } from "@/components/ReferralSniffer";

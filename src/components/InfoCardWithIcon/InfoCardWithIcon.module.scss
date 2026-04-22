@@ -1,40 +1,55 @@
 @use "../../common.scss";
 
 .card {
-  @include common.card();
-
   display: flex;
   flex-direction: column;
-  border-left: 3px solid common.$blueHighlight2;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--ds-color-border-subtle);
+  border-left: 3px solid var(--ds-color-accent-blue-border);
+  border-radius: var(--ds-radius-lg);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.015)
+    ),
+    var(--ds-color-bg-surface);
+  box-shadow: var(--ds-shadow-soft);
+  transition:
+    border-color var(--ds-duration-fast) var(--ds-ease-standard),
+    box-shadow var(--ds-duration-fast) var(--ds-ease-standard),
+    transform var(--ds-duration-fast) var(--ds-ease-standard);
 
   &:hover {
-    border-left-color: common.$blueHighlight;
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.6), -2px 0 12px common.$blueHighlight3;
+    border-left-color: var(--ds-color-accent-blue);
+    box-shadow:
+      var(--ds-shadow-soft),
+      -2px 0 12px rgba(77, 169, 243, 0.18);
+    transform: translateY(-1px);
   }
 }
 
 .icon {
   font-size: 1.6rem;
-  color: common.$blueHighlight;
-  background-color: common.$blueHighlight3;
-  border-radius: 8px;
+  color: var(--ds-color-accent-blue);
+  background-color: var(--ds-color-accent-blue-soft);
+  border-radius: var(--ds-radius-md);
   width: 2.4rem;
   height: 2.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.5rem;
 }
 
 .title {
   font-weight: 700;
   font-size: 1.2rem;
-  padding-bottom: 0.4rem;
-  color: common.$primaryTextHighlight;
+  color: var(--ds-color-text-strong);
 }
 
 .text {
   font-size: 1rem;
-  color: common.$primaryTextSemiDark;
+  color: var(--ds-color-text-muted);
+  line-height: 1.45;
 }

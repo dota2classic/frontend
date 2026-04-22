@@ -6,6 +6,7 @@ import { formatWinrate } from "@/util/math";
 import { useTranslation } from "react-i18next";
 import { HeroIcon } from "../HeroIcon";
 import { Panel } from "../Panel";
+import { StatRow } from "../StatRow";
 
 interface IHeroStatsHeaderProps {
   hero: string;
@@ -29,26 +30,24 @@ export const HeroStatsHeader: React.FC<IHeroStatsHeaderProps> = ({
         <h3 className={c.heroName}>{heroName(hero)}</h3>
       </div>
       <div className="right">
-        <dl>
-          <dd>{popularity}</dd>
-          <dt>{t("hero_stats.popularity")}</dt>
-        </dl>
+        <StatRow label={t("hero_stats.popularity")} value={popularity} />
 
-        <dl>
-          <dd className="green">{games}</dd>
-          <dt>{t("hero_stats.matches")}</dt>
-        </dl>
-        <dl>
-          <dd className="green">{wins}</dd>
-          <dt>{t("hero_stats.wins")}</dt>
-        </dl>
+        <StatRow
+          label={t("hero_stats.matches")}
+          value={games}
+          valueClassName="green"
+        />
+        <StatRow
+          label={t("hero_stats.wins")}
+          value={wins}
+          valueClassName="green"
+        />
 
-        <dl>
-          <dd className={isWinrateNonNegative ? "green" : "red"}>
-            {formatWinrate(wins, games - wins)}
-          </dd>
-          <dt>{t("hero_stats.winrate")}</dt>
-        </dl>
+        <StatRow
+          label={t("hero_stats.winrate")}
+          value={formatWinrate(wins, games - wins)}
+          valueClassName={isWinrateNonNegative ? "green" : "red"}
+        />
       </div>
     </Panel>
   );

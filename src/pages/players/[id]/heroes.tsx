@@ -11,7 +11,7 @@ import { winrate } from "@/util/math";
 import { ColumnType } from "@/const/tables";
 import { useTranslation } from "react-i18next";
 import c from "@/pages/players/[id]/PlayerPage.module.scss";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -47,9 +47,9 @@ export default function PlayerHeroes({
         rank={summary.seasonStats.rank}
         mmr={summary.seasonStats.mmr}
       />
-      <QueuePageBlock
+      <SectionBlock
         className={c.fullwidth}
-        heading={t("player_heroes.heroesHeader")}
+        title={t("player_heroes.heroesHeader")}
       >
         <GenericTable
           columns={[
@@ -118,7 +118,7 @@ export default function PlayerHeroes({
             it.denies,
           ])}
         />
-      </QueuePageBlock>
+      </SectionBlock>
     </div>
   );
 }

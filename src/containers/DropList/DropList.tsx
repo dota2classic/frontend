@@ -24,7 +24,7 @@ import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { Table } from "@/components/Table";
 import { TimeAgo } from "@/components/TimeAgo";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 interface IDropListProps {
   drops: DroppedItemDto[];
@@ -125,7 +125,7 @@ export const DropList: React.FC<IDropListProps> = ({
     } catch (e) {
       await handleException(t("drop_list.errorCreatingTrade"), e);
     }
-  }, [refreshDrops]);
+  }, [refreshDrops, t]);
 
   const discard = useCallback(
     async (item: DroppedItemDto) => {
@@ -136,7 +136,7 @@ export const DropList: React.FC<IDropListProps> = ({
       await getApi().drops.itemDropControllerDiscardDrop(item.assetId);
       await mutate(data!.filter((t) => t.assetId !== item.assetId));
     },
-    [data, mutate],
+    [data, mutate, t],
   );
 
   return (
@@ -160,7 +160,7 @@ export const DropList: React.FC<IDropListProps> = ({
           }}
         />
       </ClientPortal>
-      <QueuePageBlock className={c.fullwidth} heading={t("drop_list.settings")}>
+      <SectionBlock className={c.fullwidth} title={t("drop_list.settings")}>
         <Form>
           <div>
             <header>{t("drop_list.tradeLinkHeader")}</header>
@@ -197,12 +197,9 @@ export const DropList: React.FC<IDropListProps> = ({
             )}
           </div>
         </Form>
-      </QueuePageBlock>
+      </SectionBlock>
 
-      <QueuePageBlock
-        className={c.fullwidth}
-        heading={t("drop_list.donateItems")}
-      >
+      <SectionBlock className={c.fullwidth} title={t("drop_list.donateItems")}>
         <Form>
           <div>
             <p>{t("drop_list.donationInfo")}</p>
@@ -252,9 +249,9 @@ export const DropList: React.FC<IDropListProps> = ({
             </Table>
           </div>
         </Form>
-      </QueuePageBlock>
+      </SectionBlock>
 
-      <QueuePageBlock className={c.fullwidth} heading={t("drop_list.rewards")}>
+      <SectionBlock className={c.fullwidth} title={t("drop_list.rewards")}>
         {drops.length > 0 && (
           <>
             <Button
@@ -277,7 +274,7 @@ export const DropList: React.FC<IDropListProps> = ({
             <h2 className={c.centerHeader}>{t("drop_list.noRewards")}</h2>
           )}
         </div>
-      </QueuePageBlock>
+      </SectionBlock>
     </>
   );
 };

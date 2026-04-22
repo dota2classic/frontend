@@ -1,0 +1,76 @@
+:root {
+  color-scheme: dark;
+
+  /* Surface palette */
+  --ds-color-bg-canvas: #0c0c0c;
+  --ds-color-bg-surface: #121315;
+  --ds-color-bg-elevated: #1c2024;
+  --ds-color-bg-interactive: #242c34;
+  --ds-color-bg-interactive-hover: #2d3842;
+  --ds-color-bg-overlay: rgba(0, 0, 0, 0.8);
+  --ds-color-bg-panel: rgba(255, 255, 255, 0.04);
+
+  /* Text */
+  --ds-color-text-primary: rgb(217, 217, 217);
+  --ds-color-text-strong: rgb(238, 238, 238);
+  --ds-color-text-muted: rgb(170, 170, 170);
+  --ds-color-text-dim: rgb(131, 130, 130);
+  --ds-color-text-faint: rgb(83, 82, 82);
+  --ds-color-text-on-accent: #111315;
+
+  /* Accent */
+  --ds-color-accent-gold: #f8d300;
+  --ds-color-accent-gold-soft: rgba(248, 211, 0, 0.18);
+  --ds-color-accent-red: #c23c2a;
+  --ds-color-accent-green: #92a525;
+  --ds-color-accent-blue: rgb(77, 169, 243);
+  --ds-color-accent-blue-soft: rgba(77, 169, 243, 0.2);
+  --ds-color-accent-blue-border: rgba(77, 169, 243, 0.5);
+  --ds-color-danger: rgb(198, 38, 38);
+
+  /* Borders */
+  --ds-color-border-subtle: rgba(255, 255, 255, 0.08);
+  --ds-color-border-default: rgba(77, 169, 243, 0.2);
+  --ds-color-border-strong: rgba(255, 255, 255, 0.2);
+  --ds-color-border-accent: rgba(248, 211, 0, 0.7);
+
+  /* Typography */
+  --ds-font-size-xs: 0.75rem;
+  --ds-font-size-sm: 0.875rem;
+  --ds-font-size-md: 1rem;
+  --ds-font-size-lg: 1.125rem;
+  --ds-font-size-xl: 1.5rem;
+  --ds-letter-spacing-wide: 0.08em;
+  --ds-letter-spacing-mega: 0.12em;
+
+  /* Spacing */
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-7: 32px;
+
+  /* Radii */
+  --ds-radius-sm: 4px;
+  --ds-radius-md: 8px;
+  --ds-radius-lg: 12px;
+  --ds-radius-xl: 18px;
+  --ds-radius-pill: 999px;
+
+  /* Shadows */
+  --ds-shadow-card: 0 0 10px rgba(0, 0, 0, 1);
+  --ds-shadow-modal: 0 0 12px 6px rgba(0, 0, 0, 0.65);
+  --ds-shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.22);
+
+  /* Motion */
+  --ds-duration-fast: 160ms;
+  --ds-duration-normal: 220ms;
+  --ds-ease-standard: ease;
+
+  /* Component scales */
+  --ds-button-height-md: 44px;
+  --ds-button-height-lg: 56px;
+  --ds-modal-width-md: 700px;
+}

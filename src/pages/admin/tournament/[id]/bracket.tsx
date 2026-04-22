@@ -1,7 +1,7 @@
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { TournamentBracketInfoDto, TournamentDto } from "@/api/back";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import React from "react";
 import c from "./TournamentStyles.module.scss";
 import { AppRouter } from "@/route";
@@ -31,13 +31,13 @@ export default function TournamentBracketPage({ tournament, bracket }: Props) {
         </PageLink>
         <span>Сетка</span>
       </Breadcrumbs>
-      <QueuePageBlock className={c.block} heading={"Сетка"}>
+      <SectionBlock className={c.block} title={"Сетка"}>
         <BracketRenderer
           admin
           uniqueId={"admin-bracket"}
           bracket={mapBracket(bracket)}
         />
-      </QueuePageBlock>
+      </SectionBlock>
     </>
   );
 }

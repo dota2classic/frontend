@@ -38,6 +38,8 @@ import { PageLink } from "../PageLink";
 import { TimeAgo } from "../TimeAgo";
 import { BigTabs } from "../BigTabs";
 import { getApi } from "@/api/hooks";
+import { ActionChip } from "../ActionChip";
+import { StatRow } from "../StatRow";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -271,13 +273,10 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                     </a>
                   )}
                   {isAuthorized && !isMyProfile && (
-                    <button
-                      className={cx(
-                        c.actionBtn,
-                        c.actionBtnDodge,
-                        isDodged && c.actionBtnDodgeActive,
-                      )}
+                    <ActionChip
+                      active={isDodged}
                       onClick={handleDodge}
+                      variant="warning"
                     >
                       <MdPersonOff />
                       {t(
@@ -285,7 +284,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                           ? "player_summary.undodge"
                           : "player_summary.dodge",
                       )}
-                    </button>
+                    </ActionChip>
                   )}
                 </div>
               </div>
@@ -294,8 +293,10 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
 
           <div className={"right"}>
             {session && (
-              <dl data-testid="player-summary-last-game">
-                <dd>
+              <StatRow
+                label={t("player_summary.matchPlaying")}
+                testId="player-summary-last-game"
+                value={
                   <PageLink
                     link={AppRouter.matches.match(session.matchId).link}
                   >
@@ -303,65 +304,67 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                       `matchmaking_mode.${session.lobbyType}` as TranslationKey,
                     )}
                   </PageLink>
-                </dd>
-                <dt>{t("player_summary.matchPlaying")}</dt>
-              </dl>
+                }
+              />
             )}
             {lastGameTimestamp && (
-              <dl data-testid="player-summary-last-game">
-                <dd>{formatShortTime(new Date(lastGameTimestamp))}</dd>
-                <dt>{t("player_summary.lastGame")}</dt>
-              </dl>
+              <StatRow
+                label={t("player_summary.lastGame")}
+                testId="player-summary-last-game"
+                value={formatShortTime(new Date(lastGameTimestamp))}
+              />
             )}
             {banStatus.isBanned && (
-              <dl data-testid="player-summary-win-loss">
-                <Tooltipable
-                  tooltip={t("player_summary.banReason", {
-                    reason: formatBanReason(banStatus.status),
-                  })}
-                >
-                  <dd>
-                    <TimeAgo date={banStatus.bannedUntil} />
-                  </dd>
-                </Tooltipable>
-                <dt>{t("player_summary.ban")}</dt>
-              </dl>
+              <StatRow
+                label={t("player_summary.ban")}
+                testId="player-summary-win-loss"
+                tooltip={t("player_summary.banReason", {
+                  reason: formatBanReason(banStatus.status),
+                })}
+                value={<TimeAgo date={banStatus.bannedUntil} />}
+              />
             )}
-            <dl className={c.games} data-testid="player-summary-win-loss">
-              <Tooltipable tooltip={t("player_summary.winLossTooltip")}>
-                <dd>
+            <StatRow
+              className={c.games}
+              label={t("player_summary.matches")}
+              testId="player-summary-win-loss"
+              tooltip={t("player_summary.winLossTooltip")}
+              value={
+                <>
                   <span className="green">{wins}</span>
                   <span className="red">{loss}</span>
                   <span className="grey">{abandons}</span>
-                </dd>
-              </Tooltipable>
-              <dt>{t("player_summary.matches")}</dt>
-            </dl>
-            <dl data-testid="player-summary-winrate">
-              <dd className={wins > loss ? "green" : "red"}>
-                {formatWinrate(wins, loss)}
-              </dd>
-              <dt>{t("player_summary.winRate")}</dt>
-            </dl>
-            <dl data-testid="player-summary-rating">
-              <dd>{mmr ? <span>{mmr}</span> : t("player_summary.noRating")}</dd>
-              <dt>{t("player_summary.rating")}</dt>
-            </dl>
-            <dl data-testid="player-summary-rank">
-              <dd>
-                {rank && rank > 0 ? (
+                </>
+              }
+            />
+            <StatRow
+              label={t("player_summary.winRate")}
+              testId="player-summary-winrate"
+              value={formatWinrate(wins, loss)}
+              valueClassName={wins > loss ? "green" : "red"}
+            />
+            <StatRow
+              label={t("player_summary.rating")}
+              testId="player-summary-rating"
+              value={mmr ? <span>{mmr}</span> : t("player_summary.noRating")}
+            />
+            <StatRow
+              label={t("player_summary.rank")}
+              testId="player-summary-rank"
+              value={
+                rank && rank > 0 ? (
                   <span>{rank}</span>
                 ) : (
                   t("player_summary.noRank")
-                )}
-              </dd>
-              <dt>{t("player_summary.rank")}</dt>
-            </dl>
+                )
+              }
+            />
             {isAuthorized && !isMyProfile && (
               <div className={c.actionStack}>
-                <button
-                  className={cx(c.actionBtn, isFriend && c.actionBtnFriend)}
+                <ActionChip
+                  active={isFriend}
                   onClick={handleFriend}
+                  variant={isFriend ? "success" : "neutral"}
                 >
                   {isFriend ? <MdPersonRemove /> : <MdPersonAdd />}
                   {t(
@@ -369,10 +372,11 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                       ? "player_summary.unfriend"
                       : "player_summary.friend",
                   )}
-                </button>
-                <button
-                  className={cx(c.actionBtn, isBlocked && c.actionBtnBlock)}
+                </ActionChip>
+                <ActionChip
+                  active={isBlocked}
                   onClick={handleBlock}
+                  variant={isBlocked ? "danger" : "neutral"}
                 >
                   <MdBlock />
                   {t(
@@ -380,7 +384,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                       ? "player_summary.unblock"
                       : "player_summary.block",
                   )}
-                </button>
+                </ActionChip>
               </div>
             )}
           </div>

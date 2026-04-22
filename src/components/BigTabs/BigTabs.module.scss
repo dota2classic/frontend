@@ -5,10 +5,7 @@
   flex-direction: row;
   align-self: stretch;
   overflow-x: auto;
-
   scrollbar-width: thin;
-
-  //background-color: common.$panelBg;
 
   &__small {
     & .option {
@@ -32,6 +29,7 @@
 
   cursor: pointer;
   transition: 0.3s ease;
+
   &:hover {
     box-shadow: inset 0 -2px 0 common.$blueHighlight !important;
   }

@@ -55,7 +55,7 @@ export class ClaimItemStore {
       this.claimQueue.push({
         notificationId: notification.id,
         type: ClaimType.SUBSCRIPTION,
-        title: "Подписка приобретена!",
+        title: "claim_container.subscriptionTitle",
         item: {
           image: "/maskot/present.png",
           label: "claim_container.dotaclassicPlus",
@@ -73,7 +73,7 @@ export class ClaimItemStore {
       this.claimQueue.push({
         notificationId: notification.id,
         type: ClaimType.ITEM_DROP,
-        title: "Получена награда!",
+        title: "claim_container.rewardTitle",
         item: {
           image: marketItem.image,
           label: marketItem.marketHashName,

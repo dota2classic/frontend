@@ -18,7 +18,7 @@ import { TranslationKey } from "@/TranslationKey";
 import { FaTrophy } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
 import { Timeline } from "@/components/Timeline";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
@@ -72,7 +72,7 @@ export default function TournamentPage({ tournament }: Props) {
         await handleException(t("tournament.invite.error"), e);
       }
     },
-    [tournament.id, setInviteVisible],
+    [t, tournament.id, setInviteVisible],
   );
 
   const aspects = useMemo(() => {
@@ -114,7 +114,7 @@ export default function TournamentPage({ tournament }: Props) {
       <TournamentTabs tournament={tournament} />
       <div className={cx(c.container, NotoSans.className)}>
         <div className={c.main_info}>
-          <QueuePageBlock simple heading={t("tournament.common.format")}>
+          <SectionBlock title={t("tournament.common.format")} variant="simple">
             <div className={c.format}>
               <InfoCardWithIcon
                 icon={<TbTournament />}
@@ -174,16 +174,19 @@ export default function TournamentPage({ tournament }: Props) {
                 />
               )}
             </div>
-          </QueuePageBlock>
-          <QueuePageBlock heading={t("tournament.common.description")}>
+          </SectionBlock>
+          <SectionBlock title={t("tournament.common.description")}>
             <div className={c.description}>
               <p>{tournament.description}</p>
             </div>
-          </QueuePageBlock>
+          </SectionBlock>
         </div>
         <div className={c.side_info}>
           {registration && (
-            <QueuePageBlock simple heading={t("tournament.common.yourTeam")}>
+            <SectionBlock
+              title={t("tournament.common.yourTeam")}
+              variant="simple"
+            >
               <RegistrationCard registration={registration} />
               <Button
                 variant="primary"
@@ -192,9 +195,9 @@ export default function TournamentPage({ tournament }: Props) {
               >
                 {t("tournament.common.invite")}
               </Button>
-            </QueuePageBlock>
+            </SectionBlock>
           )}
-          <QueuePageBlock simple heading={t("tournament.common.teams")}>
+          <SectionBlock title={t("tournament.common.teams")} variant="simple">
             <div className={c.register_card}>
               <dl>
                 <dd>{t("tournament.common.registered")}</dd>
@@ -225,8 +228,11 @@ export default function TournamentPage({ tournament }: Props) {
               {/*  <dt>8</dt>*/}
               {/*</dl>*/}
             </div>
-          </QueuePageBlock>
-          <QueuePageBlock simple heading={t("tournament.common.schedule")}>
+          </SectionBlock>
+          <SectionBlock
+            title={t("tournament.common.schedule")}
+            variant="simple"
+          >
             <Timeline
               className={c.timeline}
               items={[
@@ -250,7 +256,7 @@ export default function TournamentPage({ tournament }: Props) {
                 },
               ]}
             />
-          </QueuePageBlock>
+          </SectionBlock>
         </div>
       </div>
     </div>

@@ -33,7 +33,7 @@ import { Logo } from "@/components/Logo";
 import { Panel } from "@/components/Panel";
 import { Button } from "@/components/Button";
 import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -114,9 +114,9 @@ export default function PlayerSettings({ summary, decorations }: Props) {
         rank={summary.seasonStats.rank}
         mmr={summary.seasonStats.mmr}
       />
-      <QueuePageBlock
+      <SectionBlock
         className={cx(c.fullwidth)}
-        heading={
+        title={
           <>
             <Logo size={30} /> dotaclassic plus
           </>
@@ -144,10 +144,10 @@ export default function PlayerSettings({ summary, decorations }: Props) {
               : t("player_settings.subscribe")}
           </Button>
         </Panel>
-      </QueuePageBlock>
-      <QueuePageBlock
+      </SectionBlock>
+      <SectionBlock
         className={cx(c.fullwidth)}
-        heading={
+        title={
           <>
             <GiAngelWings className={"gold"} />{" "}
             {t("player_settings.profileDecoration")}
@@ -155,10 +155,10 @@ export default function PlayerSettings({ summary, decorations }: Props) {
         }
       >
         <EditProfileDecorations decorations={decorations} user={summary.user} />
-      </QueuePageBlock>
-      <QueuePageBlock
+      </SectionBlock>
+      <SectionBlock
         className={cx(c.fullwidth)}
-        heading={
+        title={
           <>
             <SiAdblock className={"red"} /> {t("player_settings.recalibration")}
           </>
@@ -196,10 +196,10 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             </Button>
           )}
         </Panel>
-      </QueuePageBlock>
-      <QueuePageBlock
+      </SectionBlock>
+      <SectionBlock
         className={cx(c.fullwidth)}
-        heading={
+        title={
           <>
             <SiAdblock className={"red"} />{" "}
             {t("player_settings.avoidedPlayers")}
@@ -247,11 +247,11 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             {t("player_settings.avoidPlayer")}
           </Button>
         </Panel>
-      </QueuePageBlock>
+      </SectionBlock>
 
-      <QueuePageBlock
+      <SectionBlock
         className={cx(c.fullwidth)}
-        heading={
+        title={
           <>
             <FaTwitch className={c.twitch} /> {t("player_settings.twitch")}
           </>
@@ -299,7 +299,7 @@ export default function PlayerSettings({ summary, decorations }: Props) {
             )}
           </div>
         </Panel>
-      </QueuePageBlock>
+      </SectionBlock>
     </div>
   );
 }

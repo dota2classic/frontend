@@ -11,6 +11,7 @@ import DatePicker from "react-datepicker";
 import { isInFuture } from "@/util/time";
 import { useAsyncButton } from "@/util/use-async-button";
 import { useTranslation } from "react-i18next";
+import { Field } from "@/components/Field";
 
 interface IAdminPlayerBanSettingsProps {
   steamId: string;
@@ -41,30 +42,37 @@ export const AdminPlayerBanSettings: React.FC<IAdminPlayerBanSettingsProps> = ({
       {data ? (
         <>
           <div className={"nicerow"}>
-            <p>{t("admin_player_ban_settings.endTimeLabel")}</p>
-            <DatePicker
-              disabled={isSettingDate}
-              customInputRef={""}
-              showTimeSelect
-              timeIntervals={1}
-              dateFormat={"dd MMMM yyyy HH:mm"}
-              customInput={
-                <Input
-                  placeholder={t("admin_player_ban_settings.assignLabel")}
-                  className={cx(
-                    "iso",
-                    isInFuture(data.banStatus.bannedUntil)
-                      ? c.active
-                      : c.inactive,
-                  )}
+            <Field
+              className={c.banField}
+              hint={t("admin_player_ban_settings.assignLabel")}
+              label={t("admin_player_ban_settings.endTimeLabel")}
+            >
+              <div className={c.banRow}>
+                <DatePicker
+                  disabled={isSettingDate}
+                  customInputRef={""}
+                  showTimeSelect
+                  timeIntervals={1}
+                  dateFormat={"dd MMMM yyyy HH:mm"}
+                  customInput={
+                    <Input
+                      placeholder={t("admin_player_ban_settings.assignLabel")}
+                      className={cx(
+                        "iso",
+                        isInFuture(data.banStatus.bannedUntil)
+                          ? c.active
+                          : c.inactive,
+                      )}
+                    />
+                  }
+                  selected={new Date(data.banStatus.bannedUntil)}
+                  onChange={setBanDate}
                 />
-              }
-              selected={new Date(data.banStatus.bannedUntil)}
-              onChange={setBanDate}
-            />
-            <Button small onClick={() => setBanDate(null)}>
-              {t("admin_player_ban_settings.removeBanLabel")}
-            </Button>
+                <Button small onClick={() => setBanDate(null)}>
+                  {t("admin_player_ban_settings.removeBanLabel")}
+                </Button>
+              </div>
+            </Field>
           </div>
           <br />
           <AdminRuleViolationContainer

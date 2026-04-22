@@ -18,7 +18,7 @@ import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { HeroPerformanceTable } from "@/components/HeroPerformanceTable";
 import { PlayerPentagonStats } from "@/components/PlayerPentagonStats";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import { Panel } from "@/components/Panel";
@@ -76,9 +76,9 @@ export default function PlayerPage({
         mmr={summary.seasonStats.mmr}
       />
 
-      <QueuePageBlock
+      <SectionBlock
         className={c.achievements_panel}
-        heading={t("player_page.summary")}
+        title={t("player_page.summary")}
       >
         <Panel className={c.achievements_carousel}>
           {achievements
@@ -96,12 +96,9 @@ export default function PlayerPage({
               <AchievementStatus key={t.key} achievement={t} />
             ))}
         </Panel>
-      </QueuePageBlock>
+      </SectionBlock>
 
-      <QueuePageBlock
-        className={c.matchHistory}
-        heading={t("player_page.summary")}
-      >
+      <SectionBlock className={c.matchHistory} title={t("player_page.summary")}>
         <PlayerPentagonStats
           games={summary.seasonStats.gamesPlayed}
           aspects={summary.aspects}
@@ -112,11 +109,11 @@ export default function PlayerPage({
           playtime={summary.seasonStats.playtime}
           wins={summary.seasonStats.wins}
         />
-      </QueuePageBlock>
-      <QueuePageBlock
-        heading={t("player_page.topHeroes")}
+      </SectionBlock>
+      <SectionBlock
+        title={t("player_page.topHeroes")}
         className={c.heroPerformance}
-        icons={
+        actions={
           <PageLink link={AppRouter.players.player.heroes(playerId).link}>
             {t("tables.showAll")}
           </PageLink>
@@ -127,7 +124,7 @@ export default function PlayerPage({
           loading={false}
           data={formattedHeroStats}
         />
-      </QueuePageBlock>
+      </SectionBlock>
       {/*<Section className={c.heroPerformance}>*/}
       {/*  <header data-testid="player-hero-performance-header">*/}
       {/*    <span>{t("player_page.topHeroes")}</span>*/}

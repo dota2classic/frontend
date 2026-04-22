@@ -18,6 +18,7 @@ import { SelectOptions } from "@/components/SelectOptions";
 import { Checkbox } from "@/components/Checkbox";
 import { Button } from "@/components/Button";
 import { NotoSans } from "@/const/notosans";
+import { Field } from "@/components/Field";
 
 interface IEditLobbyModalProps {
   onClose: () => void;
@@ -57,8 +58,7 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
       onClose={onClose}
     >
       <div className={cx(c.settings, NotoSans.className)}>
-        <div className={c.formItem}>
-          <header>{t("edit_lobby.name")}</header>
+        <Field label={t("edit_lobby.name")}>
           <Input
             placeholder={t("edit_lobby.lobbyName")}
             value={lobbySettings.name || ""}
@@ -66,10 +66,9 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
               setLobbySettings((r) => ({ ...r, name: e.target.value }))
             }
           />
-        </div>
+        </Field>
 
-        <div className={c.formItem}>
-          <header>{t("edit_lobby.password")}</header>
+        <Field label={t("edit_lobby.password")}>
           <Input
             placeholder={t("edit_lobby.noPassword")}
             value={lobbySettings.password || ""}
@@ -77,9 +76,8 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
               setLobbySettings((r) => ({ ...r, password: e.target.value }))
             }
           />
-        </div>
-        <div className={c.formItem}>
-          <header>{t("edit_lobby.map")}</header>
+        </Field>
+        <Field label={t("edit_lobby.map")}>
           <SelectOptions
             options={dotaMapOptions}
             selected={lobbySettings.map || lobby.map}
@@ -90,9 +88,8 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
             }}
             defaultText={t("edit_lobby.selectMap")}
           />
-        </div>
-        <div className={c.formItem}>
-          <header>{t("edit_lobby.gameMode")}</header>
+        </Field>
+        <Field label={t("edit_lobby.gameMode")}>
           <SelectOptions
             options={dotaGameModeOptions}
             selected={lobbySettings.gameMode || lobby.gameMode}
@@ -103,9 +100,8 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
             }}
             defaultText={t("edit_lobby.selectGameMode")}
           />
-        </div>
-        <div className={c.formItem}>
-          <header>{t("edit_lobby.patch")}</header>
+        </Field>
+        <Field label={t("edit_lobby.patch")}>
           <SelectOptions
             options={DotaPatchOptions}
             selected={lobbySettings.patch || lobby.patch}
@@ -116,9 +112,8 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
             }}
             defaultText={t("edit_lobby.gamePatch")}
           />
-        </div>
-        <div className={c.formItem}>
-          <header>{t("edit_lobby.server")}</header>
+        </Field>
+        <Field label={t("edit_lobby.server")}>
           <SelectOptions
             options={RegionOptions}
             selected={lobbySettings.region || lobby.region}
@@ -129,9 +124,8 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
             }}
             defaultText={t("edit_lobby.serverRegion")}
           />
-        </div>
-        <div className={cx(c.formItem, c.checkboxes)}>
-          <header>{t("edit_lobby.settingsHeader")}</header>
+        </Field>
+        <Field className={c.checkboxes} label={t("edit_lobby.settingsHeader")}>
           <div className={c.box}>
             <Checkbox
               checked={lobbySettings.enableCheats}
@@ -183,23 +177,24 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
             </Checkbox>
             <p>{t("edit_lobby.midModeDescription")}</p>
           </div>
-          <div className={cx(c.box, c.formItem__inline, c.formItem)}>
-            <Input
-              type="number"
-              min={1}
-              max={100}
-              step={1}
-              value={lobbySettings.midTowerKillsToWin}
-              onChange={(e) =>
-                setLobbySettings((r) => ({
-                  ...r,
-                  midTowerKillsToWin: Number(e.target.value),
-                }))
-              }
-            />
-            <span>{t("edit_lobby.killsToWin")}</span>
+          <div className={c.box}>
+            <Field label={t("edit_lobby.killsToWin")} layout="horizontal">
+              <Input
+                type="number"
+                min={1}
+                max={100}
+                step={1}
+                value={lobbySettings.midTowerKillsToWin}
+                onChange={(e) =>
+                  setLobbySettings((r) => ({
+                    ...r,
+                    midTowerKillsToWin: Number(e.target.value),
+                  }))
+                }
+              />
+            </Field>
           </div>
-        </div>
+        </Field>
 
         <Button className={c.startGame} onClick={updateLobby}>
           {t("edit_lobby.saveChanges")}

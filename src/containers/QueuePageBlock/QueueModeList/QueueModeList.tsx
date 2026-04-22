@@ -4,7 +4,7 @@ import c from "./QueueModeList.module.scss";
 import { SelectMatchmakingMode } from "./SelectMatchmakingMode";
 import { MatchmakingInfo } from "@/api/back";
 import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import { useTranslation } from "react-i18next";
 
 interface IQueueModeListProps {
@@ -25,12 +25,12 @@ export const QueueModeList: React.FC<IQueueModeListProps> = ({ modes }) => {
     [modes],
   );
   return (
-    <QueuePageBlock heading={t("queue_page.section.search")}>
+    <SectionBlock title={t("queue_page.section.search")}>
       <div className={c.modes}>
         {enabledModes.map((mode) => (
           <SelectMatchmakingMode key={mode.lobbyType} mode={mode.lobbyType} />
         ))}
       </div>
-    </QueuePageBlock>
+    </SectionBlock>
   );
 };

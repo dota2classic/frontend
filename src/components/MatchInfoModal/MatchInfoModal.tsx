@@ -7,7 +7,6 @@ import {
   ParticipantResultDto,
 } from "@/api/back";
 import { GenericModal } from "@/components/GenericModal";
-import { Tabs } from "@/components/Tabs";
 import { BigTabs } from "@/components/BigTabs";
 import { IBigTabsProps } from "@/components/BigTabs/BigTabs";
 import { useTranslation } from "react-i18next";

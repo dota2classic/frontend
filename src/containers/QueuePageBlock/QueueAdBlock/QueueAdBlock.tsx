@@ -3,12 +3,12 @@ import cx from "clsx";
 import Image from "next/image";
 import c from "@/containers/NewQueuePage/NewQueuePage.module.scss";
 import React from "react";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 export const QueueAdBlock = () => {
   const { t } = useTranslation();
   return (
-    <QueuePageBlock heading={t("queue_page.section.partners")}>
+    <SectionBlock title={t("queue_page.section.partners")}>
       <a href="https://collectorsshop.ru/promo/old" target="__blank">
         {/*<Image*/}
         {/*  className={cx(c.imgHorizontal, c.imgHorizontal__large)}*/}
@@ -29,6 +29,6 @@ export const QueueAdBlock = () => {
           height={120}
         />
       </a>
-    </QueuePageBlock>
+    </SectionBlock>
   );
 };

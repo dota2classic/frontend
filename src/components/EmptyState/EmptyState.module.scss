@@ -1,0 +1,52 @@
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 28px;
+  border: 1px solid var(--ds-color-border-subtle);
+  border-radius: var(--ds-radius-lg);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.01)
+    ),
+    var(--ds-color-bg-surface);
+  box-shadow: var(--ds-shadow-soft);
+  text-align: center;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--ds-radius-pill);
+  border: 1px solid var(--ds-color-border-accent);
+  color: var(--ds-color-accent-gold);
+  background: var(--ds-color-accent-gold-soft);
+  font-size: 1.2rem;
+}
+
+.title {
+  margin: 0;
+  color: var(--ds-color-text-strong);
+  font-size: 1.35rem;
+}
+
+.description {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--ds-color-text-muted);
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}

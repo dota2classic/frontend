@@ -7,7 +7,6 @@ import { ReceiveSubscriptionModal } from "../ReceiveSubscriptionModal";
 export const ClaimContainer: React.FC = observer(() => {
   const { t } = useTranslation();
   const { claim, notify } = useStore();
-
   const first = claim.claimQueue[0];
 
   const onClose = useCallback(() => {
@@ -19,13 +18,16 @@ export const ClaimContainer: React.FC = observer(() => {
 
   return (
     <ReceiveSubscriptionModal
+      type={first.type}
       imageSize={"small"}
       onClose={onClose}
-      title={first.title}
+      title={t(first.title as never)}
       onAcknowledge={() => undefined}
       item={{
         image: first.item.image,
-        name: first.item.label,
+        name: t(first.item.label as never, {
+          defaultValue: String(first.item.label),
+        }),
         className: first.item.className,
       }}
       action={{

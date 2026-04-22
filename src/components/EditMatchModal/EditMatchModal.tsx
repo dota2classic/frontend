@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { GenericModal } from "@/components/GenericModal";
 import { BracketMatchDto } from "@/api/back";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import c from "./EditMatchModal.module.scss";
 import cx from "clsx";
 import { getApi } from "@/api/hooks";
@@ -73,7 +73,7 @@ export const EditMatchModal: React.FC<IEditMatchModalProps> = ({
       onClose={onClose}
       title={"Редактирование матча"}
     >
-      <QueuePageBlock heading={"Матч"}>
+      <SectionBlock title={"Матч"}>
         <Table>
           <tbody>
             <tr>
@@ -84,8 +84,8 @@ export const EditMatchModal: React.FC<IEditMatchModalProps> = ({
             </tr>
           </tbody>
         </Table>
-      </QueuePageBlock>
-      <QueuePageBlock heading={"Игры"}>
+      </SectionBlock>
+      <SectionBlock title={"Игры"}>
         <div className={cx(c.games, NotoSans.className)}>
           {match.games
             .sort((a, b) => a.number - b.number)
@@ -99,7 +99,7 @@ export const EditMatchModal: React.FC<IEditMatchModalProps> = ({
               />
             ))}
         </div>
-      </QueuePageBlock>
+      </SectionBlock>
     </GenericModal>
   );
 };

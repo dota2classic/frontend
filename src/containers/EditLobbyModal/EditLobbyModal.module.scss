@@ -29,29 +29,6 @@
   row-gap: 1rem;
 }
 
-.formItem {
-  & header {
-    margin-block-start: 0rem;
-    margin-block-end: 0.5rem;
-  }
-
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-
-  &__inline {
-    align-items: center;
-    justify-content: stretch;
-
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 24px;
-    & span {
-      flex: 1;
-    }
-  }
-}
-
 .box {
   @include common.card();
 
@@ -64,7 +41,7 @@
   position: relative;
   cursor: not-allowed;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.3);

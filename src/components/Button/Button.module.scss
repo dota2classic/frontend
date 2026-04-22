@@ -2,43 +2,45 @@
 
 .button {
   position: relative;
-  //border: 1px solid common.$transparentTint;
   outline: none;
-  font-size: 1rem;
-  padding: 12px;
-  transition: 0.2s;
+  min-height: var(--ds-button-height-md);
+  font-size: var(--ds-font-size-md);
+  padding: 12px 16px;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    border-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard),
+    transform var(--ds-duration-fast) var(--ds-ease-standard);
   cursor: pointer;
-  border: none;
+  border: 1px solid transparent;
   user-select: none;
 
-  color: common.$primaryText;
-  background-color: common.$bg3;
+  color: var(--ds-color-text-primary);
+  background-color: var(--ds-color-bg-interactive);
 
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5em;
 
   font-weight: bold;
-  border-radius: 0.6rem;
-
-  & svg {
-    margin-right: 0.5em;
-  }
+  border-radius: var(--ds-radius-md);
 
   &:disabled {
     cursor: not-allowed;
-    color: common.$primaryTextDark;
+    color: var(--ds-color-text-dim);
   }
 
   &:not([disabled]):focus,
   &:not([disabled]):hover {
-    background-color: common.$bg4;
+    background-color: var(--ds-color-bg-interactive-hover);
   }
 }
 
 .smaller {
-  padding: 8px !important;
-  font-size: 1rem !important;
+  min-height: 36px;
+  padding: 8px 12px !important;
+  font-size: var(--ds-font-size-sm) !important;
 }
 
 @keyframes shinyText {
@@ -57,23 +59,29 @@
   outline: none;
   text-transform: uppercase;
   z-index: 10;
-  white-space: pre;
+  white-space: pre-wrap;
   color: #ed3b1c;
-  border: 2px solid common.$primaryText;
-  border-radius: 4px;
+  border: 2px solid var(--ds-color-text-strong);
+  border-radius: var(--ds-radius-sm);
+  min-height: var(--ds-button-height-lg);
   font-size: 1.5rem;
-  letter-spacing: 2.5px;
+  letter-spacing: var(--ds-letter-spacing-mega);
   font-weight: bold;
-  //background-color: $bg15;
   padding: 20px 20px 20px 20px;
-  transition: 0.2s ease;
+  transition:
+    border-color var(--ds-duration-fast) var(--ds-ease-standard),
+    transform var(--ds-duration-fast) var(--ds-ease-standard),
+    background-size var(--ds-duration-normal) var(--ds-ease-standard);
   cursor: pointer;
   text-align: center;
 
   display: flex;
   flex-direction: column;
 
-  background: radial-gradient(common.$gold 0%, common.$red 100%);
+  background: radial-gradient(
+    var(--ds-color-accent-gold) 0%,
+    var(--ds-color-accent-red) 100%
+  );
   background-size: 150% 150%;
   animation: shinyText 3s ease alternate infinite;
   background-clip: text;
@@ -88,7 +96,7 @@
 
   &:disabled {
     background-clip: unset;
-    background: common.$bg1 !important;
+    background: var(--ds-color-bg-canvas) !important;
     -webkit-text-fill-color: unset;
   }
 
@@ -97,18 +105,9 @@
   &:not([disabled]):active {
     background-size: 250% 250% !important;
     color: #ee2c0a;
-    border-color: common.$primaryTextHighlight;
+    border-color: var(--ds-color-text-strong);
     transform: translateY(-2px);
   }
-
-  //&::before {
-  //  content: "";
-  //  position: absolute;
-  //  inset: 0;
-  //  background-color: #1c2024cc; // background of the button
-  //  border-radius: inherit;
-  //  z-index: -1;
-  //}
 }
 
 @for $i from 0 through 3 {
@@ -164,16 +163,28 @@
 
 .primary {
   background-color: #0f8394;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
 
   &:disabled {
     cursor: not-allowed;
-    color: common.$primaryTextDark;
+    color: var(--ds-color-text-dim);
   }
 
   &:not([disabled]):focus,
   &:not([disabled]):hover {
     background-color: #086472;
   }
+}
 
+.ghost {
+  border-color: var(--ds-color-border-subtle);
+  background-color: transparent;
+  color: var(--ds-color-text-muted);
+
+  &:not([disabled]):focus,
+  &:not([disabled]):hover {
+    border-color: var(--ds-color-border-strong);
+    background-color: rgba(255, 255, 255, 0.03);
+    color: var(--ds-color-text-strong);
+  }
 }

@@ -2,6 +2,7 @@ import React from "react";
 
 import c from "./Panel.module.scss";
 import cx from "clsx";
+import { Surface } from "../Surface";
 
 export const Panel = (
   props: React.DetailedHTMLProps<
@@ -10,8 +11,13 @@ export const Panel = (
   >,
 ) => {
   return (
-    <div {...props} className={cx(props.className, c.panel)}>
+    <Surface
+      {...props}
+      className={cx(props.className, c.panel)}
+      padding="none"
+      variant="panel"
+    >
       {props.children}
-    </div>
+    </Surface>
   );
 };

@@ -4,6 +4,8 @@
     "default_action_label": "Default Action Label",
     "customizeProfile": "Настроить профиль",
     "dotaclassicPlus": "dotaclassic plus",
-    "claim": "Получить"
+    "claim": "Получить",
+    "subscriptionTitle": "Подписка активирована!",
+    "rewardTitle": "Награда получена!"
   }
 }
