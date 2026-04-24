@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .badge {
   padding: 4px 12px;
   font-size: var(--ds-font-size-sm);
@@ -13,21 +11,21 @@
 
   &.green {
     color: var(--ds-color-text-primary);
-    background-color: #0a8f29;
+    background-color: var(--ds-color-status-success);
   }
 
   &.yellow {
-    background-color: #f59e0b;
+    background-color: var(--ds-color-status-warning);
     color: var(--ds-color-text-on-accent);
   }
 
   &.blue {
-    background-color: #3b82f6;
+    background-color: var(--ds-color-status-info);
   }
 
   &.grey {
     color: var(--ds-color-text-on-accent);
-    background-color: #a8acb4;
+    background-color: var(--ds-color-status-neutral);
   }
 
   &.red {

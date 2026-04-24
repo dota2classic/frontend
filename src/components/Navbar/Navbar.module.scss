@@ -5,8 +5,8 @@
   top: 0;
   left: 0;
   right: 0;
-  background: common.$bg2;
-  color: common.$primaryText;
+  background: var(--ds-color-bg-elevated);
+  color: var(--ds-color-text-primary);
   z-index: 100000;
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
 }
@@ -65,7 +65,7 @@
       display: flex !important;
       flex-direction: column;
       width: 100vw;
-      background: common.$bg2;
+      background: var(--ds-color-bg-elevated);
       height: calc(100dvh - 44px);
       top: 44px;
       font-size: 22px;
@@ -114,13 +114,13 @@
 .user {
   min-width: 100px;
   @include common.mobile {
-    border: 1px solid common.$transparentTint;
+    border: 1px solid var(--ds-color-accent-blue-soft);
     outline: none;
     border-radius: 4px;
     transition: 0.3s ease;
-    color: common.$primaryText;
+    color: var(--ds-color-text-primary);
     cursor: pointer;
-    background-color: common.$bg2;
+    background-color: var(--ds-color-bg-elevated);
   }
 }
 
@@ -136,7 +136,7 @@
 }
 
 .liveMatch {
-  color: common.$gold;
+  color: var(--ds-color-accent-gold);
   //overflow: hidden;
   position: relative;
   //width: 13ch;

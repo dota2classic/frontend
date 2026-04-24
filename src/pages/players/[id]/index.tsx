@@ -21,8 +21,8 @@ import { PlayerPentagonStats } from "@/components/PlayerPentagonStats";
 import { SectionBlock } from "@/components/SectionBlock";
 import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
-import { Panel } from "@/components/Panel";
 import { AchievementStatus } from "@/components/AchievementStatus";
+import { Surface } from "@/components/Surface";
 
 interface PlayerPageProps {
   playerId: string;
@@ -80,7 +80,11 @@ export default function PlayerPage({
         className={c.achievements_panel}
         title={t("player_page.summary")}
       >
-        <Panel className={c.achievements_carousel}>
+        <Surface
+          className={c.achievements_carousel}
+          padding="xs"
+          variant="panel"
+        >
           {achievements
             .sort((a, b) => {
               function score(d: AchievementDto) {
@@ -95,7 +99,7 @@ export default function PlayerPage({
             .map((t) => (
               <AchievementStatus key={t.key} achievement={t} />
             ))}
-        </Panel>
+        </Surface>
       </SectionBlock>
 
       <SectionBlock className={c.matchHistory} title={t("player_page.summary")}>

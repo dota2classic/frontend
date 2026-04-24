@@ -3,12 +3,9 @@
 
 .heroSummary {
   grid-column: span 24;
-  flex-direction: row;
 
-  & :global(.left) {
-    & img {
-      margin-right: 1rem;
-    }
+  & img {
+    margin-right: 1rem;
   }
 }
 
@@ -16,4 +13,3 @@
 .heroName {
 
 }
-

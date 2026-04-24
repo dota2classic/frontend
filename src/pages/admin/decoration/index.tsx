@@ -5,12 +5,12 @@ import { ProfileDecorationDto, UserProfileDecorationType } from "@/api/back";
 import { BigTabs, type TabItem } from "@/components/BigTabs";
 import { Button } from "@/components/Button";
 import { PageLink } from "@/components/PageLink";
-import { Panel } from "@/components/Panel";
 import { AppRouter } from "@/route";
 import { enumValues } from "@/util/enumValues";
 import c from "./Decorations.module.scss";
 import cx from "clsx";
 import { useTranslation } from "react-i18next";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   decorations: ProfileDecorationDto[];
@@ -46,7 +46,12 @@ export default function DecorationList({ decorations, type }: Props) {
         )}
       >
         {decorations.map((decoration) => (
-          <Panel key={decoration.id} className={c.decorationCard}>
+          <Surface
+            key={decoration.id}
+            className={c.decorationCard}
+            padding="xs"
+            variant="panel"
+          >
             <PageLink
               className="link"
               link={AppRouter.admin.decoration.edit(decoration.id).link}
@@ -54,7 +59,7 @@ export default function DecorationList({ decorations, type }: Props) {
               <header>{decoration.title}</header>
             </PageLink>
             <img src={decoration.image.url} alt="" />
-          </Panel>
+          </Surface>
         ))}
       </div>
     </>

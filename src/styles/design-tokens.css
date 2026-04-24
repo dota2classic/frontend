@@ -28,6 +28,12 @@
   --ds-color-accent-blue-border: rgba(77, 169, 243, 0.5);
   --ds-color-danger: rgb(198, 38, 38);
 
+  /* Status */
+  --ds-color-status-success: #0a8f29;
+  --ds-color-status-warning: #f59e0b;
+  --ds-color-status-info: #3b82f6;
+  --ds-color-status-neutral: #a8acb4;
+
   /* Borders */
   --ds-color-border-subtle: rgba(255, 255, 255, 0.08);
   --ds-color-border-default: rgba(77, 169, 243, 0.2);

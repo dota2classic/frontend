@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, useEffect, useRef } from "react";
 
 import c from "./AutoCarousel.module.scss";
-import { Panel } from "@/components/Panel";
 import cx from "clsx";
+import { Surface } from "@/components/Surface";
 
 interface IAutoCarouselProps {
   className?: string;
@@ -92,19 +92,21 @@ export const AutoCarousel: React.FC<PropsWithChildren<IAutoCarouselProps>> = ({
   }, [interval, isVertical]);
 
   return (
-    <Panel
+    <Surface
       ref={carouselRef}
       className={cx(
         c.carousel,
         className,
         orientation === "vertical" && c.carousel__vertical,
       )}
+      padding="xs"
+      variant="panel"
     >
       {clones.map((child, idx) => (
         <div key={idx} className={c.carouselItem}>
           {child}
         </div>
       ))}
-    </Panel>
+    </Surface>
   );
 };

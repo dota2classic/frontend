@@ -7,7 +7,6 @@
   padding-bottom: 88px;
 }
 
-.hero,
 .section,
 .finalCtaSection {
   width: min(1480px, calc(100% - 40px));
@@ -18,13 +17,15 @@
   position: relative;
   overflow: hidden;
   min-height: 100vh;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0 0 32px 32px;
-  margin-top: 0;
   background: #060708;
-  box-shadow:
-    0 30px 120px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.heroContent {
+  width: min(1480px, calc(100% - 40px));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .heroMedia,
@@ -42,6 +43,7 @@
 
 .heroOverlay {
   background:
+    linear-gradient(to bottom, transparent 55%, #070809 100%),
     linear-gradient(90deg, rgba(7, 8, 10, 0.94) 0%, rgba(7, 8, 10, 0.82) 35%, rgba(7, 8, 10, 0.44) 100%),
     radial-gradient(circle at 84% 24%, rgba(194, 60, 42, 0.24), transparent 20%),
     radial-gradient(circle at 82% 72%, rgba(248, 211, 0, 0.15), transparent 24%);
@@ -85,11 +87,13 @@
 .heroBody {
   position: relative;
   z-index: 1;
+  flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 1fr) min(360px, 32%);
+  gap: 40px;
   align-items: center;
-  padding: 34px 36px 32px;
+  align-content: center;
+  padding: 24px 36px 80px;
 }
 
 .heroCopy {
@@ -110,8 +114,8 @@
 
 .heroTitle {
   margin: 0;
-  font-size: clamp(2.35rem, 4.6vw, 4.6rem);
-  line-height: 0.94;
+  font-size: clamp(3rem, 6vw, 6.4rem);
+  line-height: 0.92;
   white-space: pre-line;
   text-wrap: pretty;
 }
@@ -237,13 +241,13 @@
 }
 
 .panelCard {
-  padding: 22px;
+  padding: 18px 20px;
 
   h2 {
-    margin: 10px 0 16px;
+    margin: 8px 0 12px;
     color: var(--ds-color-text-strong);
-    font-size: 1.35rem;
-    line-height: 1.15;
+    font-size: 1.15rem;
+    line-height: 1.2;
   }
 }
 
@@ -760,15 +764,18 @@
 }
 
 @media (width <= 720px) {
-  .hero,
   .section,
   .finalCtaSection {
     width: min(100% - 24px, 1480px);
   }
 
   .hero {
-    border-radius: 24px;
     min-height: unset;
+  }
+
+  .heroContent {
+    min-height: unset;
+    width: calc(100% - 32px);
   }
 
   .topbar {

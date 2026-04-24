@@ -5,10 +5,10 @@ import { threadFont } from "@/const/fonts";
 import { DroppedItemDto } from "@/api/back";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Panel } from "@/components/Panel";
 import { Tooltipable } from "@/components/Tooltipable";
 import { IconButton } from "@/components/IconButton";
 import { CountdownClient } from "@/components/PeriodicTimer";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   drop: DroppedItemDto;
@@ -18,7 +18,7 @@ export const DropCard = ({ drop, onDiscard }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Panel className={c.card} key={drop.assetId}>
+    <Surface className={c.card} key={drop.assetId} padding="xs" variant="panel">
       <Tooltipable
         className={c.discard}
         tooltip={t("drop_card.discardTooltip")}
@@ -57,6 +57,6 @@ export const DropCard = ({ drop, onDiscard }: Props) => {
       <span className={cx(c.type, drop.item.rarity, threadFont.className)}>
         {drop.item.rarity || t("drop_card.unknown")}
       </span>
-    </Panel>
+    </Surface>
   );
 };

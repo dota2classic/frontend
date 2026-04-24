@@ -14,10 +14,10 @@ import { numberOrDefault } from "@/util/urls";
 import { PaginatedThread } from "@/containers/Thread";
 import { ReportCard } from "@/containers/ReportCard";
 import { EmbedProps } from "@/components/EmbedProps";
-import { Panel } from "@/components/Panel";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
 import { useTranslation } from "react-i18next";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -45,14 +45,14 @@ export default function ReportPage({
           title: thread?.title || "",
         })}
       />
-      <Panel>
+      <Surface padding="xs" variant="panel">
         <Breadcrumbs>
           <PageLink link={AppRouter.forum.report.index().link}>
             {t("report_page.reports")}
           </PageLink>
           <span>{thread?.title}</span>
         </Breadcrumbs>
-      </Panel>
+      </Surface>
       <br />
       <ReportCard report={report} punishments={punishments} />
       <br />

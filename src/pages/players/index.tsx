@@ -10,11 +10,11 @@ import { ColumnType } from "@/const/tables";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
-import { Panel } from "@/components/Panel";
 import { SelectOptions } from "@/components/SelectOptions";
 import { Pagination } from "@/components/Pagination";
 import { GenericTable } from "@/components/GenericTable";
 import { Duration } from "@/components/Duration";
+import { Surface } from "@/components/Surface";
 
 interface LeaderboardPageProps {
   initialLeaderboard: LeaderboardEntryPageDto;
@@ -40,7 +40,7 @@ export default function LeaderboardPage({
         description={t("leaderboard_page.seo.description")}
       />
 
-      <Panel className="horizontal">
+      <Surface className="horizontal" padding="xs" variant="panel">
         <SelectOptions
           options={seasonOptions}
           selected={selectedSeasonId}
@@ -50,7 +50,7 @@ export default function LeaderboardPage({
           }}
           defaultText={t("leaderboard_page.seasonSelect")}
         />
-      </Panel>
+      </Surface>
 
       <Pagination
         page={initialLeaderboard.page}

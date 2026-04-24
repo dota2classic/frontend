@@ -26,14 +26,18 @@ import { paidAction } from "@/util/subscription";
 import { Trans, useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerSummary } from "@/components/PlayerSummary";
+import { EmptyState } from "@/components/EmptyState";
+import { Field } from "@/components/Field";
 import { Table } from "@/components/Table";
 import { TimeAgo } from "@/components/TimeAgo";
 import { UserPreview } from "@/components/UserPreview";
 import { Logo } from "@/components/Logo";
-import { Panel } from "@/components/Panel";
 import { Button } from "@/components/Button";
 import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal";
 import { SectionBlock } from "@/components/SectionBlock";
+import { Surface } from "@/components/Surface";
+import { DetailPanel } from "@/components/DetailPanel";
+import { ActionCard } from "@/components/ActionCard";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -122,28 +126,38 @@ export default function PlayerSettings({ summary, decorations }: Props) {
           </>
         }
       >
-        <Panel className={cx(c.panel, NotoSans.className)}>
-          <p>
-            {oldSubscription ? (
-              <>
-                {t("player_settings.activeSubscription")}
-                <span className="gold">
-                  <TimeAgo date={oldSubscription.endTime} />
-                </span>
-              </>
-            ) : (
-              t("player_settings.inactiveSubscription")
-            )}
-          </p>
-          <Button
-            className={c.inlineButton}
-            pageLink={AppRouter.store.index.link}
-          >
-            {oldSubscription
-              ? t("player_settings.renewSubscription")
-              : t("player_settings.subscribe")}
-          </Button>
-        </Panel>
+        <DetailPanel
+          className={NotoSans.className}
+          lead={
+            oldSubscription
+              ? t("player_settings.activeSubscription")
+              : t("player_settings.inactiveSubscription")
+          }
+        >
+          <ActionCard
+            title="Dotaclassic Plus"
+            description={
+              oldSubscription ? (
+                <>
+                  Подписка активна до <TimeAgo date={oldSubscription.endTime} />
+                </>
+              ) : (
+                "Оформите подписку, чтобы открыть дополнительные элементы профиля и премиум-функции."
+              )
+            }
+            actions={
+              <Button
+                mega
+                className={cx(c.inlineButton, c.recalibrationButton)}
+                pageLink={AppRouter.store.index.link}
+              >
+                {oldSubscription
+                  ? t("player_settings.renewSubscription")
+                  : t("player_settings.subscribe")}
+              </Button>
+            }
+          />
+        </DetailPanel>
       </SectionBlock>
       <SectionBlock
         className={cx(c.fullwidth)}
@@ -164,16 +178,14 @@ export default function PlayerSettings({ summary, decorations }: Props) {
           </>
         }
       >
-        <Panel className={cx(c.panel, NotoSans.className)}>
-          <p>{t("player_settings.recalibrationDescription")}</p>
-          {summary.recalibration ? (
-            <Button
-              mega
-              disabled
-              className={cx(c.inlineButton, c.recalibrationButton)}
-            >
-              {t("player_settings.recalibration")}
-              <div>
+        <DetailPanel
+          className={NotoSans.className}
+          lead={t("player_settings.recalibrationDescription")}
+        >
+          <ActionCard
+            title={t("player_settings.recalibration")}
+            description={
+              summary.recalibration ? (
                 <Trans
                   i18nKey={"player_settings.startedRecalibration"}
                   components={{
@@ -182,20 +194,32 @@ export default function PlayerSettings({ summary, decorations }: Props) {
                     ),
                   }}
                 />
-              </div>
-            </Button>
-          ) : (
-            <Button
-              disabled={isStartingRecalibration}
-              mega
-              onClick={startRecalibration}
-              className={cx(c.inlineButton, c.recalibrationButton)}
-            >
-              {t("player_settings.recalibration")}
-              <div>{t("player_settings.startNow")}</div>
-            </Button>
-          )}
-        </Panel>
+              ) : (
+                t("player_settings.startNow")
+              )
+            }
+            actions={
+              summary.recalibration ? (
+                <Button
+                  mega
+                  disabled
+                  className={cx(c.inlineButton, c.recalibrationButton)}
+                >
+                  {t("player_settings.recalibration")}
+                </Button>
+              ) : (
+                <Button
+                  disabled={isStartingRecalibration}
+                  mega
+                  onClick={startRecalibration}
+                  className={cx(c.inlineButton, c.recalibrationButton)}
+                >
+                  {t("player_settings.recalibration")}
+                </Button>
+              )
+            }
+          />
+        </DetailPanel>
       </SectionBlock>
       <SectionBlock
         className={cx(c.fullwidth)}
@@ -206,47 +230,66 @@ export default function PlayerSettings({ summary, decorations }: Props) {
           </>
         }
       >
-        <Panel className={cx(c.panel, NotoSans.className)}>
-          <p>{t("player_settings.avoidedPlayersInfo")}</p>
-          <Table>
-            <thead>
-              <tr>
-                <th>{t("player_settings.player")}</th>
-                <th>{t("player_settings.dateDodge")}</th>
-                <th>{t("player_settings.actions")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dodgeList.map((it) => (
-                <tr key={it.user.steamId}>
-                  <td>
-                    <UserPreview roles user={it.user} />
-                  </td>
-                  <td>{formatDate(new Date(it.createdAt))}</td>
-                  <td>
-                    <Button
-                      onClick={() =>
-                        getApi()
-                          .playerApi.playerControllerUnDodgePlayer({
-                            dodgeSteamId: it.user.steamId,
-                          })
-                          .then(mutate)
-                      }
-                    >
-                      {t("player_settings.remove")}
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          <Button
-            className={c.inlineButton}
-            onClick={() => setDodgeListOpen(true)}
-          >
-            {t("player_settings.avoidPlayer")}
-          </Button>
-        </Panel>
+        <DetailPanel className={NotoSans.className}>
+          <div className={c.sectionTopRow}>
+            <p className={c.sectionLead}>
+              {t("player_settings.avoidedPlayersInfo")}
+            </p>
+            <Button
+              className={c.inlineButton}
+              onClick={() => setDodgeListOpen(true)}
+            >
+              {t("player_settings.avoidPlayer")}
+            </Button>
+          </div>
+          {dodgeList.length > 0 ? (
+            <Surface className={c.tableShell} padding="sm" variant="raised">
+              <Table>
+                <thead>
+                  <tr>
+                    <th>{t("player_settings.player")}</th>
+                    <th>{t("player_settings.dateDodge")}</th>
+                    <th>{t("player_settings.actions")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dodgeList.map((it) => (
+                    <tr key={it.user.steamId}>
+                      <td>
+                        <UserPreview roles user={it.user} />
+                      </td>
+                      <td>{formatDate(new Date(it.createdAt))}</td>
+                      <td>
+                        <Button
+                          onClick={() =>
+                            getApi()
+                              .playerApi.playerControllerUnDodgePlayer({
+                                dodgeSteamId: it.user.steamId,
+                              })
+                              .then(mutate)
+                          }
+                        >
+                          {t("player_settings.remove")}
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Surface>
+          ) : (
+            <EmptyState
+              className={c.emptyState}
+              title={t("player_settings.avoidedPlayers")}
+              description={t("player_settings.avoidedPlayersInfo")}
+              actions={
+                <Button onClick={() => setDodgeListOpen(true)}>
+                  {t("player_settings.avoidPlayer")}
+                </Button>
+              }
+            />
+          )}
+        </DetailPanel>
       </SectionBlock>
 
       <SectionBlock
@@ -257,48 +300,59 @@ export default function PlayerSettings({ summary, decorations }: Props) {
           </>
         }
       >
-        <Panel className={cx(c.panel, NotoSans.className)}>
-          <p>
-            <b>{t("player_settings.connectTwitchProfile")}</b>{" "}
-            {t("player_settings.twitchBenefits")}
-          </p>
-          <p>
-            <span className="gold">{t("player_settings.attention")}</span>{" "}
-            {t("player_settings.twitchRequirements")}
-          </p>
-          <div className={c.twitchBlock}>
-            <span>{t("player_settings.connectedAccount")}</span>
-            {twitchConnection ? (
-              <a
-                target={"__blank"}
-                className={"link"}
-                href={`https://twitch.tv/${twitchConnection.externalId}`}
-              >
-                twitch.tv/{twitchConnection.externalId}
-              </a>
-            ) : (
-              t("player_settings.notConnected")
-            )}
+        <DetailPanel className={NotoSans.className}>
+          <div className={c.detailSection}>
+            <Field
+              label={t("player_settings.connectTwitchProfile")}
+              hint={t("player_settings.twitchBenefits")}
+            >
+              <div className={c.noteBox}>
+                <span className={c.noteLabel}>
+                  {t("player_settings.attention")}
+                </span>
+                <span className={c.noteText}>
+                  {t("player_settings.twitchRequirements")}
+                </span>
+              </div>
+            </Field>
+            <ActionCard
+              title={t("player_settings.connectedAccount")}
+              description={
+                twitchConnection ? undefined : t("player_settings.notConnected")
+              }
+              actionsClassName={c.actionButtons}
+              actions={
+                <>
+                  <Button link href={getTwitchConnectUrl()}>
+                    {twitchConnection
+                      ? t("player_settings.connectOtherAccount")
+                      : t("player_settings.connectAccount")}
+                  </Button>
+                  {twitchConnection && (
+                    <Button
+                      onClick={async () => {
+                        await getApi().settings.authControllerRemoveTwitchConnection();
+                        window.location.reload();
+                      }}
+                    >
+                      {t("player_settings.disconnectAccount")}
+                    </Button>
+                  )}
+                </>
+              }
+            >
+              {twitchConnection && (
+                <a
+                  target={"__blank"}
+                  className={cx("link", c.accountLink)}
+                  href={`https://twitch.tv/${twitchConnection.externalId}`}
+                >
+                  twitch.tv/{twitchConnection.externalId}
+                </a>
+              )}
+            </ActionCard>
           </div>
-
-          <div className={c.buttons}>
-            <Button link href={getTwitchConnectUrl()}>
-              {twitchConnection
-                ? t("player_settings.connectOtherAccount")
-                : t("player_settings.connectAccount")}
-            </Button>
-            {twitchConnection && (
-              <Button
-                onClick={async () => {
-                  await getApi().settings.authControllerRemoveTwitchConnection();
-                  window.location.reload();
-                }}
-              >
-                {t("player_settings.disconnectAccount")}
-              </Button>
-            )}
-          </div>
-        </Panel>
+        </DetailPanel>
       </SectionBlock>
     </div>
   );

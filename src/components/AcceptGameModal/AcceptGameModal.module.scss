@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .modalWrapper {
   position: fixed;
   inset: 0;
@@ -13,7 +11,7 @@
   text-align: center;
 
   & h4 {
-    color: common.$primaryTextTint;
+    color: var(--ds-color-text-primary);
   }
   & h3 {
     padding-top: 8px;
@@ -30,7 +28,7 @@
 .nonPrimaryModal {
   //width: fit-content;
   //height: fit-content;
-  background: common.$bg2;
+  background: var(--ds-color-bg-elevated);
 
   //padding: 40px;
   border-radius: 0px;
@@ -43,7 +41,7 @@
     text-align: center;
     font-size: 24px;
     font-weight: normal;
-    color: #dcddde;
+    color: var(--ds-color-text-primary);
   }
 }
 
@@ -62,7 +60,7 @@
   }
 
   height: fit-content;
-  background: common.$bg2;
+  background: var(--ds-color-bg-elevated);
 
   //padding: 40px;
   border-radius: 0px;
@@ -75,7 +73,7 @@
     text-align: center;
     font-size: 24px;
     font-weight: normal;
-    color: #dcddde;
+    color: var(--ds-color-text-primary);
   }
 
   &.inline {
@@ -144,9 +142,9 @@
   padding: 12px;
   border-radius: 4px;
   transition: 0.3s ease;
-  color: common.$primaryTextTint;
+  color: var(--ds-color-text-primary);
   cursor: pointer;
-  background-color: common.$bg2;
+  background-color: var(--ds-color-bg-elevated);
 }
 
 .dots {
@@ -156,7 +154,7 @@
 }
 
 .acceptedDot {
-  background: common.$gold !important;
+  background: var(--ds-color-accent-gold) !important;
 }
 
 .connectInfo {
@@ -216,7 +214,7 @@
 }
 
 .accepted {
-  border-color: common.$green;
+  border-color: var(--ds-color-accent-green);
   position: relative;
 
   &::before {
@@ -237,15 +235,15 @@
 }
 
 .pending {
-  border-color: common.$primaryTextDark2;
+  border-color: var(--ds-color-text-faint);
 }
 
 .decline {
-  border-color: common.$red;
+  border-color: var(--ds-color-accent-red);
 }
 
 .timeout {
-  border-color: common.$red;
+  border-color: var(--ds-color-accent-red);
 }
 
 .fullInstruction {

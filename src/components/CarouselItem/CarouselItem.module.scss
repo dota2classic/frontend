@@ -12,7 +12,7 @@
   height: 100%;
 }
 .card {
-  @include common.box();
+  box-shadow: var(--ds-shadow-card);
 
   grid-column: span 1;
   grid-row: span 1;
@@ -20,7 +20,7 @@
   justify-items: center;
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid #555;
+  border-bottom: 2px solid var(--ds-color-border-subtle);
 
   height: 300px;
   background-size: cover;
@@ -41,7 +41,7 @@
   &:hover,
   &__hovered {
     transform: scale(1.02);
-    border-color: common.$blueHighlight;
+    border-color: var(--ds-color-accent-blue);
 
     & .shadow {
       transform: scaleY(2);
@@ -57,7 +57,7 @@
 
   & h3 {
     margin: auto;
-    color: common.$primaryTextHighlight;
+    color: var(--ds-color-text-strong);
 
     @include common.mobile {
       font-size: 12px;
@@ -65,7 +65,7 @@
   }
 
   & h4 {
-    color: common.$primaryTextDark;
+    color: var(--ds-color-text-dim);
     @include common.mobile {
       margin-block-start: 0;
       margin-block-end: 1rem;
@@ -112,7 +112,7 @@
   transform: translateY(20px);
   overflow: hidden;
   transition: 0.3s ease;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
 
   @include common.mobile {
     font-size: 12px;
@@ -125,7 +125,7 @@
     border-radius: 50%;
     width: 10px;
     height: 10px;
-    background-color: common.$error;
+    background-color: var(--ds-color-danger);
     display: inline-block;
     margin-right: 4px;
   }

@@ -1,50 +1,30 @@
-@use "../../common.scss";
+.downloadCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
 
 .launcherButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  width: fit-content;
-  outline: none;
-  text-transform: uppercase;
-  color: #ed3b1c;
-  border: 2px solid common.$primaryText;
-  border-radius: 6px;
-  font-size: 28px;
-  letter-spacing: 2.5px;
-  font-weight: bold;
-  background-color: rgba(0, 0, 0, 0.9);
-  padding: 20px;
-  transition: 0.2s ease;
-  cursor: pointer;
-  text-decoration: none;
-
-  @include common.mobile {
-    font-size: 1.2rem;
-    padding: 16px 10px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-  }
-
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: rgba(0, 0, 0, 1);
-    color: #ee2c0a;
-    border-color: common.$primaryTextHighlight;
-    transform: translateY(-2px) scale(1.05);
-  }
+  min-width: min(100%, 360px);
 }
 
 .windowsNote {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: rgba(249, 211, 0, 0.07);
-  border: 1px solid rgba(249, 211, 0, 0.25);
-  border-radius: 6px;
-  padding: 8px 14px;
-  font-size: 1rem;
-  color: common.$gold;
+  color: var(--ds-color-accent-gold);
+  border: 1px solid rgba(248, 211, 0, 0.2);
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stepContent :global(ol),
+.stepContent :global(ul) {
+  margin: 0;
+  padding-left: 1.25rem;
 }

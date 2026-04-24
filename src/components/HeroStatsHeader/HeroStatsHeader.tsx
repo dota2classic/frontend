@@ -5,8 +5,8 @@ import heroName from "@/util/heroName";
 import { formatWinrate } from "@/util/math";
 import { useTranslation } from "react-i18next";
 import { HeroIcon } from "../HeroIcon";
-import { Panel } from "../Panel";
 import { StatRow } from "../StatRow";
+import { SurfaceHeader } from "../SurfaceHeader";
 
 interface IHeroStatsHeaderProps {
   hero: string;
@@ -24,31 +24,36 @@ export const HeroStatsHeader: React.FC<IHeroStatsHeaderProps> = ({
   const { t } = useTranslation();
   const isWinrateNonNegative = wins / Math.max(1, games) >= 0.5;
   return (
-    <Panel className={c.heroSummary}>
-      <div className={"left"}>
-        <HeroIcon hero={hero} />
-        <h3 className={c.heroName}>{heroName(hero)}</h3>
-      </div>
-      <div className="right">
-        <StatRow label={t("hero_stats.popularity")} value={popularity} />
+    <SurfaceHeader
+      className={c.heroSummary}
+      left={
+        <>
+          <HeroIcon hero={hero} />
+          <h3 className={c.heroName}>{heroName(hero)}</h3>
+        </>
+      }
+      right={
+        <>
+          <StatRow label={t("hero_stats.popularity")} value={popularity} />
 
-        <StatRow
-          label={t("hero_stats.matches")}
-          value={games}
-          valueClassName="green"
-        />
-        <StatRow
-          label={t("hero_stats.wins")}
-          value={wins}
-          valueClassName="green"
-        />
+          <StatRow
+            label={t("hero_stats.matches")}
+            value={games}
+            valueClassName="green"
+          />
+          <StatRow
+            label={t("hero_stats.wins")}
+            value={wins}
+            valueClassName="green"
+          />
 
-        <StatRow
-          label={t("hero_stats.winrate")}
-          value={formatWinrate(wins, games - wins)}
-          valueClassName={isWinrateNonNegative ? "green" : "red"}
-        />
-      </div>
-    </Panel>
+          <StatRow
+            label={t("hero_stats.winrate")}
+            value={formatWinrate(wins, games - wins)}
+            valueClassName={isWinrateNonNegative ? "green" : "red"}
+          />
+        </>
+      }
+    />
   );
 };

@@ -214,14 +214,15 @@ export default function DesignSystemPage() {
                 variant="panel"
               >
                 <div>
-                  <h3 className={c.surfaceTitle}>Panel</h3>
+                  <h3 className={c.surfaceTitle}>Panel Surface</h3>
                   <p className={c.surfaceText}>
-                    Legacy-flavored shell. Для нового generic UI лучше
-                    предпочитать `surface` или `raised`, а `Panel` держать как
-                    compat-обертку.
+                    Поверхность с более старым визуальным характером. Подходит
+                    для legacy-экранов, которым нужен прежний тон панели, но
+                    теперь она используется напрямую как `Surface
+                    variant="panel"`.
                   </p>
                 </div>
-                <Button variant="ghost">Compat shell</Button>
+                <Button variant="ghost">Panel variant</Button>
               </Surface>
             </div>
           </section>

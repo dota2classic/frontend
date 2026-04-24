@@ -6,6 +6,7 @@ import {
 import { getApi } from "@/api/hooks";
 import React, { ReactNode, useCallback, useMemo, useState } from "react";
 import { TournamentTabs } from "@/components/TournamentTabs";
+import { Surface } from "@/components/Surface";
 import c from "./TournamentStyles.module.scss";
 import { Trans, useTranslation } from "react-i18next";
 import { InfoCardWithIcon } from "@/components/InfoCardWithIcon";
@@ -198,7 +199,7 @@ export default function TournamentPage({ tournament }: Props) {
             </SectionBlock>
           )}
           <SectionBlock title={t("tournament.common.teams")} variant="simple">
-            <div className={c.register_card}>
+            <Surface variant="panel" padding="md" className={c.register_card}>
               <dl>
                 <dd>{t("tournament.common.registered")}</dd>
                 <dt>
@@ -227,7 +228,7 @@ export default function TournamentPage({ tournament }: Props) {
               {/*  <dd>{t("tournament.common.slots")}</dd>*/}
               {/*  <dt>8</dt>*/}
               {/*</dl>*/}
-            </div>
+            </Surface>
           </SectionBlock>
           <SectionBlock
             title={t("tournament.common.schedule")}

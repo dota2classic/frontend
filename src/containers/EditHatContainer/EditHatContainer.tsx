@@ -21,9 +21,9 @@ import { useTranslation } from "react-i18next";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { Section } from "@/components/Section";
 import { Message } from "@/components/Message";
-import { Panel } from "@/components/Panel";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
+import { Surface } from "@/components/Surface";
 
 interface IEditHatContainerProps {
   decoration?: ProfileDecorationDto;
@@ -207,9 +207,11 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
         <header>
           {t("edit_hat_container.chatPreviewHeader", { decorationType })}
         </header>
-        <Panel
+        <Surface
           style={{ flexDirection: "column", alignItems: "flex-start" }}
           className={threadFont.className}
+          padding="xs"
+          variant="panel"
         >
           <Message
             header={true}
@@ -222,7 +224,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
             }}
           />
           <Message header={true} message={message} />
-        </Panel>
+        </Surface>
       </Section>
 
       <Section>
@@ -232,7 +234,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
             {t("edit_hat_container.deleteDecorationButton")}
           </Button>
         )}
-        <Panel
+        <Surface
           style={{
             display: "flex",
             flexDirection: "column",
@@ -241,6 +243,8 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
             marginBottom: 20,
           }}
           className={NotoSans.className}
+          padding="xs"
+          variant="panel"
         >
           {supportsImage && (
             <>
@@ -320,7 +324,7 @@ export const EditHatContainer: React.FC<IEditHatContainerProps> = ({
               ? t("edit_hat_container.saveDecorationButton")
               : t("edit_hat_container.createDecorationButton")}
           </Button>
-        </Panel>
+        </Surface>
       </Section>
     </>
   );

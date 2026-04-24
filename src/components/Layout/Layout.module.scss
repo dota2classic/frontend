@@ -26,6 +26,12 @@
   }
 }
 
+.middleContentFullBleed {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
 .layoutQueue {
   height: calc(100vh - 73px);
   padding-top: 0 !important;
@@ -44,6 +50,11 @@
   @include common.mobile {
     margin: -2px auto auto;
   }
+}
+
+.layoutInnerFullBleed {
+  width: 100%;
+  max-width: 100%;
 }
 
 .queue {

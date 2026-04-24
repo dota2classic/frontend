@@ -104,6 +104,67 @@
   }
 }
 
+.heroIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 62ch;
+}
+
+.eyebrow {
+  color: var(--ds-color-accent-gold);
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  margin: 0;
+  color: var(--ds-color-text-strong);
+  font-size: clamp(1.5rem, 2vw, 2rem);
+}
+
+.heroText {
+  margin: 0;
+  color: var(--ds-color-text-muted);
+  line-height: 1.55;
+  font-size: 1rem;
+}
+
+.sectionTopRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+
+  @include common.mobile {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.sectionLead {
+  margin: 0;
+  color: var(--ds-color-text-muted);
+  line-height: 1.55;
+  font-size: 1rem;
+}
+
+.detailSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tableShell {
+  overflow-x: auto;
+}
+
+.emptyState {
+  min-height: 220px;
+}
+
 .icons {
   grid-column: span 4;
 }
@@ -119,7 +180,23 @@
 
 .buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+}
+
+.actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+
+  @include common.mobile {
+    justify-content: stretch;
+
+    & > * {
+      width: 100%;
+    }
+  }
 }
 
 .inlineButton {
@@ -128,11 +205,45 @@
 }
 
 .recalibrationButton {
-  flex-direction: column;
-  & > div {
-    font-size: 1rem;
-    padding-top: 2px;
-    display: flex;
-    justify-content: center;
+  min-width: 260px;
+  //min-height: 92px;
+  justify-content: center;
+
+  @include common.mobile {
+    width: 100%;
   }
+}
+
+.noteBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid rgba(248, 211, 0, 0.16);
+  border-radius: var(--ds-radius-md);
+  background: linear-gradient(
+    180deg,
+    rgba(248, 211, 0, 0.08),
+    rgba(248, 211, 0, 0.03)
+  );
+}
+
+.noteLabel {
+  color: var(--ds-color-accent-gold);
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.noteText {
+  color: var(--ds-color-text-muted);
+  line-height: 1.45;
+}
+
+.accountLink {
+  font-size: 1.15rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
 }

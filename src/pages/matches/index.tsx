@@ -10,10 +10,10 @@ import { MatchComparator } from "@/util/sorts";
 import { useGameModeOptions } from "@/const/options";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
-import { Panel } from "@/components/Panel";
 import { SelectOptions } from "@/components/SelectOptions";
 import { Pagination } from "@/components/Pagination";
 import { MatchHistoryTable } from "@/components/MatchHistoryTable";
+import { Surface } from "@/components/Surface";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
@@ -42,7 +42,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
         title={t("match_history.historyTitle")}
         description={t("match_history.historyDescription")}
       />
-      <Panel className="horizontal">
+      <Surface className="horizontal" padding="xs" variant="panel">
         <SelectOptions
           options={gameModeOptions}
           selected={mode === undefined ? "undefined" : mode}
@@ -52,7 +52,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
           }}
           defaultText={t("match_history.gameMode")}
         />
-      </Panel>
+      </Surface>
       <div>
         <MatchHistoryTable
           loading={isLoading}

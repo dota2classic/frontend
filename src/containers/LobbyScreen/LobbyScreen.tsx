@@ -21,7 +21,6 @@ import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
 import { useTranslation } from "react-i18next";
 import { EditLobbyModal } from "../EditLobbyModal";
-import { Panel } from "@/components/Panel";
 import { Button } from "@/components/Button";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { Tooltipable } from "@/components/Tooltipable";
@@ -29,6 +28,10 @@ import { IconButton } from "@/components/IconButton";
 import { Thread } from "../Thread";
 import { TranslationKey } from "@/TranslationKey";
 import { useSummaries } from "@/util/use-summaries";
+import { Surface } from "@/components/Surface";
+import { PageHeader } from "@/components/PageHeader";
+import { MetaStat } from "@/components/MetaStat";
+import { MetaGrid, MetaGridStat } from "@/components/MetaGrid";
 
 interface ILobbyScreenProps {
   lobby: LobbyDto;
@@ -103,7 +106,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           5000,
         );
       }
-    }, [evt, mySteamId]);
+    }, [evt, mySteamId, router, t]);
 
     const [$shuffleLobby, shuffleLobby] = useAsyncButton(async () => {
       if (!data || data.owner?.steamId !== mySteamId) return;
@@ -174,16 +177,14 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
             onClose={() => setIsEditing(false)}
           />
         )}
-        <Panel className={c.grid12}>
-          <div className="right">
-            <dl>
-              <dd>{data.owner.name}</dd>
-              <dt>{t("lobby.hostingLobby")}</dt>
-            </dl>
-          </div>
-        </Panel>
+        <PageHeader
+          className={c.grid12}
+          actions={
+            <MetaStat label={t("lobby.hostingLobby")} value={data.owner.name} />
+          }
+        />
 
-        <Panel className={c.gridPanel}>
+        <Surface className={c.gridPanel} padding="xs" variant="panel">
           <LobbyTeam
             onKickPlayer={kickPlayer}
             isOwner={isOwner}
@@ -221,9 +222,13 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
               {t("lobby.startGame")}
             </Button>
           </div>
-        </Panel>
+        </Surface>
 
-        <Panel className={cx(c.grid12, c.unassignedList)}>
+        <Surface
+          className={cx(c.grid12, c.unassignedList)}
+          padding="xs"
+          variant="panel"
+        >
           {unassigned.length ? (
             <>
               {unassigned.map((slot) => (
@@ -255,66 +260,63 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
               {t("lobby.unassignedPlayers")}
             </div>
           )}
-        </Panel>
+        </Surface>
         <Thread
           threadType={ThreadType.LOBBY}
           id={lobbyId}
           className={cx(c.grid12, c.threadContainer)}
         />
-        <Panel className={cx(c.grid12, c.options)}>
-          <dl>
-            <dt>{t("lobby.lobbyName")}</dt>
-            <dd>{data.name}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.password")}</dt>
-            <dd>{data.requiresPassword ? t("lobby.yes") : t("lobby.no")}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.map")}</dt>
-            <dd>{t(`dota_map.${data.map}` as TranslationKey)}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.mode")}</dt>
-            <dd>{t(`game_mode.${data.gameMode}` as TranslationKey)}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.banStage")}</dt>
-            <dd>{data.enableBanStage ? t("lobby.yes") : t("lobby.no")}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.cheats")}</dt>
-            <dd>{data.enableCheats ? t("lobby.yes") : t("lobby.no")}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.bots")}</dt>
-            <dd>{data.fillBots ? t("lobby.yes") : t("lobby.no")}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.midMode")}</dt>
-            <dd>{data.midTowerToWin ? t("lobby.yes") : t("lobby.no")}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.killsToWin")}</dt>
-            <dd>
-              {data.midTowerKillsToWin > 0
-                ? t("lobby.yesUpToKills", { kills: data.midTowerKillsToWin })
-                : t("lobby.no")}
-            </dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.runes")}</dt>
-            <dd>{data.noRunes ? t("lobby.no") : t("lobby.yes")}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.patch")}</dt>
-            <dd>{data.patch}</dd>
-          </dl>
-          <dl>
-            <dt>{t("lobby.region")}</dt>
-            <dd>{data.region}</dd>
-          </dl>
-        </Panel>
+        <Surface
+          className={cx(c.grid12, c.options)}
+          padding="xs"
+          variant="panel"
+        >
+          <MetaGrid gap={4}>
+            <MetaGridStat label={t("lobby.lobbyName")} value={data.name} />
+            <MetaGridStat
+              label={t("lobby.password")}
+              value={data.requiresPassword ? t("lobby.yes") : t("lobby.no")}
+            />
+            <MetaGridStat
+              label={t("lobby.map")}
+              value={t(`dota_map.${data.map}` as TranslationKey)}
+            />
+            <MetaGridStat
+              label={t("lobby.mode")}
+              value={t(`game_mode.${data.gameMode}` as TranslationKey)}
+            />
+            <MetaGridStat
+              label={t("lobby.banStage")}
+              value={data.enableBanStage ? t("lobby.yes") : t("lobby.no")}
+            />
+            <MetaGridStat
+              label={t("lobby.cheats")}
+              value={data.enableCheats ? t("lobby.yes") : t("lobby.no")}
+            />
+            <MetaGridStat
+              label={t("lobby.bots")}
+              value={data.fillBots ? t("lobby.yes") : t("lobby.no")}
+            />
+            <MetaGridStat
+              label={t("lobby.midMode")}
+              value={data.midTowerToWin ? t("lobby.yes") : t("lobby.no")}
+            />
+            <MetaGridStat
+              label={t("lobby.killsToWin")}
+              value={
+                data.midTowerKillsToWin > 0
+                  ? t("lobby.yesUpToKills", { kills: data.midTowerKillsToWin })
+                  : t("lobby.no")
+              }
+            />
+            <MetaGridStat
+              label={t("lobby.runes")}
+              value={data.noRunes ? t("lobby.no") : t("lobby.yes")}
+            />
+            <MetaGridStat label={t("lobby.patch")} value={data.patch} />
+            <MetaGridStat label={t("lobby.region")} value={data.region} />
+          </MetaGrid>
+        </Surface>
       </div>
     );
   },

@@ -7,11 +7,11 @@ import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
-import { Panel } from "@/components/Panel";
 import { Checkbox } from "@/components/Checkbox";
 import { SelectOptions } from "@/components/SelectOptions";
 import { Table } from "@/components/Table";
 import { ForumUserEmbed } from "@/components/ForumUserEmbed";
+import { Surface } from "@/components/Surface";
 
 interface ILogFileHistoryProps {
   matchId: number;
@@ -49,7 +49,11 @@ export const LogFileHistory: React.FC<ILogFileHistoryProps> = observer(
 
     const isEmpty = isLoading || msgs.length === 0;
     return (
-      <Panel className={cx(c.log, NotoSans.className, isEmpty && c.empty)}>
+      <Surface
+        className={cx(c.log, NotoSans.className, isEmpty && c.empty)}
+        padding="xs"
+        variant="panel"
+      >
         <div className={c.settings}>
           <Checkbox onChange={(e) => setAuthorOnly(e)}>
             {t("log_file_history.onlyAccusedMessages")}
@@ -106,7 +110,7 @@ export const LogFileHistory: React.FC<ILogFileHistoryProps> = observer(
             t("log_file_history.noMessages")
           )}
         </div>
-      </Panel>
+      </Surface>
     );
   },
 );

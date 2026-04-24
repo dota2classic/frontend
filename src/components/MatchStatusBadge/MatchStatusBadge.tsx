@@ -1,8 +1,8 @@
 import React from "react";
 import { MatchStatus } from "@/api/back";
-import { Badge, BadgeVariant } from "@/components/Badge/Badge";
+import { BadgeVariant } from "@/components/Badge/Badge";
 import { TranslationKey } from "@/TranslationKey";
-import { useTranslation } from "react-i18next";
+import { StatusBadge } from "@/components/StatusBadge";
 
 const StatusMapping: Record<MatchStatus, BadgeVariant> = {
   [MatchStatus.Locked]: "grey",
@@ -20,10 +20,13 @@ interface IMatchStatusBadgeProps {
 export const MatchStatusBadge: React.FC<IMatchStatusBadgeProps> = ({
   status,
 }) => {
-  const { t } = useTranslation();
   return (
-    <Badge variant={StatusMapping[status]}>
-      {t(`tournament.match_status.${status}` as TranslationKey)}
-    </Badge>
+    <StatusBadge
+      status={status}
+      translationKey={(currentStatus) =>
+        `tournament.match_status.${currentStatus}` as TranslationKey
+      }
+      variantMap={StatusMapping}
+    />
   );
 };

@@ -4,13 +4,14 @@ import { NextPageContext } from "next";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 import { pushFaroEvent } from "@/util/faro";
-import { NotoSans } from "@/const/notosans";
 import { TechStaticTabs } from "@/containers/TechStaticTabs";
 import { Trans, TranslationFunction, useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
 import { PageLink } from "@/components/PageLink";
-import { EmbedProps } from "@/components/EmbedProps";
-import { CoolList } from "@/components/CoolList";
+import { Button } from "@/components/Button";
+import { SectionBlock } from "@/components/SectionBlock";
+import { Surface } from "@/components/Surface";
+import { StaticPageShell } from "@/components/StaticPageShell";
 import { FaWindows } from "react-icons/fa";
 import { MdDownload } from "react-icons/md";
 import c from "./Download.module.scss";
@@ -87,47 +88,41 @@ export default function DownloadPage({ initialOS }: Props) {
     pushFaroEvent("download_page_viewed", { os: initialOS });
   }, []);
 
-  const coolListContent = [
-    {
-      title: t("download_page.downloadLauncher"),
-      content: (
-        <>
-          <p>{t("download_page.launcherDescription")}</p>
-          <p>
-            <a
-              href="https://github.com/dota2classic/launcher/releases/latest/download/d2c-launcher-win-Setup.exe"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={c.launcherButton}
-              onClick={() => pushFaroEvent("download_launcher_clicked")}
-            >
-              <MdDownload size={28} />
-              {t("download_page.launcherButton")}
-            </a>
-          </p>
-          <p>
-            <span className={c.windowsNote}>
-              <FaWindows size={16} />
-              {t("download_page.launcherWindowsOnly")}
-            </span>
-          </p>
-        </>
-      ),
-    },
-    ...GuideCompact(t),
-  ];
   return (
-    <div className={NotoSans.className}>
-      <EmbedProps
-        title={t("download_page.seo.title")}
-        description={t("download_page.seo.description")}
-      />
-      <TechStaticTabs />
-      <h1 style={{ textAlign: "center" }}>
-        {t("download_page.howToStartPlaying")}
-      </h1>
-      <CoolList items={coolListContent} />
-    </div>
+    <StaticPageShell
+      eyebrow="Getting Started"
+      title={t("download_page.howToStartPlaying")}
+      description={t("download_page.seo.description")}
+      embedTitle={t("download_page.seo.title")}
+      embedDescription={t("download_page.seo.description")}
+      tabs={<TechStaticTabs />}
+    >
+      <SectionBlock title={t("download_page.downloadLauncher")}>
+        <Surface className={c.downloadCard} padding="lg" variant="raised">
+          <p>{t("download_page.launcherDescription")}</p>
+          <Button
+            mega
+            className={c.launcherButton}
+            href="https://github.com/dota2classic/launcher/releases/latest/download/d2c-launcher-win-Setup.exe"
+            link
+            target="_blank"
+            onClick={() => pushFaroEvent("download_launcher_clicked")}
+          >
+            <MdDownload size={28} />
+            {t("download_page.launcherButton")}
+          </Button>
+          <Surface className={c.windowsNote} padding="xs" variant="panel">
+            <FaWindows size={16} />
+            {t("download_page.launcherWindowsOnly")}
+          </Surface>
+        </Surface>
+      </SectionBlock>
+      {GuideCompact(t).map((item, index) => (
+        <SectionBlock key={index} title={item.title}>
+          <div className={c.stepContent}>{item.content}</div>
+        </SectionBlock>
+      ))}
+    </StaticPageShell>
   );
 }
 

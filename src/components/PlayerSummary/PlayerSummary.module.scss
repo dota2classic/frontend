@@ -2,30 +2,12 @@
 
 .panel {
   box-shadow: none;
-  flex-direction: row !important;
   gap: 20px;
   padding: 16px 18px !important;
 
   @include common.mobile {
-    flex-direction: column !important;
     gap: 14px;
     padding: 14px 16px !important;
-  }
-
-  & :global(.left) {
-    min-width: 0;
-    padding-right: 8px;
-  }
-
-  & :global(.right) {
-    gap: 18px;
-    align-items: flex-start;
-    padding-left: 8px;
-
-    @include common.mobile {
-      padding-left: 0;
-      gap: 10px;
-    }
   }
 }
 
@@ -38,9 +20,22 @@
   display: flex;
   flex: 1;
   flex-grow: 2;
+  min-width: 0;
+  padding-right: 8px;
 
   align-items: center;
   justify-content: flex-start;
+}
+
+.right {
+  gap: 18px;
+  align-items: flex-start;
+  padding-left: 8px;
+
+  @include common.mobile {
+    padding-left: 0;
+    gap: 10px;
+  }
 }
 
 .externalLink {

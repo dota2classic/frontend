@@ -9,7 +9,6 @@ import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
-import { Panel } from "@/components/Panel";
 import { Checkbox } from "@/components/Checkbox";
 import { Pagination } from "@/components/Pagination";
 import { Table } from "@/components/Table";
@@ -18,6 +17,7 @@ import { UserPicker } from "@/components/UserPicker";
 import { UserPreview } from "@/components/UserPreview";
 import { Duration } from "@/components/Duration";
 import { PageLink } from "@/components/PageLink";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   page: PunishmentLogPageDto;
@@ -33,9 +33,11 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
         title={t("banlog_page.seo.title")}
         description={t("banlog_page.seo.description")}
       />
-      <Panel
+      <Surface
         style={{ flexDirection: "row", alignItems: "center" }}
         className={"nicerow"}
+        padding="xs"
+        variant="panel"
       >
         {auth.isModerator ? (
           <>
@@ -62,7 +64,7 @@ const BanLog = observer(function BanLog({ page, chosenUser }: Props) {
             </Checkbox>
           )
         )}
-      </Panel>
+      </Surface>
       <Pagination
         page={page.page}
         maxPage={page.pages}

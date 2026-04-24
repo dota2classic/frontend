@@ -10,11 +10,11 @@ import { useStore } from "@/store";
 import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { useTranslation } from "react-i18next";
 import { PageLink } from "@/components/PageLink";
-import { Panel } from "@/components/Panel";
 import { SmallLiveMatch } from "@/components/LiveMatchPreview";
 import { Duration } from "@/components/Duration";
 import { CopySomething } from "@/components/CopySomething";
 import { Input } from "@/components/Input";
+import { Surface } from "@/components/Surface";
 
 interface ILiveMatchPageProps {
   games: LiveMatchDto[];
@@ -53,7 +53,12 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
               .filter((t) => t.team === 3)
               .reduce((a, b) => a + (b.heroData?.kills || 0), 0);
             return (
-              <Panel key={liveMatch.matchId} className={c.preview}>
+              <Surface
+                key={liveMatch.matchId}
+                className={c.preview}
+                padding="xs"
+                variant="panel"
+              >
                 <PageLink
                   link={AppRouter.matches.match(liveMatch.matchId).link}
                 >
@@ -106,7 +111,7 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
                     />
                   </div>
                 </div>
-              </Panel>
+              </Surface>
             );
           })}
         </div>{" "}

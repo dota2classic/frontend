@@ -1,4 +1,3 @@
-@use "../../common.scss";
 
 .surface {
   display: flex;
@@ -12,6 +11,10 @@
 
 .padding__none {
   padding: 0;
+}
+
+.padding__xs {
+  padding: 6px;
 }
 
 .padding__sm {

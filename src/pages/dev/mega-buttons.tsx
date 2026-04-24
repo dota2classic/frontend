@@ -108,7 +108,7 @@ export default function MegaButtonsPage() {
             <article className={c.card}>
               <div className={c.cardHeader}>
                 <span className={c.eyebrow}>Framed</span>
-                <h2 className={c.cardTitle}>Outer Panel</h2>
+                <h2 className={c.cardTitle}>Outer Surface</h2>
                 <p className={c.cardText}>
                   Same mega button, but inside a separate gold panel. This is
                   useful if you want the button itself untouched and the extra

@@ -12,13 +12,13 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { InvitePlayerModalRaw } from "@/components/InvitePlayerModal";
-import { Panel } from "@/components/Panel";
 import { Button } from "@/components/Button";
 import { Pagination } from "@/components/Pagination";
 import { GenericTable } from "@/components/GenericTable";
 import { PageLink } from "@/components/PageLink";
 import { Duration } from "@/components/Duration";
 import { TimeAgo } from "@/components/TimeAgo";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   crime: CrimeLogPageDto;
@@ -54,7 +54,7 @@ export default function CrimesPage({ crime, steamId }: Props) {
           />,
           document.body,
         )}
-      <Panel>
+      <Surface padding="xs" variant="panel">
         <Button onClick={open}>{t("crimes_page.filterByPlayer")}</Button>
         <Button
           disabled={!steamId}
@@ -62,7 +62,7 @@ export default function CrimesPage({ crime, steamId }: Props) {
         >
           {t("crimes_page.resetPlayerFilter")}
         </Button>
-      </Panel>
+      </Surface>
       <Pagination
         page={crime.page}
         maxPage={crime.pages}

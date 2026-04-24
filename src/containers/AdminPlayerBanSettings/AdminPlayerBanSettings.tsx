@@ -3,7 +3,6 @@ import React from "react";
 import c from "./AdminPlayerBanSettings.module.scss";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { Panel } from "@/components/Panel";
 import { getApi } from "@/api/hooks";
 import { AdminRuleViolationContainer } from "../AdminRuleViolationContainer";
 import cx from "clsx";
@@ -12,6 +11,7 @@ import { isInFuture } from "@/util/time";
 import { useAsyncButton } from "@/util/use-async-button";
 import { useTranslation } from "react-i18next";
 import { Field } from "@/components/Field";
+import { Surface } from "@/components/Surface";
 
 interface IAdminPlayerBanSettingsProps {
   steamId: string;
@@ -38,7 +38,7 @@ export const AdminPlayerBanSettings: React.FC<IAdminPlayerBanSettingsProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Panel className={c.container}>
+    <Surface className={c.container} padding="xs" variant="panel">
       {data ? (
         <>
           <div className={"nicerow"}>
@@ -83,6 +83,6 @@ export const AdminPlayerBanSettings: React.FC<IAdminPlayerBanSettingsProps> = ({
       ) : (
         <h2>{t("admin_player_ban_settings.loadingLabel")}</h2>
       )}
-    </Panel>
+    </Surface>
   );
 };

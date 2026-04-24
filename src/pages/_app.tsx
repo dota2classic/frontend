@@ -97,9 +97,8 @@ export default class MyApp extends App<{
       cookies.get(AUTH_TOKEN_COOKIE_KEY) ||
       cookies.get(encodeURIComponent(AUTH_TOKEN_COOKIE_KEY));
 
-    const inferredState: Partial<HydrateRootData> = MyApp.inferPagePropsAsHydratable(
-      appProps,
-    );
+    const inferredState: Partial<HydrateRootData> =
+      MyApp.inferPagePropsAsHydratable(appProps);
 
     const initialState: HydrateRootData = {
       auth: { token: cookieToken },

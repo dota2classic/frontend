@@ -2,10 +2,12 @@ import React, { ReactNode } from "react";
 import cx from "clsx";
 import c from "./SectionBlock.module.scss";
 
-type SectionBlockProps = React.DetailedHTMLProps<
+type BaseSectionBlockProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLElement>,
   HTMLElement
-> & {
+>;
+
+type SectionBlockProps = Omit<BaseSectionBlockProps, "title"> & {
   title?: ReactNode;
   actions?: ReactNode;
   variant?: "default" | "simple";

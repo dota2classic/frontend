@@ -12,9 +12,9 @@ import { Mention, MentionsInput, SuggestionDataItem } from "react-mentions";
 import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { tableFont } from "@/const/fonts";
-import { Panel } from "../Panel";
 import { PlayerAvatar } from "../PlayerAvatar";
 import { UserPreview } from "../UserPreview";
+import { Surface } from "../Surface";
 
 type ExtendedSuggestionDataItem = SuggestionDataItem & { user: UserDTO };
 
@@ -94,7 +94,7 @@ export const MessageInput = observer(function MessageInput(p: {
       }
       setValue(msg);
     });
-  }, [isValid, p, t, value]);
+  }, [isValid, p, setValue, t, value]);
 
   const onEnterKeyPressed = useCallback(
     (e: React.KeyboardEvent) => {
@@ -120,11 +120,15 @@ export const MessageInput = observer(function MessageInput(p: {
 
       setValue(myField.value);
     },
-    [p],
+    [setValue],
   );
 
   return (
-    <Panel className={cx(c.createMessageContainer, p.className)}>
+    <Surface
+      className={cx(c.createMessageContainer, p.className)}
+      padding="xs"
+      variant="panel"
+    >
       {p.replyMessage && (
         <div className={c.replyMessage}>
           {t("message_input.replyToMessage")}
@@ -211,6 +215,6 @@ export const MessageInput = observer(function MessageInput(p: {
         </div>
       </div>
       <div className={cx(c.test, error && c.visible)}>{error || ""}</div>
-    </Panel>
+    </Surface>
   );
 });

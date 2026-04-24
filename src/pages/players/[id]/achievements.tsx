@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { AchievementStatus } from "@/components/AchievementStatus";
 import c from "@/pages/players/[id]/PlayerPage.module.scss";
-import { Panel } from "@/components/Panel";
 import { EmbedProps } from "@/components/EmbedProps";
 import { SectionBlock } from "@/components/SectionBlock";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -107,33 +107,33 @@ export default function PlayerAchievements({ achievements, summary }: Props) {
         className={c.fullwidth}
         title={t("achievements_page.header.lifetime")}
       >
-        <Panel className={c.achievements}>
+        <Surface className={c.achievements} padding="xs" variant="panel">
           {lifetime.map((t) => (
             <AchievementStatus key={t.key} achievement={t} />
           ))}
-        </Panel>
+        </Surface>
       </SectionBlock>
 
       <SectionBlock
         className={c.fullwidth}
         title={t("achievements_page.header.records")}
       >
-        <Panel className={c.achievements}>
+        <Surface className={c.achievements} padding="xs" variant="panel">
           {records.map((t) => (
             <AchievementStatus key={t.key} achievement={t} />
           ))}
-        </Panel>
+        </Surface>
       </SectionBlock>
 
       <SectionBlock
         className={c.fullwidth}
         title={t("achievements_page.header.unique")}
       >
-        <Panel className={c.achievements}>
+        <Surface className={c.achievements} padding="xs" variant="panel">
           {oneShot.map((t) => (
             <AchievementStatus key={t.key} achievement={t} />
           ))}
-        </Panel>
+        </Surface>
       </SectionBlock>
 
       {remaining.length > 0 && (
@@ -141,13 +141,13 @@ export default function PlayerAchievements({ achievements, summary }: Props) {
           className={c.fullwidth}
           title={t("achievements_page.header.unique")}
         >
-          <Panel className={c.achievements}>
+          <Surface className={c.achievements} padding="xs" variant="panel">
             {remaining
               .sort((a, b) => b.key - a.key)
               .map((t) => (
                 <AchievementStatus key={t.key} achievement={t} />
               ))}
-          </Panel>
+          </Surface>
         </SectionBlock>
       )}
       <div style={{ marginBottom: 100 }} />

@@ -1,9 +1,8 @@
-@use "../../common.scss";
-
-
 .card {
-  @include common.box();
-  background-color: common.$panelBg;
+  box-shadow: var(--ds-shadow-card);
+  background-color: var(--ds-color-bg-panel);
+  border: 1px solid var(--ds-color-border-subtle);
+  border-radius: var(--ds-radius-lg);
   display: flex;
   flex-direction: row;
   gap: 0;
@@ -13,12 +12,12 @@
   text-decoration: none;
   color: inherit;
   transition:
-    background-color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.15s ease;
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    box-shadow var(--ds-duration-fast) var(--ds-ease-standard),
+    transform var(--ds-duration-fast) var(--ds-ease-standard);
 
   &:hover {
-    background-color: lighten(common.$panelBg, 4%);
+    background-color: var(--ds-color-bg-interactive);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     transform: translateY(-2px);
   }
@@ -40,7 +39,7 @@
   min-width: 0;
 
   & p {
-    color: common.$primaryTextSemiDark;
+    color: var(--ds-color-text-muted);
     font-size: 0.875rem;
     line-height: 1.5;
     overflow: hidden;
@@ -56,7 +55,7 @@
     margin-block-start: 0;
     margin-block-end: 0;
     font-size: 1.1rem;
-    color: common.$gold;
+    color: var(--ds-color-accent-gold);
   }
 }
 
@@ -78,14 +77,14 @@
 
     & dd {
       margin-inline-start: 0;
-      color: common.$primaryTextSemiDark;
+      color: var(--ds-color-text-muted);
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
     & dt {
-      color: common.$primaryText;
+      color: var(--ds-color-text-primary);
       font-weight: bold;
       font-size: 0.875rem;
       margin-top: 8px;

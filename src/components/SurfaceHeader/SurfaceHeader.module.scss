@@ -1,0 +1,64 @@
+@use "../../common.scss";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+
+  @include common.mobile {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.right {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  min-width: 0;
+
+  @include common.mobile {
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 12px;
+    justify-content: space-around;
+  }
+
+  & dl {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 1rem;
+    margin: 0;
+
+    @include common.mobile {
+      font-size: 0.8rem;
+      grid-column: span 1;
+    }
+
+    & dd {
+      color: common.$primaryTextHighlight;
+      margin-inline-start: 0;
+      white-space: nowrap;
+    }
+
+    & dt {
+      white-space: nowrap;
+      font-size: 0.8em;
+      color: rgb(161, 161, 161);
+    }
+  }
+}

@@ -31,7 +31,6 @@ import { hasSubscription, paidAction } from "@/util/subscription";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
-import { Panel } from "../Panel";
 import { PlayerAvatar } from "../PlayerAvatar";
 import { Tooltipable } from "../Tooltipable";
 import { PageLink } from "../PageLink";
@@ -40,6 +39,7 @@ import { BigTabs } from "../BigTabs";
 import { getApi } from "@/api/hooks";
 import { ActionChip } from "../ActionChip";
 import { StatRow } from "../StatRow";
+import { SurfaceHeader } from "../SurfaceHeader";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -214,11 +214,12 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
 
     return (
       <div className={c.summary}>
-        <Panel
+        <SurfaceHeader
           className={cx(className, c.panel)}
           data-testid="player-summary-panel"
-        >
-          <div className={"left"}>
+          leftClassName={c.left}
+          rightClassName={c.right}
+          left={
             <div className={c.player}>
               <PlayerAvatar
                 width={65}
@@ -251,7 +252,7 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                     <Tooltipable
                       tooltip={t("player_summary.subscriberTooltip")}
                     >
-                      <img width={20} height={20} src="/logo/128.png" />
+                      <img width={20} height={20} src="/logo/128.png" alt="" />
                     </Tooltipable>
                   )}
                   {isModerator && (
@@ -289,106 +290,107 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className={"right"}>
-            {session && (
+          }
+          right={
+            <>
+              {session && (
+                <StatRow
+                  label={t("player_summary.matchPlaying")}
+                  testId="player-summary-last-game"
+                  value={
+                    <PageLink
+                      link={AppRouter.matches.match(session.matchId).link}
+                    >
+                      {t(
+                        `matchmaking_mode.${session.lobbyType}` as TranslationKey,
+                      )}
+                    </PageLink>
+                  }
+                />
+              )}
+              {lastGameTimestamp && (
+                <StatRow
+                  label={t("player_summary.lastGame")}
+                  testId="player-summary-last-game"
+                  value={formatShortTime(new Date(lastGameTimestamp))}
+                />
+              )}
+              {banStatus.isBanned && (
+                <StatRow
+                  label={t("player_summary.ban")}
+                  testId="player-summary-win-loss"
+                  tooltip={t("player_summary.banReason", {
+                    reason: formatBanReason(banStatus.status),
+                  })}
+                  value={<TimeAgo date={banStatus.bannedUntil} />}
+                />
+              )}
               <StatRow
-                label={t("player_summary.matchPlaying")}
-                testId="player-summary-last-game"
+                className={c.games}
+                label={t("player_summary.matches")}
+                testId="player-summary-win-loss"
+                tooltip={t("player_summary.winLossTooltip")}
                 value={
-                  <PageLink
-                    link={AppRouter.matches.match(session.matchId).link}
-                  >
-                    {t(
-                      `matchmaking_mode.${session.lobbyType}` as TranslationKey,
-                    )}
-                  </PageLink>
+                  <>
+                    <span className="green">{wins}</span>
+                    <span className="red">{loss}</span>
+                    <span className="grey">{abandons}</span>
+                  </>
                 }
               />
-            )}
-            {lastGameTimestamp && (
               <StatRow
-                label={t("player_summary.lastGame")}
-                testId="player-summary-last-game"
-                value={formatShortTime(new Date(lastGameTimestamp))}
+                label={t("player_summary.winRate")}
+                testId="player-summary-winrate"
+                value={formatWinrate(wins, loss)}
+                valueClassName={wins > loss ? "green" : "red"}
               />
-            )}
-            {banStatus.isBanned && (
               <StatRow
-                label={t("player_summary.ban")}
-                testId="player-summary-win-loss"
-                tooltip={t("player_summary.banReason", {
-                  reason: formatBanReason(banStatus.status),
-                })}
-                value={<TimeAgo date={banStatus.bannedUntil} />}
+                label={t("player_summary.rating")}
+                testId="player-summary-rating"
+                value={mmr ? <span>{mmr}</span> : t("player_summary.noRating")}
               />
-            )}
-            <StatRow
-              className={c.games}
-              label={t("player_summary.matches")}
-              testId="player-summary-win-loss"
-              tooltip={t("player_summary.winLossTooltip")}
-              value={
-                <>
-                  <span className="green">{wins}</span>
-                  <span className="red">{loss}</span>
-                  <span className="grey">{abandons}</span>
-                </>
-              }
-            />
-            <StatRow
-              label={t("player_summary.winRate")}
-              testId="player-summary-winrate"
-              value={formatWinrate(wins, loss)}
-              valueClassName={wins > loss ? "green" : "red"}
-            />
-            <StatRow
-              label={t("player_summary.rating")}
-              testId="player-summary-rating"
-              value={mmr ? <span>{mmr}</span> : t("player_summary.noRating")}
-            />
-            <StatRow
-              label={t("player_summary.rank")}
-              testId="player-summary-rank"
-              value={
-                rank && rank > 0 ? (
-                  <span>{rank}</span>
-                ) : (
-                  t("player_summary.noRank")
-                )
-              }
-            />
-            {isAuthorized && !isMyProfile && (
-              <div className={c.actionStack}>
-                <ActionChip
-                  active={isFriend}
-                  onClick={handleFriend}
-                  variant={isFriend ? "success" : "neutral"}
-                >
-                  {isFriend ? <MdPersonRemove /> : <MdPersonAdd />}
-                  {t(
-                    isFriend
-                      ? "player_summary.unfriend"
-                      : "player_summary.friend",
-                  )}
-                </ActionChip>
-                <ActionChip
-                  active={isBlocked}
-                  onClick={handleBlock}
-                  variant={isBlocked ? "danger" : "neutral"}
-                >
-                  <MdBlock />
-                  {t(
-                    isBlocked
-                      ? "player_summary.unblock"
-                      : "player_summary.block",
-                  )}
-                </ActionChip>
-              </div>
-            )}
-          </div>
-        </Panel>
+              <StatRow
+                label={t("player_summary.rank")}
+                testId="player-summary-rank"
+                value={
+                  rank && rank > 0 ? (
+                    <span>{rank}</span>
+                  ) : (
+                    t("player_summary.noRank")
+                  )
+                }
+              />
+              {isAuthorized && !isMyProfile && (
+                <div className={c.actionStack}>
+                  <ActionChip
+                    active={isFriend}
+                    onClick={handleFriend}
+                    variant={isFriend ? "success" : "neutral"}
+                  >
+                    {isFriend ? <MdPersonRemove /> : <MdPersonAdd />}
+                    {t(
+                      isFriend
+                        ? "player_summary.unfriend"
+                        : "player_summary.friend",
+                    )}
+                  </ActionChip>
+                  <ActionChip
+                    active={isBlocked}
+                    onClick={handleBlock}
+                    variant={isBlocked ? "danger" : "neutral"}
+                  >
+                    <MdBlock />
+                    {t(
+                      isBlocked
+                        ? "player_summary.unblock"
+                        : "player_summary.block",
+                    )}
+                  </ActionChip>
+                </div>
+              )}
+            </>
+          }
+        />
         <BigTabs<PlayerPage>
           className={c.tabs}
           flavor="small"
