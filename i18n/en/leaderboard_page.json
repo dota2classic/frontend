@@ -4,6 +4,7 @@
       "title": "Leaderboard",
       "description": "Leaderboard for players on dotaclassic.ru, top players and their statistics"
     },
+    "eyebrow": "RANKINGS",
     "season": "Season",
     "seasonSelect": "Season",
     "rank": "Rank",

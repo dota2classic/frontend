@@ -8,8 +8,9 @@
   flex-direction: row;
   justify-content: center;
 
-  color: inherit;
-  transition: 0.3s ease;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color var(--ds-duration-fast) var(--ds-ease-standard),
+    background var(--ds-duration-fast) var(--ds-ease-standard);
   align-items: stretch;
 
   & > a {
@@ -17,45 +18,43 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
-    font-size: 1.1rem;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
 
     & svg {
-      font-size: 0.9em;
-      margin-right: 4px;
-      margin-top: -3px;
+      font-size: 1em;
+      margin-right: 5px;
+      margin-top: -1px;
     }
   }
 
   &:focus,
   &:hover {
-    background: common.$deepBlue;
+    color: var(--ds-color-text-strong);
+    background: rgba(255, 255, 255, 0.05);
+
     & .options {
       visibility: visible;
       pointer-events: auto;
       opacity: 1;
-      //display: flex;
     }
   }
 
   &.active {
-    color: common.$gold;
-    background: common.$deepBlue;
+    color: var(--ds-color-accent-gold);
+    background: rgba(248, 211, 0, 0.06);
   }
 }
 
-.navbarItemLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .admin {
-  color: common.$bronze;
+  color: #91500d;
 }
 
 .options {
-  @include common.box();
+  box-shadow: var(--ds-shadow-card);
   clip-path: inset(0px -10px -10px -10px);
   opacity: 0;
   visibility: hidden;
@@ -66,37 +65,55 @@
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  transition: 0.3s ease;
-  background: common.$deepBlue;
-
-  padding: 8px 12px;
-  font-size: 1.2rem;
-
-  gap: 12px;
-
+  transition: opacity var(--ds-duration-normal) var(--ds-ease-standard),
+    visibility var(--ds-duration-normal) var(--ds-ease-standard);
+  background: var(--ds-color-bg-elevated);
+  border: 1px solid var(--ds-color-border-subtle);
+  border-radius: var(--ds-radius-md);
+  padding: 8px;
+  font-size: 0.85rem;
+  gap: 2px;
   pointer-events: none;
 }
 
 .option {
   cursor: pointer;
-  color: common.$primaryText;
+  color: var(--ds-color-text-muted);
+  padding: 7px 12px;
+  border-radius: var(--ds-radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color var(--ds-duration-fast) var(--ds-ease-standard),
+    background var(--ds-duration-fast) var(--ds-ease-standard);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.9rem;
+
+  &:hover {
+    color: var(--ds-color-text-strong);
+    background: rgba(255, 255, 255, 0.05);
+  }
 
   & svg {
-    margin-bottom: -3px;
-    margin-right: 4px;
+    font-size: 1em;
+    flex-shrink: 0;
   }
 }
 
 .delimiter {
-  border-top: 1px solid common.$bg3;
+  border-top: 1px solid var(--ds-color-border-subtle);
+  margin: 4px 0;
 }
 
 .tip {
   position: absolute;
-  top: 4px;
-  right: 0px;
-  color: common.$primaryText;
-  font-size: 14px;
+  top: 8px;
+  right: 2px;
+  color: var(--ds-color-accent-gold);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0;
 
   @include common.mobile {
     left: calc(50% + 30px);

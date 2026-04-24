@@ -5,14 +5,26 @@
   top: 0;
   left: 0;
   right: 0;
-  background: var(--ds-color-bg-elevated);
+  background: rgba(12, 12, 12, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   color: var(--ds-color-text-primary);
   z-index: 100000;
-  box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--ds-duration-normal) var(--ds-ease-standard);
 }
 
-.navbar__admin {
-  justify-content: flex-start;
+.navbarScrolled {
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+
+.navbarOverlay {
+  position: fixed;
+  background: linear-gradient(to bottom, rgba(8, 9, 17, 0.9), transparent);
+}
+
+.navbarOverlay.navbarScrolled {
+  background: rgba(12, 12, 12, 0.92);
 }
 
 .mobileMenu {
@@ -33,23 +45,24 @@
 .navbarInner {
   max-width: 1200px;
   margin: auto;
-  //overflow-x: ;
-  //overflow-y: hidden;
 }
 
 .navbarList {
   display: flex;
   flex-direction: row;
+  align-items: stretch;
+  height: 64px;
 
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
   padding-inline-start: 0;
 
   &__desktop {
     display: inline-flex;
     flex: 1;
+    align-items: stretch;
 
     @media (max-width: 1000px) {
       position: absolute;
@@ -65,9 +78,9 @@
       display: flex !important;
       flex-direction: column;
       width: 100vw;
-      background: var(--ds-color-bg-elevated);
-      height: calc(100dvh - 44px);
-      top: 44px;
+      background: rgba(12, 12, 12, 0.98);
+      height: calc(100dvh - 64px);
+      top: 64px;
       font-size: 22px;
       gap: 10px;
       color: white !important;
@@ -86,16 +99,7 @@
   flex: 1;
 }
 
-.playerAvatar {
-  width: 30px;
-  height: 30px;
-  margin-left: 4px;
-  border-radius: 2px;
-}
-
 .root {
-  //background-color: $bg15;
-
   & a {
     color: #ed3b1c !important;
     padding: 0 !important;
@@ -107,7 +111,7 @@
   }
 
   & span {
-    padding: 8px 12px 8px 0px;
+    padding: 8px 12px 8px 0;
   }
 }
 
@@ -116,31 +120,17 @@
   @include common.mobile {
     border: 1px solid var(--ds-color-accent-blue-soft);
     outline: none;
-    border-radius: 4px;
-    transition: 0.3s ease;
+    border-radius: var(--ds-radius-sm);
+    transition: var(--ds-duration-normal) var(--ds-ease-standard);
     color: var(--ds-color-text-primary);
     cursor: pointer;
-    background-color: var(--ds-color-bg-elevated);
-  }
-}
-
-@keyframes attention {
-  0% {
-    left: 0;
-  }
-
-  10%,
-  100% {
-    left: 100%;
+    background-color: transparent;
   }
 }
 
 .liveMatch {
   color: var(--ds-color-accent-gold);
-  //overflow: hidden;
   position: relative;
-  //width: 13ch;
-
 }
 
 .omitInTablet {
@@ -152,8 +142,4 @@
 .playerName {
   min-width: 12ch;
   text-align: right;
-}
-
-.play {
-  //width: 12ch;
 }

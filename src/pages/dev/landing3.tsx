@@ -7,7 +7,7 @@ import { AppRouter } from "@/route";
 import { getDomain } from "@/util/domain";
 import cx from "clsx";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import c from "./Landing3Page.module.scss";
 
 interface Landing3Props {
@@ -106,24 +106,11 @@ function TwitchIcon() {
   );
 }
 
-function TelegramIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.284c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.71 14.237l-2.948-.924c-.64-.203-.654-.64.136-.948l11.52-4.443c.534-.194 1.001.131.144.325z" />
-    </svg>
-  );
-}
-
 export default function Landing3Page({ blog, streams }: Landing3Props) {
   const [mounted, setMounted] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setMounted(true);
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const twitchChannel =
@@ -139,62 +126,6 @@ export default function Landing3Page({ blog, streams }: Landing3Props) {
         description="Оригинальные патчи, старая карта, живой онлайн. Скачай лаунчер и начни играть уже сегодня."
       />
       <div className={cx(c.page, threadFont.className)}>
-        {/* ── NAV ── */}
-        <nav ref={navRef} className={cx(c.nav, scrolled && c.navScrolled)}>
-          <Link href="/" className={c.navBrand}>
-            <img
-              className={c.navBrandLogo}
-              src="https://dotaclassic.ru/logo/128.png"
-              alt="DotaClassic"
-            />
-            <span className={TrajanPro.className}>
-              DOTA2<span className={c.navBrandAccent}>CLASSIC</span>
-            </span>
-          </Link>
-
-          <ul className={c.navLinks}>
-            <li>
-              <Link href="/matches" className={c.navLink}>
-                Матчи
-              </Link>
-            </li>
-            <li>
-              <Link href="/heroes" className={c.navLink}>
-                Герои
-              </Link>
-            </li>
-            <li>
-              <Link href="/players" className={c.navLink}>
-                Игроки
-              </Link>
-            </li>
-            <li>
-              <Link href={AppRouter.meta.index.link.href} className={c.navLink}>
-                Мета
-              </Link>
-            </li>
-            <li>
-              <Link href={AppRouter.blog.index.link.href} className={c.navLink}>
-                Новости
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={AppRouter.store.index.link.href}
-                className={c.navLink}
-              >
-                Магазин
-              </Link>
-            </li>
-          </ul>
-
-          <div className={c.navCta}>
-            <Link href={AppRouter.info.link.href} className={c.btnNavGhost}>
-              О проекте
-            </Link>
-          </div>
-        </nav>
-
         {/* ── HERO ── */}
         <section className={c.hero}>
           <video
@@ -469,67 +400,12 @@ export default function Landing3Page({ blog, streams }: Landing3Props) {
             </Link>
           </div>
         </div>
-
-        {/* ── FOOTER ── */}
-        <footer className={c.footer}>
-          <div className={c.footerInner}>
-            <Link href="/" className={c.navBrand}>
-              <img
-                className={c.navBrandLogo}
-                src="https://dotaclassic.ru/logo/128.png"
-                alt="DotaClassic"
-              />
-              <span className={TrajanPro.className}>
-                DOTA2<span className={c.navBrandAccent}>CLASSIC</span>
-              </span>
-            </Link>
-
-            <div className={c.footerLinks}>
-              <Link href={AppRouter.rules.link.href} className={c.footerLink}>
-                Правила
-              </Link>
-              <Link href={AppRouter.info.link.href} className={c.footerLink}>
-                О проекте
-              </Link>
-              <Link href="/forum" className={c.footerLink}>
-                Форум
-              </Link>
-              <Link
-                href={AppRouter.blog.index.link.href}
-                className={c.footerLink}
-              >
-                Новости
-              </Link>
-              <Link
-                href={AppRouter.store.index.link.href}
-                className={c.footerLink}
-              >
-                Магазин
-              </Link>
-            </div>
-
-            <a
-              href="https://t.me/dota2classicru"
-              target="_blank"
-              rel="noreferrer"
-              className={c.socialLink}
-            >
-              <TelegramIcon />
-              Telegram
-            </a>
-
-            <div className={c.footerCopy}>
-              © 2020–2026 dotaclassic.ru · Dota 2 is a trademark of Valve
-              Corporation
-            </div>
-          </div>
-        </footer>
       </div>
     </>
   );
 }
 
-Landing3Page.layoutConfig = { fullBleed: true, noNavbar: true, noFooter: true };
+Landing3Page.layoutConfig = { fullBleed: true };
 
 Landing3Page.getInitialProps = async (): Promise<Landing3Props> => {
   const [blog, streams] = await Promise.all([

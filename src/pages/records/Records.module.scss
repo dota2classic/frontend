@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .records {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -32,11 +30,11 @@
   cursor: pointer;
   transition: 0.3s ease;
   &:hover {
-    box-shadow: inset 0 -2px 0 common.$blueHighlight !important;
+    box-shadow: inset 0 -2px 0 var(--ds-color-accent-blue) !important;
   }
 
   &.active {
-    box-shadow: inset 0 -2px 0 common.$blueHighlight !important;
-    background-color: common.$transparentTint3;
+    box-shadow: inset 0 -2px 0 var(--ds-color-accent-blue) !important;
+    background-color: rgba(65, 168, 252, 0.05);
   }
 }

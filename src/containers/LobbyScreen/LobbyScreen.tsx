@@ -184,7 +184,11 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
           }
         />
 
-        <Surface className={c.gridPanel} padding="xs" variant="panel">
+        <Surface
+          className={cx(c.grid12, c.gridPanel)}
+          padding="xs"
+          variant="panel"
+        >
           <LobbyTeam
             onKickPlayer={kickPlayer}
             isOwner={isOwner}

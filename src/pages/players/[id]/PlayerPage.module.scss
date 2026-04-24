@@ -9,7 +9,6 @@
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(12, 1fr);
-  margin-top: 20px;
 }
 
 .playerInfo {
@@ -75,7 +74,7 @@
 }
 
 .twitch {
-  color: common.$purple;
+  color: #6441a5;
 }
 
 .heading {

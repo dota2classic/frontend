@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .twoRows {
   display: flex;
   flex-direction: column;
@@ -18,7 +16,7 @@
   flex-direction: column;
 
   &__id {
-    color: common.$green !important;
+    color: var(--ds-color-accent-green) !important;
   }
   &__timeAgo {
     font-size: 0.7rem;
@@ -26,11 +24,11 @@
 }
 
 .radiant {
-  color: common.$green !important;
+  color: var(--ds-color-accent-green) !important;
 }
 
 .dire {
-  color: common.$red !important;
+  color: var(--ds-color-accent-red) !important;
 }
 
 .heroes {
@@ -49,5 +47,5 @@
 
 .secondary {
   font-size: 0.7rem;
-  color: common.$primaryTextDark;
+  color: var(--ds-color-text-dim);
 }

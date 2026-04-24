@@ -1,35 +1,25 @@
 @use "../../common.scss";
 
 .pagination {
-  background-color: common.$bg1;
-  //padding: 6px 6px;
+  background-color: transparent;
   padding: 0 !important;
   display: flex;
   flex-direction: row !important;
 
   @include common.mobile {
-    // Overwrite for panel
     flex-direction: row !important;
-  }
-
-  & + table,
-  table + & {
-    //margin-top: 20px;
   }
 }
 
 .page {
-  //padding: 4px 12px;
   padding: 10px 16px;
-  //display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.3s ease;
   text-align: center;
-
   min-width: 20px;
 
-  color: common.$green;
+  color: var(--ds-color-text-muted);
   text-decoration: none;
   cursor: pointer;
 
@@ -38,20 +28,21 @@
   }
 
   & a {
-    color: common.$green;
+    color: var(--ds-color-text-muted);
   }
 
   &.active {
-    background-color: common.$blueHighlight3;
+    background-color: var(--ds-color-accent-blue-soft);
+    color: var(--ds-color-text-strong);
   }
 
   &.disabled {
     background-color: rgba(0, 0, 0, 0.3) !important;
     cursor: not-allowed;
-    //pointer-events: ov;
   }
 
   &:hover {
-    background-color: common.$blueHighlight3;
+    background-color: var(--ds-color-accent-blue-soft);
+    color: var(--ds-color-text-primary);
   }
 }

@@ -22,14 +22,25 @@ import { NavbarItem } from "../NavbarItem";
 import { Logo } from "../Logo";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 
-export const Navbar = observer(function Navbar(p: { className?: string }) {
+export const Navbar = observer(function Navbar(p: {
+  className?: string;
+  overlay?: boolean;
+}) {
   const { t } = useTranslation();
   const { auth, live } = useStore();
   const { isAdmin, isModerator } = auth;
   const isAuthorized = auth.isAuthorized;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { overlay } = p;
 
   const [changing] = useRouterChanging();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (changing && menuOpen) setMenuOpen(false);
@@ -53,7 +64,14 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
       : false;
 
   return (
-    <div className={cx(c.navbar, p.className)}>
+    <div
+      className={cx(
+        c.navbar,
+        overlay && c.navbarOverlay,
+        scrolled && c.navbarScrolled,
+        p.className,
+      )}
+    >
       <div className={c.navbarInner}>
         <ul className={c.navbarList}>
           <NavbarItem

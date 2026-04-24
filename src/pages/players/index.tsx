@@ -39,7 +39,6 @@ export default function LeaderboardPage({
         title={t("leaderboard_page.seo.title")}
         description={t("leaderboard_page.seo.description")}
       />
-
       <Surface className="horizontal" padding="xs" variant="panel">
         <SelectOptions
           options={seasonOptions}
