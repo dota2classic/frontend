@@ -3,7 +3,7 @@ import "@/styles/design-tokens.css";
 import "@/styles/scrollbars.css";
 import App, { AppContext, AppInitialProps } from "next/app";
 import { ReferralSniffer } from "@/components/ReferralSniffer";
-import { Layout } from "@/components/Layout";
+import { Layout, LayoutConfig } from "@/components/Layout";
 import Cookies from "cookies";
 import "../util/promise";
 // import * as Fonts from 'next/font/google'
@@ -97,8 +97,9 @@ export default class MyApp extends App<{
       cookies.get(AUTH_TOKEN_COOKIE_KEY) ||
       cookies.get(encodeURIComponent(AUTH_TOKEN_COOKIE_KEY));
 
-    const inferredState: Partial<HydrateRootData> =
-      MyApp.inferPagePropsAsHydratable(appProps);
+    const inferredState: Partial<HydrateRootData> = MyApp.inferPagePropsAsHydratable(
+      appProps,
+    );
 
     const initialState: HydrateRootData = {
       auth: { token: cookieToken },
@@ -141,7 +142,10 @@ export default class MyApp extends App<{
         </Head>
         <SWRConfig>
           {/*<PushNotificationManager />*/}
-          <Layout className={cx(TrajanPro.className)}>
+          <Layout
+            className={cx(TrajanPro.className)}
+            config={(Component as { layoutConfig?: LayoutConfig }).layoutConfig}
+          >
             <Component {...pageProps} />
           </Layout>
         </SWRConfig>

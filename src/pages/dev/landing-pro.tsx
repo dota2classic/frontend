@@ -18,17 +18,20 @@ const features = [
   {
     label: "Альтернатива",
     title: "Надоела текущая Dota? Вот выход",
-    text: "Хочется доты, но новый патч не заходит — заходи сюда. Та же игра, другой баланс. Реальная альтернатива, а не музейный экспонат.",
+    text:
+      "Хочется доты, но новый патч не заходит — заходи сюда. Та же игра, другой баланс. Реальная альтернатива, а не музейный экспонат.",
   },
   {
     label: "Режимы",
     title: "Режим под любое настроение",
-    text: "Хочешь размяться — иди против ботов. Есть 20 минут — турбо. Готов к серьёзной игре — полноценное 5×5 с рейтингом.",
+    text:
+      "Хочешь размяться — иди против ботов. Есть 20 минут — турбо. Готов к серьёзной игре — полноценное 5×5 с рейтингом.",
   },
   {
     label: "Комьюнити",
     title: "Все друг друга знают",
-    text: "Комьюнити компактное — и это плюс. Здесь быстро появляются постоянные тиммейты, знакомые лица и своя атмосфера.",
+    text:
+      "Комьюнити компактное — и это плюс. Здесь быстро появляются постоянные тиммейты, знакомые лица и своя атмосфера.",
   },
 ];
 
@@ -41,12 +44,14 @@ const steps = [
   {
     index: "02",
     title: "Лаунчер установит игру сам",
-    text: "Запусти лаунчер — он сам скачает и установит клиент. Ничего настраивать вручную не нужно.",
+    text:
+      "Запусти лаунчер — он сам скачает и установит клиент. Ничего настраивать вручную не нужно.",
   },
   {
     index: "03",
     title: "Найди матч прямо в лаунчере",
-    text: "Жми поиск игры в лаунчере и заходи в свой первый онлайн матч. Без лишних шагов.",
+    text:
+      "Жми поиск игры в лаунчере и заходи в свой первый онлайн матч. Без лишних шагов.",
   },
 ];
 
@@ -54,7 +59,8 @@ const channels = [
   {
     label: "Статистика",
     title: "Рейтинг и мета",
-    text: "Таблица лучших игроков, статистика по героям и тренды текущего патча — всё в одном месте.",
+    text:
+      "Таблица лучших игроков, статистика по героям и тренды текущего патча — всё в одном месте.",
     href: AppRouter.meta.index.link,
     action: "Открыть рейтинг",
     image: "/landing/leaderboard.webp",
@@ -62,7 +68,8 @@ const channels = [
   {
     label: "Блог",
     title: "Новости проекта",
-    text: "Обновления сервера, события и анонсы — чтобы понимать, что происходит прямо сейчас.",
+    text:
+      "Обновления сервера, события и анонсы — чтобы понимать, что происходит прямо сейчас.",
     href: AppRouter.blog.index.link,
     action: "Читать новости",
     image: "/landing/meeponegeroi.webp",
@@ -70,7 +77,8 @@ const channels = [
   {
     label: "Telegram",
     title: "Комьюнити",
-    text: "Анонсы, поиск тиммейтов и живое общение с игроками — всё в одном канале.",
+    text:
+      "Анонсы, поиск тиммейтов и живое общение с игроками — всё в одном канале.",
     href: {
       href: "https://t.me/dota2classicru",
       passHref: true,
@@ -149,79 +157,91 @@ export default function LandingProPage({ blog, streams }: LandingProPageProps) {
           </div>
           <div className={c.heroOverlay} />
 
-          <header className={c.topbar}>
-            <Link href="/" className={cx(c.brand, TrajanPro.className)}>
-              Dota2Classic
-            </Link>
-            <nav className={c.nav}>
-              <Link href={AppRouter.download.link.href} className={c.navLink}>
-                Скачать
+          <div className={c.heroContent}>
+            <header className={c.topbar}>
+              <Link href="/" className={cx(c.brand, TrajanPro.className)}>
+                Dota2Classic
               </Link>
-              <Link href={AppRouter.queue.link.href} className={c.navLink}>
-                Игры
-              </Link>
-              <Link href={AppRouter.meta.index.link.href} className={c.navLink}>
-                Мета
-              </Link>
-              <Link href={AppRouter.blog.index.link.href} className={c.navLink}>
-                Новости
-              </Link>
-            </nav>
-          </header>
-
-          <div className={c.heroBody}>
-            <div className={c.heroCopy}>
-              <span className={c.kicker}>Dota 2 Classic</span>
-              <h1 className={cx(c.heroTitle, TrajanPro.className)}>
-                Dota,{"\n"}которую ты помнишь
-              </h1>
-              <p className={c.heroLead}>
-                Та же карта, те же механики, реальные игроки. Скачай лаунчер и
-                зайди в матч — всё готово к первой игре уже сегодня.
-              </p>
-              <div className={c.heroActions}>
-                <Link
-                  href={AppRouter.download.link.href}
-                  className={cx(c.cta, c.ctaPrimary)}
-                >
-                  Скачать лаунчер
+              <nav className={c.nav}>
+                <Link href={AppRouter.download.link.href} className={c.navLink}>
+                  Скачать
                 </Link>
-              </div>
-              <dl className={c.metrics}>
-                <div className={c.metricCard}>
-                  <dt>Игроков в месяц</dt>
-                  <dd>1 000+</dd>
-                </div>
-                <div className={c.metricCard}>
-                  <dt>Матчей 5×5 в месяц</dt>
-                  <dd>500+</dd>
-                </div>
-              </dl>
-            </div>
+                <Link href={AppRouter.queue.link.href} className={c.navLink}>
+                  Игры
+                </Link>
+                <Link
+                  href={AppRouter.meta.index.link.href}
+                  className={c.navLink}
+                >
+                  Мета
+                </Link>
+                <Link
+                  href={AppRouter.blog.index.link.href}
+                  className={c.navLink}
+                >
+                  Новости
+                </Link>
+              </nav>
+            </header>
 
-            <aside className={c.heroPanel}>
-              <div className={c.panelCard}>
-                <span className={c.cardTag}>Почему Dota2Classic</span>
-                <h2>Старая Dota. Живой онлайн.</h2>
-                <ul className={c.panelList}>
-                  {panelBullets.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
+            <div className={c.heroBody}>
+              <div className={c.heroCopy}>
+                <span className={c.kicker}>Dota 2 Classic</span>
+                <h1 className={cx(c.heroTitle, TrajanPro.className)}>
+                  Dota,{"\n"}которую ты помнишь
+                </h1>
+                <p className={c.heroLead}>
+                  Та же карта, те же механики, реальные игроки. Скачай лаунчер и
+                  зайди в матч — всё готово к первой игре уже сегодня.
+                </p>
+                <div className={c.heroActions}>
+                  <Link
+                    href={AppRouter.download.link.href}
+                    className={cx(c.cta, c.ctaPrimary)}
+                  >
+                    Скачать лаунчер
+                  </Link>
+                </div>
+                <dl className={c.metrics}>
+                  <div className={c.metricCard}>
+                    <dt>Игроков в месяц</dt>
+                    <dd>1 000+</dd>
+                  </div>
+                  <div className={c.metricCard}>
+                    <dt>Матчей 5×5 в месяц</dt>
+                    <dd>500+</dd>
+                  </div>
+                </dl>
               </div>
-              <div className={c.panelShot}>
-                {mounted && twitchChannel ? (
-                  <iframe
-                    className={c.panelStream}
-                    src={`https://player.twitch.tv/?channel=${twitchChannel}&parent=${getDomain()}&muted=true&autoplay=true`}
-                    allowFullScreen
-                  />
-                ) : (
-                  <img src="/landing/highres1.webp" alt="Gameplay screenshot" />
-                )}
-              </div>
-            </aside>
+
+              <aside className={c.heroPanel}>
+                <div className={c.panelCard}>
+                  <span className={c.cardTag}>Почему Dota2Classic</span>
+                  <h2>Старая Dota. Живой онлайн.</h2>
+                  <ul className={c.panelList}>
+                    {panelBullets.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={c.panelShot}>
+                  {mounted && twitchChannel ? (
+                    <iframe
+                      className={c.panelStream}
+                      src={`https://player.twitch.tv/?channel=${twitchChannel}&parent=${getDomain()}&muted=true&autoplay=true`}
+                      allowFullScreen
+                    />
+                  ) : (
+                    <img
+                      src="/landing/highres1.webp"
+                      alt="Gameplay screenshot"
+                    />
+                  )}
+                </div>
+              </aside>
+            </div>
           </div>
+          {/* heroContent */}
         </section>
 
         {/* ── FEATURES ── */}
@@ -365,6 +385,12 @@ export default function LandingProPage({ blog, streams }: LandingProPageProps) {
     </>
   );
 }
+
+LandingProPage.layoutConfig = {
+  fullBleed: true,
+  noNavbar: true,
+  noFooter: true,
+};
 
 LandingProPage.getInitialProps = async (): Promise<LandingProPageProps> => {
   const [blog, streams] = await Promise.all([
