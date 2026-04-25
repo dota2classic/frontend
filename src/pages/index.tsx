@@ -350,6 +350,7 @@ export default function Home({ blog, streams }: HomeProps) {
                   description={post.shortDescription}
                   imageUrl={post.image?.url}
                   featured={i === 0}
+                  showDescription={i === 0}
                 />
               ))}
             </div>

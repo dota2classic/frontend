@@ -375,8 +375,9 @@
 /* ─── PATCH CARDS ─── */
 .patchesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
   gap: 14px;
+  justify-content: center;
 }
 
 .patchCard {
@@ -599,6 +600,13 @@
   display: grid;
   grid-template-columns: 1.6fr 1fr 1fr;
   gap: 18px;
+
+  & > :nth-child(2),
+  & > :nth-child(3) {
+    max-height: 260px;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* ─── STAT LINKS ─── */

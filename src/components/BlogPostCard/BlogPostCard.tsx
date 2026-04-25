@@ -9,6 +9,7 @@ interface BlogPostCardProps {
   description?: string;
   imageUrl?: string;
   featured?: boolean;
+  showDescription?: boolean;
   className?: string;
 }
 
@@ -19,6 +20,7 @@ export function BlogPostCard({
   description,
   imageUrl,
   featured,
+  showDescription = true,
   className,
 }: BlogPostCardProps) {
   return (
@@ -34,7 +36,9 @@ export function BlogPostCard({
       <div className={c.body}>
         <div className={c.date}>{date}</div>
         <div className={cx(c.title, featured && c.titleFeatured)}>{title}</div>
-        {description && <div className={c.desc}>{description}</div>}
+        {description && showDescription && (
+          <div className={c.desc}>{description}</div>
+        )}
         <div className={c.readMore}>Читать →</div>
       </div>
     </Link>
