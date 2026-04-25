@@ -6,6 +6,7 @@
     "descriptionPlaceholder": "Short description",
     "image": "Image",
     "content": "Article content",
-    "publish": "Publish"
+    "publish": "Publish",
+    "clearDraft": "Clear draft"
   }
 }

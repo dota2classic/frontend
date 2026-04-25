@@ -44,9 +44,14 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
   useEffect(() => {
     if (post) {
       setNewValue(JSON.parse(post.content));
+    } else if (router.query.clearDraft) {
+      // Clear draft when explicitly requested
+      setNewValue(undefined);
+      setTitle("");
+      setDescription("");
     }
     setLoaded(true);
-  }, [post, setNewValue]);
+  }, [post, setNewValue, router.query.clearDraft]);
   const [image, setImage] = useState<UploadedImageDto | undefined>(post?.image);
 
   useDebounce(
@@ -81,6 +86,13 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
     await getApi().blog.blogpostControllerPublishDraft(post.id);
     router.reload();
   }, [post, router]);
+
+  const clearDraft = useCallback(() => {
+    setNewValue(undefined);
+    setTitle("");
+    setDescription("");
+    setImage(undefined);
+  }, [setNewValue]);
 
   return (
     <div className={c.editor}>
@@ -132,9 +144,16 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
           }}
         />
       )}
-      <Button disabled={post?.published} mega onClick={publishPost}>
-        {t("blog_edit.publish")}
-      </Button>
+      <div style={{ display: "flex", gap: "8px" }}>
+        <Button disabled={post?.published} mega onClick={publishPost}>
+          {t("blog_edit.publish")}
+        </Button>
+        {!post && (
+          <Button onClick={clearDraft} variant="ghost">
+            {t("blog_edit.clearDraft")}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

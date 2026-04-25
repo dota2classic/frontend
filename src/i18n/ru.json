@@ -150,6 +150,7 @@
   "blog_edit.image": "Изображение",
   "blog_edit.content": "Содержимое статьи",
   "blog_edit.publish": "Опубликовать",
+  "blog_edit.clearDraft": "Очистить черновик",
   "blogpostPage.seo.title": "{{title}}",
   "blogpostPage.seo.description": "{{description}}",
   "blogpostPage.allNews": "All news",

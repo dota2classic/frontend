@@ -6,6 +6,7 @@
     "descriptionPlaceholder": "Краткое описание",
     "image": "Изображение",
     "content": "Содержимое статьи",
-    "publish": "Опубликовать"
+    "publish": "Опубликовать",
+    "clearDraft": "Очистить черновик"
   }
 }

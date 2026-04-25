@@ -42,7 +42,13 @@ export default function NewsList({ page }: Props) {
           isMod ? (
             <MetaStat
               value={
-                <PageLink link={AppRouter.blog.create.link}>
+                <PageLink
+                  link={{
+                    ...AppRouter.blog.create.link,
+                    href: `${AppRouter.blog.create.link.href}?clearDraft=1`,
+                    as: `${AppRouter.blog.create.link.as}?clearDraft=1`,
+                  }}
+                >
                   {t("news_list.createNews")}
                 </PageLink>
               }

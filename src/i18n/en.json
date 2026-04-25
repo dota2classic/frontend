@@ -150,6 +150,7 @@
   "blog_edit.image": "Image",
   "blog_edit.content": "Article content",
   "blog_edit.publish": "Publish",
+  "blog_edit.clearDraft": "Clear draft",
   "blogpostPage.seo.title": "{{title}}",
   "blogpostPage.seo.description": "{{description}}",
   "blogpostPage.allNews": "All news",

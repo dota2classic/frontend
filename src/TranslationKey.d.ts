@@ -150,6 +150,7 @@ export type TranslationKey =
   | "blog_edit.image"
   | "blog_edit.content"
   | "blog_edit.publish"
+  | "blog_edit.clearDraft"
   | "blogpostPage.seo.title"
   | "blogpostPage.seo.description"
   | "blogpostPage.allNews"
