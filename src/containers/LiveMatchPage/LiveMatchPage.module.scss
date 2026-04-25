@@ -1,4 +1,4 @@
-@use "../../../styles/mixins.scss" as m;
+@use "../../styles/mixins.scss" as m;
 .queue {
   color: var(--ds-color-text-muted);
   font-size: 35px;
@@ -142,25 +142,26 @@
 .modeBlock {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .modeLabel {
-  color: var(--ds-color-text-dim);
-  font-size: 12px;
-  letter-spacing: 0.15em;
+  color: var(--ds-color-text-muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .modeValue {
   color: var(--ds-color-text-strong);
-  font-size: clamp(1.35rem, 2vw, 1.8rem);
-  line-height: 1.02;
-  font-weight: 700;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.2;
+  font-weight: 600;
   overflow-wrap: anywhere;
   display: inline-flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -188,7 +189,7 @@
 .metricInline {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   min-width: 0;
 }
 
@@ -209,28 +210,29 @@
 }
 
 .statLabel {
-  color: var(--ds-color-text-dim);
-  font-size: 12px;
-  letter-spacing: 0.15em;
+  color: var(--ds-color-text-muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .statValue {
   color: var(--ds-color-text-strong);
-  font-size: clamp(2rem, 2.6vw, 2.35rem);
+  font-size: clamp(1.4rem, 1.8vw, 1.6rem);
   font-weight: 700;
   min-width: 0;
   overflow-wrap: anywhere;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .scoreValue {
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
-  font-size: clamp(2.35rem, 4vw, 3rem);
+  font-size: clamp(1.6rem, 2.2vw, 1.85rem);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .radiantScore {
