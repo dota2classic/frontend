@@ -116,18 +116,7 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
                           })}
                         </Badge>
                       </div>
-                      <div className={c.modeBlock}>
-                        <span className={c.modeLabel}>
-                          {t("live_match_page.mode")}
-                        </span>
-                        <span className={c.modeValue}>
-                          {t(`matchmaking_mode.${liveMatch.matchmakingMode}`)}
-                          <span className={c.modeSeparator}>•</span>
-                          <span className={c.modeSubvalue}>
-                            {t(`game_mode.${liveMatch.gameMode}`)}
-                          </span>
-                        </span>
-                      </div>
+                      <div className={c.metricsRow}>
                       <div className={c.metricsInline}>
                         <div className={c.metricInline}>
                           <span className={c.statLabel}>
@@ -148,6 +137,19 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
                             <Duration clock duration={liveMatch.duration} />
                           </span>
                         </div>
+                      </div>
+                      <div className={c.modeBlock}>
+                        <span className={c.modeLabel}>
+                          {t("live_match_page.mode")}
+                        </span>
+                        <span className={c.modeValue}>
+                          {t(`matchmaking_mode.${liveMatch.matchmakingMode}`)}
+                          <span className={c.modeSeparator}>•</span>
+                          <span className={c.modeSubvalue}>
+                            {t(`game_mode.${liveMatch.gameMode}`)}
+                          </span>
+                        </span>
+                      </div>
                       </div>
                     </div>
                     <div className={c.actions}>
