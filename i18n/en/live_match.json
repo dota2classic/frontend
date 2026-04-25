@@ -4,7 +4,7 @@
     "launchSearch": "Great reason to start searching!",
     "mode": "Mode",
     "matchId": "Match {{matchId}}",
-    "score": "Score:",
-    "duration": "Time:"
+    "score": "Score",
+    "duration": "Time"
   }
 }
