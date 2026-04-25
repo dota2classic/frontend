@@ -144,7 +144,7 @@
 .modeBlock {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .modeLabel {
@@ -178,7 +178,7 @@
   font-weight: 700;
   letter-spacing: 0;
   text-transform: none;
-  line-height: 1.1;
+  line-height: 1.25;
 }
 
 .metricsInline {
@@ -197,7 +197,7 @@
 
 .metricsDivider {
   width: 1px;
-  height: 44px;
+  height: 52px;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0),
