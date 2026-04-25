@@ -190,9 +190,11 @@ const ColRenderer: React.FC<{
   } else if (type === ColumnType.Items) {
     return (
       <td className={col.mobileOmit ? "omit" : undefined}>
-        {value.map((item: string, idx: number) => (
-          <ItemIcon small key={idx} item={item} />
-        ))}
+        <div className={c.itemsRow}>
+          {value.map((item: string, idx: number) => (
+            <ItemIcon small key={idx} item={item} />
+          ))}
+        </div>
       </td>
     );
   } else if (type === ColumnType.PM_PAIR) {

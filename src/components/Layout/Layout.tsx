@@ -91,92 +91,78 @@ export const Layout = ({
             >
               {children}
             </main>
-            {!config.noFooter && (
-              <footer className={cx(c.footer, isQueuePage && c.footer__queue)}>
-                <div className={c.footer__inner}>
-                  <PageLink
-                    link={AppRouter.index.link}
-                    className={c.footer__brand}
-                  >
-                    <Logo size={28} />
-                    <span
-                      className={cx(TrajanPro.className, c.footer__brandName)}
-                    >
-                      DOTA2
-                      <span className={c.footer__brandAccent}>CLASSIC</span>
-                    </span>
-                  </PageLink>
-
-                  <nav className={c.footer__links}>
-                    <PageLink
-                      className={c.footer__link}
-                      link={AppRouter.rules.link}
-                    >
-                      {t("navbar.rules")}
-                    </PageLink>
-                    <PageLink
-                      className={c.footer__link}
-                      link={AppRouter.info.link}
-                    >
-                      {t("navbar.aboutProject")}
-                    </PageLink>
-                    <PageLink
-                      className={c.footer__link}
-                      link={AppRouter.forum.index().link}
-                    >
-                      {t("navbar.forum")}
-                    </PageLink>
-                    <PageLink
-                      className={c.footer__link}
-                      link={AppRouter.blog.index.link}
-                    >
-                      {t("navbar.news")}
-                    </PageLink>
-                    <PageLink
-                      className={c.footer__link}
-                      link={AppRouter.store.index.link}
-                    >
-                      {t("navbar.store")}
-                    </PageLink>
-                  </nav>
-
-                  <div className={c.footer__social}>
-                    <a
-                      href="https://t.me/dota2classicru"
-                      target="_blank"
-                      rel="noreferrer"
-                      className={c.footer__socialLink}
-                    >
-                      <FaTelegram />
-                      Telegram
-                    </a>
-                    <a
-                      href="https://discord.gg/36D4WdNquT"
-                      target="_blank"
-                      rel="noreferrer"
-                      className={c.footer__socialLink}
-                    >
-                      <FaDiscord />
-                      Discord
-                    </a>
-                  </div>
-
-                  <div className={c.footer__copy}>
-                    {t("layout.copyright", {
-                      min: 2020,
-                      max: new Date().getFullYear(),
-                    })}
-                    {" · "}
-                    {t("layout.trademark")}
-                  </div>
-                </div>
-              </footer>
-            )}
           </div>
           {!useLandingChrome && (
             <SideAdBlock bannerId={AdBlockType.BANNER_RIGHT} />
           )}
         </div>
+        {!config.noFooter && (
+          <footer className={cx(c.footer, isQueuePage && c.footer__queue)}>
+            <div className={c.footer__inner}>
+              <PageLink
+                link={AppRouter.index.link}
+                className={c.footer__brand}
+              >
+                <Logo size={28} />
+                <span className={cx(TrajanPro.className, c.footer__brandName)}>
+                  DOTA2
+                  <span className={c.footer__brandAccent}>CLASSIC</span>
+                </span>
+              </PageLink>
+
+              <nav className={c.footer__links}>
+                <PageLink className={c.footer__link} link={AppRouter.rules.link}>
+                  {t("navbar.rules")}
+                </PageLink>
+                <PageLink className={c.footer__link} link={AppRouter.info.link}>
+                  {t("navbar.aboutProject")}
+                </PageLink>
+                <PageLink
+                  className={c.footer__link}
+                  link={AppRouter.forum.index().link}
+                >
+                  {t("navbar.forum")}
+                </PageLink>
+                <PageLink className={c.footer__link} link={AppRouter.blog.index.link}>
+                  {t("navbar.news")}
+                </PageLink>
+                <PageLink className={c.footer__link} link={AppRouter.store.index.link}>
+                  {t("navbar.store")}
+                </PageLink>
+              </nav>
+
+              <div className={c.footer__social}>
+                <a
+                  href="https://t.me/dota2classicru"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={c.footer__socialLink}
+                >
+                  <FaTelegram />
+                  Telegram
+                </a>
+                <a
+                  href="https://discord.gg/36D4WdNquT"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={c.footer__socialLink}
+                >
+                  <FaDiscord />
+                  Discord
+                </a>
+              </div>
+
+              <div className={c.footer__copy}>
+                {t("layout.copyright", {
+                  min: 2020,
+                  max: new Date().getFullYear(),
+                })}
+                {" · "}
+                {t("layout.trademark")}
+              </div>
+            </div>
+          </footer>
+        )}
       </div>
     </ThemeContext.Provider>
   );

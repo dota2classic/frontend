@@ -6,7 +6,12 @@ import { TrajanPro } from "@/const/fonts";
 import { NextLinkProp } from "@/route";
 import { PageLink } from "../PageLink";
 
-export type ButtonVariant = "default" | "mega" | "primary" | "ghost";
+export type ButtonVariant =
+  | "default"
+  | "mega"
+  | "primary"
+  | "ghost"
+  | "landingPrimary";
 
 export const Button: React.FC<
   PropsWithChildren<{
@@ -17,19 +22,23 @@ export const Button: React.FC<
     onClick?: () => void;
     mega?: boolean;
     small?: boolean;
+    large?: boolean;
     variant?: ButtonVariant;
     target?: string;
     pageLink?: NextLinkProp;
   }>
-> = ({ className, link, mega, variant, small, pageLink, ...props }) => {
+> = ({ className, link, mega, variant, small, large, pageLink, ...props }) => {
   const resolvedVariant = mega ? "mega" : variant;
   const cn = cx(
     c.button,
     resolvedVariant === "mega" && c.megaButton,
     resolvedVariant === "mega" && TrajanPro.className,
     small && c.smaller,
+    large && c.larger,
     resolvedVariant === "primary" && c.primary,
     resolvedVariant === "ghost" && c.ghost,
+    resolvedVariant === "landingPrimary" && c.landingPrimary,
+    resolvedVariant === "landingPrimary" && large && c.landingPrimaryLg,
     className,
   );
   if (pageLink) {

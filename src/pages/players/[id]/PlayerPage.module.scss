@@ -1,248 +1,70 @@
 @use "../../../common.scss";
 
-.stats {
-  display: flex;
-  flex-direction: row;
-}
-
 .playerPage {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(12, 1fr);
-}
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  width: 100%;
+  min-width: 0;
 
-.playerInfo {
-  grid-column: span 12;
+  & > * {
+    min-width: 0;
+  }
 }
 
 .heroPerformance {
-  grid-column: span 5;
-  @include common.mobile {
+  grid-column: span 6;
+  @media (max-width: 900px) {
     grid-column: span 12;
   }
 }
 
 .matchHistory {
-  grid-column: span 7;
-  @include common.mobile {
+  grid-column: span 6;
+  @media (max-width: 900px) {
     grid-column: span 12;
   }
 }
 
-.thread {
-  margin-top: 20px;
+.fullwidth {
   grid-column: span 12;
+  width: 100%;
+  min-width: 0;
+}
 
+.thread {
+  grid-column: span 12;
+  margin-top: 4px;
 }
 
 .achievements_panel {
   grid-column: span 12;
 }
 
-.achievements_carousel {
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  padding: 12px 12px 8px;
-  gap: 6px;
-  align-items: stretch;
-  scroll-snap-type: x mandatory; /* enable horizontal snap */
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-
-
-  & > div, & > a {
-    flex: 0 0 110px; /* fixed width for each item */
-    min-width: 110px;
-  }
-}
-
-.fullwidth {
-  grid-column: 1 / -1;
-}
-
 .achievements {
   display: grid;
   gap: 16px;
-
-  grid-template-columns: repeat(10, 1fr);
-
-
+  grid-template-columns: repeat(10, minmax(0, 1fr));
 
   @include common.mobile {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-.twitch {
-  color: #6441a5;
-}
-
-.heading {
+.achievements_carousel {
   display: flex;
-  gap: 6px;
-  align-items: end;
-
-  & svg {
-    font-size: 30px;
-    margin-top: 4px;
-  }
-
-  & img {
-    width: 30px;
-    height: 30px;
-  }
-}
-
-.panel {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  padding: 4px 20px;
-  & p {
-    font-size: 1.4rem;
-  }
-}
-
-.heroIntro {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-width: 62ch;
-}
-
-.eyebrow {
-  color: var(--ds-color-accent-gold);
-  font-size: var(--ds-font-size-xs);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.heroTitle {
-  margin: 0;
-  color: var(--ds-color-text-strong);
-  font-size: clamp(1.5rem, 2vw, 2rem);
-}
-
-.heroText {
-  margin: 0;
-  color: var(--ds-color-text-muted);
-  line-height: 1.55;
-  font-size: 1rem;
-}
-
-.sectionTopRow {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-
-  @include common.mobile {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
-
-.sectionLead {
-  margin: 0;
-  color: var(--ds-color-text-muted);
-  line-height: 1.55;
-  font-size: 1rem;
-}
-
-.detailSection {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.tableShell {
+  flex-direction: row;
+  max-width: 100%;
   overflow-x: auto;
-}
-
-.emptyState {
-  min-height: 220px;
-}
-
-.icons {
-  grid-column: span 4;
-}
-
-
-.twitchBlock {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  & a {
-    margin-left: 4px;
-  }
-}
-
-.buttons {
-  display: flex;
-  flex-wrap: wrap;
+  padding: 16px;
   gap: 8px;
-}
+  align-items: stretch;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 
-.actionButtons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
-
-  @include common.mobile {
-    justify-content: stretch;
-
-    & > * {
-      width: 100%;
-    }
+  & > div,
+  & > a {
+    flex: 0 0 110px;
+    min-width: 110px;
   }
-}
-
-.inlineButton {
-  display: inline-flex;
-  width: fit-content;
-}
-
-.recalibrationButton {
-  min-width: 260px;
-  //min-height: 92px;
-  justify-content: center;
-
-  @include common.mobile {
-    width: 100%;
-  }
-}
-
-.noteBox {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 14px 16px;
-  border: 1px solid rgba(248, 211, 0, 0.16);
-  border-radius: var(--ds-radius-md);
-  background: linear-gradient(
-    180deg,
-    rgba(248, 211, 0, 0.08),
-    rgba(248, 211, 0, 0.03)
-  );
-}
-
-.noteLabel {
-  color: var(--ds-color-accent-gold);
-  font-size: var(--ds-font-size-xs);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.noteText {
-  color: var(--ds-color-text-muted);
-  line-height: 1.45;
-}
-
-.accountLink {
-  font-size: 1.15rem;
-  font-weight: 700;
-  overflow-wrap: anywhere;
-  line-height: 1.4;
 }

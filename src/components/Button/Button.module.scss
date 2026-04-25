@@ -43,6 +43,10 @@
   font-size: var(--ds-font-size-sm) !important;
 }
 
+.larger {
+  min-height: var(--ds-button-height-lg);
+}
+
 @keyframes shinyText {
   0% {
     background-position: -50% 0%;
@@ -187,4 +191,34 @@
     background-color: rgba(255, 255, 255, 0.03);
     color: var(--ds-color-text-strong);
   }
+}
+
+.landingPrimary {
+  background: #e03448;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 28px rgba(224, 52, 72, 0.32);
+
+  &:not([disabled]):focus,
+  &:not([disabled]):hover {
+    background: #f0415a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(224, 52, 72, 0.32);
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.landingPrimaryLg {
+  font-size: 1.15rem;
+  padding: 16px 48px;
+  border-radius: 10px;
 }

@@ -14,7 +14,7 @@ import { TbGrave2 } from "react-icons/tb";
 import { iterateItems } from "@/util/iterateItems";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
-import { spectateUrl, watchCmd } from "@/util/urls";
+import { spectateUrl } from "@/util/urls";
 import { Button } from "@/components/Button";
 import { MinimapTowers } from "@/components/LiveMatchPreview/MinimapTower";
 import { MinimapHero } from "@/components/LiveMatchPreview/MinimapHero";
@@ -22,8 +22,6 @@ import { ItemIcon, PlaceholderImage } from "../ItemIcon";
 import { PageLink } from "../PageLink";
 import { HeroIcon } from "../HeroIcon";
 import { EmbedProps } from "../EmbedProps";
-import { CopySomething } from "../CopySomething";
-import { Input } from "../Input";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -170,10 +168,6 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         >
           {t("live_match.watchWithLauncher")}
         </Button>
-        <CopySomething
-          something={watchCmd(match.server)}
-          placeholder={<Input value={watchCmd(match.server)} readOnly={true} />}
-        />
       </div>
     </>
   );

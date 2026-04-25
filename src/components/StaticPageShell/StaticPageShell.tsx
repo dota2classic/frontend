@@ -14,6 +14,8 @@ interface StaticPageShellProps {
   tabs?: React.ReactNode;
   actions?: React.ReactNode;
   children: React.ReactNode;
+  pageClassName?: string;
+  heroClassName?: string;
   className?: string;
   contentClassName?: string;
 }
@@ -27,16 +29,18 @@ export const StaticPageShell: React.FC<StaticPageShellProps> = ({
   tabs,
   actions,
   children,
+  pageClassName,
+  heroClassName,
   className,
   contentClassName,
 }) => {
   return (
     <>
       <EmbedProps title={embedTitle} description={embedDescription} />
-      <main className={c.page}>
+      <main className={cx(c.page, pageClassName)}>
         <div className={cx(c.shell, threadFont.className, className)}>
           <Surface padding="lg" variant="surface">
-            <div className={c.hero}>
+            <div className={cx(c.hero, heroClassName)}>
               {eyebrow && <span className={c.eyebrow}>{eyebrow}</span>}
               <h1 className={cx(c.title, TrajanPro.className)}>{title}</h1>
               {description && <p className={c.description}>{description}</p>}

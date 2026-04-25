@@ -234,44 +234,6 @@
   color: rgba(248, 211, 0, 0.72);
 }
 
-/* ─── BUTTONS ─── */
-.btnPrimary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--l3-red);
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  padding: 14px 36px;
-  border-radius: 8px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 28px var(--l3-red-glow);
-  transition: background var(--ds-duration-fast) var(--ds-ease-standard),
-    transform var(--ds-duration-fast) var(--ds-ease-standard),
-    box-shadow var(--ds-duration-fast) var(--ds-ease-standard);
-
-  &:hover {
-    background: #f0415a;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 40px var(--l3-red-glow);
-  }
-
-  svg {
-    flex-shrink: 0;
-  }
-}
-
-.btnPrimaryLg {
-  font-size: 1.15rem;
-  padding: 16px 48px;
-  border-radius: 10px;
-}
-
 .btnSecondary {
   display: inline-flex;
   align-items: center;

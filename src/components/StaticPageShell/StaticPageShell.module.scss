@@ -1,28 +1,22 @@
 .page {
   min-height: 100vh;
-  padding: 32px 20px 72px;
-  background:
-    radial-gradient(circle at top, rgba(248, 211, 0, 0.08), transparent 26%),
-    linear-gradient(
-      180deg,
-      var(--ds-color-bg-canvas),
-      var(--ds-color-bg-surface) 38%,
-      var(--ds-color-bg-canvas) 100%
-    );
+  padding: 24px 20px 72px;
+  background: transparent;
 }
 
 .shell {
-  width: min(1080px, 100%);
+  width: min(1240px, 100%);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 26px;
 }
 
 .hero {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  padding: 8px 10px 6px;
 }
 
 .eyebrow {
@@ -59,8 +53,20 @@
 }
 
 .content {
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(16, 16, 16, 0.94), rgba(12, 12, 12, 0.88)),
+    rgba(12, 12, 12, 0.82);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
   color: var(--ds-color-text-primary);
   line-height: 1.6;
+}
+
+.content > :first-child {
+  margin-top: 0;
 }
 
 .content h1,
@@ -84,6 +90,13 @@
   margin: 0 0 1rem;
 }
 
+.content :global(.megaheading) {
+  background: none;
+  color: #d7a84a;
+  -webkit-text-fill-color: currentColor;
+  animation: none;
+}
+
 .content ul,
 .content ol {
   padding-left: 1.25rem;
@@ -91,6 +104,11 @@
 
 .content li {
   line-height: 1.55;
+}
+
+.content p,
+.content li {
+  max-width: 72rem;
 }
 
 .content a {
@@ -101,4 +119,15 @@
 .content iframe {
   max-width: 100%;
   border-radius: var(--ds-radius-lg);
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding-top: 12px;
+  }
+
+  .content {
+    padding: 22px 18px 28px;
+    border-radius: 22px;
+  }
 }

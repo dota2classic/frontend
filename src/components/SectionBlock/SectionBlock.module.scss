@@ -33,11 +33,15 @@
 
 .title {
   min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .actions {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   gap: 10px;
 
   & > svg {

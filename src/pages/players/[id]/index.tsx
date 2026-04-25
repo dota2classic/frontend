@@ -66,6 +66,7 @@ export default function PlayerPage({
         })}
         image={summary.user.avatar}
       />
+
       <PlayerSummary
         session={summary.session}
         banStatus={summary.banStatus}
@@ -78,7 +79,7 @@ export default function PlayerPage({
 
       <SectionBlock
         className={c.achievements_panel}
-        title={t("player_page.summary")}
+        title={t("player_page.achievements")}
       >
         <Surface
           className={c.achievements_carousel}
@@ -90,10 +91,8 @@ export default function PlayerPage({
               function score(d: AchievementDto) {
                 let base = d.isComplete ? 1000000 : 0;
                 base += d.progress / d.checkpoints[d.checkpoints.length - 1];
-
                 return base;
               }
-
               return score(b) - score(a);
             })
             .map((t) => (
@@ -102,7 +101,10 @@ export default function PlayerPage({
         </Surface>
       </SectionBlock>
 
-      <SectionBlock className={c.matchHistory} title={t("player_page.summary")}>
+      <SectionBlock
+        className={c.matchHistory}
+        title={t("player_page.seasonStats")}
+      >
         <PlayerPentagonStats
           games={summary.seasonStats.gamesPlayed}
           aspects={summary.aspects}
@@ -114,6 +116,7 @@ export default function PlayerPage({
           wins={summary.seasonStats.wins}
         />
       </SectionBlock>
+
       <SectionBlock
         title={t("player_page.topHeroes")}
         className={c.heroPerformance}
@@ -129,19 +132,7 @@ export default function PlayerPage({
           data={formattedHeroStats}
         />
       </SectionBlock>
-      {/*<Section className={c.heroPerformance}>*/}
-      {/*  <header data-testid="player-hero-performance-header">*/}
-      {/*    <span>{t("player_page.topHeroes")}</span>*/}
-      {/*    <PageLink link={AppRouter.players.player.heroes(playerId).link}>*/}
-      {/*      {t("tables.showAll")}*/}
-      {/*    </PageLink>*/}
-      {/*  </header>*/}
-      {/*  <HeroPerformanceTable*/}
-      {/*    steamId={playerId}*/}
-      {/*    loading={false}*/}
-      {/*    data={formattedHeroStats}*/}
-      {/*  />*/}
-      {/*</Section>*/}
+
       <LazyPaginatedThread
         startLatest
         className={c.thread}

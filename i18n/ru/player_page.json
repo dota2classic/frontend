@@ -4,7 +4,13 @@
       "title": "Профиль {{username}}",
       "description": "Профиль и игровая статистика игрока {{username}}"
     },
-    "summary": "Достижения",
-    "topHeroes": "Лучшие герои"
+    "achievements": "Достижения",
+    "seasonStats": "Статистика сезона",
+    "topHeroes": "Лучшие герои",
+    "tag": {
+      "progress": "Прогресс",
+      "season": "Сезон",
+      "heroes": "Герои"
+    }
   }
 }

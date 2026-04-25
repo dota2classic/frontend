@@ -1,12 +1,13 @@
 import { BlogPageDto, TwitchStreamDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { BlogPostCard } from "@/components/BlogPostCard";
+import { Button } from "@/components/Button";
 import { EmbedProps } from "@/components/EmbedProps";
+import { PageLink } from "@/components/PageLink";
 import { TrajanPro, threadFont } from "@/const/fonts";
 import { AppRouter } from "@/route";
 import { getDomain } from "@/util/domain";
 import cx from "clsx";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import c from "./dev/Landing3Page.module.scss";
 
@@ -53,19 +54,19 @@ const patches: PatchData[] = [
 
 const statLinks = [
   {
-    href: "/players",
+    link: AppRouter.players.leaderboard(),
     img: "/landing/leaderboard.webp",
     title: "Рейтинг игроков",
     desc: "Лучшие на сервере",
   },
   {
-    href: "/matches",
+    link: AppRouter.matches.index(),
     img: "/landing/wallpaper-heroes.webp",
     title: "История матчей",
     desc: "Разбор каждой игры",
   },
   {
-    href: "/heroes",
+    link: AppRouter.heroes.index,
     img: "/landing/invoker.webp",
     title: "Сила героев",
     desc: "Мета и винрейт",
@@ -152,13 +153,13 @@ export default function Home({ blog, streams }: HomeProps) {
             </p>
 
             <div className={c.heroActions}>
-              <Link
-                href={AppRouter.download.link.href}
-                className={cx(c.btnPrimary)}
+              <Button
+                pageLink={AppRouter.download.link}
+                variant="landingPrimary"
               >
                 <DownloadIcon />
                 Скачать лаунчер — бесплатно
-              </Link>
+              </Button>
             </div>
 
             <p className={c.heroFreeNote}>
@@ -324,12 +325,9 @@ export default function Home({ blog, streams }: HomeProps) {
               <span className={c.sectionTag}>Новости</span>
               <h2 className={c.sectionTitle}>Что нового</h2>
             </div>
-            <Link
-              href={AppRouter.blog.index.link.href}
-              className={c.sectionAllLink}
-            >
+            <PageLink link={AppRouter.blog.index.link} className={c.sectionAllLink}>
               Все новости →
-            </Link>
+            </PageLink>
           </div>
 
           {posts.length > 0 && (
@@ -364,7 +362,11 @@ export default function Home({ blog, streams }: HomeProps) {
             </div>
             <div className={c.statLinksGrid}>
               {statLinks.map((sl) => (
-                <Link key={sl.href} href={sl.href} className={c.statLinkCard}>
+                <PageLink
+                  key={sl.title}
+                  link={sl.link.link}
+                  className={c.statLinkCard}
+                >
                   <div className={c.statLinkImg}>
                     <img src={sl.img} alt={sl.title} loading="lazy" />
                   </div>
@@ -373,7 +375,7 @@ export default function Home({ blog, streams }: HomeProps) {
                     <div className={c.statLinkDesc}>{sl.desc}</div>
                   </div>
                   <span className={c.statLinkArrow}>→</span>
-                </Link>
+                </PageLink>
               ))}
             </div>
           </div>
@@ -391,13 +393,14 @@ export default function Home({ blog, streams }: HomeProps) {
               Скачай лаунчер, создай аккаунт и начни играть прямо сейчас.
               Бесплатно, без лишнего.
             </p>
-            <Link
-              href={AppRouter.download.link.href}
-              className={cx(c.btnPrimary, c.btnPrimaryLg)}
+            <Button
+              pageLink={AppRouter.download.link}
+              variant="landingPrimary"
+              large
             >
               <DownloadIcon />
               Скачать лаунчер
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

@@ -4,82 +4,37 @@ import { NextPageContext } from "next";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { AppRouter } from "@/route";
 import { pushFaroEvent } from "@/util/faro";
-import { TechStaticTabs } from "@/containers/TechStaticTabs";
-import { Trans, TranslationFunction, useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
 import { PageLink } from "@/components/PageLink";
 import { Button } from "@/components/Button";
-import { SectionBlock } from "@/components/SectionBlock";
-import { Surface } from "@/components/Surface";
 import { StaticPageShell } from "@/components/StaticPageShell";
-import { FaWindows } from "react-icons/fa";
-import { MdDownload } from "react-icons/md";
+import { Surface } from "@/components/Surface";
+import { DiscordInvite, TelegramInvite } from "@/components/TelegramInvite";
 import c from "./Download.module.scss";
 
 interface Props {
   initialOS: OperatingSystem;
 }
 
-const GuideCompact = (t: TranslationFunction) => [
-  {
-    title: t("download_page.educationTutorial"),
-    content: (
-      <ol>
-        <li>
-          <Trans
-            i18nKey="download_page.queueBotGame"
-            components={{
-              queue: <PageLink link={AppRouter.queue.link} className="link" />,
-            }}
-          />
-        </li>
-        <li>{t("download_page.configureClientLauncher")}</li>
-        <li>{t("download_page.winToUnlockModes")}</li>
-      </ol>
-    ),
-  },
-  {
-    title: t("download_page.humanGames"),
-    content: (
-      <>
-        <p>
-          <Trans
-            i18nKey="download_page.congratulations"
-            components={{
-              mode: <span className="gold" />,
-              queue: <PageLink link={AppRouter.queue.link} className="link" />,
-            }}
-            values={{
-              mode: t(
-                `matchmaking_mode.${MatchmakingMode.UNRANKED}` as TranslationKey,
-              ),
-            }}
-          />
-        </p>
-        <Trans
-          i18nKey="download_page.learnAbout"
-          components={{
-            history: (
-              <PageLink
-                className="link"
-                link={AppRouter.matches.index().link}
-              />
-            ),
-            leaderboard: (
-              <PageLink
-                className="link"
-                link={AppRouter.players.leaderboard().link}
-              />
-            ),
-            heroes: (
-              <PageLink className="link" link={AppRouter.heroes.index.link} />
-            ),
-          }}
-        />
-      </>
-    ),
-  },
-];
+function DownloadIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
 
 export default function DownloadPage({ initialOS }: Props) {
   const { t } = useTranslation();
@@ -95,33 +50,116 @@ export default function DownloadPage({ initialOS }: Props) {
       description={t("download_page.seo.description")}
       embedTitle={t("download_page.seo.title")}
       embedDescription={t("download_page.seo.description")}
-      tabs={<TechStaticTabs />}
+      pageClassName={c.page}
+      heroClassName={c.hero}
+      className={c.shell}
+      contentClassName={c.content}
     >
-      <SectionBlock title={t("download_page.downloadLauncher")}>
-        <Surface className={c.downloadCard} padding="lg" variant="raised">
-          <p>{t("download_page.launcherDescription")}</p>
-          <Button
-            mega
-            className={c.launcherButton}
-            href="https://github.com/dota2classic/launcher/releases/latest/download/d2c-launcher-win-Setup.exe"
-            link
-            target="_blank"
-            onClick={() => pushFaroEvent("download_launcher_clicked")}
-          >
-            <MdDownload size={28} />
-            {t("download_page.launcherButton")}
-          </Button>
-          <Surface className={c.windowsNote} padding="xs" variant="panel">
-            <FaWindows size={16} />
-            {t("download_page.launcherWindowsOnly")}
-          </Surface>
+      <div className={c.steps}>
+        <Surface className={c.stepCard} padding="lg" variant="raised">
+          <div className={c.stepHeader}>
+            <span className={c.stepNumber}>1</span>
+            <div className={c.stepMain}>
+              <h2 className={c.stepTitle}>{t("download_page.downloadLauncher")}</h2>
+              <p className={c.stepLead}>{t("download_page.launcherDescription")}</p>
+            </div>
+          </div>
+
+          <div className={c.stepBody}>
+            <Button
+              className={c.primaryCta}
+              link
+              href="https://github.com/dota2classic/launcher/releases/latest/download/d2c-launcher-win-Setup.exe"
+              target="_blank"
+              variant="landingPrimary"
+              onClick={() => pushFaroEvent("download_launcher_clicked")}
+            >
+              <DownloadIcon />
+              {t("download_page.launcherButton")}
+            </Button>
+          </div>
         </Surface>
-      </SectionBlock>
-      {GuideCompact(t).map((item, index) => (
-        <SectionBlock key={index} title={item.title}>
-          <div className={c.stepContent}>{item.content}</div>
-        </SectionBlock>
-      ))}
+
+        <Surface className={c.stepCard} padding="lg" variant="raised">
+          <div className={c.stepHeader}>
+            <span className={c.stepNumber}>2</span>
+            <div className={c.stepMain}>
+              <h2 className={c.stepTitle}>{t("download_page.educationTutorial")}</h2>
+              <p className={c.stepLead}>{t("download_page.passTraining")}</p>
+            </div>
+          </div>
+
+          <div className={c.stepBody}>
+            <ol className={c.stepList}>
+              <li>
+                <Trans
+                  i18nKey="download_page.queueBotGame"
+                  components={{
+                    queue: <PageLink link={AppRouter.queue.link} className="link" />,
+                  }}
+                />
+              </li>
+              <li>{t("download_page.configureClientLauncher")}</li>
+              <li>{t("download_page.winToUnlockModes")}</li>
+            </ol>
+
+            <p className={c.supportText}>
+              <Trans
+                i18nKey="download_page.downloadingGame"
+                components={{
+                  telegram: <TelegramInvite className={c.telegramLink} />,
+                  discord: <DiscordInvite className={c.discordLink} />,
+                }}
+              />
+            </p>
+          </div>
+        </Surface>
+
+        <Surface className={c.stepCard} padding="lg" variant="raised">
+          <div className={c.stepHeader}>
+            <span className={c.stepNumber}>3</span>
+            <div className={c.stepMain}>
+              <h2 className={c.stepTitle}>{t("download_page.humanGames")}</h2>
+              <p className={c.stepLead}>
+                <Trans
+                  i18nKey="download_page.congratulations"
+                  components={{
+                    mode: <span className={c.highlight} />,
+                    queue: <PageLink link={AppRouter.queue.link} className="link" />,
+                  }}
+                  values={{
+                    mode: t(
+                      `matchmaking_mode.${MatchmakingMode.UNRANKED}` as TranslationKey,
+                    ),
+                  }}
+                />
+              </p>
+            </div>
+          </div>
+
+          <div className={c.stepBody}>
+            <p className={c.linksRow}>
+              <Trans
+                i18nKey="download_page.learnAbout"
+                components={{
+                  history: (
+                    <PageLink className="link" link={AppRouter.matches.index().link} />
+                  ),
+                  leaderboard: (
+                    <PageLink
+                      className="link"
+                      link={AppRouter.players.leaderboard().link}
+                    />
+                  ),
+                  heroes: (
+                    <PageLink className="link" link={AppRouter.heroes.index.link} />
+                  ),
+                }}
+              />
+            </p>
+          </div>
+        </Surface>
+      </div>
     </StaticPageShell>
   );
 }
