@@ -93,14 +93,14 @@
 .headerCopy {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 28px;
   min-width: 0;
 }
 
 .metricsRow {
   display: flex;
   align-items: flex-end;
-  gap: 36px;
+  gap: 44px;
   flex-wrap: wrap;
 
   @media (width <= 640px) {
@@ -199,7 +199,7 @@
 .metricsInline {
   display: flex;
   align-items: flex-end;
-  gap: 28px;
+  gap: 36px;
   flex-wrap: wrap;
   flex: 1;
   min-width: 0;
