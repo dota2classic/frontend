@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -22,7 +21,7 @@
   grid-column: span 12;
 }
 
-@include common.mobile {
+@include m.mobile {
   .span4,
   .span6,
   .span8,

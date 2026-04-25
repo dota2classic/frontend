@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .avatar {
   height: 40px;
   object-fit: contain;
@@ -33,7 +32,7 @@
   & span {
     text-transform: capitalize;
     max-width: 200px;
-    @include common.mobile {
+    @include m.mobile {
       max-width: 120px;
     }
   }
@@ -59,7 +58,7 @@
   & span {
     text-transform: capitalize;
     max-width: 140px;
-    @include common.mobile {
+    @include m.mobile {
       max-width: 110px;
     }
   }
@@ -98,7 +97,7 @@
   width: 220px;
   align-items: center;
 
-  @include common.mobile {
+  @include m.mobile {
     width: 140px;
   }
 

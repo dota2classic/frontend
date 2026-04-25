@@ -1,10 +1,8 @@
-@use "../../../../common.scss";
-
 .toolbar {
   display: flex;
   margin-bottom: 1px;
   //background: #fff;
-  background-color: common.$bg2;
+  background-color: var(--ds-color-bg-elevated);
   padding: 4px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -20,9 +18,9 @@
   vertical-align: middle;
   outline: none;
   border: none;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
   &:hover {
-    background-color: common.$transparentTint;
+    background-color: var(--ds-color-accent-blue-tint-15);
   }
 }
 
@@ -63,7 +61,7 @@
 
 .divider {
   width: 1px;
-  background-color: common.$bg1;
+  background-color: var(--ds-color-bg-canvas);
   margin: 0 4px;
 }
 

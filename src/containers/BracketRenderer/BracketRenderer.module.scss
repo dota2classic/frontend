@@ -1,17 +1,15 @@
-@use "../../common.scss";
-
 .wrapper {
   & :global(.brackets-viewer) {
     margin: 0;
 
     /* Colors */
     --primary-background: rgba(0, 0, 0, 0);
-    //--primary-background: #{common.$panelBg};
+    //--primary-background: #{var(--ds-color-bg-panel)};
     --secondary-background: #303030;
     --match-background: var(--primary-background);
     --font-color: #d9d9d9;
-    --win-color: #{common.$green};
-    --loss-color: #{common.$red};
+    --win-color: #{var(--ds-color-accent-green)};
+    --loss-color: #{var(--ds-color-accent-red)};
     --label-color: grey;
     --hint-color: #a7a7a7;
     --connector-color: #9e9e9e;
@@ -61,7 +59,7 @@
     }
 
     & :global(.opponents) > span {
-      background-color: common.$bg2;
+      background-color: var(--ds-color-bg-elevated);
       top: -13px;
     }
   }

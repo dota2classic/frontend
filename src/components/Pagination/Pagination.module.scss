@@ -1,12 +1,11 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .pagination {
   background-color: transparent;
   padding: 0 !important;
   display: flex;
   flex-direction: row !important;
 
-  @include common.mobile {
+  @include m.mobile {
     flex-direction: row !important;
   }
 }

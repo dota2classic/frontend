@@ -1,11 +1,9 @@
-@use "../../../common.scss";
-
 .postContainer {
   max-width: 800px;
   width: 100%;
   margin: 10px auto 200px;
 
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
 
   & li {
     line-height: 1.5rem;
@@ -54,7 +52,7 @@
 }
 
 .part {
-  color: common.$gold;
+  color: var(--ds-color-accent-gold);
   font-weight: bold;
   line-height: 2rem;
 }

@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .container {
   display: grid;
   grid-column-gap: 12px;
@@ -24,7 +23,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 
-  @include common.mobile {
+  @include m.mobile {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -34,7 +33,7 @@
   flex-direction: column;
   grid-column: span 4;
 
-  @include common.mobile {
+  @include m.mobile {
     order: 1;
   }
 }
@@ -49,7 +48,7 @@
     margin-top: 20px;
   }
 
-  @include common.mobile {
+  @include m.mobile {
     margin-top: 0 !important;
     padding: 8px;
   }
@@ -99,7 +98,7 @@
   background-repeat: no-repeat;
   grid-column: span 4;
 
-  @include common.mobile {
+  @include m.mobile {
     width: unset;
     height: 100dvw;
     margin: 0;

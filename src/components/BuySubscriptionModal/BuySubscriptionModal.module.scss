@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .modal {
   & :global(.modal) {
     width: 520px;
@@ -26,7 +25,7 @@
 }
 
 .subItem {
-  @include common.card();
+  @include m.card();
   position: relative;
   display: flex;
   flex-direction: column;
@@ -38,23 +37,23 @@
     background-color 0.2s ease;
 
   &:hover {
-    border-color: common.$gold;
+    border-color: var(--ds-color-accent-gold);
   }
 
   &__selected {
-    border-color: common.$gold;
-    background-color: rgba(common.$gold, 0.07);
+    border-color: var(--ds-color-accent-gold);
+    background-color: rgba(var(--ds-color-accent-gold), 0.07);
   }
 
   & header {
     font-weight: bold;
     font-size: 1.1rem;
-    color: common.$primaryTextHighlight;
+    color: var(--ds-color-text-strong);
   }
 }
 
 .price {
-  color: common.$gold;
+  color: var(--ds-color-accent-gold);
   font-size: 0.95rem;
 }
 
@@ -62,9 +61,9 @@
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 600;
-  color: common.$green;
-  background: rgba(common.$green, 0.12);
-  border: 1px solid rgba(common.$green, 0.25);
+  color: var(--ds-color-accent-green);
+  background: rgba(var(--ds-color-accent-green), 0.12);
+  border: 1px solid rgba(var(--ds-color-accent-green), 0.25);
   border-radius: 4px;
   padding: 1px 6px;
   width: fit-content;
@@ -75,15 +74,15 @@
   top: 6px;
   right: 6px;
   font-size: 1.4rem;
-  color: common.$primaryTextDark2;
+  color: var(--ds-color-text-faint);
 
   &__selected {
-    color: common.$blueHighlight;
+    color: var(--ds-color-accent-blue);
   }
 }
 
 .form {
-  @include common.card();
+  @include m.card();
   padding: 4px 12px;
   margin-bottom: 16px;
 
@@ -93,7 +92,7 @@
     align-items: center;
     padding: 8px 0;
     font-size: 0.95rem;
-    color: common.$primaryTextSemiDark;
+    color: var(--ds-color-text-muted);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
     &:last-child {
@@ -117,7 +116,7 @@
 }
 
 .totalRow {
-  color: common.$primaryTextHighlight;
+  color: var(--ds-color-text-strong);
   font-weight: 600;
   font-size: 1rem;
 }

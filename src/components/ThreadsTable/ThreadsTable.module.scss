@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .block {
   max-width: unset !important;
   display: flex;
@@ -31,7 +30,7 @@
 .forumTitle {
   white-space: nowrap;
   max-width: 500px;
-  @include common.mobile {
+  @include m.mobile {
     max-width: 130px;
   }
 
@@ -48,5 +47,5 @@
   height: 1.5em;
 }
 .newMessages {
-  color: common.$gold;
+  color: var(--ds-color-accent-gold);
 }

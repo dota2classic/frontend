@@ -1,5 +1,3 @@
-@use "../../../../common.scss";
-
 .block {
   & > div {
     padding: 1em;
@@ -8,8 +6,8 @@
 
 .options {
   --meta-grid-gap: 1rem;
-  --meta-grid-label-color: #{common.$primaryText};
-  --meta-grid-value-color: #{common.$primaryTextSemiDark};
+  --meta-grid-label-color: #{var(--ds-color-text-primary)};
+  --meta-grid-value-color: #{var(--ds-color-text-muted)};
 }
 
 

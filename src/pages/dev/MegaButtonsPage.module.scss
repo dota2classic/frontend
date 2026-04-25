@@ -1,10 +1,8 @@
-@use "../../common.scss";
-
 .page {
   min-height: 100vh;
   padding: 40px 24px 72px;
   background:
-    radial-gradient(circle at top, rgba(common.$gold, 0.08), transparent 32%),
+    radial-gradient(circle at top, rgba(var(--ds-color-accent-gold), 0.08), transparent 32%),
     linear-gradient(180deg, #181818, #111214 35%, #0e0f11 100%);
 }
 
@@ -65,7 +63,7 @@
       rgba(255, 255, 255, 0.03),
       rgba(255, 255, 255, 0.015)
     ),
-    common.$bg15;
+    var(--ds-color-bg-surface);
 }
 
 .cardHeader {
@@ -75,7 +73,7 @@
 }
 
 .eyebrow {
-  color: rgba(common.$gold, 0.9);
+  color: rgba(var(--ds-color-accent-gold), 0.9);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -85,7 +83,7 @@
 .cardTitle {
   margin: 0;
   font-size: 1.35rem;
-  color: common.$primaryTextHighlight;
+  color: var(--ds-color-text-strong);
 }
 
 .cardText {
@@ -102,7 +100,7 @@
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   background:
-    radial-gradient(circle at top, rgba(common.$gold, 0.05), transparent 35%),
+    radial-gradient(circle at top, rgba(var(--ds-color-accent-gold), 0.05), transparent 35%),
     rgba(0, 0, 0, 0.12);
 }
 
@@ -138,7 +136,7 @@
 }
 
 .goldBorder {
-  border-color: rgba(common.$gold, 0.75);
+  border-color: rgba(var(--ds-color-accent-gold), 0.75);
 }
 
 .panel {
@@ -147,8 +145,8 @@
   padding: 2px;
   background: linear-gradient(
     180deg,
-    rgba(common.$gold, 0.26),
-    rgba(common.$red, 0.16)
+    rgba(var(--ds-color-accent-gold), 0.26),
+    rgba(var(--ds-color-accent-red), 0.16)
   );
 }
 

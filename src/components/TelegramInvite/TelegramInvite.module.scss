@@ -1,12 +1,9 @@
-@use "../../common.scss";
-
-
 .telegram {
   display: inline-flex;
   flex-direction: row;
   align-self: stretch;
   align-items: center;
-  color: common.$blueHighlight;
+  color: var(--ds-color-accent-blue);
   vertical-align: bottom;
 
   & svg {

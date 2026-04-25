@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .form {
   margin-top: 2rem;
   display: flex;
@@ -28,12 +26,12 @@
 
 .delete {
   font-size: 1.2rem;
-  color: common.$red;
+  color: var(--ds-color-accent-red);
 }
 
 .save {
   font-size: 1.2rem;
-  color: common.$blueHighlight;
+  color: var(--ds-color-accent-blue);
 }
 
 .compact {

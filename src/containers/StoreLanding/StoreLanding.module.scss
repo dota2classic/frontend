@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .root {
   display: flex;
   flex-direction: column;
@@ -19,13 +18,13 @@
 }
 
 .shinyText {
-  background: radial-gradient(common.$gold 0%, common.$red 100%);
+  background: radial-gradient(var(--ds-color-accent-gold) 0%, var(--ds-color-accent-red) 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .shinyTextLight {
-  background: radial-gradient(common.$gold 0%, #fff 100%);
+  background: radial-gradient(var(--ds-color-accent-gold) 0%, #fff 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -34,7 +33,7 @@
   padding-top: 50px;
   text-align: center;
   font-size: 80px;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
   font-weight: bold;
 }
 
@@ -51,7 +50,7 @@
 }
 
 .description {
-  color: common.$primaryTextSemiDark;
+  color: var(--ds-color-text-muted);
   width: 60%;
   text-align: center;
 }
@@ -77,7 +76,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
   font-size: 40px;
   text-transform: uppercase;
   letter-spacing: 8px;
@@ -137,7 +136,7 @@
       width: 60%;
     }
 
-    @include common.mobile {
+    @include m.mobile {
       font-size: 3rem;
       width: unset;
     }
@@ -151,7 +150,7 @@
     bottom: 40px;
     width: 60%;
     max-width: 800px;
-    color: common.$primaryText;
+    color: var(--ds-color-text-primary);
 
     left: 50%;
     text-align: center;
@@ -161,7 +160,7 @@
       font-size: 1.3rem;
     }
 
-    @include common.mobile {
+    @include m.mobile {
       font-size: 1rem;
     }
   }
@@ -195,7 +194,7 @@
     //@media (max-width: 1000px) {
     //}
 
-    @include common.mobile {
+    @include m.mobile {
       //font-size: 1rem;
       height: 100%;
       object-position: 50% 50%;
@@ -207,10 +206,10 @@
     &::after {
       background: linear-gradient(
         to top,
-        common.$bg2 0%,
+        var(--ds-color-bg-elevated) 0%,
         rgba(0, 0, 0, 0.3) 30%,
         rgba(0, 0, 0, 0.3) 70%,
-        common.$bg2 100%
+        var(--ds-color-bg-elevated) 100%
       ) !important;
     }
   }
@@ -224,17 +223,17 @@
     pointer-events: none;
     background: linear-gradient(
       to top,
-      common.$bg2 0%,
+      var(--ds-color-bg-elevated) 0%,
       rgba(0, 0, 0, 0.7) 30%,
       rgba(0, 0, 0, 0.7) 70%,
-      common.$bg2 100%
+      var(--ds-color-bg-elevated) 100%
     );
   }
 }
 
 .payButton {
   position: absolute;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
   background-color: #1c2024cc; // background of the button
 
   left: 50%;
@@ -246,7 +245,7 @@
   @media (max-width: 1000px) {
     bottom: 250px;
   }
-  @include common.mobile {
+  @include m.mobile {
     bottom: 300px;
   }
 }

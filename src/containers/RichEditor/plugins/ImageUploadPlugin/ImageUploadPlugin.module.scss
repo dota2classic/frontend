@@ -1,7 +1,6 @@
-@use "../../../../common.scss";
-
+@use "../../../../../styles/mixins.scss" as m;
 .gallery {
-  @include common.box();
+  @include m.box();
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(8, 1fr);
@@ -11,7 +10,7 @@
 
   width: 400px;
   height: 400px;
-  background-color: common.$bg2;
+  background-color: var(--ds-color-bg-elevated);
   overflow-y: auto;
 }
 

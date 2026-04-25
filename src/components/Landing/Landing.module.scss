@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .page {
   display: flex;
   flex-direction: column;
@@ -41,7 +40,7 @@
     pointer-events: none;
     aspect-ratio: auto 1920 / 1080;
 
-    @include common.mobile {
+    @include m.mobile {
       height: 50vh;
       width: auto;
       transform: translate(calc(-50vw));
@@ -197,7 +196,7 @@
     transform: translateY(-50px);
   }
 
-  @include common.mobile {
+  @include m.mobile {
     height: 200px;
     transform: translateY(0);
   }
@@ -255,7 +254,7 @@
     scroll-snap-align: start;
   }
 
-  @include common.mobile {
+  @include m.mobile {
     width: 100vw;
     & > div {
       min-width: calc(100%);

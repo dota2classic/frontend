@@ -1,6 +1,4 @@
-@use '../../common.scss';
-
-
+@use "../../../styles/mixins.scss" as m;
 .liveMatches {
   display: flex;
   flex-direction: column;
@@ -19,7 +17,7 @@
     margin-left: 10px;
   }
 
-  @include common.mobile {
+  @include m.mobile {
     flex-direction: row;
     margin-bottom: 12px;
   }

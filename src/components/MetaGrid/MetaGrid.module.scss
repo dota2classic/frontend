@@ -1,11 +1,10 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--meta-grid-gap, 1rem);
 
-  @include common.mobile {
+  @include m.mobile {
     grid-template-columns: 1fr;
   }
 }

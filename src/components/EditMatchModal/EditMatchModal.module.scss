@@ -1,12 +1,10 @@
-@use "../../common.scss";
-
-
+@use "../../../styles/mixins.scss" as m;
 .modal {
   overflow-y: auto;
 }
 
 .game {
-  @include common.card();
+  @include m.card();
   padding: 8px 12px;
 }
 

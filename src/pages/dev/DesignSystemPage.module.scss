@@ -1,10 +1,8 @@
-@use "../../common.scss";
-
 .page {
   min-height: 100vh;
   padding: 40px 24px 72px;
   background:
-    radial-gradient(circle at top, rgba(common.$gold, 0.08), transparent 30%),
+    radial-gradient(circle at top, rgba(var(--ds-color-accent-gold), 0.08), transparent 30%),
     linear-gradient(
       180deg,
       var(--ds-color-bg-canvas),

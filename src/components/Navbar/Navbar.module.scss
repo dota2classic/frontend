@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .navbar {
   position: sticky;
   top: 0;
@@ -117,7 +116,7 @@
 
 .user {
   min-width: 100px;
-  @include common.mobile {
+  @include m.mobile {
     border: 1px solid var(--ds-color-accent-blue-soft);
     outline: none;
     border-radius: var(--ds-radius-sm);

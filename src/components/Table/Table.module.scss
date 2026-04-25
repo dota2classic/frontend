@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 // #242f39
 // #1d242d
 
@@ -23,7 +22,7 @@
   -webkit-border-vertical-spacing: 0px;
 
   border-spacing: 0;
-  @include common.mobile {
+  @include m.mobile {
     padding: 0;
   }
 
@@ -141,7 +140,7 @@
 
     & td:global(.omit),
     th:global(.omit) {
-      @include common.mobile {
+      @include m.mobile {
         display: none;
       }
     }

@@ -1,7 +1,6 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .withBorder {
-  border: 1px solid common.$primaryTextDark2;
+  border: 1px solid var(--ds-color-text-faint);
   padding: 12px 8px;
 
   & + & {
@@ -63,13 +62,13 @@
   }
 
   & h2 {
-    color: common.$red;
+    color: var(--ds-color-accent-red);
     font-weight: bold;
   }
 }
 
 .playerFeedback {
-  @include common.box();
+  @include m.box();
   display: flex;
   flex-direction: column;
   align-items: stretch;

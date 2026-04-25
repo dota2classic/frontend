@@ -1,12 +1,11 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .header {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 12px;
 
-  @include common.mobile {
+  @include m.mobile {
     flex-direction: column;
     align-items: stretch;
   }
@@ -28,7 +27,7 @@
   gap: 12px;
   min-width: 0;
 
-  @include common.mobile {
+  @include m.mobile {
     gap: 6px;
     overflow-x: auto;
     scrollbar-width: thin;
@@ -44,13 +43,13 @@
     font-size: 1rem;
     margin: 0;
 
-    @include common.mobile {
+    @include m.mobile {
       font-size: 0.8rem;
       grid-column: span 1;
     }
 
     & dd {
-      color: common.$primaryTextHighlight;
+      color: var(--ds-color-text-strong);
       margin-inline-start: 0;
       white-space: nowrap;
     }

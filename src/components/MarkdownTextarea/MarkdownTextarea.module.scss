@@ -1,6 +1,3 @@
-@use '../../common.scss';
-
-
 .markdown {
   position: relative;
   display: flex;
@@ -14,11 +11,11 @@
   padding: 12px;
   border-radius: 8px;
   transition: 0.3s ease;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
   flex: 1;
 
   //margin-bottom: 24px;
-  background-color: common.$bg2;
+  background-color: var(--ds-color-bg-elevated);
 
   resize: none;
 
@@ -26,6 +23,6 @@
   cursor: pointer;
 
   &:focus, &:hover {
-    background: common.$transparentTint3;
+    background: var(--ds-color-accent-blue-tint-5);
   }
 }

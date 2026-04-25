@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .thread {
   //background-color: $bg2;
   //background-color: rgba(0, 0, 0, 0.1);
@@ -40,7 +38,7 @@
 .pinnedMessage {
   position: absolute;
   z-index: 10000;
-  //background-color: common.$bg1;
+  //background-color: var(--ds-color-bg-canvas);
   background-color: rgba(12, 12, 12, 0.9);
   top: 0;
   left: 0;
@@ -54,6 +52,6 @@
     right: 8px;
     bottom: 8px;
     font-size: 1rem;
-    color: common.$primaryTextSemiDark;
+    color: var(--ds-color-text-muted);
   }
 }

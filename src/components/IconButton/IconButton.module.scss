@@ -1,15 +1,13 @@
-@use "../../common.scss";
-
 .iconButton {
   transition: 0.3s ease;
-  background-color: common.$bg1;
+  background-color: var(--ds-color-bg-canvas);
   display: flex;
   flex-direction: column;
   cursor: pointer;
   border: 1px solid black;
 
   &:hover, &:focus {
-    box-shadow: 0px 0px 10px common.$blueHighlight;
-    border: 1px solid common.$blueHighlight2;
+    box-shadow: 0px 0px 10px var(--ds-color-accent-blue);
+    border: 1px solid var(--ds-color-accent-blue-border);
   }
 }

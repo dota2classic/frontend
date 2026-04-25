@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 $red: #e03448;
 
 .summary {
@@ -33,7 +32,7 @@ $red: #e03448;
   position: relative;
   z-index: 1;
 
-  @include common.mobile {
+  @include m.mobile {
     padding: 18px 16px 20px;
     gap: 18px;
   }
@@ -46,7 +45,7 @@ $red: #e03448;
   gap: 22px;
   min-height: 102px;
 
-  @include common.mobile {
+  @include m.mobile {
     flex-direction: column;
     gap: 12px;
     min-height: 0;
@@ -201,7 +200,7 @@ $red: #e03448;
   gap: 6px;
   flex-shrink: 0;
 
-  @include common.mobile {
+  @include m.mobile {
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -214,7 +213,7 @@ $red: #e03448;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   padding-top: 20px;
 
-  @include common.mobile {
+  @include m.mobile {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px 0;
     padding-top: 16px;
@@ -229,7 +228,7 @@ $red: #e03448;
     border-left: 1px solid rgba(255, 255, 255, 0.07);
   }
 
-  @include common.mobile {
+  @include m.mobile {
     padding: 0 12px;
     text-align: left;
 
@@ -253,7 +252,7 @@ $red: #e03448;
   align-items: baseline;
   justify-content: center;
 
-  @include common.mobile {
+  @include m.mobile {
     justify-content: flex-start;
     font-size: 1.3rem;
   }

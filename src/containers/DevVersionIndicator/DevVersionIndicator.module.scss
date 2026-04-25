@@ -1,13 +1,11 @@
-@use "../../common.scss";
-
 .indicator {
   width: 161px;
   position: fixed;
   top: 20px;
   left: -45px;
   padding: 8px 12px;
-  background-color: common.$red;
-  color: common.$silver;
+  background-color: var(--ds-color-accent-red);
+  color: var(--ds-color-rank-silver);
   font-size: 2rem;
   text-align: center;
   z-index: 1000000000000;
@@ -20,7 +18,7 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background: common.$bg1 url("/bg_repeater.webp");
+  background: var(--ds-color-bg-canvas) url("/bg_repeater.webp");
   display: flex;
   flex-direction: column;
   align-items: center;

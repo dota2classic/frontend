@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .modal {
   //& :global(.modal) {
   //  width: 40vw;
@@ -12,7 +11,7 @@
 }
 
 .card {
-  @include common.card();
+  @include m.card();
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -64,7 +63,7 @@
   position: absolute;
   inset: 0;
   height: 190px;
-  background-image: linear-gradient(180deg, common.$panelBg, common.$bg15);
+  background-image: linear-gradient(180deg, var(--ds-color-bg-panel), var(--ds-color-bg-surface));
   background-size: 100% 100%;
   z-index: -1;
 }
@@ -151,7 +150,7 @@
 }
 
 .game {
-  @include common.card();
+  @include m.card();
   display: flex;
   flex-direction: row;
   align-items: center;

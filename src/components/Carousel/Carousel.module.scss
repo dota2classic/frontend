@@ -1,6 +1,4 @@
-@use "../../common.scss";
-
-
+@use "../../../styles/mixins.scss" as m;
 .carousel {
   position: relative;
   min-height: 308px;
@@ -11,7 +9,7 @@
 
   gap: 2rem;
 
-  @include common.mobile {
+  @include m.mobile {
     flex-direction: column;
     width: 100vw;
   }

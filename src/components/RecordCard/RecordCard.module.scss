@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .image {
   position: absolute;
   left: 0;
@@ -34,7 +33,7 @@
     height: 240px;
   }
 
-  @include common.mobile {
+  @include m.mobile {
     height: 140px;
   }
 
@@ -47,14 +46,14 @@
     color: var(--ds-color-text-strong);
     margin-block-end: 0;
 
-    @include common.mobile {
+    @include m.mobile {
       font-size: 12px;
     }
   }
 
   & h4 {
     color: var(--ds-color-text-dim);
-    @include common.mobile {
+    @include m.mobile {
       margin-block-start: 0;
       margin-block-end: 1rem;
       font-size: 10px;
@@ -89,7 +88,7 @@
   display: flex;
   flex-direction: column;
 
-  @include common.mobile {
+  @include m.mobile {
     padding: 0px 6px;
   }
 }
@@ -110,7 +109,7 @@
   flex: 1;
 }
 .recordTime {
-  color: common.$primaryTextDark;
+  color: var(--ds-color-text-dim);
   font-size: 1rem;
   margin-block-start: 1rem;
 }

@@ -1,10 +1,9 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .interesting {
-  @include common.card();
+  @include m.card();
   padding: 12px;
   position: fixed;
-  background-color: common.$bg2;
+  background-color: var(--ds-color-bg-elevated);
 
   bottom: 40px;
   left: 50%;
@@ -20,7 +19,7 @@
   pointer-events: auto;
 
   z-index: 1000;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
 
   @media (width <= 600px) {
     left: 5px;
@@ -32,7 +31,7 @@
   }
 
   &:hover {
-    border: 1px solid common.$blueHighlight;
+    border: 1px solid var(--ds-color-accent-blue);
   }
 }
 
@@ -75,7 +74,7 @@
   outline: none;
   border: none;
   padding: 0 3px;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
   cursor: pointer;
   background-color: transparent;
   border-radius: 50%;
@@ -88,7 +87,7 @@
 
   &:hover {
     & svg {
-      color: common.$red;
+      color: var(--ds-color-accent-red);
     }
   }
 }

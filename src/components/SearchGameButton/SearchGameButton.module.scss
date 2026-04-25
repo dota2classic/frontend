@@ -1,8 +1,6 @@
-@use "../../common.scss";
-
 .banned {
-  color: common.$primaryTextDark;
-  border-color: common.$red;
+  color: var(--ds-color-text-dim);
+  border-color: var(--ds-color-accent-red);
   display: flex;
   flex-direction: column;
 }
@@ -44,7 +42,7 @@
   //  //padding-left: 4px;
   //  padding-right: 6px;
   //}
-  color: common.$gold;
+  color: var(--ds-color-accent-gold);
   width: 80px;
 }
 

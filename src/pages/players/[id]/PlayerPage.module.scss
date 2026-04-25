@@ -1,5 +1,4 @@
-@use "../../../common.scss";
-
+@use "../../../../styles/mixins.scss" as m;
 .playerPage {
   display: grid;
   gap: 16px;
@@ -46,7 +45,7 @@
   gap: 16px;
   grid-template-columns: repeat(10, minmax(0, 1fr));
 
-  @include common.mobile {
+  @include m.mobile {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

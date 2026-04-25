@@ -1,9 +1,8 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .select {
   background: var(--ds-color-bg-elevated) !important;
   min-width: 200px;
-  @include common.mobile {
+  @include m.mobile {
     min-width: 160px;
   }
 }

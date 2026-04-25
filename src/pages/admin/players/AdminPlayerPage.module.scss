@@ -1,5 +1,3 @@
-@use "../../../common.scss";
-
 .actions {
   display: flex;
   flex-direction: row;
@@ -15,9 +13,9 @@
 }
 
 .active {
-  color: common.$red;
+  color: var(--ds-color-accent-red);
 }
 
 .inactive {
-  color: common.$primaryTextDark2;
+  color: var(--ds-color-text-faint);
 }

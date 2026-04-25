@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .button {
   position: relative;
   outline: none;
@@ -91,7 +90,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  @include common.mobile {
+  @include m.mobile {
     font-size: 1.2rem;
     padding: 16px 10px;
     margin: auto;

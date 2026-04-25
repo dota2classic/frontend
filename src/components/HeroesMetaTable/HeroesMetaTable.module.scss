@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .gpm {
   letter-spacing: 2px;
 }
@@ -28,11 +26,11 @@
 }
 
 .aTier {
-  background-color: common.$blueHighlight;
+  background-color: var(--ds-color-accent-blue);
 }
 
 .bTier {
-  background-color: common.$green;
+  background-color: var(--ds-color-accent-green);
 }
 
 .cTier {
@@ -40,5 +38,5 @@
 }
 
 .dTier {
-  background-color: common.$red;
+  background-color: var(--ds-color-accent-red);
 }

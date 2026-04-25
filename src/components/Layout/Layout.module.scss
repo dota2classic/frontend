@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .layout {
   display: flex;
   flex-direction: row;
@@ -7,7 +6,7 @@
   flex: 1;
   //padding-top: 20px;
 
-  @include common.mobile {
+  @include m.mobile {
     width: 100vw;
   }
 }
@@ -45,7 +44,7 @@
   flex: 1;
   padding: 32px 24px;
 
-  @include common.mobile {
+  @include m.mobile {
     padding: 20px 16px;
   }
 }
@@ -171,12 +170,12 @@
   }
 
   &__queue {
-    @include common.mobile {
+    @include m.mobile {
       display: none;
     }
   }
 
-  @include common.mobile {
+  @include m.mobile {
     padding: 18px 16px 14px;
   }
 }

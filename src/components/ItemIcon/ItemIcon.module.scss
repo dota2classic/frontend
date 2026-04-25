@@ -1,11 +1,10 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .item {
   height: 40px;
   object-fit: contain;
   width: unset;
 
-  @include common.mobile {
+  @include m.mobile {
     height: 30px;
   }
 
@@ -26,7 +25,7 @@
   );
   outline: 1px solid #403d3d73;
 
-  @include common.mobile {
+  @include m.mobile {
     height: 30px !important;
     width: 40px !important;
   }
@@ -35,5 +34,5 @@
 .itemPreview {
   width: 416px;
   height: 0;
-  background: common.$bg2;
+  background: var(--ds-color-bg-elevated);
 }

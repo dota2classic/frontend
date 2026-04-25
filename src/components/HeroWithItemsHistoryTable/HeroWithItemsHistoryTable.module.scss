@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .hero {
   display: flex;
   flex-direction: row;
@@ -23,10 +21,10 @@
   }
 
   &__win {
-    color: common.$green !important;
+    color: var(--ds-color-accent-green) !important;
   }
   &__lose {
-    color: common.$red !important;
+    color: var(--ds-color-accent-red) !important;
   }
 }
 
@@ -58,5 +56,5 @@
 
 .secondary {
   font-size: 0.7rem;
-  color: common.$primaryTextDark;
+  color: var(--ds-color-text-dim);
 }

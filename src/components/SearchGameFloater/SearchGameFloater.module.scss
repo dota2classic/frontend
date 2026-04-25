@@ -1,9 +1,8 @@
-@use "../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .container {
   position: fixed;
 
-  background: common.$bg15;
+  background: var(--ds-color-bg-surface);
 
   //right: 50px;
   right: max(58.4px, calc((100dvw - 1600px) / 2));
@@ -13,7 +12,7 @@
 
   width: fit-content;
 
-  @include common.mobile {
+  @include m.mobile {
     bottom: 10px;
     margin: auto;
     right: 0;
