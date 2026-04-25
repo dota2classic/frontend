@@ -1,4 +1,4 @@
-@use "../../../styles/mixins.scss" as m;
+@use "../../styles/mixins.scss" as m;
 .paywall {
   & :global(.modal__header) {
     padding: 0;

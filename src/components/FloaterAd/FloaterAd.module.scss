@@ -1,4 +1,4 @@
-@use "../../../styles/mixins.scss" as m;
+@use "../../styles/mixins.scss" as m;
 .interesting {
   @include m.card();
   padding: 12px;

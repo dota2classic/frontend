@@ -1,4 +1,4 @@
-@use "../../../styles/mixins.scss" as m;
+@use "../../styles/mixins.scss" as m;
 .tooltip {
   @include m.box;
   display: flex;
