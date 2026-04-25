@@ -100,16 +100,18 @@
 .headerMeta {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
+  margin-bottom: 4px;
 }
 
 .stateLabel {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding-inline: 12px;
+  padding-inline: 14px;
+  padding-block: 6px;
 }
 
 .stateLive {
