@@ -259,7 +259,10 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
                 />
 
                 <div
-                  className={cx(c.banTag, !banStatus.isBanned && c.banTagHidden)}
+                  className={cx(
+                    c.banTag,
+                    !banStatus.isBanned && c.banTagHidden,
+                  )}
                   aria-hidden={!banStatus.isBanned}
                 >
                   {banStatus.isBanned ? (

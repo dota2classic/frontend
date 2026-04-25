@@ -99,10 +99,7 @@ export const Layout = ({
         {!config.noFooter && (
           <footer className={cx(c.footer, isQueuePage && c.footer__queue)}>
             <div className={c.footer__inner}>
-              <PageLink
-                link={AppRouter.index.link}
-                className={c.footer__brand}
-              >
+              <PageLink link={AppRouter.index.link} className={c.footer__brand}>
                 <Logo size={28} />
                 <span className={cx(TrajanPro.className, c.footer__brandName)}>
                   DOTA2
@@ -111,7 +108,10 @@ export const Layout = ({
               </PageLink>
 
               <nav className={c.footer__links}>
-                <PageLink className={c.footer__link} link={AppRouter.rules.link}>
+                <PageLink
+                  className={c.footer__link}
+                  link={AppRouter.rules.link}
+                >
                   {t("navbar.rules")}
                 </PageLink>
                 <PageLink className={c.footer__link} link={AppRouter.info.link}>
@@ -123,10 +123,16 @@ export const Layout = ({
                 >
                   {t("navbar.forum")}
                 </PageLink>
-                <PageLink className={c.footer__link} link={AppRouter.blog.index.link}>
+                <PageLink
+                  className={c.footer__link}
+                  link={AppRouter.blog.index.link}
+                >
                   {t("navbar.news")}
                 </PageLink>
-                <PageLink className={c.footer__link} link={AppRouter.store.index.link}>
+                <PageLink
+                  className={c.footer__link}
+                  link={AppRouter.store.index.link}
+                >
                   {t("navbar.store")}
                 </PageLink>
               </nav>

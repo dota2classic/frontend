@@ -325,7 +325,10 @@ export default function Landing3Page({ blog, streams }: Landing3Props) {
               <span className={c.sectionTag}>Новости</span>
               <h2 className={c.sectionTitle}>Что нового</h2>
             </div>
-            <PageLink link={AppRouter.blog.index.link} className={c.sectionAllLink}>
+            <PageLink
+              link={AppRouter.blog.index.link}
+              className={c.sectionAllLink}
+            >
               Все новости →
             </PageLink>
           </div>

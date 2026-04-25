@@ -60,8 +60,12 @@ export default function DownloadPage({ initialOS }: Props) {
           <div className={c.stepHeader}>
             <span className={c.stepNumber}>1</span>
             <div className={c.stepMain}>
-              <h2 className={c.stepTitle}>{t("download_page.downloadLauncher")}</h2>
-              <p className={c.stepLead}>{t("download_page.launcherDescription")}</p>
+              <h2 className={c.stepTitle}>
+                {t("download_page.downloadLauncher")}
+              </h2>
+              <p className={c.stepLead}>
+                {t("download_page.launcherDescription")}
+              </p>
             </div>
           </div>
 
@@ -84,7 +88,9 @@ export default function DownloadPage({ initialOS }: Props) {
           <div className={c.stepHeader}>
             <span className={c.stepNumber}>2</span>
             <div className={c.stepMain}>
-              <h2 className={c.stepTitle}>{t("download_page.educationTutorial")}</h2>
+              <h2 className={c.stepTitle}>
+                {t("download_page.educationTutorial")}
+              </h2>
               <p className={c.stepLead}>{t("download_page.passTraining")}</p>
             </div>
           </div>
@@ -95,7 +101,9 @@ export default function DownloadPage({ initialOS }: Props) {
                 <Trans
                   i18nKey="download_page.queueBotGame"
                   components={{
-                    queue: <PageLink link={AppRouter.queue.link} className="link" />,
+                    queue: (
+                      <PageLink link={AppRouter.queue.link} className="link" />
+                    ),
                   }}
                 />
               </li>
@@ -125,7 +133,9 @@ export default function DownloadPage({ initialOS }: Props) {
                   i18nKey="download_page.congratulations"
                   components={{
                     mode: <span className={c.highlight} />,
-                    queue: <PageLink link={AppRouter.queue.link} className="link" />,
+                    queue: (
+                      <PageLink link={AppRouter.queue.link} className="link" />
+                    ),
                   }}
                   values={{
                     mode: t(
@@ -143,7 +153,10 @@ export default function DownloadPage({ initialOS }: Props) {
                 i18nKey="download_page.learnAbout"
                 components={{
                   history: (
-                    <PageLink className="link" link={AppRouter.matches.index().link} />
+                    <PageLink
+                      className="link"
+                      link={AppRouter.matches.index().link}
+                    />
                   ),
                   leaderboard: (
                     <PageLink
@@ -152,7 +165,10 @@ export default function DownloadPage({ initialOS }: Props) {
                     />
                   ),
                   heroes: (
-                    <PageLink className="link" link={AppRouter.heroes.index.link} />
+                    <PageLink
+                      className="link"
+                      link={AppRouter.heroes.index.link}
+                    />
                   ),
                 }}
               />
