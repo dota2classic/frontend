@@ -37,7 +37,7 @@
   grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
   gap: var(--ds-space-5);
   align-items: stretch;
-  padding-block: 18px;
+  padding-block: 24px;
   background:
     radial-gradient(
       circle at top left,
@@ -73,7 +73,7 @@
 .matchInfo {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-space-4);
+  gap: var(--ds-space-5);
   flex: 1;
   min-width: 0;
   justify-content: center;
@@ -93,7 +93,7 @@
 .headerCopy {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
   min-width: 0;
 }
 
@@ -156,7 +156,7 @@
 .modeValue {
   color: var(--ds-color-text-strong);
   font-size: clamp(1.05rem, 1.3vw, 1.2rem);
-  line-height: 1.2;
+  line-height: 1.3;
   font-weight: 600;
   overflow-wrap: anywhere;
   display: inline-flex;
@@ -182,7 +182,7 @@
 .metricsInline {
   display: flex;
   align-items: flex-end;
-  gap: 18px;
+  gap: 28px;
   flex-wrap: wrap;
 }
 
