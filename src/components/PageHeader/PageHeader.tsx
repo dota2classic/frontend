@@ -22,12 +22,12 @@ export const PageHeader = ({
   <div className={cx(c.header, className)} {...rest}>
     {breadcrumbs && <div className={c.breadcrumbs}>{breadcrumbs}</div>}
     {eyebrow && <span className={c.eyebrow}>{eyebrow}</span>}
-    {(title || actions) && (
+    {title && (
       <div className={c.titleRow}>
-        {title && <h1 className={c.title}>{title}</h1>}
-        {actions && <div className={c.actions}>{actions}</div>}
+        <h1 className={c.title}>{title}</h1>
       </div>
     )}
     {description && <p className={c.description}>{description}</p>}
+    {actions && <div className={c.actions}>{actions}</div>}
   </div>
 );
