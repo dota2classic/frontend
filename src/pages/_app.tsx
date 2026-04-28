@@ -14,11 +14,11 @@ import Head from "next/head";
 import "../ext";
 import cx from "clsx";
 import { ToastContainer } from "react-toastify";
-import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModalContainer";
+import { FeedbackModalContainer } from "@/containers/FeedbackModal";
 // Font files can be colocated inside of `pages`
 import "@/styles/editor.css";
 import { TrajanPro } from "@/const/fonts";
-import { ReportModalContainer } from "@/containers/ReportModal/ReportModalContainer";
+import { ReportModalContainer } from "@/containers/ReportModal";
 import { getApi } from "@/api/hooks";
 import { MaintenanceDto } from "@/api/back";
 import "../i18n/i18n";
