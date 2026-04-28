@@ -19,6 +19,8 @@ import { Checkbox } from "@/components/Checkbox";
 import { Button } from "@/components/Button";
 import { NotoSans } from "@/const/notosans";
 import { Field } from "@/components/Field";
+import { useAsyncButton } from "@/util/use-async-button";
+import { makeSimpleToast } from "@/components/Toast";
 
 interface IEditLobbyModalProps {
   onClose: () => void;
@@ -43,13 +45,24 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
   useFocusLock();
 
   const updateLobby = useCallback(async () => {
-    const l = await getApi().lobby.lobbyControllerUpdateLobby(
-      lobby.id,
-      lobbySettings,
-    );
-    await onUpdatedLobby(l);
-    onClose();
-  }, [lobby.id, lobbySettings, onClose, onUpdatedLobby]);
+    try {
+      const l = await getApi().lobby.lobbyControllerUpdateLobby(
+        lobby.id,
+        lobbySettings,
+      );
+      await onUpdatedLobby(l);
+      onClose();
+    } catch {
+      makeSimpleToast(
+        t("edit_lobby.error"),
+        t("edit_lobby.errorUpdatingLobby"),
+        5000,
+        "error",
+      );
+    }
+  }, [lobby.id, lobbySettings, onClose, onUpdatedLobby, t]);
+
+  const [isSaving, saveChanges] = useAsyncButton(updateLobby, [updateLobby]);
 
   return (
     <GenericModal
@@ -196,8 +209,12 @@ export const EditLobbyModal: React.FC<IEditLobbyModalProps> = ({
           </div>
         </Field>
 
-        <Button className={c.startGame} onClick={updateLobby}>
-          {t("edit_lobby.saveChanges")}
+        <Button
+          className={c.startGame}
+          onClick={saveChanges}
+          disabled={isSaving}
+        >
+          {isSaving ? t("edit_lobby.saving") : t("edit_lobby.saveChanges")}
         </Button>
       </div>
     </GenericModal>

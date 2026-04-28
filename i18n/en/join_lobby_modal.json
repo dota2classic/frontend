@@ -3,6 +3,7 @@
     "joinToLobby": "Join the lobby",
     "lobby": "Lobby {{ownerName}}",
     "incorrectPassword": "Incorrect password",
-    "join": "Join"
+    "join": "Join",
+    "joining": "Joining..."
   }
 }

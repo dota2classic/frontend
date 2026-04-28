@@ -184,22 +184,31 @@ export class NotificationStore implements HydratableStore<unknown> {
 
   @action finishFeedback = async (feedback?: FeedbackDto) => {
     if (feedback) {
-      const feedbackResponse =
-        await getApi().feedback.feedbackControllerSubmitFeedbackResult(
-          feedback.id,
-          {
-            comment: feedback.comment,
-            options: feedback.options,
-          },
+      try {
+        const feedbackResponse =
+          await getApi().feedback.feedbackControllerSubmitFeedbackResult(
+            feedback.id,
+            {
+              comment: feedback.comment,
+              options: feedback.options,
+            },
+          );
+        makeSimpleToast(
+          "Обратная связь сохранена",
+          "Спасибо, что помогаешь стать нам лучше",
+          10000,
         );
-      makeSimpleToast(
-        "Обратная связь сохранена",
-        "Спасибо, что помогаешь стать нам лучше",
-        10000,
-      );
 
-      if (feedbackResponse.ticketId) {
-        AppRouter.forum.ticket.ticket(feedbackResponse.ticketId).open();
+        if (feedbackResponse.ticketId) {
+          AppRouter.forum.ticket.ticket(feedbackResponse.ticketId).open();
+        }
+      } catch {
+        makeSimpleToast(
+          "Ошибка при сохранении отзыва",
+          "Пожалуйста, попробуйте позже",
+          5000,
+          "error",
+        );
       }
     }
     this.currentFeedback = undefined;

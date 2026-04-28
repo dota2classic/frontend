@@ -20,6 +20,7 @@ import { prepareAuth } from "@/util/prepareAuth";
 import { Button } from "../Button";
 import { Checkbox } from "../Checkbox";
 import { GenericModal } from "../GenericModal";
+import { makeSimpleToast } from "../Toast";
 
 interface IBuySubscriptionModalProps {
   onClose: () => void;
@@ -42,19 +43,28 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
     }, [products, selectedPlan]);
 
     const [isStartingPayment, startPayment] = useAsyncButton(async () => {
-      const product = products.find((t) => t.id === selectedPlan);
-      if (!product) {
-        return;
-      }
+      try {
+        const product = products.find((t) => t.id === selectedPlan);
+        if (!product) {
+          return;
+        }
 
-      if (!isAuthorized || !parsedToken) {
-        // Authorize
-        prepareAuth();
-        window.location.href = getAuthUrl();
-        return;
-      }
+        if (!isAuthorized || !parsedToken) {
+          // Authorize
+          prepareAuth();
+          window.location.href = getAuthUrl();
+          return;
+        }
 
-      onPurchase(product, parsedToken.sub);
+        onPurchase(product, parsedToken.sub);
+      } catch {
+        makeSimpleToast(
+          "Ошибка при инициировании платежа",
+          "Пожалуйста, попробуйте позже",
+          5000,
+          "error",
+        );
+      }
     }, [isAuthorized, selectedPlan, onPurchase]);
 
     const selectedPlanInfo = useMemo(() => {

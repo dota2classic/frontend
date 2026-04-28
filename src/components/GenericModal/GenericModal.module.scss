@@ -1,15 +1,3 @@
-@keyframes bgAnimate {
-  0% {
-    background-position: 10% 20%;
-  }
-  50% {
-    background-position: 91% 100%;
-  }
-  100% {
-    background-position: 40% 0%;
-  }
-}
-
 .modalWrapper {
   position: fixed;
   left: 0;
@@ -61,14 +49,6 @@
       font-size: 24px;
       font-weight: normal;
       color: var(--ds-color-text-primary);
-    }
-
-    &:global(.inline) {
-      right: 50px !important;
-      left: unset;
-      top: unset;
-      bottom: 50px !important;
-      margin: unset;
     }
   }
 }

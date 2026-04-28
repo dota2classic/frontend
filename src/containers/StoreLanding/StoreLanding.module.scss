@@ -147,14 +147,15 @@
     font-size: 1.5rem;
     line-height: 1.7rem;
     padding: 12px 10rem;
-    bottom: 40px;
+    top: 50%;
     width: 60%;
     max-width: 800px;
     color: var(--ds-color-text-primary);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.4);
 
     left: 50%;
     text-align: center;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 
     @media (max-width: 1080px) {
       font-size: 1.3rem;

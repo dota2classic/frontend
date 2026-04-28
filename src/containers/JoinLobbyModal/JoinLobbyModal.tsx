@@ -7,6 +7,7 @@ import { getApi } from "@/api/hooks";
 import { AppRouter } from "@/route";
 import c from "./JoinLobbyModal.module.scss";
 import { useTranslation } from "react-i18next";
+import { useAsyncButton } from "@/util/use-async-button";
 
 interface IJoinLobbyModalProps {
   onClose: () => void;
@@ -36,7 +37,9 @@ export const JoinLobbyModal: React.FC<IJoinLobbyModalProps> = ({
         setError(e.statusText);
       }
     }
-  }, [lobby.id, lobby.requiresPassword, password]);
+  }, [lobby.id, lobby.requiresPassword, password, t]);
+
+  const [isJoining, submitJoin] = useAsyncButton(join, [join]);
   return (
     <GenericModal
       onClose={onClose}
@@ -51,8 +54,8 @@ export const JoinLobbyModal: React.FC<IJoinLobbyModalProps> = ({
       )}
 
       {error && <span>{error}</span>}
-      <Button disabled={!canJoin} onClick={join}>
-        {t("join_lobby_modal.join")}
+      <Button disabled={!canJoin || isJoining} onClick={submitJoin}>
+        {isJoining ? t("join_lobby_modal.joining") : t("join_lobby_modal.join")}
       </Button>
     </GenericModal>
   );
