@@ -1,5 +1,5 @@
 import React from "react";
-import cx from "clsx";
+import { Surface } from "../Surface";
 import c from "./PageHeader.module.scss";
 
 interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,15 +19,17 @@ export const PageHeader = ({
   className,
   ...rest
 }: PageHeaderProps) => (
-  <div className={cx(c.header, className)} {...rest}>
-    {breadcrumbs && <div className={c.breadcrumbs}>{breadcrumbs}</div>}
-    {eyebrow && <span className={c.eyebrow}>{eyebrow}</span>}
-    {title && (
-      <div className={c.titleRow}>
-        <h1 className={c.title}>{title}</h1>
-      </div>
-    )}
-    {description && <p className={c.description}>{description}</p>}
-    {actions && <div className={c.actions}>{actions}</div>}
-  </div>
+  <Surface className={className} {...rest}>
+    <div className={c.header}>
+      {breadcrumbs && <div className={c.breadcrumbs}>{breadcrumbs}</div>}
+      {eyebrow && <span className={c.eyebrow}>{eyebrow}</span>}
+      {title && (
+        <div className={c.titleRow}>
+          <h1 className={c.title}>{title}</h1>
+        </div>
+      )}
+      {description && <p className={c.description}>{description}</p>}
+      {actions && <div className={c.actions}>{actions}</div>}
+    </div>
+  </Surface>
 );
