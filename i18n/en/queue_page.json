@@ -53,6 +53,15 @@
       "partners": "Our partners",
       "search": "Search game",
       "year_result": "Year results"
+    },
+    "launcher": {
+      "sectionTitle": "Play via лаунчер",
+      "description": "Game queueing is now available exclusively through the Dota Classic лаунчер. Download it to start searching for matches.",
+      "downloadButton": "Download лаунчер",
+      "benefit1": "Faster and more stable matchmaking",
+      "benefit2": "Better performance and graphics",
+      "benefit3": "Exclusive launcher features",
+      "benefit4": "Regular updates and improvements"
     }
   }
 }

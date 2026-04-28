@@ -1,0 +1,31 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--ds-color-text-strong);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.text {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+.word {
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--ds-color-text-strong);
+  text-transform: uppercase;
+}
+
+.accent {
+  font-size: 0.98rem;
+  color: #e03448;
+}

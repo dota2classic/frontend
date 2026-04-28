@@ -92,23 +92,9 @@
   }
 
   &__brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     text-decoration: none;
-    color: var(--ds-color-text-strong);
   }
 
-  &__brandName {
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--ds-color-text-strong);
-  }
-
-  &__brandAccent {
-    color: #e03448;
-  }
 
   &__links {
     display: flex;
@@ -157,6 +143,28 @@
     &:hover {
       background: rgba(255, 255, 255, 0.09);
       color: var(--ds-color-text-primary);
+    }
+
+    &_telegram {
+      color: #0088cc;
+      border-color: rgba(0, 136, 204, 0.3);
+
+      &:hover {
+        color: #ffffff;
+        background: #0088cc;
+        border-color: #0088cc;
+      }
+    }
+
+    &_discord {
+      color: #5865f2;
+      border-color: rgba(88, 101, 242, 0.3);
+
+      &:hover {
+        color: #ffffff;
+        background: #5865f2;
+        border-color: #5865f2;
+      }
     }
   }
 

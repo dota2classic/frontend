@@ -12,7 +12,7 @@ import { SearchGameFloater } from "../SearchGameFloater";
 import { AdBlockType, SideAdBlock } from "@/components/AdBlock";
 import { useLazyBackground } from "@/util/useLazyBackground";
 import { FloaterAd } from "@/components/FloaterAd";
-import { Logo } from "@/components/Logo";
+import { BrandLogo } from "@/components/BrandLogo";
 import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import { FaDiscord, FaTelegram } from "react-icons/fa";
@@ -100,11 +100,7 @@ export const Layout = ({
           <footer className={cx(c.footer, isQueuePage && c.footer__queue)}>
             <div className={c.footer__inner}>
               <PageLink link={AppRouter.index.link} className={c.footer__brand}>
-                <Logo size={28} />
-                <span className={cx(TrajanPro.className, c.footer__brandName)}>
-                  DOTA2
-                  <span className={c.footer__brandAccent}>CLASSIC</span>
-                </span>
+                <BrandLogo size={28} />
               </PageLink>
 
               <nav className={c.footer__links}>
@@ -142,7 +138,10 @@ export const Layout = ({
                   href="https://t.me/dota2classicru"
                   target="_blank"
                   rel="noreferrer"
-                  className={c.footer__socialLink}
+                  className={cx(
+                    c.footer__socialLink,
+                    c.footer__socialLink_telegram,
+                  )}
                 >
                   <FaTelegram />
                   Telegram
@@ -151,7 +150,10 @@ export const Layout = ({
                   href="https://discord.gg/36D4WdNquT"
                   target="_blank"
                   rel="noreferrer"
-                  className={c.footer__socialLink}
+                  className={cx(
+                    c.footer__socialLink,
+                    c.footer__socialLink_discord,
+                  )}
                 >
                   <FaDiscord />
                   Discord

@@ -19,7 +19,7 @@ import { GiFist } from "react-icons/gi";
 import { AiOutlineTeam } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 import { NavbarItem } from "../NavbarItem";
-import { Logo } from "../Logo";
+import { BrandLogo } from "../BrandLogo";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 
 export const Navbar = observer(function Navbar(p: {
@@ -78,8 +78,7 @@ export const Navbar = observer(function Navbar(p: {
             className={cx(c.root, "onboarding-logo")}
             action={AppRouter.index.link}
           >
-            <Logo />
-            <span>{t("navbar.dota2classic")}</span>
+            <BrandLogo />
           </NavbarItem>
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
             {(isAuthorized && (

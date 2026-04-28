@@ -100,17 +100,7 @@
 
 .root {
   & a {
-    color: #ed3b1c !important;
     padding: 0 !important;
-
-    & svg {
-      margin-bottom: 4px;
-      margin-right: 4px;
-    }
-  }
-
-  & span {
-    padding: 8px 12px 8px 0;
   }
 }
 
