@@ -28,10 +28,17 @@
   }
 }
 
+.teamSurface {
+  grid-column: span 4;
+
+  @include m.mobile {
+    order: 1;
+  }
+}
+
 .teamTable {
   display: flex;
   flex-direction: column;
-  grid-column: span 4;
 
   @include m.mobile {
     order: 1;
@@ -249,10 +256,14 @@
   pointer-events: none;
 }
 
+.watchLiveSurface {
+  margin-top: 20px;
+  grid-column: span 12;
+}
+
 .watchLive {
   font-size: 1.4rem;
   text-align: center;
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -22,6 +22,7 @@ import { ItemIcon, PlaceholderImage } from "../ItemIcon";
 import { PageLink } from "../PageLink";
 import { HeroIcon } from "../HeroIcon";
 import { EmbedProps } from "../EmbedProps";
+import { Surface } from "../Surface/Surface";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -64,7 +65,7 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
         </div>
         <div className={c.itemRow}>
           {iterateItems(allEmptyItems).map((it, index) => (
-            <ItemIcon key={index} item={it} />
+            <ItemIcon key={index} item={it} small />
           ))}
         </div>
       </div>
@@ -110,7 +111,7 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
       </div>
       <div className={c.itemRow}>
         {iterateItems(hero).map((it, index) => (
-          <ItemIcon key={index} item={it} />
+          <ItemIcon key={index} item={it} small />
         ))}
       </div>
     </div>
@@ -143,7 +144,9 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         description={t("live_match.matchPreview", { matchId: match.matchId })}
       />
       <div className={c.liveMatch}>
-        <TeamListTable players={radiant} />
+        <Surface variant="raised" padding="md" className={c.teamSurface}>
+          <TeamListTable players={radiant} />
+        </Surface>
         <div className={c.map}>
           {renderHeroPool
             .filter((t) => t.heroData)
@@ -156,19 +159,23 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
             ))}
           <MinimapTowers towers={match.towers} barracks={match.barracks} />
         </div>
-        <TeamListTable players={dire} />
+        <Surface variant="raised" padding="md" className={c.teamSurface}>
+          <TeamListTable players={dire} />
+        </Surface>
       </div>
-      <div className={c.watchLive}>
-        <Button
-          link
-          href={spectateUrl(match.matchId)}
-          target="_blank"
-          variant="primary"
-          className={c.launcherButton}
-        >
-          {t("live_match.watchWithLauncher")}
-        </Button>
-      </div>
+      <Surface variant="raised" padding="md" className={c.watchLiveSurface}>
+        <div className={c.watchLive}>
+          <Button
+            link
+            href={spectateUrl(match.matchId)}
+            target="_blank"
+            variant="primary"
+            className={c.launcherButton}
+          >
+            {t("live_match.watchWithLauncher")}
+          </Button>
+        </div>
+      </Surface>
     </>
   );
 };
