@@ -56,6 +56,15 @@
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 16px;
   width: 100%;
+
+  :global(dl) {
+    margin: 0;
+  }
+
+  :global(dt),
+  :global(dd) {
+    margin: 0;
+  }
 }
 
 .description {
