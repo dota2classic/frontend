@@ -5,7 +5,7 @@ import { AppRouter } from "@/route";
 import { getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { IoMenu, IoNewspaper } from "react-icons/io5";
+import { IoMenu } from "react-icons/io5";
 import cx from "clsx";
 import { useRouterChanging } from "@/util/useRouterChanging";
 import { LoginProfileNavbarItem } from "./LoginProfileNavbarItem";
@@ -13,7 +13,7 @@ import { MetaNavbarItem } from "./MetaNavbarItem";
 import { AdminNavbarItem } from "./AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdGavel } from "react-icons/md";
-import { FaCoins, FaExclamation, FaJournalWhills } from "react-icons/fa";
+import { FaCoins, FaJournalWhills } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
 import { AiOutlineTeam } from "react-icons/ai";
@@ -92,6 +92,11 @@ export const Navbar = observer(function Navbar(p: {
                     action: AppRouter.lobby.index.link,
                   },
                   {
+                    Icon: AiOutlineTeam,
+                    label: t("navbar.tournaments"),
+                    action: AppRouter.tournament.index.link,
+                  },
+                  {
                     newCategory: true,
                     label: t("navbar.howToPlay"),
                     action: AppRouter.download.link,
@@ -117,8 +122,11 @@ export const Navbar = observer(function Navbar(p: {
                 {t("navbar.howToPlay")}
               </NavbarItem>
             )}
-            <NavbarItem tip={"!"} action={AppRouter.tournament.index.link}>
-              {t("navbar.tournaments")}
+            <NavbarItem
+              tip={newBlogRecently ? "!" : undefined}
+              action={AppRouter.blog.index.link}
+            >
+              {t("navbar.news")}
             </NavbarItem>
             <MetaNavbarItem />
             <NavbarItem
@@ -143,11 +151,6 @@ export const Navbar = observer(function Navbar(p: {
               className={c.play}
               action={AppRouter.info.link}
               options={[
-                {
-                  Icon: newBlogRecently ? FaExclamation : IoNewspaper,
-                  label: t("navbar.news"),
-                  action: AppRouter.blog.index.link,
-                },
                 {
                   Icon: AiOutlineTeam,
                   label: t("navbar.vacancies"),
