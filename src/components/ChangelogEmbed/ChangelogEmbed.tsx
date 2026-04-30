@@ -192,11 +192,39 @@ function ItemRow({ item }: { item: (typeof patchData.items)[0] }) {
   );
 }
 
+function UnitRow({ unit }: { unit: (typeof patchData.units)[0] }) {
+  return (
+    <div className={styles.row}>
+      <div className={styles.rowHeader}>
+        <img
+          src={`/units/${unit.unit}.webp`}
+          alt={unit.unit}
+          width={64}
+          height={64}
+          className={styles.unitImage}
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+          }}
+        />
+        <h3 className={styles.rowTitle}>{unit.unit.toUpperCase()}</h3>
+      </div>
+      <ul className={styles.changesList}>
+        {unit.changes.map((change, idx) => (
+          <li key={idx}>
+            <ChangelineItem change={change} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export const ChangelogEmbed: React.FC = () => {
   const heroesWithChanges = patchData.heroes.filter(
     (h) => h.stats.length > 0 || h.abilities.length > 0,
   );
   const itemsWithChanges = patchData.items.filter((i) => i.changes.length > 0);
+  const unitsWithChanges = patchData.units.filter((u) => u.changes.length > 0);
 
   return (
     <div className={styles.embed}>
@@ -217,6 +245,17 @@ export const ChangelogEmbed: React.FC = () => {
           <div className={styles.section}>
             {itemsWithChanges.map((item) => (
               <ItemRow key={item.item} item={item} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {unitsWithChanges.length > 0 && (
+        <section>
+          <h3 className={styles.sectionTitle}>Юниты</h3>
+          <div className={styles.section}>
+            {unitsWithChanges.map((unit) => (
+              <UnitRow key={unit.unit} unit={unit} />
             ))}
           </div>
         </section>

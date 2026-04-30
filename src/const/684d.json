@@ -1,4 +1,6 @@
 {
+  "base_root": "C:\\Users\\enchantinggg4\\Documents\\6.84_upgraded\\vanila\\6.84\\scripts\\npc",
+  "patch_root": "C:\\Users\\enchantinggg4\\Documents\\6.84_upgraded\\output\\6.84d\\scripts\\npc",
   "heroes": [
     {
       "hero": "alchemist",
@@ -1127,7 +1129,38 @@
           "new": "21"
         }
       ],
-      "abilities": [],
+      "abilities": [
+        {
+          "name": "caustic_finale",
+          "changes": [
+            {
+              "path": "AbilitySpecial.caustic_finale_damage_expire_tooltip",
+              "old": "27 39 51 66",
+              "new": "45 65 85 110"
+            },
+            {
+              "path": "AbilitySpecial.caustic_finale_slow",
+              "old": "-20",
+              "new": "-25"
+            }
+          ]
+        },
+        {
+          "name": "epicenter",
+          "changes": [
+            {
+              "path": "AbilitySpecial.epicenter_pulses_scepter",
+              "old": "8 10 12",
+              "new": "9 11 13"
+            },
+            {
+              "path": "AbilitySpecial.epicenter_cooldown_scepter",
+              "old": "120.0 100.0 80.0",
+              "new": "110.0 90.0 70.0"
+            }
+          ]
+        }
+      ],
       "units": []
     },
     {
@@ -1365,7 +1398,17 @@
       ],
       "units": [
         {
-          "name": "npc_dota_techies_land_mine",
+          "name": "land_mine",
+          "changes": [
+            {
+              "path": "BaseClass",
+              "old": "npc_dota_techies_mines",
+              "new": "npc_dota_ward_base"
+            }
+          ]
+        },
+        {
+          "name": "stasis_trap",
           "changes": [
             {
               "path": "BaseClass",
@@ -1695,39 +1738,79 @@
       ]
     }
   ],
+  "units": [
+    {
+      "unit": "necronomicon_archer_1",
+      "changes": [
+        {
+          "path": "StatusHealth",
+          "old": "600",
+          "new": "700"
+        }
+      ]
+    },
+    {
+      "unit": "necronomicon_archer_2",
+      "changes": [
+        {
+          "path": "StatusHealth",
+          "old": "700",
+          "new": "800"
+        }
+      ]
+    },
+    {
+      "unit": "necronomicon_archer_3",
+      "changes": [
+        {
+          "path": "StatusHealth",
+          "old": "800",
+          "new": "900"
+        }
+      ]
+    },
+    {
+      "unit": "necronomicon_warrior_1",
+      "changes": [
+        {
+          "path": "StatusHealth",
+          "old": "600",
+          "new": "700"
+        }
+      ]
+    },
+    {
+      "unit": "necronomicon_warrior_2",
+      "changes": [
+        {
+          "path": "StatusHealth",
+          "old": "700",
+          "new": "800"
+        }
+      ]
+    },
+    {
+      "unit": "necronomicon_warrior_3",
+      "changes": [
+        {
+          "path": "StatusHealth",
+          "old": "800",
+          "new": "900"
+        }
+      ]
+    },
+    {
+      "unit": "observer_wards",
+      "changes": [
+        {
+          "path": "BountyXP",
+          "old": "50",
+          "new": "100"
+        }
+      ]
+    }
+  ],
   "other": [
-    {
-      "object": "sandking_caustic_finale",
-      "category": "ability",
-      "changes": [
-        {
-          "path": "AbilitySpecial.caustic_finale_damage_expire_tooltip",
-          "old": "27 39 51 66",
-          "new": "45 65 85 110"
-        },
-        {
-          "path": "AbilitySpecial.caustic_finale_slow",
-          "old": "-20",
-          "new": "-25"
-        }
-      ]
-    },
-    {
-      "object": "sandking_epicenter",
-      "category": "ability",
-      "changes": [
-        {
-          "path": "AbilitySpecial.epicenter_pulses_scepter",
-          "old": "8 10 12",
-          "new": "9 11 13"
-        },
-        {
-          "path": "AbilitySpecial.epicenter_cooldown_scepter",
-          "old": "120.0 100.0 80.0",
-          "new": "110.0 90.0 70.0"
-        }
-      ]
-    },
     {
       "object": "courier_burst",
       "category": "ability",
@@ -1736,83 +1819,6 @@
           "path": "AbilityCooldown",
           "old": "90.0",
           "new": "35.0"
-        }
-      ]
-    },
-    {
-      "object": "npc_dota_necronomicon_warrior_1",
-      "category": "unit",
-      "changes": [
-        {
-          "path": "StatusHealth",
-          "old": "600",
-          "new": "700"
-        }
-      ]
-    },
-    {
-      "object": "npc_dota_necronomicon_warrior_2",
-      "category": "unit",
-      "changes": [
-        {
-          "path": "StatusHealth",
-          "old": "700",
-          "new": "800"
-        }
-      ]
-    },
-    {
-      "object": "npc_dota_necronomicon_warrior_3",
-      "category": "unit",
-      "changes": [
-        {
-          "path": "StatusHealth",
-          "old": "800",
-          "new": "900"
-        }
-      ]
-    },
-    {
-      "object": "npc_dota_necronomicon_archer_1",
-      "category": "unit",
-      "changes": [
-        {
-          "path": "StatusHealth",
-          "old": "600",
-          "new": "700"
-        }
-      ]
-    },
-    {
-      "object": "npc_dota_necronomicon_archer_2",
-      "category": "unit",
-      "changes": [
-        {
-          "path": "StatusHealth",
-          "old": "700",
-          "new": "800"
-        }
-      ]
-    },
-    {
-      "object": "npc_dota_necronomicon_archer_3",
-      "category": "unit",
-      "changes": [
-        {
-          "path": "StatusHealth",
-          "old": "800",
-          "new": "900"
-        }
-      ]
-    },
-    {
-      "object": "npc_dota_observer_wards",
-      "category": "unit",
-      "changes": [
-        {
-          "path": "BountyXP",
-          "old": "50",
-          "new": "100"
         }
       ]
     }
