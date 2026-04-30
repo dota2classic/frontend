@@ -21,7 +21,7 @@ export const LauncherPromotionBlock: React.FC = () => {
     <div className={c.landingContainer}>
       <div className={c.screenshotContainer}>
         <img
-          src="https://via.placeholder.com/900x506"
+          src="/launcher.png"
           alt="Launcher preview"
           className={c.screenshot}
         />
