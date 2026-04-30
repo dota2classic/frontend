@@ -4,6 +4,7 @@ import { BlogPostCard } from "@/components/BlogPostCard";
 import { Button } from "@/components/Button";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PageLink } from "@/components/PageLink";
+import { TelegramInvite } from "@/components/TelegramInvite";
 import { TrajanPro, threadFont } from "@/const/fonts";
 import { AppRouter } from "@/route";
 import { getDomain } from "@/util/domain";
@@ -37,7 +38,7 @@ const patches: PatchData[] = [
   {
     num: "6.84d",
     name: "Текущий сезон",
-    desc: "Активный сезон — серверы работают, очереди живые.",
+    desc: "Активный сезон — серверы работают, матчи идут.",
     state: "active",
     dateRange: "1 мая – 1 сентября 2026",
   },
@@ -121,6 +122,20 @@ function DownloadIcon() {
   );
 }
 
+function PlayIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M8 5v14l11-7z" />
+    </svg>
+  );
+}
+
 function TwitchIcon() {
   return (
     <svg
@@ -189,6 +204,13 @@ export default function Home({ blog, streams, online }: HomeProps) {
                 <DownloadIcon />
                 Скачать лаунчер — бесплатно
               </Button>
+              <PageLink
+                link={AppRouter.matches.live.link}
+                className={c.heroSecondary}
+              >
+                <PlayIcon />
+                Смотреть live-матчи
+              </PageLink>
             </div>
 
             <p className={c.heroFreeNote}>
@@ -220,10 +242,10 @@ export default function Home({ blog, streams, online }: HomeProps) {
               </div>
               <div className={c.howItWorksCard}>
                 <div className={c.howItWorksNumber}>2</div>
-                <h3 className={c.howItWorksTitle}>Войди через Steam</h3>
+                <h3 className={c.howItWorksTitle}>Запусти Steam</h3>
                 <p className={c.howItWorksText}>
-                  Авторизация через Steam OpenID. Ни логинов, ни паролей —
-                  аккаунт в безопасности.
+                  Лаунчер сам подхватит аккаунт из запущенного Steam — никаких
+                  отдельных логинов и паролей вводить не нужно.
                 </p>
               </div>
               <div className={c.howItWorksCard}>
@@ -494,6 +516,10 @@ export default function Home({ blog, streams, online }: HomeProps) {
               </details>
             ))}
           </div>
+          <p className={c.faqNudge}>
+            Не нашёл свой вопрос? Спроси в{" "}
+            <TelegramInvite className={c.faqNudgeLink} />
+          </p>
         </section>
 
         {/* ── FINAL CTA ── */}
