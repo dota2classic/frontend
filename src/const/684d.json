@@ -1,6 +1,4 @@
 {
-  "base_root": "C:\\Users\\enchantinggg4\\Documents\\6.84_upgraded\\vanila\\6.84\\scripts\\npc",
-  "patch_root": "C:\\Users\\enchantinggg4\\Documents\\6.84_upgraded\\output\\6.84d\\scripts\\npc",
   "heroes": [
     {
       "hero": "alchemist",
@@ -972,6 +970,39 @@
       "units": []
     },
     {
+      "hero": "phantom_assassin",
+      "stats": [
+        {
+          "path": "AttributeBaseIntelligence",
+          "old": "13",
+          "new": "15"
+        },
+        {
+          "path": "AttributeIntelligenceGain",
+          "old": "1.0",
+          "new": "1.4"
+        },
+        {
+          "path": "MovementTurnRate",
+          "old": "0.4",
+          "new": "0.6"
+        }
+      ],
+      "abilities": [
+        {
+          "name": "coup_de_grace",
+          "changes": [
+            {
+              "path": "AbilitySpecial.crit_bonus",
+              "old": "230 340 450",
+              "new": "250 350 450"
+            }
+          ]
+        }
+      ],
+      "units": []
+    },
+    {
       "hero": "puck",
       "stats": [
         {
@@ -1550,11 +1581,16 @@
           "path": "AbilityCooldown",
           "old": "16.0",
           "new": "20.0"
-        },
+        }
+      ]
+    },
+    {
+      "item": "heart",
+      "changes": [
         {
-          "path": "AbilityManaCost",
-          "old": "130",
-          "new": "160"
+          "path": "AbilitySpecial.health_regen_rate",
+          "old": "3.25",
+          "new": "4"
         }
       ]
     },
@@ -1614,12 +1650,22 @@
       ]
     },
     {
+      "item": "sange_and_yasha",
+      "changes": [
+        {
+          "path": "AbilitySpecial.maim_chance",
+          "old": "16",
+          "new": "25"
+        }
+      ]
+    },
+    {
       "item": "sheepstick",
       "changes": [
         {
           "path": "AbilityCooldown",
           "old": "35.0",
-          "new": "25.0"
+          "new": "30.0"
         }
       ]
     },

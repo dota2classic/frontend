@@ -10,6 +10,7 @@ import { AppRouter } from "@/route";
 import { getDomain } from "@/util/domain";
 import cx from "clsx";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import c from "./index.module.scss";
 
 interface HomeProps {
@@ -28,77 +29,81 @@ interface PatchData {
   dateRange?: string;
 }
 
-const patches: PatchData[] = [
+const getPatches = (t: ReturnType<typeof useTranslation>["t"]): PatchData[] => [
   {
     num: "6.84c",
-    name: "Предыдущий сезон",
-    desc: "Балансный патч, где начиналась классика на новых серверах.",
+    name: t("landing.patches.season684c"),
+    desc: t("landing.patches.season684cDesc"),
     state: "past",
   },
   {
     num: "6.84d",
-    name: "Текущий сезон",
-    desc: "Активный сезон — серверы работают, матчи идут.",
+    name: t("landing.patches.season684d"),
+    desc: t("landing.patches.season684dDesc"),
     state: "active",
-    dateRange: "1 мая – 1 сентября 2026",
+    dateRange: t("landing.patches.season684dDateRange"),
   },
   {
     num: "?",
-    name: "Следующий патч",
-    desc: "Что-то новое готовится. Следи за новостями.",
+    name: t("landing.patches.nextPatch"),
+    desc: t("landing.patches.nextPatchDesc"),
     state: "next",
-    dateRange: "1 сентября – 1 января 2027",
+    dateRange: t("landing.patches.nextPatchDateRange"),
   },
 ];
 
-const statLinks = [
+const getStatLinks = (t: ReturnType<typeof useTranslation>["t"]) => [
   {
     link: AppRouter.players.leaderboard(),
     img: "/landing/leaderboard.webp",
-    title: "Рейтинг игроков",
-    desc: "Лучшие на сервере",
+    title: t("landing.stats.leaderboard"),
+    desc: t("landing.stats.leaderboardDesc"),
   },
   {
     link: AppRouter.matches.index(),
     img: "/landing/wallpaper-heroes.webp",
-    title: "История матчей",
-    desc: "Разбор каждой игры",
+    title: t("landing.stats.matchHistory"),
+    desc: t("landing.stats.matchHistoryDesc"),
   },
   {
     link: AppRouter.heroes.index,
     img: "/landing/invoker.webp",
-    title: "Сила героев",
-    desc: "Мета и винрейт",
+    title: t("landing.stats.heroesStats"),
+    desc: t("landing.stats.heroesStatsDesc"),
   },
 ];
 
-const PATCH_BADGE: Record<PatchState, string | null> = {
-  past: "ЗАВЕРШЁН",
-  active: "СЕЙЧАС",
-  next: "СКОРО",
+const getPATCH_BADGE = (
+  t: ReturnType<typeof useTranslation>["t"],
+): Record<PatchState, string | null> => ({
+  past: t("landing.patches.badgePast"),
+  active: t("landing.patches.badgeActive"),
+  next: t("landing.patches.badgeNext"),
   unknown: null,
-};
+});
 
-const faqs: { q: string; a: string }[] = [
+const getFaqs = (
+  t: ReturnType<typeof useTranslation>["t"],
+): { q: string; a: string }[] => [
   {
-    q: "Это легально?",
-    a: "Да. Мы используем оригинальные клиенты Dota 2, а матчмейкинг и серверы у нас собственные — Valve в этой схеме не задействована.",
+    q: t("landing.faq.q1"),
+    a: t("landing.faq.a1"),
   },
   {
-    q: "Могут ли забанить мой Steam-аккаунт?",
-    a: "Нет. Игры идут на наших серверах, VAC до них не дотягивается. Бан возможен только если ты сам потащишь читы — но это уже вопрос не к лаунчеру.",
+    q: t("landing.faq.q2"),
+    a: t("landing.faq.a2"),
   },
   {
-    q: "На каких операционных системах работает?",
-    a: "Windows — нативно. На Linux и macOS — через Wine/Proton.",
+    q: t("landing.faq.q3"),
+    a: t("landing.faq.a3"),
   },
   {
-    q: "Какие нужны системные требования?",
-    a: "Старая Dota 2 крутилась на Source 1 и была заметно легче нынешней. Хватит двухъядерного процессора от 2.8 ГГц, 4 ГБ оперативной памяти и видеокарты уровня GeForce 8600/9600 GT или Radeon HD 2600/3600.",
+    q: t("landing.faq.q4"),
+    a: t("landing.faq.a4"),
   },
   {
-    q: "Что будет с моей оригинальной Dota 2?",
-    a: "Ничего. Лаунчер ставит отдельный клиент — оригинальная Dota никак не связана со старой и спокойно сосуществует рядом.",
+    q: t("landing.faq.q5"),
+    a: t("landing.faq.a5"),
   },
 ];
 
@@ -152,6 +157,7 @@ function TwitchIcon() {
 
 export default function Home({ blog, streams, online }: HomeProps) {
   const [mounted, setMounted] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -159,14 +165,18 @@ export default function Home({ blog, streams, online }: HomeProps) {
 
   const twitchChannel = streams[0]?.link.split("twitch.tv/")[1];
   const domain = mounted ? getDomain() : "dotaclassic.ru";
+  const patches = getPatches(t);
+  const statLinks = getStatLinks(t);
+  const PATCH_BADGE = getPATCH_BADGE(t);
+  const faqs = getFaqs(t);
 
   const posts = blog.data.slice(0, 3);
 
   return (
     <>
       <EmbedProps
-        title="DotaClassic — Настоящая Dota 2"
-        description="Оригинальные патчи, старая карта, живой онлайн. Скачай лаунчер и начни играть уже сегодня."
+        title={t("landing.meta.title")}
+        description={t("landing.meta.description")}
       />
       <div className={cx(c.page, threadFont.className)}>
         {/* ── HERO ── */}
@@ -186,15 +196,14 @@ export default function Home({ blog, streams, online }: HomeProps) {
 
           <div className={c.heroContent}>
             <h1 className={cx(c.heroTitle, TrajanPro.className)}>
-              Настоящая
+              {t("landing.hero.titleLine1")}
               <br />
-              <span className={c.heroTitleAccent}>Dota 2</span>
+              <span className={c.heroTitleAccent}>
+                {t("landing.hero.titleLine2")}
+              </span>
             </h1>
 
-            <p className={c.heroSub}>
-              Старые патчи, старая карта, та самая Дота — какой ты её помнишь.
-              Без переусложнённой меты и шейдеров на полэкрана.
-            </p>
+            <p className={c.heroSub}>{t("landing.hero.subtitle")}</p>
 
             <div className={c.heroActions}>
               <Button
@@ -202,20 +211,22 @@ export default function Home({ blog, streams, online }: HomeProps) {
                 variant="landingPrimary"
               >
                 <DownloadIcon />
-                Скачать лаунчер — бесплатно
+                {t("landing.hero.downloadBtn")}
               </Button>
               <PageLink
                 link={AppRouter.matches.live.link}
                 className={c.heroSecondary}
               >
                 <PlayIcon />
-                Смотреть live-матчи
+                {t("landing.hero.liveMatchesBtn")}
               </PageLink>
             </div>
 
             <p className={c.heroFreeNote}>
-              Бесплатно навсегда ·{" "}
-              <span className={c.heroFreeNoteAccent}>35 000+ игроков</span>
+              {t("landing.hero.freeNote")} ·{" "}
+              <span className={c.heroFreeNoteAccent}>
+                {t("landing.hero.playersCount")}
+              </span>
             </p>
           </div>
         </section>
@@ -224,36 +235,43 @@ export default function Home({ blog, streams, online }: HomeProps) {
         <div className={c.sectionSurface}>
           <div className={c.sectionInner}>
             <div className={c.sectionHeader}>
-              <span className={c.sectionTag}>Старт</span>
-              <h2 className={c.sectionTitle}>Как начать играть</h2>
+              <span className={c.sectionTag}>
+                {t("landing.howItWorks.tag")}
+              </span>
+              <h2 className={c.sectionTitle}>
+                {t("landing.howItWorks.title")}
+              </h2>
               <p className={c.sectionDesc}>
-                Три шага. Steam уже есть — больше ничего не нужно.
+                {t("landing.howItWorks.subtitle")}
               </p>
             </div>
 
             <div className={c.howItWorksGrid}>
               <div className={c.howItWorksCard}>
                 <div className={c.howItWorksNumber}>1</div>
-                <h3 className={c.howItWorksTitle}>Скачай лаунчер</h3>
+                <h3 className={c.howItWorksTitle}>
+                  {t("landing.howItWorks.step1Title")}
+                </h3>
                 <p className={c.howItWorksText}>
-                  Один установщик. Сам подтянет нужный клиент — оригинальную
-                  Dota 2 трогать не будем.
+                  {t("landing.howItWorks.step1Text")}
                 </p>
               </div>
               <div className={c.howItWorksCard}>
                 <div className={c.howItWorksNumber}>2</div>
-                <h3 className={c.howItWorksTitle}>Запусти Steam</h3>
+                <h3 className={c.howItWorksTitle}>
+                  {t("landing.howItWorks.step2Title")}
+                </h3>
                 <p className={c.howItWorksText}>
-                  Лаунчер сам подхватит аккаунт из запущенного Steam — никаких
-                  отдельных логинов и паролей вводить не нужно.
+                  {t("landing.howItWorks.step2Text")}
                 </p>
               </div>
               <div className={c.howItWorksCard}>
                 <div className={c.howItWorksNumber}>3</div>
-                <h3 className={c.howItWorksTitle}>Жми в очередь</h3>
+                <h3 className={c.howItWorksTitle}>
+                  {t("landing.howItWorks.step3Title")}
+                </h3>
                 <p className={c.howItWorksText}>
-                  Выбирай режим, ищи матч, играй. Пять минут от запуска до
-                  первого крипа.
+                  {t("landing.howItWorks.step3Text")}
                 </p>
               </div>
             </div>
@@ -264,15 +282,21 @@ export default function Home({ blog, streams, online }: HomeProps) {
         <div className={c.metricsBar}>
           <div className={c.metric}>
             <div className={c.metricValue}>
-              35<span className={c.metricValueAccent}>K</span>+
+              {t("landing.metrics.registeredValue")}
+              <span className={c.metricValueAccent}></span>
             </div>
-            <div className={c.metricLabel}>Зарегистрировано игроков</div>
+            <div className={c.metricLabel}>
+              {t("landing.metrics.registeredPlayers")}
+            </div>
           </div>
           <div className={c.metric}>
             <div className={c.metricValue}>
-              56<span className={c.metricValueAccent}>K</span>+
+              {t("landing.metrics.gamesPlayedValue")}
+              <span className={c.metricValueAccent}></span>
             </div>
-            <div className={c.metricLabel}>Сыграно матчей</div>
+            <div className={c.metricLabel}>
+              {t("landing.metrics.gamesPlayed")}
+            </div>
           </div>
           {online ? (
             <div className={c.metric}>
@@ -282,14 +306,19 @@ export default function Home({ blog, streams, online }: HomeProps) {
                   <span className={c.pulseDot} aria-hidden="true" />
                 </span>
               </div>
-              <div className={c.metricLabel}>Сейчас в игре</div>
+              <div className={c.metricLabel}>
+                {t("landing.metrics.onlineNow")}
+              </div>
             </div>
           ) : (
             <div className={c.metric}>
               <div className={c.metricValue}>
-                165<span className={c.metricValueAccent}>K</span>
+                {t("landing.metrics.hoursPlayedValue")}
+                <span className={c.metricValueAccent}></span>
               </div>
-              <div className={c.metricLabel}>Часов в игре</div>
+              <div className={c.metricLabel}>
+                {t("landing.metrics.hoursPlayed")}
+              </div>
             </div>
           )}
         </div>
@@ -297,11 +326,9 @@ export default function Home({ blog, streams, online }: HomeProps) {
         {/* ── PATCHES ── */}
         <section className={c.section}>
           <div className={c.sectionHeader}>
-            <span className={c.sectionTag}>Контент</span>
-            <h2 className={c.sectionTitle}>Ротация патчей</h2>
-            <p className={c.sectionDesc}>
-              Периодически меняем доступные версии. Сейчас в очереди:
-            </p>
+            <span className={c.sectionTag}>{t("landing.patches.tag")}</span>
+            <h2 className={c.sectionTitle}>{t("landing.patches.title")}</h2>
+            <p className={c.sectionDesc}>{t("landing.patches.subtitle")}</p>
           </div>
           <div className={c.patchesGrid}>
             {patches.map((p) => (
@@ -350,11 +377,9 @@ export default function Home({ blog, streams, online }: HomeProps) {
           <div className={c.sectionSurface}>
             <div className={c.sectionInner}>
               <div className={c.sectionHeader}>
-                <span className={c.sectionTag}>Онлайн</span>
-                <h2 className={c.sectionTitle}>Сейчас в эфире</h2>
-                <p className={c.sectionDesc}>
-                  Стримеры, которые играют прямо сейчас
-                </p>
+                <span className={c.sectionTag}>{t("landing.streams.tag")}</span>
+                <h2 className={c.sectionTitle}>{t("landing.streams.title")}</h2>
+                <p className={c.sectionDesc}>{t("landing.streams.subtitle")}</p>
               </div>
 
               {mounted ? (
@@ -374,7 +399,7 @@ export default function Home({ blog, streams, online }: HomeProps) {
                       className={c.btnSecondary}
                     >
                       <TwitchIcon />
-                      Смотреть на Twitch
+                      {t("landing.streams.watchOnTwitch")}
                     </a>
                   </div>
                 </>
@@ -408,10 +433,11 @@ export default function Home({ blog, streams, online }: HomeProps) {
                         )}
                         <span className={c.streamLiveBadge}>
                           <span className={c.pulseDot} />
-                          LIVE
+                          {t("landing.streams.live")}
                         </span>
                         <span className={c.streamViewersCount}>
-                          {s.viewers.toLocaleString("ru-RU")} зрителей
+                          {s.viewers.toLocaleString("ru-RU")}{" "}
+                          {t("landing.streams.viewers")}
                         </span>
                       </div>
                       <div className={c.streamInfo}>
@@ -434,14 +460,14 @@ export default function Home({ blog, streams, online }: HomeProps) {
         <section className={c.section}>
           <div className={c.sectionHeaderRow}>
             <div>
-              <span className={c.sectionTag}>Новости</span>
-              <h2 className={c.sectionTitle}>Что нового</h2>
+              <span className={c.sectionTag}>{t("landing.news.tag")}</span>
+              <h2 className={c.sectionTitle}>{t("landing.news.title")}</h2>
             </div>
             <PageLink
               link={AppRouter.blog.index.link}
               className={c.sectionAllLink}
             >
-              Все новости →
+              {t("landing.news.allNews")}
             </PageLink>
           </div>
 
@@ -473,8 +499,8 @@ export default function Home({ blog, streams, online }: HomeProps) {
         <div className={c.sectionSurface}>
           <div className={c.sectionInner}>
             <div className={c.sectionHeader}>
-              <span className={c.sectionTag}>Статистика</span>
-              <h2 className={c.sectionTitle}>Изучай игру</h2>
+              <span className={c.sectionTag}>{t("landing.stats.tag")}</span>
+              <h2 className={c.sectionTitle}>{t("landing.stats.title")}</h2>
             </div>
             <div className={c.statLinksGrid}>
               {statLinks.map((sl) => (
@@ -500,8 +526,8 @@ export default function Home({ blog, streams, online }: HomeProps) {
         {/* ── FAQ ── */}
         <section className={c.section}>
           <div className={c.sectionHeader}>
-            <span className={c.sectionTag}>FAQ</span>
-            <h2 className={c.sectionTitle}>Частые вопросы</h2>
+            <span className={c.sectionTag}>{t("landing.faq.tag")}</span>
+            <h2 className={c.sectionTitle}>{t("landing.faq.title")}</h2>
           </div>
           <div className={c.faqList}>
             {faqs.map((f) => (
@@ -517,7 +543,7 @@ export default function Home({ blog, streams, online }: HomeProps) {
             ))}
           </div>
           <p className={c.faqNudge}>
-            Не нашёл свой вопрос? Спроси в{" "}
+            {t("landing.faq.nudge")}{" "}
             <TelegramInvite className={c.faqNudgeLink} />
           </p>
         </section>
@@ -528,18 +554,16 @@ export default function Home({ blog, streams, online }: HomeProps) {
           <div className={c.finalCtaOverlay} />
           <div className={c.finalCtaContent}>
             <h2 className={cx(c.finalCtaTitle, TrajanPro.className)}>
-              Время вернуться
+              {t("landing.finalCta.title")}
             </h2>
-            <p className={c.finalCtaDesc}>
-              Скачай лаунчер и начни играть прямо сейчас. Нужен только Steam.
-            </p>
+            <p className={c.finalCtaDesc}>{t("landing.finalCta.subtitle")}</p>
             <Button
               pageLink={AppRouter.download.link}
               variant="landingPrimary"
               large
             >
               <DownloadIcon />
-              Скачать лаунчер
+              {t("landing.finalCta.downloadBtn")}
             </Button>
           </div>
         </div>

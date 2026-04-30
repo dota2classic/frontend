@@ -1,5 +1,97 @@
 {
   "landing": {
+    "meta": {
+      "title": "DotaClassic — Real Dota 2",
+      "description": "Original patches, old map, live online. Download the launcher and start playing today."
+    },
+    "hero": {
+      "titleLine1": "The Real",
+      "titleLine2": "Dota 2",
+      "subtitle": "Old patches, the old map, the very Dota as you remember it. Without overcomplicated meta and shaders covering half the screen.",
+      "downloadBtn": "Download launcher — free",
+      "liveMatchesBtn": "Watch live matches",
+      "freeNote": "Free forever",
+      "playersCount": "35,000+ players"
+    },
+    "howItWorks": {
+      "tag": "Getting Started",
+      "title": "How to start playing",
+      "subtitle": "Three steps. You already have Steam — nothing else needed.",
+      "step1Title": "Download the launcher",
+      "step1Text": "One installer. It will pull the client you need — we won't touch your original Dota 2.",
+      "step2Title": "Launch Steam",
+      "step2Text": "The launcher will automatically pick up your account from the running Steam — no need to enter separate logins or passwords.",
+      "step3Title": "Jump into the queue",
+      "step3Text": "Pick a mode, find a match, play. Five minutes from launch to the first creep."
+    },
+    "metrics": {
+      "registeredPlayers": "Registered players",
+      "registeredValue": "35K+",
+      "gamesPlayed": "Matches played",
+      "gamesPlayedValue": "56K+",
+      "onlineNow": "Currently in-game",
+      "hoursPlayed": "Hours played",
+      "hoursPlayedValue": "165K"
+    },
+    "patches": {
+      "tag": "Content",
+      "title": "Patch rotation",
+      "subtitle": "We periodically change available versions. Here's what's coming:",
+      "season684c": "Previous season",
+      "season684cDesc": "Balance patch where the classic Dota started on new servers.",
+      "season684d": "Current season",
+      "season684dDesc": "Active season — servers are running, matches are happening.",
+      "season684dDateRange": "May 1 – September 1, 2026",
+      "nextPatch": "Next patch",
+      "nextPatchDesc": "Something new is being prepared. Stay tuned.",
+      "nextPatchDateRange": "September 1 – January 1, 2027",
+      "badgePast": "COMPLETED",
+      "badgeActive": "NOW",
+      "badgeNext": "COMING"
+    },
+    "streams": {
+      "tag": "Live",
+      "title": "On air now",
+      "subtitle": "Streamers playing right now",
+      "watchOnTwitch": "Watch on Twitch",
+      "viewers": "viewers",
+      "live": "LIVE"
+    },
+    "news": {
+      "tag": "News",
+      "title": "What's new",
+      "allNews": "All news →"
+    },
+    "stats": {
+      "tag": "Statistics",
+      "title": "Study the game",
+      "leaderboard": "Player ratings",
+      "leaderboardDesc": "Best on the server",
+      "matchHistory": "Match history",
+      "matchHistoryDesc": "Analysis of every game",
+      "heroesStats": "Hero power",
+      "heroesStatsDesc": "Meta and win rates"
+    },
+    "faq": {
+      "tag": "FAQ",
+      "title": "Frequently asked questions",
+      "q1": "Is this legal?",
+      "a1": "Yes. We use original Dota 2 clients, and the matchmaking and servers are our own — Valve is not involved in this scheme.",
+      "q2": "Can my Steam account be banned?",
+      "a2": "No. Games run on our servers, VAC can't reach them. A ban is only possible if you bring your own cheats — but that's not on the launcher.",
+      "q3": "What operating systems does it work on?",
+      "a3": "Windows — natively. On Linux and macOS — via Wine/Proton.",
+      "q4": "What are the system requirements?",
+      "a4": "Old Dota 2 ran on Source 1 and was noticeably lighter than the current version. A dual-core processor from 2.8 GHz, 4 GB of RAM, and a video card like GeForce 8600/9600 GT or Radeon HD 2600/3600 is enough.",
+      "q5": "What happens to my original Dota 2?",
+      "a5": "Nothing. The launcher installs a separate client — the original Dota is in no way connected to the old one and coexists peacefully.",
+      "nudge": "Can't find your question? Ask in"
+    },
+    "finalCta": {
+      "title": "Time to come back",
+      "subtitle": "Download the launcher and start playing now. You only need Steam.",
+      "downloadBtn": "Download launcher"
+    },
     "embed": {
       "title": "Play old Dota online",
       "description": "Dota2Classic is the only way to play the old Dota from 2015. Here you can relive that very game. Old patch, dota old patch."
@@ -7,13 +99,10 @@
     "oldDota": {
       "question": "Do you miss the old Dota?",
       "startPlaying": "Start playing the real {{game}} online",
-
       "gamesWeekly_one": "<games /> game",
       "gamesWeekly_other": "<games /> games",
-
       "playersWeekly_one": "<players /> player",
       "playersWeekly_other": "<players /> players",
-
       "weekly": "this week"
     },
     "playForFree": "Play for free",
