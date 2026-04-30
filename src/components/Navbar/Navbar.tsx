@@ -131,7 +131,7 @@ export const Navbar = observer(function Navbar(p: {
             <MetaNavbarItem />
             <NavbarItem
               className={c.play}
-              action={AppRouter.forum.index().link}
+              action={AppRouter.info.link}
               options={[
                 {
                   Icon: IoMdHelp,
@@ -143,15 +143,8 @@ export const Navbar = observer(function Navbar(p: {
                   label: t("navbar.complaints"),
                   action: AppRouter.forum.report.index().link,
                 },
-              ]}
-            >
-              {t("navbar.forum")}
-            </NavbarItem>
-            <NavbarItem
-              className={c.play}
-              action={AppRouter.info.link}
-              options={[
                 {
+                  newCategory: true,
                   Icon: AiOutlineTeam,
                   label: t("navbar.vacancies"),
                   action: AppRouter.vacancies.link,
