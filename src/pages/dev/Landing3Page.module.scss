@@ -111,7 +111,7 @@
 /* ─── HERO ─── */
 .hero {
   position: relative;
-  height: 100vh;
+  height: 100svh;
   min-height: 640px;
   display: flex;
   flex-direction: column;
@@ -226,7 +226,7 @@
 .heroFreeNote {
   margin-top: 14px;
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.36);
+  color: rgba(255, 255, 255, 0.55);
   letter-spacing: 0.04em;
 }
 
@@ -298,7 +298,7 @@
 
 .metricLabel {
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -354,7 +354,7 @@
 
 .sectionDesc {
   margin: 10px 0 0;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 0.95rem;
   line-height: 1.58;
 }
@@ -375,29 +375,9 @@
 /* ─── PATCH CARDS ─── */
 .patchesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(220px, 280px));
+  gap: 16px;
   justify-content: center;
-
-  /* Крайние патчи — самые маленькие */
-  & > :nth-child(1),
-  & > :nth-child(5) {
-    opacity: 0.5;
-    transform: scale(0.84);
-  }
-
-  /* Соседние патчи — среднего размера */
-  & > :nth-child(2),
-  & > :nth-child(4) {
-    opacity: 0.75;
-    transform: scale(0.92);
-  }
-
-  /* Центральный патч — полный размер */
-  & > :nth-child(3) {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
 .patchCard {
@@ -476,7 +456,7 @@
 
 .patchBadgePast {
   background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .patchBadgeActive {
@@ -526,7 +506,7 @@
 
 .patchDesc {
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1.5;
   margin-bottom: 32px;
 }
@@ -627,7 +607,7 @@
 
 .streamGame {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* ─── NEWS GRID ─── */
@@ -713,11 +693,11 @@
 
 .statLinkDesc {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .statLinkArrow {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.4);
   flex-shrink: 0;
   font-size: 1.1rem;
   transition: color var(--ds-duration-fast) var(--ds-ease-standard),
@@ -804,7 +784,7 @@
 
 .footerLink {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.36);
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
   transition: color var(--ds-duration-fast) var(--ds-ease-standard);
 
@@ -815,7 +795,7 @@
 
 .footerCopy {
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.24);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .socialLink {
@@ -914,6 +894,10 @@
   }
 
   .howItWorksGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .patchesGrid {
     grid-template-columns: 1fr;
   }
 }

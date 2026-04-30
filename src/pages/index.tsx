@@ -28,12 +28,6 @@ interface PatchData {
 
 const patches: PatchData[] = [
   {
-    num: "6.81",
-    name: "Классика",
-    desc: "Сбалансированная мета, любимый патч старожилов.",
-    state: "past",
-  },
-  {
     num: "6.84c",
     name: "Предыдущий сезон",
     desc: "Балансный патч, где начиналась классика на новых серверах.",
@@ -52,12 +46,6 @@ const patches: PatchData[] = [
     desc: "Что-то новое готовится. Следи за новостями.",
     state: "next",
     dateRange: "1 сентября – 1 января 2027",
-  },
-  {
-    num: "??",
-    name: "Далёкая дорога",
-    desc: "Планы ещё на этапе идей. Чего ждать — вопрос времени.",
-    state: "unknown",
   },
 ];
 
@@ -100,6 +88,7 @@ function DownloadIcon() {
       strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
     >
       <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
       <polyline points="7 10 12 15 17 10" />
@@ -110,7 +99,13 @@ function DownloadIcon() {
 
 function TwitchIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z" />
     </svg>
   );
@@ -123,8 +118,7 @@ export default function Home({ blog, streams }: HomeProps) {
     setMounted(true);
   }, []);
 
-  const twitchChannel =
-    streams[0]?.link.split("twitch.tv/")[1] ?? "dotaclassic_live";
+  const twitchChannel = streams[0]?.link.split("twitch.tv/")[1];
   const domain = mounted ? getDomain() : "dotaclassic.ru";
 
   const posts = blog.data.slice(0, 3);
@@ -144,6 +138,7 @@ export default function Home({ blog, streams }: HomeProps) {
             muted
             loop
             playsInline
+            aria-hidden="true"
             src="/landing/output_action.webm"
           />
           <div className={c.heroOverlay} />
@@ -156,9 +151,8 @@ export default function Home({ blog, streams }: HomeProps) {
             </h1>
 
             <p className={c.heroSub}>
-              Классические патчи, старая карта, адекватные герои.
-              Сбалансированный урон и здоровье героев, каждая способность -
-              важная.
+              Старые патчи, старая карта, та самая Дота — какой ты её помнишь.
+              Без переусложнённой меты и шейдеров на полэкрана.
             </p>
 
             <div className={c.heroActions}>
@@ -178,41 +172,40 @@ export default function Home({ blog, streams }: HomeProps) {
           </div>
         </section>
 
-        {/* ── КАК ЭТО РАБОТАЕТ ── */}
+        {/* ── КАК НАЧАТЬ ── */}
         <div className={c.sectionSurface}>
           <div className={c.sectionInner}>
             <div className={c.sectionHeader}>
-              <span className={c.sectionTag}>Устройство</span>
-              <h2 className={c.sectionTitle}>Как это работает</h2>
+              <span className={c.sectionTag}>Старт</span>
+              <h2 className={c.sectionTitle}>Как начать играть</h2>
               <p className={c.sectionDesc}>
-                Мы берём оригинальные клиенты Dota 2 разных патчей, модифицируем
-                их для удобства и стабильности, запускаем собственные игровые
-                серверы. Лаунчер подключает игру к нашему матчмейкингу — так ты
-                играешь в классику, а не в актуальную Доту.
+                Три шага. Steam уже есть — больше ничего не нужно.
               </p>
             </div>
 
             <div className={c.howItWorksGrid}>
               <div className={c.howItWorksCard}>
                 <div className={c.howItWorksNumber}>1</div>
-                <h3 className={c.howItWorksTitle}>Классические клиенты</h3>
+                <h3 className={c.howItWorksTitle}>Скачай лаунчер</h3>
                 <p className={c.howItWorksText}>
-                  Оригинальные версии Dota 2 с модификациями для стабильности
+                  Один установщик. Сам подтянет нужный клиент — оригинальную
+                  Dota 2 трогать не будем.
                 </p>
               </div>
               <div className={c.howItWorksCard}>
                 <div className={c.howItWorksNumber}>2</div>
-                <h3 className={c.howItWorksTitle}>Свои серверы</h3>
+                <h3 className={c.howItWorksTitle}>Войди через Steam</h3>
                 <p className={c.howItWorksText}>
-                  Собственная инфраструктура для матчей
+                  Авторизация через Steam OpenID. Ни логинов, ни паролей —
+                  аккаунт в безопасности.
                 </p>
               </div>
               <div className={c.howItWorksCard}>
                 <div className={c.howItWorksNumber}>3</div>
-                <h3 className={c.howItWorksTitle}>Лаунчер</h3>
+                <h3 className={c.howItWorksTitle}>Жми в очередь</h3>
                 <p className={c.howItWorksText}>
-                  Ищешь игру через лаунчер, не через саму Доту. Так
-                  подключаешься к нашему матчмейкингу
+                  Выбирай режим, ищи матч, играй. Пять минут от запуска до
+                  первого крипа.
                 </p>
               </div>
             </div>
@@ -293,83 +286,88 @@ export default function Home({ blog, streams }: HomeProps) {
         </section>
 
         {/* ── STREAMS ── */}
-        <div className={c.sectionSurface}>
-          <div className={c.sectionInner}>
-            <div className={c.sectionHeader}>
-              <span className={c.sectionTag}>Онлайн</span>
-              <h2 className={c.sectionTitle}>Сейчас в эфире</h2>
-              <p className={c.sectionDesc}>
-                Стримеры, которые играют прямо сейчас
-              </p>
-            </div>
-
-            {mounted ? (
-              <>
-                <iframe
-                  className={c.twitchEmbed}
-                  src={`https://player.twitch.tv/?channel=${twitchChannel}&parent=${domain}&autoplay=false`}
-                  allowFullScreen
-                />
-                <div className={c.twitchMeta}>
-                  <a
-                    href={`https://www.twitch.tv/${twitchChannel}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={c.btnSecondary}
-                  >
-                    <TwitchIcon />
-                    Смотреть на Twitch
-                  </a>
-                </div>
-              </>
-            ) : (
-              <div
-                className={c.twitchEmbed}
-                style={{ background: "#0e0f1a" }}
-              />
-            )}
-
-            {streams.length > 1 && (
-              <div className={c.streamCards} style={{ marginTop: 24 }}>
-                {streams.slice(1).map((s) => (
-                  <a
-                    key={s.link}
-                    href={s.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={c.streamCard}
-                  >
-                    <div className={c.streamThumb}>
-                      {s.preview && (
-                        <img
-                          className={c.streamThumbImg}
-                          src={s.preview
-                            .replace("{width}", "480")
-                            .replace("{height}", "270")}
-                          alt={s.title}
-                          loading="lazy"
-                        />
-                      )}
-                      <span className={c.streamLiveBadge}>
-                        <span className={c.pulseDot} />
-                        LIVE
-                      </span>
-                      <span className={c.streamViewersCount}>
-                        {s.viewers.toLocaleString("ru-RU")} зрителей
-                      </span>
-                    </div>
-                    <div className={c.streamInfo}>
-                      <div className={c.streamName}>
-                        {s.link.split("twitch.tv/")[1]}
-                      </div>
-                      {s.title && <div className={c.streamGame}>{s.title}</div>}
-                    </div>
-                  </a>
-                ))}
+        {twitchChannel && (
+          <div className={c.sectionSurface}>
+            <div className={c.sectionInner}>
+              <div className={c.sectionHeader}>
+                <span className={c.sectionTag}>Онлайн</span>
+                <h2 className={c.sectionTitle}>Сейчас в эфире</h2>
+                <p className={c.sectionDesc}>
+                  Стримеры, которые играют прямо сейчас
+                </p>
               </div>
-            )}
+
+              {mounted ? (
+                <>
+                  <iframe
+                    className={c.twitchEmbed}
+                    title={`Twitch-стрим ${twitchChannel}`}
+                    src={`https://player.twitch.tv/?channel=${twitchChannel}&parent=${domain}&autoplay=false`}
+                    allowFullScreen
+                  />
+                  <div className={c.twitchMeta}>
+                    <a
+                      href={`https://www.twitch.tv/${twitchChannel}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={c.btnSecondary}
+                    >
+                      <TwitchIcon />
+                      Смотреть на Twitch
+                    </a>
+                  </div>
+                </>
+              ) : (
+                <div
+                  className={c.twitchEmbed}
+                  style={{ background: "#0e0f1a" }}
+                />
+              )}
+
+              {streams.length > 1 && (
+                <div className={c.streamCards} style={{ marginTop: 24 }}>
+                  {streams.slice(1).map((s) => (
+                    <a
+                      key={s.link}
+                      href={s.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={c.streamCard}
+                    >
+                      <div className={c.streamThumb}>
+                        {s.preview && (
+                          <img
+                            className={c.streamThumbImg}
+                            src={s.preview
+                              .replace("{width}", "480")
+                              .replace("{height}", "270")}
+                            alt={s.title}
+                            loading="lazy"
+                          />
+                        )}
+                        <span className={c.streamLiveBadge}>
+                          <span className={c.pulseDot} />
+                          LIVE
+                        </span>
+                        <span className={c.streamViewersCount}>
+                          {s.viewers.toLocaleString("ru-RU")} зрителей
+                        </span>
+                      </div>
+                      <div className={c.streamInfo}>
+                        <div className={c.streamName}>
+                          {s.link.split("twitch.tv/")[1]}
+                        </div>
+                        {s.title && (
+                          <div className={c.streamGame}>{s.title}</div>
+                        )}
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* ── NEWS ── */}
         <section className={c.section}>
