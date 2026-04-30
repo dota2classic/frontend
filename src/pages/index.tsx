@@ -78,6 +78,29 @@ const PATCH_BADGE: Record<PatchState, string | null> = {
   unknown: null,
 };
 
+const faqs: { q: string; a: string }[] = [
+  {
+    q: "Это легально?",
+    a: "Да. Мы используем оригинальные клиенты Dota 2, а матчмейкинг и серверы у нас собственные — Valve в этой схеме не задействована.",
+  },
+  {
+    q: "Могут ли забанить мой Steam-аккаунт?",
+    a: "Нет. Игры идут на наших серверах, VAC до них не дотягивается. Бан возможен только если ты сам потащишь читы — но это уже вопрос не к лаунчеру.",
+  },
+  {
+    q: "На каких операционных системах работает?",
+    a: "Windows — нативно. На Linux и macOS — через Wine/Proton.",
+  },
+  {
+    q: "Какие нужны системные требования?",
+    a: "Старая Dota 2 крутилась на Source 1 и была заметно легче нынешней. Хватит двухъядерного процессора от 2.8 ГГц, 4 ГБ оперативной памяти и видеокарты уровня GeForce 8600/9600 GT или Radeon HD 2600/3600.",
+  },
+  {
+    q: "Что будет с моей оригинальной Dota 2?",
+    a: "Ничего. Лаунчер ставит отдельный клиент — оригинальная Dota никак не связана со старой и спокойно сосуществует рядом.",
+  },
+];
+
 function DownloadIcon() {
   return (
     <svg
@@ -451,6 +474,27 @@ export default function Home({ blog, streams, online }: HomeProps) {
             </div>
           </div>
         </div>
+
+        {/* ── FAQ ── */}
+        <section className={c.section}>
+          <div className={c.sectionHeader}>
+            <span className={c.sectionTag}>FAQ</span>
+            <h2 className={c.sectionTitle}>Частые вопросы</h2>
+          </div>
+          <div className={c.faqList}>
+            {faqs.map((f) => (
+              <details key={f.q} className={c.faqItem}>
+                <summary className={c.faqQuestion}>
+                  <span>{f.q}</span>
+                  <span className={c.faqIcon} aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <div className={c.faqAnswer}>{f.a}</div>
+              </details>
+            ))}
+          </div>
+        </section>
 
         {/* ── FINAL CTA ── */}
         <div className={c.finalCta}>
