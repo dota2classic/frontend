@@ -193,6 +193,16 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .heroVideo {
+    display: none;
+  }
+
+  .pulseDot {
+    animation: none;
+  }
+}
+
 .heroTitle {
   margin: 0 0 24px;
   font-size: clamp(52px, 9vw, 96px);
@@ -294,6 +304,17 @@
 
 .metricValueAccent {
   color: var(--l3-red);
+}
+
+.metricLive {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 12px;
+  vertical-align: middle;
+  transform: translateY(-4px);
 }
 
 .metricLabel {

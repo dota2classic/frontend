@@ -1,4 +1,4 @@
-import { BlogPageDto, TwitchStreamDto } from "@/api/back";
+import { BlogPageDto, CurrentOnlineDto, TwitchStreamDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { Button } from "@/components/Button";
@@ -9,11 +9,12 @@ import { AppRouter } from "@/route";
 import { getDomain } from "@/util/domain";
 import cx from "clsx";
 import { useEffect, useState } from "react";
-import c from "./dev/Landing3Page.module.scss";
+import c from "./index.module.scss";
 
 interface HomeProps {
   blog: BlogPageDto;
   streams: TwitchStreamDto[];
+  online: CurrentOnlineDto | null;
 }
 
 type PatchState = "past" | "active" | "next" | "unknown";
@@ -111,7 +112,7 @@ function TwitchIcon() {
   );
 }
 
-export default function Home({ blog, streams }: HomeProps) {
+export default function Home({ blog, streams, online }: HomeProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -138,6 +139,8 @@ export default function Home({ blog, streams }: HomeProps) {
             muted
             loop
             playsInline
+            preload="metadata"
+            poster="/landing/dotaold.webp"
             aria-hidden="true"
             src="/landing/output_action.webm"
           />
@@ -226,12 +229,24 @@ export default function Home({ blog, streams }: HomeProps) {
             </div>
             <div className={c.metricLabel}>Сыграно матчей</div>
           </div>
-          <div className={c.metric}>
-            <div className={c.metricValue}>
-              165<span className={c.metricValueAccent}>K</span>
+          {online ? (
+            <div className={c.metric}>
+              <div className={c.metricValue}>
+                {online.inGame.toLocaleString("ru-RU")}
+                <span className={cx(c.metricValueAccent, c.metricLive)}>
+                  <span className={c.pulseDot} aria-hidden="true" />
+                </span>
+              </div>
+              <div className={c.metricLabel}>Сейчас в игре</div>
             </div>
-            <div className={c.metricLabel}>Часов в игре</div>
-          </div>
+          ) : (
+            <div className={c.metric}>
+              <div className={c.metricValue}>
+                165<span className={c.metricValueAccent}>K</span>
+              </div>
+              <div className={c.metricLabel}>Часов в игре</div>
+            </div>
+          )}
         </div>
 
         {/* ── PATCHES ── */}
@@ -304,6 +319,7 @@ export default function Home({ blog, streams }: HomeProps) {
                     title={`Twitch-стрим ${twitchChannel}`}
                     src={`https://player.twitch.tv/?channel=${twitchChannel}&parent=${domain}&autoplay=false`}
                     allowFullScreen
+                    loading="lazy"
                   />
                   <div className={c.twitchMeta}>
                     <a
@@ -465,11 +481,14 @@ export default function Home({ blog, streams }: HomeProps) {
 Home.layoutConfig = { fullBleed: true };
 
 Home.getInitialProps = async (): Promise<HomeProps> => {
-  const [blog, streams] = await Promise.all([
+  const [blog, streams, online] = await Promise.all([
     getApi().blog.blogpostControllerBlogPage(0, 3),
     getApi()
       .statsApi.statsControllerGetTwitchStreams()
       .catch(() => [] as TwitchStreamDto[]),
+    getApi()
+      .statsApi.statsControllerOnline()
+      .catch(() => null),
   ]);
-  return { blog, streams };
+  return { blog, streams, online };
 };
