@@ -23,6 +23,7 @@ interface PatchData {
   name: string;
   desc: string;
   state: PatchState;
+  dateRange?: string;
 }
 
 const patches: PatchData[] = [
@@ -34,20 +35,28 @@ const patches: PatchData[] = [
   },
   {
     num: "6.84c",
-    name: "Текущий сезон",
-    desc: "Активный сезон — серверы работают, очереди живые.",
-    state: "active",
+    name: "Предыдущий сезон",
+    desc: "Балансный патч, где начиналась классика на новых серверах.",
+    state: "past",
   },
   {
     num: "6.84d",
-    name: "Встряска меты",
-    desc: "Кастомный патч с балансными изменениями от команды.",
-    state: "next",
+    name: "Текущий сезон",
+    desc: "Активный сезон — серверы работают, очереди живые.",
+    state: "active",
+    dateRange: "1 мая – 1 сентября 2026",
   },
   {
     num: "?",
     name: "Следующий патч",
     desc: "Что-то новое готовится. Следи за новостями.",
+    state: "next",
+    dateRange: "1 сентября – 1 января 2027",
+  },
+  {
+    num: "??",
+    name: "Далёкая дорога",
+    desc: "Планы ещё на этапе идей. Чего ждать — вопрос времени.",
     state: "unknown",
   },
 ];
@@ -164,28 +173,69 @@ export default function Home({ blog, streams }: HomeProps) {
 
             <p className={c.heroFreeNote}>
               Бесплатно навсегда ·{" "}
-              <span className={c.heroFreeNoteAccent}>19 000+ игроков</span>
+              <span className={c.heroFreeNoteAccent}>35 000+ игроков</span>
             </p>
           </div>
         </section>
+
+        {/* ── КАК ЭТО РАБОТАЕТ ── */}
+        <div className={c.sectionSurface}>
+          <div className={c.sectionInner}>
+            <div className={c.sectionHeader}>
+              <span className={c.sectionTag}>Устройство</span>
+              <h2 className={c.sectionTitle}>Как это работает</h2>
+              <p className={c.sectionDesc}>
+                Мы берём оригинальные клиенты Dota 2 разных патчей, модифицируем
+                их для удобства и стабильности, запускаем собственные игровые
+                серверы. Лаунчер подключает игру к нашему матчмейкингу — так ты
+                играешь в классику, а не в актуальную Доту.
+              </p>
+            </div>
+
+            <div className={c.howItWorksGrid}>
+              <div className={c.howItWorksCard}>
+                <div className={c.howItWorksNumber}>1</div>
+                <h3 className={c.howItWorksTitle}>Классические клиенты</h3>
+                <p className={c.howItWorksText}>
+                  Оригинальные версии Dota 2 с модификациями для стабильности
+                </p>
+              </div>
+              <div className={c.howItWorksCard}>
+                <div className={c.howItWorksNumber}>2</div>
+                <h3 className={c.howItWorksTitle}>Свои серверы</h3>
+                <p className={c.howItWorksText}>
+                  Собственная инфраструктура для матчей
+                </p>
+              </div>
+              <div className={c.howItWorksCard}>
+                <div className={c.howItWorksNumber}>3</div>
+                <h3 className={c.howItWorksTitle}>Лаунчер</h3>
+                <p className={c.howItWorksText}>
+                  Ищешь игру через лаунчер, не через саму Доту. Так
+                  подключаешься к нашему матчмейкингу
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* ── METRICS ── */}
         <div className={c.metricsBar}>
           <div className={c.metric}>
             <div className={c.metricValue}>
-              19<span className={c.metricValueAccent}>K</span>+
+              35<span className={c.metricValueAccent}>K</span>+
             </div>
-            <div className={c.metricLabel}>Уникальных игроков</div>
+            <div className={c.metricLabel}>Зарегистрировано игроков</div>
           </div>
           <div className={c.metric}>
             <div className={c.metricValue}>
-              27<span className={c.metricValueAccent}>K</span>+
+              56<span className={c.metricValueAccent}>K</span>+
             </div>
             <div className={c.metricLabel}>Сыграно матчей</div>
           </div>
           <div className={c.metric}>
             <div className={c.metricValue}>
-              140<span className={c.metricValueAccent}>K</span>
+              165<span className={c.metricValueAccent}>K</span>
             </div>
             <div className={c.metricLabel}>Часов в игре</div>
           </div>
@@ -195,7 +245,7 @@ export default function Home({ blog, streams }: HomeProps) {
         <section className={c.section}>
           <div className={c.sectionHeader}>
             <span className={c.sectionTag}>Контент</span>
-            <h2 className={c.sectionTitle}>Выбери свой патч</h2>
+            <h2 className={c.sectionTitle}>Ротация патчей</h2>
             <p className={c.sectionDesc}>
               Периодически меняем доступные версии. Сейчас в очереди:
             </p>
@@ -223,6 +273,9 @@ export default function Home({ blog, streams }: HomeProps) {
                   >
                     {PATCH_BADGE[p.state]}
                   </span>
+                )}
+                {p.dateRange && (
+                  <span className={c.patchDateBadge}>{p.dateRange}</span>
                 )}
                 <div
                   className={cx(
@@ -394,8 +447,7 @@ export default function Home({ blog, streams }: HomeProps) {
               Время вернуться
             </h2>
             <p className={c.finalCtaDesc}>
-              Скачай лаунчер, создай аккаунт и начни играть прямо сейчас.
-              Бесплатно, без лишнего.
+              Скачай лаунчер и начни играть прямо сейчас. Нужен только Steam.
             </p>
             <Button
               pageLink={AppRouter.download.link}
