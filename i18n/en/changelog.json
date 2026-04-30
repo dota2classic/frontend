@@ -90,6 +90,7 @@
       "VisionDaytimeRange": "Day Vision Range",
       "ItemDisassembleRule": "Disassemble Rule"
     },
+    "viewFull": "View full changelog",
     "page": {
       "patch_684d": {
         "eyebrow": "Patch Notes",

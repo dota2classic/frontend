@@ -314,6 +314,7 @@
   "changelog.parameters.MovementTurnRate": "Turn Rate",
   "changelog.parameters.VisionDaytimeRange": "Day Vision Range",
   "changelog.parameters.ItemDisassembleRule": "Disassemble Rule",
+  "changelog.viewFull": "View full changelog",
   "changelog.page.patch_684d.eyebrow": "Patch Notes",
   "changelog.page.patch_684d.title": "Patch 6.84d",
   "changelog.page.patch_684d.description": "With this patch, we pursued several goals:<br /><br />1. <b>Balance of Items and Heroes:</b> We weakened heroes that were too strong, but tried not to 'kill' them—preserving what makes them unique. We buffed weak heroes by studying winrate lows and comparing how these heroes were changed in neighboring patches. Sometimes a hero is already decent, but needs just a little boost to stay consistently strong and interesting.<br /><br />2. <b>Strengthening 'Lost' Heroes:</b> Some heroes feel unnecessary—as if they have no place in the current meta, and the further into the game, the harder it becomes for them to be useful. We significantly buffed these heroes in their interesting abilities—perhaps now they'll find their place and shine with new colors.<br /><br />3. <b>Quality of Life:</b> You can argue for 'old school' dota with no room for casuals all you want, but some solutions are genuinely good: for example, buying Sentry Wards individually or reducing animations that were excessively long.",

@@ -93,6 +93,7 @@
       "ItemDisassembleRule": "Правило разборки",
       "AbilityUnitDamageType": "Тип урона"
     },
+    "viewFull": "Перейти к списку изменений",
     "page": {
       "patch_684d": {
         "eyebrow": "Изменения",

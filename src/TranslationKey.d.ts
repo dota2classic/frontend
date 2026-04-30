@@ -317,6 +317,7 @@ export type TranslationKey =
   | "changelog.parameters.VisionDaytimeRange"
   | "changelog.parameters.ItemDisassembleRule"
   | "changelog.parameters.AbilityUnitDamageType"
+  | "changelog.viewFull"
   | "changelog.page.patch_684d.eyebrow"
   | "changelog.page.patch_684d.title"
   | "changelog.page.patch_684d.description"
