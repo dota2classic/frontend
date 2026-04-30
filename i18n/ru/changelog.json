@@ -7,6 +7,8 @@
       "AbilityManaCost": "Затрата маны",
       "AbilityDamage": "Урон",
       "ItemCost": "Стоимость",
+      "StatusHealth": "Здоровье",
+      "BountyXP": "Награда XP",
       "ItemInitialCharges": "Изначальных зарядов",
       "AbilityDuration": "Длительность",
       "ItemStockTime": "Время перезарядки покупки",

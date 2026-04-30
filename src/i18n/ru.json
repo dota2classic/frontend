@@ -234,6 +234,8 @@
   "changelog.parameters.AbilityManaCost": "Затрата маны",
   "changelog.parameters.AbilityDamage": "Урон",
   "changelog.parameters.ItemCost": "Стоимость",
+  "changelog.parameters.StatusHealth": "Здоровье",
+  "changelog.parameters.BountyXP": "Награда XP",
   "changelog.parameters.ItemInitialCharges": "Изначальных зарядов",
   "changelog.parameters.AbilityDuration": "Длительность",
   "changelog.parameters.ItemStockTime": "Время перезарядки покупки",

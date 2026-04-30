@@ -203,7 +203,7 @@ function getUnitItemIcon(unitName: string): string {
     if (unitName.endsWith("_2")) return "necronomicon_2";
     if (unitName.endsWith("_3")) return "necronomicon_3";
   }
-  if (unitName.includes("observer")) return "observer_ward";
+  if (unitName.includes("observer")) return "ward_observer";
   return unitName;
 }
 

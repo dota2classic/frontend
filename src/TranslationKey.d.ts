@@ -234,6 +234,8 @@ export type TranslationKey =
   | "changelog.parameters.AbilityManaCost"
   | "changelog.parameters.AbilityDamage"
   | "changelog.parameters.ItemCost"
+  | "changelog.parameters.StatusHealth"
+  | "changelog.parameters.BountyXP"
   | "changelog.parameters.ItemInitialCharges"
   | "changelog.parameters.AbilityDuration"
   | "changelog.parameters.ItemStockTime"
