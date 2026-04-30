@@ -195,11 +195,58 @@ function ItemRow({ item }: { item: (typeof patchData.items)[0] }) {
   );
 }
 
+function getUnitItemIcon(unitName: string): string {
+  if (unitName.includes("archer")) {
+    if (unitName.endsWith("_1")) return "necronomicon";
+    if (unitName.endsWith("_2")) return "necronomicon_2";
+    if (unitName.endsWith("_3")) return "necronomicon_3";
+  }
+  if (unitName.includes("warrior")) {
+    if (unitName.endsWith("_1")) return "necronomicon";
+    if (unitName.endsWith("_2")) return "necronomicon_2";
+    if (unitName.endsWith("_3")) return "necronomicon_3";
+  }
+  if (unitName.includes("observer")) return "observer_ward";
+  return unitName;
+}
+
+function UnitRow({ unit }: { unit: (typeof patchData.units)[0] }) {
+  const itemIcon = getUnitItemIcon(unit.unit);
+  return (
+    <div className={styles.row}>
+      <div className={styles.rowHeader}>
+        <div style={{ position: "relative", width: 85, height: 64 }}>
+          <Image
+            src={`/items/${itemIcon}_lg.webp`}
+            alt={unit.unit}
+            width={85}
+            height={64}
+            className={styles.itemImage}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        </div>
+        <h3 className={styles.rowTitle}>{unit.unit.toUpperCase()}</h3>
+      </div>
+      <ul className={styles.changesList}>
+        {unit.changes.map((change, idx) => (
+          <li key={idx}>
+            <ChangelineItem change={change} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function ChangelogPage() {
   const { t } = useTranslation();
   const heroesWithChanges = patchData.heroes.filter(
     (h) => h.stats.length > 0 || h.abilities.length > 0,
   );
+  const unitsWithChanges = patchData.units.filter((u) => u.changes.length > 0);
 
   return (
     <StaticPageShell
@@ -235,6 +282,17 @@ export default function ChangelogPage() {
           <div className={styles.surfaceContent}>
             {patchData.items.map((item) => (
               <ItemRow key={item.item} item={item} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {unitsWithChanges.length > 0 && (
+        <section className={styles.surfaceSection}>
+          <div className={styles.surfaceHeader}>Юниты</div>
+          <div className={styles.surfaceContent}>
+            {unitsWithChanges.map((unit) => (
+              <UnitRow key={unit.unit} unit={unit} />
             ))}
           </div>
         </section>

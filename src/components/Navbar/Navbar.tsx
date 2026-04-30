@@ -128,8 +128,8 @@ export const Navbar = observer(function Navbar(p: {
               options={[
                 {
                   Icon: MdUpdate,
-                  label: t("navbar.patches"),
-                  action: AppRouter.blog.index.link,
+                  label: "Patch 6.84d",
+                  action: AppRouter.static.changelog.patch("684d").link,
                 },
               ]}
             >

@@ -6,7 +6,7 @@ import React, { useMemo } from "react";
 import { ForumUserEmbed } from "../ForumUserEmbed";
 import { ForumHeroEmbed } from "../ForumHeroEmbed";
 import { ForumItemEmbed } from "../ForumItemEmbed";
-import { ChangelogEmbed } from "../ChangelogEmbed";
+import { ChangelogLink } from "../ChangelogLink";
 
 const isPlayerMention = (node: DOMNode): boolean => {
   return (
@@ -60,7 +60,7 @@ const enrichPost = (html: string) => {
           return (
             <>
               {before}
-              <ChangelogEmbed patch={patch} />
+              <ChangelogLink patch={patch} />
               {after}
             </>
           );

@@ -346,5 +346,8 @@ export const AppRouter = {
       commands: spage("/static/tech/commands"),
       faq: spage("/static/tech/faq"),
     },
+    changelog: {
+      patch: (version: string) => spage(`/static/changelog/${version}`),
+    },
   },
 };
