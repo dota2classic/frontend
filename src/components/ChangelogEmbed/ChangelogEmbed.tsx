@@ -192,20 +192,39 @@ function ItemRow({ item }: { item: (typeof patchData.items)[0] }) {
   );
 }
 
+function getUnitItemIcon(unitName: string): string {
+  if (unitName.includes("archer")) {
+    if (unitName.endsWith("_1")) return "necronomicon";
+    if (unitName.endsWith("_2")) return "necronomicon_2";
+    if (unitName.endsWith("_3")) return "necronomicon_3";
+  }
+  if (unitName.includes("warrior")) {
+    if (unitName.endsWith("_1")) return "necronomicon";
+    if (unitName.endsWith("_2")) return "necronomicon_2";
+    if (unitName.endsWith("_3")) return "necronomicon_3";
+  }
+  if (unitName.includes("observer")) return "observer_ward";
+  return unitName;
+}
+
 function UnitRow({ unit }: { unit: (typeof patchData.units)[0] }) {
+  const itemIcon = getUnitItemIcon(unit.unit);
   return (
     <div className={styles.row}>
       <div className={styles.rowHeader}>
-        <img
-          src={`/units/${unit.unit}.webp`}
-          alt={unit.unit}
-          width={64}
-          height={64}
-          className={styles.unitImage}
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
-          }}
-        />
+        <div style={{ position: "relative", width: 64, height: 64 }}>
+          <img
+            src={`/items/${itemIcon}_lg.webp`}
+            alt={unit.unit}
+            width={64}
+            height={64}
+            className={styles.itemImage}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        </div>
         <h3 className={styles.rowTitle}>{unit.unit.toUpperCase()}</h3>
       </div>
       <ul className={styles.changesList}>

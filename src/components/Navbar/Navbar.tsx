@@ -12,7 +12,7 @@ import { LoginProfileNavbarItem } from "./LoginProfileNavbarItem";
 import { MetaNavbarItem } from "./MetaNavbarItem";
 import { AdminNavbarItem } from "./AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
-import { MdGavel } from "react-icons/md";
+import { MdGavel, MdUpdate } from "react-icons/md";
 import { FaCoins, FaJournalWhills } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
@@ -125,6 +125,13 @@ export const Navbar = observer(function Navbar(p: {
             <NavbarItem
               tip={newBlogRecently ? "!" : undefined}
               action={AppRouter.blog.index.link}
+              options={[
+                {
+                  Icon: MdUpdate,
+                  label: t("navbar.patches"),
+                  action: AppRouter.blog.index.link,
+                },
+              ]}
             >
               {t("navbar.news")}
             </NavbarItem>
