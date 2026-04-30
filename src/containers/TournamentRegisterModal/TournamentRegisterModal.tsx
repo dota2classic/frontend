@@ -12,7 +12,7 @@ import { useAsyncButton } from "@/util/use-async-button";
 import { getApi } from "@/api/hooks";
 import { handleException } from "@/util/handleException";
 import { UserPreview } from "@/components/UserPreview";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import { makeSimpleToast } from "@/components/Toast";
 import { FaExclamation } from "react-icons/fa";
 
@@ -81,29 +81,29 @@ export const TournamentRegisterModal: React.FC<ITournamentRegisterModalProps> =
         </p>
 
         {badMmrMembers.length > 0 && (
-          <QueuePageBlock
-            icons={<FaExclamation />}
-            heading="Игроки не подходят по рейтингу"
+          <SectionBlock
+            actions={<FaExclamation />}
+            title="Игроки не подходят по рейтингу"
           >
             <div className={c.error}>
               {badMmrMembers.map((usr) => (
                 <UserPreview key={usr.steamId} user={usr} />
               ))}
             </div>
-          </QueuePageBlock>
+          </SectionBlock>
         )}
 
         {alreadyRegisteredMembers.length > 0 && (
-          <QueuePageBlock
-            icons={<FaExclamation />}
-            heading="Игроки уже зарегистрированы"
+          <SectionBlock
+            actions={<FaExclamation />}
+            title="Игроки уже зарегистрированы"
           >
             <div className={c.error}>
               {alreadyRegisteredMembers.map((usr) => (
                 <UserPreview key={usr.steamId} user={usr} />
               ))}
             </div>
-          </QueuePageBlock>
+          </SectionBlock>
         )}
 
         <div className={c.spacer} />

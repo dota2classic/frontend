@@ -1,8 +1,9 @@
 import "@/styles/globals.css";
+import "@/styles/design-tokens.css";
 import "@/styles/scrollbars.css";
 import App, { AppContext, AppInitialProps } from "next/app";
 import { ReferralSniffer } from "@/components/ReferralSniffer";
-import { Layout } from "@/components/Layout";
+import { Layout, LayoutConfig } from "@/components/Layout";
 import Cookies from "cookies";
 import "../util/promise";
 // import * as Fonts from 'next/font/google'
@@ -13,11 +14,11 @@ import Head from "next/head";
 import "../ext";
 import cx from "clsx";
 import { ToastContainer } from "react-toastify";
-import { FeedbackModalContainer } from "@/containers/FeedbackModal/FeedbackModalContainer";
+import { FeedbackModalContainer } from "@/containers/FeedbackModal";
 // Font files can be colocated inside of `pages`
 import "@/styles/editor.css";
 import { TrajanPro } from "@/const/fonts";
-import { ReportModalContainer } from "@/containers/ReportModal/ReportModalContainer";
+import { ReportModalContainer } from "@/containers/ReportModal";
 import { getApi } from "@/api/hooks";
 import { MaintenanceDto } from "@/api/back";
 import "../i18n/i18n";
@@ -140,7 +141,10 @@ export default class MyApp extends App<{
         </Head>
         <SWRConfig>
           {/*<PushNotificationManager />*/}
-          <Layout className={cx(TrajanPro.className)}>
+          <Layout
+            className={cx(TrajanPro.className)}
+            config={(Component as { layoutConfig?: LayoutConfig }).layoutConfig}
+          >
             <Component {...pageProps} />
           </Layout>
         </SWRConfig>

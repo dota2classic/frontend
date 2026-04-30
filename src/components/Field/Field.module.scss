@@ -1,0 +1,44 @@
+@use "../../styles/mixins.scss" as m;
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.layout__horizontal {
+  display: grid;
+  grid-template-columns: minmax(140px, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+
+  @include m.mobile {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.label {
+  color: var(--ds-color-text-strong);
+  font-size: var(--ds-font-size-md);
+  font-weight: 600;
+}
+
+.hint {
+  color: var(--ds-color-text-faint);
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.35;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}

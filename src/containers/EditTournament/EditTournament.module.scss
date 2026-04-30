@@ -1,12 +1,11 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .form {
   display: flex;
   flex-direction: column;
   gap: 16px; // slightly more breathing room
 
   &__row {
-    @include common.card();
+    @include m.card();
     padding: 12px;
     display: flex;
     flex-direction: column;

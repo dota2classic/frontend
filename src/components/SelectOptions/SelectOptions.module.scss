@@ -1,38 +1,32 @@
-@use "../../common.scss";
-
-
+@use "../../styles/mixins.scss" as m;
 .select {
-  background: common.$bg2 !important;
+  background: var(--ds-color-bg-elevated) !important;
   min-width: 200px;
-  @include common.mobile {
+  @include m.mobile {
     min-width: 160px;
   }
 }
 
 .option {
-  background: common.$bg2 !important;
+  background: var(--ds-color-bg-elevated) !important;
   transition: 0.3s ease;
-
   cursor: pointer;
 
   &:hover {
-    background-color: common.$transparentTint !important;
+    background-color: var(--ds-color-accent-blue-soft) !important;
   }
 }
 
 .menu {
-  background: common.$bg2 !important;
+  background: var(--ds-color-bg-elevated) !important;
   padding: 0 !important;
-  border: 1px solid rgba(128, 128, 128, 0.3);
+  border: 1px solid var(--ds-color-border-subtle);
   margin-top: 4px;
 }
 
 .menuList {
-  //max-height: 200px;
-  //height: 200px;
-  //overflow-y: auto;
 }
 
 .preview {
-  color: common.$primaryText !important;
+  color: var(--ds-color-text-primary) !important;
 }

@@ -1,7 +1,7 @@
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { TournamentDto, TournamentStatus } from "@/api/back";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import React from "react";
 import c from "./TournamentStyles.module.scss";
 import { TimeAgo } from "@/components/TimeAgo";
@@ -13,9 +13,10 @@ import { Duration } from "@/components/Duration";
 import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
 import { useRefreshPageProps } from "@/util/usePageProps";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
 import { NextPageContext } from "next";
+import { PageHeader } from "@/components/PageHeader";
+import { MetaGrid, MetaGridStat } from "@/components/MetaGrid";
 
 interface Props {
   tournament: TournamentDto;
@@ -73,13 +74,17 @@ export default function TournamentAdminPage({ tournament }: Props) {
   }, []);
   return (
     <>
-      <Breadcrumbs>
-        <PageLink link={AppRouter.admin.tournament.index.link}>
-          Турниры
-        </PageLink>
-        <span>{tournament.name}</span>
-      </Breadcrumbs>
-      <QueuePageBlock className={c.block} heading={"Информация о турнире"}>
+      <PageHeader
+        breadcrumbs={
+          <>
+            <PageLink link={AppRouter.admin.tournament.index.link}>
+              Турниры
+            </PageLink>
+            <span>{tournament.name}</span>
+          </>
+        }
+      />
+      <SectionBlock className={c.block} title={"Информация о турнире"}>
         <div className={c.actions}>
           <Button
             className={c.inline}
@@ -138,76 +143,68 @@ export default function TournamentAdminPage({ tournament }: Props) {
             игроков
           </span>
         </h3>
-      </QueuePageBlock>
+      </SectionBlock>
       <br />
       <br />
       <br />
-      <QueuePageBlock className={c.block} heading={"Настройки сетки"}>
-        <div className={c.options}>
-          <dl>
-            <dd>Игроков в команде</dd>
-            <dt>{tournament.teamSize}</dt>
-          </dl>
-          <dl>
-            <dd>Старт турнира</dd>
-            <dt>
-              <TimeAgo date={tournament.startDate} />
-            </dt>
-          </dl>
-          <dl>
-            <dd>Вид сетки</dd>
-            <dt>{tournament.strategy}</dt>
-          </dl>
-          <dl>
-            <dd>Игровой режим</dd>
-            <dt>{t(`game_mode.${tournament.gameMode}` as TranslationKey)}</dt>
-          </dl>
-          <dl>
-            <dd>Длительность игры</dd>
-            <dt>
+      <SectionBlock className={c.block} title={"Настройки сетки"}>
+        <MetaGrid className={c.options}>
+          <MetaGridStat label="Игроков в команде" value={tournament.teamSize} />
+          <MetaGridStat
+            label="Старт турнира"
+            value={<TimeAgo date={tournament.startDate} />}
+          />
+          <MetaGridStat label="Вид сетки" value={tournament.strategy} />
+          <MetaGridStat
+            label="Игровой режим"
+            value={t(`game_mode.${tournament.gameMode}` as TranslationKey)}
+          />
+          <MetaGridStat
+            label="Длительность игры"
+            value={
               <Duration
                 duration={tournament.scheduleStrategy.gameDurationSeconds}
               />
-            </dt>
-          </dl>
-          <dl>
-            <dd>Длительность перерыва</dd>
-            <dt>
+            }
+          />
+          <MetaGridStat
+            label="Длительность перерыва"
+            value={
               <Duration
                 duration={tournament.scheduleStrategy.gameBreakDurationSeconds}
               />
-            </dt>
-          </dl>
-          <dl>
-            <dd>Количество игр в раундах</dd>
-            <dt>{tournament.bestOfConfig.round}</dt>
-          </dl>
-          <dl>
-            <dd>Количество игр в финале</dd>
-            <dt>{tournament.bestOfConfig._final}</dt>
-          </dl>
-          <dl>
-            <dd>Количество игр в гранд финале</dd>
-            <dt>{tournament.bestOfConfig.grandFinal}</dt>
-          </dl>
-          <dl>
-            <dd>Руны</dd>
-            <dt>{tournament.disableRunes ? "Выключены" : "Включены"}</dt>
-          </dl>
-          <dl>
-            <dd>Лимит по киллам</dd>
-            <dt>{tournament.killsToWin || "-"}</dt>
-          </dl>
-          <dl>
-            <dd>Режим "midonly"</dd>
-            <dt>{tournament.midTowerToWin ? "Включен" : "-"}</dt>
-          </dl>
-          <dl>
-            <dd>Стадия банов</dd>
-            <dt>{tournament.enableBanStage ? "Включена" : "-"}</dt>
-          </dl>
-        </div>
-      </QueuePageBlock>
+            }
+          />
+          <MetaGridStat
+            label="Количество игр в раундах"
+            value={tournament.bestOfConfig.round}
+          />
+          <MetaGridStat
+            label="Количество игр в финале"
+            value={tournament.bestOfConfig._final}
+          />
+          <MetaGridStat
+            label="Количество игр в гранд финале"
+            value={tournament.bestOfConfig.grandFinal}
+          />
+          <MetaGridStat
+            label="Руны"
+            value={tournament.disableRunes ? "Выключены" : "Включены"}
+          />
+          <MetaGridStat
+            label="Лимит по киллам"
+            value={tournament.killsToWin || "-"}
+          />
+          <MetaGridStat
+            label={'Режим "midonly"'}
+            value={tournament.midTowerToWin ? "Включен" : "-"}
+          />
+          <MetaGridStat
+            label="Стадия банов"
+            value={tournament.enableBanStage ? "Включена" : "-"}
+          />
+        </MetaGrid>
+      </SectionBlock>
     </>
   );
 }

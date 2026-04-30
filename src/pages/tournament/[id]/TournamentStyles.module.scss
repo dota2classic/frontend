@@ -1,8 +1,6 @@
-@use "../../../common";
-
 .header {
   padding: 12px;
-  background-color: common.$panelBg;
+  background-color: var(--ds-color-bg-panel);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,7 +62,7 @@
   padding: 4px 8px;
   font-size: 1.1rem;
   line-height: 1.8;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
 
   & p {
     margin-block-start: 0;
@@ -85,7 +83,6 @@
 }
 
 .register_card {
-  @include common.card();
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -97,7 +94,7 @@
 
     & > dd {
       margin-inline-start: 0;
-      color: common.$primaryTextSemiDark;
+      color: var(--ds-color-text-muted);
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -108,7 +105,7 @@
       margin-top: 6px;
       text-align: center;
       font-weight: bold;
-      color: common.$primaryTextHighlight;
+      color: var(--ds-color-text-strong);
     }
   }
 }

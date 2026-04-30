@@ -2,7 +2,7 @@ import React from "react";
 import { AutoCarousel } from "@/components/AutoCarousel/AutoCarousel";
 import { getApi } from "@/api/hooks";
 import { useTranslation } from "react-i18next";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import { YearResultCard } from "@/containers/QueuePageBlock/YearResultCarousel/YearResultCard";
 import { TranslationKey } from "@/TranslationKey";
 import { asItemName } from "@/components/ItemIcon/ItemIcon.props";
@@ -15,7 +15,7 @@ export const YearResultCarousel: React.FC = () => {
   const { t } = useTranslation();
   if (!data) return null;
   return (
-    <QueuePageBlock heading={t("queue_page.section.year_result")}>
+    <SectionBlock title={t("queue_page.section.year_result")}>
       <AutoCarousel interval={3000}>
         <YearResultCard
           image={`/items/${asItemName(data.mostPurchasedItem)}_lg.webp`}
@@ -79,6 +79,6 @@ export const YearResultCarousel: React.FC = () => {
           }
         />
       </AutoCarousel>
-    </QueuePageBlock>
+    </SectionBlock>
   );
 };

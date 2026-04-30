@@ -1,8 +1,6 @@
-@use "../../common.scss";
-
-
+@use "../../styles/mixins.scss" as m;
 .card {
-  @include common.card();
+  @include m.card();
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 12px;

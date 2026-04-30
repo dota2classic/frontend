@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .tree {
   grid-column: span 4;
   gap: 16px;
@@ -32,7 +30,7 @@
         content: "*";
         margin-right: 2px;
         left: -4px;
-        color: common.$error;
+        color: var(--ds-color-danger);
         font-size: 1rem;
         transform: scale(1.5);
       }
@@ -41,7 +39,7 @@
 
   &__selected,
   &:hover {
-    background: common.$panelBg;
+    background: var(--ds-color-bg-panel);
   }
 }
 

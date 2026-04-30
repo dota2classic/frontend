@@ -31,6 +31,7 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
   }, [post]);
 
   const [loaded, setLoaded] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
 
   const [title, setTitle] = useState(post?.title || "");
   const [description, setDescription] = useState(post?.shortDescription || "");
@@ -44,16 +45,33 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
   useEffect(() => {
     if (post) {
       setNewValue(JSON.parse(post.content));
+    } else if (router.query.clearDraft) {
+      // Clear draft when explicitly requested
+      setNewValue(undefined);
+      setTitle("");
+      setDescription("");
     }
     setLoaded(true);
-  }, [post, setNewValue]);
+  }, [post, setNewValue, router.query.clearDraft]);
   const [image, setImage] = useState<UploadedImageDto | undefined>(post?.image);
 
   useDebounce(
     () => {
       if (!loaded) return;
+      if (isClearing) return; // Don't autosave immediately after clearing
       if (!newval) return;
+      // Require at least one field to be filled before saving
       if (!title && !description && !image?.key) return;
+
+      const hasContent = Boolean(
+        newval?.[0]?.root?.children?.length > 0 ||
+          title ||
+          description ||
+          image?.key,
+      );
+      // Never send empty drafts to the server
+      if (!hasContent) return;
+
       const doRedirect = !post;
 
       getApi()
@@ -73,7 +91,7 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
         });
     },
     500,
-    [newval, image, title, description],
+    [newval, image, title, description, isClearing],
   );
 
   const publishPost = useCallback(async () => {
@@ -81,6 +99,16 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
     await getApi().blog.blogpostControllerPublishDraft(post.id);
     router.reload();
   }, [post, router]);
+
+  const clearDraft = useCallback(() => {
+    setIsClearing(true);
+    setNewValue(undefined);
+    setTitle("");
+    setDescription("");
+    setImage(undefined);
+    // Re-enable autosave after a short delay (longer than debounce timeout)
+    setTimeout(() => setIsClearing(false), 1000);
+  }, [setNewValue]);
 
   return (
     <div className={c.editor}>
@@ -132,9 +160,16 @@ export const BlogEditContainer: React.FC<IBlogEditContainerProps> = ({
           }}
         />
       )}
-      <Button disabled={post?.published} mega onClick={publishPost}>
-        {t("blog_edit.publish")}
-      </Button>
+      <div style={{ display: "flex", gap: "8px" }}>
+        <Button disabled={post?.published} mega onClick={publishPost}>
+          {t("blog_edit.publish")}
+        </Button>
+        {!post && (
+          <Button onClick={clearDraft} variant="ghost">
+            {t("blog_edit.clearDraft")}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,39 +1,29 @@
-/* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
-/** {
+/* Firefox */
+* {
   scrollbar-width: thin;
-  scrollbar-color: #397524 #DFE9EB;
-}*/
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
 
-/* Chrome, Edge and Safari */
+/* Chrome, Edge, Safari */
 *::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
+  height: 8px;
+  width: 8px;
 }
 
 *::-webkit-scrollbar-track {
-    border-radius: 2px;
-    background-color: rgb(131, 130, 130);
-    transition: 0.3s ease;
-}
-
-*::-webkit-scrollbar-track:hover {
-    /* background-color: rgb(170, 170, 170); */
-}
-
-*::-webkit-scrollbar-track:active {
-    /* background-color: rgb(170, 170, 170); */
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.04);
 }
 
 *::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-    background-color: #242c34;
-
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
 *::-webkit-scrollbar-thumb:hover {
-    background-color: #1c2024;
+  background-color: rgba(255, 255, 255, 0.22);
 }
 
 *::-webkit-scrollbar-thumb:active {
-    background-color: #1c2024;
+  background-color: rgba(255, 255, 255, 0.3);
 }

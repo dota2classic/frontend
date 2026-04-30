@@ -4,9 +4,9 @@ import { TournamentDto } from "@/api/back";
 import { EditTournament } from "@/containers/EditTournament";
 import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import React from "react";
 import { NextPageContext } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Props {
   tournament: TournamentDto;
@@ -15,17 +15,21 @@ interface Props {
 export default function TournamentEditAdminPage(p: Props) {
   return (
     <>
-      <Breadcrumbs>
-        <PageLink link={AppRouter.admin.tournament.index.link}>
-          Турниры
-        </PageLink>
-        <PageLink
-          link={AppRouter.admin.tournament.tournament(p.tournament.id).link}
-        >
-          {p.tournament.name}
-        </PageLink>
-        <span>Редактирование</span>
-      </Breadcrumbs>
+      <PageHeader
+        breadcrumbs={
+          <>
+            <PageLink link={AppRouter.admin.tournament.index.link}>
+              Турниры
+            </PageLink>
+            <PageLink
+              link={AppRouter.admin.tournament.tournament(p.tournament.id).link}
+            >
+              {p.tournament.name}
+            </PageLink>
+            <span>Редактирование</span>
+          </>
+        }
+      />
       <EditTournament tournament={p.tournament} />
     </>
   );

@@ -1,37 +1,35 @@
-@use "../../common.scss";
-
 .badge {
   padding: 4px 12px;
-  font-size: 1rem;
-  display: inline;
-  border-radius: 16px;
+  font-size: var(--ds-font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--ds-radius-pill);
   font-weight: bold;
   width: fit-content;
   height: fit-content;
   white-space: nowrap;
 
   &.green {
-    color: common.$primaryText;
-    background-color: #0a8f29;
+    color: var(--ds-color-text-primary);
+    background-color: var(--ds-color-status-success);
   }
 
   &.yellow {
-    background-color: #f59e0b;
-    color: common.$darkBg2;
+    background-color: var(--ds-color-status-warning);
+    color: var(--ds-color-text-on-accent);
   }
 
   &.blue {
-    background-color: #3b82f6;
+    background-color: var(--ds-color-status-info);
   }
 
   &.grey {
-    color: common.$almostBlack;
-    background-color: #a8acb4;
+    color: var(--ds-color-text-on-accent);
+    background-color: var(--ds-color-status-neutral);
   }
 
-
   &.red {
-    color: common.$almostBlack;
-    background-color: common.$error;
+    color: var(--ds-color-text-on-accent);
+    background-color: var(--ds-color-danger);
   }
 }

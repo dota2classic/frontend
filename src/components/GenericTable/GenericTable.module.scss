@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .avatar {
   height: 40px;
   object-fit: contain;
@@ -33,7 +32,7 @@
   & span {
     text-transform: capitalize;
     max-width: 200px;
-    @include common.mobile {
+    @include m.mobile {
       max-width: 120px;
     }
   }
@@ -59,7 +58,7 @@
   & span {
     text-transform: capitalize;
     max-width: 140px;
-    @include common.mobile {
+    @include m.mobile {
       max-width: 110px;
     }
   }
@@ -86,11 +85,19 @@
   }
 }
 
+.itemsRow {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 2px;
+  min-width: max-content;
+}
+
 .hero {
   width: 220px;
   align-items: center;
 
-  @include common.mobile {
+  @include m.mobile {
     width: 140px;
   }
 
@@ -119,7 +126,7 @@
 
 .empty {
   padding: 16px 0 !important;
-  color: #999999;
+  color: var(--ds-color-text-dim);
   font-size: 1.2rem !important;
   line-height: 16px;
   text-align: center !important;

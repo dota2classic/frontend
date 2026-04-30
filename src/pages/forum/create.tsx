@@ -7,10 +7,10 @@ import { NextPageContext } from "next";
 import { handleException } from "@/util/handleException";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
-import { Panel } from "@/components/Panel";
 import { Input } from "@/components/Input";
 import { MarkdownTextarea } from "@/components/MarkdownTextarea";
 import { Button } from "@/components/Button";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   threadType: ThreadType;
@@ -41,7 +41,7 @@ export default function CreateThreadPage({ threadType }: Props) {
   }, [content, title, threadType, router, t]);
 
   return (
-    <Panel className={c.createThread}>
+    <Surface className={c.createThread} padding="xs" variant="panel">
       <EmbedProps
         title={t("create_thread.seo.title")}
         description={t("create_thread.seo.description")}
@@ -67,7 +67,7 @@ export default function CreateThreadPage({ threadType }: Props) {
       <Button mega onClick={createThread}>
         {t("create_thread.createTopic")}
       </Button>
-    </Panel>
+    </Surface>
   );
 }
 CreateThreadPage.getInitialProps = async (

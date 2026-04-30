@@ -3,9 +3,8 @@ import { AppRouter } from "@/route";
 import { ItemMap } from "@/const/items";
 import { ItemData } from "@/const/itemdata";
 import { useTranslation } from "react-i18next";
-import { Panel } from "@/components/Panel";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
+import { PageHeader } from "@/components/PageHeader";
 
 interface IItemBreadcrumbsProps {
   itemId: number | undefined;
@@ -24,9 +23,9 @@ export const ItemBreadcrumbs: React.FC<IItemBreadcrumbsProps> = ({
     })?.name;
   }, [itemId]);
   return (
-    <Panel>
-      <div className="left">
-        <Breadcrumbs>
+    <PageHeader
+      breadcrumbs={
+        <>
           <PageLink link={AppRouter.items.index.link}>
             {t("item_breadcrumbs.items")}
           </PageLink>
@@ -35,8 +34,8 @@ export const ItemBreadcrumbs: React.FC<IItemBreadcrumbsProps> = ({
               {itemName}
             </PageLink>
           )}
-        </Breadcrumbs>
-      </div>
-    </Panel>
+        </>
+      }
+    />
   );
 };

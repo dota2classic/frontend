@@ -1,6 +1,6 @@
 import { EmbedProps } from "@/components/EmbedProps";
 import { PageLink } from "@/components/PageLink";
-import { Panel } from "@/components/Panel";
+import { Surface } from "@/components/Surface";
 import { AppRouter } from "@/route";
 import { useTranslation } from "react-i18next";
 
@@ -13,7 +13,7 @@ export default function SteamAuthError() {
         title={t("forbidden.accessDenied")}
         description={t("forbidden.noAccessRights")}
       />
-      <Panel style={{ flexDirection: "column", padding: "24px" }}>
+      <Surface padding="lg" style={{ flexDirection: "column" }} variant="panel">
         <h1>{t("forbidden.noViewRights")}</h1>
         <p style={{ lineHeight: "1.5em" }}>
           <PageLink link={AppRouter.index.link}>
@@ -25,7 +25,7 @@ export default function SteamAuthError() {
           src="/landing/4.png"
           alt="sobaka here"
         />
-      </Panel>
+      </Surface>
     </>
   );
 }

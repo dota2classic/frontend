@@ -5,6 +5,7 @@ import { getApi } from "@/api/hooks";
 import { fetchTournamentBracket } from "@/util/fetch-tournament-bracket";
 import { TournamentBracketInfoDto, TournamentDto } from "@/api/back";
 import { TournamentTabs } from "@/components/TournamentTabs";
+import { EmptyState } from "@/components/EmptyState";
 import c from "./TournamentStyles.module.scss";
 import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
@@ -35,10 +36,11 @@ export default function TournamentBracket({ id, tournament, bracket }: Props) {
           bracket={mapBracket(bracket)}
         />
       ) : (
-        <div className={c.empty}>
-          <h1>{t("tournament.common.bracketNotReady")}</h1>
-          <h3>{t("tournament.common.matchesWhenStart")}</h3>
-        </div>
+        <EmptyState
+          className={c.empty}
+          description={t("tournament.common.matchesWhenStart")}
+          title={t("tournament.common.bracketNotReady")}
+        />
       )}
     </>
   );

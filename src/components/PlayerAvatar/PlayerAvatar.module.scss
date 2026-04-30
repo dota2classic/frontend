@@ -1,6 +1,3 @@
-@use "../../common.scss";
-
-
 .hat {
   position: absolute;
   z-index: 2;
@@ -37,7 +34,7 @@
 
     border-radius: 50%;
     background-color: rgba(34, 206, 34, 1);
-    outline: 2px solid common.$bg2;
+    outline: 2px solid var(--ds-color-bg-elevated);
     pointer-events: none;
     z-index: 1000;
   }

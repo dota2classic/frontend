@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .content {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -33,9 +32,9 @@
   align-items: center;
 
   &__icon {
-    @include common.box();
+    @include m.box();
     padding: 12px 8px;
-    background-color: common.$bg1;
+    background-color: var(--ds-color-bg-canvas);
     display: flex;
     flex-direction: column;
     transition: 0.3s ease;
@@ -48,8 +47,8 @@
 
 
     &:hover, &:focus, &__active {
-      box-shadow: 0px 0px 10px common.$blueHighlight;
-      border: 1px solid common.$blueHighlight2;
+      box-shadow: 0px 0px 10px var(--ds-color-accent-blue);
+      border: 1px solid var(--ds-color-accent-blue-border);
     }
   }
 

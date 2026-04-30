@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 
 import { PageLink } from "../PageLink";
-import { Panel } from "../Panel";
+import { Surface } from "../Surface";
 
 import c from "./Pagination.module.scss";
 import { NextLinkProp } from "@/route";
@@ -64,7 +64,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
   if (iter.length === 1) return null;
 
   return (
-    <Panel className={c.pagination}>
+    <Surface className={c.pagination} padding="xs" variant="panel">
       <PaginationItem disabled={page === 0} link={linkProducer(0)}>
         <HiChevronDoubleLeft />
       </PaginationItem>
@@ -92,6 +92,6 @@ export const Pagination: React.FC<IPaginationProps> = ({
       >
         <HiChevronDoubleRight />
       </PaginationItem>
-    </Panel>
+    </Surface>
   );
 };

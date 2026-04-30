@@ -1,0 +1,197 @@
+.page {
+  min-height: 100vh;
+  padding: 40px 24px 72px;
+  background:
+    radial-gradient(circle at top, rgba(var(--ds-color-accent-gold), 0.08), transparent 32%),
+    linear-gradient(180deg, #181818, #111214 35%, #0e0f11 100%);
+}
+
+.shell {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0)),
+    rgba(0, 0, 0, 0.16);
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  text-transform: uppercase;
+}
+
+.heroText {
+  margin: 0;
+  max-width: 64ch;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+
+  @media (width <= 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.015)
+    ),
+    var(--ds-color-bg-surface);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.eyebrow {
+  color: rgba(var(--ds-color-accent-gold), 0.9);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--ds-color-text-strong);
+}
+
+.cardText {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.42;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background:
+    radial-gradient(circle at top, rgba(var(--ds-color-accent-gold), 0.05), transparent 35%),
+    rgba(0, 0, 0, 0.12);
+}
+
+.meta {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.button {
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.compact {
+  padding: 16px 14px;
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+}
+
+.wide {
+  padding: 24px 20px;
+  font-size: 1.45rem;
+}
+
+.softBorder {
+  border-color: rgba(255, 255, 255, 0.45);
+  border-width: 1px;
+}
+
+.goldBorder {
+  border-color: rgba(var(--ds-color-accent-gold), 0.75);
+}
+
+.panel {
+  position: relative;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--ds-color-accent-gold), 0.26),
+    rgba(var(--ds-color-accent-red), 0.16)
+  );
+}
+
+.panelInner {
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.narrowTracking {
+  letter-spacing: 0.03em;
+}
+
+.tallTracking {
+  letter-spacing: 0.12em;
+}
+
+.longLabel {
+  font-size: 1.18rem;
+  line-height: 1.05;
+}
+
+.subtle {
+  background: linear-gradient(#e7c950 0%, #cb7a31 100%);
+  background-size: 100% 100%;
+  animation-duration: 5s;
+}
+
+.intense {
+  background: radial-gradient(#ffe35c 0%, #c23c2a 100%);
+  background-size: 220% 220%;
+}
+
+.disabledNote {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.9rem;
+}
+
+@media (width <= 600px) {
+  .page {
+    padding: 24px 12px 48px;
+  }
+
+  .hero,
+  .card {
+    padding: 18px 16px;
+  }
+}

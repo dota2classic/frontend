@@ -14,7 +14,7 @@ import { TbGrave2 } from "react-icons/tb";
 import { iterateItems } from "@/util/iterateItems";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
-import { spectateUrl, watchCmd } from "@/util/urls";
+import { spectateUrl } from "@/util/urls";
 import { Button } from "@/components/Button";
 import { MinimapTowers } from "@/components/LiveMatchPreview/MinimapTower";
 import { MinimapHero } from "@/components/LiveMatchPreview/MinimapHero";
@@ -22,8 +22,7 @@ import { ItemIcon, PlaceholderImage } from "../ItemIcon";
 import { PageLink } from "../PageLink";
 import { HeroIcon } from "../HeroIcon";
 import { EmbedProps } from "../EmbedProps";
-import { CopySomething } from "../CopySomething";
-import { Input } from "../Input";
+import { Surface } from "../Surface/Surface";
 
 interface ILiveMatchPreviewProps {
   match: LiveMatchDto;
@@ -66,7 +65,7 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
         </div>
         <div className={c.itemRow}>
           {iterateItems(allEmptyItems).map((it, index) => (
-            <ItemIcon key={index} item={it} />
+            <ItemIcon key={index} item={it} small />
           ))}
         </div>
       </div>
@@ -112,7 +111,7 @@ const TeamListTableEntry = (slot: MatchSlotInfo) => {
       </div>
       <div className={c.itemRow}>
         {iterateItems(hero).map((it, index) => (
-          <ItemIcon key={index} item={it} />
+          <ItemIcon key={index} item={it} small />
         ))}
       </div>
     </div>
@@ -145,7 +144,9 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
         description={t("live_match.matchPreview", { matchId: match.matchId })}
       />
       <div className={c.liveMatch}>
-        <TeamListTable players={radiant} />
+        <Surface variant="raised" padding="md" className={c.teamSurface}>
+          <TeamListTable players={radiant} />
+        </Surface>
         <div className={c.map}>
           {renderHeroPool
             .filter((t) => t.heroData)
@@ -158,23 +159,23 @@ export const LiveMatchPreview: React.FC<ILiveMatchPreviewProps> = ({
             ))}
           <MinimapTowers towers={match.towers} barracks={match.barracks} />
         </div>
-        <TeamListTable players={dire} />
+        <Surface variant="raised" padding="md" className={c.teamSurface}>
+          <TeamListTable players={dire} />
+        </Surface>
       </div>
-      <div className={c.watchLive}>
-        <Button
-          link
-          href={spectateUrl(match.matchId)}
-          target="_blank"
-          variant="primary"
-          className={c.launcherButton}
-        >
-          {t("live_match.watchWithLauncher")}
-        </Button>
-        <CopySomething
-          something={watchCmd(match.server)}
-          placeholder={<Input value={watchCmd(match.server)} readOnly={true} />}
-        />
-      </div>
+      <Surface variant="raised" padding="md" className={c.watchLiveSurface}>
+        <div className={c.watchLive}>
+          <Button
+            link
+            href={spectateUrl(match.matchId)}
+            target="_blank"
+            variant="primary"
+            className={c.launcherButton}
+          >
+            {t("live_match.watchWithLauncher")}
+          </Button>
+        </div>
+      </Surface>
     </>
   );
 };

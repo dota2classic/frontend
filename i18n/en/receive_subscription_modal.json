@@ -1,7 +1,13 @@
 {
   "receive_subscription_modal": {
+    "eyebrow": "Unlocked reward",
     "title": "{{title}}",
+    "subscriptionBody": "dotaclassic plus is now active. Open your profile settings to finish the look and enable the new subscriber flair.",
+    "dropBody": "This reward is waiting in your inventory. Open the drops tab to claim it and decide where to use it.",
+    "rewardLabel": "Reward",
     "itemName": "{{name}}",
-    "actionLabel": "{{label}}"
+    "actionLabel": "{{label}}",
+    "subscriptionHint": "You can change profile cosmetics at any time from the settings page.",
+    "dropHint": "You can review all collected rewards later from the drops tab."
   }
 }

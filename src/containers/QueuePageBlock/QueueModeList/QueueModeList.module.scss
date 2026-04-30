@@ -1,8 +1,5 @@
-@use "../../../common.scss";
-
-
 .modes {
-  background-color: common.$panelBg;
+  background-color: var(--ds-color-bg-panel);
 }
 
 
@@ -26,24 +23,24 @@
   padding: 4px;
 
   &__name {
-    color: common.$gold;
+    color: var(--ds-color-accent-gold);
     line-height: 1.4rem;
     font-size: 1.2rem;
     //padding-bottom: 4px;
   }
 
   &__inQueue {
-    color: common.$primaryTextTint;
+    color: var(--ds-color-text-tint);
   }
 
   &__disabledBy {
-    color: common.$red;
+    color: var(--ds-color-accent-red);
   }
 
   &__suffix {
     margin-top: 8px;
     padding-left: -2px;
-    color: common.$primaryTextDark;
+    color: var(--ds-color-text-dim);
   }
 
   & svg {
@@ -111,7 +108,7 @@
 .modeAdditional {
   display: flex;
   //font-size: 0.9rem;
-  color: common.$primaryTextTint;
+  color: var(--ds-color-text-tint);
   //margin-top: 0.5rem;
 
   gap: 6px;
@@ -129,10 +126,10 @@
   }
 
   &__good {
-    color: common.$gold2;
+    color: var(--ds-color-accent-gold-dim);
   }
 
   &__bad {
-    color: common.$red;
+    color: var(--ds-color-accent-red);
   }
 }

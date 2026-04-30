@@ -9,9 +9,9 @@ import { numberOrDefault } from "@/util/urls";
 import { PaginatedThread } from "@/containers/Thread";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
-import { Panel } from "@/components/Panel";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -29,14 +29,14 @@ export default function TicketPage({ messages, thread, page }: Props) {
         title={t("ticket_page.seo.title", { title: thread.title })}
         description={`${t("ticket_page.seo.description", { title: thread.title })}`}
       />
-      <Panel>
+      <Surface padding="xs" variant="panel">
         <Breadcrumbs>
           <PageLink link={AppRouter.forum.ticket.index().link}>
             {t("ticket_page.tickets")}
           </PageLink>
           <span>{thread.title}</span>
         </Breadcrumbs>
-      </Panel>
+      </Surface>
       <br />
       <PaginatedThread
         populateMessages={messages}

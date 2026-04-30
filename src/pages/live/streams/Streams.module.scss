@@ -1,5 +1,4 @@
-@use "../../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .queue {
   color: #c2c2c2;
   font-size: 35px;
@@ -10,7 +9,7 @@
   margin-top: 200px;
   justify-content: center;
 
-  @include common.mobile {
+  @include m.mobile {
     padding: 10px;
     font-size: 16px;
   }
@@ -37,7 +36,7 @@
 .stream {
   grid-column: span 1;
 
-  @include common.mobile {
+  @include m.mobile {
     grid-column: span 2;
   }
 

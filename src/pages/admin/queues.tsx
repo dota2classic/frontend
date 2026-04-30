@@ -3,7 +3,6 @@ import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { MatchmakingInfo, QueueEntryDTO, UserDTO } from "@/api/back";
 import { Button } from "@/components/Button";
-import { Panel } from "@/components/Panel";
 import { Section } from "@/components/Section";
 import { UserPreview } from "@/components/UserPreview";
 import c from "./AdminStyles.module.scss";
@@ -14,6 +13,8 @@ import { useTransition } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { Surface } from "@/components/Surface";
+import { PageGrid, PageGridItem } from "@/components/PageGrid";
 
 interface Props {
   queueEntries: QueueEntryDTO[];
@@ -23,12 +24,14 @@ interface Props {
 const OnlineList = observer(() => {
   const { queue } = useStore();
   return (
-    <Panel
+    <Surface
       className={cx(c.parties, c.onlineList)}
       style={{ display: "flex", flexDirection: "column" }}
+      padding="xs"
+      variant="panel"
     >
       {queue.online.length}
-    </Panel>
+    </Surface>
   );
 });
 
@@ -57,55 +60,67 @@ export default function QueuesPage({
     });
 
   return (
-    <div className={c.gridPanel}>
-      <Section className={c.grid8}>
-        {groupedParties.map(({ mode, entries }) => (
-          <div key={mode.toString()}>
-            <header>
-              {t(`matchmaking_mode.${mode}`)} (
-              {entries.map((t) => t.players.length).reduce((a, b) => a + b, 0)})
-            </header>
-            <Button
-              onClick={() =>
-                startTransition(async () => {
-                  await getApi().notificationApi.notificationControllerNotifyAboutQueue(
-                    { mode: mode },
-                  );
-                })
-              }
-            >
-              {t("queues.sendNotification")}
-              {isPending ? (
-                <AiOutlineLoading3Quarters className="loading" />
-              ) : (
-                <FaBell style={{ float: "right" }} />
-              )}
-            </Button>
-            <Panel className={c.parties} key={mode}>
-              {entries.length > 0 ? (
-                entries.map((entry: QueueEntryDTO) => (
-                  <div key={entry.partyId} className={c.withBorder}>
-                    <div>
-                      {t("queues.party")}
-                      {entry.partyId}
+    <PageGrid gap={12}>
+      <PageGridItem span={8}>
+        <Section>
+          {groupedParties.map(({ mode, entries }) => (
+            <div key={mode.toString()}>
+              <header>
+                {t(`matchmaking_mode.${mode}`)} (
+                {entries
+                  .map((t) => t.players.length)
+                  .reduce((a, b) => a + b, 0)}
+                )
+              </header>
+              <Button
+                onClick={() =>
+                  startTransition(async () => {
+                    await getApi().notificationApi.notificationControllerNotifyAboutQueue(
+                      { mode: mode },
+                    );
+                  })
+                }
+              >
+                {t("queues.sendNotification")}
+                {isPending ? (
+                  <AiOutlineLoading3Quarters className="loading" />
+                ) : (
+                  <FaBell style={{ float: "right" }} />
+                )}
+              </Button>
+              <Surface
+                className={c.parties}
+                key={mode}
+                padding="xs"
+                variant="panel"
+              >
+                {entries.length > 0 ? (
+                  entries.map((entry: QueueEntryDTO) => (
+                    <div key={entry.partyId} className={c.withBorder}>
+                      <div>
+                        {t("queues.party")}
+                        {entry.partyId}
+                      </div>
+                      {entry.players.map((plr: UserDTO) => (
+                        <UserPreview roles key={plr.steamId} user={plr} />
+                      ))}
                     </div>
-                    {entry.players.map((plr: UserDTO) => (
-                      <UserPreview roles key={plr.steamId} user={plr} />
-                    ))}
-                  </div>
-                ))
-              ) : (
-                <div>{t("queues.emptyQueue")}</div>
-              )}
-            </Panel>
-          </div>
-        ))}
-      </Section>
-      <Section className={c.grid4}>
-        <header>{t("queues.online")}</header>
-        <OnlineList />
-      </Section>
-    </div>
+                  ))
+                ) : (
+                  <div>{t("queues.emptyQueue")}</div>
+                )}
+              </Surface>
+            </div>
+          ))}
+        </Section>
+      </PageGridItem>
+      <PageGridItem span={4}>
+        <Section>
+          <header>{t("queues.online")}</header>
+          <OnlineList />
+        </Section>
+      </PageGridItem>
+    </PageGrid>
   );
 }
 

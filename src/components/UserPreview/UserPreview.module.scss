@@ -1,11 +1,9 @@
-@use "../../common.scss";
-
 .user {
   display: flex;
   flex-direction: row;
   column-gap: 0.5rem;
   font-size: 0.8rem;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
   align-items: stretch;
 }
 

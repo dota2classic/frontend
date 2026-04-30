@@ -1,6 +1,3 @@
-@use '../../common.scss';
-
-
 .section {
   margin-top: 20px;
   display: flex;
@@ -21,7 +18,7 @@
     & a {
       float: right;
       font-size: 0.8rem;
-      color: common.$green;
+      color: var(--ds-color-accent-green);
     }
 
     * + & {

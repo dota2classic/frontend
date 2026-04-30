@@ -1,16 +1,16 @@
 import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { TournamentBracketInfoDto, TournamentDto } from "@/api/back";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import React from "react";
 import c from "./TournamentStyles.module.scss";
 import { AppRouter } from "@/route";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
 import { fetchTournamentBracket } from "@/util/fetch-tournament-bracket";
 import { BracketRenderer } from "@/containers/BracketRenderer";
 import { mapBracket } from "@/containers/BracketRenderer/mapper";
 import { NextPageContext } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Props {
   tournament: TournamentDto;
@@ -20,24 +20,28 @@ interface Props {
 export default function TournamentBracketPage({ tournament, bracket }: Props) {
   return (
     <>
-      <Breadcrumbs>
-        <PageLink link={AppRouter.admin.tournament.index.link}>
-          Турниры
-        </PageLink>
-        <PageLink
-          link={AppRouter.admin.tournament.tournament(tournament.id).link}
-        >
-          {tournament.name}
-        </PageLink>
-        <span>Сетка</span>
-      </Breadcrumbs>
-      <QueuePageBlock className={c.block} heading={"Сетка"}>
+      <PageHeader
+        breadcrumbs={
+          <>
+            <PageLink link={AppRouter.admin.tournament.index.link}>
+              Турниры
+            </PageLink>
+            <PageLink
+              link={AppRouter.admin.tournament.tournament(tournament.id).link}
+            >
+              {tournament.name}
+            </PageLink>
+            <span>Сетка</span>
+          </>
+        }
+      />
+      <SectionBlock className={c.block} title={"Сетка"}>
         <BracketRenderer
           admin
           uniqueId={"admin-bracket"}
           bracket={mapBracket(bracket)}
         />
-      </QueuePageBlock>
+      </SectionBlock>
     </>
   );
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { getApi } from "@/api/hooks";
 import { BracketMatchDto, TournamentDto } from "@/api/back";
 import { TournamentTabs } from "@/components/TournamentTabs";
+import { EmptyState } from "@/components/EmptyState";
 import c from "@/pages/tournament/[id]/TournamentStyles.module.scss";
 import { TournamentMatchCard } from "@/components/TournamentMatchCard";
 import { NextPageContext } from "next";
@@ -36,10 +37,11 @@ export default function TournamentMatches({ tournament, matches }: Props) {
           ))}
         </div>
       ) : (
-        <div className={c.empty}>
-          <h1>{t("tournament.common.bracketNotReady")}</h1>
-          <h3>{t("tournament.common.matchesWhenStart")}</h3>
-        </div>
+        <EmptyState
+          className={c.empty}
+          description={t("tournament.common.matchesWhenStart")}
+          title={t("tournament.common.bracketNotReady")}
+        />
       )}
     </>
   );

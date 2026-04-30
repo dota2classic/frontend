@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .usernameLinkContainer {
   display: flex;
   align-items: center;
@@ -27,10 +26,10 @@
 }
 
 .roleTooltip {
-  @include common.box();
+  @include m.box();
   padding: 8px 12px;
-  background-color: common.$bg2;
-  color: common.$primaryText;
+  background-color: var(--ds-color-bg-elevated);
+  color: var(--ds-color-text-primary);
 }
 
 .roles {

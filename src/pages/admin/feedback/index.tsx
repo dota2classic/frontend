@@ -6,10 +6,11 @@ import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
 import { useTranslation } from "react-i18next";
-import { Panel } from "@/components/Panel";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
 import { Button } from "@/components/Button";
+import { Surface } from "@/components/Surface";
+import { PageHeader } from "@/components/PageHeader";
+import { PageGrid } from "@/components/PageGrid";
 
 interface Props {
   feedbacks: FeedbackTemplateDto[];
@@ -20,21 +21,24 @@ export default function FeedbackList({ feedbacks }: Props) {
 
   return (
     <>
-      <Panel>
-        <div className="left">
-          <Breadcrumbs>
-            <PageLink link={AppRouter.admin.feedback.index.link}>
-              {t("feedback_list.feedback")}
-            </PageLink>
-          </Breadcrumbs>
-        </div>
-      </Panel>
-      <div className={c.gridPanel}>
-        <PageLink link={AppRouter.admin.feedback.create.link}>
-          <Button>{t("feedback_list.create")}</Button>
-        </PageLink>
+      <PageHeader
+        breadcrumbs={
+          <PageLink link={AppRouter.admin.feedback.index.link}>
+            {t("feedback_list.feedback")}
+          </PageLink>
+        }
+      />
+      <PageGrid className={c.gridPanel} gap={12}>
+        <Button pageLink={AppRouter.admin.feedback.create.link}>
+          {t("feedback_list.create")}
+        </Button>
         {feedbacks.map((feedback) => (
-          <Panel className={c.feedback} key={feedback.tag}>
+          <Surface
+            className={c.feedback}
+            key={feedback.tag}
+            padding="xs"
+            variant="panel"
+          >
             <div>
               <h2>{feedback.tag}</h2>
               <PageLink link={AppRouter.admin.feedback.edit(feedback.id).link}>
@@ -51,9 +55,9 @@ export default function FeedbackList({ feedbacks }: Props) {
             >
               {t("feedback_list.delete")}
             </Button>
-          </Panel>
+          </Surface>
         ))}
-      </div>
+      </PageGrid>
     </>
   );
 }

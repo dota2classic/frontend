@@ -15,12 +15,12 @@ import { MatchComparator } from "@/util/sorts";
 import { HeroOptions, useGameModeOptions } from "@/const/options";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
-import { Panel } from "@/components/Panel";
 import { SelectOptions } from "@/components/SelectOptions";
 import { Pagination } from "@/components/Pagination";
 import { Section } from "@/components/Section";
 import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
 import { PlayerSummary } from "@/components/PlayerSummary";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   playerId: string;
@@ -73,7 +73,7 @@ export default function PlayerMatches({
       />
 
       <Section className={pc.fullwidth}>
-        <Panel className={c.filters}>
+        <Surface className={c.filters} padding="xs" variant="panel">
           <SelectOptions
             options={gameModeOptions}
             selected={mode}
@@ -92,7 +92,7 @@ export default function PlayerMatches({
             }}
             defaultText={t("player_matches.hero")}
           />
-        </Panel>
+        </Surface>
         <Pagination
           linkProducer={(page) =>
             AppRouter.players.playerMatches(

@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .faq {
   display: flex;
   flex-direction: column;
@@ -14,12 +12,12 @@
   flex-direction: column;
 
   & + & {
-    border-top: 1px solid common.$primaryTextDark2;
+    border-top: 1px solid var(--ds-color-text-faint);
   }
 
   &[open] {
     & .title {
-      color: common.$gold;
+      color: var(--ds-color-accent-gold);
     }
     & summary > svg {
       rotate: 180deg;
@@ -39,7 +37,7 @@
 
     & .title {
       flex: 1;
-      color: common.$primaryText;
+      color: var(--ds-color-text-primary);
     }
 
     & svg {

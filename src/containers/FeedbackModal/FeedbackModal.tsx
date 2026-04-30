@@ -11,11 +11,7 @@ import c from "./FeedbackModal.module.scss";
 import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 import { useTranslation } from "react-i18next";
 
-interface IFeedbackModalProps {
-  feedback: FeedbackDto;
-}
-
-export const FeedbackModal: React.FC<IFeedbackModalProps> = observer(
+const FeedbackModalContent: React.FC<{ feedback: FeedbackDto }> = observer(
   ({ feedback: _feedbackInitial }) => {
     const { notify } = useStore();
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -57,3 +53,12 @@ export const FeedbackModal: React.FC<IFeedbackModalProps> = observer(
     );
   },
 );
+
+export const FeedbackModal = observer(() => {
+  const { notify } = useStore();
+  const feedback = notify.currentFeedback;
+
+  if (!feedback) return null;
+
+  return <FeedbackModalContent feedback={feedback} />;
+});

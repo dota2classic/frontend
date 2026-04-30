@@ -6,7 +6,7 @@ import c from "./TournamentStyles.module.scss";
 import { NotoSans } from "@/const/notosans";
 import cx from "clsx";
 import { RegistrationCard } from "@/components/RegistrationCard";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
@@ -30,9 +30,9 @@ export default function TournamentPage({ tournament }: Props) {
       />
       <TournamentTabs tournament={tournament} />
       <div className={cx(c.container, NotoSans.className)}>
-        <QueuePageBlock
+        <SectionBlock
           className={c.fullwidth}
-          heading={t("tournament.common.participants")}
+          title={t("tournament.common.participants")}
         >
           <div className={c.participants}>
             {tournament.registrations
@@ -41,7 +41,7 @@ export default function TournamentPage({ tournament }: Props) {
                 <RegistrationCard key={reg.id} registration={reg} />
               ))}
           </div>
-        </QueuePageBlock>
+        </SectionBlock>
       </div>
     </div>
   );

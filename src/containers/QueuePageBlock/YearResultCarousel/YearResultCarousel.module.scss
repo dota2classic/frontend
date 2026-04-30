@@ -1,5 +1,4 @@
-@use "../../../common.scss";
-
+@use "../../../styles/mixins.scss" as m;
 .fixRecordBorder {
   & > a:first-child {
     border: none !important;
@@ -8,7 +7,7 @@
 }
 
 .card {
-  @include common.box();
+  @include m.box();
 
   grid-column: span 1;
   grid-row: span 1;
@@ -30,27 +29,27 @@
     height: 240px;
   }
 
-  @include common.mobile {
+  @include m.mobile {
     height: 140px;
   }
 
   &:hover {
     transform: scale(1.02);
-    border-color: common.$blueHighlight;
+    border-color: var(--ds-color-accent-blue);
   }
 
   & h3 {
-    color: common.$primaryTextHighlight;
+    color: var(--ds-color-text-strong);
     margin-block-end: 0;
 
-    @include common.mobile {
+    @include m.mobile {
       font-size: 12px;
     }
   }
 
   & h4 {
-    color: common.$primaryTextDark;
-    @include common.mobile {
+    color: var(--ds-color-text-dim);
+    @include m.mobile {
       margin-block-start: 0;
       margin-block-end: 1rem;
       font-size: 10px;
@@ -97,13 +96,13 @@
   display: flex;
   flex-direction: column;
 
-  @include common.mobile {
+  @include m.mobile {
     padding: 0px 6px;
   }
 }
 
 .recordType {
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
   font-size: 1.4rem;
   font-weight: bold;
   margin-top: 2rem;
@@ -113,12 +112,12 @@
 .recordValue {
   font-size: 2rem;
   font-weight: bold;
-  color: common.$gold;
+  color: var(--ds-color-accent-gold);
   margin-top: 2rem;
   flex: 1;
 }
 .recordTime {
-  color: common.$primaryTextDark;
+  color: var(--ds-color-text-dim);
   font-size: 1rem;
   margin-block-start: 1rem;
 }

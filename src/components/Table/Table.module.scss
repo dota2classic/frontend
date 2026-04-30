@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 // #242f39
 // #1d242d
 
@@ -15,20 +14,20 @@
   border-right-width: 2px;
   border-bottom-width: 2px;
   border-left-width: 2px;
-  border-top-color: rgb(59, 58, 56);
-  border-right-color: rgb(59, 58, 56);
-  border-bottom-color: rgb(59, 58, 56);
-  border-left-color: rgb(59, 58, 56);
+  border-top-color: var(--ds-color-border-subtle);
+  border-right-color: var(--ds-color-border-subtle);
+  border-bottom-color: var(--ds-color-border-subtle);
+  border-left-color: var(--ds-color-border-subtle);
   -webkit-border-horizontal-spacing: 0px;
   -webkit-border-vertical-spacing: 0px;
 
   border-spacing: 0;
-  @include common.mobile {
+  @include m.mobile {
     padding: 0;
   }
 
   & thead > tr {
-    background-color: common.$bg2 !important;
+    background-color: var(--ds-color-bg-elevated) !important;
   }
 
   td:global(.middle),
@@ -65,7 +64,7 @@
 
   & th.red,
   td.red {
-    color: common.$red;
+    color: var(--ds-color-accent-red);
   }
 
   & td.tiny {
@@ -74,7 +73,7 @@
 
   & th.green,
   td.green {
-    color: common.$green;
+    color: var(--ds-color-accent-green);
   }
 
   & td,
@@ -120,7 +119,7 @@
   & tr {
     line-height: 16px;
 
-    color: common.$primaryText;
+    color: var(--ds-color-text-primary);
 
     font-size: 14px;
     &.link {
@@ -141,7 +140,7 @@
 
     & td:global(.omit),
     th:global(.omit) {
-      @include common.mobile {
+      @include m.mobile {
         display: none;
       }
     }

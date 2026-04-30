@@ -16,7 +16,6 @@ export default function RecordsPage({ records }: Props) {
         title={t("records_page.seo.title")}
         description={t("records_page.seo.description")}
       />
-      <h1>{t("records_page.playerRecords")}</h1>
       <PlayerRecords records={records} />
     </>
   );

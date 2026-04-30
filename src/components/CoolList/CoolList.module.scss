@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .list {
   display: flex;
   flex-direction: column;
@@ -21,7 +20,7 @@
       top: 56px;
       bottom: 12px;
       left: 19px;
-      border: 1px none common.$blueHighlight;
+      border: 1px none var(--ds-color-accent-blue);
       border-right-style: dashed;
       opacity: 0.35;
     }
@@ -30,7 +29,7 @@
   & h3 {
     margin-block-start: 0;
     margin-block-end: 8px;
-    color: common.$primaryTextHighlight;
+    color: var(--ds-color-text-strong);
     font-size: 2rem;
   }
 
@@ -43,9 +42,9 @@
 .step__content {
   padding: 16px 20px;
   margin-left: 20px;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
   flex: 1;
-  @include common.card;
+  @include m.card;
 }
 
 .step__num {
@@ -58,9 +57,9 @@
   height: 36px;
   font-size: 18px;
   font-weight: bold;
-  color: common.$blueHighlight;
-  border: 1px solid common.$blueHighlight3;
+  color: var(--ds-color-accent-blue);
+  border: 1px solid var(--ds-color-accent-blue-soft);
   border-radius: 4px;
-  background-color: common.$transparentTint;
+  background-color: var(--ds-color-accent-blue-tint-15);
   margin-top: 8px;
 }

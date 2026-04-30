@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .container {
   display: grid;
   grid-column-gap: 12px;
@@ -24,17 +23,24 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 
-  @include common.mobile {
+  @include m.mobile {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.teamSurface {
+  grid-column: span 4;
+
+  @include m.mobile {
+    order: 1;
   }
 }
 
 .teamTable {
   display: flex;
   flex-direction: column;
-  grid-column: span 4;
 
-  @include common.mobile {
+  @include m.mobile {
     order: 1;
   }
 }
@@ -49,7 +55,7 @@
     margin-top: 20px;
   }
 
-  @include common.mobile {
+  @include m.mobile {
     margin-top: 0 !important;
     padding: 8px;
   }
@@ -99,7 +105,7 @@
   background-repeat: no-repeat;
   grid-column: span 4;
 
-  @include common.mobile {
+  @include m.mobile {
     width: unset;
     height: 100dvw;
     margin: 0;
@@ -163,15 +169,15 @@
     filter: drop-shadow(1px 1px 0 #c0de15) drop-shadow(-1px -1px 0 #c0de15);
 
     & span {
-      border-color: common.$green;
+      border-color: var(--ds-color-accent-green);
     }
   }
 
   &.dire {
-    filter: drop-shadow(1px 1px 0 #c23c2a) drop-shadow(-1px -1px 0 #c23c2a);
+    filter: drop-shadow(1px 1px 0 var(--ds-color-accent-red)) drop-shadow(-1px -1px 0 var(--ds-color-accent-red));
 
     & span {
-      border-color: common.$red;
+      border-color: var(--ds-color-accent-red);
     }
   }
 
@@ -200,7 +206,7 @@
 
 .hp {
   & span {
-    background-color: common.$green;
+    background-color: var(--ds-color-accent-green);
   }
 }
 .mana {
@@ -250,10 +256,14 @@
   pointer-events: none;
 }
 
+.watchLiveSurface {
+  margin-top: 20px;
+  grid-column: span 12;
+}
+
 .watchLive {
   font-size: 1.4rem;
   text-align: center;
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -263,7 +273,7 @@
     width: 450px;
     margin: auto;
     & input {
-      color: common.$primaryTextHighlight;
+      color: var(--ds-color-text-strong);
     }
   }
 }
@@ -294,19 +304,19 @@
 .tower {
   width: 0.8rem;
   height: 0.8rem;
-  border: 1px solid common.$bg2;
+  border: 1px solid var(--ds-color-bg-elevated);
 }
 
 .barrack {
   width: 0.4rem;
   height: 0.4rem;
-  border: 1px solid common.$bg2;
+  border: 1px solid var(--ds-color-bg-elevated);
 }
 
 .ancient {
   width: 1.2rem;
   height: 1.2rem;
-  border: 2px solid common.$bg2;
+  border: 2px solid var(--ds-color-bg-elevated);
 }
 .building {
   position: absolute;
@@ -317,7 +327,7 @@
   }
 
   &__dire {
-    background-color: common.$red;
+    background-color: var(--ds-color-accent-red);
   }
 
   &__dead {

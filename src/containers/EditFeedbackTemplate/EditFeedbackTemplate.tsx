@@ -4,7 +4,6 @@ import { observer, useLocalObservable } from "mobx-react-lite";
 import { Button } from "@/components/Button";
 import { Checkbox } from "@/components/Checkbox";
 import { Input } from "@/components/Input";
-import { Panel } from "@/components/Panel";
 import { runInAction } from "mobx";
 import c from "./EditFeedbackTemplate.module.scss";
 import { getApi } from "@/api/hooks";
@@ -12,6 +11,7 @@ import { useRouter } from "next/router";
 import { Rubik } from "next/font/google";
 import cx from "clsx";
 import { useTranslation } from "react-i18next";
+import { Surface } from "@/components/Surface";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -118,7 +118,11 @@ export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
       }
     }, [router, temp, template]);
     return (
-      <Panel className={cx(c.form, threadFont.className)}>
+      <Surface
+        className={cx(c.form, threadFont.className)}
+        padding="xs"
+        variant="panel"
+      >
         <h3>{t("edit_feedback_template.tagInfo")}</h3>
         <Input
           value={temp.template.tag}
@@ -192,6 +196,6 @@ export const EditFeedbackTemplate: React.FC<IEditFeedbackTemplateProps> =
         <Button onClick={updateTemplate}>
           {t("edit_feedback_template.save")}
         </Button>
-      </Panel>
+      </Surface>
     );
   });

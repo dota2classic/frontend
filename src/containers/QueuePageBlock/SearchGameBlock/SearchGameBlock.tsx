@@ -9,12 +9,12 @@ import {
 // import c from "@/containers/NewQueuePage/NewQueuePage.module.scss";
 import c from "./SearchGameBlock.module.scss";
 import React from "react";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 export const SearchGameBlock = observer(() => {
   const queueGameState = useQueueState();
   return (
-    <QueuePageBlock>
+    <SectionBlock>
       {queueGameState === QueueGameState.NO_GAME && (
         <SearchGameButton visible={true} />
       )}
@@ -27,6 +27,6 @@ export const SearchGameBlock = observer(() => {
       {queueGameState === QueueGameState.SEARCHING_SERVER && (
         <ServerSearching className={c.gameReady} />
       )}
-    </QueuePageBlock>
+    </SectionBlock>
   );
 });

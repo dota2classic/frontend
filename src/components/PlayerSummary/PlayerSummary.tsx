@@ -31,13 +31,13 @@ import { hasSubscription, paidAction } from "@/util/subscription";
 import { Username } from "../Username/Username";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
-import { Panel } from "../Panel";
 import { PlayerAvatar } from "../PlayerAvatar";
 import { Tooltipable } from "../Tooltipable";
 import { PageLink } from "../PageLink";
 import { TimeAgo } from "../TimeAgo";
 import { BigTabs } from "../BigTabs";
 import { getApi } from "@/api/hooks";
+import { ActionChip } from "../ActionChip";
 
 interface IPlayerSummaryProps {
   className?: string;
@@ -211,180 +211,206 @@ export const PlayerSummary: React.FC<IPlayerSummaryProps> = observer(
     );
 
     return (
-      <div className={c.summary}>
-        <Panel
-          className={cx(className, c.panel)}
-          data-testid="player-summary-panel"
-        >
-          <div className={"left"}>
-            <div className={c.player}>
-              <PlayerAvatar
-                width={65}
-                height={65}
-                user={user}
-                alt={t("player_summary.avatarAlt", { name })}
-              />
-              <div className={c.playerAndRoles}>
+      <div className={cx(c.summary, className)}>
+        {/* ── BANNER ── */}
+        <div className={c.banner}>
+          <div className={c.bannerBody}>
+            {/* identity + actions */}
+            <div className={c.identityRow}>
+              <div className={c.avatarWrap}>
+                <PlayerAvatar
+                  className={c.avatar}
+                  width={80}
+                  height={80}
+                  user={user}
+                  alt={t("player_summary.avatarAlt", { name })}
+                />
+              </div>
+
+              <div className={c.identityMeta}>
+                <div
+                  className={cx(
+                    c.eyebrow,
+                    !session && !lastGameTimestamp && c.eyebrowHidden,
+                  )}
+                  aria-hidden={!session && !lastGameTimestamp}
+                >
+                  {session ? (
+                    <>
+                      <span className={c.eyebrowDot} />
+                      {t(
+                        `matchmaking_mode.${session.lobbyType}` as TranslationKey,
+                      )}
+                    </>
+                  ) : lastGameTimestamp ? (
+                    <>
+                      {t("player_summary.lastGame")}:{" "}
+                      {formatShortTime(new Date(lastGameTimestamp))}
+                    </>
+                  ) : (
+                    "\u00a0"
+                  )}
+                </div>
+
                 <Username
                   user={user}
                   className={cx(c.playerName, "link")}
-                  testId={"player-summary-player-name"}
+                  testId="player-summary-player-name"
                 />
-                <div className={cx(c.player, c.icons)}>
+
+                <div
+                  className={cx(
+                    c.banTag,
+                    !banStatus.isBanned && c.banTagHidden,
+                  )}
+                  aria-hidden={!banStatus.isBanned}
+                >
+                  {banStatus.isBanned ? (
+                    <>
+                      {t("player_summary.ban")}:{" "}
+                      <TimeAgo date={banStatus.bannedUntil} />
+                      {" · "}
+                      {t("player_summary.banReason", {
+                        reason: formatBanReason(banStatus.status),
+                      })}
+                    </>
+                  ) : (
+                    "\u00a0"
+                  )}
+                </div>
+
+                <div className={c.linksRow}>
                   <a
                     target="__blank"
-                    className={cx(c.externalLink, "link")}
+                    className={c.linkIcon}
                     href={`https://dotabuff.com/players/${steamId}`}
                   >
-                    <img className={c.icon} src="/dotabuff.png" alt="" />
+                    <img
+                      className={c.linkImg}
+                      src="/dotabuff.png"
+                      alt="Dotabuff"
+                    />
                   </a>
                   <a
                     target="__blank"
-                    className={cx(c.externalLink, "link")}
+                    className={c.linkIcon}
                     href={steamPage(steamId)}
                   >
-                    <FaSteam className={c.icon_svg} />
+                    <FaSteam />
                   </a>
                   {isOld && (
                     <Tooltipable
                       tooltip={t("player_summary.subscriberTooltip")}
                     >
-                      <img width={20} height={20} src="/logo/128.png" />
+                      <img width={18} height={18} src="/logo/128.png" alt="" />
                     </Tooltipable>
                   )}
                   {isModerator && (
                     <PageLink
-                      className={c.externalLink}
+                      className={c.linkIcon}
                       link={AppRouter.admin.player(steamId).link}
                     >
-                      <MdLocalPolice className={c.icon_svg} />
+                      <MdLocalPolice />
                     </PageLink>
                   )}
                   {twitchConnection && (
                     <a
                       target="__blank"
-                      className={cx(c.externalLink, "link", c.twitch)}
+                      className={cx(c.linkIcon, c.twitchLink)}
                       href={`https://twitch.tv/${twitchConnection.externalId}`}
                     >
-                      <FaTwitch className={c.icon_svg} />
-                      {twitchConnection.externalId}
+                      <FaTwitch />
+                      <span>{twitchConnection.externalId}</span>
                     </a>
-                  )}
-                  {isAuthorized && !isMyProfile && (
-                    <button
-                      className={cx(
-                        c.actionBtn,
-                        c.actionBtnDodge,
-                        isDodged && c.actionBtnDodgeActive,
-                      )}
-                      onClick={handleDodge}
-                    >
-                      <MdPersonOff />
-                      {t(
-                        isDodged
-                          ? "player_summary.undodge"
-                          : "player_summary.dodge",
-                      )}
-                    </button>
                   )}
                 </div>
               </div>
+
+              {isAuthorized && !isMyProfile && (
+                <div className={c.actions}>
+                  <ActionChip
+                    active={isFriend}
+                    onClick={handleFriend}
+                    variant={isFriend ? "success" : "neutral"}
+                  >
+                    {isFriend ? <MdPersonRemove /> : <MdPersonAdd />}
+                    {t(
+                      isFriend
+                        ? "player_summary.unfriend"
+                        : "player_summary.friend",
+                    )}
+                  </ActionChip>
+                  <ActionChip
+                    active={isDodged}
+                    onClick={handleDodge}
+                    variant="warning"
+                  >
+                    <MdPersonOff />
+                    {t(
+                      isDodged
+                        ? "player_summary.undodge"
+                        : "player_summary.dodge",
+                    )}
+                  </ActionChip>
+                  <ActionChip
+                    active={isBlocked}
+                    onClick={handleBlock}
+                    variant={isBlocked ? "danger" : "neutral"}
+                  >
+                    <MdBlock />
+                    {t(
+                      isBlocked
+                        ? "player_summary.unblock"
+                        : "player_summary.block",
+                    )}
+                  </ActionChip>
+                </div>
+              )}
+            </div>
+
+            {/* ── METRICS STRIP ── */}
+            <div className={c.metricsStrip}>
+              <div className={c.metricItem} data-testid="player-summary-rating">
+                <div className={c.metricVal}>{mmr ?? "—"}</div>
+                <div className={c.metricLbl}>{t("player_summary.rating")}</div>
+              </div>
+              <div className={c.metricItem} data-testid="player-summary-rank">
+                <div className={c.metricVal}>
+                  {rank && rank > 0 ? `#${rank}` : "—"}
+                </div>
+                <div className={c.metricLbl}>{t("player_summary.rank")}</div>
+              </div>
+              <div
+                className={c.metricItem}
+                data-testid="player-summary-winrate"
+              >
+                <div className={cx(c.metricVal, wins > loss ? "green" : "red")}>
+                  {formatWinrate(wins, loss)}
+                </div>
+                <div className={c.metricLbl}>{t("player_summary.winRate")}</div>
+              </div>
+              <div
+                className={c.metricItem}
+                data-testid="player-summary-win-loss"
+              >
+                <div className={c.metricVal}>
+                  <span className="green">{wins}</span>
+                  <span className={c.metricSep}>/</span>
+                  <span className="red">{loss}</span>
+                  {abandons > 0 && (
+                    <>
+                      <span className={c.metricSep}>/</span>
+                      <span className="grey">{abandons}</span>
+                    </>
+                  )}
+                </div>
+                <div className={c.metricLbl}>{t("player_summary.matches")}</div>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className={"right"}>
-            {session && (
-              <dl data-testid="player-summary-last-game">
-                <dd>
-                  <PageLink
-                    link={AppRouter.matches.match(session.matchId).link}
-                  >
-                    {t(
-                      `matchmaking_mode.${session.lobbyType}` as TranslationKey,
-                    )}
-                  </PageLink>
-                </dd>
-                <dt>{t("player_summary.matchPlaying")}</dt>
-              </dl>
-            )}
-            {lastGameTimestamp && (
-              <dl data-testid="player-summary-last-game">
-                <dd>{formatShortTime(new Date(lastGameTimestamp))}</dd>
-                <dt>{t("player_summary.lastGame")}</dt>
-              </dl>
-            )}
-            {banStatus.isBanned && (
-              <dl data-testid="player-summary-win-loss">
-                <Tooltipable
-                  tooltip={t("player_summary.banReason", {
-                    reason: formatBanReason(banStatus.status),
-                  })}
-                >
-                  <dd>
-                    <TimeAgo date={banStatus.bannedUntil} />
-                  </dd>
-                </Tooltipable>
-                <dt>{t("player_summary.ban")}</dt>
-              </dl>
-            )}
-            <dl className={c.games} data-testid="player-summary-win-loss">
-              <Tooltipable tooltip={t("player_summary.winLossTooltip")}>
-                <dd>
-                  <span className="green">{wins}</span>
-                  <span className="red">{loss}</span>
-                  <span className="grey">{abandons}</span>
-                </dd>
-              </Tooltipable>
-              <dt>{t("player_summary.matches")}</dt>
-            </dl>
-            <dl data-testid="player-summary-winrate">
-              <dd className={wins > loss ? "green" : "red"}>
-                {formatWinrate(wins, loss)}
-              </dd>
-              <dt>{t("player_summary.winRate")}</dt>
-            </dl>
-            <dl data-testid="player-summary-rating">
-              <dd>{mmr ? <span>{mmr}</span> : t("player_summary.noRating")}</dd>
-              <dt>{t("player_summary.rating")}</dt>
-            </dl>
-            <dl data-testid="player-summary-rank">
-              <dd>
-                {rank && rank > 0 ? (
-                  <span>{rank}</span>
-                ) : (
-                  t("player_summary.noRank")
-                )}
-              </dd>
-              <dt>{t("player_summary.rank")}</dt>
-            </dl>
-            {isAuthorized && !isMyProfile && (
-              <div className={c.actionStack}>
-                <button
-                  className={cx(c.actionBtn, isFriend && c.actionBtnFriend)}
-                  onClick={handleFriend}
-                >
-                  {isFriend ? <MdPersonRemove /> : <MdPersonAdd />}
-                  {t(
-                    isFriend
-                      ? "player_summary.unfriend"
-                      : "player_summary.friend",
-                  )}
-                </button>
-                <button
-                  className={cx(c.actionBtn, isBlocked && c.actionBtnBlock)}
-                  onClick={handleBlock}
-                >
-                  <MdBlock />
-                  {t(
-                    isBlocked
-                      ? "player_summary.unblock"
-                      : "player_summary.block",
-                  )}
-                </button>
-              </div>
-            )}
-          </div>
-        </Panel>
+        {/* ── TABS ── */}
         <BigTabs<PlayerPage>
           className={c.tabs}
           flavor="small"

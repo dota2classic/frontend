@@ -4,7 +4,7 @@
     "launchSearch": "Отличный повод запустить поиск!",
     "mode": "Режим",
     "matchId": "Матч {{matchId}}",
-    "score": "Счет:",
-    "duration": "Время:"
+    "score": "Счет",
+    "duration": "Время"
   }
 }

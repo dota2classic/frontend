@@ -1,0 +1,20 @@
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lead {
+  margin: 0;
+  color: var(--ds-color-text-muted);
+  line-height: 1.55;
+  font-size: 1rem;
+}

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { TournamentBracketDto } from "@/containers/BracketRenderer/types";
 import Head from "next/head";
 import c from "./BracketRenderer.module.scss";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import "react-datepicker/dist/react-datepicker.css";
 
 import {
@@ -78,7 +78,9 @@ export const BracketRenderer: React.FC<IBracketRendererProps> = ({
     bracket.match,
     bracket.match_game,
     bracket.participant,
+    onMatchClick,
     uniqueId,
+    viewer,
   ]);
 
   return (
@@ -96,8 +98,8 @@ export const BracketRenderer: React.FC<IBracketRendererProps> = ({
         src="/brackets-viewer.min.js"
       ></script>
 
-      <QueuePageBlock
-        heading={t("tournament.common.bracket")}
+      <SectionBlock
+        title={t("tournament.common.bracket")}
         className={c.wrapper}
       >
         {match && admin && (
@@ -114,7 +116,7 @@ export const BracketRenderer: React.FC<IBracketRendererProps> = ({
           />
         )}
         <div className="brackets-viewer" id={uniqueId} />
-      </QueuePageBlock>
+      </SectionBlock>
     </>
   );
 };

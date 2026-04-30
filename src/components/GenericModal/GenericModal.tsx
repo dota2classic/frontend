@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useRef } from "react";
+import React, { ReactNode, useCallback, useRef, useEffect, useId } from "react";
 
 import c from "./GenericModal.module.scss";
 import cx from "clsx";
@@ -22,30 +22,59 @@ export const GenericModal = React.forwardRef<HTMLDivElement, AllProps>(
     ref,
   ) {
     const comp = useRef<HTMLDivElement | null>(null);
+    const titleId = useId();
 
     const close = useCallback(
-      (e: MouseEvent | React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
+      (e: React.MouseEvent | MouseEvent | KeyboardEvent) => {
+        if (e instanceof Event) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         onClose();
       },
       [onClose],
     );
 
+    useEffect(() => {
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === "Escape") close(e);
+      };
+      document.addEventListener("keydown", onKey);
+      return () => document.removeEventListener("keydown", onKey);
+    }, [close]);
+
+    const handleBackdropClick = useCallback(
+      (e: React.MouseEvent) => {
+        if (e.target === e.currentTarget) close(e);
+      },
+      [close],
+    );
+
     return (
-      <div {...props} ref={ref} className={cx(className, c.modalWrapper)}>
-        <div className="modal" ref={comp}>
+      <div
+        {...props}
+        ref={ref}
+        className={cx(className, c.modalWrapper)}
+        onClick={handleBackdropClick}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+      >
+        <div className="modal" ref={comp} onClick={(e) => e.stopPropagation()}>
           <div className={cx(c.header, "modal__header")}>
             {Header ? (
               <Header />
             ) : (
-              <span className={c.header__title}>{title}</span>
+              <span className={c.header__title} id={titleId}>
+                {title}
+              </span>
             )}
-            <button className={c.header__closeIcon_button}>
-              <IoMdClose
-                className={cx(c.header__closeIcon, "close_modal")}
-                onClick={close}
-              />
+            <button
+              className={c.header__closeIcon_button}
+              onClick={close}
+              aria-label="Close dialog"
+            >
+              <IoMdClose className={cx(c.header__closeIcon, "close_modal")} />
             </button>
           </div>
           <div className={cx(c.content, "modal__content")}>

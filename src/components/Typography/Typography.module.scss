@@ -1,9 +1,8 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .header {
   font-size: 1.8rem;
 
-  @include common.mobile {
+  @include m.mobile {
     font-size: 1.2rem;
     margin-inline-start: 10px;
     margin-block-end: 10px;
@@ -11,9 +10,9 @@
 }
 
 .radiant {
-  color: common.$green;
+  color: var(--ds-color-accent-green);
 }
 
 .dire {
-  color: common.$red;
+  color: var(--ds-color-accent-red);
 }

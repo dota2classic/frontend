@@ -1,6 +1,3 @@
-@use "../../common.scss";
-
-
 .matchWinner {
   margin-top: 20px;
   display: flex;
@@ -29,9 +26,9 @@
 }
 
 .radiant {
-  color: common.$green;
+  color: var(--ds-color-accent-green);
 }
 
 .dire {
-  color: common.$red;
+  color: var(--ds-color-accent-red);
 }

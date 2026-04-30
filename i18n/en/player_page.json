@@ -4,7 +4,13 @@
       "title": "Profile {{username}}",
       "description": "Profile and gaming statistics of player {{username}}"
     },
-    "summary": "Achievements",
-    "topHeroes": "Best heroes"
+    "achievements": "Achievements",
+    "seasonStats": "Season Stats",
+    "topHeroes": "Best Heroes",
+    "tag": {
+      "progress": "Progress",
+      "season": "Season",
+      "heroes": "Heroes"
+    }
   }
 }

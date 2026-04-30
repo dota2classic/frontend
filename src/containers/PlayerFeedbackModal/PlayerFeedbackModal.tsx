@@ -1,11 +1,10 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback } from "react";
 import { MatchReportInfoDto, PlayerAspect, PlayerInMatchDto } from "@/api/back";
 import { GenericModal } from "@/components/GenericModal";
 import { UserPreview } from "@/components/UserPreview";
 import c from "./PlayerFeedbackModal.module.scss";
 import { formatPlayerAspect } from "@/util/gamemode";
 import cx from "clsx";
-import { GreedyFocusPriority, useGreedyFocus } from "@/util/useTypingCallback";
 import { getApi } from "@/api/hooks";
 import { useStore } from "@/store";
 import { observer } from "mobx-react-lite";
@@ -24,9 +23,6 @@ export const PlayerFeedbackModal: React.FC<IPlayerReportModalProps> = observer(
   ({ player, matchId, onClose, onReport }) => {
     const { auth } = useStore();
     const { t } = useTranslation();
-
-    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-    useGreedyFocus(GreedyFocusPriority.REPORT_MODAL, textareaRef);
 
     const report = useCallback(
       async (aspect: PlayerAspect) => {

@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 
 import c from "./EditProfileDecorations.module.scss";
 import { Message } from "@/components/Message";
-import { Panel } from "@/components/Panel";
 import cx from "clsx";
 import { NotoSans } from "@/const/notosans";
 import {
@@ -17,6 +16,7 @@ import { SelectImageDecoration } from "./SelectImageDecoration";
 import { SelectTextDecoration } from "./SelectTextDecoration";
 import { paidAction } from "@/util/subscription";
 import { useTranslation } from "react-i18next";
+import { Surface } from "@/components/Surface";
 
 interface IEditProfileDecorationsProps {
   user: UserDTO;
@@ -59,7 +59,11 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
 
     return (
       <>
-        <Panel className={cx(c.panel, c.decorations, NotoSans.className)}>
+        <Surface
+          className={cx(c.panel, c.decorations, NotoSans.className)}
+          padding="xs"
+          variant="panel"
+        >
           <Message
             header={true}
             message={{
@@ -116,7 +120,7 @@ export const EditProfileDecorations: React.FC<IEditProfileDecorationsProps> =
               />
             </div>
           </div>
-        </Panel>
+        </Surface>
       </>
     );
   });

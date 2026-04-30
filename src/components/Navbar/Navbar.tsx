@@ -5,31 +5,42 @@ import { AppRouter } from "@/route";
 import { getApi } from "@/api/hooks";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
-import { IoMenu, IoNewspaper } from "react-icons/io5";
+import { IoMenu } from "react-icons/io5";
 import cx from "clsx";
 import { useRouterChanging } from "@/util/useRouterChanging";
 import { LoginProfileNavbarItem } from "./LoginProfileNavbarItem";
 import { MetaNavbarItem } from "./MetaNavbarItem";
 import { AdminNavbarItem } from "./AdminNavbarItem";
 import { FaPeopleGroup } from "react-icons/fa6";
-import { MdGavel } from "react-icons/md";
-import { FaCoins, FaExclamation, FaJournalWhills } from "react-icons/fa";
+import { MdGavel, MdUpdate } from "react-icons/md";
+import { FaCoins, FaJournalWhills } from "react-icons/fa";
 import { IoMdContacts, IoMdHelp } from "react-icons/io";
 import { GiFist } from "react-icons/gi";
 import { AiOutlineTeam } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 import { NavbarItem } from "../NavbarItem";
-import { Logo } from "../Logo";
+import { BrandLogo } from "../BrandLogo";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 
-export const Navbar = observer(function Navbar(p: { className?: string }) {
+export const Navbar = observer(function Navbar(p: {
+  className?: string;
+  overlay?: boolean;
+}) {
   const { t } = useTranslation();
   const { auth, live } = useStore();
   const { isAdmin, isModerator } = auth;
   const isAuthorized = auth.isAuthorized;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { overlay } = p;
 
   const [changing] = useRouterChanging();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (changing && menuOpen) setMenuOpen(false);
@@ -53,15 +64,21 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
       : false;
 
   return (
-    <div className={cx(c.navbar, p.className)}>
+    <div
+      className={cx(
+        c.navbar,
+        overlay && c.navbarOverlay,
+        scrolled && c.navbarScrolled,
+        p.className,
+      )}
+    >
       <div className={c.navbarInner}>
         <ul className={c.navbarList}>
           <NavbarItem
             className={cx(c.root, "onboarding-logo")}
             action={AppRouter.index.link}
           >
-            <Logo />
-            <span>{t("navbar.dota2classic")}</span>
+            <BrandLogo />
           </NavbarItem>
           <div className={cx(c.navbarList__desktop, menuOpen && c.visible)}>
             {(isAuthorized && (
@@ -73,6 +90,11 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                     Icon: FaPeopleGroup,
                     label: t("navbar.lobby"),
                     action: AppRouter.lobby.index.link,
+                  },
+                  {
+                    Icon: AiOutlineTeam,
+                    label: t("navbar.tournaments"),
+                    action: AppRouter.tournament.index.link,
                   },
                   {
                     newCategory: true,
@@ -100,13 +122,23 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                 {t("navbar.howToPlay")}
               </NavbarItem>
             )}
-            <NavbarItem tip={"!"} action={AppRouter.tournament.index.link}>
-              {t("navbar.tournaments")}
+            <NavbarItem
+              tip={newBlogRecently ? "!" : undefined}
+              action={AppRouter.blog.index.link}
+              options={[
+                {
+                  Icon: MdUpdate,
+                  label: "Patch 6.84d",
+                  action: AppRouter.static.changelog.patch("684d").link,
+                },
+              ]}
+            >
+              {t("navbar.news")}
             </NavbarItem>
             <MetaNavbarItem />
             <NavbarItem
               className={c.play}
-              action={AppRouter.forum.index().link}
+              action={AppRouter.info.link}
               options={[
                 {
                   Icon: IoMdHelp,
@@ -118,20 +150,8 @@ export const Navbar = observer(function Navbar(p: { className?: string }) {
                   label: t("navbar.complaints"),
                   action: AppRouter.forum.report.index().link,
                 },
-              ]}
-            >
-              {t("navbar.forum")}
-            </NavbarItem>
-            <NavbarItem
-              className={c.play}
-              action={AppRouter.info.link}
-              options={[
                 {
-                  Icon: newBlogRecently ? FaExclamation : IoNewspaper,
-                  label: t("navbar.news"),
-                  action: AppRouter.blog.index.link,
-                },
-                {
+                  newCategory: true,
                   Icon: AiOutlineTeam,
                   label: t("navbar.vacancies"),
                   action: AppRouter.vacancies.link,

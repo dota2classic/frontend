@@ -4,14 +4,14 @@ import { getApi } from "@/api/hooks";
 import { RecordCard, RecordCardPlaceholder } from "@/components/RecordCard";
 import c from "./DailyMatchRecordCarousel.module.scss";
 import { useTranslation } from "react-i18next";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 export const DailyMatchRecordCarousel: React.FC = ({}) => {
   const { data } = getApi().record.useRecordControllerRecords();
   const { t } = useTranslation();
   if (!data) return null;
   return (
-    <QueuePageBlock heading={t("queue_page.section.day_records")}>
+    <SectionBlock title={t("queue_page.section.day_records")}>
       <AutoCarousel interval={15000}>
         {data.day.map((record) =>
           record.match ? (
@@ -27,6 +27,6 @@ export const DailyMatchRecordCarousel: React.FC = ({}) => {
           ),
         )}
       </AutoCarousel>
-    </QueuePageBlock>
+    </SectionBlock>
   );
 };

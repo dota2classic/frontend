@@ -18,11 +18,11 @@ import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { HeroPerformanceTable } from "@/components/HeroPerformanceTable";
 import { PlayerPentagonStats } from "@/components/PlayerPentagonStats";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
-import { Panel } from "@/components/Panel";
 import { AchievementStatus } from "@/components/AchievementStatus";
+import { Surface } from "@/components/Surface";
 
 interface PlayerPageProps {
   playerId: string;
@@ -66,6 +66,7 @@ export default function PlayerPage({
         })}
         image={summary.user.avatar}
       />
+
       <PlayerSummary
         session={summary.session}
         banStatus={summary.banStatus}
@@ -76,31 +77,33 @@ export default function PlayerPage({
         mmr={summary.seasonStats.mmr}
       />
 
-      <QueuePageBlock
+      <SectionBlock
         className={c.achievements_panel}
-        heading={t("player_page.summary")}
+        title={t("player_page.achievements")}
       >
-        <Panel className={c.achievements_carousel}>
+        <Surface
+          className={c.achievements_carousel}
+          padding="xs"
+          variant="panel"
+        >
           {achievements
             .sort((a, b) => {
               function score(d: AchievementDto) {
                 let base = d.isComplete ? 1000000 : 0;
                 base += d.progress / d.checkpoints[d.checkpoints.length - 1];
-
                 return base;
               }
-
               return score(b) - score(a);
             })
             .map((t) => (
               <AchievementStatus key={t.key} achievement={t} />
             ))}
-        </Panel>
-      </QueuePageBlock>
+        </Surface>
+      </SectionBlock>
 
-      <QueuePageBlock
+      <SectionBlock
         className={c.matchHistory}
-        heading={t("player_page.summary")}
+        title={t("player_page.seasonStats")}
       >
         <PlayerPentagonStats
           games={summary.seasonStats.gamesPlayed}
@@ -112,11 +115,12 @@ export default function PlayerPage({
           playtime={summary.seasonStats.playtime}
           wins={summary.seasonStats.wins}
         />
-      </QueuePageBlock>
-      <QueuePageBlock
-        heading={t("player_page.topHeroes")}
+      </SectionBlock>
+
+      <SectionBlock
+        title={t("player_page.topHeroes")}
         className={c.heroPerformance}
-        icons={
+        actions={
           <PageLink link={AppRouter.players.player.heroes(playerId).link}>
             {t("tables.showAll")}
           </PageLink>
@@ -127,20 +131,8 @@ export default function PlayerPage({
           loading={false}
           data={formattedHeroStats}
         />
-      </QueuePageBlock>
-      {/*<Section className={c.heroPerformance}>*/}
-      {/*  <header data-testid="player-hero-performance-header">*/}
-      {/*    <span>{t("player_page.topHeroes")}</span>*/}
-      {/*    <PageLink link={AppRouter.players.player.heroes(playerId).link}>*/}
-      {/*      {t("tables.showAll")}*/}
-      {/*    </PageLink>*/}
-      {/*  </header>*/}
-      {/*  <HeroPerformanceTable*/}
-      {/*    steamId={playerId}*/}
-      {/*    loading={false}*/}
-      {/*    data={formattedHeroStats}*/}
-      {/*  />*/}
-      {/*</Section>*/}
+      </SectionBlock>
+
       <LazyPaginatedThread
         startLatest
         className={c.thread}

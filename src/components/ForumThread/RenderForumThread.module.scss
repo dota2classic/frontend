@@ -1,9 +1,6 @@
-@use "../../common.scss";
-
-
 .empty {
   padding: 16px 0 !important;
-  color: #999999;
+  color: var(--ds-color-text-dim);
   font-size: 1.2rem !important;
   line-height: 16px;
   text-align: center !important;

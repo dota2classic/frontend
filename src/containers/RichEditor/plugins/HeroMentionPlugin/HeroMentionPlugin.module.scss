@@ -1,5 +1,4 @@
-@use "../../../../common.scss";
-
+@use "../../../../styles/mixins.scss" as m;
 .heroEmbed {
   display: flex;
   flex-direction: row;
@@ -15,7 +14,7 @@
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
-    @include common.mobile {
+    @include m.mobile {
       max-width: 120px;
     }
   }

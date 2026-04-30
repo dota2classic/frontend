@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .heroEmbed {
-  @include common.forum-entity-embed;
+  @include m.forum-entity-embed;
 }

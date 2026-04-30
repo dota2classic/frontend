@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .image {
   position: absolute;
   left: 0;
@@ -12,7 +11,7 @@
   height: 100%;
 }
 .card {
-  @include common.box();
+  box-shadow: var(--ds-shadow-card);
 
   grid-column: span 1;
   grid-row: span 1;
@@ -20,7 +19,7 @@
   justify-items: center;
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid #555;
+  border-bottom: 2px solid var(--ds-color-border-subtle);
 
   height: 300px;
   background-size: cover;
@@ -34,14 +33,14 @@
     height: 240px;
   }
 
-  @include common.mobile {
+  @include m.mobile {
     height: 140px;
   }
 
   &:hover,
   &__hovered {
     transform: scale(1.02);
-    border-color: common.$blueHighlight;
+    border-color: var(--ds-color-accent-blue);
 
     & .shadow {
       transform: scaleY(2);
@@ -57,16 +56,16 @@
 
   & h3 {
     margin: auto;
-    color: common.$primaryTextHighlight;
+    color: var(--ds-color-text-strong);
 
-    @include common.mobile {
+    @include m.mobile {
       font-size: 12px;
     }
   }
 
   & h4 {
-    color: common.$primaryTextDark;
-    @include common.mobile {
+    color: var(--ds-color-text-dim);
+    @include m.mobile {
       margin-block-start: 0;
       margin-block-end: 1rem;
       font-size: 10px;
@@ -101,7 +100,7 @@
   right: 0;
   padding: 12px 16px;
 
-  @include common.mobile {
+  @include m.mobile {
     padding: 0px 6px;
   }
 }
@@ -112,9 +111,9 @@
   transform: translateY(20px);
   overflow: hidden;
   transition: 0.3s ease;
-  color: common.$primaryText;
+  color: var(--ds-color-text-primary);
 
-  @include common.mobile {
+  @include m.mobile {
     font-size: 12px;
   }
 }
@@ -125,7 +124,7 @@
     border-radius: 50%;
     width: 10px;
     height: 10px;
-    background-color: common.$error;
+    background-color: var(--ds-color-danger);
     display: inline-block;
     margin-right: 4px;
   }

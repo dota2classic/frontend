@@ -1,17 +1,21 @@
-@use "../../common.scss";
-
-
 .container {
-
 }
 
+.banField {
+  flex: 1;
+}
+
+.banRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 
 .active {
-  color: common.$red;
+  color: var(--ds-color-accent-red);
 }
 
 .inactive {
   //color: $pr
 }
-
-

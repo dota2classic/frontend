@@ -13,7 +13,7 @@ import { useStore } from "@/store";
 import { makeSimpleToast } from "@/components/Toast";
 import { observer } from "mobx-react-lite";
 import { IoMdExit } from "react-icons/io";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 
 export const PartyInfo: React.FC = observer(() => {
   const { t } = useTranslation();
@@ -41,9 +41,8 @@ export const PartyInfo: React.FC = observer(() => {
   const partyPlayers: PartyMemberDTO[] = party?.players || [];
 
   return (
-    <QueuePageBlock
-      heading={t("queue_page.section.party")}
-      icons={
+    <SectionBlock
+      actions={
         queue.partySize > 1 ? (
           <>
             <Tooltipable tooltip={t("queue_party_info.leaveGroup")}>
@@ -52,6 +51,7 @@ export const PartyInfo: React.FC = observer(() => {
           </>
         ) : undefined
       }
+      title={t("queue_page.section.party")}
     >
       <div className={c.info}>
         {inviteOpen &&
@@ -100,6 +100,6 @@ export const PartyInfo: React.FC = observer(() => {
           </Tooltipable>
         </div>
       </div>
-    </QueuePageBlock>
+    </SectionBlock>
   );
 });

@@ -1,5 +1,4 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .createMessageContainer {
   display: flex;
   flex-direction: column;
@@ -8,7 +7,7 @@
 
 .createMessage {
   position: relative;
-  background-color: common.$bg3;
+  background-color: var(--ds-color-bg-interactive);
   border-radius: 8px;
   display: flex;
   flex-direction: row;
@@ -28,7 +27,7 @@
       //padding: 12px;
       //border-radius: 8px;
       //transition: 0.3s ease;
-      color: common.$primaryText !important;
+      color: var(--ds-color-text-primary) !important;
       border: none;
       outline: none;
       background-color: transparent !important;
@@ -41,7 +40,7 @@
   & .markdown {
     display: inline-block;
     align-self: flex-start;
-    color: common.$primaryTextDark;
+    color: var(--ds-color-text-dim);
     width: unset;
   }
 
@@ -70,13 +69,13 @@
 
     & svg {
       font-size: 1.4rem;
-      color: common.$primaryTextTint;
+      color: var(--ds-color-text-tint);
       transition: 0.3s ease;
     }
 
     &:hover {
       & svg {
-        color: common.$gold;
+        color: var(--ds-color-accent-gold);
         transform: rotateZ(-5deg);
       }
     }
@@ -86,7 +85,7 @@
 .test {
   grid-column: span 23;
   grid-row: span 1;
-  color: common.$red;
+  color: var(--ds-color-accent-red);
   transition: 0.3s ease;
 
   height: 0;
@@ -122,14 +121,14 @@
 
     &:hover {
       transform: scale(1.1);
-      color: common.$red;
+      color: var(--ds-color-accent-red);
     }
   }
 }
 
 .suggestion_list {
-  background-color: common.$bg2;
-  @include common.box();
+  background-color: var(--ds-color-bg-elevated);
+  @include m.box();
   width: 400px;
   max-height: 400px;
   display: flex;
@@ -145,5 +144,5 @@
 }
 
 .focused {
-  background-color: common.$blueHighlight3;
+  background-color: var(--ds-color-accent-blue-soft);
 }

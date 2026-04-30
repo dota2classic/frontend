@@ -9,7 +9,7 @@ import { PlayerSummary } from "@/components/PlayerSummary";
 import { TeammatesTable } from "@/components/TeammatesTable";
 import { ScrollDetector } from "@/components/ScrollDetecter";
 import { EmbedProps } from "@/components/EmbedProps";
-import { QueuePageBlock } from "@/containers/QueuePageBlock/QueuePageBlock";
+import { SectionBlock } from "@/components/SectionBlock";
 import c from "./PlayerPage.module.scss";
 
 interface Props {
@@ -68,15 +68,15 @@ export default function PlayerTeammates({
           player: summary.user.name,
         })}
       />
-      <QueuePageBlock
+      <SectionBlock
         className={c.fullwidth}
-        heading={t("player_teammates.header")}
+        title={t("player_teammates.header")}
       >
         <TeammatesTable
           data={Object.values(totalData).flatMap((it) => it.data)}
         />
         <ScrollDetector onScrolledTo={onScrollToEnd} />
-      </QueuePageBlock>
+      </SectionBlock>
     </div>
   );
 }

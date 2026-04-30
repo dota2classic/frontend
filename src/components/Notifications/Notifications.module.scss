@@ -1,5 +1,3 @@
-@use '../../common.scss';
-
 .container {
   position: fixed;
 
@@ -15,8 +13,8 @@
 }
 
 .notification {
-  color: common.$primaryText;
-  background: common.$evenDarkerBg;
+  color: var(--ds-color-text-primary);
+  background: var(--ds-color-bg-deep);
   padding: 15px;
 }
 

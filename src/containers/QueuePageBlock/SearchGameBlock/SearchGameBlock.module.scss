@@ -1,11 +1,9 @@
-@use "../../../common";
-
 .gameReady {
-  background: common.$bg2;
+  background: var(--ds-color-bg-elevated);
   margin: 0;
 
   //border: 1px solid #4e4d4d;
-  border: 2px solid common.$primaryTextDark;
+  border: 2px solid var(--ds-color-text-dim);
   border-radius: 6px;
   padding: 8px 12px;
 

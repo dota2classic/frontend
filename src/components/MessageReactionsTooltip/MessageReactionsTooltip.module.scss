@@ -1,13 +1,12 @@
-@use "../../common.scss";
-
+@use "../../styles/mixins.scss" as m;
 .tooltip {
-  @include common.box;
+  @include m.box;
   display: flex;
   flex-direction: column;
   padding: 4px;
   border-radius: 4px;
   gap: 2px;
-  background-color: common.$bg2;
+  background-color: var(--ds-color-bg-elevated);
 }
 
 .reacted {
@@ -30,7 +29,7 @@
 
 
 .emoticon {
-  border-bottom: 1px solid common.$transparentTint;
+  border-bottom: 1px solid var(--ds-color-accent-blue-tint-15);
   padding-bottom: 4px;
   margin-bottom: 4px;
   align-items: center;
@@ -38,7 +37,7 @@
   flex-direction: row;
 
   & span {
-    color: common.$primaryTextSemiDark;
+    color: var(--ds-color-text-muted);
   }
 
   & img {

@@ -2,23 +2,54 @@ import React from "react";
 
 import c from "./LiveMatchPage.module.scss";
 import { AppRouter } from "@/route";
-import { spectateUrl, watchCmd } from "@/util/urls";
-import { Button } from "@/components/Button";
+import { spectateUrl } from "@/util/urls";
+import { DotaGameRulesState, LiveMatchDto } from "@/api/back";
 import { observer } from "mobx-react-lite";
-import { LiveMatchDto } from "@/api/back";
 import { useStore } from "@/store";
 import { getLobbyTypePriority } from "@/util/getLobbyTypePriority";
 import { useTranslation } from "react-i18next";
+import { Button } from "@/components/Button";
 import { PageLink } from "@/components/PageLink";
-import { Panel } from "@/components/Panel";
 import { SmallLiveMatch } from "@/components/LiveMatchPreview";
 import { Duration } from "@/components/Duration";
-import { CopySomething } from "@/components/CopySomething";
-import { Input } from "@/components/Input";
+import { Surface } from "@/components/Surface";
+import { Badge, BadgeVariant } from "@/components/Badge";
 
 interface ILiveMatchPageProps {
   games: LiveMatchDto[];
 }
+
+const getGameStateToneClass = (state: DotaGameRulesState): string => {
+  switch (state) {
+    case DotaGameRulesState.GAME_IN_PROGRESS:
+      return c.stateLive;
+    case DotaGameRulesState.PRE_GAME:
+    case DotaGameRulesState.HERO_SELECTION:
+    case DotaGameRulesState.STRATEGY_TIME:
+      return c.stateSetup;
+    case DotaGameRulesState.POST_GAME:
+    case DotaGameRulesState.DISCONNECT:
+      return c.stateEnded;
+    default:
+      return c.stateMuted;
+  }
+};
+
+const getGameStateBadgeVariant = (state: DotaGameRulesState): BadgeVariant => {
+  switch (state) {
+    case DotaGameRulesState.GAME_IN_PROGRESS:
+      return "green";
+    case DotaGameRulesState.PRE_GAME:
+    case DotaGameRulesState.HERO_SELECTION:
+    case DotaGameRulesState.STRATEGY_TIME:
+      return "blue";
+    case DotaGameRulesState.POST_GAME:
+    case DotaGameRulesState.DISCONNECT:
+      return "red";
+    default:
+      return "grey";
+  }
+};
 
 export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
   ({ games }) => {
@@ -52,61 +83,90 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
             const dScore = liveMatch.heroes
               .filter((t) => t.team === 3)
               .reduce((a, b) => a + (b.heroData?.kills || 0), 0);
+            const matchLink = AppRouter.matches.match(liveMatch.matchId).link;
+
             return (
-              <Panel key={liveMatch.matchId} className={c.preview}>
-                <PageLink
-                  link={AppRouter.matches.match(liveMatch.matchId).link}
-                >
+              <Surface
+                key={liveMatch.matchId}
+                className={c.preview}
+                padding="md"
+                variant="raised"
+                interactive
+              >
+                <PageLink link={matchLink} className={c.minimapLink}>
                   <SmallLiveMatch match={liveMatch} />
                 </PageLink>
                 <div className={c.matchInfo}>
-                  <h3>
-                    <PageLink
-                      link={AppRouter.matches.match(liveMatch.matchId).link}
-                      className="link"
-                    >
-                      {t("live_match_page.matchId", {
-                        matchId: liveMatch.matchId,
-                      })}
-                      {" - "}
-                      {t(`game_state.${liveMatch.gameState}`)}
-                    </PageLink>
-                  </h3>
-                  <div className={c.info}>
-                    Режим: {t(`matchmaking_mode.${liveMatch.matchmakingMode}`)},{" "}
-                    {t(`game_mode.${liveMatch.gameMode}`)}
-                  </div>
-                  <div className={c.info}>
-                    {t("live_match_page.score")}{" "}
-                    <span className="green">{rScore}</span> :{" "}
-                    <span className="red">{dScore}</span>
-                  </div>
-                  <div className={c.info}>
-                    {t("live_match_page.duration")}{" "}
-                    <Duration clock duration={liveMatch.duration} />
-                  </div>
-                  <div className={c.watchActions}>
-                    <Button
-                      link
-                      href={spectateUrl(liveMatch.matchId)}
-                      target="_blank"
-                      variant="primary"
-                      small
-                    >
-                      {t("live_match.watchWithLauncher")}
-                    </Button>
-                    <CopySomething
-                      something={watchCmd(liveMatch.server)}
-                      placeholder={
-                        <Input
-                          value={watchCmd(liveMatch.server)}
-                          readOnly={true}
-                        />
-                      }
-                    />
+                  <div className={c.headerRow}>
+                    <div className={c.headerCopy}>
+                      <div className={c.headerMeta}>
+                        <Badge
+                          variant={getGameStateBadgeVariant(
+                            liveMatch.gameState,
+                          )}
+                          className={`${c.stateLabel} ${getGameStateToneClass(
+                            liveMatch.gameState,
+                          )}`}
+                        >
+                          {t(`game_state.${liveMatch.gameState}`)}
+                        </Badge>
+                        <Badge variant="grey" className={c.matchCodeBadge}>
+                          {t("live_match_page.matchId", {
+                            matchId: liveMatch.matchId,
+                          })}
+                        </Badge>
+                      </div>
+                      <div className={c.metricsRow}>
+                        <div className={c.metricsInline}>
+                          <div className={c.metricInline}>
+                            <span className={c.statLabel}>
+                              {t("live_match_page.score")}
+                            </span>
+                            <span className={c.scoreValue}>
+                              <span className={c.radiantScore}>{rScore}</span>
+                              <span className={c.scoreDivider}>:</span>
+                              <span className={c.direScore}>{dScore}</span>
+                            </span>
+                          </div>
+                          <span aria-hidden className={c.metricsDivider} />
+                          <div className={c.metricInline}>
+                            <span className={c.statLabel}>
+                              {t("live_match_page.duration")}
+                            </span>
+                            <span className={c.statValue}>
+                              <Duration clock duration={liveMatch.duration} />
+                            </span>
+                          </div>
+                        </div>
+                        <div className={c.modeBlock}>
+                          <span className={c.modeLabel}>
+                            {t("live_match_page.mode")}
+                          </span>
+                          <span className={c.modeValue}>
+                            {t(`matchmaking_mode.${liveMatch.matchmakingMode}`)}
+                            <span className={c.modeSeparator}>•</span>
+                            <span className={c.modeSubvalue}>
+                              {t(`game_mode.${liveMatch.gameMode}`)}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={c.actions}>
+                      <Button
+                        link
+                        href={spectateUrl(liveMatch.matchId)}
+                        target="_blank"
+                        variant="ghost"
+                        small
+                        className={c.watchButton}
+                      >
+                        {t("live_match.watchWithLauncher")}
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </Panel>
+              </Surface>
             );
           })}
         </div>{" "}

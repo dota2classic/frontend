@@ -1,5 +1,3 @@
-@use "../../common.scss";
-
 .modal {
   & :global(.modal) {
     width: 40% !important;
@@ -7,7 +5,7 @@
 }
 
 .error {
-  color: common.$error;
+  color: var(--ds-color-danger);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -20,13 +18,13 @@
   gap: 0.5rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: common.$primaryTextHighlight;
-  border-left: 3px solid common.$blueHighlight;
+  color: var(--ds-color-text-strong);
+  border-left: 3px solid var(--ds-color-accent-blue);
   padding: 0.4rem 0 0.4rem 0.9rem;
   margin-block: 1.2rem 0.6rem;
   background: linear-gradient(
     to right,
-    common.$blueHighlight3,
+    var(--ds-color-accent-blue-soft),
     transparent 60%
   );
   border-radius: 0 4px 4px 0;
@@ -34,7 +32,7 @@
 
 .hint {
   font-size: 0.95rem;
-  color: common.$primaryTextSemiDark;
+  color: var(--ds-color-text-muted);
   line-height: 1.6;
   background-color: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);

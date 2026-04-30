@@ -9,9 +9,9 @@ import React from "react";
 import { PaginatedThread } from "@/containers/Thread";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
-import { Panel } from "@/components/Panel";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
+import { Surface } from "@/components/Surface";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -29,14 +29,14 @@ export default function ThreadPage({ messages, thread, page }: Props) {
         title={t("forum_thread.seo.title", { title: thread.title })}
         description={t("forum_thread.seo.description", { title: thread.title })}
       />
-      <Panel>
+      <Surface padding="xs" variant="panel">
         <Breadcrumbs>
           <PageLink link={AppRouter.forum.index().link}>
             {t("forum_thread.forum")}
           </PageLink>
           <span>{thread.title}</span>
         </Breadcrumbs>
-      </Panel>
+      </Surface>
       <PaginatedThread
         populateMessages={messages}
         threadType={ThreadType.FORUM}

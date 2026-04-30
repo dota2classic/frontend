@@ -13,11 +13,11 @@ import { observer } from "mobx-react-lite";
 import { useIsModerator } from "@/util/useIsAdmin";
 import { getApi } from "@/api/hooks";
 import { useTranslation } from "react-i18next";
-import { Panel } from "../Panel";
-import { Breadcrumbs } from "../Breadcrumbs";
 import { PageLink } from "../PageLink";
 import { Duration } from "../Duration";
 import { TimeAgo } from "../TimeAgo";
+import { PageHeader } from "../PageHeader";
+import { MetaStat } from "../MetaStat";
 
 interface IMatchSummaryProps {
   matchId: number;
@@ -51,78 +51,84 @@ export const MatchSummary: React.FC<IMatchSummaryProps> = observer(
 
     return (
       <>
-        <Panel style={{ flexDirection: "row" }}>
-          <div className="left">
-            <Breadcrumbs>
+        <PageHeader
+          breadcrumbs={
+            <>
               <PageLink link={AppRouter.matches.index().link}>
                 {t("match_summary.matches")}
               </PageLink>
               <span>{t("match_summary.matchNumber", { matchId })}</span>
-            </Breadcrumbs>
-          </div>
-          <div className="right">
-            {isMod && (
-              <dl>
-                <dd>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      getApi()
-                        .adminApi.adminUserControllerLogFile(matchId.toString())
-                        .then((res) => {
-                          const wnd = window.open("about:blank", "", "_blank");
-                          wnd?.document?.write(res);
-                        });
-                    }}
-                  >
-                    {t("match_summary.view")}
-                  </a>
-                </dd>
-                <dt>{t("match_summary.log")}</dt>
-              </dl>
-            )}
-            {replay && (
-              <dl>
-                <dd>
-                  <PageLink link={AppRouter.matches.download(matchId).link}>
-                    {t("match_summary.download")}
-                  </PageLink>
-                </dd>
-                <dt>{t("match_summary.replay")}</dt>
-              </dl>
-            )}
-            <dl>
-              <dd>{t(`game_mode.${gameMode}`)}</dd>
-              <dt>{t("match_summary.mode")}</dt>
-            </dl>
-            <dl>
-              <dd>{t(`matchmaking_mode.${mode}`)}</dd>
-              <dt>{t("match_summary.lobby")}</dt>
-            </dl>
-            {gameState !== undefined && (
-              <dl>
-                <dd className="gold">{t(`game_state.${gameState}`)}</dd>
-                <dt>{t("match_summary.gameStage")}</dt>
-              </dl>
-            )}
-            <dl>
-              <dd>
-                <Duration clock duration={duration} />
-              </dd>
-              <dt>{t("match_summary.duration")}</dt>
-            </dl>
-            {timestamp && (
-              <dl>
-                <dd>
-                  <TimeAgo date={timestamp} />
-                </dd>
-                <dt>{t("match_summary.matchEnded")}</dt>
-              </dl>
-            )}
-          </div>
-        </Panel>
+            </>
+          }
+          actions={
+            <>
+              {isMod && (
+                <MetaStat
+                  label={t("match_summary.log")}
+                  value={
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        getApi()
+                          .adminApi.adminUserControllerLogFile(
+                            matchId.toString(),
+                          )
+                          .then((res) => {
+                            const wnd = window.open(
+                              "about:blank",
+                              "",
+                              "_blank",
+                            );
+                            wnd?.document?.write(res);
+                          });
+                      }}
+                    >
+                      {t("match_summary.view")}
+                    </a>
+                  }
+                />
+              )}
+              {replay && (
+                <MetaStat
+                  label={t("match_summary.replay")}
+                  value={
+                    <PageLink link={AppRouter.matches.download(matchId).link}>
+                      {t("match_summary.download")}
+                    </PageLink>
+                  }
+                />
+              )}
+              <MetaStat
+                label={t("match_summary.mode")}
+                value={t(`game_mode.${gameMode}`)}
+              />
+              <MetaStat
+                label={t("match_summary.lobby")}
+                value={t(`matchmaking_mode.${mode}`)}
+              />
+              {gameState !== undefined && (
+                <MetaStat
+                  label={t("match_summary.gameStage")}
+                  value={
+                    <span className="gold">{t(`game_state.${gameState}`)}</span>
+                  }
+                />
+              )}
+              <MetaStat
+                label={t("match_summary.duration")}
+                value={<Duration clock duration={duration} />}
+              />
+              {timestamp && (
+                <MetaStat
+                  label={t("match_summary.matchEnded")}
+                  value={<TimeAgo date={timestamp} />}
+                />
+              )}
+            </>
+          }
+        />
         <div className={c.matchWinner}>
           {winner && (
             <div

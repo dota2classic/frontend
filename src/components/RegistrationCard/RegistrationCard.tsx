@@ -7,14 +7,13 @@ import {
   RegistrationPlayerDtoStateEnum,
 } from "@/api/back";
 import { AppRouter } from "@/route";
-import { Badge } from "@/components/Badge";
 import { TranslationKey } from "@/TranslationKey";
-import { useTranslation } from "react-i18next";
 import { BadgeVariant } from "@/components/Badge/Badge";
 import { FaCheck } from "react-icons/fa6";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import cx from "clsx";
 import { CgSandClock } from "react-icons/cg";
+import { StatusBadge } from "@/components/StatusBadge";
 
 interface IRegistrationCardProps {
   registration: RegistrationDto;
@@ -33,7 +32,6 @@ export const RegistrationCard: React.FC<IRegistrationCardProps> = ({
   registration,
   noStatus,
 }) => {
-  const { t } = useTranslation();
   return (
     <div className={c.card}>
       <div className={c.players}>
@@ -72,9 +70,14 @@ export const RegistrationCard: React.FC<IRegistrationCardProps> = ({
       </div>
       <div className={c.title}>{registration.title || "Участник"}</div>
       {noStatus && (
-        <Badge className={c.badge} variant={StatusMapping[registration.state]}>
-          {t(`tournament.registration.${registration.state}` as TranslationKey)}
-        </Badge>
+        <StatusBadge
+          className={c.badge}
+          status={registration.state}
+          translationKey={(currentStatus) =>
+            `tournament.registration.${currentStatus}` as TranslationKey
+          }
+          variantMap={StatusMapping}
+        />
       )}
     </div>
   );

@@ -1,138 +1,69 @@
-@use "../../../common.scss";
-
-.stats {
-  display: flex;
-  flex-direction: row;
-}
-
+@use "../../../styles/mixins.scss" as m;
 .playerPage {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(12, 1fr);
-  margin-top: 20px;
-}
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  width: 100%;
+  min-width: 0;
 
-.playerInfo {
-  grid-column: span 12;
+  & > * {
+    min-width: 0;
+  }
 }
 
 .heroPerformance {
-  grid-column: span 5;
-  @include common.mobile {
+  grid-column: span 6;
+  @media (max-width: 900px) {
     grid-column: span 12;
   }
 }
 
 .matchHistory {
-  grid-column: span 7;
-  @include common.mobile {
+  grid-column: span 6;
+  @media (max-width: 900px) {
     grid-column: span 12;
   }
 }
 
-.thread {
-  margin-top: 20px;
+.fullwidth {
   grid-column: span 12;
+  width: 100%;
+  min-width: 0;
+}
 
+.thread {
+  grid-column: span 12;
+  margin-top: 4px;
 }
 
 .achievements_panel {
   grid-column: span 12;
 }
 
-.achievements_carousel {
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  gap: 6px;
-  align-items: stretch;
-  scroll-snap-type: x mandatory; /* enable horizontal snap */
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-
-
-  & > div, & > a {
-    flex: 0 0 110px; /* fixed width for each item */
-    min-width: 110px;
-  }
-}
-
-.fullwidth {
-  grid-column: 1 / -1;
-}
-
 .achievements {
   display: grid;
   gap: 16px;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
 
-  grid-template-columns: repeat(10, 1fr);
-
-
-
-  @include common.mobile {
-    grid-template-columns: repeat(3, 1fr);
+  @include m.mobile {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-.twitch {
-  color: common.$purple;
-}
-
-.heading {
+.achievements_carousel {
   display: flex;
-  gap: 6px;
-  align-items: end;
-
-  & svg {
-    font-size: 30px;
-    margin-top: 4px;
-  }
-
-  & img {
-    width: 30px;
-    height: 30px;
-  }
-}
-
-.panel {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  padding: 4px 20px;
-  & p {
-    font-size: 1.4rem;
-  }
-}
-
-.icons {
-  grid-column: span 4;
-}
-
-
-.twitchBlock {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  & a {
-    margin-left: 4px;
-  }
-}
-
-.buttons {
-  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 16px;
   gap: 8px;
-}
+  align-items: stretch;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 
-.inlineButton {
-  display: inline-flex;
-  width: fit-content;
-}
-
-.recalibrationButton {
-  flex-direction: column;
-  & > div {
-    font-size: 1rem;
-    padding-top: 2px;
-    display: flex;
-    justify-content: center;
+  & > div,
+  & > a {
+    flex: 0 0 110px;
+    min-width: 110px;
   }
 }
-

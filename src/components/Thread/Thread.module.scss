@@ -1,8 +1,6 @@
-@use "../../common.scss";
-
 .thread {
   margin-top: 20px;
-  background-color: common.$bg2;
+  background-color: var(--ds-color-bg-elevated);
   position: relative;
 }
 
@@ -116,7 +114,7 @@
   }
 
   & .timeCreated {
-    color: common.$primaryTextDark;
+    color: var(--ds-color-text-dim);
     display: flex;
     flex-direction: row;
     //justify-content: space-between;
@@ -181,10 +179,10 @@
 .unseenMessages {
   position: absolute;
   padding: 8px;
-  background: common.$bg1;
+  background: var(--ds-color-bg-canvas);
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.4);
-  border: 1px solid common.$primaryTextDark2;
-  color: common.$red;
+  border: 1px solid var(--ds-color-text-faint);
+  color: var(--ds-color-accent-red);
   border-radius: 8px;
   left: 0;
   right: 0;
@@ -201,7 +199,7 @@
   }
 
   &:hover {
-    border: 1px solid common.$primaryText;
+    border: 1px solid var(--ds-color-text-primary);
   }
 }
 

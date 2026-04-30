@@ -1,50 +1,142 @@
-@use "../../common.scss";
+.page {
+  background: transparent;
+}
 
-.launcherButton {
+.shell {
+  width: min(1080px, 100%);
+}
+
+.content {
+  gap: 16px;
+}
+
+.hero {
+  gap: 8px;
+  padding-block: 4px;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stepCard {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)),
+    rgba(14, 15, 22, 0.92);
+}
+
+.stepHeader {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.stepMain {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stepNumber {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  width: fit-content;
-  outline: none;
-  text-transform: uppercase;
-  color: #ed3b1c;
-  border: 2px solid common.$primaryText;
-  border-radius: 6px;
-  font-size: 28px;
-  letter-spacing: 2.5px;
-  font-weight: bold;
-  background-color: rgba(0, 0, 0, 0.9);
-  padding: 20px;
-  transition: 0.2s ease;
-  cursor: pointer;
-  text-decoration: none;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(248, 211, 0, 0.08);
+  border: 1px solid rgba(248, 211, 0, 0.18);
+  color: var(--ds-color-accent-gold);
+  font-size: 1.2rem;
+  font-weight: 800;
+}
 
-  @include common.mobile {
-    font-size: 1.2rem;
-    padding: 16px 10px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-  }
+.stepTitle {
+  margin: 0 0 8px;
+  color: var(--ds-color-text-strong);
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  line-height: 1.05;
+}
 
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: rgba(0, 0, 0, 1);
-    color: #ee2c0a;
-    border-color: common.$primaryTextHighlight;
-    transform: translateY(-2px) scale(1.05);
+.stepLead {
+  margin: 0;
+  max-width: 58ch;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.stepBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding-left: 64px;
+}
+
+.primaryCta {
+  width: auto;
+  min-width: 340px;
+  max-width: 100%;
+  min-height: 60px;
+  box-shadow: 0 8px 22px rgba(224, 52, 72, 0.2);
+}
+
+.stepList {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.02rem;
+  line-height: 1.65;
+
+  li + li {
+    margin-top: 6px;
   }
 }
 
-.windowsNote {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: rgba(249, 211, 0, 0.07);
-  border: 1px solid rgba(249, 211, 0, 0.25);
-  border-radius: 6px;
-  padding: 8px 14px;
+.supportText,
+.linksRow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 1rem;
-  color: common.$gold;
+  line-height: 1.65;
+}
+
+.telegramLink {
+  color: #2aabee !important;
+}
+
+.discordLink {
+  color: #5865f2 !important;
+}
+
+.highlight {
+  color: var(--ds-color-accent-gold);
+}
+
+@media (max-width: 700px) {
+  .stepHeader {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stepBody {
+    padding-left: 0;
+  }
+
+  .primaryCta {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .primaryCta {
+    font-size: 0.92rem;
+  }
 }

@@ -1,0 +1,31 @@
+@use "../../styles/mixins.scss" as m;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--page-grid-gap, 24px);
+}
+
+.span4 {
+  grid-column: span 4;
+}
+
+.span6 {
+  grid-column: span 6;
+}
+
+.span8 {
+  grid-column: span 8;
+}
+
+.span12 {
+  grid-column: span 12;
+}
+
+@include m.mobile {
+  .span4,
+  .span6,
+  .span8,
+  .span12 {
+    grid-column: span 12;
+  }
+}

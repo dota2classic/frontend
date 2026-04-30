@@ -1,8 +1,7 @@
-@use "../../../../common.scss";
-
+@use "../../../../styles/mixins.scss" as m;
 .typeaheadPopover {
-  @include common.box();
-  background-color: common.$bg2;
+  @include m.box();
+  background-color: var(--ds-color-bg-elevated);
   position: fixed;
 
   & ul {

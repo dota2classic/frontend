@@ -1,0 +1,32 @@
+@use "../../styles/mixins.scss" as m;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--meta-grid-gap, 1rem);
+
+  @include m.mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+}
+
+.label {
+  color: var(--meta-grid-label-color, var(--ds-color-text-muted));
+  font-weight: 700;
+}
+
+.value {
+  color: var(--meta-grid-value-color, var(--ds-color-text-primary));
+}
+
+.label,
+.value {
+  padding: 4px 12px;
+}
