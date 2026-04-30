@@ -237,6 +237,7 @@ export type TranslationKey =
   | "changelog.parameters.ItemInitialCharges"
   | "changelog.parameters.AbilityDuration"
   | "changelog.parameters.ItemStockTime"
+  | "changelog.parameters.AbilitySpecial.maim_chance"
   | "changelog.parameters.AbilitySpecial.bonus_attack_speed"
   | "changelog.parameters.AbilitySpecial.rabid_duration"
   | "changelog.parameters.AbilitySpecial.bonus_gold_cap"

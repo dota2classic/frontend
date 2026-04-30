@@ -11,6 +11,7 @@
       "AbilityDuration": "Длительность",
       "ItemStockTime": "Время перезарядки покупки",
       "AbilitySpecial": {
+        "maim_chance": "Шанс срабатывания",
         "bonus_attack_speed": "Дополнительная скорость атаки",
         "rabid_duration": "Длительность Rabid",
         "bonus_gold_cap": "Максимальный бонус",

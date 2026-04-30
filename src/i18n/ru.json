@@ -237,6 +237,7 @@
   "changelog.parameters.ItemInitialCharges": "Изначальных зарядов",
   "changelog.parameters.AbilityDuration": "Длительность",
   "changelog.parameters.ItemStockTime": "Время перезарядки покупки",
+  "changelog.parameters.AbilitySpecial.maim_chance": "Шанс срабатывания",
   "changelog.parameters.AbilitySpecial.bonus_attack_speed": "Дополнительная скорость атаки",
   "changelog.parameters.AbilitySpecial.rabid_duration": "Длительность Rabid",
   "changelog.parameters.AbilitySpecial.bonus_gold_cap": "Максимальный бонус",
