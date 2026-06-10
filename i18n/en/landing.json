@@ -7,7 +7,7 @@
     "hero": {
       "titleLine1": "The Real",
       "titleLine2": "Dota 2",
-      "subtitle": "Old patches, the old map, the very Dota as you remember it. Without overcomplicated meta and shaders covering half the screen.",
+      "subtitle": "Old patches, the old map, the very Dota as you remember it. Without the pile-up of talents, neutral items, and mobile-anime visuals.",
       "downloadBtn": "Download launcher — free",
       "liveMatchesBtn": "Watch live matches",
       "freeNote": "Free forever",
@@ -18,11 +18,11 @@
       "title": "How to start playing",
       "subtitle": "Three steps. You already have Steam — nothing else needed.",
       "step1Title": "Download the launcher",
-      "step1Text": "One installer. It will pull the client you need — we won't touch your original Dota 2.",
+      "step1Text": "One installer. It will pull the client you need — we won't touch your new Dota from Steam.",
       "step2Title": "Launch Steam",
       "step2Text": "The launcher will automatically pick up your account from the running Steam — no need to enter separate logins or passwords.",
-      "step3Title": "Jump into the queue",
-      "step3Text": "Pick a mode, find a match, play. Five minutes from launch to the first creep."
+      "step3Title": "Start searching",
+      "step3Text": "Pick a mode, start searching, play. In 3 minutes you're already playing an old hero on the old map."
     },
     "metrics": {
       "registeredPlayers": "Registered players",
@@ -36,9 +36,9 @@
     "patches": {
       "tag": "Content",
       "title": "Patch rotation",
-      "subtitle": "We periodically change available versions. Here's what's coming:",
+      "subtitle": "We periodically change available versions. Next up:",
       "season684c": "Previous season",
-      "season684cDesc": "Balance patch where the classic Dota started on new servers.",
+      "season684cDesc": "The last Source 1 patch, the golden classic of old Dota.",
       "season684d": "Current season",
       "season684dDesc": "Active season — servers are running, matches are happening.",
       "season684dDateRange": "May 1 – September 1, 2026",
@@ -83,8 +83,8 @@
       "a3": "Windows — natively. On Linux and macOS — via Wine/Proton.",
       "q4": "What are the system requirements?",
       "a4": "Old Dota 2 ran on Source 1 and was noticeably lighter than the current version. A dual-core processor from 2.8 GHz, 4 GB of RAM, and a video card like GeForce 8600/9600 GT or Radeon HD 2600/3600 is enough.",
-      "q5": "What happens to my original Dota 2?",
-      "a5": "Nothing. The launcher installs a separate client — the original Dota is in no way connected to the old one and coexists peacefully.",
+      "q5": "What happens to my new Dota from Steam?",
+      "a5": "Nothing. The launcher installs a separate client — your new Dota from Steam is not connected to the old one and coexists peacefully.",
       "nudge": "Can't find your question? Ask in"
     },
     "finalCta": {
