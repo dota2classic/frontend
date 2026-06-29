@@ -56,13 +56,6 @@
     0 0 20px rgba(0, 145, 255, 0.2);
 }
 
-.link {
-  display: block;
-  height: 100%;
-  color: inherit;
-  text-decoration: none;
-}
-
 .adBody {
   position: relative;
   box-sizing: border-box;
@@ -175,30 +168,95 @@
 }
 
 .collectorsCta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  min-width: 142px;
-  height: 30px;
+  min-width: 132px;
+  height: 28px;
   margin-left: auto;
-  padding: 0 14px;
-  color: #141008;
+  padding: 0 13px;
+  color: #071522;
   background:
-    linear-gradient(180deg, #ffe8a4 0%, #d79a33 58%, #8a5b18 100%),
-    #d79a33;
-  border: 1px solid rgba(255, 232, 164, 0.88);
-  border-radius: 3px;
+    radial-gradient(
+      circle at 20% 0%,
+      rgba(255, 255, 255, 0.98),
+      rgba(255, 255, 255, 0) 42%
+    ),
+    linear-gradient(180deg, #f4fcff 0%, #c9ecff 56%, #8dc7ef 100%);
+  border: 1px solid rgba(218, 248, 255, 0.9);
+  border-radius: 999px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.34),
-    0 0 15px rgba(230, 166, 54, 0.3);
-  font-size: 0.66rem;
-  font-weight: 900;
-  letter-spacing: 0.02em;
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    inset 0 -1px 0 rgba(33, 108, 160, 0.28),
+    0 0 0 1px rgba(25, 170, 255, 0.18),
+    0 5px 14px rgba(8, 30, 55, 0.3);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
-  text-shadow: 0 1px 0 rgba(255, 235, 184, 0.34);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.52);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+
+  &::before {
+    position: absolute;
+    inset: 2px 4px auto;
+    z-index: -1;
+    height: 38%;
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.56),
+      rgba(255, 255, 255, 0)
+    );
+    content: "";
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: none;
+
+    .collectorsCta {
+      outline: 2px solid rgba(232, 250, 255, 0.92);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.collectorsCtaMobile {
+  display: none;
+}
+
+@media (hover: hover) {
+  .collectorsCta:hover {
+    border-color: rgba(236, 252, 255, 0.96);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.94),
+      inset 0 -1px 0 rgba(28, 91, 137, 0.28),
+      0 0 0 1px rgba(80, 205, 255, 0.26),
+      0 7px 18px rgba(8, 30, 55, 0.34);
+    filter: brightness(1.04);
+    transform: translateY(-1px);
+  }
 }
 
 .pariBody {
@@ -361,30 +419,47 @@
 
 @media (width <= 600px) {
   .collectorsBody {
-    padding: 9px 42px 9px 10px;
+    padding: 8px 44px 8px 13px;
   }
 
   .collectorsContent {
-    align-items: flex-start;
-    gap: 8px;
+    --collectors-mobile-stack-width: clamp(154px, 45vw, 180px);
+
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-rows: 20px 28px;
+    align-content: center;
+    align-items: center;
+    gap: 6px 12px;
   }
 
   .collectorsLogo {
-    width: 62px;
-    height: 48px;
-    margin-top: 10px;
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 68px;
+    height: 56px;
+    margin-top: 0;
   }
 
   .collectorsKicker {
-    font-size: 0.55rem;
+    display: block;
+    color: #9beeff;
+    font-size: clamp(0.58rem, 3vw, 0.66rem);
+    letter-spacing: 0.075em;
+    text-align: center;
   }
 
   .collectorsTitle {
-    font-size: clamp(0.78rem, 3.4vw, 0.9rem);
+    display: none;
   }
 
   .collectorsText {
-    padding-top: 11px;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    justify-self: center;
+    width: min(100%, var(--collectors-mobile-stack-width));
+    padding-top: 0;
   }
 
   .collectorsSubtitle {
@@ -392,13 +467,26 @@
   }
 
   .collectorsCta {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    min-width: 124px;
-    height: 22px;
-    padding: 0 8px;
-    font-size: 0.45rem;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    justify-self: center;
+    width: min(100%, var(--collectors-mobile-stack-width));
+    min-width: 0;
+    max-width: var(--collectors-mobile-stack-width);
+    height: 28px;
+    margin-left: 0;
+    padding: 0 11px;
+    font-size: clamp(0.68rem, 3.15vw, 0.78rem);
+    letter-spacing: 0.02em;
+  }
+
+  .collectorsCtaDesktop {
+    display: none;
+  }
+
+  .collectorsCtaMobile {
+    display: inline;
   }
 
   .pariBody {

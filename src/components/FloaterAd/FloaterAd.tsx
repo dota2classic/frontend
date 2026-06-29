@@ -139,7 +139,10 @@ const CollectorsAd = () => (
           Immortal, наборы и коллекции
         </span>
       </div>
-      <span className={c.collectorsCta}>Присоединяйся!</span>
+      <span className={c.collectorsCta}>
+        <span className={c.collectorsCtaDesktop}>Присоединяйся!</span>
+        <span className={c.collectorsCtaMobile}>Редкие предметы</span>
+      </span>
     </div>
   </div>
 );
