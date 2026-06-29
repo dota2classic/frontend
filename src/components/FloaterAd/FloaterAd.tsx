@@ -100,6 +100,7 @@ export const FloaterAd: React.FC = observer(() => {
       className={cx(
         c.interesting,
         threadFont.className,
+        activeAd.id === "pari" ? c.pariFrame : c.collectorsFrame,
         !isVisible && c.hidden,
       )}
     >
@@ -127,13 +128,18 @@ export const FloaterAd: React.FC = observer(() => {
 
 const CollectorsAd = () => (
   <div className={cx(c.adBody, c.collectorsBody)}>
-    <img className={c.img} src="/collectors.webp" alt="" />
-    <div className={c.text}>
-      <span className={c.title}>Collector's shop</span>
-      <span className={c.description}>
-        Коллекционные наборы, Immortal-предметы и другие ценные вещи — всё в
-        одном месте.
-      </span>
+    <div className={c.collectorsBackground} />
+    <div className={c.collectorsShade} />
+    <div className={c.collectorsContent}>
+      <img className={c.collectorsLogo} src="/collectors.webp" alt="" />
+      <div className={c.collectorsText}>
+        <span className={c.collectorsKicker}>Collector's shop</span>
+        <span className={c.collectorsTitle}>Редкие Dota-предметы</span>
+        <span className={c.collectorsSubtitle}>
+          Immortal, наборы и коллекции
+        </span>
+      </div>
+      <span className={c.collectorsCta}>Присоединяйся!</span>
     </div>
   </div>
 );
