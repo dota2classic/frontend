@@ -22,7 +22,7 @@ const REAPPEAR_DELAY_MS = 60_000;
 const FLOATING_ITEMS = [
   {
     id: "primary",
-    href: "https://clicks.af-pb06e2.com/click?offer_id=802&partner_id=32902&landing_id=571&utm_medium=affiliate",
+    href: "/r/a",
     displayDurationMs: 20_000,
     goals: {
       shown: PRIMARY_NOTICE_SHOWN,
@@ -32,7 +32,7 @@ const FLOATING_ITEMS = [
   },
   {
     id: "secondary",
-    href: "https://collectorsshop.ru/promo/old",
+    href: "/r/b",
     displayDurationMs: 10_000,
     goals: {
       shown: SECONDARY_NOTICE_SHOWN,
@@ -108,7 +108,7 @@ export const FloatingNotice: React.FC = observer(() => {
       <a
         href={activeItem.href}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener"
         className={c.link}
         aria-label="Открыть предложение"
         onClick={() => metrika("reachGoal", activeItem.goals.click)}
