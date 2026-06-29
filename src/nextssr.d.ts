@@ -20,8 +20,6 @@ declare global {
     api: AppApi;
     cook: Cookies;
     ym: (key: number, fun: string, value: unknown) => void;
-    yaContextCb: any;
-    Ya: any;
   }
 
   interface PromiseConstructor {

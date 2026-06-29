@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 import { Navbar } from "../Navbar";
 import { Notifications } from "../Notifications";
 import { SearchGameFloater } from "../SearchGameFloater";
-import { AdBlockType, SideAdBlock } from "@/components/AdBlock";
 import { useLazyBackground } from "@/util/useLazyBackground";
 import { FloaterAd } from "@/components/FloaterAd";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -69,9 +68,6 @@ export const Layout = ({
         >
           <Notifications />
           {!config.noNavbar && <SearchGameFloater />}
-          {!useLandingChrome && (
-            <SideAdBlock bannerId={AdBlockType.BANNER_LEFT} />
-          )}
           <div
             className={cx(
               c.middleContent,
@@ -92,9 +88,6 @@ export const Layout = ({
               {children}
             </main>
           </div>
-          {!useLandingChrome && (
-            <SideAdBlock bannerId={AdBlockType.BANNER_RIGHT} />
-          )}
         </div>
         {!config.noFooter && (
           <footer className={cx(c.footer, isQueuePage && c.footer__queue)}>

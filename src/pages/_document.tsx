@@ -1,6 +1,5 @@
 import { Head, Html, Main, NextScript } from "next/document";
 import { GoogleTagManager, YandexMetrika } from "@/components/YandexMetrika";
-import { YaReklama } from "@/components/YaReklama";
 import { EnvFromServer } from "@/components/EnvFromServer";
 
 export default function Document() {
@@ -18,7 +17,6 @@ export default function Document() {
         />
 
         <YandexMetrika />
-        <YaReklama />
         <GoogleTagManager />
       </Head>
       <body>
