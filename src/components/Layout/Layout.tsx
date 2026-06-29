@@ -10,7 +10,7 @@ import { Navbar } from "../Navbar";
 import { Notifications } from "../Notifications";
 import { SearchGameFloater } from "../SearchGameFloater";
 import { useLazyBackground } from "@/util/useLazyBackground";
-import { FloaterAd } from "@/components/FloaterAd";
+import { FloatingNotice } from "@/components/FloatingNotice";
 import { BrandLogo } from "@/components/BrandLogo";
 import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
@@ -76,7 +76,7 @@ export const Layout = ({
               r.pathname.startsWith("/queue") && c.queue,
             )}
           >
-            {!isQueuePage && !useLandingChrome && <FloaterAd />}
+            {!isQueuePage && !useLandingChrome && <FloatingNotice />}
             <main
               className={cx(
                 c.layoutInner,
