@@ -1,1 +1,0 @@
-export { FloatingNotice } from "./FloatingNotice";
