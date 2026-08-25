@@ -2,7 +2,7 @@
   "live_streams": {
     "streamsTitle": "Streams for old Dota",
     "streamsDescription": "Streams on twitch.tv for classic Dota",
-    "noStreamsFound": "We didn't find any streams for dotaclassic :(",
+    "noStreamsFound": "We didn't find any streams for dotalegacy :(",
     "maybeYouAreALegend": "Maybe you're a new Twitch legend?"
   }
 }

@@ -87,7 +87,7 @@ export const BuySubscriptionModal: React.FC<IBuySubscriptionModalProps> =
     return (
       <GenericModal
         onClose={onClose}
-        title={"Купить подписку dotaclassic plus"}
+        title={"Купить подписку dotalegacy plus"}
         className={cx(c.modal, NotoSans.className)}
       >
         <div className={c.subscriptionDurations}>

@@ -68,7 +68,7 @@ export default function MegaButtonsPage() {
     <>
       <EmbedProps
         title="Mega Button Lab"
-        description="Comparison page for dotaclassic mega button variants"
+        description="Comparison page for dotalegacy mega button variants"
       />
       <main className={c.page}>
         <div className={c.shell}>

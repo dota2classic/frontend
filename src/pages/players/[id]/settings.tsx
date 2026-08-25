@@ -122,7 +122,7 @@ export default function PlayerSettings({ summary, decorations }: Props) {
         className={cx(c.fullwidth)}
         title={
           <>
-            <Logo size={30} /> dotaclassic plus
+            <Logo size={30} /> dotalegacy plus
           </>
         }
       >
@@ -135,7 +135,7 @@ export default function PlayerSettings({ summary, decorations }: Props) {
           }
         >
           <ActionCard
-            title="Dotaclassic Plus"
+            title="Dotalegacy Plus"
             description={
               oldSubscription ? (
                 <>

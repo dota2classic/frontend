@@ -21,7 +21,7 @@ export default function VacanciesPage() {
         <Trans
           i18nKey="vacancies_page.projectIntro"
           values={{
-            project: "dotaclassic",
+            project: "dotalegacy",
           }}
           components={{
             project: <span className="red" />,

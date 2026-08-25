@@ -98,7 +98,7 @@
           "solution2": "Restart Steam",
           "solution3": "Restart PC",
           "solution4": "Turn off Invisible mode in Steam",
-          "solution5": "Run DOTA Classic and Steam as administrator"
+          "solution5": "Run DOTA Legacy and Steam as administrator"
         }
       },
       "launcherError": {
@@ -152,7 +152,7 @@
         "title": "Is it possible to create a separate 5x5 lobby with the ability to choose mode and other parameters?",
         "content": {
           "part1": "Yes, this feature is available with a subscription ",
-          "part2": "dotaclassic plus",
+          "part2": "dotalegacy plus",
           "part3": " or by agreement with the administration."
         }
       },
