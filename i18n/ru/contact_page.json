@@ -5,14 +5,6 @@
       "description": "Контакты для связи и сотрудничества"
     },
 
-    "contactsTitle": "Контакты",
-    "personName": "Степин Юрий Андреевич",
-    "innLabel": "ИНН:",
-    "emailLabel": "Почта:",
-    "email1": "enchantinggg4@gmail.com",
-    "email2": "adv@dotaclassic.ru",
-    "documentsTitle": "Документы",
-    "policyText": "Политика обработки персональных данных",
-    "offerText": "Публичная оферта"
+    "contactsTitle": "Контакты"
   }
 }
