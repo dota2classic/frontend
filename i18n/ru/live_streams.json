@@ -2,7 +2,7 @@
   "live_streams": {
     "streamsTitle": "Стримы по старой доте",
     "streamsDescription": "Трансляции на twitch.tv по классической доте",
-    "noStreamsFound": "Мы не нашли ни одного стрима по dotaclassic :(",
+    "noStreamsFound": "Мы не нашли ни одного стрима по dotalegacy :(",
     "maybeYouAreALegend": "Может, ты новая легенда твича?"
   }
 }

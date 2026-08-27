@@ -14,7 +14,7 @@ export const BrandLogo: React.FC<Props> = ({ size = 46, className }) => {
       <Logo size={size} />
       <span className={c.text}>
         <span className={c.word}>DOTA</span>
-        <span className={cx(c.word, c.accent)}>Classic</span>
+        <span className={cx(c.word, c.accent)}>Legacy</span>
       </span>
     </div>
   );

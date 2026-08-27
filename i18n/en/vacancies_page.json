@@ -2,10 +2,10 @@
   "vacancies_page": {
     "seo": {
       "title": "Who we need",
-      "description": "What talents the dotaclassic team needs"
+      "description": "What talents the dotalegacy team needs"
     },
     "whoWeNeed": "Who we need",
-    "projectNeeds": "What talents the dotaclassic project needs",
+    "projectNeeds": "What talents the dotalegacy project needs",
     "projectIntro": "The <project>{{project}}</project> project is sustained by the enthusiasm of people for whom old DotA is more than just a 'custom game'. We welcome any help, but, unfortunately, free of charge - the project is non-profit and all profits go to development.",
     "volunteerNote": "All 'vacancies' imply no monetary compensation, but candidates are not expected to have outsized impact.",
     "productManager": "Product manager",

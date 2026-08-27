@@ -523,7 +523,7 @@ export default function DesignSystemPage() {
                     variant="surface"
                   >
                     <div className={c.splitCardMeta}>
-                      <span className={c.sectionEyebrow}>DotaClassic Plus</span>
+                      <span className={c.sectionEyebrow}>DotaLegacy Plus</span>
                       <h3 className={c.splitCardTitle}>Награды подписки</h3>
                       <p className={c.sectionHeaderText}>
                         Этот паттерн подходит для наград, апсейлов и акцентных
