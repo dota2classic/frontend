@@ -22,7 +22,7 @@ export type LeaderboardSort =
 
 interface RawLeaderboardEntry {
   user: unknown;
-  id: number;
+  id: string;
   mmr: number;
   rank: number;
   games: number;
