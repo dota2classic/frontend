@@ -32,7 +32,11 @@ export default function AdminReportsPage({ reports, page }: Props) {
   const toggleSelected = (id: string) =>
     setSelected((prev) => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
       return next;
     });
 
@@ -99,7 +103,10 @@ export default function AdminReportsPage({ reports, page }: Props) {
   }, [olderThanDays]);
 
   const isBusy =
-    isAcceptingSelected || isRejectingSelected || isPreviewing || isRejectingOld;
+    isAcceptingSelected ||
+    isRejectingSelected ||
+    isPreviewing ||
+    isRejectingOld;
 
   return (
     <>
@@ -123,10 +130,16 @@ export default function AdminReportsPage({ reports, page }: Props) {
             <tr>
               <td>Выбрано жалоб: {selected.size}</td>
               <td>
-                <Button disabled={isBusy || selected.size === 0} onClick={acceptSelected}>
+                <Button
+                  disabled={isBusy || selected.size === 0}
+                  onClick={acceptSelected}
+                >
                   Принять выбранные
                 </Button>{" "}
-                <Button disabled={isBusy || selected.size === 0} onClick={rejectSelected}>
+                <Button
+                  disabled={isBusy || selected.size === 0}
+                  onClick={rejectSelected}
+                >
                   Отклонить выбранные
                 </Button>
               </td>
