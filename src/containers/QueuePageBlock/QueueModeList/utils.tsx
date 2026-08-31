@@ -8,11 +8,28 @@ import { QueueStore } from "@/store/queue/QueueStore";
 import { Trans, TranslationFunction } from "react-i18next";
 import { TimeAgo } from "@/components/TimeAgo";
 
+// Locked placeholder modes — not wired to real matchmaking yet, always
+// show as forbidden regardless of party/ban state.
+const LOCKED_PLACEHOLDER_MODES: MatchmakingMode[] = [
+  14 as MatchmakingMode,
+  15 as MatchmakingMode,
+];
+const LOCKED_PLACEHOLDER_UNTIL = "2027-01-01T00:00:00Z";
+
 export const modEnableCondition = (
   queue: QueueStore,
   mode: MatchmakingMode,
   t: TranslationFunction,
 ): React.ReactNode | undefined => {
+  if (LOCKED_PLACEHOLDER_MODES.includes(mode)) {
+    return (
+      <>
+        {t("matchmaking_option.searchForbiddenUntil")}{" "}
+        <TimeAgo date={LOCKED_PLACEHOLDER_UNTIL} />
+      </>
+    );
+  }
+
   if (
     queue.partyBanStatus?.isBanned &&
     (mode === MatchmakingMode.UNRANKED || mode === MatchmakingMode.HIGHROOM)

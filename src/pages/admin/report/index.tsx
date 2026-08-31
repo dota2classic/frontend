@@ -2,7 +2,8 @@ import { getApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { ReportPageDto } from "@/api/back";
 import { AppRouter } from "@/route";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { NextPageContext } from "next";
 import c from "@/pages/forum/Forum.module.scss";
 import { ForumTabs } from "@/containers/ForumTabs";
@@ -12,7 +13,10 @@ import { Table } from "@/components/Table";
 import { PageLink } from "@/components/PageLink";
 import { UserPreview } from "@/components/UserPreview";
 import { Checkbox } from "@/components/Checkbox";
+import { Button } from "@/components/Button";
 import { useTranslation } from "react-i18next";
+import { useIsModerator } from "@/util/useIsAdmin";
+import { useAsyncButton } from "@/util/use-async-button";
 
 interface Props {
   reports: ReportPageDto;
@@ -21,6 +25,88 @@ interface Props {
 
 export default function AdminReportsPage({ reports, page }: Props) {
   const { t } = useTranslation();
+  const router = useRouter();
+  const isModerator = useIsModerator();
+
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const toggleSelected = (id: string) =>
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+
+  const unhandledOnPage = reports.data.filter((r) => !r.handled);
+  const allOnPageSelected =
+    unhandledOnPage.length > 0 &&
+    unhandledOnPage.every((r) => selected.has(r.id));
+  const toggleSelectAllOnPage = () =>
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (allOnPageSelected) {
+        unhandledOnPage.forEach((r) => next.delete(r.id));
+      } else {
+        unhandledOnPage.forEach((r) => next.add(r.id));
+      }
+      return next;
+    });
+
+  const [olderThanDays, setOlderThanDays] = useState(30);
+  const [previewCount, setPreviewCount] = useState<number | null>(null);
+
+  const refresh = async () => {
+    setSelected(new Set());
+    setPreviewCount(null);
+    await router.replace(router.asPath);
+  };
+
+  const [isAcceptingSelected, acceptSelected] = useAsyncButton(async () => {
+    if (selected.size === 0) return;
+    await getApi().reportBulk.bulkHandleReports({
+      ids: Array.from(selected),
+      valid: true,
+    });
+    await refresh();
+  }, [selected]);
+
+  const [isRejectingSelected, rejectSelected] = useAsyncButton(async () => {
+    if (selected.size === 0) return;
+    await getApi().reportBulk.bulkHandleReports({
+      ids: Array.from(selected),
+      valid: false,
+    });
+    await refresh();
+  }, [selected]);
+
+  const [isPreviewing, previewOld] = useAsyncButton(async () => {
+    const count = await getApi().reportBulk.previewBulkHandle(olderThanDays);
+    setPreviewCount(count);
+  }, [olderThanDays]);
+
+  const [isRejectingOld, rejectOld] = useAsyncButton(async () => {
+    if (
+      !window.confirm(
+        `Отклонить все необработанные жалобы старше ${olderThanDays} дней? Это действие нельзя отменить.`,
+      )
+    ) {
+      return;
+    }
+    await getApi().reportBulk.bulkHandleReports({
+      olderThanDays,
+      valid: false,
+    });
+    await refresh();
+  }, [olderThanDays]);
+
+  const isBusy =
+    isAcceptingSelected ||
+    isRejectingSelected ||
+    isPreviewing ||
+    isRejectingOld;
 
   return (
     <>
@@ -38,9 +124,66 @@ export default function AdminReportsPage({ reports, page }: Props) {
           linkProducer={(page) => AppRouter.forum.report.admin(page).link}
         />
       )}
+      {isModerator && (
+        <Table className="very-compact">
+          <tbody>
+            <tr>
+              <td>Выбрано жалоб: {selected.size}</td>
+              <td>
+                <Button
+                  disabled={isBusy || selected.size === 0}
+                  onClick={acceptSelected}
+                >
+                  Принять выбранные
+                </Button>{" "}
+                <Button
+                  disabled={isBusy || selected.size === 0}
+                  onClick={rejectSelected}
+                >
+                  Отклонить выбранные
+                </Button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Быстрая очистка старых:{" "}
+                <input
+                  type="number"
+                  min={1}
+                  value={olderThanDays}
+                  onChange={(e) =>
+                    setOlderThanDays(Math.max(1, Number(e.target.value) || 1))
+                  }
+                  style={{ width: 64 }}
+                />{" "}
+                дней
+              </td>
+              <td>
+                <Button disabled={isBusy} onClick={previewOld}>
+                  Проверить количество
+                </Button>{" "}
+                {previewCount !== null && (
+                  <span>Найдено: {previewCount}. </span>
+                )}
+                <Button disabled={isBusy} onClick={rejectOld}>
+                  Отклонить все старше {olderThanDays} дней
+                </Button>
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+      )}
       <Table className="very-compact">
         <thead>
           <tr>
+            {isModerator && (
+              <th>
+                <Checkbox
+                  checked={allOnPageSelected}
+                  onChange={toggleSelectAllOnPage}
+                />
+              </th>
+            )}
             <th>{t("admin_reports.complaintLink")}</th>
             <th>{t("admin_reports.rule")}</th>
             <th>{t("admin_reports.accused")}</th>
@@ -52,6 +195,15 @@ export default function AdminReportsPage({ reports, page }: Props) {
         <tbody>
           {reports.data.map((report) => (
             <tr key={report.id}>
+              {isModerator && (
+                <td>
+                  <Checkbox
+                    disabled={report.handled}
+                    checked={selected.has(report.id)}
+                    onChange={() => toggleSelected(report.id)}
+                  />
+                </td>
+              )}
               <td>
                 <PageLink
                   className="link"
