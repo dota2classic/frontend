@@ -29,6 +29,7 @@ import {
   RequestContext,
   Role,
 } from "./back";
+import { PlayerLeaderboardApi } from "@/api/customPlayerApi";
 import { ReportBulkApi } from "@/api/customReportApi";
 import { getCache } from "@/api/api-cache";
 import { parseJwt } from "@/util/parseJwt";
@@ -134,6 +135,7 @@ export class AppApi {
   readonly liveApi = new LiveApi(this.apiConfig);
   readonly forumApi = new ForumApi(this.apiConfig);
   readonly playerApi = new PlayerApi(this.apiConfig);
+  readonly playerLeaderboard = new PlayerLeaderboardApi(this.apiConfig);
   readonly adminApi = new AdminApi(this.apiConfig);
   readonly statsApi = new StatsApi(this.apiConfig);
   readonly metaApi = new MetaApi(this.apiConfig);

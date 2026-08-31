@@ -154,8 +154,13 @@ export const AppRouter = {
       });
       return page(`/players/[id]/matches${q}`, `/players/${id}/matches${q}`);
     },
-    leaderboard: (pg?: number, seasonId?: number) => {
-      const q = queryParameters({ page: pg, seasonId });
+    leaderboard: (
+      pg?: number,
+      seasonId?: number,
+      sort?: string,
+      sortDir?: string,
+    ) => {
+      const q = queryParameters({ page: pg, seasonId, sort, sortDir });
       return page(`/players${q}`, `/players${q}`);
     },
   },

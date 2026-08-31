@@ -1,5 +1,6 @@
 import { getApi } from "@/api/hooks";
-import { GameSeasonDto, LeaderboardEntryPageDto } from "@/api/back";
+import { GameSeasonDto, UserDTO } from "@/api/back";
+import { LeaderboardSort } from "@/api/customPlayerApi";
 import { colors } from "@/colors";
 import cx from "clsx";
 import { numberOrDefault } from "@/util/urls";
@@ -16,16 +17,53 @@ import { GenericTable } from "@/components/GenericTable";
 import { Duration } from "@/components/Duration";
 import { Surface } from "@/components/Surface";
 
+interface LeaderboardEntryWithStats {
+  user: UserDTO;
+  id: string;
+  mmr?: number;
+  rank?: number;
+  games: number;
+  wins: number;
+  abandons: number;
+  kills: number;
+  deaths: number;
+  assists: number;
+  playTime: number;
+  winrate: number;
+  kda: number;
+}
+
+interface LeaderboardEntryPageWithStats {
+  data: LeaderboardEntryWithStats[];
+  page: number;
+  perPage: number;
+  pages: number;
+}
+
 interface LeaderboardPageProps {
-  initialLeaderboard: LeaderboardEntryPageDto;
+  initialLeaderboard: LeaderboardEntryPageWithStats;
   seasons: GameSeasonDto[];
   selectedSeasonId?: number;
+  sort?: LeaderboardSort;
+  sortDir: "ASC" | "DESC";
 }
+
+const SORT_OPTIONS: { value: LeaderboardSort | ""; label: string }[] = [
+  { value: "", label: "Рейтинг" },
+  { value: "winrate", label: "Винрейт" },
+  { value: "kda", label: "KDA" },
+  { value: "games", label: "Матчи" },
+  { value: "wins", label: "Победы" },
+  { value: "playtime", label: "Время в игре" },
+  { value: "abandons", label: "Ливы" },
+];
 
 export default function LeaderboardPage({
   initialLeaderboard,
   seasons,
   selectedSeasonId,
+  sort,
+  sortDir,
 }: LeaderboardPageProps) {
   const { t } = useTranslation();
   const seasonOptions = seasons.map((season) => ({
@@ -44,10 +82,29 @@ export default function LeaderboardPage({
           options={seasonOptions}
           selected={selectedSeasonId}
           onSelect={({ value }) => {
-            const link = AppRouter.players.leaderboard(0, value).link;
+            const link = AppRouter.players.leaderboard(
+              0,
+              value,
+              sort,
+              sortDir,
+            ).link;
             router.push(link.href, link.as);
           }}
           defaultText={t("leaderboard_page.seasonSelect")}
+        />
+        <SelectOptions
+          options={SORT_OPTIONS}
+          selected={sort || ""}
+          onSelect={({ value }) => {
+            const link = AppRouter.players.leaderboard(
+              0,
+              selectedSeasonId,
+              value || undefined,
+              sortDir,
+            ).link;
+            router.push(link.href, link.as);
+          }}
+          defaultText="Сортировка"
         />
       </Surface>
 
@@ -55,7 +112,8 @@ export default function LeaderboardPage({
         page={initialLeaderboard.page}
         maxPage={initialLeaderboard.pages}
         linkProducer={(pg) =>
-          AppRouter.players.leaderboard(pg, selectedSeasonId).link
+          AppRouter.players.leaderboard(pg, selectedSeasonId, sort, sortDir)
+            .link
         }
       />
       <GenericTable
@@ -135,7 +193,7 @@ export default function LeaderboardPage({
           it.mmr,
           it.games,
           it.wins,
-          (it.wins / it.games) * 100,
+          it.winrate * 100,
           { kills: it.kills, deaths: it.deaths, assists: it.assists },
           it.playTime,
           it.abandons,
@@ -145,24 +203,39 @@ export default function LeaderboardPage({
         page={initialLeaderboard.page}
         maxPage={initialLeaderboard.pages}
         linkProducer={(pg) =>
-          AppRouter.players.leaderboard(pg, selectedSeasonId).link
+          AppRouter.players.leaderboard(pg, selectedSeasonId, sort, sortDir)
+            .link
         }
       />
     </>
   );
 }
 
+const isLeaderboardSort = (v: unknown): v is LeaderboardSort =>
+  v === "mmr" ||
+  v === "games" ||
+  v === "wins" ||
+  v === "winrate" ||
+  v === "kda" ||
+  v === "playtime" ||
+  v === "abandons";
+
 LeaderboardPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<LeaderboardPageProps> => {
   const page = numberOrDefault(ctx.query.page as string, 0);
   const seasonId = numberOrDefault(ctx.query.seasonId as string, 0);
+  const sortParam = ctx.query.sort as string | undefined;
+  const sort = isLeaderboardSort(sortParam) ? sortParam : undefined;
+  const sortDir: "ASC" | "DESC" = ctx.query.sortDir === "ASC" ? "ASC" : "DESC";
 
   const [initialLeaderboard, seasons] = await Promise.combine([
-    getApi().playerApi.playerControllerLeaderboard(
+    getApi().playerLeaderboard.leaderboardSorted(
       page,
       100,
       seasonId || undefined,
+      sort,
+      sort ? sortDir : undefined,
     ),
     getApi().statsApi.statsControllerGetGameSeasons(),
   ]);
@@ -170,5 +243,7 @@ LeaderboardPage.getInitialProps = async (
     initialLeaderboard,
     seasons,
     selectedSeasonId: seasonId || seasons.find((t) => t.isActive)?.id,
+    sort,
+    sortDir,
   };
 };
