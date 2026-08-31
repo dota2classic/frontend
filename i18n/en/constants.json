@@ -17,6 +17,8 @@
     "11": "Lobby",
     "12": "2x2 with bots",
     "13": "Turbo",
+    "14": "SECRET",
+    "15": "The Real True Old DotaClassic",
     "all": "All modes"
   },
   "matchmaking_mode_description": {
@@ -33,7 +35,9 @@
     "10": "Captains Mode",
     "11": "Lobby",
     "12": "2x2 with bots",
-    "13": "A simplified mode with fast leveling and plenty of gold. Great for learning or quick play."
+    "13": "A simplified mode with fast leveling and plenty of gold. Great for learning or quick play.",
+    "14": "A mode we're not ready to talk about yet.",
+    "15": "A mode we're not ready to talk about yet."
   },
   "game_mode": {
     "1": "All Pick",
