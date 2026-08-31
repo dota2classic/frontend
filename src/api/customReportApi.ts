@@ -29,7 +29,7 @@ export class ReportBulkApi extends ReportApi {
 
   previewBulkHandle = async (olderThanDays: number): Promise<number> => {
     const response = await this.request({
-      path: "/report/admin/bulk-handle/preview",
+      path: "/v1/report/admin/bulk-handle/preview",
       method: "GET",
       headers: this.authHeader(),
       query: { olderThanDays },
@@ -42,7 +42,7 @@ export class ReportBulkApi extends ReportApi {
     payload: BulkHandleReportPayload,
   ): Promise<BulkHandleReportResult> => {
     const response = await this.request({
-      path: "/report/admin/bulk-handle",
+      path: "/v1/report/admin/bulk-handle",
       method: "POST",
       headers: {
         ...this.authHeader(),
