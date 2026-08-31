@@ -29,6 +29,7 @@ import {
   RequestContext,
   Role,
 } from "./back";
+import { ReportBulkApi } from "@/api/customReportApi";
 import { getCache } from "@/api/api-cache";
 import { parseJwt } from "@/util/parseJwt";
 import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
@@ -147,6 +148,7 @@ export class AppApi {
   readonly payment = new UserPaymentApi(this.apiConfig);
   readonly rules = new RulesApi(this.apiConfig);
   readonly report = new ReportApi(this.apiConfig);
+  readonly reportBulk = new ReportBulkApi(this.apiConfig);
   readonly drops = new DropsApi(this.apiConfig);
   readonly tournament = new TournamentApi(this.apiConfig);
 }
