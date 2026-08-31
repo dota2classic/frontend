@@ -20,6 +20,22 @@ export type LeaderboardSort =
   | "playtime"
   | "abandons";
 
+interface RawLeaderboardEntry {
+  user: unknown;
+  id: number;
+  mmr: number;
+  rank: number;
+  games: number;
+  wins: number;
+  abandons: number;
+  kills: number;
+  deaths: number;
+  assists: number;
+  play_time: number;
+  winrate?: number;
+  kda?: number;
+}
+
 export class PlayerLeaderboardApi extends PlayerApi {
   leaderboardSorted = async (
     page: number,
@@ -43,7 +59,7 @@ export class PlayerLeaderboardApi extends PlayerApi {
     const json = await response.json();
 
     return {
-      data: (json.data as any[]).map((it) => ({
+      data: (json.data as RawLeaderboardEntry[]).map((it) => ({
         user: UserDTOFromJSON(it.user),
         id: it.id,
         mmr: it.mmr,
