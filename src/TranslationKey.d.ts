@@ -1055,6 +1055,7 @@ export type TranslationKey =
   | "live_match.matchPreview"
   | "live_match.playerAbandoned"
   | "live_match.watchWithLauncher"
+  | "live_match.manualConnect"
   | "live_streams.streamsTitle"
   | "live_streams.streamsDescription"
   | "live_streams.noStreamsFound"

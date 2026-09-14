@@ -176,10 +176,12 @@ export const Navbar = observer(function Navbar(p: {
             >
               {t("navbar.aboutProject")}
             </NavbarItem>
-            <NavbarItem action={AppRouter.store.index.link}>
-              <FaCoins color={"#f8d300"} />
-              {t("navbar.store")}
-            </NavbarItem>
+            {isAuthorized && (
+              <NavbarItem action={AppRouter.store.index.link}>
+                <FaCoins color={"#f8d300"} />
+                {t("navbar.store")}
+              </NavbarItem>
+            )}
             {hasLiveMatches && (
               <NavbarItem
                 className={c.liveMatch}

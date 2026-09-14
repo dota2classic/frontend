@@ -3,6 +3,7 @@
     "liveMatch": "LIVE match {{matchId}}",
     "matchPreview": "Preview of the active match {{matchId}}, a game map with heroes moving around the map.",
     "playerAbandoned": "Player {{playerName}} left the game",
-    "watchWithLauncher": "Watch with Launcher"
+    "watchWithLauncher": "Watch with Launcher",
+    "manualConnect": "Or manually:"
   }
 }

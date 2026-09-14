@@ -14,6 +14,8 @@ import { SmallLiveMatch } from "@/components/LiveMatchPreview";
 import { Duration } from "@/components/Duration";
 import { Surface } from "@/components/Surface";
 import { Badge, BadgeVariant } from "@/components/Badge";
+import { CopySomething } from "@/components/CopySomething/CopySomething";
+import { watchCmd } from "@/util/urls";
 
 interface ILiveMatchPageProps {
   games: LiveMatchDto[];
@@ -163,6 +165,17 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
                       >
                         {t("live_match.watchWithLauncher")}
                       </Button>
+                      {liveMatch.server && (
+                        <div className={c.manualConnect}>
+                          <span className={c.statLabel}>
+                            {t("live_match.manualConnect")}
+                          </span>
+                          <CopySomething
+                            className={c.manualConnectValue}
+                            something={watchCmd(liveMatch.server)}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
