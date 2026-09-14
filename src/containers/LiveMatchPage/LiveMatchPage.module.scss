@@ -81,7 +81,7 @@
 
 .headerRow {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
   gap: var(--ds-space-4);
   align-items: start;
 
@@ -284,14 +284,24 @@
 .manualConnect {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 6px;
-  white-space: nowrap;
+}
+
+.manualConnectCopy {
+  // CopySomething's root has a fixed 10px top margin meant for standalone
+  // form fields — cancel it so the value lines up with the label next to it.
+  margin-top: -10px;
 }
 
 .manualConnectValue {
   font-family: var(--ds-font-mono, monospace);
   font-size: var(--ds-font-size-sm);
   color: var(--ds-color-text-muted);
+  white-space: nowrap;
+  // CopySomething's copy icon is absolutely positioned at right:15px over
+  // the text — reserve room so it doesn't sit on top of the port digits.
+  padding-right: 24px;
 }
 
 .watchButton {

@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from "react";
+import { observer } from "mobx-react-lite";
 
 import c from "./Layout.module.scss";
 import cx from "clsx";
@@ -14,6 +15,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import { FaDiscord, FaTelegram } from "react-icons/fa";
+import { useStore } from "@/store";
 
 export interface LayoutConfig {
   fullBleed?: boolean;
@@ -26,12 +28,13 @@ interface LayoutProps {
   config?: LayoutConfig;
 }
 
-export const Layout = ({
+export const Layout = observer(function Layout({
   children,
   className,
   config = {},
-}: PropsWithChildren<LayoutProps>) => {
+}: PropsWithChildren<LayoutProps>) {
   const { t } = useTranslation();
+  const { auth } = useStore();
   const r = useRouter();
   const isQueuePage = r.pathname.startsWith("/queue");
   const isLanding =
@@ -116,12 +119,14 @@ export const Layout = ({
                 >
                   {t("navbar.news")}
                 </PageLink>
-                <PageLink
-                  className={c.footer__link}
-                  link={AppRouter.store.index.link}
-                >
-                  {t("navbar.store")}
-                </PageLink>
+                {auth.isAuthorized && (
+                  <PageLink
+                    className={c.footer__link}
+                    link={AppRouter.store.index.link}
+                  >
+                    {t("navbar.store")}
+                  </PageLink>
+                )}
               </nav>
 
               <div className={c.footer__social}>
@@ -165,4 +170,4 @@ export const Layout = ({
       </div>
     </ThemeContext.Provider>
   );
-};
+});
