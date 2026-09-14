@@ -268,7 +268,9 @@
 
 .actions {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
+  gap: 8px;
 
   @media (width <= 900px) {
     grid-column: 1 / -1;
@@ -277,6 +279,19 @@
   @media (width <= 640px) {
     align-items: stretch;
   }
+}
+
+.manualConnect {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.manualConnectValue {
+  font-family: var(--ds-font-mono, monospace);
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-color-text-muted);
 }
 
 .watchButton {

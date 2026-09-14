@@ -3,6 +3,7 @@
     "liveMatch": "LIVE матч {{matchId}}",
     "matchPreview": "Превью активного матча {{matchId}}, игровая карта с героями, которые двигаются по карте.",
     "playerAbandoned": "Игрок {{playerName}} покинул игру",
-    "watchWithLauncher": "Смотреть через лаунчер"
+    "watchWithLauncher": "Смотреть через лаунчер",
+    "manualConnect": "Или вручную:"
   }
 }

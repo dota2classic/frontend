@@ -1058,6 +1058,7 @@
   "live_match.matchPreview": "Preview of the active match {{matchId}}, a game map with heroes moving around the map.",
   "live_match.playerAbandoned": "Player {{playerName}} left the game",
   "live_match.watchWithLauncher": "Watch with Launcher",
+  "live_match.manualConnect": "Or manually:",
   "live_streams.streamsTitle": "Streams for old Dota",
   "live_streams.streamsDescription": "Streams on twitch.tv for classic Dota",
   "live_streams.noStreamsFound": "We didn't find any streams for dotalegacy :(",

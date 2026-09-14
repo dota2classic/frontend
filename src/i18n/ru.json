@@ -1067,6 +1067,7 @@
   "live_match.matchPreview": "Превью активного матча {{matchId}}, игровая карта с героями, которые двигаются по карте.",
   "live_match.playerAbandoned": "Игрок {{playerName}} покинул игру",
   "live_match.watchWithLauncher": "Смотреть через лаунчер",
+  "live_match.manualConnect": "Или вручную:",
   "live_streams.streamsTitle": "Стримы по старой доте",
   "live_streams.streamsDescription": "Трансляции на twitch.tv по классической доте",
   "live_streams.noStreamsFound": "Мы не нашли ни одного стрима по dotalegacy :(",
