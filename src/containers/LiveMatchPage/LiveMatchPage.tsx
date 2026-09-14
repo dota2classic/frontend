@@ -170,10 +170,12 @@ export const LiveMatchPage: React.FC<ILiveMatchPageProps> = observer(
                           <span className={c.statLabel}>
                             {t("live_match.manualConnect")}
                           </span>
-                          <CopySomething
-                            className={c.manualConnectValue}
-                            something={watchCmd(liveMatch.server)}
-                          />
+                          <div className={c.manualConnectCopy}>
+                            <CopySomething
+                              className={c.manualConnectValue}
+                              something={watchCmd(liveMatch.server)}
+                            />
+                          </div>
                         </div>
                       )}
                     </div>
