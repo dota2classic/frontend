@@ -1,0 +1,16 @@
+{
+  "admin_subscribers": {
+    "seo": {
+      "title": "Подписчики",
+      "description": "Список действующих подписок на сайте dotaclassic.ru"
+    },
+    "activeCount": "Активных подписок: {{count}}",
+    "showExpired": "Показать истекшие",
+    "showStaff": "Показать служебные роли",
+    "player": "Игрок",
+    "role": "Роль",
+    "expires": "Действует до",
+    "expired": "истекла",
+    "empty": "Нет подписок"
+  }
+}

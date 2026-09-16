@@ -1,0 +1,16 @@
+{
+  "admin_subscribers": {
+    "seo": {
+      "title": "Subscribers",
+      "description": "Active subscriptions on dotaclassic.ru"
+    },
+    "activeCount": "Active subscriptions: {{count}}",
+    "showExpired": "Show expired",
+    "showStaff": "Show staff roles",
+    "player": "Player",
+    "role": "Role",
+    "expires": "Expires",
+    "expired": "expired",
+    "empty": "No subscriptions"
+  }
+}
