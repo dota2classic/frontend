@@ -168,6 +168,7 @@ export const AppRouter = {
   admin: {
     servers: spage("/admin/servers"),
     queues: spage("/admin/queues"),
+    subscribers: spage("/admin/subscribers"),
     feedback: {
       index: spage("/admin/feedback"),
       edit: (id: number) =>

@@ -21,6 +21,10 @@ export const AdminNavbarItem = () => {
           label: t("admin_navbar.violations"),
           action: AppRouter.admin.crimes().link,
         },
+        {
+          label: t("admin_navbar.subscribers"),
+          action: AppRouter.admin.subscribers.link,
+        },
 
         {
           newCategory: true,
