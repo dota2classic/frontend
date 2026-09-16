@@ -158,7 +158,11 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  flex-shrink: 0;
+  // Absorbs the leftover width and yields it back when space is tight.
+  // It used to be flex-shrink: 0, which let the long mode name ("Обычная
+  // 5х5 • Ranked All Pick") starve the score/duration column next to it.
+  // modeValue already wraps, so shrinking it is the graceful option.
+  flex: 1 1 auto;
   min-width: 0;
 }
 
@@ -201,15 +205,15 @@
   align-items: flex-end;
   gap: 32px;
   flex-wrap: wrap;
-  flex: 1;
-  min-width: 0;
+  // Sized to its content and never squeezed below it — score and duration
+  // are short and must stay intact.
+  flex: 0 1 auto;
 }
 
 .metricInline {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-width: 0;
 }
 
 .metricsDivider {
@@ -240,8 +244,9 @@
   color: var(--ds-color-text-strong);
   font-size: clamp(1.4rem, 1.8vw, 1.6rem);
   font-weight: 700;
-  min-width: 0;
-  overflow-wrap: anywhere;
+  // A clock must never break mid-value: overflow-wrap: anywhere used to
+  // shatter "34:38" into "34" / ":3" / "8" once the column got narrow.
+  white-space: nowrap;
   line-height: 1.1;
 }
 
@@ -251,6 +256,7 @@
   gap: 8px;
   font-size: clamp(1.6rem, 2.2vw, 1.85rem);
   font-weight: 700;
+  white-space: nowrap;
   line-height: 1.1;
 }
 
@@ -282,10 +288,13 @@
 }
 
 .manualConnect {
+  // Label above value, matching the СЧЕТ / ВРЕМЯ blocks. Explicit column
+  // instead of relying on flex-wrap, which put the two on one line or two
+  // depending on the column width and the length of the address.
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 
 .manualConnectCopy {
@@ -299,9 +308,10 @@
   font-size: var(--ds-font-size-sm);
   color: var(--ds-color-text-muted);
   white-space: nowrap;
-  // CopySomething's copy icon is absolutely positioned at right:15px over
-  // the text — reserve room so it doesn't sit on top of the port digits.
-  padding-right: 24px;
+  // CopySomething's copy icon is absolutely positioned at right:15px and
+  // sized 1em off .copyHolder (~16px), so it covers 15-31px from the right
+  // edge. Reserve past that or it sits on top of the port digits.
+  padding-right: 36px;
 }
 
 .watchButton {
