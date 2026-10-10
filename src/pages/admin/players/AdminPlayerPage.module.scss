@@ -19,3 +19,9 @@
 .inactive {
   color: var(--ds-color-text-faint);
 }
+
+.smurfSummary {
+  margin: 0 0 var(--ds-space-2) var(--ds-space-1);
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-color-text-dim);
+}
