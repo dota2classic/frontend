@@ -179,6 +179,12 @@ const GiveSkinContainer = (props: { steamId: string }) => {
   );
 };
 
+// Transferring must never shorten a ban the linked account already has
+const isBanTransferable = (smurf: SmurfData, sourceBan: BanStatusDto) =>
+  !smurf.ban.isBanned ||
+  new Date(smurf.ban.bannedUntil).getTime() <
+    new Date(sourceBan.bannedUntil).getTime();
+
 const smurfLinkLabel = (smurf: SmurfData): string => {
   if (smurf.sharedHwid && smurf.sharedIp) return "Общий ПК, общий IP";
   if (smurf.sharedHwid) return "Общий ПК";
@@ -270,13 +276,15 @@ const SmurfSection = (p: {
               )}
               {canTransferBan && (
                 <td>
-                  <Button
-                    small
-                    disabled={isTransferring}
-                    onClick={() => transferBan(smurf)}
-                  >
-                    Перенести бан
-                  </Button>
+                  {isBanTransferable(smurf, p.sourceBan) && (
+                    <Button
+                      small
+                      disabled={isTransferring}
+                      onClick={() => transferBan(smurf)}
+                    >
+                      Перенести бан
+                    </Button>
+                  )}
                 </td>
               )}
             </tr>
