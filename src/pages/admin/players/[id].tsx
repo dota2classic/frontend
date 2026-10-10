@@ -185,6 +185,10 @@ const isBanTransferable = (smurf: SmurfData, sourceBan: BanStatusDto) =>
   new Date(smurf.ban.bannedUntil).getTime() <
     new Date(sourceBan.bannedUntil).getTime();
 
+// Production has ban reasons without a text (3, 5, 6)
+const banReasonText = (reason: BanStatusDto["status"]) =>
+  formatBanReason(reason) ?? `причина ${reason}`;
+
 const smurfLinkLabel = (smurf: SmurfData): string => {
   if (smurf.sharedHwid && smurf.sharedIp) return "HWID, IP";
   if (smurf.sharedHwid) return "HWID";
@@ -200,33 +204,40 @@ const SmurfSection = (p: {
   const { data: smurfs = p.preloaded, mutate } =
     getApi().adminApi.useAdminUserControllerSmurfOf(p.steamId, {
       fallbackData: p.preloaded,
+      // Already loaded server-side; refetch only after a ban transfer
+      revalidateOnMount: false,
     });
+  // Same SWR key as the "Блокировка" block, so a ban edited there is seen here
+  const { data: banSummary } = getApi().adminApi.useAdminUserControllerBanOf(
+    p.steamId,
+  );
+  const sourceBan = banSummary?.banStatus ?? p.sourceBan;
   const [smurfFull, setSmurfFull] = useState<boolean>(false);
 
   const hwidCount = smurfs.filter((s) => s.sharedHwid).length;
   const ipCount = smurfs.filter((s) => s.sharedIp).length;
-  const canTransferBan = p.sourceBan.isBanned;
+  const canTransferBan = sourceBan.isBanned;
 
   const [isTransferring, transferBan] = useAsyncButton(
     async (smurf: SmurfData) => {
-      const until = fullDate(new Date(p.sourceBan.bannedUntil));
+      const until = fullDate(new Date(sourceBan.bannedUntil));
       if (
         !window.confirm(
-          `Забанить ${smurf.user.name} до ${until}? Причина: ${formatBanReason(p.sourceBan.status)}`,
+          `Забанить ${smurf.user.name} до ${until}? Причина: ${banReasonText(sourceBan.status)}`,
         )
       )
         return;
       try {
         await getApi().adminApi.adminUserControllerBanId(smurf.user.steamId, {
-          reason: p.sourceBan.status,
-          endTime: p.sourceBan.bannedUntil,
+          reason: sourceBan.status,
+          endTime: sourceBan.bannedUntil,
         });
         await mutate();
       } catch (e) {
         await handleException("Ошибка при переносе бана", e);
       }
     },
-    [p.sourceBan, mutate],
+    [sourceBan, mutate],
   );
 
   return (
@@ -268,7 +279,7 @@ const SmurfSection = (p: {
               </td>
               {smurf.ban.isBanned ? (
                 <td>
-                  {formatBanReason(smurf.ban.status)}{" "}
+                  {banReasonText(smurf.ban.status)}{" "}
                   {fullDate(new Date(smurf.ban.bannedUntil))}
                 </td>
               ) : (
@@ -276,7 +287,7 @@ const SmurfSection = (p: {
               )}
               {canTransferBan && (
                 <td>
-                  {isBanTransferable(smurf, p.sourceBan) && (
+                  {isBanTransferable(smurf, sourceBan) && (
                     <Button
                       small
                       disabled={isTransferring}
