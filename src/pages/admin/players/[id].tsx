@@ -450,6 +450,15 @@ export default function AdminPlayerPage({
                 />
               </td>
             </tr>
+            <tr>
+              <td>Автобан твинков по HWID</td>
+              <td>
+                <Checkbox
+                  onChange={(e) => updateFlag({ autoBanHwid: e })}
+                  checked={flags?.autoBanHwid}
+                />
+              </td>
+            </tr>
           </tbody>
         </Table>
       </Section>

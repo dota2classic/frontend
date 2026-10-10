@@ -49,6 +49,12 @@ export interface UpdatePlayerFlagDto {
      * @memberof UpdatePlayerFlagDto
      */
     legalRemove?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdatePlayerFlagDto
+     */
+    autoBanHwid?: boolean;
 }
 
 export function UpdatePlayerFlagDtoFromJSON(json: any): UpdatePlayerFlagDto {
@@ -66,6 +72,7 @@ export function UpdatePlayerFlagDtoFromJSONTyped(json: any, ignoreDiscriminator:
         'disableReports': !exists(json, 'disableReports') ? undefined : json['disableReports'],
         'disableStreams': !exists(json, 'disableStreams') ? undefined : json['disableStreams'],
         'legalRemove': !exists(json, 'legalRemove') ? undefined : json['legalRemove'],
+        'autoBanHwid': !exists(json, 'autoBanHwid') ? undefined : json['autoBanHwid'],
     };
 }
 
@@ -83,6 +90,7 @@ export function UpdatePlayerFlagDtoToJSON(value?: UpdatePlayerFlagDto | null): a
         'disableReports': value.disableReports,
         'disableStreams': value.disableStreams,
         'legalRemove': value.legalRemove,
+        'autoBanHwid': value.autoBanHwid,
     };
 }
 
