@@ -186,9 +186,9 @@ const isBanTransferable = (smurf: SmurfData, sourceBan: BanStatusDto) =>
     new Date(sourceBan.bannedUntil).getTime();
 
 const smurfLinkLabel = (smurf: SmurfData): string => {
-  if (smurf.sharedHwid && smurf.sharedIp) return "Общий ПК, общий IP";
-  if (smurf.sharedHwid) return "Общий ПК";
-  return "Общий IP";
+  if (smurf.sharedHwid && smurf.sharedIp) return "HWID, IP";
+  if (smurf.sharedHwid) return "HWID";
+  return "IP";
 };
 
 const SmurfSection = (p: {
@@ -234,7 +234,7 @@ const SmurfSection = (p: {
       <header>Смурфы</header>
       {smurfs.length > 0 && (
         <p className={c.smurfSummary}>
-          Связаны по компьютеру (HWID): {hwidCount} · по IP: {ipCount}
+          HWID: {hwidCount} · IP: {ipCount}
         </p>
       )}
       <Table>
