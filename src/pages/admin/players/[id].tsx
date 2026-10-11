@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { NextPageContext } from "next";
 import {
+  BanStatusDto,
   DropTierDto,
   ForumUserDto,
   PlayerSummaryDto,
@@ -178,6 +179,140 @@ const GiveSkinContainer = (props: { steamId: string }) => {
   );
 };
 
+// Transferring must never shorten a ban the linked account already has
+const isBanTransferable = (smurf: SmurfData, sourceBan: BanStatusDto) =>
+  !smurf.ban.isBanned ||
+  new Date(smurf.ban.bannedUntil).getTime() <
+    new Date(sourceBan.bannedUntil).getTime();
+
+// Production has ban reasons without a text (3, 5, 6)
+const banReasonText = (reason: BanStatusDto["status"]) =>
+  formatBanReason(reason) ?? `причина ${reason}`;
+
+const smurfLinkLabel = (smurf: SmurfData): string => {
+  if (smurf.sharedHwid && smurf.sharedIp) return "HWID, IP";
+  if (smurf.sharedHwid) return "HWID";
+  return "IP";
+};
+
+const SmurfSection = (p: {
+  className: string;
+  steamId: string;
+  preloaded: SmurfData[];
+  sourceBan: BanStatusDto;
+}) => {
+  const { data: smurfs = p.preloaded, mutate } =
+    getApi().adminApi.useAdminUserControllerSmurfOf(p.steamId, {
+      fallbackData: p.preloaded,
+      // Already loaded server-side; refetch only after a ban transfer
+      revalidateOnMount: false,
+    });
+  // Same SWR key as the "Блокировка" block, so a ban edited there is seen here
+  const { data: banSummary } = getApi().adminApi.useAdminUserControllerBanOf(
+    p.steamId,
+  );
+  const sourceBan = banSummary?.banStatus ?? p.sourceBan;
+  const [smurfFull, setSmurfFull] = useState<boolean>(false);
+
+  const hwidCount = smurfs.filter((s) => s.sharedHwid).length;
+  const ipCount = smurfs.filter((s) => s.sharedIp).length;
+  const canTransferBan = sourceBan.isBanned;
+
+  const [isTransferring, transferBan] = useAsyncButton(
+    async (smurf: SmurfData) => {
+      const until = fullDate(new Date(sourceBan.bannedUntil));
+      if (
+        !window.confirm(
+          `Забанить ${smurf.user.name} до ${until}? Причина: ${banReasonText(sourceBan.status)}`,
+        )
+      )
+        return;
+      try {
+        await getApi().adminApi.adminUserControllerBanId(smurf.user.steamId, {
+          reason: sourceBan.status,
+          endTime: sourceBan.bannedUntil,
+        });
+        await mutate();
+      } catch (e) {
+        await handleException("Ошибка при переносе бана", e);
+      }
+    },
+    [sourceBan, mutate],
+  );
+
+  return (
+    <Section className={p.className}>
+      <header>Смурфы</header>
+      {smurfs.length > 0 && (
+        <p className={c.smurfSummary}>
+          HWID: {hwidCount} · IP: {ipCount}
+        </p>
+      )}
+      <Table>
+        <thead>
+          <tr>
+            <th>Аккаунт</th>
+            <th>Связь</th>
+            <th>Матчей</th>
+            <th>Последний матч</th>
+            <th>Статус бана</th>
+            {canTransferBan && <th />}
+          </tr>
+        </thead>
+        <tbody>
+          {smurfs.length === 0 && (
+            <tr>
+              <td colSpan={canTransferBan ? 6 : 5}>
+                Связанных аккаунтов не найдено
+              </td>
+            </tr>
+          )}
+          {smurfs.slice(0, smurfFull ? 1000 : 10).map((smurf) => (
+            <tr key={smurf.user.steamId}>
+              <td>
+                <UserPreview avatarSize={30} user={smurf.user} />
+              </td>
+              <td>{smurfLinkLabel(smurf)}</td>
+              <td>{smurf.games ?? "—"}</td>
+              <td>
+                {smurf.lastMatch ? fullDate(new Date(smurf.lastMatch)) : "—"}
+              </td>
+              {smurf.ban.isBanned ? (
+                <td>
+                  {banReasonText(smurf.ban.status)}{" "}
+                  {fullDate(new Date(smurf.ban.bannedUntil))}
+                </td>
+              ) : (
+                <td>Бана нет</td>
+              )}
+              {canTransferBan && (
+                <td>
+                  {isBanTransferable(smurf, sourceBan) && (
+                    <Button
+                      small
+                      disabled={isTransferring}
+                      onClick={() => transferBan(smurf)}
+                    >
+                      Перенести бан
+                    </Button>
+                  )}
+                </td>
+              )}
+            </tr>
+          ))}
+          {smurfs.length > 10 && !smurfFull && (
+            <tr>
+              <td>
+                <Button onClick={() => setSmurfFull(true)}>Показать все</Button>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
+    </Section>
+  );
+};
+
 interface AdminPlayerPageProps {
   preloadedSummary: PlayerSummaryDto;
   preloadedForumUser: ForumUserDto;
@@ -203,7 +338,6 @@ export default function AdminPlayerPage({
     },
     [mutateFlags, steamId],
   );
-  const [smurfFull, setSmurfFull] = useState<boolean>(false);
 
   const { data: forumUser, mutate: mutateForumUser } =
     getApi().forumApi.useForumControllerGetUser(steamId, {
@@ -327,47 +461,25 @@ export default function AdminPlayerPage({
                 />
               </td>
             </tr>
+            <tr>
+              <td>Автобан твинков по HWID</td>
+              <td>
+                <Checkbox
+                  onChange={(e) => updateFlag({ autoBanHwid: e })}
+                  checked={flags?.autoBanHwid}
+                />
+              </td>
+            </tr>
           </tbody>
         </Table>
       </Section>
 
-      <Section className={c2.grid12}>
-        <header>Смурфы</header>
-        <Table>
-          <thead>
-            <tr>
-              <th>Аккаунт</th>
-              <th>Статус бана</th>
-            </tr>
-          </thead>
-          <tbody>
-            {smurfData.slice(0, smurfFull ? 1000 : 10).map((smurf) => (
-              <tr key={smurf.user.steamId}>
-                <td>
-                  <UserPreview avatarSize={30} user={smurf.user} />
-                </td>
-                {smurf.ban.isBanned ? (
-                  <td>
-                    {formatBanReason(smurf.ban.status)}{" "}
-                    {fullDate(new Date(smurf.ban.bannedUntil))}
-                  </td>
-                ) : (
-                  <td>Бана нет</td>
-                )}
-              </tr>
-            ))}
-            {smurfData.length > 10 && !smurfFull && (
-              <tr>
-                <td>
-                  <Button onClick={() => setSmurfFull(true)}>
-                    Показать все
-                  </Button>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </Table>
-      </Section>
+      <SmurfSection
+        className={c2.grid12}
+        steamId={steamId}
+        preloaded={smurfData}
+        sourceBan={preloadedSummary.banStatus}
+      />
 
       <Section className={c2.grid12}>
         <header>Блокировка</header>

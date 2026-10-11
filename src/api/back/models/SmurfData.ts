@@ -42,6 +42,30 @@ export interface SmurfData {
      * @memberof SmurfData
      */
     ban: BanStatusDto;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SmurfData
+     */
+    sharedHwid: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SmurfData
+     */
+    sharedIp: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof SmurfData
+     */
+    games?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SmurfData
+     */
+    lastMatch?: string;
 }
 
 export function SmurfDataFromJSON(json: any): SmurfData {
@@ -56,6 +80,10 @@ export function SmurfDataFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         
         'user': UserDTOFromJSON(json['user']),
         'ban': BanStatusDtoFromJSON(json['ban']),
+        'sharedHwid': json['sharedHwid'],
+        'sharedIp': json['sharedIp'],
+        'games': !exists(json, 'games') ? undefined : json['games'],
+        'lastMatch': !exists(json, 'lastMatch') ? undefined : json['lastMatch'],
     };
 }
 
@@ -70,6 +98,10 @@ export function SmurfDataToJSON(value?: SmurfData | null): any {
         
         'user': UserDTOToJSON(value.user),
         'ban': BanStatusDtoToJSON(value.ban),
+        'sharedHwid': value.sharedHwid,
+        'sharedIp': value.sharedIp,
+        'games': value.games,
+        'lastMatch': value.lastMatch,
     };
 }
 

@@ -49,6 +49,12 @@ export interface PlayerFlagDto {
      * @memberof PlayerFlagDto
      */
     legalRemove: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PlayerFlagDto
+     */
+    autoBanHwid: boolean;
 }
 
 export function PlayerFlagDtoFromJSON(json: any): PlayerFlagDto {
@@ -66,6 +72,7 @@ export function PlayerFlagDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         'disableReports': json['disableReports'],
         'disableStreams': json['disableStreams'],
         'legalRemove': json['legalRemove'],
+        'autoBanHwid': json['autoBanHwid'],
     };
 }
 
@@ -83,6 +90,7 @@ export function PlayerFlagDtoToJSON(value?: PlayerFlagDto | null): any {
         'disableReports': value.disableReports,
         'disableStreams': value.disableStreams,
         'legalRemove': value.legalRemove,
+        'autoBanHwid': value.autoBanHwid,
     };
 }
 
