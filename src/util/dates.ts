@@ -41,6 +41,11 @@ export function formatDate(d: Date): string {
 }
 
 import { useTranslation } from "react-i18next";
+import { useSyncExternalStore } from "react";
+
+const subscribeToHydration = () => () => {};
+const clientHydrated = () => true;
+const serverHydrated = () => false;
 
 export function useFormattedDuration() {
   const { t } = useTranslation();
@@ -88,34 +93,44 @@ export function useLongFormattedDuration() {
 
 export function useFormattedDateTime() {
   const { t, i18n } = useTranslation();
+  const hydrated = useSyncExternalStore(
+    subscribeToHydration,
+    clientHydrated,
+    serverHydrated,
+  );
 
   return (date: Date) => {
     const now = new Date();
-
-    // Normalize to midnight for comparison
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    // The server and initial hydration must use the same zone. Switch to the
+    // user's local zone after hydration, including relative-day comparisons.
+    const timeZone = hydrated ? undefined : "UTC";
+    const dayFormatter = new Intl.DateTimeFormat("en-CA", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    const today = new Date(now);
     const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-
-    const dateOnly = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-    );
+    if (hydrated) yesterday.setDate(today.getDate() - 1);
+    else yesterday.setUTCDate(today.getUTCDate() - 1);
+    const dateOnly = dayFormatter.format(date);
 
     const timeFormatter = new Intl.DateTimeFormat(i18n.language, {
+      timeZone,
       hour: "2-digit",
       minute: "2-digit",
     });
 
-    if (dateOnly.getTime() === today.getTime()) {
+    if (dateOnly === dayFormatter.format(today)) {
       return t("dates.todayAt", { time: timeFormatter.format(date) });
     }
-    if (dateOnly.getTime() === yesterday.getTime()) {
+    if (dateOnly === dayFormatter.format(yesterday)) {
       return t("dates.yesterdayAt", { time: timeFormatter.format(date) });
     }
 
     const fullFormatter = new Intl.DateTimeFormat(i18n.language, {
+      timeZone,
       year: "numeric",
       month: "short",
       day: "numeric",

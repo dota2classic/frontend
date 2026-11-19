@@ -26,6 +26,11 @@ jobs:
 
       - name: Build
         run: yarn build
+        env:
+          API_URL: https://api.dotaclassic.ru
+          SOCKET_URL: wss://api.dotaclassic.ru
+          IS_DEV_VERSION: 'false'
+          VAPID_PUBLIC_KEY: ${{ vars.WEBPUSH_PUBLIC_KEY }}
 
   docker:
     if: github.ref == 'refs/heads/master'
@@ -45,6 +50,11 @@ jobs:
         uses: docker/build-push-action@v6.7.0
         with:
           push: true
+          build-args: |
+            API_URL=https://api.dotaclassic.ru
+            SOCKET_URL=wss://api.dotaclassic.ru
+            IS_DEV_VERSION=false
+            VAPID_PUBLIC_KEY=${{ vars.WEBPUSH_PUBLIC_KEY }}
           tags: |
             dota2classic/frontend:k8s-${{ env.SHORT_SHA }}
             dota2classic/frontend:k8s-latest
