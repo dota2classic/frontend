@@ -70,7 +70,7 @@ export const EmoticonSelectWindow: React.FC<IEmoticonSelectWindowProps> =
     const [hoveredEmoticon, setHoveredEmoticon] = useState<EmoticonDto>({
       code: "cocky",
       id: 29,
-      src: "https://s3.dotaclassic.ru/emoticons/cocky.gif",
+      src: "https://cdn.dotaclassic.ru/public/emoticons/cocky.gif",
     });
 
     const inputRef = useRef<HTMLInputElement | null>(null);
