@@ -36,6 +36,7 @@ import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
 import { clientStoreManager } from "@/store/ClientStoreManager";
 import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 import Cookies from "js-cookie";
+import { BrowserCookies } from "@/util/browser-cookies";
 
 export const PUBLIC_API_URL = process.env.API_URL;
 
@@ -86,10 +87,12 @@ export class AppApi {
       init?: RequestInit,
     ): Promise<Response> => {
       return fetch(input, init).then((t) => {
-        if (typeof window === "undefined") return t;
-        const rootStore = clientStoreManager.getRootStore()!;
-        const auth = rootStore.auth;
-        if (t.status === 401 && auth.isAuthorized) {
+        if (typeof window === "undefined" || t.status !== 401) return t;
+        const auth = clientStoreManager.getRootStore()?.auth;
+        const sent = (init?.headers as Record<string, string> | undefined)?.[
+          "Authorization"
+        ];
+        if (auth?.isAuthorized && sent === `Bearer ${auth.token}`) {
           auth.logout();
         }
         return t;
@@ -159,6 +162,11 @@ export class AppApi {
 const appApi =
   typeof window === "undefined"
     ? new AppApi()
-    : new AppApi(() => clientStoreManager.getRootStore()?.auth.token);
+    : new AppApi(() => {
+        const store = clientStoreManager.getRootStore();
+        return store
+          ? store.auth.token
+          : BrowserCookies.get(AUTH_TOKEN_COOKIE_KEY) || undefined;
+      });
 
 export const getApi = () => appApi;
