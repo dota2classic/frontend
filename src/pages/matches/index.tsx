@@ -4,7 +4,7 @@ import { AppRouter } from "@/route";
 import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
 import { useRouterChanging } from "@/util/useRouterChanging";
 import React, { useEffect } from "react";
-import { numberOrDefault } from "@/util/urls";
+import { numberOrDefault, parsePage } from "@/util/urls";
 import { MatchComparator } from "@/util/sorts";
 import { useGameModeOptions } from "@/const/options";
 import { useTranslation } from "react-i18next";
@@ -31,7 +31,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
   const data = matches;
 
   useEffect(() => {
-    if (data && numberOrDefault(page, 0) >= data.pages) {
+    if (data && parsePage(page) >= data.pages) {
       setPage(data.pages - 1);
     }
   }, [data, data.pages, page, setPage]);
@@ -62,7 +62,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
           linkProducer={(page) =>
             AppRouter.matches.index(page, mode || undefined).link
           }
-          page={Number(page) || data?.page || 0}
+          page={parsePage(page)}
           maxPage={data?.pages || 0}
         />
       </div>
@@ -74,7 +74,7 @@ MatchHistory.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<MatchHistoryProps> => {
   const api = getRequestApi(ctx);
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
   const mode = numberOrDefault(ctx.query.mode, undefined);
 
   return {

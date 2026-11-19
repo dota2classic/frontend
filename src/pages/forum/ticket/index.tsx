@@ -1,4 +1,4 @@
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { ThreadPageDTO, ThreadType } from "@/api/back";
 import { AppRouter } from "@/route";
 import React from "react";
@@ -50,7 +50,7 @@ export default function TicketsPage({ threads, page }: Props) {
 
 TicketsPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const api = getRequestApi(ctx);
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   const threads = await api.forumApi.forumControllerThreads(
     page,

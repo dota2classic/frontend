@@ -1,5 +1,5 @@
 import { NextPageContext } from "next";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import React, { useState } from "react";
 import { PlayerSummaryDto, PlayerTeammatePageDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
@@ -88,7 +88,7 @@ PlayerTeammates.getInitialProps = async (
   const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
 
-  const page = numberOrDefault(ctx.query.page, 0);
+  const page = parsePage(ctx.query.page);
 
   return {
     summary: await api.playerApi.playerControllerPlayerSummary(playerId),

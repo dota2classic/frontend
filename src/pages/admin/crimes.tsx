@@ -1,6 +1,6 @@
 import { NextPageContext } from "next";
 import { BanReason, CrimeLogPageDto, MatchmakingMode } from "@/api/back";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import React, { useCallback, useState } from "react";
 import { AppRouter } from "@/route";
 import { formatBanReason } from "@/util/texts/bans";
@@ -153,7 +153,7 @@ export default function CrimesPage({ crime, steamId }: Props) {
 
 CrimesPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const api = getRequestApi(ctx);
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
   const steamId = ctx.query.steam_id as string | undefined;
 
   return {

@@ -3,7 +3,7 @@ import { ThreadType } from "@/api/mapped-models";
 import { ThreadDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import React from "react";
 import { PaginatedThread } from "@/containers/Thread";
 import { useTranslation } from "react-i18next";
@@ -56,7 +56,7 @@ export default function ThreadPage({ messages, thread, page }: Props) {
 ThreadPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const api = getRequestApi(ctx);
   const tid = ctx.query.id as string;
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   return {
     page,

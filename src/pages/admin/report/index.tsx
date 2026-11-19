@@ -1,5 +1,5 @@
 import { getApi } from "@/api/hooks";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { ReportPageDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import React, { useState } from "react";
@@ -244,7 +244,7 @@ AdminReportsPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
   const api = getRequestApi(ctx);
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   const reports = await api.report.reportControllerGetReportPage(page, 15);
 

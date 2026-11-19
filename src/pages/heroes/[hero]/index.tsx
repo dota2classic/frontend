@@ -4,7 +4,7 @@ import {
   HeroSummaryDto,
   MatchPageDto,
 } from "@/api/back";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import c from "./HeroPage.module.scss";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import React from "react";
@@ -99,7 +99,7 @@ HeroHistoryPage.getInitialProps = async (ctx: NextPageContext) => {
   let hero = ctx.query.hero as string;
   hero = hero.includes("npc_dota_hero_") ? hero : `npc_dota_hero_${hero}`;
 
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   const [
     initialMatchData,

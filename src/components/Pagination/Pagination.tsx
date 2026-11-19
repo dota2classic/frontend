@@ -50,11 +50,13 @@ const PaginationItem = ({
 };
 
 export const Pagination: React.FC<IPaginationProps> = ({
-  page,
+  page: requestedPage,
   maxPage,
   linkProducer,
 }) => {
   const horOffset = 1;
+  const lastPage = Math.max(maxPage - 1, 0);
+  const page = Math.min(Math.max(requestedPage, 0), lastPage);
 
   const iter = new Array(horOffset * 2 + 1)
     .fill(null)
@@ -68,7 +70,10 @@ export const Pagination: React.FC<IPaginationProps> = ({
       <PaginationItem disabled={page === 0} link={linkProducer(0)}>
         <HiChevronDoubleLeft />
       </PaginationItem>
-      <PaginationItem disabled={page === 0} link={linkProducer(page - 1)}>
+      <PaginationItem
+        disabled={page === 0}
+        link={linkProducer(Math.max(page - 1, 0))}
+      >
         <IoChevronBack />
       </PaginationItem>
       {iter.map((_page) => (
@@ -81,14 +86,14 @@ export const Pagination: React.FC<IPaginationProps> = ({
         </PaginationItem>
       ))}
       <PaginationItem
-        disabled={page === maxPage - 1}
-        link={linkProducer(page + 1)}
+        disabled={page === lastPage}
+        link={linkProducer(Math.min(page + 1, lastPage))}
       >
         <IoChevronForward />
       </PaginationItem>
       <PaginationItem
-        disabled={page === maxPage - 1}
-        link={linkProducer(maxPage - 1)}
+        disabled={page === lastPage}
+        link={linkProducer(lastPage)}
       >
         <HiChevronDoubleRight />
       </PaginationItem>

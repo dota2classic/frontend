@@ -1,4 +1,4 @@
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { ThreadPageDTO, ThreadType } from "@/api/back";
 import { EmbedProps } from "@/components/EmbedProps";
 import { Pagination } from "@/components/Pagination";
@@ -41,7 +41,7 @@ export default function ReportsPage({ threads, page }: Props) {
 
 ReportsPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const api = getRequestApi(ctx);
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   const threads = await api.forumApi.forumControllerThreads(
     page,

@@ -9,7 +9,7 @@ import {
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import React from "react";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { PaginatedThread } from "@/containers/Thread";
 import { ReportCard } from "@/containers/ReportCard";
 import { EmbedProps } from "@/components/EmbedProps";
@@ -62,7 +62,7 @@ export default function ReportPage({
           threadType={ThreadType.REPORT}
           id={r.query.id as string}
           pagination={{
-            page: numberOrDefault(page, 0),
+            page: parsePage(page),
             pageProvider: (p) =>
               AppRouter.forum.thread(thread!.externalId, thread!.threadType, p)
                 .link,
@@ -77,7 +77,7 @@ export default function ReportPage({
 ReportPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   const api = getRequestApi(ctx);
   const tid = ctx.query.id as string;
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   const [messages, thread, report, punishments] = await Promise.combine([
     api.forumApi

@@ -1,6 +1,6 @@
 import { HeroSummaryDto, MatchPageDto } from "@/api/back";
 import React, { useMemo } from "react";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { NextPageContext } from "next";
 import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
 import { useRouterChanging } from "@/util/useRouterChanging";
@@ -63,7 +63,7 @@ export default function HeroMatches({
           linkProducer={(page) =>
             AppRouter.heroes.hero.matches(hero, page).link
           }
-          page={Number(page) || initialMatchData?.page || 0}
+          page={parsePage(page)}
           maxPage={initialMatchData?.pages || 0}
         />
         <HeroWithItemsHistoryTable
@@ -76,7 +76,7 @@ export default function HeroMatches({
           linkProducer={(page) =>
             AppRouter.heroes.hero.matches(hero, page).link
           }
-          page={Number(page) || initialMatchData?.page || 0}
+          page={parsePage(page)}
           maxPage={initialMatchData?.pages || 0}
         />
       </Section>
@@ -89,7 +89,7 @@ HeroMatches.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
   let hero = ctx.query.hero as string;
   hero = hero.includes("npc_dota_hero_") ? hero : `npc_dota_hero_${hero}`;
 
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   const [initialMatchData, initialHeroesMeta] = await Promise.combine([
     api.matchApi.matchControllerHeroMatches(page, hero, undefined),

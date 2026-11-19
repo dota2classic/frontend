@@ -1,5 +1,5 @@
 import { NextPageContext } from "next";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { PlayerFeedbackPageDto } from "@/api/back";
 import c from "../AdminStyles.module.scss";
 import { AppRouter } from "@/route";
@@ -65,7 +65,7 @@ export default function PlayerFeedbackPage({ page }: Props) {
 
 PlayerFeedbackPage.getInitialProps = async (ctx: NextPageContext) => {
   const api = getRequestApi(ctx);
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
   return {
     page: await api.adminFeedback.adminFeedbackControllerGetPlayerFeedback(
       page,

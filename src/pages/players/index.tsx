@@ -2,7 +2,7 @@ import { GameSeasonDto, UserDTO } from "@/api/back";
 import { LeaderboardSort } from "@/api/customPlayerApi";
 import { colors } from "@/colors";
 import cx from "clsx";
-import { numberOrDefault } from "@/util/urls";
+import { numberOrDefault, parsePage } from "@/util/urls";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import React from "react";
@@ -224,7 +224,7 @@ LeaderboardPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<LeaderboardPageProps> => {
   const api = getRequestApi(ctx);
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
   const seasonId = numberOrDefault(ctx.query.seasonId as string, 0);
   const sortParam = ctx.query.sort as string | undefined;
   const sort = isLeaderboardSort(sortParam) ? sortParam : undefined;
