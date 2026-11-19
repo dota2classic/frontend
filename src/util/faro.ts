@@ -10,11 +10,12 @@ let initialized = false;
 export function initFaro() {
   if (initialized || typeof window === "undefined") return;
   if (process.env.NODE_ENV !== "production") return;
+  const url = process.env.NEXT_PUBLIC_FARO_URL;
+  if (!url) return;
   initialized = true;
 
   const faroApp = initializeFaro({
-    // TODO: make this a process.env variable
-    url: "https://logsink.dotaclassic.ru/collect",
+    url,
     app: {
       name: "d2c-new",
       version: process.env.NEXT_PUBLIC_APP_VERSION ?? "unknown",
