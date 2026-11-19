@@ -151,7 +151,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @action
   public logout = () => {
-    console.trace(`Logout called, erasing cookie ${getBaseCookieDomain()}`);
     this.token = undefined;
 
     eraseCookie(AUTH_TOKEN_COOKIE_KEY);

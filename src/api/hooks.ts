@@ -31,7 +31,6 @@ import {
 } from "./back";
 import { PlayerLeaderboardApi } from "@/api/customPlayerApi";
 import { ReportBulkApi } from "@/api/customReportApi";
-import { getCache } from "@/api/api-cache";
 import { parseJwt } from "@/util/parseJwt";
 import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
 import { clientStoreManager } from "@/store/ClientStoreManager";
@@ -52,8 +51,6 @@ export interface JwtPayload {
 }
 
 export class AppApi {
-  cache = getCache();
-
   constructor(
     readonly accessToken: () => string | undefined = () => undefined,
   ) {}
