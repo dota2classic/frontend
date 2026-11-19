@@ -4,24 +4,7 @@ import bundleAnalyzer from "@next/bundle-analyzer";
 const nextConfig = {
   compress: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**.steamstatic.com",
-      },
-      {
-        protocol: "https",
-        hostname: "steamcdn-a.akamaihd.net",
-      },
-      {
-        protocol: "https",
-        hostname: "**.dotaclassic.ru",
-      },
-      {
-        protocol: "https",
-        hostname: "**.jtvnw.net",
-      },
-    ],
+    unoptimized: true,
   },
   sassOptions: {
     silenceDeprecations: ["legacy-js-api"],
