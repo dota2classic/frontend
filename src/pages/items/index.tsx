@@ -1,10 +1,11 @@
-import { getApi } from "@/api/hooks";
 import { ItemDto } from "@/api/back";
 import { ItemBreadcrumbs } from "@/containers/ItemBreadcrumbs";
 import { EmbedProps } from "@/components/EmbedProps";
 import { ItemsTable } from "@/components/ItemsTable";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface Props {
   items: ItemDto[];
@@ -25,8 +26,9 @@ export default function ItemsPage({ items }: Props) {
   );
 }
 
-ItemsPage.getInitialProps = async (): Promise<Props> => {
+ItemsPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   return {
-    items: await getApi().metaApi.metaControllerItems(),
+    items: await api.metaApi.metaControllerItems(),
   };
 };

@@ -1,8 +1,9 @@
 import { PlayerRecordsResponse } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerRecords } from "@/containers/PlayerRecords";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface Props {
   records: PlayerRecordsResponse;
@@ -21,8 +22,9 @@ export default function RecordsPage({ records }: Props) {
   );
 }
 
-RecordsPage.getInitialProps = async (): Promise<Props> => {
+RecordsPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   return {
-    records: await getApi().record.recordControllerRecords(),
+    records: await api.record.recordControllerRecords(),
   };
 };

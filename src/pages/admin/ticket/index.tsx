@@ -1,4 +1,3 @@
-import { getApi } from "@/api/hooks";
 import { numberOrDefault } from "@/util/urls";
 import { ThreadPageDTO, ThreadType } from "@/api/back";
 import { EmbedProps } from "@/components/EmbedProps";
@@ -10,6 +9,7 @@ import { NextPageContext } from "next";
 import c from "@/pages/forum/Forum.module.scss";
 import { ForumTabs } from "@/containers/ForumTabs";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   threads: ThreadPageDTO;
@@ -44,9 +44,10 @@ export default function AdminTicketsPage({ threads, page }: Props) {
 AdminTicketsPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const page = numberOrDefault(ctx.query.page as string, 0);
 
-  const threads = await getApi().forumApi.forumControllerThreads(
+  const threads = await api.forumApi.forumControllerThreads(
     page,
     false,
     15,

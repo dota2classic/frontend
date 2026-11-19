@@ -13,9 +13,7 @@ interface JwtAuthToken {
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  const cookie =
-    request.cookies.get(AUTH_TOKEN_COOKIE_KEY) ||
-    request.cookies.get(encodeURIComponent(AUTH_TOKEN_COOKIE_KEY));
+  const cookie = request.cookies.get(AUTH_TOKEN_COOKIE_KEY);
   if (!cookie) {
     return NextResponse.redirect(new URL("/forbidden", request.url));
   }

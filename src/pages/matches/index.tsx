@@ -1,4 +1,3 @@
-import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import { MatchPageDto } from "@/api/back";
 import { AppRouter } from "@/route";
@@ -14,6 +13,7 @@ import { SelectOptions } from "@/components/SelectOptions";
 import { Pagination } from "@/components/Pagination";
 import { MatchHistoryTable } from "@/components/MatchHistoryTable";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
@@ -73,14 +73,11 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
 MatchHistory.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<MatchHistoryProps> => {
+  const api = getRequestApi(ctx);
   const page = numberOrDefault(ctx.query.page as string, 0);
   const mode = numberOrDefault(ctx.query.mode, undefined);
 
   return {
-    matches: await getApi().matchApi.matchControllerMatches(
-      page,
-      undefined,
-      mode,
-    ),
+    matches: await api.matchApi.matchControllerMatches(page, undefined, mode),
   };
 };

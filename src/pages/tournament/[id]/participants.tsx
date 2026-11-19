@@ -1,5 +1,4 @@
 import { TournamentDto } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import React from "react";
 import { TournamentTabs } from "@/components/TournamentTabs";
 import c from "./TournamentStyles.module.scss";
@@ -10,6 +9,7 @@ import { SectionBlock } from "@/components/SectionBlock";
 import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   id: number;
@@ -50,9 +50,10 @@ export default function TournamentPage({ tournament }: Props) {
 TournamentPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
   return {
     id,
-    tournament: await getApi().tournament.tournamentControllerGetTournament(id),
+    tournament: await api.tournament.tournamentControllerGetTournament(id),
   };
 };

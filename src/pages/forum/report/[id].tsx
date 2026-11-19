@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
-import { getApi } from "@/api/hooks";
 import {
   ReportDto,
   RulePunishmentDto,
@@ -18,6 +17,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
 import { useTranslation } from "react-i18next";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -75,18 +75,19 @@ export default function ReportPage({
 }
 
 ReportPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const tid = ctx.query.id as string;
   const page = numberOrDefault(ctx.query.page as string, 0);
 
   const [messages, thread, report, punishments] = await Promise.combine([
-    getApi()
-      .forumApi.forumControllerMessagesPage(tid, ThreadType.REPORT, page)
+    api.forumApi
+      .forumControllerMessagesPage(tid, ThreadType.REPORT, page)
       .catch(() => ({ page: 0, perPage: 0, pages: 0, data: [] })),
-    getApi()
-      .forumApi.forumControllerGetThread(tid, ThreadType.REPORT)
+    api.forumApi
+      .forumControllerGetThread(tid, ThreadType.REPORT)
       .catch(() => undefined),
-    getApi().report.reportControllerGetReport(tid),
-    getApi().rules.ruleControllerGetAllPunishments(),
+    api.report.reportControllerGetReport(tid),
+    api.rules.ruleControllerGetAllPunishments(),
   ]);
 
   return {

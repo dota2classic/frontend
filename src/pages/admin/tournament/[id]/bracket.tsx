@@ -1,5 +1,3 @@
-import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { getApi } from "@/api/hooks";
 import { TournamentBracketInfoDto, TournamentDto } from "@/api/back";
 import { SectionBlock } from "@/components/SectionBlock";
 import React from "react";
@@ -11,6 +9,7 @@ import { BracketRenderer } from "@/containers/BracketRenderer";
 import { mapBracket } from "@/containers/BracketRenderer/mapper";
 import { NextPageContext } from "next";
 import { PageHeader } from "@/components/PageHeader";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   tournament: TournamentDto;
@@ -47,12 +46,11 @@ export default function TournamentBracketPage({ tournament, bracket }: Props) {
 }
 
 TournamentBracketPage.getInitialProps = async (ctx: NextPageContext) => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
 
   return {
-    tournament: await withTemporaryToken(ctx, () =>
-      getApi().tournament.tournamentControllerGetTournament(id),
-    ),
+    tournament: await api.tournament.tournamentControllerGetTournament(id),
     bracket: await fetchTournamentBracket(id),
   };
 };

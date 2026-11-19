@@ -4,7 +4,6 @@ import { GenericTable } from "@/components/GenericTable";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import React from "react";
 import { HeroStatsDto, PlayerSummaryDto } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import { AppRouter } from "@/route";
 import { colors } from "@/colors";
 import { winrate } from "@/util/math";
@@ -12,6 +11,7 @@ import { ColumnType } from "@/const/tables";
 import { useTranslation } from "react-i18next";
 import c from "@/pages/players/[id]/PlayerPage.module.scss";
 import { SectionBlock } from "@/components/SectionBlock";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -124,12 +124,13 @@ export default function PlayerHeroes({
 }
 
 PlayerHeroes.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
 
   return {
-    summary: await getApi().playerApi.playerControllerPlayerSummary(playerId),
+    summary: await api.playerApi.playerControllerPlayerSummary(playerId),
     preloadedHeroStats:
-      await getApi().playerApi.playerControllerHeroSummary(playerId),
+      await api.playerApi.playerControllerHeroSummary(playerId),
     playerId,
   };
 };

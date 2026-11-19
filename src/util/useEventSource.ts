@@ -8,7 +8,7 @@ export const useEventSource = <T extends object>(
   transformer: (raw: object) => T,
   initial: T | null = null,
 ): T | null => {
-  const bp = getApi().apiParams.basePath;
+  const bp = getApi().basePath;
 
   const [data, setData] = useState<T | null>(initial);
 

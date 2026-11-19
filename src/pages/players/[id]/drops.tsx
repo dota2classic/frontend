@@ -7,13 +7,12 @@ import {
   TradeOfferDto,
   TradeUserDto,
 } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { DropList } from "@/containers/DropList";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { useTranslation } from "react-i18next";
 import c from "./PlayerPage.module.scss";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   steamId: string;
@@ -59,18 +58,15 @@ export default function PlayerDrops({
 }
 
 PlayerDrops.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const steamId = ctx.query.id as string;
-  const [summary, drops, user, trades, products] = await withTemporaryToken(
-    ctx,
-    () =>
-      Promise.combine([
-        getApi().playerApi.playerControllerPlayerSummary(steamId),
-        getApi().drops.itemDropControllerGetMyDrops(),
-        getApi().drops.itemDropControllerGetUser(),
-        getApi().drops.itemDropControllerGetTrades(),
-        getApi().payment.userPaymentsControllerGetProducts(),
-      ]),
-  );
+  const [summary, drops, user, trades, products] = await Promise.combine([
+    api.playerApi.playerControllerPlayerSummary(steamId),
+    api.drops.itemDropControllerGetMyDrops(),
+    api.drops.itemDropControllerGetUser(),
+    api.drops.itemDropControllerGetTrades(),
+    api.payment.userPaymentsControllerGetProducts(),
+  ]);
 
   return {
     drops,

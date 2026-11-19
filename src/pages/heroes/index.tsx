@@ -1,9 +1,10 @@
-import { getApi } from "@/api/hooks";
 import { HeroSummaryDto } from "@/api/back";
 import { EmbedProps } from "@/components/EmbedProps";
 import { HeroesMetaTable } from "@/components/HeroesMetaTable";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface InitialProps {
   heroes: HeroSummaryDto[];
@@ -23,8 +24,9 @@ export default function Heroes({ heroes }: InitialProps) {
   );
 }
 
-Heroes.getInitialProps = async () => {
-  const data = await getApi().metaApi.metaControllerHeroes();
+Heroes.getInitialProps = async (ctx: NextPageContext) => {
+  const api = getRequestApi(ctx);
+  const data = await api.metaApi.metaControllerHeroes();
 
   return {
     heroes: data,

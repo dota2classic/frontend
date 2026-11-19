@@ -37,7 +37,6 @@ import { getBaseCookieDomain } from "@/util/getBaseCookieDomain";
 import { clientStoreManager } from "@/store/ClientStoreManager";
 import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 import Cookies from "js-cookie";
-import { BrowserCookies } from "@/util/browser-cookies";
 
 const PROD_URL = process.env.INTERNAL_API_URL || process.env.API_URL;
 
@@ -55,12 +54,15 @@ export interface JwtPayload {
 export class AppApi {
   cache = getCache();
 
-  apiParams: ConfigurationParameters = {
-    basePath: `${PROD_URL}`,
-    accessToken:
-      typeof window !== "undefined"
-        ? BrowserCookies.get(AUTH_TOKEN_COOKIE_KEY) || undefined
-        : undefined,
+  constructor(
+    readonly accessToken: () => string | undefined = () => undefined,
+  ) {}
+
+  readonly basePath = `${PROD_URL}`;
+
+  private readonly apiParams: ConfigurationParameters = {
+    basePath: this.basePath,
+    accessToken: () => this.accessToken() ?? "",
     middleware: [
       {
         pre: async (context: RequestContext): Promise<FetchParams | void> => {
@@ -155,6 +157,9 @@ export class AppApi {
   readonly tournament = new TournamentApi(this.apiConfig);
 }
 
-export const appApi = new AppApi();
+const appApi =
+  typeof window === "undefined"
+    ? new AppApi()
+    : new AppApi(() => clientStoreManager.getRootStore()?.auth.token);
 
 export const getApi = () => appApi;

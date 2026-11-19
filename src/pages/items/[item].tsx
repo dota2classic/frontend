@@ -1,5 +1,4 @@
 import { NextPageContext } from "next";
-import { getApi } from "@/api/hooks";
 import { ItemHeroDto } from "@/api/back";
 import { EmbedProps } from "@/components/EmbedProps";
 import { GenericTable } from "@/components/GenericTable";
@@ -14,6 +13,7 @@ import { ItemBreadcrumbs } from "@/containers/ItemBreadcrumbs";
 import { useRouter } from "next/router";
 import { ItemData } from "@/const/itemdata";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   data: ItemHeroDto[];
@@ -122,10 +122,11 @@ export default function ItemPage({ data, item }: Props) {
 }
 
 ItemPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const itemId = parseInt(ctx.query.item as string);
 
   return {
-    data: await getApi().metaApi.metaControllerItem(itemId),
+    data: await api.metaApi.metaControllerItem(itemId),
     item: itemId,
   };
 };

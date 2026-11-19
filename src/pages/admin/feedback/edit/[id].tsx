@@ -4,10 +4,9 @@ import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import React from "react";
 import { NextPageContext } from "next";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { getApi } from "@/api/hooks";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/PageHeader";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   feedback: FeedbackTemplateDto;
@@ -35,10 +34,10 @@ export default function EditFeedbackTemplatePage({ feedback }: Props) {
 EditFeedbackTemplatePage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
   return {
-    feedback: await withTemporaryToken(ctx, () =>
-      getApi().adminFeedback.adminFeedbackControllerGetFeedbackTemplate(id),
-    ),
+    feedback:
+      await api.adminFeedback.adminFeedbackControllerGetFeedbackTemplate(id),
   };
 };

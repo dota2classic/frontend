@@ -1,9 +1,10 @@
 import { TournamentDto, TournamentStatus } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import { TournamentCard } from "@/components/TournamentCard";
 import c from "./[id]/TournamentStyles.module.scss";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface Props {
   tournaments: TournamentDto[];
@@ -28,9 +29,11 @@ export default function TournamentIndex({ tournaments }: Props) {
   );
 }
 
-TournamentIndex.getInitialProps = async (): Promise<Props> => {
+TournamentIndex.getInitialProps = async (
+  ctx: NextPageContext,
+): Promise<Props> => {
+  const api = getRequestApi(ctx);
   return {
-    tournaments:
-      await getApi().tournament.tournamentControllerListTournaments(),
+    tournaments: await api.tournament.tournamentControllerListTournaments(),
   };
 };

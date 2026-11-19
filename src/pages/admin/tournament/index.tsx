@@ -1,6 +1,4 @@
 import { TournamentDto } from "@/api/back";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { getApi } from "@/api/hooks";
 import { AppRouter } from "@/route";
 import { NextPageContext } from "next";
 import { TournamentCard } from "@/components/TournamentCard";
@@ -8,6 +6,7 @@ import { Button } from "@/components/Button";
 import { SectionBlock } from "@/components/SectionBlock";
 import c from "../AdminStyles.module.scss";
 import cx from "clsx";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   tournaments: TournamentDto[];
@@ -35,9 +34,8 @@ export default function TournamentList({ tournaments }: Props) {
 }
 
 TournamentList.getInitialProps = async (ctx: NextPageContext) => {
+  const api = getRequestApi(ctx);
   return {
-    tournaments: await withTemporaryToken(ctx, () =>
-      getApi().tournament.tournamentControllerListTournaments(),
-    ),
+    tournaments: await api.tournament.tournamentControllerListTournaments(),
   };
 };

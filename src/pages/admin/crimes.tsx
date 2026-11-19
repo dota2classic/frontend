@@ -1,6 +1,4 @@
 import { NextPageContext } from "next";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { getApi } from "@/api/hooks";
 import { BanReason, CrimeLogPageDto, MatchmakingMode } from "@/api/back";
 import { numberOrDefault } from "@/util/urls";
 import React, { useCallback, useState } from "react";
@@ -19,6 +17,7 @@ import { PageLink } from "@/components/PageLink";
 import { Duration } from "@/components/Duration";
 import { TimeAgo } from "@/components/TimeAgo";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   crime: CrimeLogPageDto;
@@ -153,12 +152,15 @@ export default function CrimesPage({ crime, steamId }: Props) {
 }
 
 CrimesPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const page = numberOrDefault(ctx.query.page as string, 0);
   const steamId = ctx.query.steam_id as string | undefined;
 
   return {
-    crime: await withTemporaryToken(ctx, () =>
-      getApi().adminApi.adminUserControllerCrimes(page, undefined, steamId),
+    crime: await api.adminApi.adminUserControllerCrimes(
+      page,
+      undefined,
+      steamId,
     ),
     page,
     steamId,

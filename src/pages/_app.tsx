@@ -4,7 +4,6 @@ import "@/styles/scrollbars.css";
 import App, { AppContext, AppInitialProps } from "next/app";
 import { ReferralSniffer } from "@/components/ReferralSniffer";
 import { Layout, LayoutConfig } from "@/components/Layout";
-import Cookies from "cookies";
 import "../util/promise";
 // import * as Fonts from 'next/font/google'
 import { SWRConfig } from "swr";
@@ -30,7 +29,7 @@ import { GreedyFocusManager } from "@/containers/GreedyFocusManager";
 import { PaidFeatureModal } from "@/containers/PaidFeatureModal";
 import { AcceptCookiesContainer } from "@/containers/AcceptCookiesContainer";
 import { MobxContext } from "@/store/MobxContext";
-import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
+import { getRequestToken } from "@/api/request-api";
 
 export default class MyApp extends App<{
   initialState: HydrateRootData;
@@ -91,11 +90,7 @@ export default class MyApp extends App<{
 
     if (!appContext.ctx.req || !appContext.ctx.res) return { ...appProps };
 
-    const cookies = new Cookies(appContext.ctx.req, appContext.ctx.res);
-
-    const cookieToken =
-      cookies.get(AUTH_TOKEN_COOKIE_KEY) ||
-      cookies.get(encodeURIComponent(AUTH_TOKEN_COOKIE_KEY));
+    const cookieToken = getRequestToken(appContext.ctx);
 
     const inferredState: Partial<HydrateRootData> =
       MyApp.inferPagePropsAsHydratable(appProps);

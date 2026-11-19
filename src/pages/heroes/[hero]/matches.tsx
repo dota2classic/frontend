@@ -1,7 +1,6 @@
 import { HeroSummaryDto, MatchPageDto } from "@/api/back";
 import React, { useMemo } from "react";
 import { numberOrDefault } from "@/util/urls";
-import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
 import { useRouterChanging } from "@/util/useRouterChanging";
@@ -14,6 +13,7 @@ import { Pagination } from "@/components/Pagination";
 import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   hero: string;
@@ -85,14 +85,15 @@ export default function HeroMatches({
 }
 
 HeroMatches.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   let hero = ctx.query.hero as string;
   hero = hero.includes("npc_dota_hero_") ? hero : `npc_dota_hero_${hero}`;
 
   const page = numberOrDefault(ctx.query.page as string, 0);
 
   const [initialMatchData, initialHeroesMeta] = await Promise.combine([
-    getApi().matchApi.matchControllerHeroMatches(page, hero, undefined),
-    getApi().metaApi.metaControllerHeroes(),
+    api.matchApi.matchControllerHeroMatches(page, hero, undefined),
+    api.metaApi.metaControllerHeroes(),
   ]);
 
   return {

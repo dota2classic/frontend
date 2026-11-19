@@ -1,6 +1,4 @@
 import { NextPageContext } from "next";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { getApi } from "@/api/hooks";
 import { ProfileDecorationDto, UserProfileDecorationType } from "@/api/back";
 import { BigTabs, type TabItem } from "@/components/BigTabs";
 import { Button } from "@/components/Button";
@@ -11,6 +9,7 @@ import c from "./Decorations.module.scss";
 import cx from "clsx";
 import { useTranslation } from "react-i18next";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   decorations: ProfileDecorationDto[];
@@ -69,12 +68,13 @@ export default function DecorationList({ decorations, type }: Props) {
 DecorationList.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const type =
     (ctx.query.type as string as UserProfileDecorationType) ||
     UserProfileDecorationType.HAT;
-  const [decorations] = await withTemporaryToken(ctx, () =>
-    Promise.combine([getApi().decoration.customizationControllerAll(type)]),
-  );
+  const [decorations] = await Promise.combine([
+    api.decoration.customizationControllerAll(type),
+  ]);
 
   return {
     decorations,

@@ -1,8 +1,8 @@
 import { NextPageContext } from "next";
 import React from "react";
-import { getApi } from "@/api/hooks";
 import { LiveMatchDto, MatchDto } from "@/api/back";
 import { MatchPageContainer } from "@/containers/MatchPageContainer";
+import { getRequestApi } from "@/api/request-api";
 
 interface InitialProps {
   matchId: number;
@@ -27,12 +27,11 @@ export default function MatchPage({
 MatchPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<InitialProps> => {
+  const api = getRequestApi(ctx);
   const matchId = parseInt(ctx.query.id as string);
   const [match, liveList] = await Promise.combine([
-    getApi()
-      .matchApi.matchControllerMatch(matchId)
-      .catch(() => undefined),
-    getApi().liveApi.liveMatchControllerListMatches(),
+    api.matchApi.matchControllerMatch(matchId).catch(() => undefined),
+    api.liveApi.liveMatchControllerListMatches(),
   ]);
 
   return {

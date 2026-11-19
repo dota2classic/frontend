@@ -1,9 +1,10 @@
-import { getApi } from "@/api/hooks";
 import { LiveMatchDto } from "@/api/back";
 import React from "react";
 import { LiveMatchPage } from "@/containers/LiveMatchPage";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface InitialProps {
   data: LiveMatchDto[];
@@ -24,8 +25,11 @@ export default function LiveMatches({ data }: InitialProps) {
   );
 }
 
-LiveMatches.getInitialProps = async (): Promise<InitialProps> => {
-  const data = await getApi().liveApi.liveMatchControllerListMatches();
+LiveMatches.getInitialProps = async (
+  ctx: NextPageContext,
+): Promise<InitialProps> => {
+  const api = getRequestApi(ctx);
+  const data = await api.liveApi.liveMatchControllerListMatches();
 
   return {
     data,

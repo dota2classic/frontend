@@ -2,7 +2,6 @@ import React from "react";
 import c from "./Meta.module.scss";
 import cx from "clsx";
 import { AppRouter } from "@/route";
-import { getApi } from "@/api/hooks";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { MatchPageDto } from "@/api/back";
 import { useTranslation } from "react-i18next";
@@ -12,6 +11,8 @@ import { Carousel } from "@/components/Carousel";
 import { CarouselItem } from "@/components/CarouselItem";
 import { MatchHistoryTable } from "@/components/MatchHistoryTable";
 import { PageLink } from "@/components/PageLink";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface Props {
   matches: MatchPageDto;
@@ -84,9 +85,10 @@ export default function MetaPage({ matches }: Props) {
   );
 }
 
-MetaPage.getInitialProps = async () => {
+MetaPage.getInitialProps = async (ctx: NextPageContext) => {
+  const api = getRequestApi(ctx);
   return {
-    matches: await getApi().matchApi.matchControllerMatches(
+    matches: await api.matchApi.matchControllerMatches(
       0,
       10,
       MatchmakingMode.UNRANKED,

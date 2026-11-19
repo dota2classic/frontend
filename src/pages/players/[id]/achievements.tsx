@@ -1,7 +1,6 @@
 import { NextPageContext } from "next";
 import React, { useMemo } from "react";
 import { AchievementDto, AchievementKey, PlayerSummaryDto } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import { useTranslation } from "react-i18next";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { AchievementStatus } from "@/components/AchievementStatus";
@@ -9,6 +8,7 @@ import c from "@/pages/players/[id]/PlayerPage.module.scss";
 import { EmbedProps } from "@/components/EmbedProps";
 import { SectionBlock } from "@/components/SectionBlock";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -158,12 +158,12 @@ export default function PlayerAchievements({ achievements, summary }: Props) {
 PlayerAchievements.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
 
   return {
-    summary: await getApi().playerApi.playerControllerPlayerSummary(playerId),
-    achievements:
-      await getApi().playerApi.playerControllerAchievements(playerId),
+    summary: await api.playerApi.playerControllerPlayerSummary(playerId),
+    achievements: await api.playerApi.playerControllerAchievements(playerId),
     playerId,
   };
 };

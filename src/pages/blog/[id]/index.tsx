@@ -1,4 +1,3 @@
-import { getApi } from "@/api/hooks";
 import { BlogpostDto, ThreadType } from "@/api/back";
 import c from "./BlogpostPage.module.scss";
 import { NextPageContext } from "next";
@@ -11,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PageLink } from "@/components/PageLink";
 import { BlogpostRenderer } from "@/components/BlogpostRenderer";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   post: BlogpostDto;
@@ -43,9 +43,10 @@ export default function BlogpostPage({ post }: Props) {
 }
 
 BlogpostPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
 
   return {
-    post: await getApi().blog.blogpostControllerGetBlogpost(id),
+    post: await api.blog.blogpostControllerGetBlogpost(id),
   };
 };

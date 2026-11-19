@@ -1,6 +1,5 @@
 import c from "@/pages/admin/AdminStyles.module.scss";
 import { FeedbackTemplateDto } from "@/api/back";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { AppRouter } from "@/route";
 import React from "react";
@@ -11,6 +10,7 @@ import { Button } from "@/components/Button";
 import { Surface } from "@/components/Surface";
 import { PageHeader } from "@/components/PageHeader";
 import { PageGrid } from "@/components/PageGrid";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   feedbacks: FeedbackTemplateDto[];
@@ -63,9 +63,8 @@ export default function FeedbackList({ feedbacks }: Props) {
 }
 
 FeedbackList.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   return {
-    feedbacks: await withTemporaryToken(ctx, () =>
-      getApi().adminFeedback.adminFeedbackControllerGetFeedbacks(),
-    ),
+    feedbacks: await api.adminFeedback.adminFeedbackControllerGetFeedbacks(),
   };
 };

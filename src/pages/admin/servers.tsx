@@ -1,4 +1,4 @@
-import { appApi, getApi } from "@/api/hooks";
+import { getApi } from "@/api/hooks";
 import {
   DotaGameMode,
   DotaMap,
@@ -8,7 +8,6 @@ import {
   MatchmakingMode,
 } from "@/api/back";
 import React, { useCallback, useState } from "react";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { useDidMount } from "@/util/useDidMount";
 import c from "./AdminStyles.module.scss";
 import { observer } from "mobx-react-lite";
@@ -30,6 +29,7 @@ import { Section } from "@/components/Section";
 import { SelectOptions } from "@/components/SelectOptions";
 import { RconModal } from "@/containers/RconModal";
 import { PageGrid, PageGridItem } from "@/components/PageGrid";
+import { getRequestApi } from "@/api/request-api";
 
 interface PageProps {
   initialGameSessions: GameSessionDto[];
@@ -151,7 +151,9 @@ export default function AdminServersPage({
   const sessions: GameSessionDto[] = liveSessions || [];
 
   const stopGameSession = useCallback(async (it: GameSessionDto) => {
-    await appApi.adminApi.serverControllerStopServer({ matchId: it.matchId });
+    await getApi().adminApi.serverControllerStopServer({
+      matchId: it.matchId,
+    });
   }, []);
 
   const updateGameMode = useCallback(
@@ -164,8 +166,8 @@ export default function AdminServersPage({
       fillBots: boolean,
       patch: DotaPatch,
     ) => {
-      appApi.adminApi
-        .adminUserControllerUpdateGameMode({
+      getApi()
+        .adminApi.adminUserControllerUpdateGameMode({
           mode: lobbyType,
           dotaGameMode: gamemode,
           dotaMap: dotaMap,
@@ -330,15 +332,14 @@ export default function AdminServersPage({
 AdminServersPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<PageProps> => {
-  return withTemporaryToken(ctx, async () => {
-    const [initialGameSessions, initialAllowedModes] = await Promise.combine([
-      getApi().adminApi.serverControllerLiveSessions(),
-      getApi().statsApi.statsControllerGetMatchmakingInfo(),
-    ]);
+  const api = getRequestApi(ctx);
+  const [initialGameSessions, initialAllowedModes] = await Promise.combine([
+    api.adminApi.serverControllerLiveSessions(),
+    api.statsApi.statsControllerGetMatchmakingInfo(),
+  ]);
 
-    return {
-      initialGameSessions,
-      initialAllowedModes,
-    };
-  });
+  return {
+    initialGameSessions,
+    initialAllowedModes,
+  };
 };

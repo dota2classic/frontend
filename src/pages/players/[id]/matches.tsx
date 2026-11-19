@@ -1,7 +1,6 @@
 import { useClampedPage } from "@/util/useClampedPage";
 import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
 import { useRouterChanging } from "@/util/useRouterChanging";
-import { getApi } from "@/api/hooks";
 import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import React from "react";
@@ -21,6 +20,7 @@ import { Section } from "@/components/Section";
 import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   playerId: string;
@@ -130,6 +130,7 @@ export default function PlayerMatches({
 PlayerMatches.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
   let hero = ctx.query.hero as string;
   hero = hero && fullName(hero);
@@ -141,8 +142,8 @@ PlayerMatches.getInitialProps = async (
     PlayerSummaryDto,
     MatchPageDto
   >([
-    getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().matchApi.matchControllerPlayerMatches(
+    api.playerApi.playerControllerPlayerSummary(playerId),
+    api.matchApi.matchControllerPlayerMatches(
       playerId,
       numberOrDefault(page, 0),
       undefined,

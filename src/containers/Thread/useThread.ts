@@ -77,7 +77,7 @@ const useThreadEventSource = (
   threadType: ThreadType,
   consumeMessages: (messages: ThreadMessageDTO[]) => void,
 ) => {
-  const bp = getApi().apiParams.basePath;
+  const bp = getApi().basePath;
   const endpoint = getApi().forumApi.forumControllerThreadContext({
     id: id.toString(),
     threadType: threadType,

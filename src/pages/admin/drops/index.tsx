@@ -1,8 +1,7 @@
-import { getApi } from "@/api/hooks";
 import { DropSettingsDto, DropTierDto } from "@/api/back";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { EditDropSettings } from "@/containers/EditDropSettings";
 import { NextPageContext } from "next";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   tiers: DropTierDto[];
@@ -14,12 +13,11 @@ export default function DropSettingsPage({ tiers, settings }: Props) {
 }
 
 DropSettingsPage.getInitialProps = async (ctx: NextPageContext) => {
-  const [tiers, settings] = await withTemporaryToken(ctx, () =>
-    Promise.combine([
-      getApi().drops.itemDropControllerGetDropTiers(),
-      getApi().drops.itemDropControllerGetSettings(),
-    ]),
-  );
+  const api = getRequestApi(ctx);
+  const [tiers, settings] = await Promise.combine([
+    api.drops.itemDropControllerGetDropTiers(),
+    api.drops.itemDropControllerGetSettings(),
+  ]);
 
   return {
     tiers,

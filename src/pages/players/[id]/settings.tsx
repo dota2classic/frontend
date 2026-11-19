@@ -38,6 +38,7 @@ import { SectionBlock } from "@/components/SectionBlock";
 import { Surface } from "@/components/Surface";
 import { DetailPanel } from "@/components/DetailPanel";
 import { ActionCard } from "@/components/ActionCard";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -361,11 +362,12 @@ export default function PlayerSettings({ summary, decorations }: Props) {
 PlayerSettings.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
 
   const [summary, decorations] = await Promise.combine([
-    getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().decoration.customizationControllerAll(),
+    api.playerApi.playerControllerPlayerSummary(playerId),
+    api.decoration.customizationControllerAll(),
   ]);
   return {
     summary,
