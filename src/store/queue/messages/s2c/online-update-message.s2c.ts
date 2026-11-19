@@ -13,5 +13,6 @@ export class OnlineUpdateMessageS2C {
     public readonly online: string[],
     public readonly sessions: number,
     public readonly clients: OnlineEntry[],
+    public readonly inGame?: number,
   ) {}
 }

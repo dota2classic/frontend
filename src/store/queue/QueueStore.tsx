@@ -12,7 +12,6 @@ import { AuthStore } from "@/store/AuthStore";
 import { Dota2Version, MatchmakingMode } from "@/api/mapped-models";
 import {
   BanStatusDto,
-  CurrentOnlineDto,
   PartyDto,
   PartyDtoFromJSON,
   PartyMemberDTO,
@@ -51,7 +50,8 @@ import { PlayerServerSearchingMessageS2C } from "@/store/queue/messages/s2c/play
 import { EnterQueueMessageC2S } from "@/store/queue/messages/c2s/enter-queue-message.c2s";
 import { PleaseEnterQueueMessageS2C } from "@/store/queue/messages/s2c/please-enter-queue-message.s2c";
 import { metrika } from "@/ym";
-import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
+import { visiblePoll } from "@/util/visible-poll";
+import { PollInterval } from "@/const/poll-interval";
 import { blinkTab } from "@/util/blinkTab";
 import { GameModeAccessLevel } from "@/const/game-mode-access-level";
 import BrowserCookies from "js-cookie";
@@ -121,9 +121,9 @@ export class QueueStore
   public serverSearching: boolean = false;
 
   @observable
-  public onlineData: CurrentOnlineDto | undefined = undefined;
+  public inGame: number | undefined = undefined;
 
-  private scheduler!: ToadScheduler;
+  private inGameFromSocket = false;
 
   constructor(
     private readonly authStore: AuthStore,
@@ -143,28 +143,8 @@ export class QueueStore
 
     this.fetchParty().finally();
 
-    this.scheduler = new ToadScheduler();
-    this.scheduler.addIntervalJob(
-      new SimpleIntervalJob(
-        { seconds: 5 },
-        new AsyncTask(
-          "invalidate party on ban expire",
-          this.refetchPartyOnBanEnd,
-          (err) => {
-            console.error("There was an error checking party", err);
-          },
-        ),
-      ),
-    );
-
-    this.scheduler.addIntervalJob(
-      new SimpleIntervalJob(
-        { seconds: 5, runImmediately: true },
-        new AsyncTask("refresh online stats", this.updateOnlineStats, (err) => {
-          console.error("There was an error updating stats", err);
-        }),
-      ),
-    );
+    visiblePoll(this.refetchPartyOnBanEnd, PollInterval.PARTY_BAN_CHECK);
+    visiblePoll(this.updateOnlineStats, PollInterval.ONLINE_FALLBACK);
     // this.scheduler.addIntervalJob(
     //   new SimpleIntervalJob(
     //     { seconds: 1 },
@@ -180,10 +160,9 @@ export class QueueStore
   }
 
   private updateOnlineStats = async () => {
-    await getApi()
-      .statsApi.statsControllerOnline()
-      .then((data) => runInAction(() => (this.onlineData = data)))
-      .catch();
+    if (this.inGameFromSocket) return;
+    const data = await getApi().statsApi.statsControllerOnline();
+    runInAction(() => (this.inGame = data.inGame));
   };
 
   private refetchPartyOnBanEnd = async () => {
@@ -462,6 +441,7 @@ export class QueueStore
   @action
   public onDisconnected = () => {
     this.readyState = GameCoordinatorState.DISCONNECTED;
+    this.inGameFromSocket = false;
     this.cleanUp();
   };
 
@@ -471,12 +451,6 @@ export class QueueStore
         JSON.stringify({ mode: mode, version: Dota2Version.Dota_684 }),
       ) ?? 0
     );
-  }
-
-  public inGameCount(mode: MatchmakingMode): number {
-    const od = this.onlineData;
-    if (!od) return 0;
-    return od.perMode.find((t) => t.lobbyType === mode)?.playerCount || 0;
   }
 
   @action
@@ -584,6 +558,10 @@ export class QueueStore
   @action onOnlineUpdate = (msg: OnlineUpdateMessageS2C) => {
     this.online = msg.online;
     this.onlineClients = msg.clients;
+    if (msg.inGame !== undefined) {
+      this.inGameFromSocket = true;
+      this.inGame = msg.inGame;
+    }
   };
 
   public getClientType = (steamId: string): ClientType | undefined => {

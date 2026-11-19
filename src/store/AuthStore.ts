@@ -17,6 +17,8 @@ import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
 import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 import { eraseCookie } from "@/util/erase-cookie";
 import { BrowserCookies } from "@/util/browser-cookies";
+import { visiblePoll } from "@/util/visible-poll";
+import { PollInterval } from "@/const/poll-interval";
 
 export interface JwtAuthToken {
   sub: string;
@@ -100,10 +102,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   };
 
   private periodicallyFetchMe() {
-    this.fetchMe().finally();
-    setInterval(() => {
-      this.fetchMe().finally();
-    }, 5000);
+    visiblePoll(this.fetchMe, PollInterval.ME);
   }
 
   @action
