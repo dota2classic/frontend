@@ -13,10 +13,12 @@ jobs:
 
     # Only run if:
     # - The build workflow succeeded
-    # - The branch is master (or main)
+    # - The branch is master
+    # - An operator has configured deployment credentials for the recovered cluster
     if: |
       ${{ github.event.workflow_run.conclusion == 'success' &&
-          github.event.workflow_run.head_branch == 'master' }}
+          github.event.workflow_run.head_branch == 'master' &&
+          vars.FRONTEND_AUTO_DEPLOY_ENABLED == 'true' }}
 
     steps:
       - name: Checkout repository
