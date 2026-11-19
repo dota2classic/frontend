@@ -30,10 +30,22 @@ import { PaidFeatureModal } from "@/containers/PaidFeatureModal";
 import { AcceptCookiesContainer } from "@/containers/AcceptCookiesContainer";
 import { MobxContext } from "@/store/MobxContext";
 import { getRequestToken } from "@/api/request-api";
+import { ttlMemo } from "@/util/server-ttl-cache";
+
+const getMaintenance = ttlMemo(
+  (): Promise<MaintenanceDto> =>
+    getApi()
+      .statsApi.statsControllerMaintenance()
+      .catch((e) => {
+        console.warn(e);
+        return { active: true };
+      }),
+  5_000,
+);
 
 export default class MyApp extends App<{
   initialState: HydrateRootData;
-  maintenance: MaintenanceDto;
+  maintenance?: MaintenanceDto;
   locale: string;
 }> {
   private static inferPagePropsAsHydratable(
@@ -69,13 +81,6 @@ export default class MyApp extends App<{
 
   static async getInitialProps(appContext: AppContext) {
     const appProps = await App.getInitialProps(appContext);
-    let maintenance: MaintenanceDto;
-    try {
-      maintenance = await getApi().statsApi.statsControllerMaintenance();
-    } catch (e) {
-      console.warn(e);
-      maintenance = { active: true };
-    }
 
     let hostname = appContext.ctx.req
       ? appContext.ctx.req.headers.host
@@ -90,6 +95,7 @@ export default class MyApp extends App<{
     if (!appContext.ctx.req || !appContext.ctx.res)
       return { ...appProps, locale };
 
+    const maintenance = await getMaintenance();
     const cookieToken = getRequestToken(appContext.ctx);
 
     const inferredState: Partial<HydrateRootData> =

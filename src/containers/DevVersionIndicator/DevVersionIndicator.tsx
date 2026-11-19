@@ -9,7 +9,7 @@ import { MaintenanceDto } from "@/api/back";
 import { useTranslation } from "react-i18next";
 
 interface Props {
-  maintenance: MaintenanceDto;
+  maintenance?: MaintenanceDto;
 }
 export const DevVersionIndicator: React.FC<Props> = observer(
   ({ maintenance }) => {
