@@ -1,4 +1,4 @@
-import i18n from "i18next";
+import i18n, { i18n as I18n } from "i18next";
 import { initReactI18next } from "react-i18next";
 import translation_ru from "./ru.json";
 import translation_en from "./en.json";
@@ -53,5 +53,16 @@ i18n
       escapeValue: false, // react already safes from xss
     },
   });
+
+const localeInstances = new Map<string, I18n>();
+
+export function getLocaleI18n(locale: string): I18n {
+  let instance = localeInstances.get(locale);
+  if (!instance) {
+    instance = i18n.cloneInstance({ lng: locale });
+    localeInstances.set(locale, instance);
+  }
+  return instance;
+}
 
 export default i18n;

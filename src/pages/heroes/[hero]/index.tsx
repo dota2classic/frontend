@@ -1,11 +1,10 @@
-import { getApi } from "@/api/hooks";
 import {
   HeroItemDto,
   HeroPlayerDto,
   HeroSummaryDto,
   MatchPageDto,
 } from "@/api/back";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import c from "./HeroPage.module.scss";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import React from "react";
@@ -21,6 +20,7 @@ import { PageLink } from "@/components/PageLink";
 import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
 import { HeroPlayersTable } from "@/components/HeroPlayersTable";
 import { HeroItemsTable } from "@/components/HeroItemsTable";
+import { getRequestApi } from "@/api/request-api";
 
 interface InitialProps {
   initialMatchData: MatchPageDto;
@@ -95,10 +95,11 @@ export default function HeroHistoryPage({
 }
 
 HeroHistoryPage.getInitialProps = async (ctx: NextPageContext) => {
+  const api = getRequestApi(ctx);
   let hero = ctx.query.hero as string;
   hero = hero.includes("npc_dota_hero_") ? hero : `npc_dota_hero_${hero}`;
 
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   const [
     initialMatchData,
@@ -106,10 +107,10 @@ HeroHistoryPage.getInitialProps = async (ctx: NextPageContext) => {
     initialHeroesMeta,
     initialHeroPlayers,
   ] = await Promise.combine([
-    getApi().matchApi.matchControllerHeroMatches(page, hero, undefined),
-    getApi().metaApi.metaControllerHero(hero),
-    getApi().metaApi.metaControllerHeroes(),
-    getApi().metaApi.metaControllerHeroPlayers(hero),
+    api.matchApi.matchControllerHeroMatches(page, hero, undefined),
+    api.metaApi.metaControllerHero(hero),
+    api.metaApi.metaControllerHeroes(),
+    api.metaApi.metaControllerHeroPlayers(hero),
   ]);
 
   return {

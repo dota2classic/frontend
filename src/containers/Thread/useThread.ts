@@ -17,6 +17,8 @@ export const useThread = (id: string, threadType: ThreadType): ThreadStore => {
 
   useThreadEventSource(id.toString(), threadType, thread.consumeMessages);
 
+  useEffect(() => thread.start(), [thread]);
+
   const handleVisibilityChange = useCallback(() => {
     if (!document.hidden) {
       // We need to load more and re-create event source so that we don't die on thread
@@ -65,6 +67,8 @@ export const usePaginatedThread = (
 
   useThreadEventSource(id.toString(), threadType, thread.consumeMessages);
 
+  useEffect(() => thread.start(), [thread]);
+
   useEffect(() => {
     thread.setInitial(initialMessages);
   }, [initialMessages]);
@@ -77,7 +81,7 @@ const useThreadEventSource = (
   threadType: ThreadType,
   consumeMessages: (messages: ThreadMessageDTO[]) => void,
 ) => {
-  const bp = getApi().apiParams.basePath;
+  const bp = getApi().basePath;
   const endpoint = getApi().forumApi.forumControllerThreadContext({
     id: id.toString(),
     threadType: threadType,

@@ -1,5 +1,4 @@
 import { MatchDto } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import { useEffect } from "react";
 import { notFound } from "next/navigation";
 import { Rubik } from "next/font/google";
@@ -12,6 +11,7 @@ import { MatchSummary } from "@/components/MatchSummary";
 import { CoolList } from "@/components/CoolList";
 import { Button } from "@/components/Button";
 import { CopyBlock } from "@/components/CopyBlock";
+import { getRequestApi } from "@/api/request-api";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -118,10 +118,11 @@ export default function MatchDownloadPage({ match }: MatchDownloadPage) {
 MatchDownloadPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<MatchDownloadPage> => {
+  const api = getRequestApi(ctx);
   const matchId = parseInt(ctx.query.id as string);
 
-  const m = await getApi()
-    .matchApi.matchControllerMatch(matchId)
+  const m = await api.matchApi
+    .matchControllerMatch(matchId)
     .catch(() => undefined);
   return {
     match: m,

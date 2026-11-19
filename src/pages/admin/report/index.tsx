@@ -1,5 +1,5 @@
 import { getApi } from "@/api/hooks";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { ReportPageDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import React, { useState } from "react";
@@ -17,6 +17,7 @@ import { Button } from "@/components/Button";
 import { useTranslation } from "react-i18next";
 import { useIsModerator } from "@/util/useIsAdmin";
 import { useAsyncButton } from "@/util/use-async-button";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   reports: ReportPageDto;
@@ -242,9 +243,10 @@ export default function AdminReportsPage({ reports, page }: Props) {
 AdminReportsPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const api = getRequestApi(ctx);
+  const page = parsePage(ctx.query.page);
 
-  const reports = await getApi().report.reportControllerGetReportPage(page, 15);
+  const reports = await api.report.reportControllerGetReportPage(page, 15);
 
   return {
     reports,

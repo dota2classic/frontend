@@ -1,9 +1,10 @@
 import { AdminRuleTabs } from "@/containers/AdminRuleTabs";
 import { EditRulesContainer } from "@/containers/EditRulesContainer";
-import { getApi } from "@/api/hooks";
 import { RuleDto, RulePunishmentDto } from "@/api/back";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface Props {
   rules: RuleDto[];
@@ -22,9 +23,10 @@ export default function EditRules({ rules, punishments }: Props) {
   );
 }
 
-EditRules.getInitialProps = async () => {
+EditRules.getInitialProps = async (ctx: NextPageContext) => {
+  const api = getRequestApi(ctx);
   return {
-    rules: await getApi().rules.ruleControllerGetAllRules(),
-    punishments: await getApi().rules.ruleControllerGetAllPunishments(),
+    rules: await api.rules.ruleControllerGetAllRules(),
+    punishments: await api.rules.ruleControllerGetAllPunishments(),
   };
 };

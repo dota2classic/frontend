@@ -7,9 +7,10 @@ import { getApi } from "@/api/hooks";
 import { NotoSans } from "@/const/notosans";
 import { MaintenanceDto } from "@/api/back";
 import { useTranslation } from "react-i18next";
+import { PollInterval } from "@/const/poll-interval";
 
 interface Props {
-  maintenance: MaintenanceDto;
+  maintenance?: MaintenanceDto;
 }
 export const DevVersionIndicator: React.FC<Props> = observer(
   ({ maintenance }) => {
@@ -17,7 +18,7 @@ export const DevVersionIndicator: React.FC<Props> = observer(
     const { auth } = useStore();
     const doShow = process.env.IS_DEV_VERSION === "true";
     const { data, error } = getApi().statsApi.useStatsControllerMaintenance({
-      refreshInterval: 5000,
+      refreshInterval: PollInterval.MAINTENANCE,
       fallbackData: maintenance,
     });
     const isMaintenance = (data?.active || error) && !auth.isModerator;

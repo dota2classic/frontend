@@ -1,5 +1,4 @@
 import { BlogPageDto, CurrentOnlineDto, TwitchStreamDto } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { Button } from "@/components/Button";
 import { EmbedProps } from "@/components/EmbedProps";
@@ -12,6 +11,8 @@ import cx from "clsx";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import c from "./index.module.scss";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface HomeProps {
   blog: BlogPageDto;
@@ -574,15 +575,14 @@ export default function Home({ blog, streams, online }: HomeProps) {
 
 Home.layoutConfig = { fullBleed: true };
 
-Home.getInitialProps = async (): Promise<HomeProps> => {
+Home.getInitialProps = async (ctx: NextPageContext): Promise<HomeProps> => {
+  const api = getRequestApi(ctx);
   const [blog, streams, online] = await Promise.all([
-    getApi().blog.blogpostControllerBlogPage(0, 3),
-    getApi()
-      .statsApi.statsControllerGetTwitchStreams()
+    api.blog.blogpostControllerBlogPage(0, 3),
+    api.statsApi
+      .statsControllerGetTwitchStreams()
       .catch(() => [] as TwitchStreamDto[]),
-    getApi()
-      .statsApi.statsControllerOnline()
-      .catch(() => null),
+    api.statsApi.statsControllerOnline().catch(() => null),
   ]);
   return { blog, streams, online };
 };

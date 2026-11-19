@@ -1,4 +1,3 @@
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { TournamentDto, TournamentStatus } from "@/api/back";
 import { SectionBlock } from "@/components/SectionBlock";
@@ -17,6 +16,7 @@ import { PageLink } from "@/components/PageLink";
 import { NextPageContext } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { MetaGrid, MetaGridStat } from "@/components/MetaGrid";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   tournament: TournamentDto;
@@ -210,11 +210,10 @@ export default function TournamentAdminPage({ tournament }: Props) {
 }
 
 TournamentAdminPage.getInitialProps = async (ctx: NextPageContext) => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
 
   return {
-    tournament: await withTemporaryToken(ctx, () =>
-      getApi().tournament.tournamentControllerGetTournament(id),
-    ),
+    tournament: await api.tournament.tournamentControllerGetTournament(id),
   };
 };

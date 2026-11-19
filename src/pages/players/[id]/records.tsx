@@ -1,6 +1,5 @@
 import { NextPageContext } from "next";
 import { PlayerRecordsResponse, PlayerSummaryDto } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import { EmbedProps } from "@/components/EmbedProps";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import React from "react";
@@ -8,6 +7,7 @@ import { PlayerRecords } from "@/containers/PlayerRecords";
 import { useTranslation } from "react-i18next";
 import { SectionBlock } from "@/components/SectionBlock";
 import c from "@/pages/players/[id]/PlayerPage.module.scss";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   preloadedSummary: PlayerSummaryDto;
@@ -50,11 +50,12 @@ export default function PlayerRecordsPage({
 PlayerRecordsPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
 
   const [preloadedSummary, records] = await Promise.combine([
-    getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().record.recordControllerPlayerRecords(playerId),
+    api.playerApi.playerControllerPlayerSummary(playerId),
+    api.record.recordControllerPlayerRecords(playerId),
   ]);
 
   return {

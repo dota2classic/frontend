@@ -1,13 +1,12 @@
 import { useClampedPage } from "@/util/useClampedPage";
 import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
 import { useRouterChanging } from "@/util/useRouterChanging";
-import { getApi } from "@/api/hooks";
 import { MatchPageDto, PlayerSummaryDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import React from "react";
 import c from "@/pages/matches/History.module.scss";
 import pc from "@/pages/players/[id]/PlayerPage.module.scss";
-import { numberOrDefault } from "@/util/urls";
+import { numberOrDefault, parsePage } from "@/util/urls";
 import { fullName, shortName } from "@/util/heroName";
 import { matchToPlayerMatchItem } from "@/util/mappers";
 import { NextPageContext } from "next";
@@ -21,6 +20,7 @@ import { Section } from "@/components/Section";
 import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   playerId: string;
@@ -102,7 +102,7 @@ export default function PlayerMatches({
               numberOrDefault(mode, undefined),
             ).link
           }
-          page={Number(page) || data?.page || 0}
+          page={parsePage(page)}
           maxPage={data?.pages || 0}
         />
         <HeroWithItemsHistoryTable
@@ -119,7 +119,7 @@ export default function PlayerMatches({
               numberOrDefault(mode, undefined),
             ).link
           }
-          page={Number(page) || data?.page || 0}
+          page={parsePage(page)}
           maxPage={data?.pages || 0}
         />
       </Section>
@@ -130,21 +130,22 @@ export default function PlayerMatches({
 PlayerMatches.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
   let hero = ctx.query.hero as string;
   hero = hero && fullName(hero);
 
-  const page = numberOrDefault(ctx.query.page, 0);
+  const page = parsePage(ctx.query.page);
   const mode = numberOrDefault(ctx.query.mode, undefined);
 
   const [preloadedSummary, initialMatches] = await Promise.combine<
     PlayerSummaryDto,
     MatchPageDto
   >([
-    getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().matchApi.matchControllerPlayerMatches(
+    api.playerApi.playerControllerPlayerSummary(playerId),
+    api.matchApi.matchControllerPlayerMatches(
       playerId,
-      numberOrDefault(page, 0),
+      page,
       undefined,
       numberOrDefault(mode, undefined),
       hero,

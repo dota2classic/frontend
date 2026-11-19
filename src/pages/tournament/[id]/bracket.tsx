@@ -1,7 +1,6 @@
 import { mapBracket } from "@/containers/BracketRenderer/mapper";
 import { BracketRenderer } from "@/containers/BracketRenderer";
 import React from "react";
-import { getApi } from "@/api/hooks";
 import { fetchTournamentBracket } from "@/util/fetch-tournament-bracket";
 import { TournamentBracketInfoDto, TournamentDto } from "@/api/back";
 import { TournamentTabs } from "@/components/TournamentTabs";
@@ -11,6 +10,7 @@ import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   id: number;
@@ -49,9 +49,10 @@ export default function TournamentBracket({ id, tournament, bracket }: Props) {
 TournamentBracket.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
   const [tournament, bracket] = await Promise.combine([
-    getApi().tournament.tournamentControllerGetTournament(id),
+    api.tournament.tournamentControllerGetTournament(id),
     fetchTournamentBracket(id),
   ]);
   return {

@@ -1,17 +1,17 @@
 import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
-import { getApi } from "@/api/hooks";
 import { ThreadDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import React from "react";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { PaginatedThread } from "@/containers/Thread";
 import { useTranslation } from "react-i18next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -43,7 +43,7 @@ export default function TicketPage({ messages, thread, page }: Props) {
         threadType={ThreadType.TICKET}
         id={r.query.id as string}
         pagination={{
-          page: numberOrDefault(page, 0),
+          page: parsePage(page),
           pageProvider: (p) =>
             AppRouter.forum.thread(thread.externalId, thread.threadType, p)
               .link,
@@ -54,12 +54,13 @@ export default function TicketPage({ messages, thread, page }: Props) {
 }
 
 TicketPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const tid = ctx.query.id as string;
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   const [messages, thread] = await Promise.combine([
-    getApi().forumApi.forumControllerMessagesPage(tid, ThreadType.TICKET, page),
-    getApi().forumApi.forumControllerGetThread(tid, ThreadType.TICKET),
+    api.forumApi.forumControllerMessagesPage(tid, ThreadType.TICKET, page),
+    api.forumApi.forumControllerGetThread(tid, ThreadType.TICKET),
   ]);
 
   return {

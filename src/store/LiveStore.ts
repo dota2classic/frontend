@@ -2,6 +2,8 @@ import { getApi } from "@/api/hooks";
 import { LiveMatchDto, TwitchStreamDto } from "@/api/back";
 import { makeObservable, observable, runInAction } from "mobx";
 import { HydratableStore } from "@/store/HydratableStore";
+import { visiblePoll } from "@/util/visible-poll";
+import { PollInterval } from "@/const/poll-interval";
 
 export class LiveStore implements HydratableStore<unknown> {
   @observable
@@ -17,10 +19,7 @@ export class LiveStore implements HydratableStore<unknown> {
   }
 
   private periodicallyFetchLiveData() {
-    this.updateLiveData().finally();
-    setInterval(() => {
-      this.updateLiveData().finally();
-    }, 5000);
+    visiblePoll(() => this.updateLiveData(), PollInterval.LIVE);
   }
 
   async updateLiveData() {

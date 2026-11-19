@@ -1,7 +1,8 @@
 import { StoreLanding } from "@/containers/StoreLanding";
-import { getApi } from "@/api/hooks";
 import { SubscriptionProductDto } from "@/api/back";
 import { LayoutConfig } from "@/components/Layout";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface Props {
   products: SubscriptionProductDto[];
@@ -14,8 +15,9 @@ StorePage.layoutConfig = {
   fullBleed: true,
 } satisfies LayoutConfig;
 
-StorePage.getInitialProps = async () => {
-  const products = await getApi().payment.userPaymentsControllerGetProducts();
+StorePage.getInitialProps = async (ctx: NextPageContext) => {
+  const api = getRequestApi(ctx);
+  const products = await api.payment.userPaymentsControllerGetProducts();
 
   return {
     products,

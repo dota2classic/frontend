@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import { ThreadType } from "@/api/mapped-models";
-import { getApi } from "@/api/hooks";
 import { ThreadDTO, ThreadMessagePageDTO } from "@/api/back";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import React from "react";
 import { PaginatedThread } from "@/containers/Thread";
 import { useTranslation } from "react-i18next";
@@ -12,6 +11,7 @@ import { EmbedProps } from "@/components/EmbedProps";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageLink } from "@/components/PageLink";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   messages: ThreadMessagePageDTO;
@@ -54,19 +54,17 @@ export default function ThreadPage({ messages, thread, page }: Props) {
 }
 
 ThreadPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const tid = ctx.query.id as string;
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const page = parsePage(ctx.query.page);
 
   return {
     page,
-    messages: await getApi().forumApi.forumControllerMessagesPage(
+    messages: await api.forumApi.forumControllerMessagesPage(
       tid,
       ThreadType.FORUM,
       page,
     ),
-    thread: await getApi().forumApi.forumControllerGetThread(
-      tid,
-      ThreadType.FORUM,
-    ),
+    thread: await api.forumApi.forumControllerGetThread(tid, ThreadType.FORUM),
   };
 };

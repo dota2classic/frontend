@@ -1,11 +1,10 @@
-import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import { MatchPageDto } from "@/api/back";
 import { AppRouter } from "@/route";
 import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
 import { useRouterChanging } from "@/util/useRouterChanging";
 import React, { useEffect } from "react";
-import { numberOrDefault } from "@/util/urls";
+import { numberOrDefault, parsePage } from "@/util/urls";
 import { MatchComparator } from "@/util/sorts";
 import { useGameModeOptions } from "@/const/options";
 import { useTranslation } from "react-i18next";
@@ -14,6 +13,7 @@ import { SelectOptions } from "@/components/SelectOptions";
 import { Pagination } from "@/components/Pagination";
 import { MatchHistoryTable } from "@/components/MatchHistoryTable";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface MatchHistoryProps {
   matches: MatchPageDto;
@@ -31,7 +31,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
   const data = matches;
 
   useEffect(() => {
-    if (data && numberOrDefault(page, 0) >= data.pages) {
+    if (data && parsePage(page) >= data.pages) {
       setPage(data.pages - 1);
     }
   }, [data, data.pages, page, setPage]);
@@ -62,7 +62,7 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
           linkProducer={(page) =>
             AppRouter.matches.index(page, mode || undefined).link
           }
-          page={Number(page) || data?.page || 0}
+          page={parsePage(page)}
           maxPage={data?.pages || 0}
         />
       </div>
@@ -73,14 +73,11 @@ export default function MatchHistory({ matches }: MatchHistoryProps) {
 MatchHistory.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<MatchHistoryProps> => {
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const api = getRequestApi(ctx);
+  const page = parsePage(ctx.query.page);
   const mode = numberOrDefault(ctx.query.mode, undefined);
 
   return {
-    matches: await getApi().matchApi.matchControllerMatches(
-      page,
-      undefined,
-      mode,
-    ),
+    matches: await api.matchApi.matchControllerMatches(page, undefined, mode),
   };
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import { getApi } from "@/api/hooks";
 import { BracketMatchDto, TournamentDto } from "@/api/back";
 import { TournamentTabs } from "@/components/TournamentTabs";
 import { EmptyState } from "@/components/EmptyState";
@@ -8,6 +7,7 @@ import { TournamentMatchCard } from "@/components/TournamentMatchCard";
 import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   id: number;
@@ -50,10 +50,11 @@ export default function TournamentMatches({ tournament, matches }: Props) {
 TournamentMatches.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
   return {
     id,
-    tournament: await getApi().tournament.tournamentControllerGetTournament(id),
-    matches: await getApi().tournament.tournamentControllerGetMatches(id),
+    tournament: await api.tournament.tournamentControllerGetTournament(id),
+    matches: await api.tournament.tournamentControllerGetMatches(id),
   };
 };

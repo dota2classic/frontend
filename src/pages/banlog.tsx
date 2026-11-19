@@ -1,7 +1,6 @@
 import { NextPageContext } from "next";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { PunishmentLogPageDto, RuleType, UserDTO } from "@/api/back";
-import { getApi } from "@/api/hooks";
 import { AppRouter } from "@/route";
 import React from "react";
 import { useQueryBackedParameter } from "@/util/useQueryBackedParameter";
@@ -18,6 +17,7 @@ import { UserPreview } from "@/components/UserPreview";
 import { Duration } from "@/components/Duration";
 import { PageLink } from "@/components/PageLink";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   page: PunishmentLogPageDto;
@@ -137,18 +137,15 @@ export default BanLog;
 
 // @ts-ignore
 BanLog.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const api = getRequestApi(ctx);
+  const page = parsePage(ctx.query.page);
   const steamId = ctx.query.steamId as string;
 
   return {
-    page: await getApi().report.reportControllerGetPaginationLog(
-      page,
-      20,
-      steamId,
-    ),
+    page: await api.report.reportControllerGetPaginationLog(page, 20, steamId),
     chosenUser: steamId
-      ? await getApi()
-          .playerApi.playerControllerPlayerSummary(steamId)
+      ? await api.playerApi
+          .playerControllerPlayerSummary(steamId)
           .then((t) => t.user)
       : undefined,
   };

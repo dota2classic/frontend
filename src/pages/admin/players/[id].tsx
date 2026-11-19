@@ -16,7 +16,6 @@ import {
 } from "@/api/back";
 import c from "./AdminPlayerPage.module.scss";
 import c2 from "../AdminStyles.module.scss";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { RoleNames } from "@/const/roles";
 import cx from "clsx";
 import { fullDate } from "@/util/dates";
@@ -33,6 +32,7 @@ import { Input } from "@/components/Input";
 import { SelectOptions } from "@/components/SelectOptions";
 import { useAsyncButton } from "@/util/use-async-button";
 import { handleException } from "@/util/handleException";
+import { getRequestApi } from "@/api/request-api";
 
 const TimeControlButtons = (p: {
   value: Date;
@@ -552,17 +552,14 @@ export default function AdminPlayerPage({
 AdminPlayerPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<AdminPlayerPageProps> => {
+  const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
 
   const [preloadedSummary, preloadedForumUser, smurfData] =
     await Promise.combine([
-      getApi().playerApi.playerControllerPlayerSummary(playerId),
-      withTemporaryToken(ctx, () =>
-        getApi().forumApi.forumControllerGetUser(playerId),
-      ),
-      withTemporaryToken(ctx, () =>
-        getApi().adminApi.adminUserControllerSmurfOf(playerId),
-      ),
+      api.playerApi.playerControllerPlayerSummary(playerId),
+      api.forumApi.forumControllerGetUser(playerId),
+      api.adminApi.adminUserControllerSmurfOf(playerId),
     ]);
 
   return {

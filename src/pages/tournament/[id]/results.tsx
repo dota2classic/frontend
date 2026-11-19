@@ -1,5 +1,4 @@
 import React from "react";
-import { getApi } from "@/api/hooks";
 import { StageStandingsDto, TournamentDto } from "@/api/back";
 import { TournamentTabs } from "@/components/TournamentTabs";
 import { EmptyState } from "@/components/EmptyState";
@@ -8,6 +7,7 @@ import { NextPageContext } from "next";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 import { RankStandingCard } from "@/components/RankStandingCard";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   id: number;
@@ -52,10 +52,11 @@ export default function TournamentMatches({ tournament, results }: Props) {
 TournamentMatches.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
   return {
     id,
-    tournament: await getApi().tournament.tournamentControllerGetTournament(id),
-    results: await getApi().tournament.tournamentControllerGetStandings(id),
+    tournament: await api.tournament.tournamentControllerGetTournament(id),
+    results: await api.tournament.tournamentControllerGetStandings(id),
   };
 };

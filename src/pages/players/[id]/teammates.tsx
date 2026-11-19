@@ -1,5 +1,5 @@
 import { NextPageContext } from "next";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import React, { useState } from "react";
 import { PlayerSummaryDto, PlayerTeammatePageDto } from "@/api/back";
 import { getApi } from "@/api/hooks";
@@ -11,6 +11,7 @@ import { ScrollDetector } from "@/components/ScrollDetecter";
 import { EmbedProps } from "@/components/EmbedProps";
 import { SectionBlock } from "@/components/SectionBlock";
 import c from "./PlayerPage.module.scss";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -84,13 +85,14 @@ export default function PlayerTeammates({
 PlayerTeammates.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
 
-  const page = numberOrDefault(ctx.query.page, 0);
+  const page = parsePage(ctx.query.page);
 
   return {
-    summary: await getApi().playerApi.playerControllerPlayerSummary(playerId),
-    preloadedTeammates: await getApi().playerApi.playerControllerTeammates(
+    summary: await api.playerApi.playerControllerPlayerSummary(playerId),
+    preloadedTeammates: await api.playerApi.playerControllerTeammates(
       playerId,
       page,
       undefined,

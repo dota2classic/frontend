@@ -1,16 +1,14 @@
-import { getApi } from "@/api/hooks";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { NextPageContext } from "next";
 import Router from "next/router";
+import { getRequestApi } from "@/api/request-api";
 
 export default function CreateLobby() {
   return <>...</>;
 }
 
 CreateLobby.getInitialProps = async (ctx: NextPageContext) => {
-  const lobby = await withTemporaryToken(ctx, () =>
-    getApi().lobby.lobbyControllerCreateLobby(),
-  );
+  const api = getRequestApi(ctx);
+  const lobby = await api.lobby.lobbyControllerCreateLobby();
 
   if (typeof window !== "undefined") {
     await Router.replace(location);

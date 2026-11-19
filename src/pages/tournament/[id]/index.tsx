@@ -31,6 +31,7 @@ import { handleException } from "@/util/handleException";
 import { makeSimpleToast } from "@/components/Toast";
 import { BsPlugin } from "react-icons/bs";
 import { addSeconds } from "date-fns";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   id: number;
@@ -267,9 +268,10 @@ export default function TournamentPage({ tournament }: Props) {
 TournamentPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
   return {
     id,
-    tournament: await getApi().tournament.tournamentControllerGetTournament(id),
+    tournament: await api.tournament.tournamentControllerGetTournament(id),
   };
 };

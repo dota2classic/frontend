@@ -1,8 +1,7 @@
 import { NextPageContext } from "next";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { getApi } from "@/api/hooks";
 import { ProfileDecorationDto } from "@/api/back";
 import { EditHatContainer } from "@/containers/EditHatContainer";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   decoration: ProfileDecorationDto;
@@ -19,10 +18,10 @@ export default function EditDecoration({ decoration }: Props) {
 EditDecoration.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
+  const api = getRequestApi(ctx);
   const id = Number(ctx.query.id as string);
-  const decoration = await withTemporaryToken(ctx, () =>
-    getApi().decoration.customizationControllerGetDecoration(id),
-  );
+  const decoration =
+    await api.decoration.customizationControllerGetDecoration(id);
   return {
     decoration,
   };

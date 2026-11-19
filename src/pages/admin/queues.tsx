@@ -1,5 +1,4 @@
 import { NextPageContext } from "next";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { getApi } from "@/api/hooks";
 import { MatchmakingInfo, QueueEntryDTO, UserDTO } from "@/api/back";
 import { Button } from "@/components/Button";
@@ -15,6 +14,7 @@ import { FaBell } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { Surface } from "@/components/Surface";
 import { PageGrid, PageGridItem } from "@/components/PageGrid";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   queueEntries: QueueEntryDTO[];
@@ -125,10 +125,9 @@ export default function QueuesPage({
 }
 
 QueuesPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const api = getRequestApi(ctx);
   return {
-    queueEntries: await withTemporaryToken(ctx, () =>
-      getApi().adminApi.serverControllerQueues(),
-    ),
-    modeInfo: await getApi().statsApi.statsControllerGetMatchmakingInfo(),
+    queueEntries: await api.adminApi.serverControllerQueues(),
+    modeInfo: await api.statsApi.statsControllerGetMatchmakingInfo(),
   };
 };

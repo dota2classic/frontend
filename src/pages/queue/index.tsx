@@ -3,14 +3,13 @@ import { NewQueuePage } from "@/containers/NewQueuePage/NewQueuePage";
 import { NextPageContext } from "next";
 import { MatchmakingMode } from "@/api/mapped-models";
 import { MatchmakingInfo, PartyDto } from "@/api/back";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
 import { redirectToPage } from "@/util/redirectToPage";
-import { getApi } from "@/api/hooks";
 import { QueueStore } from "@/store/queue/QueueStore";
 import Cookies from "cookies";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 import { BrowserCookies } from "@/util/browser-cookies";
+import { getRequestApi, getRequestToken } from "@/api/request-api";
 
 interface Props {
   modes: MatchmakingInfo[];
@@ -33,17 +32,15 @@ export default function QueuePage({ modes }: Props) {
 }
 
 QueuePage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-  const jwt = withTemporaryToken(ctx, (store) => store.auth.parsedToken);
-  if (!jwt) {
+  if (!getRequestToken(ctx)) {
     await redirectToPage(ctx, "/download");
     return { modes: [], "@defaultModes": [] };
   }
 
+  const api = getRequestApi(ctx);
   const [modes, party] = await Promise.combine([
-    getApi().statsApi.statsControllerGetMatchmakingInfo(),
-    withTemporaryToken(ctx, () => {
-      return getApi().playerApi.playerControllerMyParty();
-    }),
+    api.statsApi.statsControllerGetMatchmakingInfo(),
+    api.playerApi.playerControllerMyParty(),
   ]);
 
   let defaultModes: MatchmakingMode[] = [];

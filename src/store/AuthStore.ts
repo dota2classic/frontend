@@ -9,7 +9,7 @@ import {
 import { HydratableStore } from "@/store/HydratableStore";
 import { parseJwt } from "@/util/parseJwt";
 import Cookies from "js-cookie";
-import { appApi, getApi, JwtPayload } from "@/api/hooks";
+import { getApi, JwtPayload } from "@/api/hooks";
 import { MeDto, Role } from "@/api/back";
 import { metrika } from "@/ym";
 import { setFaroUser } from "@/util/faro";
@@ -17,6 +17,8 @@ import { getBaseCookieDomain, getBaseDomain } from "@/util/getBaseCookieDomain";
 import { AUTH_TOKEN_COOKIE_KEY } from "@/const/cookie";
 import { eraseCookie } from "@/util/erase-cookie";
 import { BrowserCookies } from "@/util/browser-cookies";
+import { visiblePoll } from "@/util/visible-poll";
+import { PollInterval } from "@/const/poll-interval";
 
 export interface JwtAuthToken {
   sub: string;
@@ -100,17 +102,14 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   };
 
   private periodicallyFetchMe() {
-    this.fetchMe().finally();
-    setInterval(() => {
-      this.fetchMe().finally();
-    }, 5000);
+    visiblePoll(this.fetchMe, PollInterval.ME);
   }
 
   @action
   public fetchMe = async () => {
     if (!this.parsedToken) return;
-    appApi.playerApi
-      .playerControllerMe()
+    getApi()
+      .playerApi.playerControllerMe()
       .then((data) =>
         runInAction(() => {
           this.me = data;
@@ -143,7 +142,6 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
   @action
   public setToken = (token: string | undefined, fetchMe: boolean = true) => {
     this.token = token;
-    appApi.apiParams.accessToken = token;
 
     if (fetchMe) {
       this.fetchMe();
@@ -152,9 +150,7 @@ export class AuthStore implements HydratableStore<{ token?: string }> {
 
   @action
   public logout = () => {
-    console.trace(`Logout called, erasing cookie ${getBaseCookieDomain()}`);
     this.token = undefined;
-    appApi.apiParams.accessToken = undefined;
 
     eraseCookie(AUTH_TOKEN_COOKIE_KEY);
 

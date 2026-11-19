@@ -1,5 +1,4 @@
-import { getApi } from "@/api/hooks";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { ThreadPageDTO, ThreadType } from "@/api/back";
 import c from "./Forum.module.scss";
 import { AppRouter } from "@/route";
@@ -12,6 +11,7 @@ import { PageLink } from "@/components/PageLink";
 import { Pagination } from "@/components/Pagination";
 import { ThreadsTable } from "@/components/ThreadsTable";
 import { Button } from "@/components/Button";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   threads: ThreadPageDTO;
@@ -52,9 +52,10 @@ export default function ForumIndexPage({ threads, page }: Props) {
 ForumIndexPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const api = getRequestApi(ctx);
+  const page = parsePage(ctx.query.page);
 
-  const threads = await getApi().forumApi.forumControllerThreads(
+  const threads = await api.forumApi.forumControllerThreads(
     page,
     false,
     15,

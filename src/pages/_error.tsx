@@ -36,9 +36,7 @@ Error500.getInitialProps = async (contextData: NextPageContext) => {
   const errorProps = await Error.getInitialProps(contextData);
 
   if (contextData.err) {
-    await sendSsrErrorToLoki(contextData.err as unknown as never).catch(
-      () => {},
-    );
+    sendSsrErrorToLoki(contextData.err as unknown as never).catch(() => {});
   }
 
   return {
@@ -48,10 +46,12 @@ Error500.getInitialProps = async (contextData: NextPageContext) => {
 };
 
 async function sendSsrErrorToLoki(err: { message?: string; stack?: string }) {
-  const url = "http://141.105.71.200:3100/loki/api/v1/push";
+  const url = process.env.LOKI_PUSH_URL;
+  if (!url) return;
   const now = (Date.now() * 1_000_000).toString();
   await fetch(url, {
     method: "POST",
+    signal: AbortSignal.timeout(2000),
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       streams: [

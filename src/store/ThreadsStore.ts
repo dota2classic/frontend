@@ -14,16 +14,10 @@ export class ThreadsStore implements HydratableStore<HydrateData> {
   constructor(private readonly auth: AuthStore) {
     makeObservable(this);
     if (typeof window !== "undefined") {
-      this.fetchEmoticons();
+      this.loadEmoticons().catch((e) => console.warn(e));
     }
   }
 
-  private async fetchEmoticons() {
-    await this.loadEmoticons();
-    setInterval(() => {
-      this.loadEmoticons();
-    }, 10_000);
-  }
   public async loadEmoticons() {
     if (this.emoticons.length === 0) {
       const emoticons = await getApi().forumApi.forumControllerEmoticons(

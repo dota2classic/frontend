@@ -3,7 +3,7 @@ import { NextPageContext } from "next";
 import { useTranslation } from "react-i18next";
 
 import { getApi } from "@/api/hooks";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
+import { getRequestApi } from "@/api/request-api";
 import { UserRoleSummaryDto } from "@/api/back";
 import { Role } from "@/api/mapped-models";
 import { RoleNames } from "@/const/roles";
@@ -131,7 +131,5 @@ export default function AdminSubscribersPage({ summaries }: Props) {
 AdminSubscribersPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => ({
-  summaries: await withTemporaryToken(ctx, () =>
-    getApi().adminApi.adminUserControllerListRoles(),
-  ),
+  summaries: await getRequestApi(ctx).adminApi.adminUserControllerListRoles(),
 });

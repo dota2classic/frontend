@@ -1,5 +1,4 @@
 import c from "./PlayerPage.module.scss";
-import { getApi } from "@/api/hooks";
 import { NextPageContext } from "next";
 import {
   AchievementDto,
@@ -23,6 +22,7 @@ import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import { AchievementStatus } from "@/components/AchievementStatus";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface PlayerPageProps {
   playerId: string;
@@ -146,13 +146,14 @@ export default function PlayerPage({
 PlayerPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<PlayerPageProps> => {
+  const api = getRequestApi(ctx);
   const playerId = ctx.query.id as string;
 
   const [summary, matches, heroStats, achievements] = await Promise.combine([
-    getApi().playerApi.playerControllerPlayerSummary(playerId),
-    getApi().matchApi.matchControllerPlayerMatches(playerId, 0, 1),
-    getApi().playerApi.playerControllerHeroSummary(playerId),
-    getApi().playerApi.playerControllerAchievements(playerId),
+    api.playerApi.playerControllerPlayerSummary(playerId),
+    api.matchApi.matchControllerPlayerMatches(playerId, 0, 1),
+    api.playerApi.playerControllerHeroSummary(playerId),
+    api.playerApi.playerControllerAchievements(playerId),
   ]);
 
   return {

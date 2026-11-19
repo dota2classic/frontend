@@ -1,9 +1,8 @@
-import { getApi } from "@/api/hooks";
 import { GameSeasonDto, UserDTO } from "@/api/back";
 import { LeaderboardSort } from "@/api/customPlayerApi";
 import { colors } from "@/colors";
 import cx from "clsx";
-import { numberOrDefault } from "@/util/urls";
+import { numberOrDefault, parsePage } from "@/util/urls";
 import { NextPageContext } from "next";
 import { AppRouter } from "@/route";
 import React from "react";
@@ -16,6 +15,7 @@ import { Pagination } from "@/components/Pagination";
 import { GenericTable } from "@/components/GenericTable";
 import { Duration } from "@/components/Duration";
 import { Surface } from "@/components/Surface";
+import { getRequestApi } from "@/api/request-api";
 
 interface LeaderboardEntryWithStats {
   user: UserDTO;
@@ -223,21 +223,22 @@ const isLeaderboardSort = (v: unknown): v is LeaderboardSort =>
 LeaderboardPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<LeaderboardPageProps> => {
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const api = getRequestApi(ctx);
+  const page = parsePage(ctx.query.page);
   const seasonId = numberOrDefault(ctx.query.seasonId as string, 0);
   const sortParam = ctx.query.sort as string | undefined;
   const sort = isLeaderboardSort(sortParam) ? sortParam : undefined;
   const sortDir: "ASC" | "DESC" = ctx.query.sortDir === "ASC" ? "ASC" : "DESC";
 
   const [initialLeaderboard, seasons] = await Promise.combine([
-    getApi().playerLeaderboard.leaderboardSorted(
+    api.playerLeaderboard.leaderboardSorted(
       page,
       100,
       seasonId || undefined,
       sort,
       sort ? sortDir : undefined,
     ),
-    getApi().statsApi.statsControllerGetGameSeasons(),
+    api.statsApi.statsControllerGetGameSeasons(),
   ]);
   return {
     initialLeaderboard,

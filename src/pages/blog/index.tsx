@@ -4,8 +4,7 @@ import c from "./Blog.module.scss";
 import cx from "clsx";
 import { AppRouter } from "@/route";
 import { NextPageContext } from "next";
-import { numberOrDefault } from "@/util/urls";
-import { getApi } from "@/api/hooks";
+import { parsePage } from "@/util/urls";
 import React from "react";
 import { useIsModerator } from "@/util/useIsAdmin";
 import { useTranslation } from "react-i18next";
@@ -14,6 +13,7 @@ import { PageLink } from "@/components/PageLink";
 import { CarouselItem } from "@/components/CarouselItem";
 import { PageHeader } from "@/components/PageHeader";
 import { MetaStat } from "@/components/MetaStat";
+import { getRequestApi } from "@/api/request-api";
 
 const threadFont = Rubik({
   subsets: ["cyrillic", "cyrillic-ext", "latin-ext", "latin"],
@@ -73,9 +73,10 @@ export default function NewsList({ page }: Props) {
 }
 
 NewsList.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const api = getRequestApi(ctx);
+  const page = parsePage(ctx.query.page);
 
   return {
-    page: await getApi().blog.blogpostControllerBlogPage(page),
+    page: await api.blog.blogpostControllerBlogPage(page),
   };
 };

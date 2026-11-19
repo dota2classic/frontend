@@ -1,5 +1,5 @@
 import { getApi } from "@/api/hooks";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
+import { getRequestApi } from "@/api/request-api";
 import { NextPageContext } from "next";
 import { LobbyDto } from "@/api/back";
 import { Button } from "@/components/Button";
@@ -126,9 +126,7 @@ export default ListLobbies;
 ListLobbies["getInitialProps"] = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
-  const lobbies = await withTemporaryToken(ctx, () =>
-    getApi().lobby.lobbyControllerListLobbies(),
-  );
+  const lobbies = await getRequestApi(ctx).lobby.lobbyControllerListLobbies();
 
   return {
     lobbies,

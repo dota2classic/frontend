@@ -1,19 +1,24 @@
-import { getApi } from "@/api/hooks";
 import c from "./Streams.module.scss";
 import { TwitchStreamDto } from "@/api/back";
 import React from "react";
-import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
+import { getApi } from "@/api/hooks";
+import { PollInterval } from "@/const/poll-interval";
 import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
+import { NextPageContext } from "next";
 
 interface InitialProps {
   streams: TwitchStreamDto[];
 }
 
 export default function LiveStreams({ streams }: InitialProps) {
-  usePeriodicRefreshPageProps(5000);
+  const { data } = getApi().statsApi.useStatsControllerGetTwitchStreams({
+    fallbackData: streams,
+    refreshInterval: PollInterval.LIVE,
+  });
 
-  const fakeData: TwitchStreamDto[] = streams;
+  const fakeData: TwitchStreamDto[] = data ?? streams;
 
   const domain = "dotaclassic.ru";
   const { t } = useTranslation();
@@ -46,8 +51,11 @@ export default function LiveStreams({ streams }: InitialProps) {
   );
 }
 
-LiveStreams.getInitialProps = async (): Promise<InitialProps> => {
-  const streams = await getApi().statsApi.statsControllerGetTwitchStreams();
+LiveStreams.getInitialProps = async (
+  ctx: NextPageContext,
+): Promise<InitialProps> => {
+  const api = getRequestApi(ctx);
+  const streams = await api.statsApi.statsControllerGetTwitchStreams();
 
   return {
     streams,

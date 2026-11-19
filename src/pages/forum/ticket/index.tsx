@@ -1,5 +1,4 @@
-import { getApi } from "@/api/hooks";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { ThreadPageDTO, ThreadType } from "@/api/back";
 import { AppRouter } from "@/route";
 import React from "react";
@@ -12,6 +11,7 @@ import { ThreadsTable } from "@/components/ThreadsTable";
 import { PageLink } from "@/components/PageLink";
 import { Button } from "@/components/Button";
 import { useTranslation } from "react-i18next";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   threads: ThreadPageDTO;
@@ -49,9 +49,10 @@ export default function TicketsPage({ threads, page }: Props) {
 }
 
 TicketsPage.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const api = getRequestApi(ctx);
+  const page = parsePage(ctx.query.page);
 
-  const threads = await getApi().forumApi.forumControllerThreads(
+  const threads = await api.forumApi.forumControllerThreads(
     page,
     true,
     15,

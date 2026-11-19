@@ -8,6 +8,14 @@ export function numberOrDefault<T = number>(
   return Number.isNaN(v) ? defaultValue : v;
 }
 
+export function parsePage(
+  value: string | string[] | number | undefined,
+  max = 10_000,
+): number {
+  const page = Math.trunc(Number(value));
+  return Number.isFinite(page) ? Math.min(Math.max(page, 0), max) : 0;
+}
+
 export function queryParameters(
   params: Record<string, string | string[] | number | undefined>,
 ) {

@@ -1,7 +1,5 @@
 import { NextPageContext } from "next";
-import { withTemporaryToken } from "@/util/withTemporaryToken";
-import { getApi } from "@/api/hooks";
-import { numberOrDefault } from "@/util/urls";
+import { parsePage } from "@/util/urls";
 import { PlayerFeedbackPageDto } from "@/api/back";
 import c from "../AdminStyles.module.scss";
 import { AppRouter } from "@/route";
@@ -12,6 +10,7 @@ import { Pagination } from "@/components/Pagination";
 import { UserPreview } from "@/components/UserPreview";
 import { Surface } from "@/components/Surface";
 import { PageGrid, PageGridItem } from "@/components/PageGrid";
+import { getRequestApi } from "@/api/request-api";
 
 interface Props {
   page: PlayerFeedbackPageDto;
@@ -65,10 +64,12 @@ export default function PlayerFeedbackPage({ page }: Props) {
 }
 
 PlayerFeedbackPage.getInitialProps = async (ctx: NextPageContext) => {
-  const page = numberOrDefault(ctx.query.page as string, 0);
+  const api = getRequestApi(ctx);
+  const page = parsePage(ctx.query.page);
   return {
-    page: await withTemporaryToken(ctx, () =>
-      getApi().adminFeedback.adminFeedbackControllerGetPlayerFeedback(page, 10),
+    page: await api.adminFeedback.adminFeedbackControllerGetPlayerFeedback(
+      page,
+      10,
     ),
   };
 };

@@ -5,7 +5,6 @@ import {
   makeObservable,
   observable,
   runInAction,
-  trace,
 } from "mobx";
 import { ThreadType } from "@/api/mapped-models";
 import {
@@ -142,15 +141,17 @@ export class ThreadStore implements HydratableStore<unknown> {
 
     if (init) {
       this.setInitial(init);
-      this.fetchThread(id, threadType).then();
       this.initialLoaded = true;
-    } else {
-      this.initialLoad().then(() => this.fetchThread(id, threadType));
     }
-
-    trace(this, "relevantMessages");
-    trace(this, "thread");
   }
+
+  public start = () => {
+    if (this.initialLoaded) {
+      this.fetchThread(this.id, this.threadType).then();
+    } else {
+      this.initialLoad().then(() => this.fetchThread(this.id, this.threadType));
+    }
+  };
 
   private initialLoad = async () => {
     if (this.page !== undefined) {
