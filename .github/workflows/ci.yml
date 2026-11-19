@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: Production build
+    name: Build, Test, and Playwright
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
