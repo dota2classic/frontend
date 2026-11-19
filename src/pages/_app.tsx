@@ -20,8 +20,8 @@ import { TrajanPro } from "@/const/fonts";
 import { ReportModalContainer } from "@/containers/ReportModal";
 import { getApi } from "@/api/hooks";
 import { MaintenanceDto } from "@/api/back";
-import "../i18n/i18n";
-import i18n from "@/i18n/i18n";
+import { getLocaleI18n } from "@/i18n/i18n";
+import { I18nextProvider } from "react-i18next";
 import { detectLocale } from "@/util/detectLocale";
 import { DevVersionIndicator } from "@/containers/DevVersionIndicator";
 import { ClaimContainer } from "@/containers/ClaimContainer";
@@ -34,6 +34,7 @@ import { getRequestToken } from "@/api/request-api";
 export default class MyApp extends App<{
   initialState: HydrateRootData;
   maintenance: MaintenanceDto;
+  locale: string;
 }> {
   private static inferPagePropsAsHydratable(
     props: AppInitialProps,
@@ -86,9 +87,8 @@ export default class MyApp extends App<{
 
     const locale = detectLocale(hostname || "");
 
-    await i18n.changeLanguage(locale);
-
-    if (!appContext.ctx.req || !appContext.ctx.res) return { ...appProps };
+    if (!appContext.ctx.req || !appContext.ctx.res)
+      return { ...appProps, locale };
 
     const cookieToken = getRequestToken(appContext.ctx);
 
@@ -102,7 +102,7 @@ export default class MyApp extends App<{
       ...inferredState,
     };
 
-    return { ...appProps, initialState, maintenance };
+    return { ...appProps, initialState, maintenance, locale };
   }
 
   componentDidMount() {
@@ -117,33 +117,38 @@ export default class MyApp extends App<{
   }
 
   render() {
-    const { Component, pageProps, initialState, maintenance } = this.props;
+    const { Component, pageProps, initialState, maintenance, locale } =
+      this.props;
     const store = getRootStore(initialState);
 
     return (
-      <MobxContext.Provider value={store}>
-        <ReferralSniffer />
-        <DevVersionIndicator maintenance={maintenance} />
-        <ToastContainer />
-        <ReportModalContainer />
-        <ClaimContainer />
-        <FeedbackModalContainer />
-        <GreedyFocusManager />
-        <PaidFeatureModal />
-        <AcceptCookiesContainer />
-        <Head>
-          <title>Dota2Classic</title>
-        </Head>
-        <SWRConfig>
-          {/*<PushNotificationManager />*/}
-          <Layout
-            className={cx(TrajanPro.className)}
-            config={(Component as { layoutConfig?: LayoutConfig }).layoutConfig}
-          >
-            <Component {...pageProps} />
-          </Layout>
-        </SWRConfig>
-      </MobxContext.Provider>
+      <I18nextProvider i18n={getLocaleI18n(locale)}>
+        <MobxContext.Provider value={store}>
+          <ReferralSniffer />
+          <DevVersionIndicator maintenance={maintenance} />
+          <ToastContainer />
+          <ReportModalContainer />
+          <ClaimContainer />
+          <FeedbackModalContainer />
+          <GreedyFocusManager />
+          <PaidFeatureModal />
+          <AcceptCookiesContainer />
+          <Head>
+            <title>Dota2Classic</title>
+          </Head>
+          <SWRConfig>
+            {/*<PushNotificationManager />*/}
+            <Layout
+              className={cx(TrajanPro.className)}
+              config={
+                (Component as { layoutConfig?: LayoutConfig }).layoutConfig
+              }
+            >
+              <Component {...pageProps} />
+            </Layout>
+          </SWRConfig>
+        </MobxContext.Provider>
+      </I18nextProvider>
     );
   }
 }

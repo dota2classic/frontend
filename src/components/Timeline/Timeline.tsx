@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import c from "./Timeline.module.scss";
 import cx from "clsx";
 import { NotoSans } from "@/const/notosans";
-import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface ListItem {
   content: ReactNode;
@@ -27,7 +27,7 @@ function getPrettyMonth(
 
 function formatWeekdayTime(
   date: Date,
-  locale: string = i18next.language,
+  locale: string,
   hour12: boolean = false,
 ): string {
   const weekday = new Intl.DateTimeFormat(locale, { weekday: "short" }).format(
@@ -43,10 +43,11 @@ function formatWeekdayTime(
 }
 
 export const Timeline: React.FC<ICoolListProps> = ({ items, className }) => {
+  const { i18n } = useTranslation();
   return (
     <div className={cx(c.list, className)}>
       {items.map((item, index) => {
-        const month = getPrettyMonth(item.time, i18next.language);
+        const month = getPrettyMonth(item.time, i18n.language);
 
         return (
           <div
@@ -60,7 +61,9 @@ export const Timeline: React.FC<ICoolListProps> = ({ items, className }) => {
               </div>
             </div>
             <div className={c.step__content}>
-              <span className={c.time}>{formatWeekdayTime(item.time)}</span>
+              <span className={c.time}>
+                {formatWeekdayTime(item.time, i18n.language)}
+              </span>
               <div className={c.title}>{item.title}</div>
               <div className={cx(c.content, NotoSans.className)}>
                 {item.content}
