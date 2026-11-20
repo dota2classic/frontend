@@ -26,7 +26,7 @@ import { LiveMatchPreview } from "@/components/LiveMatchPreview";
 interface IMatchPageContainerProps {
   matchId: number;
   preloadedMatch: MatchDto | undefined;
-  liveMatches: LiveMatchDto[];
+  isMatchLive: boolean;
 }
 
 type Filter = { label: TranslationKey; columns: Columns[] };
@@ -79,7 +79,7 @@ const useReportModal = (
 };
 
 export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
-  ({ matchId, preloadedMatch, liveMatches }: IMatchPageContainerProps) => {
+  ({ matchId, preloadedMatch, isMatchLive }: IMatchPageContainerProps) => {
     const { t } = useTranslation();
     const { report } = useStore();
     const { data: match } = getApi().matchApi.useMatchControllerMatch(matchId, {
@@ -106,12 +106,11 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
     const [feedbackData, showFeedbackModal, closeFeedbackModal] =
       useReportModal(matchId);
 
-    const isMatchLive =
-      liveMatches.findIndex((t) => t.matchId === matchId) !== -1;
-
     const liveMatch = useEventSource<LiveMatchDto>(
       getApi().liveApi.liveMatchControllerLiveMatchContext({ id: matchId }),
       LiveMatchDtoFromJSON.bind(null),
+      null,
+      { enabled: isMatchLive && !match },
     );
 
     const [filter, setFilter] = useState<Filter>(options[0]);
