@@ -46,7 +46,7 @@ export const StoreLanding = observer(({ products }: Props) => {
           onClose={endPayment}
           onPurchase={(product, steamId) => {
             window.open(
-              `https://t.me/dotaclassic_payments_bot?start=${steamId}`,
+              `https://t.me/DotaClassicPlusBot?start=${steamId}`,
               "__blank",
             );
           }}
