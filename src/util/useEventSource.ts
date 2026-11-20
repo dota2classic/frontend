@@ -15,7 +15,6 @@ export interface EventSourceOptions {
 const Retry = {
   BASE_MS: 1_000,
   MAX_MS: 30_000,
-  MAX_ATTEMPTS: 8,
   STABLE_MS: 30_000,
 } as const;
 
@@ -55,27 +54,36 @@ export const useEventSourceListener = (
     if (!enabled) return;
 
     const headers: HTTPHeaders = JSON.parse(headersKey);
-    let session: AbortController | undefined;
+    let session: { ctrl: AbortController; open: boolean } | undefined;
     let finished = false;
 
+    const canRun = () => openWhenHidden || !document.hidden;
+
     const stop = () => {
-      session?.abort();
+      session?.ctrl.abort();
       session = undefined;
     };
 
     const start = () => {
-      const ctrl = new AbortController();
-      session = ctrl;
+      const current = { ctrl: new AbortController(), open: false };
+      session = current;
       let attempt = 0;
       let openedAt = 0;
 
+      const settle = () => {
+        if (session !== current) return;
+        session = undefined;
+        finished = true;
+      };
+
       fetchEventSource(url, {
         headers,
-        signal: ctrl.signal,
+        signal: current.ctrl.signal,
         openWhenHidden: true,
         onopen: async (response) => {
           const contentType = response.headers.get("content-type");
           if (response.ok && contentType?.startsWith(EventStreamContentType)) {
+            current.open = true;
             openedAt = Date.now();
             return;
           }
@@ -96,24 +104,13 @@ export const useEventSourceListener = (
           if (reconnectOnClose) throw new Error(`SSE ${url} closed`);
         },
         onerror: (error) => {
+          current.open = false;
           if (error instanceof StreamRejected) throw error;
           if (openedAt && Date.now() - openedAt >= Retry.STABLE_MS) attempt = 0;
           openedAt = 0;
-          if (attempt >= Retry.MAX_ATTEMPTS) throw error;
           return retryDelay(attempt++);
         },
-      }).then(
-        () => {
-          if (session !== ctrl) return;
-          session = undefined;
-          finished = true;
-        },
-        (error) => {
-          if (session !== ctrl) return;
-          session = undefined;
-          finished = error instanceof StreamRejected;
-        },
-      );
+      }).then(settle, settle);
     };
 
     const onVisibilityChange = () => {
@@ -124,11 +121,19 @@ export const useEventSourceListener = (
       }
     };
 
-    if (openWhenHidden || !document.hidden) start();
+    const onOnline = () => {
+      if (finished || session?.open || !canRun()) return;
+      stop();
+      start();
+    };
+
+    if (canRun()) start();
     document.addEventListener("visibilitychange", onVisibilityChange);
+    window.addEventListener("online", onOnline);
 
     return () => {
       document.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener("online", onOnline);
       stop();
     };
   }, [url, headersKey, enabled, openWhenHidden, reconnectOnClose]);
