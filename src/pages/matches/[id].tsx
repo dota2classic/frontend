@@ -32,11 +32,10 @@ MatchPage.getInitialProps = async (
   const match = await api.matchApi
     .matchControllerMatch(matchId)
     .catch(() => undefined);
-  const isMatchLive =
-    !match &&
-    (await api.liveApi.liveMatchControllerListMatches()).some(
-      (live) => live.matchId === matchId,
-    );
+  const liveMatches = match
+    ? []
+    : await api.liveApi.liveMatchControllerListMatches().catch(() => []);
+  const isMatchLive = liveMatches.some((live) => live.matchId === matchId);
 
   return {
     matchId,
