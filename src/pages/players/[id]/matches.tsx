@@ -20,7 +20,7 @@ import { Section } from "@/components/Section";
 import { HeroWithItemsHistoryTable } from "@/components/HeroWithItemsHistoryTable";
 import { PlayerSummary } from "@/components/PlayerSummary";
 import { Surface } from "@/components/Surface";
-import { getRequestApi } from "@/api/request-api";
+import { loadPlayerPage } from "@/util/load-player-page";
 
 interface Props {
   playerId: string;
@@ -130,19 +130,17 @@ export default function PlayerMatches({
 PlayerMatches.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
-  const api = getRequestApi(ctx);
-  const playerId = ctx.query.id as string;
   let hero = ctx.query.hero as string;
   hero = hero && fullName(hero);
 
   const page = parsePage(ctx.query.page);
   const mode = numberOrDefault(ctx.query.mode, undefined);
 
-  const [preloadedSummary, initialMatches] = await Promise.combine<
-    PlayerSummaryDto,
-    MatchPageDto
-  >([
-    api.playerApi.playerControllerPlayerSummary(playerId),
+  const {
+    playerId,
+    summary: preloadedSummary,
+    data: [initialMatches],
+  } = await loadPlayerPage(ctx, (api, playerId) => [
     api.matchApi.matchControllerPlayerMatches(
       playerId,
       page,

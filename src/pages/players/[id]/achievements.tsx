@@ -8,7 +8,7 @@ import c from "@/pages/players/[id]/PlayerPage.module.scss";
 import { EmbedProps } from "@/components/EmbedProps";
 import { SectionBlock } from "@/components/SectionBlock";
 import { Surface } from "@/components/Surface";
-import { getRequestApi } from "@/api/request-api";
+import { loadPlayerPage } from "@/util/load-player-page";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -158,12 +158,17 @@ export default function PlayerAchievements({ achievements, summary }: Props) {
 PlayerAchievements.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
-  const api = getRequestApi(ctx);
-  const playerId = ctx.query.id as string;
+  const {
+    playerId,
+    summary,
+    data: [achievements],
+  } = await loadPlayerPage(ctx, (api, playerId) => [
+    api.playerApi.playerControllerAchievements(playerId),
+  ]);
 
   return {
-    summary: await api.playerApi.playerControllerPlayerSummary(playerId),
-    achievements: await api.playerApi.playerControllerAchievements(playerId),
+    summary,
+    achievements,
     playerId,
   };
 };

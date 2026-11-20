@@ -11,7 +11,7 @@ import { ColumnType } from "@/const/tables";
 import { useTranslation } from "react-i18next";
 import c from "@/pages/players/[id]/PlayerPage.module.scss";
 import { SectionBlock } from "@/components/SectionBlock";
-import { getRequestApi } from "@/api/request-api";
+import { loadPlayerPage } from "@/util/load-player-page";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -124,13 +124,17 @@ export default function PlayerHeroes({
 }
 
 PlayerHeroes.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-  const api = getRequestApi(ctx);
-  const playerId = ctx.query.id as string;
+  const {
+    playerId,
+    summary,
+    data: [preloadedHeroStats],
+  } = await loadPlayerPage(ctx, (api, playerId) => [
+    api.playerApi.playerControllerHeroSummary(playerId),
+  ]);
 
   return {
-    summary: await api.playerApi.playerControllerPlayerSummary(playerId),
-    preloadedHeroStats:
-      await api.playerApi.playerControllerHeroSummary(playerId),
+    summary,
+    preloadedHeroStats,
     playerId,
   };
 };

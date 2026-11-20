@@ -7,7 +7,7 @@ import { PlayerRecords } from "@/containers/PlayerRecords";
 import { useTranslation } from "react-i18next";
 import { SectionBlock } from "@/components/SectionBlock";
 import c from "@/pages/players/[id]/PlayerPage.module.scss";
-import { getRequestApi } from "@/api/request-api";
+import { loadPlayerPage } from "@/util/load-player-page";
 
 interface Props {
   preloadedSummary: PlayerSummaryDto;
@@ -50,11 +50,10 @@ export default function PlayerRecordsPage({
 PlayerRecordsPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
-  const api = getRequestApi(ctx);
-  const playerId = ctx.query.id as string;
-
-  const [preloadedSummary, records] = await Promise.combine([
-    api.playerApi.playerControllerPlayerSummary(playerId),
+  const {
+    summary: preloadedSummary,
+    data: [records],
+  } = await loadPlayerPage(ctx, (api, playerId) => [
     api.record.recordControllerPlayerRecords(playerId),
   ]);
 
