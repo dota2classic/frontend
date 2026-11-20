@@ -12,7 +12,7 @@ import { PlayerSummary } from "@/components/PlayerSummary";
 import { DropList } from "@/containers/DropList";
 import { useTranslation } from "react-i18next";
 import c from "./PlayerPage.module.scss";
-import { getRequestApi } from "@/api/request-api";
+import { loadPlayerPage } from "@/util/load-player-page";
 
 interface Props {
   steamId: string;
@@ -58,10 +58,11 @@ export default function PlayerDrops({
 }
 
 PlayerDrops.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-  const api = getRequestApi(ctx);
-  const steamId = ctx.query.id as string;
-  const [summary, drops, user, trades, products] = await Promise.combine([
-    api.playerApi.playerControllerPlayerSummary(steamId),
+  const {
+    playerId,
+    summary,
+    data: [drops, user, trades, products],
+  } = await loadPlayerPage(ctx, (api) => [
     api.drops.itemDropControllerGetMyDrops(),
     api.drops.itemDropControllerGetUser(),
     api.drops.itemDropControllerGetTrades(),
@@ -72,7 +73,7 @@ PlayerDrops.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
     drops,
     summary,
     user,
-    steamId,
+    steamId: playerId,
     trades,
     products,
   };

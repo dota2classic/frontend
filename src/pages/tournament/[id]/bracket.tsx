@@ -11,6 +11,7 @@ import { EmbedProps } from "@/components/EmbedProps";
 import { useTranslation } from "react-i18next";
 import { usePeriodicRefreshPageProps } from "@/util/usePageProps";
 import { getRequestApi } from "@/api/request-api";
+import { PollInterval } from "@/const/poll-interval";
 
 interface Props {
   id: number;
@@ -20,7 +21,7 @@ interface Props {
 export default function TournamentBracket({ id, tournament, bracket }: Props) {
   const hasBracket = bracket.stage.length > 0;
   const { t } = useTranslation();
-  usePeriodicRefreshPageProps(30_000);
+  usePeriodicRefreshPageProps(PollInterval.TOURNAMENT);
   return (
     <>
       <EmbedProps

@@ -25,6 +25,7 @@ import { Button } from "@/components/Button";
 import { Table } from "@/components/Table";
 import { TimeAgo } from "@/components/TimeAgo";
 import { SectionBlock } from "@/components/SectionBlock";
+import { PollInterval } from "@/const/poll-interval";
 
 interface IDropListProps {
   drops: DroppedItemDto[];
@@ -79,7 +80,7 @@ export const DropList: React.FC<IDropListProps> = ({
   const { data: dropList, mutate: refreshDrops } =
     getApi().drops.useItemDropControllerGetMyDrops({
       fallbackData: drops,
-      refreshInterval: 15000,
+      refreshInterval: PollInterval.DROPS,
     });
 
   const tradeUrlRegex = useMemo(() => {

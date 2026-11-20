@@ -38,7 +38,7 @@ import { SectionBlock } from "@/components/SectionBlock";
 import { Surface } from "@/components/Surface";
 import { DetailPanel } from "@/components/DetailPanel";
 import { ActionCard } from "@/components/ActionCard";
-import { getRequestApi } from "@/api/request-api";
+import { loadPlayerPage } from "@/util/load-player-page";
 
 interface Props {
   summary: PlayerSummaryDto;
@@ -362,11 +362,11 @@ export default function PlayerSettings({ summary, decorations }: Props) {
 PlayerSettings.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<Props> => {
-  const api = getRequestApi(ctx);
-  const playerId = ctx.query.id as string;
-
-  const [summary, decorations] = await Promise.combine([
-    api.playerApi.playerControllerPlayerSummary(playerId),
+  const {
+    playerId,
+    summary,
+    data: [decorations],
+  } = await loadPlayerPage(ctx, (api) => [
     api.decoration.customizationControllerAll(),
   ]);
   return {

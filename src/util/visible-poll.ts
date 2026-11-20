@@ -1,6 +1,7 @@
 export function visiblePoll(
   task: () => unknown,
   intervalMs: number,
+  { runOnStart = true }: { runOnStart?: boolean } = {},
 ): () => void {
   let timer: ReturnType<typeof setInterval> | undefined;
 
@@ -10,15 +11,17 @@ export function visiblePoll(
       .catch((e) => console.warn(e));
   };
 
-  const sync = () => {
+  const schedule = (runNow: boolean) => {
     clearInterval(timer);
     timer = undefined;
     if (document.hidden) return;
-    run();
+    if (runNow) run();
     timer = setInterval(run, intervalMs);
   };
 
-  sync();
+  const sync = () => schedule(true);
+
+  schedule(runOnStart);
   document.addEventListener("visibilitychange", sync);
 
   return () => {

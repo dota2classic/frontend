@@ -1,13 +1,14 @@
 /* eslint-disable */
 import { ThreadType } from "@/api/mapped-models";
 import {
-  querystring,
   ThreadMessageDTO,
+  ThreadMessageDTOFromJSON,
   ThreadMessagePageDTO,
 } from "@/api/back";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getApi } from "@/api/hooks";
 import { ThreadStore } from "@/store/ThreadStore";
+import { useEventSourceListener } from "@/util/useEventSource";
 
 export const useThread = (id: string, threadType: ThreadType): ThreadStore => {
   const [thread] = useState<ThreadStore>(
@@ -81,43 +82,9 @@ const useThreadEventSource = (
   threadType: ThreadType,
   consumeMessages: (messages: ThreadMessageDTO[]) => void,
 ) => {
-  const bp = getApi().basePath;
-  const endpoint = getApi().forumApi.forumControllerThreadContext({
-    id: id.toString(),
-    threadType: threadType,
-  });
-  const [trigger, setTrigger] = useState(0);
-
-  const context = JSON.stringify(endpoint);
-
-  const handleVisibilityChange = useCallback(() => {
-    if (!document.hidden) {
-      // We need to load more and re-create event source so that we don't die on thread
-      setTrigger((t) => t + 1);
-    }
-  }, [setTrigger]);
-
-  useEffect(() => {
-    document.addEventListener(
-      "visibilitychange",
-      handleVisibilityChange,
-      false,
-    );
-
-    return () =>
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, [handleVisibilityChange]);
-
-  useEffect(() => {
-    const es = new EventSource(
-      `${bp}${endpoint.path}${endpoint.query && querystring(endpoint.query, "?")}`,
-    );
-
-    es.onmessage = ({ data: msg }) => {
-      const raw: ThreadMessageDTO = JSON.parse(msg);
-      consumeMessages([raw]);
-    };
-
-    return () => es.close();
-  }, [consumeMessages, context, trigger]);
+  useEventSourceListener(
+    getApi().forumApi.forumControllerThreadContext({ id, threadType }),
+    (raw) => consumeMessages([ThreadMessageDTOFromJSON(raw)]),
+    { openWhenHidden: true, reconnectOnClose: true },
+  );
 };

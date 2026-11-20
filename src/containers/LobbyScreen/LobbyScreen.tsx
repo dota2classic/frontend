@@ -49,6 +49,7 @@ export const LobbyScreen: React.FC<ILobbyScreenProps> = observer(
         action: LobbyUpdateTypeActionEnum.Update,
         kickedSteamIds: [],
       },
+      { openWhenHidden: true, reconnectOnClose: true },
     );
     const [isEditing, setIsEditing] = useState<boolean>(false);
 

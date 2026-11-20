@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { Surface } from "@/components/Surface";
 import { PageGrid, PageGridItem } from "@/components/PageGrid";
 import { getRequestApi } from "@/api/request-api";
+import { PollInterval } from "@/const/poll-interval";
 
 interface Props {
   queueEntries: QueueEntryDTO[];
@@ -42,7 +43,7 @@ export default function QueuesPage({
   const { t } = useTranslation();
   const { data } = getApi().adminApi.useServerControllerQueues({
     fallbackData: initialQueues,
-    refreshInterval: 5000,
+    refreshInterval: PollInterval.ADMIN_QUEUES,
   });
   const [isPending, startTransition] = useTransition();
 

@@ -22,7 +22,7 @@ import { PageLink } from "@/components/PageLink";
 import { AppRouter } from "@/route";
 import { AchievementStatus } from "@/components/AchievementStatus";
 import { Surface } from "@/components/Surface";
-import { getRequestApi } from "@/api/request-api";
+import { loadPlayerPage } from "@/util/load-player-page";
 
 interface PlayerPageProps {
   playerId: string;
@@ -146,11 +146,11 @@ export default function PlayerPage({
 PlayerPage.getInitialProps = async (
   ctx: NextPageContext,
 ): Promise<PlayerPageProps> => {
-  const api = getRequestApi(ctx);
-  const playerId = ctx.query.id as string;
-
-  const [summary, matches, heroStats, achievements] = await Promise.combine([
-    api.playerApi.playerControllerPlayerSummary(playerId),
+  const {
+    playerId,
+    summary,
+    data: [matches, heroStats, achievements],
+  } = await loadPlayerPage(ctx, (api, playerId) => [
     api.matchApi.matchControllerPlayerMatches(playerId, 0, 1),
     api.playerApi.playerControllerHeroSummary(playerId),
     api.playerApi.playerControllerAchievements(playerId),
