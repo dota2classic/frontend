@@ -1,7 +1,18 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
 
+const PUBLIC_MEDIA_PATH =
+  "/:path((?!_next/).+\\.(?:webp|png|jpe?g|gif|svg|webm|mp4|mp3|wav))";
+
+const PUBLIC_MEDIA_CACHE_CONTROL = "private, max-age=86400";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  headers: async () => [
+    {
+      source: PUBLIC_MEDIA_PATH,
+      headers: [{ key: "Cache-Control", value: PUBLIC_MEDIA_CACHE_CONTROL }],
+    },
+  ],
   compress: true,
   images: {
     unoptimized: true,
@@ -21,7 +32,7 @@ const nextConfig = {
     scrollRestoration: true,
     fallbackNodePolyfills: true,
   },
-  webpack: (config, options) => {
+  webpack: (config) => {
     config.optimization = {
       ...config.optimization,
       removeAvailableModules: false,
