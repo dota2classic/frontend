@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 import { NavbarItem } from "../NavbarItem";
 import { BrandLogo } from "../BrandLogo";
 import { LanguageSwitcher } from "../LanguageSwitcher";
+import { PollInterval } from "@/const/poll-interval";
 
 export const Navbar = observer(function Navbar(p: {
   className?: string;
@@ -50,7 +51,7 @@ export const Navbar = observer(function Navbar(p: {
     0,
     1,
     {
-      refreshInterval: 30000,
+      refreshInterval: PollInterval.LATEST_BLOG,
     },
   );
 

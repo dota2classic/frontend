@@ -7,6 +7,7 @@ import { getRequestApi } from "@/api/request-api";
 import { UserRoleSummaryDto } from "@/api/back";
 import { Role } from "@/api/mapped-models";
 import { RoleNames } from "@/const/roles";
+import { PollInterval } from "@/const/poll-interval";
 import { AppRouter } from "@/route";
 import { EmbedProps } from "@/components/EmbedProps";
 import { Section } from "@/components/Section";
@@ -52,7 +53,7 @@ export default function AdminSubscribersPage({ summaries }: Props) {
 
   const { data } = getApi().adminApi.useAdminUserControllerListRoles({
     fallbackData: summaries,
-    refreshInterval: 60000,
+    refreshInterval: PollInterval.ADMIN_SUBSCRIBERS,
   });
 
   const all = useMemo(() => flatten(data || summaries), [data, summaries]);

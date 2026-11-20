@@ -32,6 +32,7 @@ import { makeSimpleToast } from "@/components/Toast";
 import { BsPlugin } from "react-icons/bs";
 import { addSeconds } from "date-fns";
 import { getRequestApi } from "@/api/request-api";
+import { PollInterval } from "@/const/poll-interval";
 
 interface Props {
   id: number;
@@ -44,7 +45,7 @@ export default function TournamentPage({ tournament }: Props) {
     new Date(tournament.startDate).getTime() - 1000 * 60 * 60;
   const [inviteVisible, setInviteVisible] = useState(false);
 
-  usePeriodicRefreshPageProps(30_000);
+  usePeriodicRefreshPageProps(PollInterval.TOURNAMENT);
 
   const pt = useStore().auth.parsedToken;
   const registration = useMemo(
