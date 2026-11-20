@@ -43,7 +43,7 @@ export const useEventSourceListener = (
   }: EventSourceOptions = {},
 ): void => {
   const url = endpointUrl(endpoint);
-  const headersKey = JSON.stringify(endpoint.headers);
+  const headersKey = JSON.stringify(endpoint.headers ?? {});
   const handler = useRef(onMessage);
 
   useEffect(() => {
