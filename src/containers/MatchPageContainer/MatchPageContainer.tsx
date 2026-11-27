@@ -199,7 +199,10 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
 
           <br />
           <br />
-          <MatchThread id={match.id.toString()} reportsEnabled={canReportMatch} />
+          <MatchThread
+            id={match.id.toString()}
+            reportsEnabled={canReportMatch}
+          />
         </>
       );
     }
@@ -225,7 +228,9 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
           <LiveMatchPreview match={liveMatch} />
           <MatchThread
             id={liveMatch.matchId.toString()}
-            reportsEnabled={liveMatch.matchmakingMode !== MatchmakingMode.SECRET}
+            reportsEnabled={
+              liveMatch.matchmakingMode !== MatchmakingMode.SECRET
+            }
           />
         </>
       );

@@ -198,9 +198,10 @@ export class QueueStore
   public get allPartyMembersBanned(): boolean {
     if (!this.party?.players.length) return false;
     return this.party.players.every(({ summary }) => {
-      const ban = summary.id === this.authStore.me?.id
-        ? this.authStore.me.banStatus
-        : summary.banStatus;
+      const ban =
+        summary.id === this.authStore.me?.id
+          ? this.authStore.me.banStatus
+          : summary.banStatus;
       return ban?.isBanned === true;
     });
   }

@@ -32,9 +32,8 @@ export enum MatchmakingMode {
   LOBBY = 11,
   BOTS2X2 = 12,
   TURBO = 13,
-  SECRET = 14
+  SECRET = 14,
 }
-
 
 export function MatchmakingModeFromJSON(json: any): MatchmakingMode {
   return MatchmakingModeFromJSONTyped(json, false);
@@ -50,4 +49,3 @@ export function MatchmakingModeFromJSONTyped(
 export function MatchmakingModeToJSON(value?: MatchmakingMode | null): any {
   return value as any;
 }
-

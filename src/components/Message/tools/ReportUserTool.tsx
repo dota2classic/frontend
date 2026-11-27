@@ -20,7 +20,8 @@ export const ReportUserTool = observer(function ReportUserTool({
     report.setReportMeta({ message });
   }, [message, report]);
 
-  if (!reportsEnabled || auth.parsedToken?.sub === message.author.steamId) return null;
+  if (!reportsEnabled || auth.parsedToken?.sub === message.author.steamId)
+    return null;
 
   return (
     <>

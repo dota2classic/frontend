@@ -464,7 +464,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   }
                 >
                   <div className={c.actions}>
-                    {onReport && player.user.steamId.length > 2 &&
+                    {onReport &&
+                      player.user.steamId.length > 2 &&
                       parsedToken?.sub !== player.user.steamId && (
                         <Tooltipable
                           className={cx(c.commend, "adminicon")}
@@ -473,7 +474,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                           <GiFist onClick={() => onReport(player)} />
                         </Tooltipable>
                       )}
-                    {onFeedback && hasReports &&
+                    {onFeedback &&
+                      hasReports &&
                       reportableSteamIds.includes(player.user.steamId) && (
                         <Tooltipable
                           className={cx(c.commend, "adminicon")}
