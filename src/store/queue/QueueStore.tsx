@@ -176,7 +176,7 @@ export class QueueStore
       }) !== -1;
 
     if (shouldExpire) {
-      this.fetchParty().finally();
+      await Promise.all([this.fetchParty(), this.authStore.fetchMe()]);
     }
   };
 
@@ -192,6 +192,18 @@ export class QueueStore
       ban = activeBan?.summary?.banStatus;
     }
     return ban;
+  }
+
+  @computed
+  public get allPartyMembersBanned(): boolean {
+    if (!this.party?.players.length) return false;
+    return this.party.players.every(({ summary }) => {
+      const ban =
+        summary.id === this.authStore.me?.id
+          ? this.authStore.me.banStatus
+          : summary.banStatus;
+      return ban?.isBanned === true;
+    });
   }
 
   @computed
@@ -511,7 +523,7 @@ export class QueueStore
    * Private utility
    */
   private canQueue() {
-    return this.ready;
+    return this.ready && this.allowedSelectedModes.length > 0;
   }
 
   @action

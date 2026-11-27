@@ -1,3 +1,4 @@
+import { MatchmakingMode } from "@/api/mapped-models";
 import React, { useCallback, useMemo, useState } from "react";
 import {
   LiveMatchDto,
@@ -126,9 +127,10 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
     );
 
     if (match) {
+      const canReportMatch = match.mode !== MatchmakingMode.SECRET;
       return (
         <>
-          {feedbackData && (
+          {canReportMatch && feedbackData && (
             <PlayerFeedbackModal
               onClose={closeFeedbackModal}
               player={feedbackData.reportedPlayer}
@@ -165,8 +167,8 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
             onSelect={(v) => setFilter(options.find((x) => x.label === v)!)}
           />
           <MatchTeamTable
-            onReport={onReport}
-            onFeedback={showFeedbackModal}
+            onReport={canReportMatch ? onReport : undefined}
+            onFeedback={canReportMatch ? showFeedbackModal : undefined}
             reportableSteamIds={reportableSteamIds}
             filterColumns={filter.columns}
             duration={match.duration}
@@ -186,8 +188,8 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
             onSelect={(v) => setFilter(options.find((x) => x.label === v)!)}
           />
           <MatchTeamTable
-            onReport={onReport}
-            onFeedback={showFeedbackModal}
+            onReport={canReportMatch ? onReport : undefined}
+            onFeedback={canReportMatch ? showFeedbackModal : undefined}
             reportableSteamIds={reportableSteamIds}
             filterColumns={filter.columns}
             duration={match.duration}
@@ -197,7 +199,10 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
 
           <br />
           <br />
-          <MatchThread id={match.id.toString()} />
+          <MatchThread
+            id={match.id.toString()}
+            reportsEnabled={canReportMatch}
+          />
         </>
       );
     }
@@ -221,7 +226,12 @@ export const MatchPageContainer: React.FC<IMatchPageContainerProps> = observer(
           />
           <br />
           <LiveMatchPreview match={liveMatch} />
-          <MatchThread id={liveMatch.matchId.toString()} />
+          <MatchThread
+            id={liveMatch.matchId.toString()}
+            reportsEnabled={
+              liveMatch.matchmakingMode !== MatchmakingMode.SECRET
+            }
+          />
         </>
       );
     }

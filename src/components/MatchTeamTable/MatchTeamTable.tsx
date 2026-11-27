@@ -28,8 +28,8 @@ interface IMatchTeamTableProps {
   duration: number;
   filterColumns?: Columns[];
   reportableSteamIds: string[];
-  onFeedback: (plr: PlayerInMatchDto) => void;
-  onReport: (plr: PlayerInMatchDto) => void;
+  onFeedback?: (plr: PlayerInMatchDto) => void;
+  onReport?: (plr: PlayerInMatchDto) => void;
   globalMaxValues?: Record<string, number>;
 }
 
@@ -464,7 +464,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                   }
                 >
                   <div className={c.actions}>
-                    {player.user.steamId.length > 2 &&
+                    {onReport &&
+                      player.user.steamId.length > 2 &&
                       parsedToken?.sub !== player.user.steamId && (
                         <Tooltipable
                           className={cx(c.commend, "adminicon")}
@@ -473,7 +474,8 @@ export const MatchTeamTable: React.FC<IMatchTeamTableProps> = observer(
                           <GiFist onClick={() => onReport(player)} />
                         </Tooltipable>
                       )}
-                    {hasReports &&
+                    {onFeedback &&
+                      hasReports &&
                       reportableSteamIds.includes(player.user.steamId) && (
                         <Tooltipable
                           className={cx(c.commend, "adminicon")}

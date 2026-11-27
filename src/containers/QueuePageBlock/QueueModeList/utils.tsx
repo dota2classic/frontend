@@ -10,10 +10,7 @@ import { TimeAgo } from "@/components/TimeAgo";
 
 // Locked placeholder modes — not wired to real matchmaking yet, always
 // show as forbidden regardless of party/ban state.
-const LOCKED_PLACEHOLDER_MODES: MatchmakingMode[] = [
-  14 as MatchmakingMode,
-  15 as MatchmakingMode,
-];
+const LOCKED_PLACEHOLDER_MODE = 15 as MatchmakingMode;
 const LOCKED_PLACEHOLDER_UNTIL = "2027-01-01T00:00:00Z";
 
 export const modEnableCondition = (
@@ -21,7 +18,7 @@ export const modEnableCondition = (
   mode: MatchmakingMode,
   t: TranslationFunction,
 ): React.ReactNode | undefined => {
-  if (LOCKED_PLACEHOLDER_MODES.includes(mode)) {
+  if (mode === LOCKED_PLACEHOLDER_MODE) {
     return (
       <>
         {t("matchmaking_option.searchForbiddenUntil")}{" "}
@@ -30,10 +27,12 @@ export const modEnableCondition = (
     );
   }
 
-  if (
-    queue.partyBanStatus?.isBanned &&
-    (mode === MatchmakingMode.UNRANKED || mode === MatchmakingMode.HIGHROOM)
-  ) {
+  const secret = mode === MatchmakingMode.SECRET;
+  if (secret && !queue.allPartyMembersBanned) {
+    return t("matchmaking_option.secretBanRequired");
+  }
+
+  if (!secret && queue.partyBanStatus?.isBanned) {
     return (
       <>
         {t("matchmaking_option.searchForbiddenUntil")}{" "}
@@ -42,19 +41,11 @@ export const modEnableCondition = (
     );
   }
 
-  if (
-    queue.partyBanStatus?.isBanned &&
-    new Date(queue.partyBanStatus!.bannedUntil).getTime() >
-      Date.now() + 1000 * 60 * 60 * 24 * 365
-  ) {
-    return <>{t("matchmaking_option.searchForbiddenPermanent")}</>;
-  }
-
   const requiredAccessLevel = getRequiredAccessLevel(mode);
   const partyAccessLevel = queue.partyAccessLevel;
 
   if (partyAccessLevel < requiredAccessLevel) {
-    if (requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
+    if (secret || requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
       return (
         <>
           <Trans

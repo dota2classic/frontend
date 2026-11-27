@@ -22,6 +22,7 @@ export const getRequiredAccessLevel = (
   switch (mode) {
     case MatchmakingMode.RANKED:
       return GameModeAccessLevel.HUMAN_GAMES;
+    case MatchmakingMode.SECRET:
     case MatchmakingMode.UNRANKED:
       return GameModeAccessLevel.HUMAN_GAMES;
     case MatchmakingMode.SOLOMID:
