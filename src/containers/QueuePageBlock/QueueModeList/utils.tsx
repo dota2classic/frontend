@@ -27,13 +27,12 @@ export const modEnableCondition = (
     );
   }
 
-  if (mode === MatchmakingMode.SECRET) {
-    return queue.allPartyMembersBanned
-      ? undefined
-      : t("matchmaking_option.secretBanRequired");
+  const secret = mode === MatchmakingMode.SECRET;
+  if (secret && !queue.allPartyMembersBanned) {
+    return t("matchmaking_option.secretBanRequired");
   }
 
-  if (queue.partyBanStatus?.isBanned) {
+  if (!secret && queue.partyBanStatus?.isBanned) {
     return (
       <>
         {t("matchmaking_option.searchForbiddenUntil")}{" "}
@@ -46,7 +45,7 @@ export const modEnableCondition = (
   const partyAccessLevel = queue.partyAccessLevel;
 
   if (partyAccessLevel < requiredAccessLevel) {
-    if (requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
+    if (secret || requiredAccessLevel === GameModeAccessLevel.SIMPLE_MODES) {
       return (
         <>
           <Trans
