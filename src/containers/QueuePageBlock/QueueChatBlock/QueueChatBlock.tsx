@@ -7,19 +7,31 @@ import { useTranslation } from "react-i18next";
 import { SectionBlock } from "@/components/SectionBlock";
 import { OnlineDataHeader } from "@/containers/QueuePageBlock/QueueChatBlock/OnlineDataHeader";
 
-export const QueueChatBlock: React.FC = () => {
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/store";
+
+export const QueueChatBlock: React.FC = observer(() => {
   const { t } = useTranslation();
+  const { auth } = useStore();
+  const banned = auth.isAuthorized && auth.me?.banStatus?.isBanned === true;
+  const threadId = banned
+    ? "secret-queue-chat"
+    : "17aa3530-d152-462e-a032-909ae69019ed";
 
   return (
     <SectionBlock
       title={t("queue_page.section.chat")}
       actions={<OnlineDataHeader />}
     >
-      <Thread
-        className={c.queueDiscussion}
-        id={"17aa3530-d152-462e-a032-909ae69019ed"}
-        threadType={ThreadType.FORUM}
-      />
+      {(!auth.isAuthorized || auth.me) && (
+        <Thread
+          key={threadId}
+          className={c.queueDiscussion}
+          id={threadId}
+          reportsEnabled={!banned}
+          threadType={ThreadType.FORUM}
+        />
+      )}
     </SectionBlock>
   );
-};
+});

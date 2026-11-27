@@ -5,7 +5,6 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
 import { useRouter } from "next/router";
 import cx from "clsx";
-import { formatBanReason } from "@/util/texts/bans";
 import { pluralize } from "@/util/pluralize";
 import { useTranslation } from "react-i18next";
 import { TranslationKey } from "@/TranslationKey";
@@ -35,15 +34,13 @@ export const SearchGameButton = observer((p: Props) => {
   if (queue.needAuth) return null;
 
   if (
-    queue.partyBanStatus?.isBanned &&
-    new Date(queue.partyBanStatus!.bannedUntil).getTime() >
-      Date.now() + 1000 * 60 * 60 * 24 * 365
+    queue.partyBanStatus?.isBanned && !queue.allPartyMembersBanned
   ) {
     content = (
       <>
         {t("search_game_button.searchForbidden")}:
         <div className={c.disableReason}>
-          {formatBanReason(queue.partyBanStatus!.status)}
+          {t("matchmaking_option.secretBanRequired")}
         </div>
       </>
     );
@@ -176,7 +173,7 @@ export const SearchGameButton = observer((p: Props) => {
 
   if (!isInQueue) {
     const shouldDisable =
-      (isQueuePage && queue.selectedModes.length === 0) || !!content;
+      (isQueuePage && queue.allowedSelectedModes.length === 0) || !!content;
     return (
       <QueueButton
         data-testid="floater-play-button-enter-queue"

@@ -31,7 +31,8 @@ export enum MatchmakingMode {
   CAPTAINS_MODE = 10,
   LOBBY = 11,
   BOTS2X2 = 12,
-  TURBO = 13
+  TURBO = 13,
+  SECRET = 14
 }
 
 

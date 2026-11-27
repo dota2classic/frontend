@@ -6,7 +6,7 @@ import cx from "clsx";
 import { useStore } from "@/store";
 import { RenderChatThread } from "@/components/RenderChatThread";
 import { useThread } from "./useThread";
-import { ThreadContext } from "./threadContext";
+import { MessageReportsEnabled, ThreadContext } from "./threadContext";
 import { GreedyFocusPriority } from "@/util/useTypingCallback";
 import { useThreadControls } from "./useThreadControls";
 import { ThreadType } from "@/api/mapped-models";
@@ -18,12 +18,14 @@ interface IThreadProps {
   id: string;
   threadType: ThreadType;
   className?: string;
+  reportsEnabled?: boolean;
 }
 
 export const Thread: React.FC<IThreadProps> = observer(function Thread({
   threadType,
   id,
   className,
+  reportsEnabled = true,
 }) {
   const [value, setValue] = useState("");
   const { threads } = useStore();
@@ -58,7 +60,9 @@ export const Thread: React.FC<IThreadProps> = observer(function Thread({
           )}
         >
           <PinnedMessage message={pinnedMessage} />
-          <RenderChatThread />
+          <MessageReportsEnabled.Provider value={reportsEnabled}>
+            <RenderChatThread />
+          </MessageReportsEnabled.Provider>
         </div>
         {displayInput && (
           <MessageInput

@@ -1108,6 +1108,7 @@ export type TranslationKey =
   | "matchmaking_option.noPenalties"
   | "matchmaking_option.dropRewards"
   | "matchmaking_option.inQueue"
+  | "matchmaking_option.secretBanRequired"
   | "matchmaking_option.searchForbiddenUntil"
   | "matchmaking_option.searchForbiddenPermanent"
   | "matchmaking_option.needToPlayAgainstBots"

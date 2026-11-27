@@ -25,6 +25,7 @@ const DropModes: MatchmakingMode[] = [
 ];
 
 const AbandonRestrictModes: MatchmakingMode[] = [
+  MatchmakingMode.SECRET,
   MatchmakingMode.UNRANKED,
   MatchmakingMode.HIGHROOM,
   MatchmakingMode.RANKED,
@@ -40,13 +41,11 @@ export const SelectMatchmakingMode: React.FC<Props> = observer(({ mode }) => {
   const { queue } = useStore();
   const { t } = useTranslation();
 
-  const onSelectMode = useCallback(() => {
-    if (queue.queueState?.inQueue) return;
-    // if (modeDisabledBy) return;
-    queue.toggleMode(mode);
-  }, [mode, queue]);
-
   const disabled = modEnableCondition(queue, mode, t);
+  const onSelectMode = useCallback(() => {
+    if (queue.queueState?.inQueue || disabled) return;
+    queue.toggleMode(mode);
+  }, [disabled, mode, queue]);
 
   const isSearchedMode: boolean = queue.queueState?.inQueue
     ? queue.queueState.modes.includes(mode)

@@ -31,12 +31,6 @@ export const QueueModeList: React.FC<IQueueModeListProps> = ({ modes }) => {
         {enabledModes.map((mode) => (
           <SelectMatchmakingMode key={mode.lobbyType} mode={mode.lobbyType} />
         ))}
-        {/* Locked placeholder modes — not returned by the backend yet,
-            rendered as always-disabled cards until we open them for real.
-            The `as MatchmakingMode` casts go away once the API client is
-            regenerated against the deployed backend (values 14/15 become
-            real members of the generated union type). */}
-        <SelectMatchmakingMode key={14} mode={14 as MatchmakingMode} />
         <SelectMatchmakingMode key={15} mode={15 as MatchmakingMode} />
       </div>
     </SectionBlock>

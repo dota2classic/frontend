@@ -1,5 +1,6 @@
 {
   "matchmaking_option": {
+    "secretBanRequired": "SECRET доступен, если у всех игроков группы есть активный бан.",
     "botsFillSlots": "Пустые слоты заполняются ботами",
     "strictPenalties": "Строгие наказания за покинутые игры",
     "noPenalties": "Нет наказаний за покинутые игры",
