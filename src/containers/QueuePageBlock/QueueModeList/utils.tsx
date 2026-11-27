@@ -28,7 +28,7 @@ export const modEnableCondition = (
   }
 
   const secret = mode === MatchmakingMode.SECRET;
-  if (secret && !queue.allPartyMembersBanned) {
+  if (secret && !queue.allPartyMembersSecretEligible) {
     return t("matchmaking_option.secretBanRequired");
   }
 

@@ -1,3 +1,4 @@
+import { isSecretQueueBan } from "@/util/queue-ban";
 import { HydratableStore } from "@/store/HydratableStore";
 import { io, Socket } from "socket.io-client";
 import {
@@ -195,14 +196,14 @@ export class QueueStore
   }
 
   @computed
-  public get allPartyMembersBanned(): boolean {
+  public get allPartyMembersSecretEligible(): boolean {
     if (!this.party?.players.length) return false;
     return this.party.players.every(({ summary }) => {
       const ban =
         summary.id === this.authStore.me?.id
           ? this.authStore.me.banStatus
           : summary.banStatus;
-      return ban?.isBanned === true;
+      return isSecretQueueBan(ban);
     });
   }
 
