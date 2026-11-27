@@ -11,6 +11,8 @@ import { TranslationKey } from "@/TranslationKey";
 import { PeriodicDurationTimerClient } from "../PeriodicTimer";
 import { QueueButton } from "@/components/QueueButton/QueueButton";
 import { makeSimpleToast } from "@/components/Toast";
+import { isQueueCooldownBan } from "@/util/queue-ban";
+import { TimeAgo } from "@/components/TimeAgo";
 
 interface Props {
   visible: boolean;
@@ -33,12 +35,19 @@ export const SearchGameButton = observer((p: Props) => {
 
   if (queue.needAuth) return null;
 
-  if (queue.partyBanStatus?.isBanned && !queue.allPartyMembersBanned) {
+  if (queue.partyBanStatus?.isBanned && !queue.allPartyMembersSecretEligible) {
     content = (
       <>
         {t("search_game_button.searchForbidden")}:
         <div className={c.disableReason}>
-          {t("matchmaking_option.secretBanRequired")}
+          {isQueueCooldownBan(queue.partyBanStatus) ? (
+            <>
+              {t("matchmaking_option.searchForbiddenUntil")}{" "}
+              <TimeAgo date={queue.partyBanStatus.bannedUntil} />
+            </>
+          ) : (
+            t("matchmaking_option.secretBanRequired")
+          )}
         </div>
       </>
     );

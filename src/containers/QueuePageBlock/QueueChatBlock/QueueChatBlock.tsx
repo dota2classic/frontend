@@ -9,11 +9,12 @@ import { OnlineDataHeader } from "@/containers/QueuePageBlock/QueueChatBlock/Onl
 
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/store";
+import { isSecretQueueBan } from "@/util/queue-ban";
 
 export const QueueChatBlock: React.FC = observer(() => {
   const { t } = useTranslation();
   const { auth } = useStore();
-  const banned = auth.isAuthorized && auth.me?.banStatus?.isBanned === true;
+  const banned = auth.isAuthorized && isSecretQueueBan(auth.me?.banStatus);
   const threadId = banned
     ? "secret-queue-chat"
     : "17aa3530-d152-462e-a032-909ae69019ed";
